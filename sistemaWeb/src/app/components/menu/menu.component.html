@@ -1,0 +1,133 @@
+<!-- div fondo imagen gris-->
+<div class="fixed-sn black-skin background-gray" >
+
+  <!--Menu-->
+  <header>
+    <ul id="slide-out" class="side-nav fixed sn-bg-1 custom-scrollbar">
+      <!-- Logo -->
+      <li>
+        <div class="logo-wrapper sn-ad-avatar-wrapper">
+          <img src="./assets/img/paneladministrativo/users/chang.jpg" class="img-fluid ">
+          <div class="rgba-stylish-strong">
+            <p class="user white-text" >Nombre de Usuario<br>Cargo</p>
+          </div>
+        </div>
+      </li>
+      <!--/. Logo -->
+      <div class="dropdown-divider"></div>
+      <!-- Side de navegacion -->
+      <li>
+        <ul class="collapsible collapsible-accordion">
+          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/home.png" height="18"></i> Inicio</a>
+          </li>
+          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/product.png" height="18"></i>Productos <i class="fa fa-angle-down rotate-icon"></i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a class="waves-effect">Productos</a>
+                </li>
+                <li><a class="waves-effect">Categoria</a>
+                </li>
+                <li><a class="waves-effect">Clasificación</a>
+                </li>
+                <li><a class="waves-effect">SubClasificación</a>
+                </li>
+                <li><a class="waves-effect">Extra</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/ventas.png" height="18"></i> Ventas <i class="fa fa-angle-down rotate-icon"></i></a>
+            <div class="collapsible-body">
+              <!--Contenido submenu-->
+            </div>
+          </li>
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['proveedores']"><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores </a>
+            <div class="collapsible-body">
+              <!--Contenido submenu-->
+            </div>
+          </li>
+          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>
+            <div class="collapsible-body">
+              <!--Contenido submenu-->
+            </div>
+          </li>
+          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/roles.png" height="18"></i> Roles </a>
+            <div class="collapsible-body">
+              <!--Contenido submenu-->
+            </div>
+          </li>
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'usuario'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
+            <div class="collapsible-body">
+              <!--Contenido submenu-->
+            </div>
+          </li>
+          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Reportes </a>
+            <div class="collapsible-body">
+              <!--Contenido submenu-->
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!--/. Side de navegacion -->
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav" style="background-color:#C0392B;">
+      <!-- Boton responsive menu -->
+      <div class="float-left">
+        <a data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+      </div>
+      <!-- Encabezado-->
+      <div class="breadcrumb-dn mr-auto">
+        <p>Panel Administrativo</p>
+      </div>
+      <ul class="nav navbar-nav nav-flex-icons ml-auto">
+        <li class="nav-item dropdown notifications-nav">
+          <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="badge amber darken-4" >3</span> <i class="fa fa-bell"></i>
+            <span class="d-none d-md-inline-block">Notificaciones</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="display: none; position: absolute;">
+            <a class="dropdown-item waves-effect waves-light" >
+              <i class="fa fa-money mr-2" aria-hidden="true"></i>
+              <span>Nueva Orden Recibida</span>
+              <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 13 min</span>
+            </a>
+            <a class="dropdown-item waves-effect waves-light" >
+              <i class="fa fa-money mr-2" aria-hidden="true"></i>
+              <span>El producto a llegado a su destino</span>
+              <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 33 min</span>
+            </a>
+            <a class="dropdown-item waves-effect waves-light" >
+              <i class="fa fa-line-chart mr-2" aria-hidden="true"></i>
+              <span>El proveedor ha notificado un problema</span>
+              <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 53 min</span>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle waves-effect" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Perfil</span></a>
+
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="display: none; position: absolute;">
+            <a class="dropdown-item waves-effect waves-light" >Cerrar Sesion</a>
+            <a class="dropdown-item waves-effect waves-light" >Mi Cuenta</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.Navbar -->
+  </header>
+  <!--/.Menu-->
+
+  <!--Contenido principal-->
+  <main>
+    <div class="container-fluid mt-5">
+
+      <router-outlet></router-outlet>
+      <div style="height: 700px"></div>
+    </div>
+  </main>
+  <!-- /.Contenido principal-->
+
+</div>
+<!-- /.div fondo imagen gris-->

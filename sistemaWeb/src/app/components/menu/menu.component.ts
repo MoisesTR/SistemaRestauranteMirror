@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 declare var $:any;
 declare var jQuery:any;
+import swal from 'sweetalert2'
+
+
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +16,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
 
+    swal('Hello world!')
 
   }
 

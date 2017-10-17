@@ -1,4 +1,3 @@
-/*
 ///Modulos
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,26 +7,17 @@ import { MenuRoutingModule } from './menu.routing.module';
 
 //Componentes
 import { ProductoComponent } from '../producto/producto.component';
-import { CategoriaComponent } from '../categoria/categoria.component';
-import { ClasificacionComponent } from '../clasificacion/clasificacion.component';
-import { SubclasificacionComponent } from '../subclasificacion/subclasificacion.component';
-import {DataService} from "../../services/data.service";
-import {DataTablesModule} from "angular-datatables";
-import { ProveedoresComponent } from '../proveedores/proveedores.component';
-import { UsuarioComponent } from '../usuario/usuario.component';
-import {CategoriaService} from "../../services/categoria.service";
-import {ProductoService} from "../../services/producto.service";
-import {SubclasificacionProductoService} from "../../services/subclasificacion-producto.service";
+import { CategoriaProductoComponent } from '../categoria-producto/categoria-producto.component';
+
+//Servicios
 import {ClasificacionProductoService} from "../../services/clasificacion-producto.service";
+import {SubClasificacionProductoService} from "../../services/sub-clasificacion-producto.service";
+import {ProductoService} from "../../services/producto.service";
 
 @NgModule({
   declarations: [
       ProductoComponent,
-      CategoriaComponent,
-      ClasificacionComponent,
-      SubclasificacionComponent,
-      ProveedoresComponent,
-      UsuarioComponent
+
 
   ],
   imports: [
@@ -39,17 +29,16 @@ import {ClasificacionProductoService} from "../../services/clasificacion-product
   ],
   exports: [
     ProductoComponent,
-    CategoriaComponent,
-    ClasificacionComponent,
-    SubclasificacionComponent,
-    ProveedoresComponent,
-    UsuarioComponent
+    CategoriaProductoComponent,
+
   ],
-  providers: [DataService,CategoriaService,ProductoService,SubclasificacionProductoService,ClasificacionProductoService]
+  providers: [  ProductoService
+                , SubClasificacionProductoService
+                , ClasificacionProductoService
+  ]
 })
 
 export class MenuModule {
 
 }
 
-*/

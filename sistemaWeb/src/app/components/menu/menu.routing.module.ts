@@ -1,17 +1,15 @@
-/*
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 //Componentes
 
 import { ProductoComponent } from '../producto/producto.component';
-import { CategoriaComponent } from '../categoria/categoria.component';
+
 import { MenuComponent } from './menu.component';
-import { ClasificacionComponent } from '../clasificacion/clasificacion.component';
-import { SubclasificacionComponent } from '../subclasificacion/subclasificacion.component';
-import { ProveedoresComponent } from '../proveedores/proveedores.component';
-import {UsuarioComponent} from "../usuario/usuario.component";
-import { DataTablesModule } from 'angular-datatables';
+import {CategoriaProductoComponent} from "../categoria-producto/categoria-producto.component";
+import {ClasificacionProductoComponent} from "../clasificacion-producto/clasificacion-producto.component";
+import {SubClasificacionProductoComponent} from "../sub-clasificacion-producto/sub-clasificacion-producto.component";
+
 
 const menuRoutes: Routes = [
 
@@ -19,15 +17,12 @@ const menuRoutes: Routes = [
     path:'menu',
     component: MenuComponent,
     children: [
-
         {path:'',redirectTo:'menu',pathMatch:'full'},
         {path:'productos',component: ProductoComponent},
-        {path:'categorias',component: CategoriaComponent},
-        {path:'clasificacion',component: ClasificacionComponent},
-        {path:'sub-clasificacion',component: SubclasificacionComponent},
-        {path:'proveedores',component: ProveedoresComponent},
-        {path:'usuario',component: UsuarioComponent},
-        {path:'**',redirectTo:'menu'},
+        {path:'categorias',component: CategoriaProductoComponent},
+        {path:'clasificacion-productos',component: ClasificacionProductoComponent},
+        {path:'subclasificacion-productos',component: SubClasificacionProductoComponent},
+
     ]
   },
 
@@ -35,8 +30,7 @@ const menuRoutes: Routes = [
 
 @NgModule({
   imports: [
-      RouterModule.forChild(menuRoutes),
-    DataTablesModule
+      RouterModule.forChild(menuRoutes)
 
   ],
   exports: [
@@ -47,4 +41,3 @@ const menuRoutes: Routes = [
 export class MenuRoutingModule {
 
 }
-*/

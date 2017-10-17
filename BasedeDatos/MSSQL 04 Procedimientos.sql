@@ -327,18 +327,26 @@ AS BEGIN
 END
 GO
 CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
-	@NombreClasificacion NVARCHAR(50),
-    @Descripcion NVARCHAR(150)
+	@IdClasificacionUnidadMedida INT,
+    @NombreUnidad NVARCHAR(50),
+    @Simbolo NVARCHAR(3)
 )
 AS BEGIN
-	INSERT INTO CLASIFICACION_UNIDAD_MEDIDA(NombreClasificacion,Descripcion)
-	VALUES(@NombreClasificacion,@Descripcion)
-	SELECT @@IDENTITY AS IdUDM
+	INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo)
+	VALUES(@IdClasificacionUnidadMedida,@NombreUnidad,@Simbolo)
+	SELECT @@IDENTITY AS IdUnidadMedida
 END
 GO
 CREATE PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
 AS BEGIN
-	SELECT  IdClasificacionUnidadMedida,NombreClasificacion,Descripcion,Habilitado FROM CLASIFICACION_UNIDAD_MEDIDA
+	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA
+END
+GO
+CREATE PROCEDURE USP_GET_UNIDAD_DE_MEDIDA(
+	@IdUnidadMedida INT
+)
+AS BEGIN
+	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA WHERE IdUnidadMedida = @IdUnidadMedida
 END
 GO
 CREATE PROCEDURE USP_CREATE_SUCURSAL(

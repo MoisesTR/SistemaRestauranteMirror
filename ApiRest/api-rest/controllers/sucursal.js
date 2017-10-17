@@ -19,7 +19,7 @@ function getSucursales(req,res){
            return querys.getSucursales(poolObt)
         }).then((results) => {
            res.status(200).json({
-               sucursales:results.recordset[0],
+               sucursales:results.recordset,
                cantidad:results.rowsAffected[0]
            }) 
         }).catch((err) => {

@@ -5,6 +5,9 @@ const EmpaqueController =require('../controllers/empaque')
 const EnvaseController = require('../controllers/envase')
 const ProveedorController = require('../controllers/proveedor')
 const SubclasificacionController = require('../controllers/subclasificacion')
+const EstadoProductoController = require('../controllers/estadoproducto')
+const ProductoController = require('../controllers/producto')
+const SucursalController = require('../controllers/sucursal')
 
 var Router = express.Router()
 
@@ -37,5 +40,13 @@ Router
     .get('/subclasificaciones',SubclasificacionController.getSubclasificaciones)
     .post('/subclasificacion',SubclasificacionController.createSubclasificacion)
     .put('/subclasificacion',SubclasificacionController.updateSubclasificacion)
-
+    //Rutas estadoproducto controller
+    .get('/estadosproductos',EstadoProductoController.getEstados)
+    .get('/estadoproducto/:IdEstado(\\d+)',EstadoProductoController.getEstadoById)
+    //Rutas producto controller
+    .get('/productos',ProductoController.getProductos)
+    .get('/producto/:IdProducto(\\d+)',ProductoController.getProductoById)
+    .post('/producto',ProductoController.createProducto)
+    .put('/producto',ProductoController.updateProducto)
+    .delete('/producto',ProductoController.changeStateProducto)
     module.exports=Router

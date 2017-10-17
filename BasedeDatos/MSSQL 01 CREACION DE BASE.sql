@@ -290,3 +290,44 @@ INSERT INTO ESTADO_EMPAQUE(NombreEstado)
 VALUES	('Cerrado/Completo')
 		,('Abierto/Incompleto')
 		,('Sin EMPAQUE/No viene empacado');
+GO
+CREATE TABLE BodegaSucursal (
+    IdBodega INT IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,
+    DescripcionLocal NVARCHAR(200) null,
+    Habilitado Bit default 1 not null,
+    CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodega)
+);
+
+CREATE TABLE Sucursal (
+    IdSucursal INT IDENTITY(1,1),
+    IdBodega int not null,
+    Principal Bit not null default 0,
+    NombreSucursal NVARCHAR(100) NOT NULL,
+    Direccion NVARCHAR(250) NOT NULL,
+    TelefonoPrincipal NVARCHAR(10),
+    Habilitado Bit default 1 not null,
+    CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
+    constraint fk_BodegaSucursal foreign key(IdBodega) References BodegaSucursal(IdBodega)
+)
+INSERT INTO Sucursal(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
+#Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
+
+CREATE TABLE Trabajador (
+    IdTrabajador INT IDENTITY(1,1),
+    IdSucursal INT NULL,
+    IdCargo INT not null,
+    Nombres NVARCHAR(50) NOT NULL,
+    Apellidos NVARCHAR(50) NOT NULL,
+    NumeroCedula NVARCHAR(50) NOT NULL,
+    FechaNacimiento DATE NOT NULL,
+    Direccion NVARCHAR(300) not null,
+    FechaIngreso DATE NOT NULL,
+    Habilitado Bit default 1 not null,
+    CONSTRAINT PK_IDTRABAJ PRIMARY KEY (IdTrabajador),
+    CONSTRAINT FK_CAR_TRAB FOREIGN KEY (IdCargo)
+        REFERENCES Cargo (IdCargo),
+    CONSTRAINT FK_TRABSucursal FOREIGN KEY (IdSucursal)
+        REFERENCES Sucursal (IdSucursal),
+	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
+)

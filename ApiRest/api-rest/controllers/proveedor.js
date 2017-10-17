@@ -19,7 +19,7 @@ function getProveedores(req,res){
        return querys.getProveedores(poolObt)
     }).then((results) => {
        res.status(200).json({
-           proveedores:resulsts.recordset,
+           proveedores:results.recordset,
            cantidad:results.rowsAffected[0]
        }) 
     }).catch((err) => {

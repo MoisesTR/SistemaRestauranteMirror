@@ -20,11 +20,4 @@ export class MenuComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(){
-
-    $( document ).ready(function(){
-      $(".button-collapse").sideNav();
-    });
-
-  }
 }

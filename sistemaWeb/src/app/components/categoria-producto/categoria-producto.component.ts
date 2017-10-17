@@ -42,7 +42,7 @@ export class CategoriaProductoComponent implements OnInit {
           else {
             this.mensaje = 'Error al registrar el producto';
           }
-          
+
         this.initCategoriaProducto();
       },
       error =>{

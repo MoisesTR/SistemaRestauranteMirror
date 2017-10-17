@@ -6,7 +6,13 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class EmpaqueService {
 
-  constructor() { }
+  public url: string;
+
+  constructor(
+    private _http: Http
+  ) {
+    this.url = Global.url;
+  }
 
   createEmpaque(){
 

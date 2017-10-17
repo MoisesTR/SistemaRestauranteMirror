@@ -12,7 +12,7 @@ import { CategoriaProducto } from '../../models/CategoriaProducto';
 export class CategoriaProductoComponent implements OnInit {
 
   public categoriaProducto: CategoriaProducto;
-  public categoraisProductos: CategoriaProducto[];
+  public categoriasProductos: CategoriaProducto[];
   public mensaje : string;
 
   constructor(
@@ -51,12 +51,35 @@ export class CategoriaProductoComponent implements OnInit {
     )
   }
 
-  getCategoriaProducto(){
+  getCategoriaProducto(IdCategoria){
 
+    this._categoriaProductoServicio.getCategoriaProducto(IdCategoria).subscribe(
+      response => {
+
+        if(!response.categoria){
+
+        } else {
+          this.categoriaProducto = response.categoria;
+        }
+      },error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   getCategoriasProductos(){
+    this._categoriaProductoServicio.getCategoriasProductos().subscribe(
+      response => {
 
+        if(!response.Categorias){
+          console.log('Ha ocurrido un error');
+        } else {
+          this.categoriasProductos = response.categorias;
+        }
+      },error => {
+        console.log(<any>error);
+    }
+    )
   }
 
   updateCategoria(){
@@ -65,7 +88,17 @@ export class CategoriaProductoComponent implements OnInit {
 
   deleteCategoria(IdCategoria){
 
-    this.deleteCategoria(IdCategoria)
+    this._categoriaProductoServicio.deleteCategoriaProducto(IdCategoria).subscribe(
+      response => {
+        if(response.Categoria){
+          console.log('Error interno del servidor');
+        }
+        this.getCategoriasProductos();
+      },
+      error =>{
+
+      }
+    )
   }
 
 }

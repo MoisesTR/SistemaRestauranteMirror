@@ -23,15 +23,15 @@
           <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/product.png" height="18"></i>Productos <i class="fa fa-angle-down rotate-icon"></i></a>
             <div class="collapsible-body">
               <ul>
-                <li><a class="waves-effect">Productos</a>
+                <li><a class="waves-effect" [routerLink]="['productos']" >Productos</a>
                 </li>
-                <li><a class="waves-effect">Categoria</a>
+                <li><a class="waves-effect" [routerLink]="['categorias']" >Categoria</a>
                 </li>
-                <li><a class="waves-effect">Clasificación</a>
+                <li><a class="waves-effect" [routerLink]="['clasificacion-productos']" >Clasificación</a>
                 </li>
-                <li><a class="waves-effect">SubClasificación</a>
+                <li><a class="waves-effect" [routerLink]="['subclasificacion-productos']">SubClasificación</a>
                 </li>
-                <li><a class="waves-effect">Envases</a>
+                <li><a class="waves-effect" [routerLink]="['envases']">Envases</a>
                 </li>
                 <li><a class="waves-effect">Extra</a>
                 </li>
@@ -43,7 +43,7 @@
               <!--Contenido submenu-->
             </div>
           </li>
-          <li><a class="collapsible-header waves-effect arrow-r" ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Sucursales </a>
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']"><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Sucursales </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>
@@ -63,7 +63,7 @@
               <!--Contenido submenu-->
             </div>
           </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'usuario'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'registro-usuario'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>

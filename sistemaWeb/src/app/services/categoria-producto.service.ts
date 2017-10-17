@@ -15,9 +15,9 @@ export class CategoriaProductoService {
     this.url = Global.url;
   }
 
-  createCategoriaProducto(categoriaProducto){
+  createCategoriaProducto(CategoriaProducto){
 
-    let params = JSON.stringify(categoriaProducto);
+    let params = JSON.stringify(CategoriaProducto);
     let headers = new Headers({'Content-Type':''});
 
     return this._http.post(this.url+'createCategoria',params,{headers:headers})
@@ -25,21 +25,36 @@ export class CategoriaProductoService {
 
   }
 
-  getCategoriaProducto(){
+  getCategoriaProducto(IdCategoria){
+    return this._http.get(this.url + 'categoria/'+IdCategoria).map(res => res.json());
+  }
+
+  getCategoriasProductos(){
+    return this._http.get(this.url + 'categorias').map(res => res.json());
+  }
+
+  updateCategoriaProducto(IdCategoria,Categoria){
+
+    let params = JSON.stringify(Categoria);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    })
+
+    return this._http.put(this.url+'categoria/'+IdCategoria,params,{headers:headers})
+                      .map(res => res.json());
 
   }
 
-  getCategoriaProductos(){
+  deleteCategoriaProducto(IdCategoria){
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    });
 
+    let options = new RequestOptions({headers:headers});
+    return this._http.delete(this.url+'categoria/'+IdCategoria,options)
+                        .map(res => res.json());
   }
-
-  updateCategoriaProducto(){
-
-  }
-
-  deleteCategoriaProducto(){
-
-  }
-
 
 }

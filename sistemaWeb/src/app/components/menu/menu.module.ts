@@ -26,7 +26,6 @@ import {SucursalService} from '../../services/sucursal.service';
 import {UsuarioService} from '../../services/usuario.service';
 import {EnvaseService} from '../../services/envase.service';
 
-
 @NgModule({
   declarations: [
       ProductoComponent
@@ -56,6 +55,7 @@ import {EnvaseService} from '../../services/envase.service';
     , UsuarioComponent
     , EnvaseComponent
 
+
   ],
   providers: [
     ProductoService
@@ -66,6 +66,7 @@ import {EnvaseService} from '../../services/envase.service';
     , SucursalService
     , UsuarioService
     , EnvaseService
+
 
   ]
 })

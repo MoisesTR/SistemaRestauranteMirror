@@ -12,6 +12,11 @@ const SucursalController = require('../controllers/sucursal')
 var Router = express.Router()
 
 Router
+    .get('/',(req,res) => {
+       res.status(200).json({
+           isApi:true
+       }) 
+    })
     //Rutas categoria controller
     .get('/categoria/:IdCategoria(\\d+)',CategoriaController.getCategoriaById)
     .get('/categorias',CategoriaController.getCategorias)

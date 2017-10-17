@@ -31,9 +31,7 @@ function createSubclasificacion(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.createSubClasificacion(poolObt,data)
     }).then((results) => {
-       res.status(200).json({
-           message:'Subclasificacion creada con exito!!'
-       }) 
+       res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
         res.status(500).json(err)
     });
@@ -44,7 +42,7 @@ function updateSubclasificacion(req,res){
        return querys.updateSubclasificacion(poolObt,data)
     }).then((results) => {
        res.status(200).json({
-           message:'Subclasificacion Actualizada con exito!!'
+           success:'Subclasificacion Actualizada con exito!!'
        }) 
     }).catch((err) => {
         res.status(500).json(err)

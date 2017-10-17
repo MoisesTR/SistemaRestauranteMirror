@@ -7,7 +7,7 @@ function createClasificacion(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createClasificacion(poolObt,data);
         }).then((results) => {
-            res.status(200).json(results)
+            res.status(200).json(results.recordset[0])
         }).catch((err) => {
             res.status(500).json(err)
         })
@@ -31,7 +31,7 @@ function updateClasificacion(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateClasificacion(poolObt,data)
         }).then((results) => {
-            res.status(200).json({message:'Clasificacion actualizada con exito!'})
+            res.status(200).json({success:'Clasificacion actualizada con exito!'})
         }).catch((err) => {
             res.status(500).json(err)
         });

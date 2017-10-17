@@ -31,9 +31,7 @@ function createEmpaque(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.createEmpaque(poolObt,data)
     }).then((results) => {
-       res.status(200).json({
-           message:'Empaque Creado con exito!!'
-       }) 
+       res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
         res.status(500).json(err)
     });
@@ -44,7 +42,7 @@ function updateEmpaque(req,res){
        return querys.updateEmpaque(poolObt,data)
     }).then((results) => {
        res.status(200).json({
-           message:'Empaque Actualizado con exito!'
+           success:'Empaque Actualizado con exito!'
        }) 
     }).catch((err) => {
         res.status(500).json(err)

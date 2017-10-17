@@ -31,7 +31,7 @@ function createSucursal(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createSucusal(poolObt,data)
     }).then((results) => {
-        res.status(200).json(results)
+        res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json(err)
     })

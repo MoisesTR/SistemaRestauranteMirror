@@ -31,9 +31,7 @@ function createProveedor(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.createProveedor(poolObt,data)
     }).then((results) => {
-       res.status(200).json({
-           message:'Proveedor Creado con exito!!'
-       }) 
+       res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
         res.status(500).json(err)
     });
@@ -44,7 +42,7 @@ function updateProveedor(req,res){
        return querys.updateProveedor(poolObt,data)
     }).then((results) => {
        res.status(200).json({
-           message:'Proveedor Actualizado con exito!!'
+           success:'Proveedor Actualizado con exito!!'
        }) 
     }).catch((err) => {
         res.status(500).json(err)

@@ -31,7 +31,7 @@ function createProducto(req,res){
     config.getConnectionPoolGlobal()-then((poolObt) => {
         return querys.createProducto(poolObt,data)        
     }).then((results) => {
-        res.status(200).json(results)
+        res.status(200).json(results.recordset[0])
     }).catch((err) => {
        res.status(500).json(err) 
     });
@@ -41,7 +41,9 @@ function updateProducto(req,res){
     config.getConnectionPoolGlobal()-then((poolObt) => {
         return querys.updateProducto(poolObt,data)        
     }).then((results) => {
-        res.status(200).json(results)
+        res.status(200).json({
+            success:'Producto Actualizado exitosamente!!'
+        })
         console.log('Producto Actualizado con exito!')
     }).catch((err) => {
        res.status(500).json(err) 

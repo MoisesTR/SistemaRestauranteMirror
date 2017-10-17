@@ -3,15 +3,20 @@ var config = require('../config/mssqlConfig')
 
 function createCategoria(req,res){ 
     var data = req.body
-    if(data.Nombre != undefined && data.Descripcion != undefined){ 
+    if(data.Nombre != null && data.Descripcion != null){ 
+      console.log('mandaste los campos')
         config.getConnectionPoolGlobal().then((poolObt) => {
-            return querys.createCategoria(poolObt,data);
+            return querys.createCategoria(poolObt,data)
         }).then((results) => {
-            res.status(200).json({
-                message:'Categoria creada con exito!!'
-            })
+            res.status(200).json(results.recordset[0])
         }).catch((err) => {
             res.status(500).json(err)
+        })
+    }else{
+        res.status(401).send({
+            error:true,
+            code:'EPARAMS',
+            message:'Para crear una categoria envie correctamente los parametros!'
         })
     }
 }
@@ -33,9 +38,11 @@ function updateCategoria(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateCategoria(poolObt,data)
         }).then((results) => {
-            
+            res.status(200).json({
+                success:'Categoria Actualizada Exitosamente!'
+            })
         }).catch((err) => {
-            
+            res.status(500).json(err)
         });
     }else{
         res.status(401).send({

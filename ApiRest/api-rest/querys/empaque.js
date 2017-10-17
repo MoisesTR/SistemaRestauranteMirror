@@ -1,18 +1,18 @@
 var sql = require('mssql')
 
 function getEmpaques(pool){
-    pool.request()
+    return pool.request()
         .execute('USP_GET_EMPAQUES')
 }
 function getEmpaque(pool,IdEmpaque){
-    pool.request()
+    return pool.request()
         .input('IdEmpaque',sql.Int,IdEmpaque)
         .query('SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE IdEmpaque = @IdEmpaque')
 }
 function createEmpaque(pool,data){
-    pool.request()
+    return pool.request()
         .input('NombreEmpaque',sql.Nvarchar )
-        .input('Descripcion',sql)
+        .input('Descripcion',sql.Nvarchar())
         .execute('USP_CREATE_EMPAQUE')
 }
 module.exports={

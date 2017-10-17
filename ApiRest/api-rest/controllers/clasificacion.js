@@ -6,10 +6,10 @@ function createClasificacion(req,res){
     if(data.Nombre != undefined && data.Descripcion != undefined){ 
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createClasificacion(poolObt,data);
-        }).then(() => {
-            
+        }).then((results) => {
+            res.status(200).json(results)
         }).catch((err) => {
-            
+            res.status(500).json(err)
         })
     }
 }

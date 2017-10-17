@@ -1,7 +1,22 @@
-    var sql = require('sql')
+    var sql = require('mssql')
 
     function getEnvases(pool){
-        pool.request()
+        return pool.request()
             .execute('USP_GET_ENVASES')
     }
-    function createEnvase(pool)
+    function getEnvase(pool,IdEnvase){
+        return pool.request()
+            .input('IdEnvase',sql.Int,IdEnvase)
+            .query('SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE where IdEnvase = @IdEnvase')
+    }
+    function createEnvase(pool,data){
+        return pool.request()
+            .input('NombreEnvase',sql.Nvarchar(50),data.NombreEnvase)
+            .input('Descripcion',sql.Nvarchar(150),data.Descripcion)
+            .execute('USP_CREATE_ENVASE')
+    }
+    module.exports={
+        getEnvases,
+        createEnvase,
+        getEnvase
+    }

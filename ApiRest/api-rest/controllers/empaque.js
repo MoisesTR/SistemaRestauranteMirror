@@ -32,7 +32,7 @@ function createEmpaque(req,res){
        return querys.createEmpaque(poolObt,data)
     }).then((results) => {
        res.status(200).json({
-           message='Empaque Creado con exito!!'
+           message:'Empaque Creado con exito!!'
        }) 
     }).catch((err) => {
         res.status(500).json(err)

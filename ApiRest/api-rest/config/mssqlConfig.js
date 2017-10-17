@@ -1,12 +1,12 @@
 var sql = require('mssql')
 
 const config = {
-    user: '',
-    password: '',
-    server: '',
-    database: '',
+    user: 'usuario_node',
+    password: 'node123',
+    server: 'localhost',
+    database: 'pruebas_node',
     port: '1433',
-    parseJSON= true,
+    parseJSON: true,
     options: {
         trustedConnection: true
     }

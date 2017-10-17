@@ -106,11 +106,11 @@ CREATE PROCEDURE USP_UPDATE_SUBCLASIFICACION(
 	@IdSubClasificacion INT,
     @IdClasificacion INT,
 	@Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150),
+    @Descripcion NVARCHAR(150)
     --@Habilitado BIT
 ) AS BEGIN
 	UPDATE SUBCLASIFICACION_PRODUCTO
-    SET IdClasificacion= @IdClasificacion,NombreSubClasificacion = @Nombre,DescripcionSubClasificacion  = @Descripcion,Habilitado = @Habilitado where IdSubClasificacion = @IdSubClasificacion;
+    SET IdClasificacion= @IdClasificacion,NombreSubClasificacion = @Nombre,DescripcionSubClasificacion  = @Descripcion where IdSubClasificacion = @IdSubClasificacion;
 END 
 GO
 CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION(

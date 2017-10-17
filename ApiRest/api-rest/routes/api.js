@@ -24,14 +24,18 @@ Router
     .get('/empaques',EmpaqueController.getEmpaques)
     .post('/empaque',EmpaqueController.createEmpaque)
     //Rutas envase controler
-    .get('/envase/:IdEnvase(\\d+)',EnvaseController)
-    .get('/envases',EnvaseController)
-    .post('/envase')
+    .get('/envase/:IdEnvase(\\d+)',EnvaseController.getEnvaseById)
+    .get('/envases',EnvaseController.getEnvases)
+    .post('/envase',EnvaseController.createEnvase)
     //Rutas proveedor Controller
-    .get('/proveedor')
-    .get('/proveedores')
-    .post('/proveedor')
+    .get('/proveedor/:IdProveedor(\\d+)',ProveedorController.getProveedorById)
+    .get('/proveedores',ProveedorController.getProveedores)
+    .post('/proveedor',ProveedorController.createProveedor)
+    .put('/proveedor',ProveedorController.updateProveedor)
     //Rutas subclasificacion Controller
-    .get('/subclasificacion')
-    .get('/subclasificaciones')
-    .post('/subclasificacion')
+    .get('/subclasificacion/:IdSubclasificacion(\\d+)',SubclasificacionController.getSubclasificacionById)
+    .get('/subclasificaciones',SubclasificacionController.getSubclasificaciones)
+    .post('/subclasificacion',SubclasificacionController.createSubclasificacion)
+    .put('/subclasificacion',SubclasificacionController.updateSubclasificacion)
+
+    module.exports=Router

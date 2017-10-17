@@ -1,3 +1,155 @@
-<p>
-  categoria-producto works!
-</p>
+<section>
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <div class="card card-cascade narrower">
+        <!--Titulo-->
+        <div class="view gradient-card-header peach-gradient">
+          <h2 class="h2-responsive">Categorias</h2>
+        </div>
+        <!--/Titulo-->
+        <div class="card-body" >
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="text-right" style="margin-top:3%;">
+                  <button type="button" class="btn peach-gradient" data-toggle="modal" data-target="#modalingresarcategoria">Nueva Categoria</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <table id="datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+              <th class="header-negrita">Nombre</th>
+              <th class="header-negrita">Descripción</th>
+              <th class="header-negrita">Acciones</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+              <th class="header-negrita">Nombre</th>
+              <th class="header-negrita">Descripción</th>
+              <th class="header-negrita">Acciones</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr>
+              <td class="body-negrita">Categoria</td>
+              <td class="body-negrita">Lorep ipsum test asd </td>
+              <td class="body-negrita">
+                <div class="text-center">
+                  <button type="button" (click)="listarCategoria()" class="btn btn-sm" style="background-color:#E67E22;" id="btnvercategorias" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
+                  <button type="button" (click)="editarCategoria()" class="btn btn-sm" style="background-color:#E67E22;" id="btneditarcategorias" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button" (click)="eliminarCategoria()" class="btn btn-sm" style="background-color:#E67E22;" id="btneliminarcategorias" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Modal categorias -->
+<div class="modal fade" id="modalingresarcategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray">
+
+      <!--Titulo-->
+      <div class="modal-header peach-gradient white-text">
+        <h4 class="title"> Categorias</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form method="" action="">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+                  <div class="card-header white-text" style="background-color: #FD8366;"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos de la categoria</div>
+                  <div class="container-fluid">
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form ">
+                          <input type="text" id="nombrecategoria" class="form-control"
+                                 name="nombrecategoria"
+                                 #nombrecategoria="ngModel"
+                                 [(ngModel)] = "categoria.nombreCategoriaProducto"
+                                 minlength="3"
+                                 maxlength="40"
+                                 required
+                          >
+                          <div *ngIf="nombrecategoria.invalid && (nombrecategoria.dirty || nombrecategoria.touched)"
+                               class="alert alert-danger">
+
+                            <div [hidden]="!nombrecategoria.errors.required">
+                              El nombre es requerido!
+                            </div>
+                            <div [hidden]="!nombrecategoria.errors.minlength">
+                              El nombre no debe contener menos de 4 caracteres!
+                            </div>
+                          </div>
+                          <label for="nombrecategoria" class="">Nombre</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                          <textarea type="text" id="descripcioncategoria" class="md-textarea"
+                                    name="descripcioncategoria"
+                                    #descripcionCategoria="ngModel"
+                                    [(ngModel)] = "categoria.descripcionCategoria"
+                                    minlength="5"
+                                    maxlength="150"
+                                    required
+                          ></textarea>
+
+                          <div *ngIf="descripcionCategoria.invalid && (descripcionCategoria.dirty || descripcionCategoria.touched)"
+                               class="alert alert-danger">
+
+                            <div [hidden]="!descripcionCategoria.errors.required">
+                              La descripción es requerida!
+                            </div>
+                            <div [hidden]="!descripcionCategoria.errors.minlength">
+                              La descripcion no debe contener menos de 5 caracteres!
+                            </div>
+                          </div>
+
+                          <label for="descripcioncategoria">Descripción</label>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="text-center mt-1-half">
+                      <button class="btn peach-gradient mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- Final form -->
+          <br>
+        </div>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>
+<!-- /.Modal categorias -->

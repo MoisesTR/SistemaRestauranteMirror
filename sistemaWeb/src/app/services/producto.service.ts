@@ -15,7 +15,7 @@ export class ProductoService {
     this.url = Global.url;
   }
 
-  createProducto(IdProducto,Producto){
+  createProducto(Producto){
     let params = JSON.stringify(Producto);
     let headers = new Headers({'Content-Type':''});
 

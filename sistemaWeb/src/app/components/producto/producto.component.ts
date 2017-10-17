@@ -29,11 +29,91 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
 
+    $(document).ready(function () {
+      $('select[name="datatables_length"]').material_select();
+    });
 
+    $(document).ready(function() {
+      $('#datatables').DataTable;
+    } );
+
+    $(document).ready(function(){
+
+      $('.dropify').dropify();
+    });
+
+    $(".selectcategoria").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectcsubclasificación").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectproveedor").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectenvase").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectempaque").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectunidadmedida").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectvalorunidadmedida").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectestado").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectcclasificacion").select2({
+      maximumSelectionLength: 1
+    });
+
+/*    setTimeout(function () {
+      $(function() {
+        $('#datatableInquilino').DataTable( {
+          "paging":   true,
+          "ordering": true,
+          "info":     true,
+          "language": idioma_espanol
+        } );
+      } );
+
+    },100)*/
   }
 
   createProducto(){
 
+    /*this.inmueble.idTipoInmueble = $("#tipoInmueble").val();*/
+    this._productoService.createProducto(this.producto).subscribe(
+      response => {
+        if (response) {
+
+         this.initConstructorProducto();
+
+        }
+        else {
+
+          /!*  this.status = 'Error al registrarme '+this.usuario.C_CORREO;*!/
+
+        }
+
+      },
+      error => {
+
+        console.log(error.message);
+      }
+    );
+    this.limpiarFormulario();
   }
 
   getProducto(){
@@ -42,9 +122,21 @@ export class ProductoComponent implements OnInit {
 
   getProductos(){
 
+    this._productoService.getProductos().subscribe(
+      response => {
+        if(!response.productos){
+          console.log('Ha ocurrido un error');
+        } else {
+          this.productos = response.productos;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
-  updateProducto(){
+  updateProducto(IdProducto,Producto){
 
   }
 

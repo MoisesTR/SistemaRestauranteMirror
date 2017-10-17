@@ -198,12 +198,12 @@ CREATE PROCEDURE USP_GET_PROVEEDOR(
 	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR where IdProveedor = @IdProveedor;
 END
 
-GO
+Go
 CREATE PROCEDURE USP_GET_NUMEROSPROVEEDOR(
 	@IdProovedor INT
 ) 
 AS BEGIN
-	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProveedor;
+	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProovedor;
 END
 
 GO
@@ -329,3 +329,23 @@ CREATE PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
 AS BEGIN
 	SELECT  IdClasificacionUnidadMedida,NombreClasificacion,Descripcion,Habilitado FROM CLASIFICACION_UNIDAD_MEDIDA
 END
+GO
+CREATE PROCEDURE USP_CREATE_SUCURSAL(
+    @NombreSucursal NVARCHAR(100) ,
+    @Direccion NVARCHAR(250) ,
+    @TelefonoPrincipal nvarchar(10)
+)
+AS BEGIN 
+	INSERT INTO SUCURSAL(NombreSucursal,Direccion,TelefonoPrincipal)
+	VALUES(@NombreSucursal,@Direccion,@TelefonoPrincipal)
+END
+GO
+CREATE PROCEDURE USP_GET_SUCURSALES
+AS 
+SELECT IdSucursal,NombreSucursal,Direccion,TelefonoPrincipal from SUCURSAL
+GO
+CREATE PROCEDURE USP_GET_SUCURSAL
+	@IdSucursal INT
+AS 
+	SELECT IdSucursal,NombreSucursal,Direccion,TelefonoPrincipal from SUCURSAL WHERE IdSucursal = @IdSucursal
+GO

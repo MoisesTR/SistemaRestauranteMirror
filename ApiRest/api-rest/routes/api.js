@@ -50,5 +50,7 @@ Router
     .put('/producto',ProductoController.updateProducto)
     .delete('/producto',ProductoController.changeStateProducto)
     //Rutas sucursal Controller
-    .get()
+    .get('/sucursales',SucursalController.getSucursales)
+    .get('/sucursal/:IdSucursal(\\d+)',SucursalController.getSucursalById)
+    .post('/sucursal',SucursalController.createSucursal)
     module.exports=Router

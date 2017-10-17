@@ -298,8 +298,8 @@ CREATE TABLE BodegaSucursal (
     Habilitado Bit default 1 not null,
     CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodega)
 );
-
-CREATE TABLE Sucursal (
+GO
+CREATE TABLE SUCURSAL (
     IdSucursal INT IDENTITY(1,1),
     IdBodega int null,--antes era not null
     Principal Bit not null default 0,
@@ -331,3 +331,4 @@ CREATE TABLE Trabajador (
         REFERENCES Sucursal (IdSucursal),
 	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
 )
+GO

@@ -7,11 +7,12 @@ CREATE PROCEDURE USP_CREATE_CATEGORIA(
 AS 
 BEGIN
 	IF EXISTS(SELECT * FROM CATEGORIA_PRODUCTO where NombreCategoria = @Nombre) 
-		SELECT 'Nombre de Categoria duplicado.'
+		RAISERROR('Nombre de Categoria duplicado.',16,1)
 	ELSE
 		BEGIN
 			INSERT INTO CATEGORIA_PRODUCTO(NombreCategoria,DescripcionCategoria)
 			VALUES(@Nombre,@Descripcion);
+			SELECT @@IDENTITY AS IdCategoria
 		END
 END
 GO
@@ -47,13 +48,16 @@ CREATE PROCEDURE USP_CREATE_CLASIFICACION(
 	@Nombre NVARCHAR(50),
     @Descripcion NVARCHAR(150)
 ) AS BEGIN
-	-- IF EXISTS(SELECT * from ClasificacionProducto where NombreClasificacion = @Nombre) THEN
--- 		SIGNAL SQLSTATE '23000'
--- 		SET MESSAGE_TEXT = 'Clasificacion Duplicada, No se inserto.';
--- 	ELSE
+	IF EXISTS(SELECT * from ClasificacionProducto where NombreClasificacion = @Nombre) 
+		BEGIN
+ 		RAISERROR('Clasificacion Duplicada, No se inserto.',16,1)
+ 		END
+	ELSE
+	BEGIN
 		INSERT INTO CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion)
 		VALUES(@Nombre,@Descripcion);		
---     END IF;
+		SELECT @@IDENTITY AS IdClasificacion
+     END
 END 
 
 GO
@@ -99,6 +103,7 @@ CREATE PROCEDURE USP_CREATE_SUBCLASIFICACION(
 		BEGIN
 		INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion)
         VALUES(@IdClasificacion,@Nombre,@Descripcion);
+		SELECT @@IDENTITY AS IdSubclasificacion
 		END
 END
 GO
@@ -153,6 +158,7 @@ CREATE PROCEDURE USP_CREATE_PROVEEDOR(
 ) AS BEGIN
 	INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante)
     VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante);
+	SELECT @@IDENTITY AS IdProveedor
 END 
 GO
 CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
@@ -175,6 +181,7 @@ CREATE PROCEDURE USP_CREATE_NUMEROPROVEEDOR(
 ) AS BEGIN
 	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,Prefijo,NumeroTelefono)
     VALUES(@IdProveedor,@Prefijo,@NumeroTelefono);
+	SELECT @@IDENTITY AS IdNumero
 END 
 GO
 CREATE PROCEDURE USP_UPDATE_NUMEROPROVEEDOR(
@@ -233,6 +240,7 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
     CantidadEmpaque,Imagen,IdUnidadMedida,ValorUnidadMedida,IdEstado,IdProveedor)
 	VALUES(@NombreProducto,@Costo,@Descripcion,@IdCategoria,@IdSubclasificacion,
     @IdEnvase,@IdEmpaque,@CantidadEmpaque,@Imagen,@IdUnidadMedida,@ValorUnidadMedida,@IdEstado,@IdProveedor);
+	SELECT @@IDENTITY AS IdProducto
 END 
 
 GO
@@ -283,6 +291,7 @@ CREATE PROCEDURE USP_CREATE_EMPAQUE(
 AS BEGIN
 	INSERT INTO Empaque(NombreEmpaque,Descripcion)
 	VALUES(@NombreEmpaque,@Descripcion)
+	SELECT @@IDENTITY AS IdEmpaque
 END
 GO
 CREATE PROCEDURE USP_GET_EMPAQUES
@@ -297,6 +306,7 @@ CREATE PROCEDURE USP_CREATE_ENVASE(
 AS BEGIN
 	INSERT INTO Envase(NombreEnvase,Descripcion)
 	VALUES(@NombreEnvase,@Descripcion)
+	SELECT @@IDENTITY AS IdEnvase
 END
 GO
 CREATE PROCEDURE USP_GET_ENVASES
@@ -323,6 +333,7 @@ CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
 AS BEGIN
 	INSERT INTO CLASIFICACION_UNIDAD_MEDIDA(NombreClasificacion,Descripcion)
 	VALUES(@NombreClasificacion,@Descripcion)
+	SELECT @@IDENTITY AS IdUDM
 END
 GO
 CREATE PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
@@ -338,6 +349,7 @@ CREATE PROCEDURE USP_CREATE_SUCURSAL(
 AS BEGIN 
 	INSERT INTO SUCURSAL(NombreSucursal,Direccion,TelefonoPrincipal)
 	VALUES(@NombreSucursal,@Direccion,@TelefonoPrincipal)
+	SELECT @@IDENTITY AS IdSucursal
 END
 GO
 CREATE PROCEDURE USP_GET_SUCURSALES

@@ -49,4 +49,6 @@ Router
     .post('/producto',ProductoController.createProducto)
     .put('/producto',ProductoController.updateProducto)
     .delete('/producto',ProductoController.changeStateProducto)
+    //Rutas sucursal Controller
+    .get()
     module.exports=Router

@@ -5,7 +5,7 @@ INSERT INTO PRODUCTO(NombreProducto,Costo,Descripcion,IdCategoria,IdSubclasifica
 VALUES('Filete de Pollo',290,'Filetes de pollo sin hueso.',2,1,1,NULL,NULL,NULL,1,29.5,1,1);
 
 INSERT INTO PRODUCTO(NombreProducto,Costo,Descripcion,IdCategoria,IdSubclasificacion,
-    IdEnvase,IdEmpaque,CantidadEmpaque,Imagen,IdUnidadMedida,ValorUnidadMedida,IdEstado,IdProveedor)
+    IdEnvase,IdEmpaque,CantidadEmpaque	,Imagen,IdUnidadMedida,ValorUnidadMedida,IdEstado,IdProveedor)
 VALUES('Tallarin',320,'Bolsa de tallarines.',1,3,1,3,20,NULL,1,0.5,1,2);
 
 INSERT INTO PRODUCTO(NombreProducto,Costo,Descripcion,IdCategoria,IdSubclasificacion,

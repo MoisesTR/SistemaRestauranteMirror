@@ -301,7 +301,7 @@ CREATE TABLE BodegaSucursal (
 
 CREATE TABLE Sucursal (
     IdSucursal INT IDENTITY(1,1),
-    IdBodega int not null,
+    IdBodega int null,--antes era not null
     Principal Bit not null default 0,
     NombreSucursal NVARCHAR(100) NOT NULL,
     Direccion NVARCHAR(250) NOT NULL,

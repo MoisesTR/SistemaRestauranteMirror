@@ -16,6 +16,9 @@ import { RegistroUsuarioComponent } from './components/registro-usuario/registro
 import { DashBoardComponent } from './components/dash-board/dash-board.component';
 import { NotFound404Component } from './components/not-found-404/not-found-404.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { EnvaseComponent } from './components/envase/envase.component';
+
+
 
 const routes: Routes = [
   {path: '', component: InicioComponent},
@@ -24,6 +27,7 @@ const routes: Routes = [
   {path: 'regitro-usuario', component: RegistroUsuarioComponent},
   {path:'**',component: NotFound404Component}
 ]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +43,8 @@ const routes: Routes = [
     RegistroUsuarioComponent,
     DashBoardComponent,
     NotFound404Component,
-    MenuComponent
+    MenuComponent,
+    EnvaseComponent
   ],
   imports: [
     BrowserModule,

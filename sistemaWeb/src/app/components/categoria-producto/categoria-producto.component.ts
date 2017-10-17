@@ -63,8 +63,9 @@ export class CategoriaProductoComponent implements OnInit {
 
   }
 
-  deleteCategoria(){
+  deleteCategoria(IdCategoria){
 
+    this.deleteCategoria(IdCategoria)
   }
 
 }

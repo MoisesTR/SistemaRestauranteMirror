@@ -56,7 +56,7 @@ function getCategoriaById(req,res){
         })
     }
 }
-module.exports{
+module.exports={
     createCategoria,
     getCategoriaById,
     getCategorias,

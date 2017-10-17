@@ -277,14 +277,30 @@ CREATE PROCEDURE USP_DispProducto(
 ) AS BEGIN
 	UPDATE PRODUCTO set Habilitado = ~Habilitado Where IdProducto = @IdProducto;
 END 
-
+GO
+CREATE PROCEDURE USP_CREATE_EMPAQUE(
+	@NombreEmpaque NVARCHAR(50),
+	@Descripcion NVARCHAR(150)
+)
+AS BEGIN
+	INSERT INTO Empaque(NombreEmpaque,Descripcion)
+	VALUES(@NombreEmpaque,@Descripcion)
+END
 GO
 CREATE PROCEDURE USP_GET_EMPAQUES
 AS BEGIN
 	SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE
 END
 GO
-
+CREATE PROCEDURE USP_CREATE_ENVASE(
+	@NombreEnvase NVARCHAR(50),
+	@Descripcion NVARCHAR(150)
+)
+AS BEGIN
+	INSERT INTO Envase(NombreEnvase,Descripcion)
+	VALUES(@NombreEnvase,@Descripcion)
+END
+GO
 CREATE PROCEDURE USP_GET_ENVASES
 AS BEGIN
 	SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE
@@ -293,4 +309,18 @@ GO
 CREATE PROCEDURE USP_GET_ESTADOSPRODUCTO
 AS BEGIN
 	SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO
+END
+GO
+CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
+	@NombreClasificacion NVARCHAR(50),
+    @Descripcion NVARCHAR(150)
+)
+AS BEGIN
+	INSERT INTO CLASIFICACION_UNIDAD_MEDIDA(NombreClasificacion,Descripcion)
+	VALUES(@NombreClasificacion,@Descripcion)
+END
+GO
+CREATE PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
+AS BEGIN
+	SELECT  IdClasificacionUnidadMedida,NombreClasificacion,Descripcion,Habilitado FROM CLASIFICACION_UNIDAD_MEDIDA
 END

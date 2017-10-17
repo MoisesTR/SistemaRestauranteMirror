@@ -1,34 +1,39 @@
 var querys = require('../querys/clasificacion')
 var config = require('../config/mssqlConfig')
 
-function createCategoria(req,res){ 
+function createClasificacion(req,res){ 
     var data = req.body
     if(data.Nombre != undefined && data.Descripcion != undefined){ 
         config.getConnectionPoolGlobal().then((poolObt) => {
-            return querys.createCategoria(poolObt,data);
+            return querys.createClasificacion(poolObt,data);
+        }).then(() => {
+            
         }).catch((err) => {
             
         })
     }
 }
-function getCategorias(req,res){
+function getClasificaciones(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getCategorias(poolObt);
+        return querys.getClasificaciones(poolObt);
     }).then((results) => {
-        
+        res.status(200).json({
+            clasificaciones:results.recordset,
+            cantidad:results.rowsAffected
+        })
     }).catch((err) => {
-        
+        res.status(500).json(err)
     });
 }
-function updateCategoria(req,res){
+function updateClasificacion(req,res){
     var data = req.body
-    if(data.IdCategoria != undefined && data.Nombre != undefined && data.Descripcion != undefined){
+    if(data.IdClasificacion != undefined && data.Nombre != undefined && data.Descripcion != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
-            return querys.updateCategoria(poolObt,data)
+            return querys.updateClasificacion(poolObt,data)
         }).then((results) => {
-            
+            res.status(200).json({message:'Clasificacion actualizada con exito!'})
         }).catch((err) => {
-            
+            res.status(500).json(err)
         });
     }else{
         res.status(401).send({
@@ -38,11 +43,11 @@ function updateCategoria(req,res){
         })
     }
 }
-function getCategoriaById(req,res){
+function getClasificacionById(req,res){
     var data = req.params
-    if(data.IdCategoria){
+    if(data.IdClasificacion){
         config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getCategoriaById(poolObt,data.IdCategoria)
+           return querys.getClasificacionById(poolObt,data.IdClasificacion)
         }).then((results) => {
            res.status(200).json(results) 
         }).catch((err) => {
@@ -52,30 +57,13 @@ function getCategoriaById(req,res){
         res.status(401).json({
             error:true,
             code:'EPARAMS',
-            message:'Envie el id de la Categoria a Obtener'
+            message:'Envie el id de la Clasificacion a Obtener'
         })
     }
 }
-module.exports{
-    createCategoria,
-    getCategoriaById,
-    getCategorias,
-    updateCategoria
-}
-function createStandar(req,res){
-    var data = req.body
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        
-    }).catch((err) => {
-        
-    });
-}
-function getStandar(req,res){
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        
-    }).then((results) => {
-        
-    }).catch((err) => {
-        
-    });
+module.exports={
+   createClasificacion,
+   getClasificacionById,
+   getClasificaciones,
+   updateClasificacion
 }

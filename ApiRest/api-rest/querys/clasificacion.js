@@ -22,14 +22,14 @@ function updateClasificacion(pool,data){
         .input('Descripcion'.sql.NVarChar(150),data.Descripcion)
         .execute('USP_UPDATE_CLASIFICACION');
 }
-function getCategoriaById(pool,IdClasificacion){
+function getClasificacionById(pool,IdClasificacion){
     pool.request()
         .input('IdClasificacion',sql.Int,IdClasificacion)
         .execute('USP_GET_CLASIFICACION');
 }
 module.exports={
-    createCategoria,
-    getCategorias,
-    updateCategoria,
-    getCategoriaById
+    createClasificacion,
+    getClasificaciones,
+    updateClasificacion,
+    getClasificacionById
 }

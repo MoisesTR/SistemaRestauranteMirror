@@ -7,11 +7,12 @@ CREATE PROCEDURE USP_CREATE_CATEGORIA(
 AS 
 BEGIN
 	IF EXISTS(SELECT * FROM CATEGORIA_PRODUCTO where NombreCategoria = @Nombre) 
-		SELECT 'Nombre de Categoria duplicado.'
+		RAISERROR('Nombre de Categoria duplicado.',16,1)
 	ELSE
 		BEGIN
 			INSERT INTO CATEGORIA_PRODUCTO(NombreCategoria,DescripcionCategoria)
 			VALUES(@Nombre,@Descripcion);
+			SELECT @@IDENTITY AS IdCategoria
 		END
 END
 GO
@@ -47,13 +48,16 @@ CREATE PROCEDURE USP_CREATE_CLASIFICACION(
 	@Nombre NVARCHAR(50),
     @Descripcion NVARCHAR(150)
 ) AS BEGIN
-	-- IF EXISTS(SELECT * from ClasificacionProducto where NombreClasificacion = @Nombre) THEN
--- 		SIGNAL SQLSTATE '23000'
--- 		SET MESSAGE_TEXT = 'Clasificacion Duplicada, No se inserto.';
--- 	ELSE
+	IF EXISTS(SELECT * from ClasificacionProducto where NombreClasificacion = @Nombre) 
+		BEGIN
+ 		RAISERROR('Clasificacion Duplicada, No se inserto.',16,1)
+ 		END
+	ELSE
+	BEGIN
 		INSERT INTO CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion)
 		VALUES(@Nombre,@Descripcion);		
---     END IF;
+		SELECT @@IDENTITY AS IdClasificacion
+     END
 END 
 
 GO
@@ -66,21 +70,23 @@ GO
 CREATE PROCEDURE USP_UPDATE_CLASIFICACION(
 	@IdClasificacion int,
 	@Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150),
-    @Habilitado BIT
+    @Descripcion NVARCHAR(150)
+	--,@Habilitado BIT
 ) 
 AS BEGIN
 	UPDATE CLASIFICACION_PRODUCTO
-    SET NombreClasificacion = @Nombre,DescripcionClasificacion  = @Descripcion,Habilitado = @Habilitado where IdClasificacion = @IdClasificacion;
+    SET NombreClasificacion = @Nombre,DescripcionClasificacion  = @Descripcion where IdClasificacion = @IdClasificacion;
 END
 GO
-CREATE PROCEDURE USP_DispClasificaion(
+--Nombre anterior USP_DispClasificaion
+CREATE PROCEDURE USP_DISP_CLASIFICACION(
 	@IdClasificacion INT
 ) AS BEGIN 
 	UPDATE CLASIFICACION_PRODUCTO SET Habilitado = ~Habilitado WHERE IdClasificacion = @IdClasificacion;
 END 
 GO
-CREATE PROCEDURE GetClasificacion(
+--Nombre anterior GetClasificacion
+CREATE PROCEDURE USP_GET_CLASIFICACION(
 	@IdClasificacion INT
 ) AS BEGIN 
 	SELECT IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM CLASIFICACION_PRODUCTO WHERE IdClasificacion = @IdClasificacion;
@@ -97,6 +103,7 @@ CREATE PROCEDURE USP_CREATE_SUBCLASIFICACION(
 		BEGIN
 		INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion)
         VALUES(@IdClasificacion,@Nombre,@Descripcion);
+		SELECT @@IDENTITY AS IdSubclasificacion
 		END
 END
 GO
@@ -104,14 +111,13 @@ CREATE PROCEDURE USP_UPDATE_SUBCLASIFICACION(
 	@IdSubClasificacion INT,
     @IdClasificacion INT,
 	@Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150),
-    @Habilitado BIT
+    @Descripcion NVARCHAR(150)
+    --@Habilitado BIT
 ) AS BEGIN
 	UPDATE SUBCLASIFICACION_PRODUCTO
-    SET IdClasificacion= @IdClasificacion,NombreSubClasificacion = @Nombre,DescripcionSubClasificacion  = @Descripcion,Habilitado = @Habilitado where IdSubClasificacion = @IdSubClasificacion;
+    SET IdClasificacion= @IdClasificacion,NombreSubClasificacion = @Nombre,DescripcionSubClasificacion  = @Descripcion where IdSubClasificacion = @IdSubClasificacion;
 END 
 GO
-
 CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION(
 	@IdClasificacion INT
 )
@@ -120,66 +126,69 @@ AS BEGIN
     INNER JOIN ClasificacionProducto c ON s.IdClasificacion = c.IdClasificacion where s.IdClasificacion=@IdClasificacion;
 END
 GO
-CREATE PROCEDURE USP_ListSubClasificaciones 
+--Nombre anterios USP_ListSubClasificaciones 
+CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES 
 AS BEGIN
 	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado FROM SubClasificacionProducto s
     INNER JOIN ClasificacionProducto c ON s.IdClasificacion = c.IdClasificacion;
 END
-
 GO
-CREATE PROCEDURE USP_DispSubClasificaion(
-	@IdsubClasificacion INT
+--Nombre anterior USP_DispSubClasificaion
+CREATE PROCEDURE USP_DISP_SUBCLASIFICACION(
+	@IdSubClasificacion INT
 ) AS BEGIN 
 	UPDATE SubClasificacionProducto SET Habilitado = ~Habilitado WHERE IdSubClasificacion = @IdSubClasificacion;
 END 
 GO
-
-CREATE PROCEDURE GetSubClasificacion(
+--Nombre anterior GetSubClasificacion
+CREATE PROCEDURE USP_GET_SUBCLASIFICACION(
 	@IdSubClasificacion INT
 ) AS BEGIN 
 	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado 
 	FROM SUBCLASIFICACION_PRODUCTO s INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion 
 	WHERE IdSubClasificacion=@IdSubClasificacion;
 END
-
 GO
 CREATE PROCEDURE USP_CREATE_PROVEEDOR(
-	@NombreProveedor VARCHAR(50), -- NOT NULL,
-    @Direccion VARCHAR(200),-- NOT NULL,
-    @Email VARCHAR(100),-- NULL
-    @Descripcion VARCHAR(200),-- NULL,
-    @NombreRepresentante Varchar(100) -- NOT NULL,
+	@NombreProveedor NVARCHAR(50), -- NOT NULL,
+    @Direccion NVARCHAR(200),-- NOT NULL,
+    @Email NVARCHAR(100),-- NULL
+    @Descripcion NVARCHAR(200),-- NULL,
+    @NombreRepresentante NVARCHAR(100) -- NOT NULL,
 ) AS BEGIN
 	INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante)
     VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante);
+	SELECT @@IDENTITY AS IdProveedor
 END 
 GO
 CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
 	@IdProveedor INT,
-    @NombreProveedor VARCHAR(50), -- NOT NULL,
-    @Direccion VARCHAR(200),-- NOT NULL,
-    @Email VARCHAR(100),-- NULL
-    @Descripcion VARCHAR(200),-- NULL,
-    @NombreRepresentante Varchar(100) -- NOT NULL,
+    @NombreProveedor NVARCHAR(50), -- NOT NULL,
+    @Direccion NVARCHAR(200),-- NOT NULL,
+    @Email NVARCHAR(100),-- NULL
+    @Descripcion NVARCHAR(200),-- NULL,
+    @NombreRepresentante NVARCHAR(100) -- NOT NULL,
 ) AS BEGIN
 	UPDATE PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
     NombreRepresentante=@NombreRepresentante WHERE IdProveedor = @IdProveedor;
 END 
 GO
-CREATE PROCEDURE USP_InsertNumeroProveedor(
+--Nombre Anterior USP_InsertNumeroProveedor
+CREATE PROCEDURE USP_CREATE_NUMEROPROVEEDOR(
     @IdProveedor INT,
-    @Prefijo varchar(3),
-    @NumeroTelefono VARCHAR(50) --not null
+    @Prefijo NVARCHAR(3),
+    @NumeroTelefono NVARCHAR(50) --not null
 ) AS BEGIN
 	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,Prefijo,NumeroTelefono)
     VALUES(@IdProveedor,@Prefijo,@NumeroTelefono);
+	SELECT @@IDENTITY AS IdNumero
 END 
 GO
 CREATE PROCEDURE USP_UPDATE_NUMEROPROVEEDOR(
 	@IdProveedor INT,
     @IdNumero INT,
-	@Prefijo varchar(3),
-    @NumeroTelefono VARCHAR(50) --not null
+	@Prefijo NVARCHAR(3),
+    @NumeroTelefono NVARCHAR(50) --not null
 ) AS BEGIN
 		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo, NumeroTelefono = @NumeroTelefono where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END 
@@ -196,12 +205,12 @@ CREATE PROCEDURE USP_GET_PROVEEDOR(
 	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR where IdProveedor = @IdProveedor;
 END
 
-GO
+Go
 CREATE PROCEDURE USP_GET_NUMEROSPROVEEDOR(
 	@IdProovedor INT
 ) 
 AS BEGIN
-	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProveedor;
+	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProovedor;
 END
 
 GO
@@ -219,11 +228,11 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
     @IdEmpaque INT,-- NULL id del empaque si es que tiene
     @IdEstado int, -- not null,
     @IdProveedor int, -- not null,
-    @NombreProducto VARCHAR(50),-- NOT NULL,
+    @NombreProducto NVARCHAR(50),-- NOT NULL,
     @Costo NUMERIC(6,2), -- NOT NULL,
     @Descripcion NVARCHAR(200), -- NOT NULL,
 	@CantidadEmpaque INT,-- NULL si tiene empaque 
-    @Imagen VARCHAR(100), -- NULL
+    @Imagen NVARCHAR(100), -- NULL
     @IdUnidadMedida INT, -- not null
     @ValorUnidadMedida FLOAT -- NOT NULL
 ) AS BEGIN
@@ -231,6 +240,7 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
     CantidadEmpaque,Imagen,IdUnidadMedida,ValorUnidadMedida,IdEstado,IdProveedor)
 	VALUES(@NombreProducto,@Costo,@Descripcion,@IdCategoria,@IdSubclasificacion,
     @IdEnvase,@IdEmpaque,@CantidadEmpaque,@Imagen,@IdUnidadMedida,@ValorUnidadMedida,@IdEstado,@IdProveedor);
+	SELECT @@IDENTITY AS IdProducto
 END 
 
 GO
@@ -242,11 +252,11 @@ CREATE PROCEDURE USP_UPDATE_PRODUCTO(
     @IdEmpaque INT,-- NULL id del empaque si es que tiene
     @IdEstado int, -- not null,
     @IdProveedor int, -- not null,
-    @NombreProducto VARCHAR(50),-- NOT NULL,
+    @NombreProducto NVARCHAR(50),-- NOT NULL,
     @Costo NUMERIC(6,2), -- NOT NULL,
     @Descripcion NVARCHAR(200), -- NOT NULL,
 	@CantidadEmpaque INT,-- NULL si tiene empaque 
-    @Imagen VARCHAR(100), -- NULL
+    @Imagen NVARCHAR(100), -- NULL
     @IdUnidadMedida INT, -- not null
     @ValorUnidadMedida FLOAT -- NOT NULL
 ) AS BEGIN 
@@ -261,28 +271,44 @@ CREATE PROCEDURE USP_GET_PRODUCTOS
 AS BEGIN
 	SELECT * FROM V_ProductosDetallados;
 END 
-
 GO
 CREATE PROCEDURE USP_GET_PRODUCTO(
 	@IdProducto INT
 ) AS BEGIN
 	SELECT * FROM V_ProductosDetallados WHERE IdProducto = @IdProducto;
 END
-
 GO
-CREATE PROCEDURE USP_DispProducto(
+CREATE PROCEDURE USP_DISP_PRODUCTO(
 	@IdProducto INT
 ) AS BEGIN
 	UPDATE PRODUCTO set Habilitado = ~Habilitado Where IdProducto = @IdProducto;
 END 
-
+GO
+CREATE PROCEDURE USP_CREATE_EMPAQUE(
+	@NombreEmpaque NVARCHAR(50),
+	@Descripcion NVARCHAR(150)
+)
+AS BEGIN
+	INSERT INTO Empaque(NombreEmpaque,Descripcion)
+	VALUES(@NombreEmpaque,@Descripcion)
+	SELECT @@IDENTITY AS IdEmpaque
+END
 GO
 CREATE PROCEDURE USP_GET_EMPAQUES
 AS BEGIN
 	SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE
 END
 GO
-
+CREATE PROCEDURE USP_CREATE_ENVASE(
+	@NombreEnvase NVARCHAR(50),
+	@Descripcion NVARCHAR(150)
+)
+AS BEGIN
+	INSERT INTO Envase(NombreEnvase,Descripcion)
+	VALUES(@NombreEnvase,@Descripcion)
+	SELECT @@IDENTITY AS IdEnvase
+END
+GO
 CREATE PROCEDURE USP_GET_ENVASES
 AS BEGIN
 	SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE
@@ -292,3 +318,54 @@ CREATE PROCEDURE USP_GET_ESTADOSPRODUCTO
 AS BEGIN
 	SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO
 END
+GO
+CREATE PROCEDURE USP_GET_ESTADOPRODUCTO_BY_ID(
+	@IdEstado INT
+)
+AS BEGIN
+	SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO WHERE IdEstado = @IdEstado
+END
+GO
+CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
+	@IdClasificacionUnidadMedida INT,
+    @NombreUnidad NVARCHAR(50),
+    @Simbolo NVARCHAR(3)
+)
+AS BEGIN
+	INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo)
+	VALUES(@IdClasificacionUnidadMedida,@NombreUnidad,@Simbolo)
+	SELECT @@IDENTITY AS IdUnidadMedida
+END
+GO
+CREATE PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
+AS BEGIN
+	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA
+END
+GO
+CREATE PROCEDURE USP_GET_UNIDAD_DE_MEDIDA(
+	@IdUnidadMedida INT
+)
+AS BEGIN
+	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA WHERE IdUnidadMedida = @IdUnidadMedida
+END
+GO
+CREATE PROCEDURE USP_CREATE_SUCURSAL(
+    @NombreSucursal NVARCHAR(100) ,
+    @Direccion NVARCHAR(250) ,
+    @TelefonoPrincipal nvarchar(10)
+)
+AS BEGIN 
+	INSERT INTO SUCURSAL(NombreSucursal,Direccion,TelefonoPrincipal)
+	VALUES(@NombreSucursal,@Direccion,@TelefonoPrincipal)
+	SELECT @@IDENTITY AS IdSucursal
+END
+GO
+CREATE PROCEDURE USP_GET_SUCURSALES
+AS 
+SELECT IdSucursal,NombreSucursal,Direccion,TelefonoPrincipal from SUCURSAL
+GO
+CREATE PROCEDURE USP_GET_SUCURSAL
+	@IdSucursal INT
+AS 
+	SELECT IdSucursal,NombreSucursal,Direccion,TelefonoPrincipal from SUCURSAL WHERE IdSucursal = @IdSucursal
+GO

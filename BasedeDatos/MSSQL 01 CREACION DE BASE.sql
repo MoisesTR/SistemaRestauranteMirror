@@ -4,8 +4,8 @@ USE pruebas_node;
 
 CREATE TABLE PROCEDENCIA_PRODUCTO(
 	IdProcedencia int IDENTITY(1,1),
-    Nombre varchar(50) not null,
-    Descripcion varchar(150) null,
+    Nombre NVARCHAR(50) not null,
+    Descripcion NVARCHAR(150) null,
     Habilitado bit default 1 not null,
     constraint pk_Procedencia primary key(IdProcedencia)
 );
@@ -19,8 +19,8 @@ VALUES	('Proveedor','Productos que ingresan directo del proveedor.')
 
 CREATE TABLE USO_PRODUCTO(
 	IdUso int IDENTITY(1,1),
-    Nombre varchar(50) not null,
-    Descripcion varchar(150) null,
+    Nombre NVARCHAR(50) not null,
+    Descripcion NVARCHAR(150) null,
     Habilitado bit default 1 not null,
     constraint pk_USO_PRODUCTO primary key(IdUso),
     CONSTRAINT U_USO_PRODUCTO UNIQUE(Nombre)
@@ -33,8 +33,8 @@ VALUES	('Nuevo/Sin Usar','Producto que no se ha usado.')
 
 CREATE TABLE MOTIVO_BAJA_PRODUCTO(
 	IdMotivo INT IDENTITY(1,1),
-    Nombre VARCHAR(50) NOT NULL,
-    Descripcion VARCHAR(200) NULL,
+    Nombre NVARCHAR(50) NOT NULL,
+    Descripcion NVARCHAR(200) NULL,
     Habilitado bit default 1 not null,
     CONSTRAINT PK_MOTIVO_BAJA_PRODUCTO PRIMARY KEY(IdMotivo)
 );
@@ -48,7 +48,7 @@ VALUES	('Extravio','El/Los productos se extraviaron')
 
 CREATE TABLE CARGO(
     IdCargo INT IDENTITY(1,1),
-    NombreCargo VARCHAR(50) NOT NULL,
+    NombreCargo NVARCHAR(50) NOT NULL,
     DrescripcionCargo NVARCHAR(100),
     Habilitado Bit default 1 not null,    
     CONSTRAINT PK_IdCargo PRIMARY KEY (IdCargo)
@@ -63,8 +63,8 @@ VALUES ('Propietario','Propietario del restaurante')
 
 CREATE TABLE OPERADORA_TELEFONICA(
 	IdOperadora int IDENTITY(1,1),
-    Nombre varchar(50),
-    Abreviacion varchar(3),
+    Nombre NVARCHAR(50),
+    Abreviacion NVARCHAR(3),
     Habilitado Bit default 1 not null,
     constraint pk_IdOPERADORA_TELEFONICA primary key(IdOperadora)
 );
@@ -76,11 +76,11 @@ VALUES	('Claro','Cl')
 
 CREATE TABLE PROVEEDOR(
     IdProveedor INT IDENTITY(1,1),
-    NombreProveedor VARCHAR(50) NOT NULL,
-    Direccion VARCHAR(200) NOT NULL,
-    Email VARCHAR(100) NULL,
-    Descripcion VARCHAR(200) NULL,
-    NombreRepresentante Varchar(100) NOT NULL,
+    NombreProveedor NVARCHAR(50) NOT NULL,
+    Direccion NVARCHAR(200) NOT NULL,
+    Email NVARCHAR(100) NULL,
+    Descripcion NVARCHAR(200) NULL,
+    NombreRepresentante NVARCHAR(100) NOT NULL,
     Habilitado Bit default 1,
     CONSTRAINT PK_IdProveedor PRIMARY KEY (IdProveedor)
 );
@@ -93,8 +93,8 @@ VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Repr
 CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
     IdNumero INT IDENTITY(1,1),
     IdProveedor INT,
-    Prefijo varchar(3),
-    NumeroTelefono VARCHAR(50) not null,
+    Prefijo NVARCHAR(3),
+    NumeroTelefono NVARCHAR(50) not null,
     Habilitado Bit default 1,
     CONSTRAINT Fk_ProveedorTele FOREIGN KEY (IdProveedor)
         REFERENCES Proveedor (IdProveedor),
@@ -109,8 +109,8 @@ VALUES	(1,'2279-9245')
 
 CREATE TABLE CLASIFICACION_UNIDAD_MEDIDA (
     IdClasificacionUnidadMedida INT IDENTITY(1,1),
-    NombreClasificacion VARCHAR(50) NOT NULL,
-    Descripcion VARCHAR(150) NULL,
+    NombreClasificacion NVARCHAR(50) NOT NULL,
+    Descripcion NVARCHAR(150) NULL,
     Habilitado Bit default 1,
     CONSTRAINT PK_ID_CLAS_UDM PRIMARY KEY (IdClasificacionUnidadMedida)
 );
@@ -122,7 +122,7 @@ VALUES	('Masa','Miden el peso del producto.')
 CREATE TABLE UNIDAD_MEDIDA (
     IdUnidadMedida INT IDENTITY(1,1),
     IdClasificacionUnidadMedida INT,
-    NombreUnidad VARCHAR(50) NOT NULL,
+    NombreUnidad NVARCHAR(50) NOT NULL,
     Simbolo NVARCHAR(3) NULL,
     Habilitado Bit default 1 not null,
     CONSTRAINT PK_ID_UDM PRIMARY KEY (IdUnidadMedida),
@@ -139,8 +139,8 @@ VALUES	(1,'Libra','Lb')
 
 CREATE TABLE CLASIFICACION_PRODUCTO (
     IdClasificacion INT IDENTITY(1,1),
-    NombreClasificacion VARCHAR(50) NOT NULL,
-    DescripcionClasificacion VARCHAR(100),
+    NombreClasificacion NVARCHAR(50) NOT NULL,
+    DescripcionClasificacion NVARCHAR(100),
     Habilitado Bit default 1 not null,
     CONSTRAINT PK_CLASIFPRODUCT PRIMARY KEY (IdClasificacion),
     CONSTRAINT U_NOMBRECLASIF UNIQUE(NombreClasificacion)
@@ -153,8 +153,8 @@ VALUES	('Pollo','Las distintas cortes de pollo.')
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     IdSubclasificacion INT IDENTITY(1,1),
     IdClasificacion INT,
-    NombreSubclasificacion VARCHAR(50),
-    DescripcionSubclasificacion VARCHAR(150),
+    NombreSubclasificacion NVARCHAR(50),
+    DescripcionSubclasificacion NVARCHAR(150),
     Habilitado Bit default 1 not null,
     CONSTRAINT Pk_IdSubClasfProdu PRIMARY KEY (IdSubclasificacion),
     CONSTRAINT FK_SUBCLAS_CLAS FOREIGN KEY (IdClasificacion)
@@ -169,8 +169,8 @@ VALUES (1,'Filete','Filete de pollo entero.')
 
 CREATE TABLE  CATEGORIA_PRODUCTO(
     IdCategoria INT IDENTITY(1,1),
-    NombreCategoria VARCHAR(50),
-    DescripcionCategoria VARCHAR(150),
+    NombreCategoria NVARCHAR(50),
+    DescripcionCategoria NVARCHAR(150),
     Habilitado Bit default 1 not null,
     CONSTRAINT Pk_CategoriaProducto PRIMARY KEY (IdCategoria),
     CONSTRAINT U_NombreCategoria UNIQUE(NombreCategoria)
@@ -184,7 +184,7 @@ VALUES	('Producto Seco','Todos aquellos productos que no necesitan refrigeracion
 
 CREATE TABLE ENVASE (
     IdEnvase INT IDENTITY(1,1),
-    NombreEnvase VARCHAR(50) NOT NULL,
+    NombreEnvase NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(150),
     Habilitado Bit default 1 not null,
     CONSTRAINT PK_Envase PRIMARY KEY (IdEnvase),
@@ -202,7 +202,7 @@ VALUES	('Botella Plastica','una botella de plastico')
 
 CREATE TABLE EMPAQUE (
     IdEmpaque INT IDENTITY(1,1),
-    NombreEmpaque VARCHAR(50) NOT NULL,
+    NombreEmpaque NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(200),
     Habilitado Bit default 1,
     CONSTRAINT PK_Empaque PRIMARY KEY (IdEmpaque),
@@ -220,8 +220,8 @@ VALUES	('Caja Carton','')
 
 CREATE TABLE ESTADO_PRODUCTO(
 	IdEstado int IDENTITY(1,1),
-    Nombre varchar(50) not null,
-    Descripcion varchar(50) not null,
+    Nombre NVARCHAR(50) not null,
+    Descripcion NVARCHAR(50) not null,
     Habilitado Bit default 1 not null,
     constraint pk_EstadoProducto primary key(IdEstado)
 );
@@ -239,11 +239,11 @@ CREATE TABLE PRODUCTO (
     IdEmpaque INT NULL, --id del empaque si es que tiene
     IdEstado int not null,
     IdProveedor int not null,
-    NombreProducto VARCHAR(50) NOT NULL,
+    NombreProducto NVARCHAR(50) NOT NULL,
     Costo Money NOT NULL,
     Descripcion NVARCHAR(200) NOT NULL,
 	CantidadEmpaque INT NULL, --si tiene empaque 
-    Imagen VARCHAR(100) NULL, --
+    Imagen NVARCHAR(100) NULL, --
     IdUnidadMedida INT not null,
     ValorUnidadMedida FLOAT NOT NULL,
     Habilitado Bit default 0 not null,
@@ -280,7 +280,7 @@ CREATE TABLE  PRODUCTO_ORIGEN(
 
 CREATE TABLE ESTADO_EMPAQUE(
 	IdEstado INT IDENTITY(1,1),
-    NombreEstado VARCHAR(50),
+    NombreEstado NVARCHAR(50),
     Habilitado Bit default 1 not null,
     CONSTRAINT PK_ESTADO_PRODUC PRIMARY KEY(IdEstado),
 	CONSTRAINT U_EstadoEmpaqueUnico UNIQUE(NombreEstado)
@@ -290,3 +290,45 @@ INSERT INTO ESTADO_EMPAQUE(NombreEstado)
 VALUES	('Cerrado/Completo')
 		,('Abierto/Incompleto')
 		,('Sin EMPAQUE/No viene empacado');
+GO
+CREATE TABLE BodegaSucursal (
+    IdBodega INT IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,
+    DescripcionLocal NVARCHAR(200) null,
+    Habilitado Bit default 1 not null,
+    CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodega)
+);
+GO
+CREATE TABLE SUCURSAL (
+    IdSucursal INT IDENTITY(1,1),
+    IdBodega int null,--antes era not null
+    Principal Bit not null default 0,
+    NombreSucursal NVARCHAR(100) NOT NULL,
+    Direccion NVARCHAR(250) NOT NULL,
+    TelefonoPrincipal NVARCHAR(10),
+    Habilitado Bit default 1 not null,
+    CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
+    constraint fk_BodegaSucursal foreign key(IdBodega) References BodegaSucursal(IdBodega)
+)
+INSERT INTO Sucursal(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
+#Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
+
+CREATE TABLE Trabajador (
+    IdTrabajador INT IDENTITY(1,1),
+    IdSucursal INT NULL,
+    IdCargo INT not null,
+    Nombres NVARCHAR(50) NOT NULL,
+    Apellidos NVARCHAR(50) NOT NULL,
+    NumeroCedula NVARCHAR(50) NOT NULL,
+    FechaNacimiento DATE NOT NULL,
+    Direccion NVARCHAR(300) not null,
+    FechaIngreso DATE NOT NULL,
+    Habilitado Bit default 1 not null,
+    CONSTRAINT PK_IDTRABAJ PRIMARY KEY (IdTrabajador),
+    CONSTRAINT FK_CAR_TRAB FOREIGN KEY (IdCargo)
+        REFERENCES Cargo (IdCargo),
+    CONSTRAINT FK_TRABSucursal FOREIGN KEY (IdSucursal)
+        REFERENCES Sucursal (IdSucursal),
+	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
+)
+GO

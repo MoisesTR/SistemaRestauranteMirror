@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MenuRoutingModule } from './menu.routing.module';
+import {Ng2SmartTableModule} from "ng2-smart-table";
 
 //Componentes
 import {ClasificacionProductoComponent} from "../clasificacion-producto/clasificacion-producto.component";
@@ -26,6 +27,7 @@ import {SucursalService} from '../../services/sucursal.service';
 import {UsuarioService} from '../../services/usuario.service';
 import {EnvaseService} from '../../services/envase.service';
 
+
 @NgModule({
   declarations: [
       ProductoComponent
@@ -42,7 +44,8 @@ import {EnvaseService} from '../../services/envase.service';
     CommonModule,
     FormsModule,
     HttpModule,
-    MenuRoutingModule
+    MenuRoutingModule,
+    Ng2SmartTableModule
 
   ],
   exports: [

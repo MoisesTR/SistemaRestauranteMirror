@@ -15,12 +15,18 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button" (click)="limpiarFormularioProducto()" class="btn peach-gradient" data-toggle="modal" data-target="#modalingresarproducto">Nuevo Producto</button>
+                  <button type="button"  class="btn peach-gradient" data-toggle="modal" data-target="#modalingresarproducto">Nuevo Producto</button>
                 </div>
               </div>
             </div>
           </div>
-          <table  id="datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <ng2-smart-table
+            [settings]="settings"
+            [source]="source"
+            (deleteConfirm)="onDeleteConfirm($event)"
+            (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+         <!-- <table  id="datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
               <th class="header-negrita">Nombre</th>
@@ -63,7 +69,7 @@
             </tr>
             </tbody>
 
-          </table>
+          </table>-->
         </div>
       </div>
 
@@ -82,23 +88,24 @@
 <!-- /.div fondo imagen gris-->
 
 
-<!-- Modal productos -->
+<!--
+&lt;!&ndash; Modal productos &ndash;&gt;
 <div class="modal fade" id="modalingresarproducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
-    <!--Contenido-->
+    &lt;!&ndash;Contenido&ndash;&gt;
     <div class="modal-content background-gray">
 
-      <!--Titulo-->
+      &lt;!&ndash;Titulo&ndash;&gt;
       <div class="modal-header peach-gradient white-text">
         <h4 class="title"> Productos</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <!--Cuerpo modal-->
+      &lt;!&ndash;Cuerpo modal&ndash;&gt;
       <div class="modal-body mb-0">
         <div class="container-fluid">
-          <!-- Inicio form-->
+          &lt;!&ndash; Inicio form&ndash;&gt;
           <form id = "productoForm" #productoForm="ngForm" (ngSubmit)="ingresarProducto();" >
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -245,11 +252,12 @@
               </div>
             </div>
           </form>
-          <!-- Final form -->
+          &lt;!&ndash; Final form &ndash;&gt;
           <br>
         </div>
       </div>
     </div>
-    <!--/.Contenido-->
+    &lt;!&ndash;/.Contenido&ndash;&gt;
   </div>
 </div>
+-->

@@ -14,7 +14,14 @@ export class ClasificacionUnidadMedidaService {
     this.url = Global.url;
   }
 
-  createClasficacionUnidadMedida(Clasificacion){
+
+  createClasficacionUnidadMedida(ClasificacionUnidadMedida){
+
+    let params = JSON.stringify(ClasificacionUnidadMedida);
+    let headers = new Headers({'Content-Type':''});
+
+    return this._http.post(this.url+'createClasificacion',params,{headers:headers})
+      .map(res => res.json());
 
 
   }

@@ -17,7 +17,32 @@ export class ProductoComponent implements OnInit {
   public productos: Producto[];
   public mensaje: string
 
-  data = [
+  source: LocalDataSource;
+  settings = {
+    columns: {
+      IdProducto: {
+        title: 'ID',
+        passed: 'Yes', comments: 'Mollis latine intellegebat ei usu, veri exerci intellegebat vel cu. Eu nec ferri copiosae.',
+
+      },
+
+
+      NombreProducto: {
+        title: 'Nombre Producto',
+
+      },
+      CantidadEmpaque: {
+        title: 'Cantidad Empaque',
+      },
+      Descripcion: {
+        title: 'Descripcion',
+        editor: {
+          type: 'textarea',
+        },
+      },
+    },
+  };
+/*  data = [
     {
       id: 1,
       name: 'Leanne Graham',
@@ -175,8 +200,8 @@ export class ProductoComponent implements OnInit {
         },
       },
     },
-  };
-  source: LocalDataSource;
+};
+  source: LocalDataSource;*/
 
   constructor(
     private _route: ActivatedRoute,
@@ -218,6 +243,13 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
 
+    this._productoService.getProductos().subscribe(
+      response => {
+        this.source.load(response.productos);
+      },error =>{
+
+      }
+    )
    /* $(document).ready(function () {
       $('select[name="datatables_length"]').material_select();
     });
@@ -379,9 +411,5 @@ export class ProductoComponent implements OnInit {
     $('#codpostal').val('');
     $('#descripcion').val('');
   }
-
-
-
-
 
 }

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes,RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
@@ -12,6 +11,8 @@ import {MenuModule} from "./components/menu/menu.module";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import { DataTablesModule } from 'angular-datatables';
+import { AddProductoComponent } from './components/producto/add-producto/add-producto.component';
+import { AddUsuarioComponent } from './components/usuario/add-usuario/add-usuario.component';
 
 
 

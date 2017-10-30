@@ -27,6 +27,8 @@ import {SucursalService} from '../../services/sucursal.service';
 import {UsuarioService} from '../../services/usuario.service';
 import {EnvaseService} from '../../services/envase.service';
 import {DataTablesModule} from "angular-datatables";
+import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
+import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import {DataTablesModule} from "angular-datatables";
     , SucursalComponent
     , UsuarioComponent
     , EnvaseComponent
+    , AddProductoComponent
+    , AddUsuarioComponent
 
   ],
   imports: [
@@ -59,6 +63,9 @@ import {DataTablesModule} from "angular-datatables";
     , SucursalComponent
     , UsuarioComponent
     , EnvaseComponent
+    , AddProductoComponent
+    , AddUsuarioComponent
+
 
 
   ],

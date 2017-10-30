@@ -11,6 +11,8 @@ import {UsuarioComponent} from "../usuario/usuario.component";
 import {SucursalComponent} from "../sucursal/sucursal.component";
 import {EnvaseComponent} from "../envase/envase.component";
 import {ProveedorComponent} from "../proveedor/proveedor.component";
+import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
+import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
 
 const menuRoutes: Routes = [
 
@@ -20,6 +22,8 @@ const menuRoutes: Routes = [
     children: [
         {path:'',redirectTo:'menu',pathMatch:'full'},
         {path:'productos',component: ProductoComponent},
+        {path:'add-usuario',component:AddUsuarioComponent },
+        {path:'add-producto',component: AddProductoComponent},
         {path:'categorias',component: CategoriaProductoComponent},
         {path:'clasificacion-productos',component: ClasificacionProductoComponent},
         {path:'proveedores',component: ProveedorComponent},

@@ -11,6 +11,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import {MenuModule} from "./components/menu/menu.module";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import { DataTablesModule } from 'angular-datatables';
 
 
 

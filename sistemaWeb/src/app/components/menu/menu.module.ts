@@ -26,6 +26,7 @@ import {ProveedorService} from '../../services/proveedor.service';
 import {SucursalService} from '../../services/sucursal.service';
 import {UsuarioService} from '../../services/usuario.service';
 import {EnvaseService} from '../../services/envase.service';
+import {DataTablesModule} from "angular-datatables";
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {EnvaseService} from '../../services/envase.service';
     FormsModule,
     HttpModule,
     MenuRoutingModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    DataTablesModule,
 
   ],
   exports: [

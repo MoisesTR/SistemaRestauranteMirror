@@ -20,12 +20,41 @@
               </div>
             </div>
           </div>
-          <ng2-smart-table
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripcion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let producto of productos">
+              <td>{{ producto.IdProducto }}</td>
+              <td>{{ producto.NombreProducto }}</td>
+              <td>{{ producto.Descripcion }}</td>
+            </tr>
+            </tbody>
+          </table>
+         <!-- <div class="col-md-4">
+
+            <div class="md-form form-sm">
+              <i class="fa  fa-search fa-lg prefix"></i>
+              <input #search type="text" id="form2" class="search" (keyup)="onSearch(search.value)">
+              <label for="form2">Buscar</label>
+            </div>
+
+            &lt;!&ndash;<input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">&ndash;&gt;
+
+          </div>
+          <br>
+          <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>-->
+         <!-- <ng2-smart-table
             [settings]="settings"
             [source]="source"
             (deleteConfirm)="onDeleteConfirm($event)"
             (editConfirm)="onSaveConfirm($event)"
-            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>-->
          <!-- <table  id="datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>

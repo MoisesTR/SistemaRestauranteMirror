@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaProductoService} from '../../services/categoria-producto.service'
 import { ActivatedRoute, Router} from "@angular/router";
 import { CategoriaProducto } from '../../models/CategoriaProducto';
-
+import { Subject } from 'rxjs/Rx';
+import {idioma_espanol} from "../../services/global";
 @Component({
   selector: 'app-categoria-producto',
   templateUrl: './categoria-producto.component.html',
@@ -15,6 +16,11 @@ export class CategoriaProductoComponent implements OnInit {
   public categoriasProductos: CategoriaProducto[];
   public mensaje : string;
 
+  dtOptions: DataTables.Settings = {};
+  // We use this trigger because fetching the list of persons can be quite long,
+  // thus we ensure the data is fetched before rendering
+  dtTrigger: Subject<any> = new Subject<any>();
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -24,6 +30,25 @@ export class CategoriaProductoComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: idioma_espanol,
+      select: true
+    };
+
+    this._categoriaProductoServicio.getCategoriasProductos().subscribe(
+      response => {
+        if(response.categorias){
+          this.categoriasProductos = response.categorias;
+          this.dtTrigger.next();
+        }
+      }, error =>{
+
+      }
+    );
+    console.log(this.categoriasProductos);
   }
 
   initCategoriaProducto(){

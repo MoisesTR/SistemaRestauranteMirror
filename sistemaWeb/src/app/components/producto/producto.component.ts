@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Producto} from "../../models/Producto";
 import { Subject } from 'rxjs/Rx';
 import swal from 'sweetalert2';
+import {idioma_espanol} from "../../services/global";
 
 
 @Component({
@@ -34,7 +35,7 @@ export class ProductoComponent implements OnInit {
 
           if(response.productos){
             this.productos = response.productos;
-            this.dtTrigger.next();
+            /*this.dtTrigger.next();*/
           }
       }, error =>{
 
@@ -47,7 +48,9 @@ export class ProductoComponent implements OnInit {
 
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10
+      pageLength: 10,
+      language: idioma_espanol,
+      select: true
     };
 
     this._ProductoServicio.getProductos().subscribe(
@@ -61,6 +64,58 @@ export class ProductoComponent implements OnInit {
       }
     );
 
+  }
+
+  /*CRUD*/
+  /**************************************************************************************************************/
+
+  createProducto(){
+
+  }
+
+  updateProducto(IdProducto){
+
+  }
+
+  getProducto(IdProducto){
+
+  }
+
+  getProductos(){
+
+  }
+
+  deleteProducto(){
+
+    swal({
+      title: 'Estas seguro?',
+      text: "El producto eliminado no podra ser reestablecido!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminalo!',
+      cancelButtonText: 'No, Cancelar!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+    }).then(function () {
+      swal(
+        'Eliminado!',
+        'El producto ha sido eliminado.',
+        'success'
+      )
+    }, function (dismiss) {
+      // dismiss can be 'cancel', 'overlay',
+      // 'close', and 'timer'
+      if (dismiss === 'cancel') {
+        swal(
+          'Cancelado',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
   }
    /* $(document).ready(function () {
       $('select[name="datatables_length"]').material_select();

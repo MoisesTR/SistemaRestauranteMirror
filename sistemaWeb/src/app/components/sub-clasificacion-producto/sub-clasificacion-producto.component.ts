@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {SubClasificacionProductoService} from "../../services/sub-clasificacion-producto.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SubClasificacionProducto} from "../../models/SubClasificacionProducto";
+import { Subject } from 'rxjs/Rx';
+import {idioma_espanol} from "../../services/global";
 
 @Component({
   selector: 'app-sub-clasificacion-producto',
@@ -14,6 +16,11 @@ export class SubClasificacionProductoComponent implements OnInit {
   public subclasificacion : SubClasificacionProducto;
   public subclasificaciones: SubClasificacionProducto[];
   public mensaje : string;
+
+  dtOptions: DataTables.Settings = {};
+  // We use this trigger because fetching the list of persons can be quite long,
+  // thus we ensure the data is fetched before rendering
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private _route: ActivatedRoute,
@@ -28,7 +35,24 @@ export class SubClasificacionProductoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSubClasificaciones();
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: idioma_espanol,
+      select: true
+    };
+
+    this._subClasificacionService.getSubClasificaciones().subscribe(
+      response => {
+        if(response.clasificaciones){
+          this.subclasificaciones = response.subclasificaciones;
+          this.dtTrigger.next();
+        }
+      }, error =>{
+
+      }
+    );
   }
 
   createSubClasificacion(){

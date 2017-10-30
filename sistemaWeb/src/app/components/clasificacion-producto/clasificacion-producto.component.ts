@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ClasificacionProducto} from "../../models/ClasificacionProducto";
+import { Subject } from 'rxjs/Rx';
+import {idioma_espanol} from "../../services/global";
 
 @Component({
   selector: 'app-clasificacion-producto',
@@ -14,6 +16,11 @@ export class ClasificacionProductoComponent implements OnInit {
   public clasificacion : ClasificacionProducto;
   public clasificaciones: ClasificacionProducto[];
 
+  dtOptions: DataTables.Settings = {};
+  // We use this trigger because fetching the list of persons can be quite long,
+  // thus we ensure the data is fetched before rendering
+  dtTrigger: Subject<any> = new Subject<any>();
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -23,6 +30,26 @@ export class ClasificacionProductoComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: idioma_espanol,
+      select: true
+    };
+
+    this._clasificacionService.getClasificaciones().subscribe(
+      response => {
+        if(response.clasificaciones){
+          this.clasificaciones = response.clasificaciones;
+          this.dtTrigger.next();
+        }
+      }, error =>{
+
+      }
+    );
+
   }
 
   private initConstructorClasificacion() {

@@ -29,6 +29,8 @@ import {EnvaseService} from '../../services/envase.service';
 import {DataTablesModule} from "angular-datatables";
 import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
 import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
+import {EmpaqueComponent} from "../empaque/empaque.component";
+import {EmpaqueService} from "../../services/empaque.service";
 
 
 @NgModule({
@@ -43,6 +45,7 @@ import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component"
     , EnvaseComponent
     , AddProductoComponent
     , AddUsuarioComponent
+    , EmpaqueComponent
 
   ],
   imports: [
@@ -50,7 +53,6 @@ import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component"
     FormsModule,
     HttpModule,
     MenuRoutingModule,
-    Ng2SmartTableModule,
     DataTablesModule,
 
   ],
@@ -65,8 +67,7 @@ import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component"
     , EnvaseComponent
     , AddProductoComponent
     , AddUsuarioComponent
-
-
+    , EmpaqueComponent
 
   ],
   providers: [
@@ -78,6 +79,7 @@ import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component"
     , SucursalService
     , UsuarioService
     , EnvaseService
+    , EmpaqueService
 
 
   ]

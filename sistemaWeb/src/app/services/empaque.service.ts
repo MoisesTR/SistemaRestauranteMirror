@@ -14,24 +14,45 @@ export class EmpaqueService {
     this.url = Global.url;
   }
 
-  createEmpaque(){
+  createEmpaque(Empaque){
 
+    let params = JSON.stringify(Empaque);
+    let headers = new Headers({'Content-Type':''});
+
+    return this._http.post(this.url+'createEmpaque',params,{headers:headers})
+      .map(res => res.json());
   }
 
-  getEmpaque(){
-
+  getEmpaque(IdEmpaque){
+    return this._http.get(this.url + 'empaque/'+IdEmpaque).map(res => res.json());
   }
 
   getEmpaques(){
-
+    return this._http.get(this.url + 'empaques').map(res => res.json());
   }
 
-  updateEmpaque(){
+  updateEmpaque(IdEmpaque,Empaque){
 
+    let params = JSON.stringify(Empaque);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    })
+
+    return this._http.put(this.url+'empaque/'+IdEmpaque,params,{headers:headers})
+      .map(res => res.json());
   }
 
-  deleteEmpaque(){
+  deleteEmpaque(IdEmpaque){
 
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    });
+
+    let options = new RequestOptions({headers:headers});
+    return this._http.delete(this.url+'empaque/'+IdEmpaque,options)
+      .map(res => res.json());
   }
 
 }

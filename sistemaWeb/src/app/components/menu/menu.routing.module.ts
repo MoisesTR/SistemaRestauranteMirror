@@ -30,6 +30,7 @@ const menuRoutes: Routes = [
         {path:'subclasificacion-productos',component: SubClasificacionProductoComponent},
         {path:'registro-usuario',component: UsuarioComponent},
         {path:'sucursales',component: SucursalComponent},
+        {path:'empaques',component: AddProductoComponent},
         {path:'envases',component: EnvaseComponent},
     ]
   },

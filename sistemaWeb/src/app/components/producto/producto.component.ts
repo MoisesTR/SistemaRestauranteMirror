@@ -49,8 +49,8 @@ export class ProductoComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-      language: idioma_espanol,
-      select: true
+     /* language: idioma_espanol,
+      select: true*/
     };
 
     this._ProductoServicio.getProductos().subscribe(

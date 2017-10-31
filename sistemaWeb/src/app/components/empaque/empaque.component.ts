@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import {EnvaseService} from "../../services/envase.service";
+import {EmpaqueService} from "../../services/empaque.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ClasificacionProducto} from "../../models/ClasificacionProducto";
+import {Empaque} from "../../models/Empaque";
 import { Subject } from 'rxjs/Rx';
 import {idioma_espanol} from "../../services/global";
-import {Envase} from "../../models/Envase";
 
 @Component({
-  selector: 'app-envase',
-  templateUrl: './envase.component.html',
-  styleUrls: ['./envase.component.css'],
-  providers: [EnvaseService]
+  selector: 'app-empaque',
+  templateUrl: './empaque.component.html',
+  styleUrls: ['./empaque.component.css'],
+  providers: [EmpaqueService]
 })
-export class EnvaseComponent implements OnInit {
+export class EmpaqueComponent implements OnInit {
 
-  public envase : Envase;
-  public envases: Envase[];
-  public mensaje : string;
+  public empaque: Empaque;
+  public empaques: Empaque[];
 
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
@@ -26,12 +24,10 @@ export class EnvaseComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _envaseService : EnvaseService
+    private _EmpaqueServicio : EmpaqueService
   ) {
-    this.envase = new Envase(null,null,null,null);
+    this.empaque = new Empaque(null,null,null,null);
   }
-
-
 
   ngOnInit() {
 
@@ -42,10 +38,10 @@ export class EnvaseComponent implements OnInit {
       select: true*/
     };
 
-    this._envaseService.getEnvases().subscribe(
+    this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
-        if(response.envases){
-          this.envases = response.envases;
+        if(response.empaques){
+          this.empaques = response.empaques;
           this.dtTrigger.next();
         }
       }, error =>{
@@ -55,23 +51,23 @@ export class EnvaseComponent implements OnInit {
 
   }
 
-  createEnvase(){
+  createEmpaque(){
 
   }
 
-  getEnvase(){
+  getEmpaque(){
 
   }
 
-  getEnvases(){
+  getEmpaques(){
 
   }
 
-  updateEnvase(){
+  updateEmpaque(){
 
   }
 
-  deleteEnvase(){
+  deleteEmpaque(){
 
   }
 

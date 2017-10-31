@@ -7,7 +7,7 @@
       <div class="card card-cascade narrower">
         <!--Titulo-->
         <div class="view gradient-card-header peach-gradient" >
-          <h2 class="h2-responsive">Envases</h2>
+          <h2 class="h2-responsive">Empaques</h2>
         </div>
         <!--/Titulo-->
         <div class="card-body" >
@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button" class="btn peach-gradient" data-toggle="modal" data-target="#modalingresarenvase">Nuevo Envase</button>
+                  <button type="button" class="btn peach-gradient" data-toggle="modal" data-target="#modalingresarempaque">Nuevo Empaque</button>
                 </div>
               </div>
             </div>
@@ -30,15 +30,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let envase of envases">
-              <td class="body-negrita">{{ envase.IdEnvase }}</td>
-              <td class="body-negrita">{{ envase.NombreEnvase }}</td>
-              <td class="body-negrita">{{ envase.Descripcion}}</td>
+            <tr *ngFor="let empaque of empaques">
+              <td class="body-negrita">{{ empaque.IdEmpaque }}</td>
+              <td class="body-negrita">{{ empaque.NombreEmpaque }}</td>
+              <td class="body-negrita">{{ empaque.Descripcion}}</td>
               <td width="25%" class="body-negrita">
                 <div class="text-center">
-                  <button type="button" (click)="getEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEnvase" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                  <button type="button" (click)="updateEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEnvase" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEnvase" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                  <button type="button" (click)="getEmpaque()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEmpaque" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
+                  <button type="button" (click)="updateEmpaque()" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button" (click)="deleteEmpaque()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEmpaque" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
                 </div>
               </td>
             </tr>

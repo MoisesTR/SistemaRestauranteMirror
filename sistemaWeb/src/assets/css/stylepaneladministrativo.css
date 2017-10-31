@@ -1,18 +1,24 @@
 .background-gray{
-    background: url(../img/landingpage/background-historia.jpg);
+  background: url(../img/landingpage/background-historia.jpg);
 }
 .color-primary{
-    background-color: #E67E22;
+  background-color: #E67E22;
 }
 .color-secundary{
-    background-color: #C0392B;
+  background-color: #C0392B;
 }
 .header-negrita{
-    font-weight: 900;
+  font-weight: 900;
 }
 .body-negrita{
-    font-weight:400;
+  font-weight:400;
 }
 .margin-paneladministrativo{
-    margin-bottom: 5%;
+  margin-bottom: 5%;
+}
+.naranja{
+  background-color: #E67E22 !important;
+}
+.rojo{
+  background-color: #C0392B !important;
 }

@@ -13,6 +13,7 @@ import {EnvaseComponent} from "../envase/envase.component";
 import {ProveedorComponent} from "../proveedor/proveedor.component";
 import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
 import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
+import {EmpaqueComponent} from "../empaque/empaque.component";
 
 const menuRoutes: Routes = [
 
@@ -23,14 +24,14 @@ const menuRoutes: Routes = [
         {path:'',redirectTo:'menu',pathMatch:'full'},
         {path:'productos',component: ProductoComponent},
         {path:'add-usuario',component:AddUsuarioComponent },
-        {path:'add-producto',component: AddProductoComponent},
+        {path:'productos/add-producto',component: AddProductoComponent},
         {path:'categorias',component: CategoriaProductoComponent},
         {path:'clasificacion-productos',component: ClasificacionProductoComponent},
         {path:'proveedores',component: ProveedorComponent},
         {path:'subclasificacion-productos',component: SubClasificacionProductoComponent},
         {path:'registro-usuario',component: UsuarioComponent},
         {path:'sucursales',component: SucursalComponent},
-        {path:'empaques',component: AddProductoComponent},
+        {path:'empaques',component: EmpaqueComponent},
         {path:'envases',component: EnvaseComponent},
     ]
   },

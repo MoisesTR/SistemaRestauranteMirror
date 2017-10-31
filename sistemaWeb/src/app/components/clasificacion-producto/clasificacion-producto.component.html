@@ -71,7 +71,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form #formClasificacion="ngForm" (ngSubmit)="onSubmit()">
+          <form #formClasificacion="ngForm" (ngSubmit)="createClasificacion()">
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -84,22 +84,10 @@
                         <div class="md-form ">
                           <input type="text" id="nombreclasificacion" class="form-control"
                                  name="nombreclasificacion"
-                                 #nombreclasificacion="ngModel"
-                                 [(ngModel)]="clasificacion.nombreClasificacion"
                                  minlength="3"
                                  maxlength="50"
                                  required>
                           <label for="nombreclasificacion" class="">Nombre</label>
-                        </div>
-                        <div *ngIf="nombreclasificacion.invalid && (nombreclasificacion.dirty || nombreclasificacion.touched)"
-                             class="alert alert-danger">
-
-                          <div [hidden]="!nombreclasificacion.errors.required">
-                            El nombre es requerido!
-                          </div>
-                          <div [hidden]="!nombreclasificacion.errors.minlength">
-                            El nombre no debe contener menos de 4 caracteres!
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -108,23 +96,12 @@
                       <div class="md-form">
                           <textarea type="text" id="descripcionclasificacion" class="md-textarea"
                                     name="descripcionclasificacion"
-                                    #descripcionclasificacion="ngModel"
-                                    [(ngModel)]="clasificacion.descripcionClasificacion"
                                     minlength="5"
                                     maxlength="100"
                                     required></textarea>
                         <label for="descripcionclasificacion">Descripción</label>
                       </div>
-                      <div *ngIf="descripcionclasificacion.invalid && (descripcionclasificacion.dirty || descripcionclasificacion.touched)"
-                           class="alert alert-danger">
 
-                        <div [hidden]="!descripcionclasificacion.errors.required">
-                          La descripción es requerida!
-                        </div>
-                        <div [hidden]="!descripcionclasificacion.errors.minlength">
-                          La descripción no debe contener menos de 4 caracteres!
-                        </div>
-                      </div>
                     </div>
                     <br>
                     <div class="text-center mt-1-half">

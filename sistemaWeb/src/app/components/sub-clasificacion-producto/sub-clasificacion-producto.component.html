@@ -73,7 +73,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form #formSubClasificacion="ngForm" (ngSubmit)="onSubmit()">
+          <form #formSubClasificacion="ngForm" (ngSubmit)="createSubClasificacion()">
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -89,48 +89,20 @@
                                  maxlength="50"
                                  class="form-control"
                                  name="nombresubclasificacion"
-                                 #nombresubclasificacion="ngModel"
-                                 [(ngModel)]="subClasificacionProducto.nombreSubClasificacion"
                                  required >
                           <label for="nombresubclasificacion" class="">Nombre</label>
                         </div>
-                        <div *ngIf="nombresubclasificacion.invalid && (nombresubclasificacion.dirty || nombresubclasificacion.touched)"
-                             class="alert alert-danger">
 
-                          <div [hidden]="!nombresubclasificacion.errors.required">
-                            El nombre es requerido!
-                          </div>
-                          <div [hidden]="!nombresubclasificacion.errors.minlength">
-                            El nombre no debe contener menos de 4 caracteres!
-                          </div>
-
-                          <div [hidden]="!nombresubclasificacion.errors.pattern">
-                            El nombre del producto no puede contener numeros.
-                          </div>
-
-                        </div>
                       </div>
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
                           <textarea type="text" minlength="3" maxlength="150" id="descripcionsubclasificacion"
                                     class="md-textarea" name="descripcionsubclasificacion"
-                                    #descripcionsubclasificacion="ngModel"
-                                    [(ngModel)]="subClasificacionProducto.descripcionSubClasificacion"
                                     required ></textarea>
                           <label for="descripcionsubclasificacion">Descripción</label>
                         </div>
 
-                        <div *ngIf="descripcionsubclasificacion.invalid && (descripcionsubclasificacion.dirty || descripcionsubclasificacion.touched)"
-                             class="alert alert-danger">
-
-                          <div [hidden]="!descripcionsubclasificacion.errors.required">
-                            La descripción es requerida!
-                          </div>
-                          <div [hidden]="!descripcionsubclasificacion.errors.minlength">
-                            La descripcion no debe contener menos de 5 caracteres!
-                          </div>
-                        </div>
                       </div>
                     </div>
                     <br>

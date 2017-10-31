@@ -1,0 +1,9 @@
+/* Bootstrap core CSS */
+@import url("bootstrap.min.css");
+/* Material Design Bootstrap */
+@import url("mdb.css");
+/* style unificado: landing  & admin */
+@import url("styleapp.css");
+/* Datatables */
+/* Dropify Select-2 SweetAlert */
+@import url("dropifyselect2sweetalert.css");

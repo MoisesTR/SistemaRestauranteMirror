@@ -1,3 +1,53 @@
-<p>
-  login works!
-</p>
+<header>
+  <!--Formulario-->
+  <section class="view intro-2 hm-black-light">
+
+    <div class="full-bg-img flex-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+
+            <div class="text-center">
+              <h1 class="display-1 mb-2 wow fadeInDown font-orange" data-wow-delay="0.3s">張家餐廳</h1>
+              <h2 class="h1-reponsive white-text font-up font-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Restaurante de la Familia Chang</strong></h2>
+            </div>
+            <br>
+
+            <div class="card-login wow fadeIn pattern-1" data-wow-delay="0.6s">
+              <div class="card-body login">
+
+                <!--Header-->
+                <div class="form-header orange-chang">
+                  <h3><i class="fa fa-user mt-2 mb-2" ></i> Iniciar Sesión:</h3>
+                </div>
+
+                <!--Body-->
+                <form action="" method="">
+
+                  <div class="md-form">
+                    <i class="fa fa-user prefix white-text"></i>
+                    <input type="text" id="nombreusuariologin" class="form-control" autocomplete="off">
+                    <label for="nombreusuariologin">Nombre de Usuario</label>
+                  </div>
+
+                  <div class="md-form">
+                    <i class="fa fa-lock prefix white-text"></i>
+                    <input type="password" id="contrasenausuariologin" class="form-control" autocomplete="off">
+                    <label for="contrasenausuariologin">Contraseña</label>
+                    <p class="font-small grey-text d-flex justify-content-end">Olvido su <a href="#" class=" font-bold ml-1" style="color:rgba(229, 125, 34, 0.8);"> Contraseña?</a></p>
+                  </div>
+
+                  <div class="text-center">
+                    <button class="btn btn-lg orange-chang" [routerLink]="['/menu']" >Entrar</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</header>

@@ -1,0 +1,173 @@
+.nopadding {
+  margin-top: 0 !important;
+}
+
+.navbar {
+  background-color: transparent;
+}
+
+.top-nav-collapse {
+  background-color: rgba(192, 57, 43, 0.7);
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+    background-color: rgba(192, 57, 43, 0.7);
+  }
+}
+
+footer.page-footer {
+  background-color: rgba(192, 57, 43, 1);
+  margin-top: 2rem;
+}
+
+.pattern-4 {
+  background-attachment: fixed;
+}
+
+.view-full {
+  background: url("../img/landingpage/background-3.jpg")no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+}
+
+.full-bg-img {
+  color: #fff;
+}
+
+.navbar .btn-group .dropdown-menu a:hover {
+  color: #000 !important;
+}
+.navbar .btn-group .dropdown-menu a:active {
+  color: #fff !important;
+}
+.background{
+  background: url("../img/landingpage/background-historia.jpg")no-repeat center center;
+  background-size: cover;
+}
+.font-orange{
+  color:#E67E22 !important;
+}
+.red-chang{
+  background-color: rgba(192, 57, 43, 0.7) !important;
+}
+.orange-chang{
+  background-color: #E67E22 !important;
+}
+.padding-0{
+  padding-right:0;
+  padding-left:0;
+}
+.background-collapsible{
+  background: url("../img/landingpage/background-3.jpg")no-repeat center center;
+}
+
+/* Color de labels */
+.md-form input[type=text]:focus:not([readonly]),
+.md-form input[type=password]:focus:not([readonly]),
+.md-form input[type=number]:focus:not([readonly]),
+.md-form input[type=email]:focus:not([readonly]),
+.md-form textarea[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid rgba(230, 126, 34, 0.8);
+  box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8);
+}
+.md-form input[type=text]:focus:not([readonly])+label,
+.md-form input[type=password]:focus:not([readonly])+label,
+.md-form input[type=number]:focus:not([readonly])+label,
+.md-form input[type=email]:focus:not([readonly])+label,
+.md-form textarea[type=text]:focus:not([readonly])+label {
+  color: rgba(230, 126, 34, 0.8);
+}
+
+/*Login*/
+.intro-2 {
+  background: url("../img/landingpage/background-2.jpg")no-repeat center center;
+  background-size: cover;
+}
+
+.card-login {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.md-form .prefix {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+h6 {
+  line-height: 1.7;
+}
+@media (max-width: 740px) {
+  .full-height,
+  .full-height body,
+  .full-height header,
+  .full-height header .view {
+    height: 750px;
+  }
+}
+@media (min-width: 741px) and (max-height: 638px) {
+  .full-height,
+  .full-height body,
+  .full-height header,
+  .full-height header .view {
+    height: 750px;
+  }
+}
+
+.card {
+  margin-top: 30px;
+  /*margin-bottom: -45px;*/
+
+}
+
+.login:input[type="text"]:focus:not([readonly]) {
+  border-color: rgba(230, 126, 34, 0.8);
+  box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8);
+  color: #fff;
+}
+
+.login:input[type="text"]:not([readonly])+label {
+  color: rgba(255, 255, 255, .65);
+}
+
+.login:input[type="text"]:focus:not([readonly])+label {
+  color: #fff;
+}
+
+.login .md-form .form-control {
+  color: #fff;
+}
+
+.login .md-form label {
+  color: #ffffff;
+}
+
+/* Estilos panel administrativo */
+.background-gray{
+  background: url(../img/landingpage/background-historia.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.color-primary{
+  background-color: #E67E22;
+}
+.color-secundary{
+  background-color: #C0392B;
+}
+.header-negrita{
+  font-weight: 900;
+}
+.body-negrita{
+  font-weight:400;
+}
+.margin-paneladministrativo{
+  margin-bottom: 5%;
+}
+.rojo{
+  background-color: #C0392B !important;
+}

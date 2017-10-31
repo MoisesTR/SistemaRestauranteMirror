@@ -52,3 +52,71 @@
   </div>
 
 </section>
+
+<!-- Modal Sub-clasificación -->
+<div class="modal fade" id="modalingresarempaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray">
+
+      <!--Titulo-->
+      <div class="modal-header peach-gradient white-text">
+        <h4 class="title">Empaque</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form #formEmpaque="ngForm" (ngSubmit)="createEmpaque()">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+                  <div class="card-header white-text" style="background-color: #FD8366;"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos del Empaque</div>
+                  <div class="container-fluid">
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form ">
+                          <input type="text" id="nombre"
+                                 minlength="4"
+                                 maxlength="50"
+                                 class="form-control"
+                                 name="nombresubclasificacion"
+                                 required >
+                          <label for="nombre" class="">Nombre</label>
+                        </div>
+
+                      </div>
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                          <textarea type="text" minlength="3" maxlength="150" id="descripcion"
+                                    class="md-textarea" name="descripcion"
+                                    required ></textarea>
+                          <label for="descripcion">Descripción</label>
+                        </div>
+
+                      </div>
+                    </div>
+                    <br>
+                    <div class="text-center mt-1-half">
+                      <button class="btn peach-gradient mb-1" type="submit" [disabled]="!formEmpaque.form.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- Final form -->
+          <br>
+        </div>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

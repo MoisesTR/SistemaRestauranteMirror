@@ -12,10 +12,9 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
 const routes: Routes = [
-  {path: '', component: InicioComponent},
+  {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'menu', component: MenuComponent},
-  {path: 'regitro-usuario', component: RegistroUsuarioComponent},
   {path:'**',component: NotFound404Component}
 ]
 

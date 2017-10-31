@@ -16,8 +16,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
 
-    swal('Hello world!')
-
+    console.log('Prueba');
   }
 
 }

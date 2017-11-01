@@ -9,7 +9,7 @@ function createSubClasificacion(pool,data){
 }
 function getSubclasificaciones(pool){
     return pool.request()
-        .execute('USP_GET_CLASIFICACIONES');
+        .execute('USP_GET_SUBCLASIFICACIONES');
 }
 function getSubclasificacionById(pool, IdSubClasificacion){
     return pool.request()

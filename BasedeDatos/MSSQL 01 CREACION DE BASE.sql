@@ -1,7 +1,7 @@
 CREATE DATABASE pruebas_node;
 GO
 USE pruebas_node;
-
+GO
 CREATE TABLE PROCEDENCIA_PRODUCTO(
 	IdProcedencia int IDENTITY(1,1),
     Nombre NVARCHAR(50) not null,
@@ -9,14 +9,14 @@ CREATE TABLE PROCEDENCIA_PRODUCTO(
     Habilitado bit default 1 not null,
     constraint pk_Procedencia primary key(IdProcedencia)
 );
-
+GO
 INSERT INTO PROCEDENCIA_PRODUCTO(Nombre,Descripcion)
 VALUES	('Proveedor','Productos que ingresan directo del proveedor.')
 		,('Mercado','Productos que se compran en el mercado.')
         ,('Bodega central','Productos que provienen de la bodega central.')
         ,('Area de Produccion','Productos que se elabora en la planta de produccion.')
         ,('Traslado Bodega Central','Productos que provienen de la Bodega central.');
-
+GO
 CREATE TABLE USO_PRODUCTO(
 	IdUso int IDENTITY(1,1),
     Nombre NVARCHAR(50) not null,
@@ -25,7 +25,7 @@ CREATE TABLE USO_PRODUCTO(
     constraint pk_USO_PRODUCTO primary key(IdUso),
     CONSTRAINT U_USO_PRODUCTO UNIQUE(Nombre)
 );
-
+GO
 INSERT INTO USO_PRODUCTO(Nombre,Descripcion)
 VALUES	('Nuevo/Sin Usar','Producto que no se ha usado.')
 		,('En Uso','Producto que se esta usando.')
@@ -161,12 +161,12 @@ CREATE TABLE SUBCLASIFICACION_PRODUCTO (
         REFERENCES CLASIFICACION_PRODUCTO (IdClasificacion),
 	CONSTRAINT U_NombreSubClasi UNIQUE(NombreSubClasificacion)
 );
-
+GO
 INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion) 
 VALUES (1,'Filete','Filete de pollo entero.')
 		,(1,'Tira','Pollo Cortado en tiras.')
         ,(2,'Tallarin','Tallarin');
-
+GO
 CREATE TABLE  CATEGORIA_PRODUCTO(
     IdCategoria INT IDENTITY(1,1),
     NombreCategoria NVARCHAR(50),
@@ -181,7 +181,7 @@ VALUES	('Producto Seco','Todos aquellos productos que no necesitan refrigeracion
 		,('Carnes','Todas los tipos de carnes.'),('Salsas','Todos los tipos de salsas')
 		,('Bebidas','Todos los distintos tipos de bebidas y marcas.')
 		,('Verduras','Todos los distintos tipos de verduras.');
-
+GO
 CREATE TABLE ENVASE (
     IdEnvase INT IDENTITY(1,1),
     NombreEnvase NVARCHAR(50) NOT NULL,
@@ -190,7 +190,7 @@ CREATE TABLE ENVASE (
     CONSTRAINT PK_Envase PRIMARY KEY (IdEnvase),
     CONSTRAINT U_NombreEnvase UNIQUE(NombreEnvase)
 );
-
+GO
 INSERT INTO ENVASE(NombreEnvase,Descripcion) 
 VALUES	('Botella Plastica','una botella de plastico')
 		,('Bolsa Plastica','Bolsa de plastico')
@@ -208,7 +208,7 @@ CREATE TABLE EMPAQUE (
     CONSTRAINT PK_Empaque PRIMARY KEY (IdEmpaque),
     CONSTRAINT U_NombreEmpaque UNIQUE(NombreEmpaque)
 );
-
+GO
 INSERT INTO EMPAQUE(NombreEmpaque,Descripcion) 
 VALUES	('Caja Carton','')
 		,('Caja plastica','')
@@ -217,7 +217,7 @@ VALUES	('Caja Carton','')
 		,('Cajilla Plastica','')
 		,('Cajilla Carton','')
 		,('Saco','');
-
+GO
 CREATE TABLE ESTADO_PRODUCTO(
 	IdEstado int IDENTITY(1,1),
     Nombre NVARCHAR(50) not null,
@@ -291,7 +291,7 @@ VALUES	('Cerrado/Completo')
 		,('Abierto/Incompleto')
 		,('Sin EMPAQUE/No viene empacado');
 GO
-CREATE TABLE BodegaSucursal (
+CREATE TABLE BODEGA_SUCURSAL (
     IdBodega INT IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     DescripcionLocal NVARCHAR(200) null,
@@ -310,10 +310,10 @@ CREATE TABLE SUCURSAL (
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
     constraint fk_BodegaSucursal foreign key(IdBodega) References BodegaSucursal(IdBodega)
 )
-INSERT INTO Sucursal(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
+INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
 
-CREATE TABLE Trabajador (
+CREATE TABLE TRABAJADOR (
     IdTrabajador INT IDENTITY(1,1),
     IdSucursal INT NULL,
     IdCargo INT not null,
@@ -328,7 +328,7 @@ CREATE TABLE Trabajador (
     CONSTRAINT FK_CAR_TRAB FOREIGN KEY (IdCargo)
         REFERENCES Cargo (IdCargo),
     CONSTRAINT FK_TRABSucursal FOREIGN KEY (IdSucursal)
-        REFERENCES Sucursal (IdSucursal),
+        REFERENCES SUCURSAL (IdSucursal),
 	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
 )
 GO

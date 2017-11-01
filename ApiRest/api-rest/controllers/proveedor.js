@@ -6,10 +6,7 @@ function getProveedorById(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getProveedorById(poolObt,data.IdProveedor)
         }).then((results) => {
-           res.status(200).json({
-               proveedor:results.recordset[0],
-               cantidad:results.rowsAffected[0]
-           }) 
+           res.status(200).json({proveedor:results.recordset[0]}) 
         }).catch((err) => {
             res.status(500).json(err)
         });
@@ -18,10 +15,7 @@ function getProveedores(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.getProveedores(poolObt)
     }).then((results) => {
-       res.status(200).json({
-           proveedores:results.recordset,
-           cantidad:results.rowsAffected[0]
-       }) 
+       res.status(200).json({proveedores:results.recordset}) 
     }).catch((err) => {
         res.status(500).json(err)
     });

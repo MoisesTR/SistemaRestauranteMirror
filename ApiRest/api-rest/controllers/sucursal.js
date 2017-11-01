@@ -6,10 +6,7 @@ function getSucursalById(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getSucursal(poolObt,data.IdSucursal)
         }).then((results) => {
-           res.status(200).json({
-               sucursal:results.recordset[0],
-               cantidad:results.rowsAffected[0]
-           }) 
+           res.status(200).json({sucursal:results.recordset[0]}) 
         }).catch((err) => {
             res.status(500).json(err)
         });
@@ -18,10 +15,7 @@ function getSucursales(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getSucursales(poolObt)
         }).then((results) => {
-           res.status(200).json({
-               sucursales:results.recordset,
-               cantidad:results.rowsAffected[0]
-           }) 
+           res.status(200).json({sucursales:results.recordset}) 
         }).catch((err) => {
             res.status(500).json(err)
         });

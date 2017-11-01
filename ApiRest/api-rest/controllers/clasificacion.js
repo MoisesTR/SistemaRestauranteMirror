@@ -18,8 +18,7 @@ function getClasificaciones(req,res){
         return querys.getClasificaciones(poolObt);
     }).then((results) => {
         res.status(200).json({
-            clasificaciones:results.recordset,
-            cantidad:results.rowsAffected
+            clasificaciones:results.recordset
         })
     }).catch((err) => {
         res.status(500).json(err)
@@ -49,7 +48,7 @@ function getClasificacionById(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getClasificacionById(poolObt,data.IdClasificacion)
         }).then((results) => {
-           res.status(200).json(results) 
+           res.status(200).json({clasificacion:results.recordset[0]}) 
         }).catch((err) => {
             res.status(500).json(err)
         });

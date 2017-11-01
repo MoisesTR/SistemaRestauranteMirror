@@ -6,10 +6,7 @@ function getUnidadById(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getUnidadMedida(poolObt,data.IdUnidadMedida)
         }).then((results) => {
-           res.status(200).json({
-               unidadmedida:results.recordset[0],
-               cantidad:results.rowsAffected[0]
-           }) 
+           res.status(200).json({unidadmedida:results.recordset[0]}) 
         }).catch((err) => {
             res.status(500).json(err)
         });
@@ -18,10 +15,7 @@ function getUnidadesMedida(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getUnidades(poolObt)
         }).then((results) => {
-           res.status(200).json({
-               unidadesmedida:results.recordset,
-               cantidad:results.rowsAffected[0]
-           }) 
+           res.status(200).json({unidadesmedida:results.recordset}) 
         }).catch((err) => {
             res.status(500).json(err)
         });

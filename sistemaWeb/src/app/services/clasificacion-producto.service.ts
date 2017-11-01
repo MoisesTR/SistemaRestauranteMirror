@@ -20,7 +20,7 @@ export class ClasificacionProductoService {
     let params = JSON.stringify(ClasificacionProducto);
     let headers = new Headers({'Content-Type':''});
 
-    return this._http.post(this.url+'createClasificacion',params,{headers:headers})
+    return this._http.post(this.url+'clasificacion',params,{headers:headers})
       .map(res => res.json());
   }
 

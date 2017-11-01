@@ -82,24 +82,29 @@
                       <div class="col-md-12">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombreclasificacion" class="form-control"
-                                 name="nombreclasificacion"
+                          <input type="text" id="nombre" ngModel class="form-control"
+                                 name="nombre"
                                  minlength="3"
                                  maxlength="50"
-                                 required>
-                          <label for="nombreclasificacion" class="">Nombre</label>
+                                 required
+                                 email
+                                 #nombre = "ngModel">
+                          <label for="nombre" class="">Nombre</label>
+                          <i class = "fa fa-check-circle check" *ngIf="nombre.valid"></i>
+                          <i class = "fa fa-exclamation-circle uncheck" *ngIf="nombre.invalid && nombre.touched"></i>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <br>
                       <div class="md-form">
-                          <textarea type="text" id="descripcionclasificacion" class="md-textarea"
-                                    name="descripcionclasificacion"
+                          <textarea type="text" id="descripcion" class="md-textarea"
+                                    name="descripcion"
+                                    ngModel
                                     minlength="5"
                                     maxlength="100"
                                     required></textarea>
-                        <label for="descripcionclasificacion">Descripción</label>
+                        <label for="descripcion">Descripción</label>
                       </div>
 
                     </div>

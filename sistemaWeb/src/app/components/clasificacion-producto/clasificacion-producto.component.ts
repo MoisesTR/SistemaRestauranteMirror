@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ClasificacionProducto} from "../../models/ClasificacionProducto";
 import { Subject } from 'rxjs/Rx';
 import {idioma_espanol} from "../../services/global";
+import {NgForm} from '@angular/forms'
 
 @Component({
   selector: 'app-clasificacion-producto',
@@ -13,6 +14,7 @@ import {idioma_espanol} from "../../services/global";
 })
 export class ClasificacionProductoComponent implements OnInit {
 
+  @ViewChild('formClasificacion') formClasificacion: NgForm;
   public clasificacion : ClasificacionProducto;
   public clasificaciones: ClasificacionProducto[];
 
@@ -57,6 +59,26 @@ export class ClasificacionProductoComponent implements OnInit {
   }
 
   createClasificacion(){
+
+    this.clasificacion.DescripcionClasificacion = this.formClasificacion.value.descripcion;
+    this.clasificacion.NombreClasificacion = this.formClasificacion.value.nombre;
+    this.formClasificacion.reset;
+
+    this._clasificacionService.createClasificacionProducto(this.clasificacion).subscribe(
+      response =>{
+
+        if(response.IdClasificacion){
+          console.log('Creado con exito');
+        }
+      },
+      error=>{
+
+      }
+    )
+
+    console.log(this.clasificacion.DescripcionClasificacion + this.clasificacion.NombreClasificacion);
+
+
 
   }
 

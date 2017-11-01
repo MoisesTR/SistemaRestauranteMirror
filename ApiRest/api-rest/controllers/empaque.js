@@ -6,10 +6,7 @@ function getEmpaqueById(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getEmpaque(poolObt,data.IdEmpaque)
         }).then((results) => {
-           res.status(200).json({
-               empaque:results.recordset[0],
-               cantidad:results.rowsAffected[0]
-           }) 
+           res.status(200).json({empaque:results.recordset[0]}) 
         }).catch((err) => {
             res.status(500).json(err)
         });
@@ -18,10 +15,7 @@ function getEmpaques(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.getEmpaques(poolObt)
     }).then((results) => {
-       res.status(200).json({
-           empaques:resulsts.recordset,
-           cantidad:results.rowsAffected[0]
-       }) 
+       res.status(200).json({empaques:results.recordset}) 
     }).catch((err) => {
         res.status(500).json(err)
     });

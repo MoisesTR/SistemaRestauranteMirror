@@ -25,8 +25,7 @@ function getCategorias(req,res){
         return querys.getCategorias(poolObt);
     }).then((results) => {
         res.status(200).json({
-            categorias:results.recordset,
-            cantidad:results.rowsAffected
+            categorias:results.recordset
         })
     }).catch((err) => {
         res.status(500).json(err)
@@ -58,10 +57,7 @@ function getCategoriaById(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getCategoriaById(poolObt,data.IdCategoria)
         }).then((results) => {
-           res.status(200).json({
-               categoria:results.recordset[0],
-               cantidad:results.rowsAffected[0]
-           }) 
+           res.status(200).json({categoria:results.recordset[0]}) 
         }).catch((err) => {
             res.status(500).json(err)
         });

@@ -1,3 +1,5 @@
+USE pruebas_node
+GO
 CREATE VIEW V_ProductosDetallados
 AS
 SELECT p.IdProducto,p.NombreProducto,p.Costo,p.Descripcion,p.IdCategoria,cp.NombreCategoria,p.IdSubClasificacion,
@@ -12,4 +14,9 @@ SELECT p.IdProducto,p.NombreProducto,p.Costo,p.Descripcion,p.IdCategoria,cp.Nomb
     INNER JOIN UNIDAD_MEDIDA um ON p.IdUnidadMedida = um.IdUnidadMedida
     INNER JOIN ESTADO_PRODUCTO ep ON p.IdEstado = ep.IdEstado
     INNER JOIN PROVEEDOR pp ON p.IdProveedor = pp.IdProveedor;
+GO
+CREATE VIEW V_SUBCLASIFICACIONES
+AS
+SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado FROM SUBCLASIFICACION_PRODUCTO s
+    INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion;
 GO

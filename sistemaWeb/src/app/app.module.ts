@@ -10,6 +10,14 @@ import { MenuComponent } from './components/menu/menu.component';
 import {MenuModule} from "./components/menu/menu.module";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import { DataTablesModule } from 'angular-datatables';
+import { AddProductoComponent } from './components/producto/add-producto/add-producto.component';
+import { AddUsuarioComponent } from './components/usuario/add-usuario/add-usuario.component';
+import { TrabajadorComponent } from './components/trabajador/trabajador.component';
+import { BodegaSucursalComponent } from './components/bodega-sucursal/bodega-sucursal.component';
+
+
+
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -25,7 +33,9 @@ const routes: Routes = [
     LoginComponent,
     NotFound404Component,
     MenuComponent,
-    RegistroUsuarioComponent
+    RegistroUsuarioComponent,
+    TrabajadorComponent,
+    BodegaSucursalComponent
   ],
   imports: [
     BrowserModule,

@@ -31,6 +31,10 @@ import {AddProductoComponent} from "../producto/add-producto/add-producto.compon
 import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
 import {EmpaqueComponent} from "../empaque/empaque.component";
 import {EmpaqueService} from "../../services/empaque.service";
+import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
+import {BodegaSucursalService} from "../../services/bodega-sucursal.service";
+import {TrabajadorComponent} from "../trabajador/trabajador.component";
+import {TrabajadorService} from "../../services/trabajador.service";
 
 
 @NgModule({
@@ -46,6 +50,8 @@ import {EmpaqueService} from "../../services/empaque.service";
     , AddProductoComponent
     , AddUsuarioComponent
     , EmpaqueComponent
+    , BodegaSucursalComponent
+    , TrabajadorComponent
 
   ],
   imports: [
@@ -68,6 +74,8 @@ import {EmpaqueService} from "../../services/empaque.service";
     , AddProductoComponent
     , AddUsuarioComponent
     , EmpaqueComponent
+    , BodegaSucursalComponent
+    , TrabajadorComponent
 
   ],
   providers: [
@@ -80,6 +88,8 @@ import {EmpaqueService} from "../../services/empaque.service";
     , UsuarioService
     , EnvaseService
     , EmpaqueService
+    , BodegaSucursalService
+    , TrabajadorService
 
 
   ]

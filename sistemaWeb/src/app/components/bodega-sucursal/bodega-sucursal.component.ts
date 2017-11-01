@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BodegaSucursalService } from '../../services/bodega-sucursal.service';
+import {BodegaSucursalService} from "../../services/bodega-sucursal.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BodegaSucursal} from "../../models/BodegaSucursal";
 
@@ -10,7 +10,7 @@ import {BodegaSucursal} from "../../models/BodegaSucursal";
 })
 export class BodegaSucursalComponent implements OnInit {
 
-  
+
   public bodegasucursal: BodegaSucursal;
   public bodegasucursales: BodegaSucursal[];
 
@@ -18,7 +18,7 @@ export class BodegaSucursalComponent implements OnInit {
   	private _route: ActivatedRoute,
     private _router: Router,
   	private _BodegaSucursal : BodegaSucursalService
-  	) { 
+  	) {
 
   	this._BodegaSucursal.getBodegaSucursales().subscribe(
 
@@ -30,9 +30,9 @@ export class BodegaSucursalComponent implements OnInit {
   	},error =>{
 
   	}
-  
+
   	)
-  	
+
   }
 
   private initConstructorBodegaSucursal(){

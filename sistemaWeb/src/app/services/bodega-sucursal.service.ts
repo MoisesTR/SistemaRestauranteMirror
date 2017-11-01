@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class BodgaSucursalService{
+export class BodegaSucursalService{
 
   public url: string;
 
@@ -41,7 +41,7 @@ export class BodgaSucursalService{
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'bodegasucursal/'+IdTrabjador,params,{headers:headers})
+    return this._http.put(this.url+'bodegasucursal/'+IdBodegaSucursal,params,{headers:headers})
       .map(res => res.json());
   }
 

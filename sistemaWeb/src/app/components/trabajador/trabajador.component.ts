@@ -9,7 +9,7 @@ import {Trabajador} from "../../models/Trabajador";
   providers: [TrabajadorService]
 })
 export class TrabajadorComponent implements OnInit {
-  
+
   public trabajador: Trabajador;
   public trabajadores: Trabajador[];
 
@@ -17,9 +17,9 @@ export class TrabajadorComponent implements OnInit {
   	private _route: ActivatedRoute,
     private _router: Router,
   	private _TrabajadorServicio : TrabajadorService
-  	) { 
+  	) {
 
-  	
+
        this._TrabajadorServicio.getTrabajadores().subscribe(
 
       response=>{
@@ -30,12 +30,12 @@ export class TrabajadorComponent implements OnInit {
     },error =>{
 
     }
-  
+
     )
   }
 
   private initConstructorTrabajador(){
-    this.Trabajador = new Trabajador(null,null,null,null,null,null,null,null,null,null);
+    this.trabajador = new Trabajador(null,null,null,null,null,null,null,null,null,null);
   }
 
   ngOnInit() {

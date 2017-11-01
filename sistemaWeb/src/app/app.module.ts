@@ -32,10 +32,7 @@ const routes: Routes = [
     InicioComponent,
     LoginComponent,
     NotFound404Component,
-    MenuComponent,
-    RegistroUsuarioComponent,
-    TrabajadorComponent,
-    BodegaSucursalComponent
+    MenuComponent
   ],
   imports: [
     BrowserModule,

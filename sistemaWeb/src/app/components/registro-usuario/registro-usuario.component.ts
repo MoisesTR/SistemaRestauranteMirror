@@ -23,7 +23,7 @@ export class RegistroUsuarioComponent implements OnInit {
 
 
   private initConstructorUsuario(){
-    this.usuario = new Usuario(null,null,null,null,null,null);
+    this.usuario = new Usuario(null,null,null,null,null,null,null);
   }
   ngOnInit() {
   }

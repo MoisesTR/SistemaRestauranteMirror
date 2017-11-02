@@ -35,6 +35,7 @@ import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.compon
 import {BodegaSucursalService} from "../../services/bodega-sucursal.service";
 import {TrabajadorComponent} from "../trabajador/trabajador.component";
 import {TrabajadorService} from "../../services/trabajador.service";
+import {RegistroUsuarioComponent} from "../registro-usuario/registro-usuario.component";
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {TrabajadorService} from "../../services/trabajador.service";
     , EmpaqueComponent
     , BodegaSucursalComponent
     , TrabajadorComponent
+    , RegistroUsuarioComponent
 
   ],
   imports: [
@@ -76,6 +78,7 @@ import {TrabajadorService} from "../../services/trabajador.service";
     , EmpaqueComponent
     , BodegaSucursalComponent
     , TrabajadorComponent
+    , RegistroUsuarioComponent
 
   ],
   providers: [

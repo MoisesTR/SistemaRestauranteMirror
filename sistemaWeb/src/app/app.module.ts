@@ -10,8 +10,6 @@ import {MenuModule} from "./components/menu/menu.module";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
-
-
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},

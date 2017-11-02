@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Provedor} from "../../models/Provedor";
 import {idioma_espanol} from "../../services/global";
 import { Subject } from 'rxjs/Rx';
+import { FormGroup, FormControl, FormArray, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-proveedor',
@@ -21,6 +22,7 @@ export class ProveedorComponent implements OnInit {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+  myForm: FormGroup;
 
   constructor(
     private _route: ActivatedRoute,
@@ -50,10 +52,20 @@ export class ProveedorComponent implements OnInit {
 
       }
     );
+
+    this.myForm = new FormGroup({
+      'nombreProveedor': new FormControl(),
+      'descripcionProveedor': new FormControl(),
+      'telefonoProveedor': new FormControl()
+
+    });
+
+
   }
 
-  createProveedor(){
+  createProveedor(myForm:  NgForm){
 
+    console.log(myForm.value);
   }
 
   getProveedor(){

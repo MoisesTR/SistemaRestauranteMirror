@@ -1,3 +1,129 @@
-<p>
-  update-producto works!
-</p>
+<section>
+
+  <form action="">
+    <div class="row">
+
+      <!--Imagen-->
+      <div class="col-lg-4">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Imagen</h4>
+          </div>
+          <div class="card-body text-center">
+            <input type="file" class="dropify"  data-height="300"/>
+          </div>
+        </div>
+      </div>
+      <!-- /.Imagen -->
+
+      <!--Datos del producto-->
+      <div class="col-lg-8  ">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Datos del Producto</h4>
+          </div>
+          <!-- Contenido -->
+          <div class="card-body ">
+
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <div class="md-form ">
+                  <input type="text" id="nombreproducto" class="form-control ">
+                  <label for="nombreproducto" class="">Nombre</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <div class="md-form ">
+                  <input type="number" id="costoproducto" class="form-control ">
+                  <label for="costoproducto" class="">Costo</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="proveedor">Proveedor</label>
+                <select class="selectproveedor" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Cainsa</option>
+                  <option  class="chip" value="2">Tip-Top</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="categoria">Categoria</label>
+                <select class="selectcategoria" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Categoria</option>
+                  <option  class="chip" value="2">Categoria 2</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="subclasificacion">SubClasificación</label>
+                <select class="selectcsubclasificación" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">SubClasificación</option>
+                  <option  class="chip" value="2">SubClasificación 2</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="empaque">Empaque</label>
+                <select class="selectempaque" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Empaque</option>
+                  <option  class="chip" value="2">Empaque 2</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <div class="md-form ">
+                  <input type="number" id="cantidadempaqueproducto" class="form-control ">
+                  <label for="cantidadempaqueproducto" class="">Cantidad Empaque</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="envase">Envase</label>
+                <select class="selectenvase" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Envase</option>
+                  <option  class="chip" value="2">Envase 2</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="unidadmedida">Unidad de Medida</label>
+                <select class="selectunidadmedida" id="unidadmedida" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Unidad de Medida</option>
+                  <option  class="chip" value="2">Unidad de Medida 2</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="valorunidadmedida">Valor Unidad de Medidad</label>
+                <select class="selectvalorunidadmedida" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Valor</option>
+                  <option  class="chip" value="2">Valor 2</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="estado">Estado</label>
+                <select class="selectestado" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Estado</option>
+                  <option  class="chip" value="2">Estado 2</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <br>
+                <div class="md-form">
+                  <textarea type="text" id="descripcionproducto" class="md-textarea"></textarea>
+                  <label for="descripcionproducto">Descripción</label>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="text-center mt-1-half">
+              <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+            </div>
+
+          </div>
+          <!-- Contenido -->
+        </div>
+      </div>
+      <!-- /.Datos del usuario-->
+
+    </div>
+  </form>
+
+</section>

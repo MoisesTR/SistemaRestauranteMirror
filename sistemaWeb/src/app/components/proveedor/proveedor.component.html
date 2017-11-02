@@ -78,7 +78,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form method="" action="">
+          <form [formGroup]="myForm" (ngSubmit)="createProveedor(myForm)" novalidate>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -89,36 +89,61 @@
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombreproveedor" class="form-control ">
-                          <label for="nombreproveedor" class="">Nombre</label>
+                          <input type="text" id="nombreProveedor" class="form-control "
+                                 name = "nombreProveedor"
+                                 formControlName="nombreProveedor"
+                                 required
+
+                          >
+                          <label for="nombreProveedor" class="">Nombre</label>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="email" id="correoproveedor" class="form-control ">
-                          <label for="correoproveedor" class="">Correo Electrónico</label>
+                          <input type="email" id="correoProveedor" class="form-control "
+                                 name = "correoProveedor"
+                                 required
+
+                          >
+                          <label for="correoProveedor" class="">Correo Electrónico</label>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
-                          <textarea type="text" id="direccionproveedor" class="md-textarea"></textarea>
-                          <label for="direccionproveedor">Dirección</label>
+                          <textarea type="text" id="direccionProveedor" class="md-textarea"
+                                    name = "direccionProveedor"
+                                    required
+
+                          ></textarea>
+                          <label for="direccionProveedor">Dirección</label>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombrerepresentanteproveedor" class="form-control ">
-                          <label for="nombrerepresentanteproveedor" class="">Nombre Representante</label>
+                          <input type="text" id="nombreRepresentante" class="form-control "
+                                 name = "nombreRepresentante"
+                                 required
+
+                          >
+                          <label for="nombreRepresentante" class="">Nombre Representante</label>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="number" id="telefonoproveedor" class="form-control ">
-                          <label for="telefonoproveedor" class="">Telefóno</label>
+
+                          <input type="number" id="telefonoProveedor" name="telefonoProveedor"
+                                 minlength="7"
+                                 maxlength="2"
+                                 class="form-control"
+                                 required
+                                 birthYear
+                          >
+
+                          <label for="telefonoProveedor" class="">Telefóno</label>
                         </div>
                       </div>
 
@@ -126,8 +151,13 @@
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
-                          <textarea type="text" id="descripcionproveedor" class="md-textarea"></textarea>
-                          <label for="descripcionproveedor">Descripción</label>
+                          <textarea type="text" id="descripcionProveedor" class="md-textarea"
+                                    name = "descripcionProveedor"
+                                    formControlName="descripcionProveedor"
+                                    required
+
+                          ></textarea>
+                          <label for="descripcionProveedor">Descripción</label>
                         </div>
                       </div>
                     </div>

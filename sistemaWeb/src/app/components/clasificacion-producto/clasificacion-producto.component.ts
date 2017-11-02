@@ -58,7 +58,8 @@ export class ClasificacionProductoComponent implements OnInit {
     this.clasificacion = new ClasificacionProducto(null,null,null,null);
   }
 
-  createClasificacion(){
+  createClasificacion(myForm: NgForm){
+
 
     this.clasificacion.DescripcionClasificacion = this.formClasificacion.value.descripcion;
     this.clasificacion.NombreClasificacion = this.formClasificacion.value.nombre;

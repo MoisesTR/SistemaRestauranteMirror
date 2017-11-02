@@ -1,11 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Directive, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, NG_VALIDATORS, ValidationErrors, Validator} from "@angular/forms";
 declare var $:any;
+
 @Component({
   selector: 'app-add-producto',
   templateUrl: './add-producto.component.html',
   styleUrls: ['./add-producto.component.css']
 })
-export class AddProductoComponent implements OnInit {
+
+
+export class AddProductoComponent implements OnInit, Validator{
+
+  validate(c: FormControl): ValidationErrors {
+    throw new Error("Method not implemented.");
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    throw new Error("Method not implemented.");
+  }
 
   constructor() { }
 
@@ -14,7 +26,7 @@ export class AddProductoComponent implements OnInit {
 
       $('.dropify').dropify();
     });
-    
+
     $(".selectcategoria").select2({
       maximumSelectionLength: 1
     });

@@ -33,6 +33,9 @@ import {EmpaqueService} from "../../services/empaque.service";
 import {BodegaSucursalService} from "../../services/bodega-sucursal.service";
 import {TrabajadorService} from "../../services/trabajador.service";
 import {ProductoModule} from "../producto/producto.module";
+import {ShowErrorsComponent} from "../show-errors.component";
+import {TelephoneNumberFormatValidatorDirective} from "../../validadores/telephoneNumber";
+import {BirthYearValidatorDirective} from "../../validadores/birthYear";
 
 
 @NgModule({
@@ -51,6 +54,9 @@ import {ProductoModule} from "../producto/producto.module";
     , RegistroUsuarioComponent
     , SucursalComponent
     , MenuComponent
+    , ShowErrorsComponent
+    , TelephoneNumberFormatValidatorDirective
+    , BirthYearValidatorDirective
 
   ],
   imports: [
@@ -60,10 +66,15 @@ import {ProductoModule} from "../producto/producto.module";
     , MenuRoutingModule
     , DataTablesModule
     , ProductoModule
+    , ReactiveFormsModule
+
+
 
   ],
   exports: [
     MenuComponent
+    , TelephoneNumberFormatValidatorDirective
+    , BirthYearValidatorDirective
 
   ],
   providers: [
@@ -77,6 +88,7 @@ import {ProductoModule} from "../producto/producto.module";
     , EmpaqueService
     , BodegaSucursalService
     , TrabajadorService
+
   ]
 })
 

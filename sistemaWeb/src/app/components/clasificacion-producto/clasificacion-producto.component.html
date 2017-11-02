@@ -71,7 +71,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form #formClasificacion="ngForm" (ngSubmit)="createClasificacion()">
+          <form #formClasificacion="ngForm" (ngSubmit)="createClasificacion(formClasificacion)" novalidate>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -88,7 +88,9 @@
                                  maxlength="50"
                                  required
                                  email
-                                 #nombre = "ngModel">
+                                 #nombre = "ngModel"
+
+                          >
                           <label for="nombre" class="">Nombre</label>
                           <i class = "fa fa-check-circle check" *ngIf="nombre.valid"></i>
                           <i class = "fa fa-exclamation-circle uncheck" *ngIf="nombre.invalid && nombre.touched"></i>

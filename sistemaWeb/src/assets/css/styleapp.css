@@ -57,6 +57,9 @@ footer.page-footer {
 .orange-chang{
   background-color: #E67E22 !important;
 }
+.orange-header{
+  background-color: rgba(230, 126, 34, 0.7) !important;
+}
 .padding-0{
   padding-right:0;
   padding-left:0;

@@ -1,3 +1,9 @@
+
+$(".button-collapse").sideNav();
+$('.button-collapse').sideNav('show');
+// Hide sideNav
+$('.button-collapse').sideNav('hide');
+$('.collapsible').collapsible();
 //productos
 $("#btnEliminarproductos").click(function(e) {
   e.preventDefault();
@@ -216,43 +222,7 @@ $(document).ready(function() {
 
 /***** Select-2 productos *****/
 
-$(".selectcategoria").select2({
-  maximumSelectionLength: 1
-});
 
-$(".selectcsubclasificación").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectproveedor").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectenvase").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectempaque").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectunidadmedida").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectclasificacion").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectestado").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectvalorunidadmedida").select2({
-  maximumSelectionLength: 1
-});
-
-$(".selectcargo").select2();
 
 //Efecto Login
 new WOW().init();

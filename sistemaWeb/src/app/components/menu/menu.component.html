@@ -3,7 +3,8 @@
 
   <!--Menu-->
   <header>
-    <ul id="slide-out" class="side-nav fixed sn-bg-1 custom-scrollbar">
+    <ul id="slide-out" class="side-nav fixed  sn-bg-1 custom-scrollbar">
+
       <!-- Logo -->
       <li>
         <div class="logo-wrapper sn-ad-avatar-wrapper">
@@ -23,7 +24,7 @@
           <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/product.png" height="18"></i>Productos <i class="fa fa-angle-down rotate-icon"></i></a>
             <div class="collapsible-body">
               <ul>
-                <li><a class="waves-effect" [routerLink]="['productos']" >Productos</a>
+                <li><a class="waves-effect" [routerLink]="['producto']" >Productos</a>
                 </li>
                 <li><a class="waves-effect" [routerLink]="['categorias']" >Categoria</a>
                 </li>
@@ -43,12 +44,12 @@
               <!--Contenido submenu-->
             </div>
           </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']"><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Sucursales </a>
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Sucursales </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>
           </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['proveedores']"><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores </a>
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['proveedores']" ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>
@@ -88,7 +89,7 @@
       <div class="breadcrumb-dn mr-auto">
         <p>Panel Administrativo</p>
       </div>
-      <ul class="nav navbar-nav nav-flex-icons ml-auto">        
+      <ul class="nav navbar-nav nav-flex-icons ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle waves-effect" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Perfil</span></a>

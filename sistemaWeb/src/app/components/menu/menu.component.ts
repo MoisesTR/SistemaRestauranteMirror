@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 declare var $:any;
 declare var jQuery:any;
 import swal from 'sweetalert2'

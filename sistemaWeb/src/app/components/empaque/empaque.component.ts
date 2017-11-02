@@ -32,10 +32,10 @@ export class EmpaqueComponent implements OnInit {
   ngOnInit() {
 
     this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      /*language: idioma_espanol,
-      select: true*/
+      pagingType: 'full_numbers'
+      , pageLength: 10
+      , language: idioma_espanol
+      /*,select: true*/
     };
 
     this._EmpaqueServicio.getEmpaques().subscribe(

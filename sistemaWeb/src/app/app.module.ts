@@ -22,15 +22,14 @@ const routes: Routes = [
     AppComponent,
     InicioComponent,
     LoginComponent,
-    NotFound404Component,
-    MenuComponent
+    NotFound404Component
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    MenuModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

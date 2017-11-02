@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 //Componentes
-import { ProductoComponent } from '../producto/producto.component';
 import { MenuComponent } from './menu.component';
 import {CategoriaProductoComponent} from "../categoria-producto/categoria-producto.component";
 import {ClasificacionProductoComponent} from "../clasificacion-producto/clasificacion-producto.component";
@@ -11,9 +10,12 @@ import {UsuarioComponent} from "../usuario/usuario.component";
 import {SucursalComponent} from "../sucursal/sucursal.component";
 import {EnvaseComponent} from "../envase/envase.component";
 import {ProveedorComponent} from "../proveedor/proveedor.component";
-import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
 import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
 import {EmpaqueComponent} from "../empaque/empaque.component";
+import {ListProductosComponent} from "../producto/list-productos/list-productos.component";
+import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
+import {UpdateProductoComponent} from "../producto/update-producto/update-producto.component";
+
 
 const menuRoutes: Routes = [
 
@@ -22,9 +24,10 @@ const menuRoutes: Routes = [
     component: MenuComponent,
     children: [
         {path:'',redirectTo:'menu',pathMatch:'full'},
-        {path:'productos',component: ProductoComponent},
+        {path:'producto',component: ListProductosComponent},
+        {path:'producto/add',component: AddProductoComponent},
+        {path:'producto/update',component: UpdateProductoComponent},
         {path:'add-usuario',component:AddUsuarioComponent },
-        {path:'productos/add-producto',component: AddProductoComponent},
         {path:'categorias',component: CategoriaProductoComponent},
         {path:'clasificacion-productos',component: ClasificacionProductoComponent},
         {path:'proveedores',component: ProveedorComponent},

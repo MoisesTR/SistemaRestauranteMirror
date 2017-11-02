@@ -39,14 +39,15 @@ export class SubClasificacionProductoComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-     /* language: idioma_espanol,
-      select: true*/
+     language: idioma_espanol
+      /*select: true*/
     };
 
     this._subClasificacionService.getSubClasificaciones().subscribe(
       response => {
-        if(response.clasificaciones){
+        if(response.subclasificaciones){
           this.subclasificaciones = response.subclasificaciones;
+          console.log(this.subclasificaciones);
           this.dtTrigger.next();
         }
       }, error =>{

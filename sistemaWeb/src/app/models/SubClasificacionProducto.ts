@@ -1,10 +1,10 @@
 export class SubClasificacionProducto{
 
   constructor(
-    public IdSubclasificacion: number
+    public IdSubClasificacion: number
     , public IdClasificacion: number
-    , public NombreSubclasificacion: string
-    , public DescripcionSubclasificacion: string
+    , public NombreSubClasificacion: string
+    , public DescripcionSubClasificacion: string
     , public Habilitado: string
   ){}
 }

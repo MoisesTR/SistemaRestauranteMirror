@@ -18,9 +18,9 @@ export class ProveedorService {
   createProveedor(Proveedor){
 
     let params = JSON.stringify(Proveedor);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
-    return this._http.post(this.url+'createProveedor',params,{headers:headers})
+    return this._http.post(this.url+'proveedor',params,{headers:headers})
       .map(res => res.json());
   }
 

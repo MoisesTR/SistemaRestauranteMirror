@@ -42,8 +42,8 @@
 
                 <div class="text-center">
                   <button type="button" (click)="getProveedor()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetProveedor" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                  <button type="button" (click)="updateProveedor()" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateProveedor" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteProveedor()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteProveedor" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                  <button type="button" (click)="updateProveedor(proveedor.IdProveedor)" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateProveedor" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button" (click)="deleteProveedor(proveedor.IdProveedor)" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteProveedor" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
                 </div>
               </td>
             </tr>
@@ -103,6 +103,7 @@
                         <div class="md-form ">
                           <input type="email" id="correoProveedor" class="form-control "
                                  name = "correoProveedor"
+                                 formControlName="correoProveedor"
                                  required
 
                           >
@@ -114,6 +115,7 @@
                         <div class="md-form">
                           <textarea type="text" id="direccionProveedor" class="md-textarea"
                                     name = "direccionProveedor"
+                                    formControlName="direccionProveedor"
                                     required
 
                           ></textarea>
@@ -125,6 +127,7 @@
                         <div class="md-form ">
                           <input type="text" id="nombreRepresentante" class="form-control "
                                  name = "nombreRepresentante"
+                                 formControlName="nombreRepresentante"
                                  required
 
                           >
@@ -138,6 +141,7 @@
                           <input type="number" id="telefonoProveedor" name="telefonoProveedor"
                                  minlength="7"
                                  maxlength="2"
+                                 formControlName="telefonoProveedor"
                                  class="form-control"
                                  required
                                  birthYear

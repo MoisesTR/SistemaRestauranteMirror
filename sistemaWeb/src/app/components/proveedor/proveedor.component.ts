@@ -116,15 +116,15 @@ export class ProveedorComponent implements OnInit {
         if (response.IdProveedor) {
 
           swal(
-            'Producto',
-            'El producto ha sido creado exitosamente!',
+            'Proveedor',
+            'El proveedor ha sido creado exitosamente!',
             'success'
           ).then(function () {
             $('#modalingresarproveedor').modal('toggle');
 
             this.addForm.reset();
           })
-          this.listarProveedores();
+
 
         } else {
           swal(
@@ -135,6 +135,7 @@ export class ProveedorComponent implements OnInit {
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
+        this.listarProveedores();
       }, error => {
         if (error.status == 500) {
           swal(
@@ -198,15 +199,15 @@ export class ProveedorComponent implements OnInit {
       response =>{
         if(response.success){
           swal(
-            'Producto',
-            'El producto ha sido actualizado exitosamente!',
+            'Proveedor',
+            'El proveedor ha sido actualizado exitosamente!',
             'success'
           ).then(function () {
             $('#modalUpdateProveedor').modal('toggle');
 
             this.addForm.reset();
           })
-          this.listarProveedores();
+
 
         } else {
           swal(

@@ -6,7 +6,6 @@ import { MenuComponent } from './menu.component';
 import {CategoriaProductoComponent} from "../categoria-producto/categoria-producto.component";
 import {ClasificacionProductoComponent} from "../clasificacion-producto/clasificacion-producto.component";
 import {SubClasificacionProductoComponent} from "../sub-clasificacion-producto/sub-clasificacion-producto.component";
-import {UsuarioComponent} from "../usuario/usuario.component";
 import {SucursalComponent} from "../sucursal/sucursal.component";
 import {EnvaseComponent} from "../envase/envase.component";
 import {ProveedorComponent} from "../proveedor/proveedor.component";
@@ -15,6 +14,7 @@ import {EmpaqueComponent} from "../empaque/empaque.component";
 import {ListProductosComponent} from "../producto/list-productos/list-productos.component";
 import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
 import {UpdateProductoComponent} from "../producto/update-producto/update-producto.component";
+import {TrabajadorComponent} from "../trabajador/trabajador.component";
 
 
 const menuRoutes: Routes = [
@@ -32,10 +32,11 @@ const menuRoutes: Routes = [
         {path:'clasificacion-productos',component: ClasificacionProductoComponent},
         {path:'proveedores',component: ProveedorComponent},
         {path:'subclasificacion-productos',component: SubClasificacionProductoComponent},
-        {path:'registro-usuario',component: UsuarioComponent},
+        {path:'usuario',component: AddUsuarioComponent},
         {path:'sucursales',component: SucursalComponent},
         {path:'empaques',component: EmpaqueComponent},
         {path:'envases',component: EnvaseComponent},
+        {path:'trabajador',component: TrabajadorComponent}
     ]
   },
 ];

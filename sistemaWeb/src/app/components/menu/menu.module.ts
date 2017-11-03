@@ -12,14 +12,12 @@ import {ClasificacionProductoComponent} from "../clasificacion-producto/clasific
 import {ProveedorComponent} from "../proveedor/proveedor.component";
 import {SucursalComponent} from "../sucursal/sucursal.component";
 import {CategoriaProductoComponent} from "../categoria-producto/categoria-producto.component";
-import {UsuarioComponent} from "../usuario/usuario.component";
 import {SubClasificacionProductoComponent} from "../sub-clasificacion-producto/sub-clasificacion-producto.component";
 import {EnvaseComponent} from "../envase/envase.component";
 import {TrabajadorComponent} from "../trabajador/trabajador.component";
 import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
 import {EmpaqueComponent} from "../empaque/empaque.component";
 import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
-import {RegistroUsuarioComponent} from "../registro-usuario/registro-usuario.component";
 import {MenuComponent} from "./menu.component";
 
 //Servicios
@@ -37,6 +35,7 @@ import {ProductoModule} from "../producto/producto.module";
 import {ShowErrorsComponent} from "../show-errors.component";
 import {TelephoneNumberFormatValidatorDirective} from "../../validadores/telephoneNumber";
 import {BirthYearValidatorDirective} from "../../validadores/birthYear";
+import {UsuarioRoutingModule} from "../usuario/usuario.routing.module";
 
 
 @NgModule({
@@ -46,13 +45,11 @@ import {BirthYearValidatorDirective} from "../../validadores/birthYear";
     , SubClasificacionProductoComponent
     , ProveedorComponent
     , SucursalComponent
-    , UsuarioComponent
     , EnvaseComponent
     , AddUsuarioComponent
     , EmpaqueComponent
     , BodegaSucursalComponent
     , TrabajadorComponent
-    , RegistroUsuarioComponent
     , SucursalComponent
     , MenuComponent
     , ShowErrorsComponent
@@ -68,6 +65,7 @@ import {BirthYearValidatorDirective} from "../../validadores/birthYear";
     , ProductoModule
     , ReactiveFormsModule
     , DataTablesModule
+    , UsuarioRoutingModule
 
 
 

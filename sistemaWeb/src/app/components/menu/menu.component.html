@@ -54,7 +54,7 @@
               <!--Contenido submenu-->
             </div>
           </li>
-          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['trabajador']"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>
@@ -64,12 +64,12 @@
               <!--Contenido submenu-->
             </div>
           </li>
-            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'registro-usuario'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
+            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'usuario'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>
           </li>
-          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Reportes </a>
+          <li><a class="collapsible-header waves-effect arrow-r" ><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Reportes </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>
@@ -110,7 +110,7 @@
     <div class="container-fluid mt-5">
 
       <router-outlet></router-outlet>
-      <div style="height: 570px"></div>
+      <div style="height: 50px"></div>
     </div>
   </main>
   <!-- /.Contenido principal-->

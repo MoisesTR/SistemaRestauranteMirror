@@ -212,13 +212,13 @@ $(document).ready(function() {
   } );
 } );
 
-$(document).ready(function () {
+/*$(document).ready(function () {
   $('select[name="datatables_length"]').material_select();
-});
+});*/
 
-$(document).ready(function() {
+/*$(document).ready(function() {
   $('table.display').DataTable();
-} );
+} );*/
 
 /***** Select-2 productos *****/
 

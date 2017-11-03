@@ -26,7 +26,9 @@ export class ProveedorComponent implements OnInit {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
-  myForm: FormGroup;
+
+  addForm: FormGroup;
+  updateForm: FormGroup;
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
@@ -75,7 +77,7 @@ export class ProveedorComponent implements OnInit {
       }
     );
 
-    this.myForm = new FormGroup({
+    this.addForm = new FormGroup({
       'nombreProveedor': new FormControl()
       , 'descripcionProveedor': new FormControl()
       , 'correoProveedor': new FormControl()
@@ -84,6 +86,17 @@ export class ProveedorComponent implements OnInit {
       , 'telefonoProveedor': new FormControl()
 
     });
+
+    this.updateForm = new FormGroup({
+      'nombreProveedor': new FormControl()
+      , 'descripcionProveedor': new FormControl()
+      , 'correoProveedor': new FormControl()
+      , 'direccionProveedor': new FormControl()
+      , 'nombreRepresentante': new FormControl()
+      , 'telefonoProveedor': new FormControl()
+
+    });
+
 
 
   }
@@ -102,7 +115,8 @@ export class ProveedorComponent implements OnInit {
             'success'
           ).then(function () {
             $('#modalingresarproveedor').modal('toggle');
-            this.myForm.reset();
+
+            this.addForm.reset();
           })
           this.listarProveedores();
 
@@ -127,30 +141,87 @@ export class ProveedorComponent implements OnInit {
 
       }
     )
+    this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
   }
 
   capturarDadosProveedor() {
-    this.proveedor.NombreProveedor = this.myForm.value.nombreProveedor;
-    this.proveedor.NombreRepresentante = this.myForm.value.nombreRepresentante;
-    this.proveedor.Descripcion = this.myForm.value.descripcionProveedor;
-    this.proveedor.Direccion = this.myForm.value.direccionProveedor;
-    this.proveedor.Telefono = this.myForm.value.telefonoProveedor;
-    this.proveedor.Email = this.myForm.value.correoProveedor;
+    this.proveedor.NombreProveedor = this.addForm.value.nombreProveedor;
+    this.proveedor.NombreRepresentante = this.addForm.value.nombreRepresentante;
+    this.proveedor.Descripcion = this.addForm.value.descripcionProveedor;
+    this.proveedor.Direccion = this.addForm.value.direccionProveedor;
+    this.proveedor.Telefono = this.addForm.value.telefonoProveedor;
+    this.proveedor.Email = this.addForm.value.correoProveedor;
   }
 
-  getProveedor() {
+  capturarDatosActualizados(){
+    this.proveedor.NombreProveedor = this.updateForm.value.nombreProveedor;
+    this.proveedor.NombreRepresentante = this.updateForm.value.nombreRepresentante;
+    this.proveedor.Descripcion = this.updateForm.value.descripcionProveedor;
+    this.proveedor.Direccion = this.updateForm.value.direccionProveedor;
+    this.proveedor.Telefono = this.updateForm.value.telefonoProveedor;
+    this.proveedor.Email = this.updateForm.value.correoProveedor;
+  }
+
+  getProveedorById(IdProveedor) {
 
   }
 
-  getProveedores() {
 
-  }
+  showModalUpdateProveedor(proveedor){
+    $('#modalUpdateProveedor').modal('show');
+    let Proveedor : Provedor;
+    Proveedor = proveedor;
 
-  updateProveedor() {
-    $('#modalingresarproveedor').modal('show');
-    this.myForm.setValue({
-      'nombreProveedor': 'asdasd'
+    this.proveedor.IdProveedor = proveedor.IdProveedor;
+
+    this.updateForm.reset();
+    this.updateForm.setValue({
+      nombreProveedor: Proveedor.NombreProveedor
+      , descripcionProveedor: Proveedor.Descripcion
+      , correoProveedor: Proveedor.Email
+      , direccionProveedor: Proveedor.Direccion
+      , nombreRepresentante: Proveedor.NombreRepresentante
+      , telefonoProveedor: '87792956'
     })
+
+  }
+  updateProveedor(myForm: NgForm) {
+
+    this.capturarDatosActualizados();
+    this._proveedorService.updateProveedor(this.proveedor).subscribe(
+      response =>{
+        if(response.success){
+          swal(
+            'Producto',
+            'El producto ha sido actualizado exitosamente!',
+            'success'
+          ).then(function () {
+            $('#modalUpdateProveedor').modal('toggle');
+
+            this.addForm.reset();
+          })
+          this.listarProveedores();
+
+        } else {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
+            'error'
+          )
+        }
+      }, error =>{
+        if (error.status == 500) {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error en el servidor, intenta nuevamente!',
+            'error'
+          )
+        }
+      }
+    )
+
+    this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
+
   }
 
   deleteProveedor(IdProveedor) {
@@ -182,8 +253,8 @@ export class ProveedorComponent implements OnInit {
           'El proveedor ha sido eliminado exitosamente',
           'success'
         ).then(function () {
-          this.myForm.reset();
-          this.listarProveedores();
+          /*this.addForm.reset();
+          this.listarProveedores();*/
         })
       }
     });

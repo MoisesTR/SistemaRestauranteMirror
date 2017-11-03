@@ -1,3 +1,5 @@
+USE pruebas_node
+GO
 CREATE TABLE IF NOT EXISTS ClasificacionVenta(
 	IdClasificacionVenta INT AUTO_INCREMENT,
     Nombre NVARCHAR(100) NOT NULL,
@@ -6,7 +8,7 @@ CREATE TABLE IF NOT EXISTS ClasificacionVenta(
     CONSTRAINT PK_IdClasifVenta PRIMARY KEY(IdClasificacionVenta)
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 INSERT INTO ClasificacionVenta(Nombre,Descripcion) VALUES('En Local',NULL),('Para Llevar',NULL);
-
+GO
 CREATE TABLE IF NOT EXISTS TipoCliente(
 	IdTipoCliente INT AUTO_INCREMENT,
 	Nombre NVARCHAR(100) NOT NULL,
@@ -14,9 +16,9 @@ CREATE TABLE IF NOT EXISTS TipoCliente(
 	Habilitado Bit default 1 not null,
     CONSTRAINT Pk_TipoCliente PRIMARY KEY(IdTipoCliente)
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
+GO
 INSERT INTO TipoCliente VALUES('Registrado',NULL),('Anonimo',null);
-
+GO
 CREATE TABLE IF NOT EXISTS Cliente(
 	IdCliente INT AUTO_INCREMENT,
 	Nombres NVARCHAR(100) NOT NULL,

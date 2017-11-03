@@ -22,6 +22,7 @@ function getProveedores(req,res){
 }
 function createProveedor(req,res){
     var data = req.body
+    console.log(data)
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.createProveedor(poolObt,data)
     }).then((results) => {

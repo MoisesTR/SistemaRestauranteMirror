@@ -20,3 +20,6 @@ AS
 SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado FROM SUBCLASIFICACION_PRODUCTO s
     INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion;
 GO
+EXEC USP_GET_SUBCLASIFICACIONES
+GO
+SELECT * FROM V_SUBCLASIFICACIONES

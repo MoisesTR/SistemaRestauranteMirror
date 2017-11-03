@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { MenuRoutingModule } from './menu.routing.module';
 import {DataTablesModule} from "angular-datatables";
 
+
 //Componentes
 import {ClasificacionProductoComponent} from "../clasificacion-producto/clasificacion-producto.component";
 import {ProveedorComponent} from "../proveedor/proveedor.component";
@@ -64,9 +65,9 @@ import {BirthYearValidatorDirective} from "../../validadores/birthYear";
     , FormsModule
     , HttpModule
     , MenuRoutingModule
-    , DataTablesModule
     , ProductoModule
     , ReactiveFormsModule
+    , DataTablesModule
 
 
 

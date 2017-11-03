@@ -40,9 +40,15 @@ export class ProveedorComponent implements OnInit {
   ngOnInit() {
 
     this.dtOptions = {
-      pagingType: 'full_numbers'
+      autoWidth : false
+      , pagingType: 'full_numbers'
       , pageLength: 10
       , language: idioma_espanol
+      , "lengthChange": false
+      , searching: true
+      , ordering:  true
+
+
       /*select: true*/
     };
 

@@ -292,11 +292,11 @@ VALUES	('Cerrado/Completo')
 		,('Sin EMPAQUE/No viene empacado');
 GO
 CREATE TABLE BODEGA_SUCURSAL (
-    IdBodega INT IDENTITY(1,1),
+    IdBodegaS INT IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     DescripcionLocal NVARCHAR(200) null,
     Habilitado Bit default 1 not null,
-    CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodega)
+    CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodegaS)
 );
 GO
 CREATE TABLE SUCURSAL (
@@ -308,7 +308,7 @@ CREATE TABLE SUCURSAL (
     TelefonoPrincipal NVARCHAR(10),
     Habilitado Bit default 1 not null,
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
-    constraint fk_BodegaSucursal foreign key(IdBodega) References BodegaSucursal(IdBodega)
+    constraint fk_BodegaSucursal foreign key(IdBodega) References BODEGA_SUCURSAL(IdBodega)
 )
 INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');

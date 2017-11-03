@@ -3,7 +3,8 @@ var config = require('../config/mssqlConfig')
 
 function createCategoria(req,res){ 
     var data = req.body
-    if(data.Nombre != null && data.Descripcion != null){ 
+    console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
+    if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 
       console.log('mandaste los campos')
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createCategoria(poolObt,data)

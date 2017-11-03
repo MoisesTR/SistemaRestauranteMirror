@@ -3,7 +3,7 @@ var sql = require('mssql')
 function createProveedor(pool,data){ 
     return pool.request()
         .input('NombreProveedor',sql.NVarChar(50),data.NombreProveedor)
-        .input('Direccion'.sql.NVarChar(200),data.Direccion)
+        .input('Direccion',sql.NVarChar(200),data.Direccion)
         .input('Email',sql.NVarChar(100),data.Email)
         .input('Descripcion',sql.NVarChar(200),data.Descripcion)
         .input('NombreRepresentante',sql.NVarChar(200),data.NombreRepresentante)

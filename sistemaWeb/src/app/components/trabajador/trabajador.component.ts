@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TrabajadorService } from '../../services/trabajador.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Trabajador} from "../../models/Trabajador";
+declare var $:any
 @Component({
   selector: 'app-trabajador',
   templateUrl: './trabajador.component.html',
@@ -39,6 +40,37 @@ export class TrabajadorComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    $(document).ready(function(){
+
+      $('.dropify').dropify();
+    });
+
+    $(document).ready(function(){
+      var date = new Date();
+      var currentMonth = date.getMonth();
+      var currentDate = date.getDate();
+      var currentYear = date.getFullYear();
+
+      $('.datepicker').pickadate({
+
+        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
+        today: 'Hoy',
+        clear: 'Limpiar',
+        close: 'Cerrar',
+        closeOnSelect: false,
+        closeOnClear: false,
+        selectMonths: false,
+        selectYears: false,
+        firstDay: true,
+        min: new Date(currentYear - 50 , 1, 1),
+        max: new Date(currentYear, currentMonth, currentDate),
+        format: 'yyyy-mm-dd'
+      });
+    });
+
   }
 
 }

@@ -1,13 +1,14 @@
 $(".button-collapse").sideNav();
 
- //fecha
- $(document).ready(function(){
+ //fecha$(".letras").keypress(function (key) {
+$(document).ready(function(){
   var date = new Date();
   var currentMonth = date.getMonth();
   var currentDate = date.getDate();
   var currentYear = date.getFullYear();
+
   $('.datepicker').pickadate({
-    
+
     monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
     weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
     weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
@@ -19,7 +20,7 @@ $(".button-collapse").sideNav();
     selectMonths: false,
     selectYears: false,
     firstDay: true,
-    min: new Date(currentYear - 50 , 01, 01),
+    min: new Date(currentYear - 50 , 1, 1),
     max: new Date(currentYear, currentMonth, currentDate),
     format: 'yyyy-mm-dd'
   });

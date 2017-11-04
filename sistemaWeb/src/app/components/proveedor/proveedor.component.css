@@ -16,3 +16,9 @@
 .margin-paneladministrativo{
   margin-bottom: 5%;
 }
+.error-msg {
+  color: #a94442;
+}
+.fix-error-icon {
+  top: 27px;
+}

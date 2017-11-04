@@ -88,11 +88,10 @@
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombreProveedor" class="form-control "
+                          <input type="text" id="nombreProveedor" class="form-control letras"
                                  name = "nombreProveedor"
                                  formControlName="nombreProveedor"
                                  required
-
                           >
                           <label for="nombreProveedor" class="">Nombre</label>
                         </div>
@@ -104,8 +103,9 @@
                                  name = "correoProveedor"
                                  formControlName="correoProveedor"
                                  required
-
+                                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                           >
+                          <show-errors [control]="addForm.controls['correoProveedor']"></show-errors>
                           <label for="correoProveedor" class="">Correo Electrónico</label>
                         </div>
                       </div>
@@ -128,8 +128,10 @@
                                  name = "nombreRepresentante"
                                  formControlName="nombreRepresentante"
                                  required
+                                 noNumeros
 
                           >
+                          <show-errors [control]="addForm.controls['nombreRepresentante']"></show-errors>
                           <label for="nombreRepresentante" class="">Nombre Representante</label>
                         </div>
                       </div>
@@ -143,9 +145,7 @@
                                  formControlName="telefonoProveedor"
                                  class="form-control"
                                  required
-                                 telephoneNumber=""
                           >
-
                           <label for="telefonoProveedor" class="">Telefóno</label>
                         </div>
                       </div>
@@ -166,7 +166,7 @@
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn peach-gradient mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn peach-gradient mb-1" value="Submit Form" [disabled]="!addForm.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>

@@ -4,9 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Provedor} from "../../models/Provedor";
 import {idioma_espanol} from "../../services/global";
 import { Subject } from 'rxjs/Rx';
-import { FormGroup, FormControl, FormArray, NgForm } from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
+import {CustomValidators} from "../../validadores/CustomValidators";
 declare var $:any;
 
 @Component({
@@ -44,7 +45,7 @@ export class ProveedorComponent implements OnInit {
       , pagingType: 'full_numbers'
       , pageLength: 10
       , language: idioma_espanol
-      , "lengthChange": false
+        , "lengthChange": false
       , searching: true
       , ordering:  true
 
@@ -53,7 +54,6 @@ export class ProveedorComponent implements OnInit {
     };
 
     this.listarProveedores();
-
 
   }
 
@@ -86,10 +86,16 @@ export class ProveedorComponent implements OnInit {
     this.addForm = new FormGroup({
       'nombreProveedor': new FormControl()
       , 'descripcionProveedor': new FormControl()
-      , 'correoProveedor': new FormControl()
+      , 'correoProveedor': new FormControl('',[Validators.required])
       , 'direccionProveedor': new FormControl()
-      , 'nombreRepresentante': new FormControl()
-      , 'telefonoProveedor': new FormControl()
+      , 'nombreRepresentante': new FormControl('',
+                              [
+                                Validators.required,
+                                Validators.minLength(5),
+                                Validators.maxLength(10),
+                                CustomValidators.espaciosVacios
+                              ])
+      , 'telefonoProveedor': new FormControl('',[Validators.required])
 
     });
 
@@ -148,7 +154,7 @@ export class ProveedorComponent implements OnInit {
 
       }
     )
-    this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
+    this.proveedor = new Provedor(null,null, null, null, null, null, null, null);
   }
 
   capturarDadosProveedor() {

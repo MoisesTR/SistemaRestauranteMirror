@@ -16,6 +16,7 @@ import {ProductoRoutingModule} from "./producto.routing.module";
     , HttpModule
     , DataTablesModule
     , ProductoRoutingModule
+    , ReactiveFormsModule
   ],
   declarations: [
   AddProductoComponent

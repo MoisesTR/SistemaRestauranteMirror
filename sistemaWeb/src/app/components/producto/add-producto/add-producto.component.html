@@ -1,6 +1,6 @@
 <section>
 
-  <form action="">
+  <form action="" [formGroup]="formAddProducto" (ngSubmit)="createProducto(formAddProducto)" novalidate>
     <div class="row">
 
       <!--Imagen-->
@@ -42,9 +42,8 @@
               </div>
               <div class="col-md-6">
                 <label for="proveedor">Proveedor</label>
-                <select class="selectproveedor" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">Cainsa</option>
-                  <option  class="chip" value="2">Tip-Top</option>
+                <select class="selectproveedor" id="proveedor" multiple="multiple" formControlName="proveedor" style="width: 100%">
+                  <option class="chip" *ngFor="let proveedor of proveedores" [value]="proveedor.IdProveedor">{{proveedor.NombreProveedor }}</option>
                 </select>
               </div>
               <div class="col-md-6">
@@ -77,9 +76,8 @@
               </div>
               <div class="col-md-6">
                 <label for="envase">Envase</label>
-                <select class="selectenvase" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">Envase</option>
-                  <option  class="chip" value="2">Envase 2</option>
+                <select class="selectenvase" id="envase" multiple="multiple" style="width: 100%">
+                  <option class="chip" *ngFor="let envase of envases" [value]="envase.IdEnvase">{{envase.NombreEnvase }}</option>
                 </select>
               </div>
 

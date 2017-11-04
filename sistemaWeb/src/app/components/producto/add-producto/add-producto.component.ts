@@ -1,5 +1,13 @@
-import {Component, Directive, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, NG_VALIDATORS, ValidationErrors, Validator} from "@angular/forms";
+import {Component, Directive, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, NG_VALIDATORS, ValidationErrors, Validator} from "@angular/forms";
+import {Provedor} from "../../../models/Provedor";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ProveedorService} from "../../../services/proveedor.service";
+import {CategoriaProductoService} from "../../../services/categoria-producto.service";
+import {CategoriaProducto} from "../../../models/CategoriaProducto";
+import {Envase} from "../../../models/Envase";
+import {EnvaseService} from "../../../services/envase.service";
+import {UnidadMedida} from "../../../models/UnidadMedida";
 declare var $:any;
 
 @Component({
@@ -9,17 +17,25 @@ declare var $:any;
 })
 
 
-export class AddProductoComponent implements OnInit, Validator{
+export class AddProductoComponent implements OnInit {
 
-  validate(c: FormControl): ValidationErrors {
-    throw new Error("Method not implemented.");
+
+  formAddProducto: FormGroup;
+  public proveedores: Provedor [];
+  public categorias: CategoriaProducto[];
+  public envases: Envase[];
+  public unidadesMedida : UnidadMedida[];
+
+  constructor(
+    private _route: ActivatedRoute
+    , private _router: Router
+    , private _proveedorService: ProveedorService
+    , private _categoriaService: CategoriaProductoService
+    , private _envaseService: EnvaseService
+    
+  ) {
+
   }
-
-  registerOnValidatorChange(fn: () => void): void {
-    throw new Error("Method not implemented.");
-  }
-
-  constructor() { }
 
   ngOnInit() {
     $(document).ready(function(){
@@ -64,6 +80,63 @@ export class AddProductoComponent implements OnInit, Validator{
     });
 
     $(".selectcargo").select2();
+
+    this.cargarProveedores();
+    this.cargarCategorias();
+    this.cargarEnvases();
+
+  }
+
+  cargarProveedores(){
+
+    this._proveedorService.getProveedores().subscribe(
+      response =>{
+        if(response.proveedores){
+          this.proveedores = response.proveedores;
+        } else {
+
+        }
+      }, error =>{
+
+      }
+    )
+  }
+
+  cargarCategorias(){
+
+    this._categoriaService.getCategoriasProductos().subscribe(
+      response =>{
+        if(response.categorias){
+          this.categorias = response.categorias;
+
+        } else {
+
+        }
+      }, error =>{
+
+      }
+    )
+
+  }
+
+  cargarEnvases(){
+    this._envaseService.getEnvases().subscribe(
+      response =>{
+        if(response.envases){
+          this.envases = response.envases;
+        } else {
+
+        }
+      }, error =>{
+
+      }
+    )
+  }
+
+  cargarUnidadesDeMedida(){
+
+  }
+  createProducto(){
 
   }
 

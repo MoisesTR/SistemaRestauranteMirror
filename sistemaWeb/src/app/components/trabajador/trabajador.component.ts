@@ -35,7 +35,7 @@ export class TrabajadorComponent implements OnInit {
   }
 
   private initConstructorTrabajador(){
-    this.trabajador = new Trabajador(null,null,null,null,null,null,null,null,null,null);
+    this.trabajador = new Trabajador(null,null,null,null,null,null,null,null,null,null,null);
   }
 
   ngOnInit() {

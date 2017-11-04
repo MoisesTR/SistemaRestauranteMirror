@@ -1,3 +1,101 @@
-<p>
-  trabajador works!
-</p>
+<div class="container-fluid mt-5">
+  <section>
+    <div class="row">
+      <!--Imagen-->
+      <div class="col-lg-4">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Imagen</h4>
+          </div>
+          <div class="card-body text-center">
+            <input name="imagen" type="file" class="dropify" data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
+          </div>
+        </div>
+      </div>
+      <!-- /.Imagen -->
+
+      <!--Datos del Trabajador-->
+      <div class="col-lg-8  ">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Datos del Trabajador</h4>
+          </div>
+          <!-- Contenido -->
+          <div class="card-body ">
+            <!-- Formulario -->
+            <form method="" autocomplete="off" action="">
+              <!-- Campos a ingresar -->
+              <div class="row">
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input type="text" id="Nombres" name="Nombres" class="form-control validate " >
+                    <label for="Nombres">Nombres</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input type="text" id="Apellidos" name="Apellidos" class="form-control validate " >
+                    <label for="Apellidos">Apellidos</label>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="selectcargo">Sucursal</label>
+                  <select name="selectsucursales" class="selectsucursales" multiple="multiple" style="width: 100%">
+                    <option class="chip" value="IdSucursal">Rubenia</option>
+                    <option  class="chip" value="IdSucursal">Bello Horizonte</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input type="text" id="NumeroCedula" name="NumeroCedula" class="form-control validate">
+                    <label for="NumeroCedula">Número de Cedula</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                      <input placeholder="Fecha de Nacimiento" type="text" id="FechaNacimiento" name="FechaNacimiento" class="form-control datepicker">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                      <input placeholder="Fecha de Ingreso" type="text" id="FechaIngreso" name="FechaIngreso" class="form-control datepicker">
+                  </div>
+                </div>
+                
+                <div class="col-md-12">
+                  <div class="md-form">
+                    <textarea type="text" id="Direccion"name="Direccion" class="md-textarea"></textarea>
+                    <label for="Direccion">Dirección</label>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="selectcargo">Cargo</label>
+                  <select name="RolTrabajador" class="selectcargo" multiple="multiple" style="width: 100%">
+                    <option class="chip" value="1">Administrador</option>
+                    <option  class="chip" value="2">Chofer</option>
+                  </select>
+                </div>
+
+              </div><div class="margin-paneladministrativo"></div>
+
+              <!-- Boton ingresa -->
+              <div class="text-center mt-1-half">
+                <button class="btn orange-chang mb-1" type="submit" >Ingresar <i class="fa fa-check ml-1"></i></button>
+              </div>
+
+            </form>
+          </div>
+          <!-- Contenido -->
+        </div>
+      </div>
+      <!-- /.Datos del Trabajador-->
+    </div>
+  </section>
+</div>

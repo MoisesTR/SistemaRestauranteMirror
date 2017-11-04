@@ -171,6 +171,21 @@ h6 {
 .margin-paneladministrativo{
   margin-bottom: 5%;
 }
-.rojo{
+/* Colores datepicker */
+.picker__day-display {
   background-color: #C0392B !important;
+}
+.picker__weekday-display {
+  background-color: #80261C !important;
+}
+.picker__date-display {
+  background-color: #C0392B !important;
+  color: #000 !important;
+}
+.picker__year-display {
+  background-color: #C0392B;
+  color: #000;
+}
+.picker__select--month, .picker__select--year {
+  padding: 0 !important;
 }

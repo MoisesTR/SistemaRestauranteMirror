@@ -676,7 +676,7 @@
   background-color: #ff8f00 !important; }
 
 .amber.darken-4 {
-  background-color: #ff6f00 !important; }
+  background-color: #E67E22 !important; }
 
 .amber.accent-1 {
   background-color: #ffe57f !important; }
@@ -6045,7 +6045,7 @@ button:focus {
   background-color: #3F729B; }
 
 .pagination.pg-amber .active .page-link {
-  background-color: #ff6f00; }
+  background-color: #E67E22; }
 
 .pagination.pg-purple .active .page-link {
   background-color: #5e35b1; }
@@ -11855,7 +11855,7 @@ button.toast-close-button {
     background-color: #222;
     color: #fff; }
     .black-skin .navbar .navbar-nav .nav-item .dropdown-menu a:hover, .black-skin .navbar .navbar-nav .nav-item .dropdown-menu a:focus, .black-skin .navbar .navbar-nav .nav-item .dropdown-menu a:active {
-      background-color: #FF6F00; }
+      background-color: #E67E22; }
   .black-skin .page-footer {
     background-color: #222; }
   .black-skin .side-nav {
@@ -11901,11 +11901,11 @@ button.toast-close-button {
   .black-skin .btn-secondary {
     background-color: #0f478a; }
     .black-skin .btn-secondary:hover, .black-skin .btn-secondary:focus, .black-skin .btn-secondary:active, .black-skin .btn-secondary.active {
-      background-color: #FF6F00 !important; }
+      background-color: #E67E22 !important; }
     .black-skin .btn-secondary.dropdown-toggle {
       background-color: #0f478a !important; }
       .black-skin .btn-secondary.dropdown-toggle:hover, .black-skin .btn-secondary.dropdown-toggle:focus {
-        background-color: #FF6F00 !important; }
+        background-color: #E67E22 !important; }
   .black-skin .btn-default {
     background-color: #222222; }
     .black-skin .btn-default:hover, .black-skin .btn-default:focus, .black-skin .btn-default:active, .black-skin .btn-default.active {

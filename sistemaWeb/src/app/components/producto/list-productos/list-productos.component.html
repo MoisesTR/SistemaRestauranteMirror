@@ -6,7 +6,7 @@
 
       <div class="card card-cascade narrower">
         <!--Titulo-->
-        <div class="view gradient-card-header peach-gradient" >
+        <div class="view gradient-card-header orange-chang" >
           <h2 class="h2-responsive">Productos</h2>
         </div>
         <!--/Titulo-->
@@ -15,11 +15,12 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button"  class="btn peach-gradient" data-toggle="modal" [routerLink]="'add'" >Nuevo Producto</button>
+                  <button type="button"  class="btn orange-chang" data-toggle="modal" [routerLink]="'add'" >Nuevo Producto</button>
                 </div>
               </div>
             </div>
           </div>
+          <br>
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -41,9 +42,9 @@
               <td width="25%" class="body-negrita">
 
                 <div class="text-center">
-                  <button type="button" (click)="getProducto()" class="btn btn-sm" style="background-color:#E67E22;" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                  <button type="button" [routerLink]="'update'" class="btn btn-sm" style="background-color:#E67E22;" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteProducto()" class="btn btn-sm" style="background-color:#E67E22;" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                  <button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
+                  <button type="button" [routerLink]="'update'" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button" (click)="deleteProducto()" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
                 </div>
               </td>
             </tr>
@@ -57,163 +58,3 @@
   </div>
 
 </section>
-
-<!-- /.Contenido principal-->
-
-
-<!-- /.div fondo imagen gris-->
-
-
-<!-- Modal productos -->
-<div class="modal fade" id="modalingresarproducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray">
-
-      <!--Titulo-->
-      <div class="modal-header peach-gradient white-text">
-        <h4 class="title"> Productos</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-        <div class="container-fluid">
-          <!-- Inicio form-->
-          <form id = "productoForm" #productoForm="ngForm" (ngSubmit)="createProducto();" >
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-header white-text" style="background-color: #FEBE6C;"><i class="fa fa-file-image-o" aria-hidden="true"></i>Imagen</div>
-                    <input type="file"  class="dropify" data-height="300" data-allowed-file-extensions="jpg png"/>
-                  </div>
-                </div>
-                <div class="margin-paneladministrativo"></div>
-                <div class="col-lg-12 ">
-                  <div class="card">
-                    <div class="card-header white-text" style="background-color: #FD8366;"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos del producto</div>
-                    <div class="container-fluid">
-                      <br>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <br>
-                          <div class="md-form ">
-                            <input type="text" id="nombreproducto" name="nombreproducto"  class="form-control validate"  required>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="selectproveedor">Proveedor</label>
-                          <select options="{ allowClear: true }" class="selectproveedor" id="selectproveedor" name="proveedor"  multiple="multiple" style="width: 100%" required >
-                            <option class="chip" value="1">Cainsa</option>
-                            <option  class="chip" value="2">Tip-Top</option>
-                          </select>
-
-                        </div>
-                        <div class="col-md-6">
-                          <label for="selectcclasificacion">Clasificación</label>
-                          <select class="selectcclasificacion" id ="selectcclasificacion" name="clasificacion" multiple="multiple" style="width: 100%">
-                            <option class="chip" value="1">clasificacion</option>
-                            <option  class="chip" value="2">clasificacion 2</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <br>
-                          <div class="md-form ">
-                            <input type="number" id="costoproducto" class="form-control" name="costoproducto"  value="" required >
-                            <label for="costoproducto" class="">Costo</label>
-
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="selectcategoria">Categoria</label>
-                          <select class="selectcategoria" id ="selectcategoria" name="categoria"  multiple="multiple" style="width: 100%">
-                            <option class="chip" value="1">Categoria</option>
-                            <option  class="chip" value="2">Categoria 2</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="selectcsubclasificación">SubClasificación</label>
-                          <select class="selectcsubclasificación" id="selectcsubclasificación" multiple="multiple" style="width: 100%">
-                            <option class="chip" value="1">SubClasificación</option>
-                            <option  class="chip" value="2">SubClasificación 2</option>
-
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="selectempaque">Empaque</label>
-                          <select class="selectempaque" multiple="multiple" id="selectempaque" style="width: 100%">
-                            <option class="chip" value="1">Empaque</option>
-                            <option  class="chip" value="2">Empaque 2</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <br>
-                          <div class="md-form ">
-                            <input type="number" id="cantidadempaqueproducto" class="form-control" id="cantidampaqueproducto">
-                            <label for="cantidampaqueproducto" class="">Cantidad Empaque</label>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="selectenvase">Envase</label>
-                          <select class="selectenvase" multiple="multiple" id="selectenvase" style="width: 100%">
-                            <option class="chip" value="1">Envase</option>
-                            <option  class="chip" value="2">Envase 2</option>
-                          </select>
-                        </div>
-
-                        <div class="col-md-6">
-                          <label for="selectunidadmedida">Unidad de Medida</label>
-                          <select class="selectunidadmedida" multiple="multiple" id="selectunidadmedida" style="width: 100%" required>
-                            <option class="chip" value="1">Unidad de Medida</option>
-                            <option  class="chip" value="2">Unidad de Medida 2</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <br>
-                          <div class="md-form">
-                            <input type="number" id="valorunidadmedida" class="form-control"
-                                   name="valorunidadmedida"
-
-                                   required
-                            >
-                            <label for="valorunidadmedida" class="">Valor unidad de medida</label>
-
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="selectestado">Estado</label>
-                          <select class="selectestado" id="selectestado" multiple="multiple" style="width: 100%" required>
-                            <option class="chip" value="1">Estado</option>
-                            <option  class="chip" value="2">Estado 2</option>
-                          </select>
-                        </div>
-                        <div class="col-md-12">
-
-                          <div class="md-form">
-                            <textarea type="text" id="descripcionproducto" name="descripcionproducto" class="md-textarea" required></textarea>
-                            <label for="descripcionproducto">Descripción</label>
-
-                          </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="text-center mt-1-half">
-                        <button class="btn peach-gradient mb-1" type="submit" [disabled]="!productoForm.form.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
-                      </div>
-                      <br>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <!-- Final form -->
-          <br>
-        </div>
-      </div>
-    </div>
-    <!--/.Contenido-->
-  </div>
-</div>

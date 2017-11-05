@@ -203,7 +203,6 @@ export class ProveedorComponent implements OnInit {
   }
   updateProveedor(myForm: NgForm) {
 
-
     this.capturarDatosActualizados();
     this._proveedorService.updateProveedor(this.proveedor).subscribe(
       response =>{
@@ -255,7 +254,14 @@ export class ProveedorComponent implements OnInit {
         this._proveedorService.deleteProveedor(IdProveedor).subscribe(
           response =>{
             if(response.success){
-
+              swal(
+                'Eliminado!',
+                'El proveedor ha sido eliminado exitosamente',
+                'success'
+              ).then(function () {
+                /*this.addForm.reset();
+                this.listarProveedores();*/
+              })
             } else {
               console.log('Ha ocurrido un error, intenta nuevamente')
             }
@@ -265,14 +271,7 @@ export class ProveedorComponent implements OnInit {
               }
           }
         )
-        swal(
-          'Eliminado!',
-          'El proveedor ha sido eliminado exitosamente',
-          'success'
-        ).then(function () {
-          /*this.addForm.reset();
-          this.listarProveedores();*/
-        })
+
       }
     });
   }

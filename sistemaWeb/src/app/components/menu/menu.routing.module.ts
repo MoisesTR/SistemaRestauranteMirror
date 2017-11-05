@@ -18,6 +18,7 @@ import {TrabajadorComponent} from "../trabajador/trabajador.component";
 import {CargoComponent} from "../cargo/cargo.component";
 import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
+import {ReporteComponent} from "../reporte/reporte.component";
 
 
 const menuRoutes: Routes = [
@@ -43,6 +44,7 @@ const menuRoutes: Routes = [
         , {path:'cargo',component: CargoComponent}
         , {path:'bodega',component: BodegaSucursalComponent}
         , {path:'traslados',component: TrasladoProductoComponent}
+        , {path:'reportes',component: ReporteComponent}
 
     ]
   },

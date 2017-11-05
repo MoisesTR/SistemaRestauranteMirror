@@ -1,5 +1,5 @@
 <div class="row">
-    
+
   <div class="col-md-12">
 
     <div class="card card-cascade narrower">
@@ -29,7 +29,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let cargo of cargoUsuario">
+          <tr *ngFor="let cargo of cargos">
             <td class="body-negrita">{{ cargo.IdCargo }}</td>
             <td class="body-negrita">{{ cargo.NombreCargo }}</td>
             <td class="body-negrita">{{ cargo.DescripcionCargo }}</td>
@@ -59,7 +59,7 @@
 
       <!--Titulo-->
       <div class="modal-header orange-chang white-text">
-        <h4 class="title">Cargos</h4>
+        <h4 class="title">Nuevo cargo</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -21,7 +21,7 @@ export class TrabajadorComponent implements OnInit {
   	) {
 
 
-       this._TrabajadorServicio.getTrabajadores().subscribe(
+    this._TrabajadorServicio.getTrabajadores().subscribe(
 
       response=>{
 
@@ -47,7 +47,7 @@ export class TrabajadorComponent implements OnInit {
     });
 
     $('.cedula').mask('000-000000-0000A',{'translation': {
-        A: {pattern: /[A-Za-z0-9]/},
+        A: {pattern: /[A-Za-z]/},
       }
     });
 

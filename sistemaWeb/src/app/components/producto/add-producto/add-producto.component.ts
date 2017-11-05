@@ -1,5 +1,8 @@
 import {Component, Directive, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, NG_VALIDATORS, ValidationErrors, Validator} from "@angular/forms";
+import {
+  AbstractControl, FormControl, FormGroup, NG_VALIDATORS, NgForm, ValidationErrors,
+  Validator
+} from "@angular/forms";
 import {Provedor} from "../../../models/Provedor";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProveedorService} from "../../../services/proveedor.service";
@@ -88,7 +91,7 @@ export class AddProductoComponent implements OnInit, OnChanges {
     });
 
     this.formAddProducto = new FormGroup({
-      'prod': new FormControl(),
+      'proveedor': new FormControl(),
       'nombreProducto': new FormControl()
 
     });
@@ -149,13 +152,14 @@ export class AddProductoComponent implements OnInit, OnChanges {
   cargarUnidadesDeMedida(){
 
   }
-  createProducto(myForm){
+
+  createProducto(myForm: NgForm){
 
   /*  this.formAddProducto.controls['make'].valueChanges.subscribe((value) => {
       console.log(value);
 
     });*/
-    console.log(myForm.value.prod);
+    console.log(myForm.value.proveedor);
 
   }
 

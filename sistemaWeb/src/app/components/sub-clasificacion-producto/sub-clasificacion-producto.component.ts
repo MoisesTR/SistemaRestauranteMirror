@@ -37,9 +37,10 @@ export class SubClasificacionProductoComponent implements OnInit {
   ngOnInit() {
 
     this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-     language: idioma_espanol
+      pagingType: 'full_numbers'
+      , pageLength: 10
+      , language: idioma_espanol
+      , "lengthChange": false
       /*select: true*/
     };
 

@@ -38,6 +38,7 @@ export class ClasificacionProductoComponent implements OnInit {
       pagingType: 'full_numbers'
       , pageLength: 10
       , language: idioma_espanol
+      , "lengthChange": false
       /*,select: true*/
     };
 

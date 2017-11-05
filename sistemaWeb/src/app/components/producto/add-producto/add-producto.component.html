@@ -42,7 +42,7 @@
               </div>
               <div class="col-md-6">
                 <label for="proveedor">Proveedor</label>
-                <select class="form-control selectproveedor" id="proveedor" formControlName="prod" multiple="multiple" style="width: 100%">
+                <select class="form-control selectproveedor" id="proveedor" formControlName="proveedor" multiple="multiple" style="width: 100%">
                   <option class="chip" *ngFor="let proveedor of proveedores" [value]="proveedor.IdProveedor">{{proveedor.NombreProveedor }}</option>
                 </select>
               </div>

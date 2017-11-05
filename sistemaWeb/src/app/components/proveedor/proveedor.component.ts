@@ -21,6 +21,7 @@ export class ProveedorComponent implements OnInit {
   public proveedor: Provedor;
   public proveedores: Provedor[];
   public mensaje: string;
+
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -182,6 +183,7 @@ export class ProveedorComponent implements OnInit {
 
 
   showModalUpdateProveedor(proveedor){
+
     $('#modalUpdateProveedor').modal('show');
     let Proveedor : Provedor;
     Proveedor = proveedor;
@@ -200,6 +202,7 @@ export class ProveedorComponent implements OnInit {
 
   }
   updateProveedor(myForm: NgForm) {
+
 
     this.capturarDatosActualizados();
     this._proveedorService.updateProveedor(this.proveedor).subscribe(

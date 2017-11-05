@@ -34,6 +34,7 @@ export class ProveedorComponent implements OnInit {
   constructor(private _route: ActivatedRoute,
               private _router: Router,
               private _proveedorService: ProveedorService) {
+
     this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
   }
 
@@ -45,14 +46,14 @@ export class ProveedorComponent implements OnInit {
       , pagingType: 'full_numbers'
       , pageLength: 10
       , language: idioma_espanol
-        , "lengthChange": false
+      , "lengthChange": false
       , searching: true
       , ordering:  true
 
 
       /*select: true*/
     };
-
+    $('.telefono').mask('0000-0000');
     this.listarProveedores();
 
   }

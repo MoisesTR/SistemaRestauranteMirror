@@ -46,6 +46,8 @@ export class TrabajadorComponent implements OnInit {
       $('.dropify').dropify();
     });
 
+    $(".selectcargo").select2();
+
     $(document).ready(function(){
       var date = new Date();
       var currentMonth = date.getMonth();

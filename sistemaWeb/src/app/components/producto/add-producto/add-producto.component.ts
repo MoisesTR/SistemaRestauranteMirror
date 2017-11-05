@@ -17,7 +17,13 @@ declare var $:any;
 })
 
 
-export class AddProductoComponent implements OnInit {
+export class AddProductoComponent implements OnInit, OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+
+    this.formAddProducto.get('proveedor').valueChanges.subscribe(val => {
+      console.log({val});
+    });
+  }
 
 
   formAddProducto: FormGroup;
@@ -32,7 +38,7 @@ export class AddProductoComponent implements OnInit {
     , private _proveedorService: ProveedorService
     , private _categoriaService: CategoriaProductoService
     , private _envaseService: EnvaseService
-    
+
   ) {
 
   }
@@ -79,6 +85,11 @@ export class AddProductoComponent implements OnInit {
       maximumSelectionLength: 1
     });
 
+    this.formAddProducto = new FormGroup({
+      'prod': new FormControl(),
+      'nombreProducto': new FormControl()
+
+    });
     $(".selectcargo").select2();
 
     this.cargarProveedores();
@@ -136,7 +147,13 @@ export class AddProductoComponent implements OnInit {
   cargarUnidadesDeMedida(){
 
   }
-  createProducto(){
+  createProducto(myForm){
+
+  /*  this.formAddProducto.controls['make'].valueChanges.subscribe((value) => {
+      console.log(value);
+
+    });*/
+    console.log(myForm.value.prod);
 
   }
 

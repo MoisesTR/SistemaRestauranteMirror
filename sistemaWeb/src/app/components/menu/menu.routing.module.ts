@@ -16,6 +16,8 @@ import {AddProductoComponent} from "../producto/add-producto/add-producto.compon
 import {UpdateProductoComponent} from "../producto/update-producto/update-producto.component";
 import {TrabajadorComponent} from "../trabajador/trabajador.component";
 import {CargoComponent} from "../cargo/cargo.component";
+import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
+import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
 
 
 const menuRoutes: Routes = [
@@ -24,21 +26,23 @@ const menuRoutes: Routes = [
     path:'menu',
     component: MenuComponent,
     children: [
-        {path:'',redirectTo:'menu',pathMatch:'full'},
-        {path:'producto',component: ListProductosComponent},
-        {path:'producto/add',component: AddProductoComponent},
-        {path:'producto/update',component: UpdateProductoComponent},
-        {path:'add-usuario',component:AddUsuarioComponent },
-        {path:'categorias',component: CategoriaProductoComponent},
-        {path:'clasificacion-productos',component: ClasificacionProductoComponent},
-        {path:'proveedores',component: ProveedorComponent},
-        {path:'subclasificacion-productos',component: SubClasificacionProductoComponent},
-        {path:'usuario',component: AddUsuarioComponent},
-        {path:'sucursales',component: SucursalComponent},
-        {path:'empaques',component: EmpaqueComponent},
-        {path:'envases',component: EnvaseComponent},
-        {path:'trabajador',component: TrabajadorComponent},
-        {path:'cargo',component: CargoComponent}
+        {path:'',redirectTo:'menu',pathMatch:'full'}
+        , {path:'producto',component: ListProductosComponent}
+        , {path:'producto/add',component: AddProductoComponent}
+        , {path:'producto/update',component: UpdateProductoComponent}
+        , {path:'add-usuario',component:AddUsuarioComponent }
+        , {path:'categorias',component: CategoriaProductoComponent}
+        , {path:'clasificacion-productos',component: ClasificacionProductoComponent}
+        , {path:'proveedores',component: ProveedorComponent}
+        , {path:'subclasificacion-productos',component: SubClasificacionProductoComponent}
+        , {path:'usuario',component: AddUsuarioComponent}
+        , {path:'sucursales',component: SucursalComponent}
+        , {path:'empaques',component: EmpaqueComponent}
+        , {path:'envases',component: EnvaseComponent}
+        , {path:'trabajador',component: TrabajadorComponent}
+        , {path:'cargo',component: CargoComponent}
+        , {path:'bodega',component: BodegaSucursalComponent}
+        , {path:'traslados',component: TrasladoProductoComponent}
 
     ]
   },

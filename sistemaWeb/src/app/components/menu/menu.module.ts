@@ -37,6 +37,8 @@ import {TelephoneNumberFormatValidatorDirective} from "../../validadores/telepho
 import {BirthYearValidatorDirective} from "../../validadores/birthYear";
 import {UsuarioRoutingModule} from "../usuario/usuario.routing.module";
 import {CargoComponent} from "../cargo/cargo.component";
+import {ReporteComponent} from "../reporte/reporte.component";
+import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import {CargoComponent} from "../cargo/cargo.component";
     , TelephoneNumberFormatValidatorDirective
     , BirthYearValidatorDirective
     , CargoComponent
+    , ReporteComponent
+    , TrasladoProductoComponent
 
   ],
   imports: [

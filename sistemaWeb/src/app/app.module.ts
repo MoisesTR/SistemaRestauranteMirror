@@ -9,6 +9,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import {MenuModule} from "./components/menu/menu.module";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import { ReporteComponent } from './components/reporte/reporte.component';
+import { TrasladoProductoComponent } from './components/traslado-producto/traslado-producto.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -19,10 +21,10 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    InicioComponent,
-    LoginComponent,
-    NotFound404Component
+    AppComponent
+    , InicioComponent
+    , LoginComponent
+    , NotFound404Component
   ],
   imports: [
     BrowserModule,

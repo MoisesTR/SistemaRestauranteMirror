@@ -46,7 +46,11 @@ export class TrabajadorComponent implements OnInit {
       $('.dropify').dropify();
     });
 
+    $('.cedula').mask('000-000000-0000E');
+
     $(".selectcargo").select2();
+    $(".selectsucursales").select2();
+
 
     $(document).ready(function(){
       var date = new Date();

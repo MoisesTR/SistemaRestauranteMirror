@@ -49,6 +49,8 @@ export class AddProductoComponent implements OnInit, OnChanges {
       $('.dropify').dropify();
     });
 
+
+
     $(".selectcategoria").select2({
       maximumSelectionLength: 1
     });

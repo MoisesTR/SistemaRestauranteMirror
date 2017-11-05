@@ -15,6 +15,7 @@ import {ListProductosComponent} from "../producto/list-productos/list-productos.
 import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
 import {UpdateProductoComponent} from "../producto/update-producto/update-producto.component";
 import {TrabajadorComponent} from "../trabajador/trabajador.component";
+import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 
 
 const menuRoutes: Routes = [
@@ -36,7 +37,9 @@ const menuRoutes: Routes = [
         {path:'sucursales',component: SucursalComponent},
         {path:'empaques',component: EmpaqueComponent},
         {path:'envases',component: EnvaseComponent},
-        {path:'trabajador',component: TrabajadorComponent}
+        {path:'trabajador',component: TrabajadorComponent},
+        {path:'rol',component: RolusuarioComponent}
+
     ]
   },
 ];

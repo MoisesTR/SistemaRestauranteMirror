@@ -3,8 +3,8 @@ var config = require('../config/mssqlConfig')
 
 function createCategoria(req,res){ 
     var data = req.body
-    console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
-    if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 
+    console.log(((data.NombreCategoria != undefined) && (data.DescripcionCategoria != undefined)))
+    if((data.NombreCategoria != undefined) && (data.DescripcionCategoria != undefined)){ 
       console.log('mandaste los campos')
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createCategoria(poolObt,data)
@@ -34,7 +34,7 @@ function getCategorias(req,res){
 }
 function updateCategoria(req,res){
     var data = req.body
-    if(data.IdCategoria != undefined && data.Nombre != undefined && data.Descripcion != undefined){
+    if(data.IdCategoria != undefined && data.NombreCategoria != undefined && data.DescripcionCategoria != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateCategoria(poolObt,data)
         }).then((results) => {

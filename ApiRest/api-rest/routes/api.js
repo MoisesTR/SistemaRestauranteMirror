@@ -10,6 +10,8 @@ const ProductoController = require('../controllers/producto')
 const SucursalController = require('../controllers/sucursal')
 const UnidadMedidaController = require('../controllers/unidadmedida')
 var Router = express.Router()
+var multipart = require('connect-multiparty');
+var md_upload = multipart({uploadDir: './uploads/productos'});
 
 Router
     .get('/',(req,res) => {
@@ -51,9 +53,11 @@ Router
     //Rutas producto controller
     .get('/productos',ProductoController.getProductos)
     .get('/producto/:IdProducto(\\d+)',ProductoController.getProductoById)
-    .post('/producto',ProductoController.createProducto)
+    .post('/productoUploadImage',[md_upload],ProductoController.uploadImage)
+    .post('/producto',ProductoController.changeStateProducto)
     .put('/producto',ProductoController.updateProducto)
     .delete('/producto',ProductoController.changeStateProducto)
+    
     //Rutas sucursal Controller
     .get('/sucursales',SucursalController.getSucursales)
     .get('/sucursal/:IdSucursal(\\d+)',SucursalController.getSucursalById)

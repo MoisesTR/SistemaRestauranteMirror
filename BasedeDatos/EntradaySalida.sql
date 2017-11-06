@@ -1,15 +1,15 @@
 CREATE TABLE EntradaBodegaCentral (
-    IdEntrada INT AUTO_INCREMENT,
+    IdEntrada INT IDENTITY(1,1),
     IdBodega INT not null,
     FechaHora DATETIME NOT NULL,
     IdTrabajador INT,
     constraint pk_IdEntradaBodegaCentral primary key(IdEntrada),
     constraint fk_BodegaEntradaBC foreign key(IdBodega) references BodegaCentral(IdBodega),
     constraint fk_TrabIngreEntradaBC foreign key(IdTrabajador) references Trabajador(IdTrabajador)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
+);
+GO
 CREATE TABLE DetalleEntradaBodegaCentral (
-    IdDetalle INT AUTO_INCREMENT,
+    IdDetalle INT IDENTITY(1,1),
     IdEntrada INT,
     IdDetalleAp int null,
     IdBodegaAp int null,
@@ -21,10 +21,10 @@ CREATE TABLE DetalleEntradaBodegaCentral (
     constraint fk_DetalleProdAP foreign key(IdDetalleAp,IdBodegaAp) references DetalleBodegaAp(IdDetalle,IdBodega),
     CONSTRAINT FK_Producto_EntradaBC FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto),
 	constraint fk_ProdenciaEntradaBodegaC foreign key(IdProcedencia) references Procedencia(IdProcedencia)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
+);
+GO
 CREATE TABLE EntradaBodegaAP (
-    IdEntrada INT AUTO_INCREMENT,
+    IdEntrada INT IDENTITY,
     IdBodega INT not null,
     FechaHora DATETIME NOT NULL,
     IdTrabajador INT,
@@ -32,7 +32,7 @@ CREATE TABLE EntradaBodegaAP (
     constraint fk_BodegaEntradaB foreign key(IdBodega) references BodegaAreaProduccion(IdBodega),
     constraint fk_TrabIngreEntradaB foreign key(IdTrabajador) references Trabajador(IdTrabajador)
 );
-
+GO
 CREATE TABLE DetalleEntradaBodegaAP (
     IdDetalle INT AUTO_INCREMENT,
     IdEntrada INT,
@@ -64,7 +64,7 @@ Create table SalidaBodegaCentral(
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8;
 
 Create table SalidaBodegaAP(
-	IdSalida int auto_increment,
+	IdSalida int IDENTITY(1,1),
     FechaHora datetime not null,
     IdTrabajador int not null,
     IdDetalleBAP int not null,

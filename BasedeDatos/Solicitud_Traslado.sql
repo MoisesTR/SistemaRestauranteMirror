@@ -32,12 +32,12 @@ create table DETALLE_BODEGA_AP(
     FechaHora datetime not null,
     FechaHoraProduccion datetime null,
     Habilitado Bit default 1 not null,
-    constraint pk_IdDetalleBodega primary key(IdDetalle,IdBodegaAP),
+    constraint pk_IdDetalleBodega primary key(IdDetalle,IdBodegaAP),	
     constraint fk_BodegaDelleAP foreign key(IdBodegaAP) references BODEGA_AREA_PRODUCCION(IdBodegaAP),
-    constraint fk_IdProducto foreign key(IdProducto) references Producto(IdProducto),
+    constraint fk_IdProducto foreign key(IdProducto) references PRODUCTO(IdProducto),
     constraint fk_IdUsoProducto foreign key(IdUso) references UsoProducto(IdUso)
 )
-GO
+	GO
 create TABLE AREA_PRODUCCION(
 	IdAreaProduccion int IDENTITY(1,1),
     IdBodegaAP int not null,
@@ -72,7 +72,7 @@ create table DETALLE_BODEGA_CENTRAL(
 )
 GO
 CREATE TABLE DETALLE_BODEGA_SUCURSAL (
-    IdDetalle INT IDENTITY(1,1),
+	IdDetalle INT IDENTITY(1,1),
     IdBodegaAP INT not null,
     IdDetalleBc INT not null,
     IdBodegaAPBc INT not null,

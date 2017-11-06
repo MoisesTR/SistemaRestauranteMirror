@@ -267,7 +267,7 @@ CREATE TABLE PRODUCTO (
 
 ALTER TABLE PRODUCTO
 ADD CONSTRAINT U_Producto UNIQUE(NombreProducto,IdEnvase,IdUnidadMedida,ValorUnidadMedida);
-
+GO
 CREATE TABLE  PRODUCTO_ORIGEN(
 	IdProducto int not null,
     IdOrigen int not null,
@@ -285,7 +285,7 @@ CREATE TABLE ESTADO_EMPAQUE(
     CONSTRAINT PK_ESTADO_PRODUC PRIMARY KEY(IdEstado),
 	CONSTRAINT U_EstadoEmpaqueUnico UNIQUE(NombreEstado)
 );
-
+GO
 INSERT INTO ESTADO_EMPAQUE(NombreEstado) 
 VALUES	('Cerrado/Completo')
 		,('Abierto/Incompleto')
@@ -308,11 +308,11 @@ CREATE TABLE SUCURSAL (
     TelefonoPrincipal NVARCHAR(10),
     Habilitado Bit default 1 not null,
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
-    constraint fk_BodegaSucursal foreign key(IdBodega) References BODEGA_SUCURSAL(IdBodega)
+    constraint fk_BodegaSucursal foreign key(IdBodega) References BODEGA_SUCURSAL(IdBodegaS)
 )
 INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
-
+GO
 CREATE TABLE TRABAJADOR (
     IdTrabajador INT IDENTITY(1,1),
     IdSucursal INT NULL,
@@ -332,3 +332,28 @@ CREATE TABLE TRABAJADOR (
 	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
 )
 GO
+CREATE TABLE ROL(
+	IdRol INT IDENTITY(1,1),
+	NombreRol NVARCHAR(50) NOT NULL,
+	DescripcionRol NVARCHAR(50) NOT NULL,
+	CONSTRAINT PK_ROL PRIMARY KEY(IdRol)
+)
+INSERT INTO ROL(NombreRol,DescripcionRol)
+VALUES('Administrador',''),('Encargado Bodega',''),('Propietario',''),('Responsable de Sucursal',''),('Chofer','')
+GO
+CREATE TABLE USUARIO(
+	IdUsuario INT IDENTITY,
+	IdRol INT NOT NULL,
+	IdTrabajador INT NULL,
+	UserName NVARCHAR(50) NOT NULL,
+	Correo NVARCHAR(100) NOT NULL,
+	FCreacion DATETIME NOT NULL,
+	FEdicion DATETIME NULL,
+	Password NVARCHAR(100) NOT NULL,
+	Habilitado BIT NOT NULL DEFAULT 1,
+	CONSTRAINT PK_USUARIO PRIMARY KEY(IdUsuario),
+	CONSTRAINT FK_USUARIO_ROL FOREIGN KEY(IdRol) REFERENCES ROL(IdRol),
+	CONSTRAINT FK_USUARIO_TRABAJADOR FOREIGN KEY(IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador)
+)
+GO
+	

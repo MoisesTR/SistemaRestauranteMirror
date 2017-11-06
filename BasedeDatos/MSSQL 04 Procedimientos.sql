@@ -4,17 +4,17 @@ IF OBJECT_ID('USP_CREATE_CATEGORIA','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_CATEGORIA
 GO
 CREATE PROCEDURE USP_CREATE_CATEGORIA(
-	@Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150) 
+	@NombreCategoria NVARCHAR(50),
+    @DescripcionCategoria NVARCHAR(150) 
 ) 
 AS 
 BEGIN
-	IF EXISTS(SELECT * FROM CATEGORIA_PRODUCTO where NombreCategoria = @Nombre) 
+	IF EXISTS(SELECT * FROM CATEGORIA_PRODUCTO where NombreCategoria = @NombreCategoria) 
 		RAISERROR('Nombre de Categoria duplicado.',16,1)
 	ELSE
 		BEGIN
 			INSERT INTO CATEGORIA_PRODUCTO(NombreCategoria,DescripcionCategoria)
-			VALUES(@Nombre,@Descripcion);
+			VALUES(@NombreCategoria,@DescripcionCategoria);
 			SELECT @@IDENTITY AS IdCategoria
 		END
 END
@@ -33,12 +33,12 @@ IF	OBJECT_ID('USP_UPDATE_CATEGORIA','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_UPDATE_CATEGORIA(
 	@IdCategoria INT,
-    @Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150)
-) 
+    @NombreCategoria NVARCHAR(50),
+    @DescripcionCategoria NVARCHAR(150)
+)
 AS 
 BEGIN
-	UPDATE CATEGORIA_PRODUCTO SET NombreCategoria = @Nombre,DescripcionCategoria = @Descripcion WHERE IdCategoria = @IdCategoria;
+	UPDATE CATEGORIA_PRODUCTO SET NombreCategoria = @NombreCategoria,DescripcionCategoria = @DescripcionCategoria WHERE IdCategoria = @IdCategoria;
 END
 GO
 IF OBJECT_ID('USP_GET_CATEGORIA_BY_ID','P') IS NOT NULL
@@ -63,17 +63,17 @@ IF OBJECT_ID('USP_CREATE_CLASIFICACION','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_CLASIFICACION
 GO
 CREATE PROCEDURE USP_CREATE_CLASIFICACION(
-	@Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150)
+	@NombreClasificacion NVARCHAR(50),
+    @DescripcionClasificacion NVARCHAR(150)
 ) AS BEGIN
-	IF EXISTS(SELECT * from CLASIFICACION_PRODUCTO where NombreClasificacion = @Nombre) 
+	IF EXISTS(SELECT * from CLASIFICACION_PRODUCTO where NombreClasificacion = @NombreClasificacion) 
 		BEGIN
  		RAISERROR('Clasificacion Duplicada, No se inserto.',16,1)
  		END
 	ELSE
 	BEGIN
 		INSERT INTO CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion)
-		VALUES(@Nombre,@Descripcion);		
+		VALUES(@NombreClasificacion,@DescripcionClasificacion);		
 		SELECT @@IDENTITY AS IdClasificacion
      END
 END 
@@ -91,13 +91,13 @@ IF OBJECT_ID('USP_UPDATE_CLASIFICACION','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_UPDATE_CLASIFICACION(
 	@IdClasificacion int,
-	@Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150)
+	@NombreClasificacion NVARCHAR(50),
+    @DescripcionClasificacion NVARCHAR(150)
 	--,@Habilitado BIT
 ) 
 AS BEGIN
 	UPDATE CLASIFICACION_PRODUCTO
-    SET NombreClasificacion = @Nombre,DescripcionClasificacion  = @Descripcion where IdClasificacion = @IdClasificacion;
+    SET NombreClasificacion = @NombreClasificacion,DescripcionClasificacion  = @DescripcionClasificacion where IdClasificacion = @IdClasificacion;
 END
 GO
 IF OBJECT_ID('USP_DISP_CLASIFICACION','P') IS NOT NULL
@@ -485,3 +485,44 @@ CREATE PROCEDURE USP_GET_SUCURSAL
 AS 
 	SELECT IdSucursal,NombreSucursal,Direccion,TelefonoPrincipal from SUCURSAL WHERE IdSucursal = @IdSucursal
 GO
+IF OBJECT_ID('USP_GET_ROLES','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_ROLES
+GO
+CREATE PROCEDURE USP_GET_ROLES
+AS BEGIN 
+	SELECT IdRol,NombreRol,DescripcionRoL FROM ROL
+END
+GO
+IF OBJECT_ID('USP_GET_USUARIOS','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_USUARIOS
+GO
+CREATE PROCEDURE USP_GET_USUARIOS
+AS
+	SELECT IdUsuario,IdRol,IdTrabajador,UserName,Correo,Habilitado FROM USUARIO
+GO
+IF OBJECT_ID('USP_CREATE_USUARIO','P') IS NOT NULL
+	DROP PROCEDURE USP_CREATE_USUARIO
+GO
+CREATE PROCEDURE USP_CREATE_USUARIO(
+	@IdRol INT,
+	@IdTrabajador INT,
+	@UserName NVARCHAR(50),
+	@Correo NVARCHAR(100),
+	@Password NVARCHAR(100)
+)
+AS BEGIN
+	INSERT INTO USUARIO(IdRol,IdTrabajador,UserName,Correo,FCreacion,Password)
+	VALUES(@IdRol,@IdTrabajador,@UserName,@Correo,GETDATE(),@Password)
+	SELECT @@IDENTITY AS IdUsuario
+END
+GO
+IF OBJECT_ID('USP_CHANGE_PASSWORD','P') IS NOT NULL
+	DROP PROCEDURE USP_CHANGE_PASSWORD
+GO
+CREATE PROCEDURE USP_CHANGE_PASSWORD(
+	@IdUsuario INT,
+	@Password NVARCHAR(100)
+)
+AS BEGIN 
+	UPDATE USUARIO SET Password=@Password,FEdicion=GETDATE()
+END

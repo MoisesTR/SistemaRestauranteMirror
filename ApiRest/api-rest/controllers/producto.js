@@ -77,9 +77,9 @@ function uploadImage(req,res){
     var file_ext = ext_split[1];
 
     if(file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif'){
-
+        res.status(200).send({image:file_name});
     } else {
-        fs.unlink(file_path,() =>{
+        fs.unlink(file_path,(err) =>{
             if(err){
                 res.status(200).send({message:'Extension no valida, el fichero no se pudo borrar'});
             } else {
@@ -88,12 +88,6 @@ function uploadImage(req,res){
         });
         res.status(200).send({message:'Extension no valida'});
     }
-
-    res.status(200).send({
-        file_path: file_path
-        , file_split: file_split
-        , file_name: file_name
-    });
      
    } else {
        res.status(200).send({message:'No se han subido archivos'});

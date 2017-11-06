@@ -39,6 +39,7 @@ import {UsuarioRoutingModule} from "../usuario/usuario.routing.module";
 import {CargoComponent} from "../cargo/cargo.component";
 import {ReporteComponent} from "../reporte/reporte.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
+import {UploadService} from "../../services/upload.service";
 
 
 @NgModule({
@@ -93,6 +94,7 @@ import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.
     , EmpaqueService
     , BodegaSucursalService
     , TrabajadorService
+    , UploadService
 
   ]
 })

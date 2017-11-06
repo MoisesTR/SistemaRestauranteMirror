@@ -11,6 +11,9 @@ import {CategoriaProducto} from "../../../models/CategoriaProducto";
 import {Envase} from "../../../models/Envase";
 import {EnvaseService} from "../../../services/envase.service";
 import {UnidadMedida} from "../../../models/UnidadMedida";
+import {UploadService} from "../../../services/upload.service";
+import {Global} from "../../../services/global";
+import {Producto} from "../../../models/Producto";
 declare var $:any;
 
 @Component({
@@ -29,11 +32,13 @@ export class AddProductoComponent implements OnInit, OnChanges {
   }
 
 
+  public producto : Producto;
   formAddProducto: FormGroup;
   public proveedores: Provedor [];
   public categorias: CategoriaProducto[];
   public envases: Envase[];
   public unidadesMedida : UnidadMedida[];
+  public url: string;
 
   constructor(
     private _route: ActivatedRoute
@@ -41,9 +46,11 @@ export class AddProductoComponent implements OnInit, OnChanges {
     , private _proveedorService: ProveedorService
     , private _categoriaService: CategoriaProductoService
     , private _envaseService: EnvaseService
+    , private _uploadService : UploadService
 
   ) {
-
+    this.url = Global.url;
+    this.producto = new Producto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
   }
 
   ngOnInit() {
@@ -51,8 +58,6 @@ export class AddProductoComponent implements OnInit, OnChanges {
 
       $('.dropify').dropify();
     });
-
-
 
     $(".selectcategoria").select2({
       maximumSelectionLength: 1
@@ -153,13 +158,35 @@ export class AddProductoComponent implements OnInit, OnChanges {
 
   }
 
+  uploadImage(){
+    this._uploadService.makeFileRequest(
+      this.url+'productoUploadImage',
+      [],
+      this.filesToUpload,
+      'token',
+      'image').then((result:any)=>{
+        this.producto.Imagen = result.image;
+        console.log(this.producto.Imagen);
+    });
+
+  }
+
+  public filesToUpload: Array<File>;
+  fileChangeEvent(fileInput:any){
+
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    console.log(this.filesToUpload);
+
+  }
   createProducto(myForm: NgForm){
 
+
+    this.uploadImage();
   /*  this.formAddProducto.controls['make'].valueChanges.subscribe((value) => {
       console.log(value);
 
     });*/
-    console.log(myForm.value.proveedor);
+    /*console.log(myForm.value.proveedor);*/
 
   }
 

@@ -54,6 +54,7 @@ Router
     .get('/productos',ProductoController.getProductos)
     .get('/producto/:IdProducto(\\d+)',ProductoController.getProductoById)
     .post('/productoUploadImage',[md_upload],ProductoController.uploadImage)
+    .get('/productoGetImage/:imageFile',ProductoController.getImageFile)
     .post('/producto',ProductoController.changeStateProducto)
     .put('/producto',ProductoController.updateProducto)
     .delete('/producto',ProductoController.changeStateProducto)

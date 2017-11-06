@@ -1,6 +1,7 @@
 var querys = require('../querys/producto')
 var config = require('../config/mssqlConfig')
 var fs = require('fs');
+var path = require('path');
 
 function getProductoById(req,res){
     var data = req.params
@@ -100,11 +101,26 @@ function uploadImage(req,res){
 
 
 }
+
+function getImageFile(req,res){
+    var imageFile = req.params.imageFile;
+    var path_file = './uploads/productos/'+imageFile;
+
+    fs.exists(path_file,function(exists){
+        if(exists){
+            res.sendFile(path.resolve(path_file));
+        } else {
+            res.status(404).send({message: 'La imagen no existe'});
+        }
+    });
+
+}
 module.exports={
     createProducto,
     getProductoById,
     getProductos,
     updateProducto,
     changeStateProducto,
-    uploadImage
+    uploadImage, 
+    getImageFile
 }

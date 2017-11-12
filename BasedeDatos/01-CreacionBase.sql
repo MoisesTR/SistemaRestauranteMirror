@@ -34,7 +34,7 @@ INSERT INTO USO_PRODUCTO(Nombre,Descripcion)
 VALUES	('Nuevo/Sin Usar','Producto que no se ha usado.')
 		,('En Uso','Producto que se esta usando.')
         ,('Usado/Agotado','Producto que se uso hasta agotarse.');
-
+GO
 CREATE TABLE MOTIVO_BAJA_PRODUCTO(
 	IdMotivo INT IDENTITY(1,1),
     Nombre NVARCHAR(50) NOT NULL,
@@ -44,14 +44,14 @@ CREATE TABLE MOTIVO_BAJA_PRODUCTO(
     UpdateAt DATETIME NULL,
     CONSTRAINT PK_MOTIVO_BAJA_PRODUCTO PRIMARY KEY(IdMotivo)
 );
-
+GO
 INSERT INTO MOTIVO_BAJA_PRODUCTO(Nombre,Descripcion) 
 VALUES	('Extravio','El/Los productos se extraviaron')
 		,('Vencimiento','El/Los productos se vencieron.')
         ,('Robo','El/Los productos fueron robados')
         ,('Accidente','El/Los productos se hecho a perder en un accidente.')
         ,('Venta','El/Los PRODUCTOs fueron vendidos.');
-
+GO
 CREATE TABLE CARGO(
     IdCargo INT IDENTITY(1,1),
     NombreCargo NVARCHAR(50) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE CARGO(
     UpdateAt DATETIME NULL,    
     CONSTRAINT PK_IdCargo PRIMARY KEY (IdCargo)
 );
-
+GO
 INSERT INTO CARGO(NombreCargo,DrescripcionCargo) 
 VALUES ('Propietario','Propietario del restaurante')
 		,('Gerente','')
@@ -78,12 +78,12 @@ CREATE TABLE OPERADORA_TELEFONICA(
     UpdateAt DATETIME NULL,
     constraint pk_IdOPERADORA_TELEFONICA primary key(IdOperadora)
 );
-
+GO
 INSERT INTO OPERADORA_TELEFONICA(Nombre,Abreviacion)
 VALUES	('Claro','Cl')
 		,('Movistar','Mv')
         ,('Cootel','Co');
-
+GO
 CREATE TABLE PROVEEDOR(
     IdProveedor INT IDENTITY(1,1),
     NombreProveedor NVARCHAR(50) NOT NULL,
@@ -96,12 +96,12 @@ CREATE TABLE PROVEEDOR(
     UpdateAt DATETIME NULL,
     CONSTRAINT PK_IdProveedor PRIMARY KEY (IdProveedor)
 );
-
+GO
 INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante) 
 VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante')
 		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante')
 		,('Insumos Chinos','asdasda sdasdsa asd','esteesun@correo.com','descripcion','Representante');
-		
+GO		
 CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
     IdNumero INT IDENTITY(1,1),
     IdProveedor INT,
@@ -114,13 +114,13 @@ CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
         REFERENCES Proveedor (IdProveedor),
 	CONSTRAINT PK_IdNumeroTelefProv PRIMARY KEY (IdNumero,IdProveedor)
 );
-
+GO
 INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,NumeroTelefono) 
 VALUES	(1,'2279-9245')
 		,(1,'782323239')
 		,(2,'58556641')
 		,(3,'322578734');
-
+GO
 CREATE TABLE CLASIFICACION_UNIDAD_MEDIDA (
     IdClasificacionUnidadMedida INT IDENTITY(1,1),
     NombreClasificacion NVARCHAR(50) NOT NULL,
@@ -130,11 +130,11 @@ CREATE TABLE CLASIFICACION_UNIDAD_MEDIDA (
     UpdateAt DATETIME NULL,
     CONSTRAINT PK_ID_CLAS_UDM PRIMARY KEY (IdClasificacionUnidadMedida)
 );
-
+GO
 INSERT INTO CLASIFICACION_UNIDAD_MEDIDA(NombreClasificacion,Descripcion) 
 VALUES	('Masa','Miden el peso del producto.')
 		,('Volumen','Miden el espacio que ocupa el producto.');
-
+GO
 CREATE TABLE UNIDAD_MEDIDA (
     IdUnidadMedida INT IDENTITY(1,1),
     IdClasificacionUnidadMedida INT,
@@ -147,14 +147,14 @@ CREATE TABLE UNIDAD_MEDIDA (
     CONSTRAINT FK_CLAS_UDM FOREIGN KEY (IdClasificacionUnidadMedida)
         REFERENCES CLASIFICACION_UNIDAD_MEDIDA (IdClasificacionUnidadMedida)
 );
-
+GO
 INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo) 
 VALUES	(1,'Libra','Lb')
 		,(1,'Kilogramo','Kg')
 		,(2,'Litro','Lt')
 		,(2,'Mililitro','Ml')
 		,(1,'Miligramo','Mg');
-
+GO
 CREATE TABLE CLASIFICACION_PRODUCTO (
     IdClasificacion INT IDENTITY(1,1),
     NombreClasificacion NVARCHAR(50) NOT NULL,
@@ -165,11 +165,11 @@ CREATE TABLE CLASIFICACION_PRODUCTO (
     CONSTRAINT PK_CLASIFPRODUCT PRIMARY KEY (IdClasificacion),
     CONSTRAINT U_NOMBRECLASIF UNIQUE(NombreClasificacion)
 );
-
+GO
 INSERT INTO CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion) 
 VALUES	('Pollo','Las distintas cortes de pollo.')
 		,('Pastas','Distintos tipos de pasta');
-
+GO
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     IdSubclasificacion INT IDENTITY(1,1),
     IdClasificacion INT,

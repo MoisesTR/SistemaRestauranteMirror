@@ -1,4 +1,4 @@
-USE pruebas_node
+USE pruebas_node;
 GO
 CREATE VIEW V_ProductosDetallados
 AS

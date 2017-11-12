@@ -38,7 +38,7 @@ CREATE PROCEDURE USP_UPDATE_CATEGORIA(
 )
 AS 
 BEGIN
-	UPDATE CATEGORIA_PRODUCTO SET NombreCategoria = @NombreCategoria,DescripcionCategoria = @DescripcionCategoria WHERE IdCategoria = @IdCategoria;
+	UPDATE CATEGORIA_PRODUCTO SET NombreCategoria = @NombreCategoria,DescripcionCategoria = @DescripcionCategoria,UpdateAt=GETDATE() WHERE IdCategoria = @IdCategoria;
 END
 GO
 IF OBJECT_ID('USP_GET_CATEGORIA_BY_ID','P') IS NOT NULL
@@ -97,7 +97,7 @@ CREATE PROCEDURE USP_UPDATE_CLASIFICACION(
 ) 
 AS BEGIN
 	UPDATE CLASIFICACION_PRODUCTO
-    SET NombreClasificacion = @NombreClasificacion,DescripcionClasificacion  = @DescripcionClasificacion where IdClasificacion = @IdClasificacion;
+    SET NombreClasificacion = @NombreClasificacion,DescripcionClasificacion  = @DescripcionClasificacion,UpdateAt=GETDATE() where IdClasificacion = @IdClasificacion;
 END
 GO
 IF OBJECT_ID('USP_DISP_CLASIFICACION','P') IS NOT NULL
@@ -108,7 +108,7 @@ CREATE PROCEDURE USP_DISP_CLASIFICACION(
 	@IdClasificacion INT,
 	@Habilitado BIT
 ) AS BEGIN 
-	UPDATE CLASIFICACION_PRODUCTO SET Habilitado = @Habilitado WHERE IdClasificacion = @IdClasificacion;
+	UPDATE CLASIFICACION_PRODUCTO SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdClasificacion = @IdClasificacion;
 END 
 GO
 IF OBJECT_ID('USP_GET_CLASIFICACION','P') IS NOT NULL
@@ -150,7 +150,7 @@ CREATE PROCEDURE USP_UPDATE_SUBCLASIFICACION(
     --@Habilitado BIT
 ) AS BEGIN
 	UPDATE SUBCLASIFICACION_PRODUCTO
-    SET IdClasificacion= @IdClasificacion,NombreSubClasificacion = @Nombre,DescripcionSubClasificacion  = @Descripcion where IdSubClasificacion = @IdSubClasificacion;
+    SET IdClasificacion= @IdClasificacion,NombreSubClasificacion = @Nombre,DescripcionSubClasificacion  = @Descripcion,UpdateAt=GETDATE() where IdSubClasificacion = @IdSubClasificacion;
 END 
 GO
 IF OBJECT_ID('USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION','P') IS NOT NULL
@@ -182,7 +182,7 @@ CREATE PROCEDURE USP_DISP_SUBCLASIFICACION(
 	@IdSubClasificacion INT,
 	@Habilitado BIT
 ) AS BEGIN 
-	UPDATE SUBCLASIFICACION_PRODUCTO SET Habilitado = @Habilitado WHERE IdSubClasificacion = @IdSubClasificacion;
+	UPDATE SUBCLASIFICACION_PRODUCTO SET Habilitado = @Habilitado, UpdateAt=GETDATE() WHERE IdSubClasificacion = @IdSubClasificacion;
 END 
 GO
 IF OBJECT_ID('USP_GET_SUBCLASIFICACION','P') IS NOT NULL
@@ -224,7 +224,7 @@ CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
     @NombreRepresentante NVARCHAR(100) -- NOT NULL,
 ) AS BEGIN
 	UPDATE PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
-    NombreRepresentante=@NombreRepresentante WHERE IdProveedor = @IdProveedor;
+    NombreRepresentante=@NombreRepresentante,UpdateAt=GETDATE() WHERE IdProveedor = @IdProveedor;
 END 
 GO
 IF OBJECT_ID('USP_CREATE_NUMEROPROVEEDOR','P') IS NOT NULL
@@ -250,7 +250,7 @@ CREATE PROCEDURE USP_UPDATE_NUMERO_PROVEEDOR(
 	@Prefijo NVARCHAR(3),
     @NumeroTelefono NVARCHAR(50) --not null
 ) AS BEGIN
-		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo, NumeroTelefono = @NumeroTelefono where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
+		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END 
 GO
 IF OBJECT_ID('USP_GET_PROVEEDORES','P') IS NOT NULL
@@ -336,7 +336,8 @@ CREATE PROCEDURE USP_UPDATE_PRODUCTO(
 ) AS BEGIN 
 	UPDATE PRODUCTO SET NombreProducto = @NombreProducto,Costo=@Costo,Descripcion=@Descripcion,IdCategoria=@IdCategoria,
     IdSubclasificacion=@IdSubclasificacion,IdEnvase=@IdEnvase,IdEmpaque=@IdEmpaque,CantidadEmpaque=@CantidadEmpaque,
-    Imagen=@Imagen,IdUnidadMedida=@IdUnidadMedida,ValorUnidadMedida=@ValorUnidadMedida,IdEstado=@IdEstado,IdProveedor=@IdProveedor
+    Imagen=@Imagen,IdUnidadMedida=@IdUnidadMedida,ValorUnidadMedida=@ValorUnidadMedida,IdEstado=@IdEstado,IdProveedor=@IdProveedor,
+    UpdateAt=GETDATE()
     where IdProducto = @IdProducto;
 END
 GO
@@ -364,7 +365,7 @@ CREATE PROCEDURE USP_DISP_PRODUCTO(
 	@IdProducto INT,
 	@Habilitado BIT
 ) AS BEGIN
-	UPDATE PRODUCTO set Habilitado = @Habilitado Where IdProducto = @IdProducto;
+	UPDATE PRODUCTO set Habilitado = @Habilitado,UpdateAt=GETDATE() Where IdProducto = @IdProducto;
 END 
 GO
 IF OBJECT_ID('USP_CREATE_EMPAQUE','P') IS NOT NULL

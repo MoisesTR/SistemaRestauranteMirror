@@ -21,8 +21,7 @@ export class CategoriaProductoComponent implements OnInit {
   public categoriasProductos: CategoriaProducto[];
   public mensaje : string;
 
-  public formAddCategoria: FormGroup;
-  public formUpdateCategoria: FormGroup;
+ 
 
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,

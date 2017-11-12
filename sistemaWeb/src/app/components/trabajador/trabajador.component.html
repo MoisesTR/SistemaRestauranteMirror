@@ -59,15 +59,61 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                      <input placeholder="Fecha de Nacimiento" type="text" id="FechaNacimiento" name="FechaNacimiento" class="form-control datepicker">
+                      <input type="text" id="FechaNacimiento" name="FechaNacimiento" class="form-control datepicker">
+                      <label for="FechaNacimiento">Fecha de Nacimiento</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="md-form">
-                      <input placeholder="Fecha de Ingreso" type="text" id="FechaIngreso" name="FechaIngreso" class="form-control datepicker">
+                      <input type="text" id="FechaIngreso" name="FechaIngreso" class="form-control datepicker">
+                      <label for="FechaIngreso">Fecha Ingreso</label>
                   </div>
                 </div>
+
+                <div class="col-md-6">
+                    <br>
+                    <div class="md-form ">
+                      <input type="text" id="TelefonoPrincipalTrabajador"
+                              minlength="4"
+                              maxlength="50"
+                              class="form-control"
+                              name="TelefonoPrincipalTrabajador"
+                              required >
+                      <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="selectoperadoraprincipalTrabajador">Operadora</label>
+                    <select class="selectoperadoraprincipalTrabajador" multiple="multiple" style="width: 100%">
+                      <option class="chip" value="1">Movistar</option>
+                      <option  class="chip" value="2">Claro</option>
+                      <option  class="chip" value="3">Cootel</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                      <br>
+                      <div class="md-form ">
+                        <input type="text" id="TelefonoSecundarioTrabajador"
+                                minlength="4"
+                                maxlength="50"
+                                class="form-control"
+                                name="TelefonoSecundarioTrabajador"
+                                required >
+                        <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="selectoperadorasecundarioTrabajador">Operadora</label>
+                      <select class="selectoperadorasecundarioTrabajador" multiple="multiple" style="width: 100%">
+                        <option class="chip" value="1">Movistar</option>
+                        <option  class="chip" value="2">Claro</option>
+                        <option  class="chip" value="3">Cootel</option>
+                      </select>
+                    </div>
 
                 <div class="col-md-12">
                   <div class="md-form">

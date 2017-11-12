@@ -2,8 +2,8 @@ var sql = require('mssql')
 
 function createClasificacion(pool,data){ 
     return pool.request()
-        .input('Nombre',sql.NVarChar(50),data.Nombre)
-        .input('Descripcion',sql.NVarChar(150),data.Descripcion)
+        .input('NombreClasificacion',sql.NVarChar(50),data.NombreClasificacion)
+        .input('DescripcionClasificacion',sql.NVarChar(150),data.DescripcionClasificacion)
         .execute('USP_CREATE_CLASIFICACION');
     } 
 function getClasificaciones(pool){
@@ -18,8 +18,8 @@ function dispClasificacion(pool,IdClasificacion){
 function updateClasificacion(pool,data){
     return pool.request()
         .input('IdClasificacion',sql.Int,data.IdClasificacion)
-        .input('Nombre',sql.NVarChar(50),data.Nombre)
-        .input('Descripcion',sql.NVarChar(150),data.Descripcion)
+        .input('NombreClasificacion',sql.NVarChar(50),data.NombreClasificacion)
+        .input('DescripcionClasificacion',sql.NVarChar(150),data.DescripcionClasificacion)
         .execute('USP_UPDATE_CLASIFICACION');
 }
 function getClasificacionById(pool,IdClasificacion){

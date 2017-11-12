@@ -16,8 +16,8 @@ function getProveedores(pool){
 function updateProveedor(pool,data){
     return pool.request()
         .input('IdProveedor',sql.Int,data.IdProveedor)
-        .input('NombreProveedor',sql.NVarChar(50),data.NombreProveedor)
-        .input('Direccion',sql.NVarChar(200),data.Direccion)
+        .input('NombreProveedor',sql.NVarChar(50),data.IdProveedor)
+        .input('Direccion',sql.NVarChar(200),data.Nombre)
         .input('Email',sql.NVarChar(100),data.Email)
         .input('Descripcion',sql.NVarChar(200),data.Descripcion)
         .input('NombreRepresentante',sql.NVarChar(100),data.NombreRepresentante)

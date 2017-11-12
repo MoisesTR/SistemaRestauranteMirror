@@ -177,7 +177,7 @@ export class CategoriaProductoComponent implements OnInit {
       }, error => {
         if (error.status == 500) {
           swal(
-            'Error ineesperado',
+            'Error inesperado',
             'Ha ocurrido un error en el servidor, intenta nuevamente!',
             'error'
           )

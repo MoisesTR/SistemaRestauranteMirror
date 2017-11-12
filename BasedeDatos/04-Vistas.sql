@@ -1,11 +1,11 @@
-USE pruebas_node
+USE pruebas_node;
 GO
 CREATE VIEW V_ProductosDetallados
 AS
 SELECT p.IdProducto,p.NombreProducto,p.Costo,p.Descripcion,p.IdCategoria,cp.NombreCategoria,p.IdSubClasificacion,
     sp.NombreSubClasificacion,cl.IdClasificacion,cl.NombreClasificacion,p.IdEnvase,e.NombreEnvase,p.IdEmpaque,em.NombreEmpaque,
     p.CantidadEmpaque,p.Imagen,p.IdUnidadMedida,um.NombreUnidad,p.ValorUnidadMedida,p.IdEstado,ep.Nombre,
-    p.IdProveedor,pp.NombreProveedor
+    p.IdProveedor,pp.NombreProveedor,p.Habilitado,P.CreatedAt,P.UpdateAt
     FROM Producto p INNER JOIN CATEGORIA_PRODUCTO cp ON p.IdCategoria = cp.IdCategoria
     INNER JOIN SUBCLASIFICACION_PRODUCTO sp ON p.IdSubClasificacion = sp.IdSubClasificacion
     INNER JOIN CLASIFICACION_PRODUCTO cl ON sp.IdClasificacion = cl.IdClasificacion

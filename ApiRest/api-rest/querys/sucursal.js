@@ -11,9 +11,9 @@ function getSucursales(pool){
 }
 function createSucursal(pool,data){
     return pool.request()
-        .input('NombreSucursal',sql.Nvarchar(50),data.NombreEnvase)
-        .input('Direccion',sql.Nvarchar(150),data.Descripcion)
-        .input('TelefonoPrincipal')
+        .input('NombreSucursal',sql.Nvarchar(50),data.NombreSucursal)
+        .input('Direccion',sql.Nvarchar(150),data.Direccion)
+        .input('TelefonoPrincipal',sql.NVarChar(10),data.TelefonoPrincipal)
         .execute('USP_CREATE_SUCURSAL')
 }
 module.exports={

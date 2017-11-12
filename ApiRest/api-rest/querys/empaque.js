@@ -11,8 +11,8 @@ function getEmpaque(pool,IdEmpaque){
 }
 function createEmpaque(pool,data){
     return pool.request()
-        .input('NombreEmpaque',sql.Nvarchar )
-        .input('Descripcion',sql.Nvarchar())
+        .input('NombreEmpaque',sql.NVarChar(50),data.NombreEmpaque)
+        .input('Descripcion',sql.NVarChar(150),data.Descripcion)
         .execute('USP_CREATE_EMPAQUE')
 }
 module.exports={

@@ -7,6 +7,8 @@ import {idioma_espanol} from "../../services/global";
 import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
+import {CustomValidators} from "../../validadores/CustomValidators";
+
 declare var $:any;
 
 @Component({
@@ -47,8 +49,17 @@ export class CategoriaProductoComponent implements OnInit {
     this.initFormAddCategoria();
     this.initFormUpdateCategoria();
 
+    this.onChanges();
   }
 
+  cleanForm(){
+    this.formAddCategoria.reset();
+  }
+  onChanges(): void {
+    this.formAddCategoria.valueChanges.subscribe(val => {
+     console.log('Mensaje');
+    });
+  }
   settingsDatatable(){
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
@@ -101,8 +112,20 @@ export class CategoriaProductoComponent implements OnInit {
   initFormAddCategoria(){
 
     this.formAddCategoria = new FormGroup({
-      'nombreCategoria': new FormControl()
-      , 'descripcionCategoria': new FormControl()
+      'nombreCategoria': new FormControl('',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
+        ])
+      , 'descripcionCategoria': new FormControl('',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(300),
+          CustomValidators.espaciosVacios
+        ])
     });
 
   }
@@ -110,8 +133,20 @@ export class CategoriaProductoComponent implements OnInit {
   initFormUpdateCategoria(){
 
     this.formUpdateCategoria = new FormGroup({
-      'nombreCategoria': new FormControl()
-      , 'descripcionCategoria': new FormControl()
+      'nombreCategoria': new FormControl('',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
+        ])
+      , 'descripcionCategoria': new FormControl('',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(300),
+          CustomValidators.espaciosVacios
+        ])
     });
   }
 

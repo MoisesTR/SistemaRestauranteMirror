@@ -263,17 +263,10 @@ CREATE TABLE PRODUCTO (
     IdProducto INT IDENTITY(1,1),
 	IdCategoria INT NOT NULL,
     IdSubclasificacion INT NOT NULL,
-    IdEnvase INT NULL, --id del envase si es que tiene
-    IdEmpaque INT NULL, --id del empaque si es que tiene
     IdEstado int not null,
-    IdProveedor int not null,
     NombreProducto NVARCHAR(50) NOT NULL,
-    Costo Money NOT NULL,
     Descripcion NVARCHAR(200) NOT NULL,
-	CantidadEmpaque INT NULL, --si tiene empaque 
     Imagen NVARCHAR(100) NULL, --
-    IdUnidadMedida INT not null,
-    ValorUnidadMedida FLOAT NOT NULL,
     Habilitado Bit default 0 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
@@ -282,21 +275,32 @@ CREATE TABLE PRODUCTO (
         REFERENCES  CATEGORIA_PRODUCTO (IdCategoria),
     CONSTRAINT FK_PRODUCT_SUBCLASIF FOREIGN KEY (IdSubclasificacion)
         REFERENCES SUBCLASIFICACION_PRODUCTO (IdSubclasificacion),
-    CONSTRAINT FK_Envase_PRODUCT FOREIGN KEY (IdEnvase)
-        REFERENCES ENVASE (IdEnvase),
-    CONSTRAINT FK_UDM_Producto FOREIGN KEY (IdUnidadMedida)
-        REFERENCES UNIDAD_MEDIDA (IdUnidadMedida),
-	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque) 
-		REFERENCES EMPAQUE(IdEmpaque),
 	constraint fk_Estado_Producto foreign key(IdEstado)
 		references ESTADO_PRODUCTO(IdEstado),
-	constraint fk_ProveedorProducto foreign key(IdProveedor)
-		references PROVEEDOR(IdProveedor),
-	constraint U_ProductoUnico UNIQUE(NombreProducto,IdEnvase,IdEmpaque)
+	constraint U_ProductoUnico UNIQUE(NombreProducto)
 );
-
-ALTER TABLE PRODUCTO
-ADD CONSTRAINT U_Producto UNIQUE(NombreProducto,IdEnvase,IdUnidadMedida,ValorUnidadMedida);
+GO
+CREATE TABLE PRODUCTO_PROVEEDOR(
+	IdProductoProveedor INT IDENTITY(1,1),
+	IdProducto INT NOT NULL,
+	IdProveedor INT NOT NULL,
+	IdEnvase INT NULL, --id del envase si es que tiene
+    IdEmpaque INT NULL, --id del empaque si es que tiene
+	IdUnidadMedida INT not null,
+    ValorUnidadMedida FLOAT NOT NULL,
+	CantidadEmpaque INT NULL, --si tiene empaque 
+	Costo Money NOT NULL,
+	Habilitado Bit default 0 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
+	CONSTRAINT PK_PRODUCTO_PROVEEDOR PRIMARY KEY(IdProductoProveedor),
+	CONSTRAINT fk_PRODUCTO_PROVEIDO FOREIGN KEY(IdProducto) references PRODUCTO(IdProducto),
+	constraint fk_ProveedorProducto foreign key(IdProveedor) references PROVEEDOR(IdProveedor),
+	CONSTRAINT FK_Envase_PRODUCT FOREIGN KEY (IdEnvase) REFERENCES ENVASE (IdEnvase),
+    CONSTRAINT FK_UDM_Producto FOREIGN KEY (IdUnidadMedida) REFERENCES UNIDAD_MEDIDA (IdUnidadMedida),
+	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque)  REFERENCES EMPAQUE(IdEmpaque),
+	CONSTRAINT U_PRODUCTO_PROVEEDOR UNIQUE(IdProducto,IdProveedor)
+)
 GO
 CREATE TABLE  PRODUCTO_ORIGEN(
 	IdProducto int not null,
@@ -333,7 +337,7 @@ CREATE TABLE BODEGA_SUCURSAL (
 GO
 CREATE TABLE SUCURSAL (
     IdSucursal INT IDENTITY(1,1),
-    IdBodega int null,--antes era not null
+    IdBodegaS int null,--antes era not null
     Principal Bit not null default 0,
     NombreSucursal NVARCHAR(100) NOT NULL,
     Direccion NVARCHAR(250) NOT NULL,
@@ -342,7 +346,7 @@ CREATE TABLE SUCURSAL (
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
-    constraint fk_BodegaSucursal foreign key(IdBodega) References BODEGA_SUCURSAL(IdBodegaS)
+    constraint fk_BodegaSucursal foreign key(IdBodegaS) References BODEGA_SUCURSAL(IdBodegaS)
 )
 INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');

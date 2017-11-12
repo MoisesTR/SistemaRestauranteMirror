@@ -233,11 +233,12 @@ GO
 --Nombre Anterior USP_InsertNumeroProveedor
 CREATE PROCEDURE USP_CREATE_NUMEROPROVEEDOR(
     @IdProveedor INT,
+	@IdOperadora INT,
     @Prefijo NVARCHAR(3),
     @NumeroTelefono NVARCHAR(50) --not null
 ) AS BEGIN
-	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,Prefijo,NumeroTelefono)
-    VALUES(@IdProveedor,@Prefijo,@NumeroTelefono);
+	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,IdOperadora,Prefijo,NumeroTelefono)
+    VALUES(@IdProveedor,@IdOperadora,@Prefijo,@NumeroTelefono);
 	SELECT @@IDENTITY AS IdNumero
 END 
 GO
@@ -246,11 +247,12 @@ IF OBJECT_ID('USP_UPDATE_NUMERO_PROVEEDOR','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_UPDATE_NUMERO_PROVEEDOR(
 	@IdProveedor INT,
+	@IdOperadora INT,
     @IdNumero INT,
 	@Prefijo NVARCHAR(3),
     @NumeroTelefono NVARCHAR(50) --not null
 ) AS BEGIN
-		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
+		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo,IdOperadora=@IdOperadora, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END 
 GO
 IF OBJECT_ID('USP_GET_PROVEEDORES','P') IS NOT NULL
@@ -289,203 +291,4 @@ CREATE PROCEDURE USP_GET_NUMEROESPECIFICO(
 ) AS BEGIN
 	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END
-GO
-IF OBJECT_ID('USP_CREATE_PRODUCTO','P') IS NOT NULL
-	DROP PROCEDURE USP_CREATE_PRODUCTO
-GO
-CREATE PROCEDURE USP_CREATE_PRODUCTO(
-	@IdCategoria INT,
-    @IdSubclasificacion INT,
-    @IdEnvase INT,-- NULL id del envase si es que tiene
-    @IdEmpaque INT,-- NULL id del empaque si es que tiene
-    @IdEstado int, -- not null,
-    @IdProveedor int, -- not null,
-    @NombreProducto NVARCHAR(50),-- NOT NULL,
-    @Costo NUMERIC(6,2), -- NOT NULL,
-    @Descripcion NVARCHAR(200), -- NOT NULL,
-	@CantidadEmpaque INT,-- NULL si tiene empaque 
-    @Imagen NVARCHAR(100), -- NULL
-    @IdUnidadMedida INT, -- not null
-    @ValorUnidadMedida FLOAT -- NOT NULL
-) AS BEGIN
-	INSERT INTO PRODUCTO(NombreProducto,Costo,Descripcion,IdCategoria,IdSubclasificacion,IdEnvase,IdEmpaque,
-    CantidadEmpaque,Imagen,IdUnidadMedida,ValorUnidadMedida,IdEstado,IdProveedor)
-	VALUES(@NombreProducto,@Costo,@Descripcion,@IdCategoria,@IdSubclasificacion,
-    @IdEnvase,@IdEmpaque,@CantidadEmpaque,@Imagen,@IdUnidadMedida,@ValorUnidadMedida,@IdEstado,@IdProveedor);
-	SELECT @@IDENTITY AS IdProducto
-END 
-GO
-IF OBJECT_ID('USP_UPDATE_PRODUCTO','P') IS NOT NULL
-	DROP PROCEDURE USP_UPDATE_PRODUCTO
-GO
-CREATE PROCEDURE USP_UPDATE_PRODUCTO(
-	@IdProducto INT,
-    @IdCategoria INT,
-    @IdSubclasificacion INT,
-    @IdEnvase INT,-- NULL id del envase si es que tiene
-    @IdEmpaque INT,-- NULL id del empaque si es que tiene
-    @IdEstado int, -- not null,
-    @IdProveedor int, -- not null,
-    @NombreProducto NVARCHAR(50),-- NOT NULL,
-    @Costo NUMERIC(6,2), -- NOT NULL,
-    @Descripcion NVARCHAR(200), -- NOT NULL,
-	@CantidadEmpaque INT,-- NULL si tiene empaque 
-    @Imagen NVARCHAR(100), -- NULL
-    @IdUnidadMedida INT, -- not null
-    @ValorUnidadMedida FLOAT -- NOT NULL
-) AS BEGIN 
-	UPDATE PRODUCTO SET NombreProducto = @NombreProducto,Costo=@Costo,Descripcion=@Descripcion,IdCategoria=@IdCategoria,
-    IdSubclasificacion=@IdSubclasificacion,IdEnvase=@IdEnvase,IdEmpaque=@IdEmpaque,CantidadEmpaque=@CantidadEmpaque,
-    Imagen=@Imagen,IdUnidadMedida=@IdUnidadMedida,ValorUnidadMedida=@ValorUnidadMedida,IdEstado=@IdEstado,IdProveedor=@IdProveedor,
-    UpdateAt=GETDATE()
-    where IdProducto = @IdProducto;
-END
-GO
-IF OBJECT_ID('USP_GET_PRODUCTOS','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_PRODUCTOS
-GO
-CREATE PROCEDURE USP_GET_PRODUCTOS
-AS BEGIN
-	SELECT * FROM V_ProductosDetallados;
-END 
-GO
-IF OBJECT_ID('USP_GET_PRODUCTO','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_PRODUCTO
-GO
-CREATE PROCEDURE USP_GET_PRODUCTO(
-	@IdProducto INT
-) AS BEGIN
-	SELECT * FROM V_ProductosDetallados WHERE IdProducto = @IdProducto;
-END
-GO
-IF OBJECT_ID('USP_DISP_PRODUCTO','P') IS NOT NULL
-	DROP PROCEDURE USP_DISP_PRODUCTO
-GO
-CREATE PROCEDURE USP_DISP_PRODUCTO(
-	@IdProducto INT,
-	@Habilitado BIT
-) AS BEGIN
-	UPDATE PRODUCTO set Habilitado = @Habilitado,UpdateAt=GETDATE() Where IdProducto = @IdProducto;
-END 
-GO
-IF OBJECT_ID('USP_CREATE_EMPAQUE','P') IS NOT NULL
-	DROP PROCEDURE USP_CREATE_EMPAQUE
-GO
-CREATE PROCEDURE USP_CREATE_EMPAQUE(
-	@NombreEmpaque NVARCHAR(50),
-	@Descripcion NVARCHAR(150)
-)
-AS BEGIN
-	INSERT INTO Empaque(NombreEmpaque,Descripcion)
-	VALUES(@NombreEmpaque,@Descripcion)
-	SELECT @@IDENTITY AS IdEmpaque
-END
-GO
-IF OBJECT_ID('USP_GET_EMPAQUES','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_EMPAQUES
-GO
-CREATE PROCEDURE USP_GET_EMPAQUES
-AS BEGIN
-	SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE
-END
-GO
-IF OBJECT_ID('USP_CREATE_ENVASE','P') IS NOT NULL
-	DROP PROCEDURE USP_CREATE_ENVASE
-GO
-CREATE PROCEDURE USP_CREATE_ENVASE(
-	@NombreEnvase NVARCHAR(50),
-	@Descripcion NVARCHAR(150)
-)
-AS BEGIN
-	INSERT INTO Envase(NombreEnvase,Descripcion)
-	VALUES(@NombreEnvase,@Descripcion)
-	SELECT @@IDENTITY AS IdEnvase
-END
-GO
-IF OBJECT_ID('USP_GET_ENVASES','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_ENVASES
-GO
-CREATE PROCEDURE USP_GET_ENVASES
-AS BEGIN
-	SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE
-END
-GO
-IF OBJECT_ID('USP_GET_ESTADOSPRODUCTO','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_ESTADOSPRODUCTO
-GO
-CREATE PROCEDURE USP_GET_ESTADOSPRODUCTO
-AS BEGIN
-	SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO
-END
-GO
-IF OBJECT_ID('USP_GET_ESTADOPRODUCTO_BY_ID','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_ESTADOPRODUCTO_BY_ID
-GO
-CREATE PROCEDURE USP_GET_ESTADOPRODUCTO_BY_ID(
-	@IdEstado INT
-)
-AS BEGIN
-	SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO WHERE IdEstado = @IdEstado
-END
-GO
-IF OBJECT_ID('USP_CREATE_UNIDAD_MEDIDA','P') IS NOT NULL
-	DROP PROCEDURE USP_CREATE_UNIDAD_MEDIDA
-GO
-CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
-	@IdClasificacionUnidadMedida INT,
-    @NombreUnidad NVARCHAR(50),
-    @Simbolo NVARCHAR(3)
-)
-AS BEGIN
-	INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo)
-	VALUES(@IdClasificacionUnidadMedida,@NombreUnidad,@Simbolo)
-	SELECT @@IDENTITY AS IdUnidadMedida
-END
-GO
-IF OBJECT_ID('USP_GET_UNIDADES_DE_MEDIDA','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
-GO
-CREATE PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
-AS BEGIN
-	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA
-END
-GO
-IF OBJECT_ID('USP_GET_UNIDAD_DE_MEDIDA','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_UNIDAD_DE_MEDIDA
-GO
-CREATE PROCEDURE USP_GET_UNIDAD_DE_MEDIDA(
-	@IdUnidadMedida INT
-)
-AS BEGIN
-	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA WHERE IdUnidadMedida = @IdUnidadMedida
-END
-GO
-IF OBJECT_ID('USP_CREATE_SUCURSAL','P') IS NOT NULL
-	DROP PROCEDURE USP_CREATE_SUCURSAL
-GO
-CREATE PROCEDURE USP_CREATE_SUCURSAL(
-    @NombreSucursal NVARCHAR(100) ,
-    @Direccion NVARCHAR(250) ,
-    @TelefonoPrincipal nvarchar(10)
-)
-AS BEGIN 
-	INSERT INTO SUCURSAL(NombreSucursal,Direccion,TelefonoPrincipal)
-	VALUES(@NombreSucursal,@Direccion,@TelefonoPrincipal)
-	SELECT @@IDENTITY AS IdSucursal
-END
-GO
-IF OBJECT_ID('USP_GET_SUCURSALES','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_SUCURSALES
-GO
-CREATE PROCEDURE USP_GET_SUCURSALES
-AS 
-SELECT IdSucursal,NombreSucursal,Direccion,TelefonoPrincipal from SUCURSAL
-GO
-IF OBJECT_ID('USP_GET_SUCURSAL','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_SUCURSAL
-GO
-CREATE PROCEDURE USP_GET_SUCURSAL
-	@IdSucursal INT
-AS 
-	SELECT IdSucursal,NombreSucursal,Direccion,TelefonoPrincipal from SUCURSAL WHERE IdSucursal = @IdSucursal
 GO

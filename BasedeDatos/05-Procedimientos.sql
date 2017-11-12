@@ -126,15 +126,15 @@ IF OBJECT_ID('USP_CREATE_SUBCLASIFICACION','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_CREATE_SUBCLASIFICACION(
 	@IdClasificacion INT,
-    @Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150)
+    @NombreSubClasificacion NVARCHAR(50),
+    @DescripcionSubClasificacion NVARCHAR(150)
 ) AS BEGIN
 	IF EXISTS(SELECT * FROM CLASIFICACION_PRODUCTO where IdClasificacion = @IdClasificacion)
 		RAISERROR('La Clasificacion Insertada no se encontro, por lo tanto no se inserto la Subclasificacion.',16,1);
     ELSE
 		BEGIN
 		INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion)
-        VALUES(@IdClasificacion,@Nombre,@Descripcion);
+        VALUES(@IdClasificacion,@NombreSubClasificacion,@DescripcionSubClasificacion);
 		SELECT @@IDENTITY AS IdSubclasificacion
 		END
 END

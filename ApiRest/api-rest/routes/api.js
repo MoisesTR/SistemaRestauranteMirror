@@ -8,7 +8,8 @@ const SubclasificacionController = require('../controllers/subclasificacion')
 const EstadoProductoController = require('../controllers/estadoproducto')
 const ProductoController = require('../controllers/producto')
 const SucursalController = require('../controllers/sucursal')
-const UnidadMedidaController = require('../controllers/unidadmedida')
+const UnidadMedidaController = require('../controllers/unidadmedida');
+const ProductoProveedor = require('../controllers/producto_proveedor');
 var Router = express.Router()
 
 Router
@@ -62,4 +63,6 @@ Router
     .get('/unidadesmedida',UnidadMedidaController.getUnidadesMedida)
     .get('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController.getUnidadById)
     .post('/unidadmedida',UnidadMedidaController.createUnidadMedida)
+    //Rutas para Producto Proveedor
+    .get('/productos_proveedores',ProductoProveedor.getProductosProveedores)
     module.exports=Router

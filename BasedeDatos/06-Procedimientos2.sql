@@ -32,6 +32,24 @@ CREATE PROCEDURE USP_UPDATE_PRODUCTO(
     where IdProducto = @IdProducto;
 END
 GO
+IF OBJECT_ID('USP_GET_PRODUCTO','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_PRODUCTO
+GO
+CREATE PROCEDURE USP_GET_PRODUCTO(
+	@IdProducto INT
+)
+AS BEGIN
+	SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO WHERE IdProducto =@IdProducto
+END
+GO
+IF OBJECT_ID('USP_GET_PRODUCTOS','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_PRODUCTOS
+GO
+CREATE PROCEDURE USP_GET_PRODUCTOS
+AS BEGIN
+	SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO
+END
+GO
 IF OBJECT_ID('USP_DISP_PRODUCTO','P') IS NOT NULL
 	DROP PROCEDURE USP_DISP_PRODUCTO
 GO
@@ -57,6 +75,15 @@ CREATE PROCEDURE USP_GET_PRODUCTO_PROVEEDORES(
 	@IdProducto INT
 ) AS BEGIN
 	SELECT * FROM V_ProductosDetallados WHERE IdProducto = @IdProducto;
+END
+GO
+IF OBJECT_ID('USP_GET_PRODUCTOS_PROVEEDOR','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_PRODUCTOS_PROVEEDOR
+GO
+CREATE PROCEDURE USP_GET_PRODUCTOS_PROVEEDOR(
+	@IdProveedor INT
+) AS BEGIN
+	SELECT * FROM V_ProductosDetallados WHERE IdProveedor = @IdProveedor;
 END
 GO
 IF OBJECT_ID('USP_CREATE_EMPAQUE','P') IS NOT NULL
@@ -215,7 +242,6 @@ IF OBJECT_ID('USP_UPDATE_PRODUCTO_PROVEEDOR','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_UPDATE_PRODUCTO_PROVEEDOR(
 	@IdProductoProveedor INT,
-	@IdProveedor INT,
 	@IdEnvase INT NULL, --id del envase si es que tiene
     @IdEmpaque INT NULL, --id del empaque si es que tiene
 	@IdUnidadMedida INT,
@@ -223,7 +249,7 @@ CREATE PROCEDURE USP_UPDATE_PRODUCTO_PROVEEDOR(
 	@CantidadEmpaque INT NULL, --si tiene empaque 
 	@Costo Money
 ) AS BEGIN 
-	UPDATE PRODUCTO_PROVEEDOR SET  IdProveedor=@IdProveedor,IdEnvase=@IdEnvase,IdEmpaque=@IdEmpaque,IdUnidadMedida=@IdUnidadMedida,ValorUnidadMedida=@ValorUnidadMedida,cantidadEmpaque=@CantidadEmpaque,Costo=@Costo,UpdateAt=GETDATE()
+	UPDATE PRODUCTO_PROVEEDOR SET IdEnvase=@IdEnvase,IdEmpaque=@IdEmpaque,IdUnidadMedida=@IdUnidadMedida,ValorUnidadMedida=@ValorUnidadMedida,cantidadEmpaque=@CantidadEmpaque,Costo=@Costo,UpdateAt=GETDATE()
     where IdProductoProveedor = @IdProductoProveedor;
 END
 GO
@@ -290,6 +316,9 @@ AS BEGIN
 	SELECT @@IDENTITY AS IdTelefonoSucursal
 END
 GO
+IF OBJECT_ID('USP_ALTER_TELEFONO_SUCURSAL','P') IS NOT NULL
+	DROP PROCEDURE USP_ALTER_TELEFONO_SUCURSAL
+GO
 CREATE PROCEDURE USP_ALTER_TELEFONO_SUCURSAL(
 	@IdTelefonoSucursal INT,
 	@IdSucursal INT,
@@ -308,4 +337,14 @@ CREATE PROCEDURE USP_DISP_TELEFONO_SUCURSAL(
 )
 AS BEGIN
 	UPDATE TELEFONO_SUCURSAL SET Habilitado=@Habilitado WHERE IdTelefonoSucursal=@IdTelefonoSucursal AND IdSucursal=@IdSucursal
+END
+GO
+IF OBJECT_ID('USP_GET_PRODUCTO_PROVEEDOR','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_PRODUCTO_PROVEEDOR
+GO
+CREATE PROCEDURE USP_GET_PRODUCTO_PROVEEDOR(
+	@IdProductoProveedor INT
+)
+AS BEGIN
+	SELECT IdProductoProveedor,IdProducto,IdProveedor,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,Costo,Habilitado FROM PRODUCTO_PROVEEDOR WHERE IdProductoProveedor =@IdProductoProveedor
 END

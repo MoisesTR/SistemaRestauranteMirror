@@ -1,7 +1,7 @@
-var querys = require('../querys/producto')
+var querys = require('../querys/producto_proveedor')
 var config = require('../config/mssqlConfig')
 
-function getProductoById(req,res){
+function getProductoProveedorById(req,res){
     var data = req.params
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getProductoById(poolObt,data.IdProducto)
@@ -11,9 +11,19 @@ function getProductoById(req,res){
             res.status(500).json(err)
         });
 }
-function getProductos(req,res){
+function getProductoProveedores(req,res){
+    var data = req.body;
+    config.getConnectionPoolGlobal().then((pooObt) => {
+        return querys.getProductoById(pooObt,data.IdProducto)
+    }).then((results) => {
+        res.status(200).json({productos:results.recordset})
+    }).catch((err ) => {
+        res.status(500).json(err);
+    })
+}
+function getProductosProveedores(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getProductos(poolObt)
+       return querys.getProductosProveedores(poolObt)
     }).then((results) => {
        res.status(200).json({productos:results.recordset}) 
     }).catch((err) => {
@@ -56,8 +66,5 @@ function changeStateProducto(req,res){
 }
 module.exports={
     createProducto,
-    getProductoById,
-    getProductos,
-    updateProducto,
-    changeStateProducto
+    getProductosProveedores
 }

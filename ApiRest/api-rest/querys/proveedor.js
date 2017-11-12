@@ -23,9 +23,10 @@ function updateProveedor(pool,data){
         .input('NombreRepresentante',sql.NVarChar(100),data.NombreRepresentante)
         .execute('USP_UPDATE_PROVEEDOR')
 }
-function createNumeroProvedoor(pool,data){
+function createNumeroTelefonoProvedoor(pool,data){
     return pool.request()
         .input('IdProveedor',sql.Int,data.IdProveedor)
+        .input('IdOperadora',sql.Int,data.IdOperadora)
         .input('Prefijo',sql.NVarChar(3),data.Prefijo)
         .input('NumeroTelefono',sql.NVarChar(50),data.NumeroTelefono)
         .execute('USP_CREATE_NUMEROPROVEEDOR');
@@ -33,10 +34,11 @@ function createNumeroProvedoor(pool,data){
 function updateNumeroProveedor(pool,data){
     return pool.request()
         .input('IdProveedor',sql.Int,data.IdProveedor)
+        .input('IdOperadora',sql.Int,data.IdOperadora)
         .input('IdNumero',sql.Int,data.IdNumero)
         .input('Prefijo',sql.NVarChar(3),data.Prefijo)
         .input('NumeroTelefono',sql.NVarChar(50),data.NumeroTelefono)
-        .execute('USP_UPDATE_NUMEROPROVEEDOR');
+        .execute('USP_UPDATE_NUMERO_PROVEEDOR');
 }
 function getProveedorById(pool,IdProveedor){
     return pool.request()
@@ -47,7 +49,7 @@ module.exports={
     createProveedor,
     getProveedores,
     updateProveedor,
-    createNumeroProvedoor,
+    createNumeroTelefonoProvedoor,
     getProveedorById,
     updateNumeroProveedor
 }

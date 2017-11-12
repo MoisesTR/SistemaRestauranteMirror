@@ -270,7 +270,7 @@ CREATE TABLE PRODUCTO (
     NombreProducto NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(200) NOT NULL,
     Imagen NVARCHAR(100) NULL, --
-    Habilitado Bit default 0 not null,
+    Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
     CONSTRAINT PK_ID_PRODUCT PRIMARY KEY (IdProducto),

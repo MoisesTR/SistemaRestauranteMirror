@@ -54,6 +54,12 @@ export class TrabajadorComponent implements OnInit {
 
     $(".selectcargo").select2();
     $(".selectsucursales").select2();
+    $(".selectoperadoraprincipalTrabajador").select2({
+      maximumSelectionLength: 1
+    });
+    $(".selectoperadorasecundarioTrabajador").select2({
+      maximumSelectionLength: 1
+    });
 
 
     $(document).ready(function(){

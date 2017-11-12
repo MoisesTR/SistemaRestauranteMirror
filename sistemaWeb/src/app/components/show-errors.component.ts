@@ -25,8 +25,6 @@ export class ShowErrorsComponent {
     'maxlength': (params) => 'El numero maximo permitido de caracteres es ' + params.requiredLength,
    /* 'pattern': (params) => 'The required pattern is: ' + params.requiredPattern,*/
     'pattern': (params) => 'El correo no es valido!',
-    'years': (params) => params.message,
-    'countryCity': (params) => params.message,
     'uniqueName': (params) => params.message,
     'telephoneNumbers': (params) => params.message,
     'telephoneNumber': (params) => params.message,

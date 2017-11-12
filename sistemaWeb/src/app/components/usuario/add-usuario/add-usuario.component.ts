@@ -10,7 +10,7 @@ export class AddUsuarioComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    $(".selectcargo").select2();
+    $(".selectrol").select2();
 
     $(document).ready(function(){
 

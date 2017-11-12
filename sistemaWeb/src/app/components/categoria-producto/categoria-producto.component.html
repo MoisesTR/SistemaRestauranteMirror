@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalAddCategoria">Nueva Categoria</button>
+                  <button type="button" class="btn orange-chang" (click)="cleanForm()" data-toggle="modal" data-target="#modalAddCategoria">Nueva Categoria</button>
                 </div>
               </div>
             </div>
@@ -87,8 +87,9 @@
                                  name="nombrecategoria"
                                  formControlName="nombreCategoria"
                                  required
-                          >
 
+                          >
+                          <show-errors [control]="formAddCategoria.controls['nombreCategoria']"></show-errors>
                           <label for="addnombrecategoria" class="">Nombre</label>
                         </div>
                       </div>
@@ -100,7 +101,7 @@
                                     formControlName="descripcionCategoria"
                                     required
                           ></textarea>
-
+                          <show-errors [control]="formAddCategoria.controls['descripcionCategoria']"></show-errors>
                           <label for="adddescripcioncategoria">Descripción</label>
                         </div>
                       </div>
@@ -158,7 +159,7 @@
                                  formControlName="nombreCategoria"
                                  required
                           >
-
+                          <show-errors [control]="formUpdateCategoria.controls['nombreCategoria']"></show-errors>
                           <label for="addnombrecategoria" class="">Nombre</label>
                         </div>
                       </div>
@@ -170,7 +171,7 @@
                                     formControlName="descripcionCategoria"
                                     required
                           ></textarea>
-
+                          <show-errors [control]="formUpdateCategoria.controls['descripcionCategoria']"></show-errors>
                           <label for="updescripcioncategoria">Descripción</label>
                         </div>
                       </div>

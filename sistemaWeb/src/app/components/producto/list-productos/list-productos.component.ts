@@ -17,6 +17,7 @@ export class ListProductosComponent implements OnInit {
 
   public producto : Producto;
   public productos: Producto[];
+  public habilita: number = 1;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -38,6 +39,7 @@ export class ListProductosComponent implements OnInit {
       , pageLength: 10
       , language: idioma_espanol
       , "lengthChange": false
+      , searchDelay: 500
       /*,select: true*/
     };
 
@@ -52,6 +54,39 @@ export class ListProductosComponent implements OnInit {
       }
     );
 
+  }
+
+  cambio(){
+
+    if ($('#che').is(":checked"))
+    {
+      this.habilita = 1;
+      console.log('esta checked');
+    } else {
+      this.habilita = 0;
+    }
+
+    this._ProductoServicio.getProductos().subscribe(
+      response => {
+        if(response.productos){
+          this.productos = response.productos;
+          this.rerender();
+        }
+      }, error =>{
+
+      }
+    );
+
+
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   /*CRUD*/

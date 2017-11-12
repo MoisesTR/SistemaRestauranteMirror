@@ -64,5 +64,10 @@ Router
     .get('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController.getUnidadById)
     .post('/unidadmedida',UnidadMedidaController.createUnidadMedida)
     //Rutas para Producto Proveedor
-    .get('/productos_proveedores',ProductoProveedor.getProductosProveedores)
+    .get('/productos/proveedores',ProductoProveedor.getProductosProveedores)
+    .get('/producto/:IdProducto(\\d+)/proveedor/:IdProveedor(\\d+)',ProductoProveedor.)
+    .get('/producto/:IdProducto(\\d+)/proveedores')
+    .get('/productos/proveedor/:IdProveedor(\\d+)')
+    .post('/producto/proveedor')
+    .put()
     module.exports=Router

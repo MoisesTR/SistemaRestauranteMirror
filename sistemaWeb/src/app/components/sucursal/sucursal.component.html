@@ -75,7 +75,7 @@
                   <div class="container-fluid"><br>
                     <div class="row">
                       <!-- Campos a ingresar -->
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <br>
                         <div class="md-form ">
                           <input type="text" id="NombreSucursal"
@@ -100,6 +100,37 @@
                           <label for="TelefonoPrincipal" class="">Telefóno</label>
                         </div>
                       </div>
+
+                      <div class="col-md-6">
+                        <label for="selectoperadora">Operadora</label>
+                        <select class="selectoperadora" multiple="multiple" style="width: 100%">
+                          <option class="chip" value="1">Movistar</option>
+                          <option  class="chip" value="2">Claro</option>
+                          <option  class="chip" value="3">Cootel</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-6">
+                          <br>
+                          <div class="md-form ">
+                            <input type="text" id="TelefonoSecundario"
+                                    minlength="4"
+                                    maxlength="50"
+                                    class="form-control"
+                                    name="TelefonoSecundario"
+                                    required >
+                            <label for="TelefonoSecundario" class="">Telefóno (Opcional)</label>
+                          </div>
+                        </div>
+  
+                        <div class="col-md-6">
+                          <label for="selectoperadorasecundario">Operadora</label>
+                          <select class="selectoperadorasecundario" multiple="multiple" style="width: 100%">
+                            <option class="chip" value="1">Movistar</option>
+                            <option  class="chip" value="2">Claro</option>
+                            <option  class="chip" value="3">Cootel</option>
+                          </select>
+                        </div>
 
                       <div class="col-md-12">
                         <br>

@@ -12,6 +12,7 @@ import {HttpModule} from "@angular/http";
 import { ReporteComponent } from './components/reporte/reporte.component';
 import { TrasladoProductoComponent } from './components/traslado-producto/traslado-producto.component';
 
+
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},

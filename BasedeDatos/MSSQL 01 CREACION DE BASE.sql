@@ -82,6 +82,8 @@ CREATE TABLE PROVEEDOR(
     Descripcion NVARCHAR(200) NULL,
     NombreRepresentante NVARCHAR(100) NOT NULL,
     Habilitado Bit default 1,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_IdProveedor PRIMARY KEY (IdProveedor)
 );
 
@@ -89,13 +91,15 @@ INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresen
 VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante')
 		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante')
 		,('Insumos Chinos','asdasda sdasdsa asd','esteesun@correo.com','descripcion','Representante');
-
+		
 CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
     IdNumero INT IDENTITY(1,1),
     IdProveedor INT,
     Prefijo NVARCHAR(3),
     NumeroTelefono NVARCHAR(50) not null,
     Habilitado Bit default 1,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT Fk_ProveedorTele FOREIGN KEY (IdProveedor)
         REFERENCES Proveedor (IdProveedor),
 	CONSTRAINT PK_IdNumeroTelefProv PRIMARY KEY (IdNumero,IdProveedor)
@@ -112,6 +116,8 @@ CREATE TABLE CLASIFICACION_UNIDAD_MEDIDA (
     NombreClasificacion NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(150) NULL,
     Habilitado Bit default 1,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_ID_CLAS_UDM PRIMARY KEY (IdClasificacionUnidadMedida)
 );
 
@@ -125,6 +131,8 @@ CREATE TABLE UNIDAD_MEDIDA (
     NombreUnidad NVARCHAR(50) NOT NULL,
     Simbolo NVARCHAR(3) NULL,
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_ID_UDM PRIMARY KEY (IdUnidadMedida),
     CONSTRAINT FK_CLAS_UDM FOREIGN KEY (IdClasificacionUnidadMedida)
         REFERENCES CLASIFICACION_UNIDAD_MEDIDA (IdClasificacionUnidadMedida)
@@ -142,6 +150,8 @@ CREATE TABLE CLASIFICACION_PRODUCTO (
     NombreClasificacion NVARCHAR(50) NOT NULL,
     DescripcionClasificacion NVARCHAR(100),
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_CLASIFPRODUCT PRIMARY KEY (IdClasificacion),
     CONSTRAINT U_NOMBRECLASIF UNIQUE(NombreClasificacion)
 );
@@ -156,6 +166,8 @@ CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     NombreSubclasificacion NVARCHAR(50),
     DescripcionSubclasificacion NVARCHAR(150),
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT Pk_IdSubClasfProdu PRIMARY KEY (IdSubclasificacion),
     CONSTRAINT FK_SUBCLAS_CLAS FOREIGN KEY (IdClasificacion)
         REFERENCES CLASIFICACION_PRODUCTO (IdClasificacion),
@@ -199,7 +211,7 @@ VALUES	('Botella Plastica','una botella de plastico')
 		,('Frasco','')
 		,('Tarrro','')
 		,('Botella de vidrio','Una botella de vidrio.'); 
-
+GO
 CREATE TABLE EMPAQUE (
     IdEmpaque INT IDENTITY(1,1),
     NombreEmpaque NVARCHAR(50) NOT NULL,
@@ -225,7 +237,7 @@ CREATE TABLE ESTADO_PRODUCTO(
     Habilitado Bit default 1 not null,
     constraint pk_EstadoProducto primary key(IdEstado)
 );
-
+GO
 INSERT INTO ESTADO_PRODUCTO(Nombre,Descripcion)
 VALUES ('Sin Procesar','Producto que no se ha procesado')
 		,('Semiterminado','Producto que se esta procesando.')
@@ -247,6 +259,8 @@ CREATE TABLE PRODUCTO (
     IdUnidadMedida INT not null,
     ValorUnidadMedida FLOAT NOT NULL,
     Habilitado Bit default 0 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_ID_PRODUCT PRIMARY KEY (IdProducto),
     CONSTRAINT FK_CATEGPRODU FOREIGN KEY (IdCategoria)
         REFERENCES  CATEGORIA_PRODUCTO (IdCategoria),
@@ -277,7 +291,7 @@ CREATE TABLE  PRODUCTO_ORIGEN(
     constraint ch_Producto check(IdProducto <> IdOrigen),
     constraint U_ProductoProcedencia Unique(IdProducto,IdOrigen)
 );
-
+GO
 CREATE TABLE ESTADO_EMPAQUE(
 	IdEstado INT IDENTITY(1,1),
     NombreEstado NVARCHAR(50),
@@ -296,6 +310,8 @@ CREATE TABLE BODEGA_SUCURSAL (
     Nombre NVARCHAR(100) NOT NULL,
     DescripcionLocal NVARCHAR(200) null,
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodegaS)
 );
 GO
@@ -324,36 +340,13 @@ CREATE TABLE TRABAJADOR (
     Direccion NVARCHAR(300) not null,
     FechaIngreso DATE NOT NULL,
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_IDTRABAJ PRIMARY KEY (IdTrabajador),
-    CONSTRAINT FK_CAR_TRAB FOREIGN KEY (IdCargo)
+    CONSTRAINT FK_TRABAJADOR_CARGO FOREIGN KEY (IdCargo)
         REFERENCES Cargo (IdCargo),
-    CONSTRAINT FK_TRABSucursal FOREIGN KEY (IdSucursal)
+    CONSTRAINT FK_TRABAJADOR_SUCURSAL FOREIGN KEY (IdSucursal)
         REFERENCES SUCURSAL (IdSucursal),
 	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
 )
 GO
-CREATE TABLE ROL(
-	IdRol INT IDENTITY(1,1),
-	NombreRol NVARCHAR(50) NOT NULL,
-	DescripcionRol NVARCHAR(50) NOT NULL,
-	CONSTRAINT PK_ROL PRIMARY KEY(IdRol)
-)
-INSERT INTO ROL(NombreRol,DescripcionRol)
-VALUES('Administrador',''),('Encargado Bodega',''),('Propietario',''),('Responsable de Sucursal',''),('Chofer','')
-GO
-CREATE TABLE USUARIO(
-	IdUsuario INT IDENTITY,
-	IdRol INT NOT NULL,
-	IdTrabajador INT NULL,
-	UserName NVARCHAR(50) NOT NULL,
-	Correo NVARCHAR(100) NOT NULL,
-	FCreacion DATETIME NOT NULL,
-	FEdicion DATETIME NULL,
-	Password NVARCHAR(100) NOT NULL,
-	Habilitado BIT NOT NULL DEFAULT 1,
-	CONSTRAINT PK_USUARIO PRIMARY KEY(IdUsuario),
-	CONSTRAINT FK_USUARIO_ROL FOREIGN KEY(IdRol) REFERENCES ROL(IdRol),
-	CONSTRAINT FK_USUARIO_TRABAJADOR FOREIGN KEY(IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador)
-)
-GO
-	

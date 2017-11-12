@@ -24,21 +24,21 @@
           <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/product.png" height="18"></i>Productos <i class="fa fa-angle-down rotate-icon"></i></a>
             <div class="collapsible-body">
               <ul>
-                <li><a class="waves-effect" [routerLink]="['producto']" >Productos</a>
+                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['producto']" >Productos</a>
                 </li>
-                <li><a class="waves-effect" [routerLink]="['categorias']" >Categoria</a>
+                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['categorias']" >Categoria</a>
                 </li>
-                <li><a class="waves-effect" [routerLink]="['clasificacion-productos']" >Clasificación</a>
+                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['clasificacion-productos']" >Clasificación</a>
                 </li>
-                <li><a class="waves-effect" [routerLink]="['subclasificacion-productos']">SubClasificación</a>
+                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['subclasificacion-productos']">SubClasificación</a>
                 </li>
-                <li><a class="waves-effect" [routerLink]="['empaques']">Empaques</a>
+                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['empaques']">Empaques</a>
                 </li>
-                <li><a class="waves-effect" [routerLink]="['envases']">Envases</a>
+                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['envases']">Envases</a>
                 </li>
               </ul>
             </div>
-          </li>          
+          </li>
           <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/sucursales.png" height="18"></i> Sucursales </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
@@ -46,9 +46,9 @@
           </li>
           <li><a class="collapsible-header waves-effect arrow-r"  ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores <i class="fa fa-angle-down rotate-icon"></i></a>
             <div class="collapsible-body">
-                <li><a class="waves-effect" [routerLink]="['proveedores']">Proveedores</a>
+                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['proveedores']">Proveedores</a>
                 </li>
-                <li><a class="waves-effect" [routerLink]="['producto-proveedor']">Productos</a>
+                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['producto-proveedor']">Productos</a>
                 </li>
             </div>
           </li>

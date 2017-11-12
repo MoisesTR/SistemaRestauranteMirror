@@ -7,6 +7,8 @@ CREATE TABLE PROCEDENCIA_PRODUCTO(
     Nombre NVARCHAR(50) not null,
     Descripcion NVARCHAR(150) null,
     Habilitado bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     constraint pk_Procedencia primary key(IdProcedencia)
 );
 GO
@@ -22,6 +24,8 @@ CREATE TABLE USO_PRODUCTO(
     Nombre NVARCHAR(50) not null,
     Descripcion NVARCHAR(150) null,
     Habilitado bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     constraint pk_USO_PRODUCTO primary key(IdUso),
     CONSTRAINT U_USO_PRODUCTO UNIQUE(Nombre)
 );
@@ -36,6 +40,8 @@ CREATE TABLE MOTIVO_BAJA_PRODUCTO(
     Nombre NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(200) NULL,
     Habilitado bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_MOTIVO_BAJA_PRODUCTO PRIMARY KEY(IdMotivo)
 );
 
@@ -50,7 +56,9 @@ CREATE TABLE CARGO(
     IdCargo INT IDENTITY(1,1),
     NombreCargo NVARCHAR(50) NOT NULL,
     DrescripcionCargo NVARCHAR(100),
-    Habilitado Bit default 1 not null,    
+    Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,    
     CONSTRAINT PK_IdCargo PRIMARY KEY (IdCargo)
 );
 
@@ -66,6 +74,8 @@ CREATE TABLE OPERADORA_TELEFONICA(
     Nombre NVARCHAR(50),
     Abreviacion NVARCHAR(3),
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     constraint pk_IdOPERADORA_TELEFONICA primary key(IdOperadora)
 );
 
@@ -184,6 +194,8 @@ CREATE TABLE  CATEGORIA_PRODUCTO(
     NombreCategoria NVARCHAR(50),
     DescripcionCategoria NVARCHAR(150),
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT Pk_CategoriaProducto PRIMARY KEY (IdCategoria),
     CONSTRAINT U_NombreCategoria UNIQUE(NombreCategoria)
 );
@@ -199,6 +211,8 @@ CREATE TABLE ENVASE (
     NombreEnvase NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(150),
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_Envase PRIMARY KEY (IdEnvase),
     CONSTRAINT U_NombreEnvase UNIQUE(NombreEnvase)
 );
@@ -217,6 +231,8 @@ CREATE TABLE EMPAQUE (
     NombreEmpaque NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(200),
     Habilitado Bit default 1,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_Empaque PRIMARY KEY (IdEmpaque),
     CONSTRAINT U_NombreEmpaque UNIQUE(NombreEmpaque)
 );
@@ -323,6 +339,8 @@ CREATE TABLE SUCURSAL (
     Direccion NVARCHAR(250) NOT NULL,
     TelefonoPrincipal NVARCHAR(10),
     Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
     constraint fk_BodegaSucursal foreign key(IdBodega) References BODEGA_SUCURSAL(IdBodegaS)
 )

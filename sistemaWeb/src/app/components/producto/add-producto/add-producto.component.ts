@@ -54,53 +54,57 @@ export class AddProductoComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    console.log('asdasd');
     $(document).ready(function(){
 
       $('.dropify').dropify();
+
+      $(".selectcategoria").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectcsubclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectproveedor").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectenvase").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectempaque").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectestado").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectvalorunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
+      this.formAddProducto = new FormGroup({
+        'proveedor': new FormControl(),
+        'nombreProducto': new FormControl()
+
+      });
+      $(".selectcargo").select2();
+
     });
 
-    $(".selectcategoria").select2({
-      maximumSelectionLength: 1
-    });
 
-    $(".selectcsubclasificacion").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectproveedor").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectenvase").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectempaque").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectunidadmedida").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectclasificacion").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectestado").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectvalorunidadmedida").select2({
-      maximumSelectionLength: 1
-    });
-
-    this.formAddProducto = new FormGroup({
-      'proveedor': new FormControl(),
-      'nombreProducto': new FormControl()
-
-    });
-    $(".selectcargo").select2();
 
     this.cargarProveedores();
     this.cargarCategorias();

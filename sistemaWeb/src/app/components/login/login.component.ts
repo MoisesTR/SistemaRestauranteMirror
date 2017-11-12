@@ -27,6 +27,10 @@ export class LoginComponent implements OnInit {
     console.log(this.usuarioServicio.getToken());
   }
 
+  navegar(){
+
+    this._router.navigate(['/menu']);
+  }
   onSubmit(){
     //Logear al usuario y conseguir el objeto
     this.usuarioServicio.login(this.usuario).subscribe(

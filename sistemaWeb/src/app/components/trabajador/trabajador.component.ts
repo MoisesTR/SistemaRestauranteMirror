@@ -40,29 +40,24 @@ export class TrabajadorComponent implements OnInit {
   }
 
   ngOnInit() {
+      $(document).ready(function(){
 
-    $(document).ready(function(){
-
-      $('.dropify').dropify();
-    });
-
-    $('.cedula').mask('000-000000-0000A',{'translation': {
+      $('.cedula').mask('000-000000-0000A',{'translation': {
         A: {pattern: /[A-Za-z]/},
       }
-    });
+      });
+      $('.dropify').dropify();
+
+      $(".selectcargo").select2();
+      $(".selectsucursales").select2();
+      $(".selectoperadoraprincipalTrabajador").select2({
+        maximumSelectionLength: 1
+      });
+      $(".selectoperadorasecundarioTrabajador").select2({
+        maximumSelectionLength: 1
+      });
 
 
-    $(".selectcargo").select2();
-    $(".selectsucursales").select2();
-    $(".selectoperadoraprincipalTrabajador").select2({
-      maximumSelectionLength: 1
-    });
-    $(".selectoperadorasecundarioTrabajador").select2({
-      maximumSelectionLength: 1
-    });
-
-
-    $(document).ready(function(){
       var date = new Date();
       var currentMonth = date.getMonth();
       var currentDate = date.getDate();

@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Sucursal} from "../../models/Sucursal";
 import { Subject } from 'rxjs/Rx';
 import {idioma_espanol} from "../../services/global";
+declare var $:any;
 
 @Component({
   selector: 'app-sucursal',
@@ -55,6 +56,15 @@ export class SucursalComponent implements OnInit {
 
       }
     );
+
+    $(".selectoperadora").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectoperadorasecundario").select2({
+      maximumSelectionLength: 1
+    });
+
   }
 
   createSucursal(){

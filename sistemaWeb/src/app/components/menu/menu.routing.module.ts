@@ -19,6 +19,7 @@ import {CargoComponent} from "../cargo/cargo.component";
 import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
 import {ReporteComponent} from "../reporte/reporte.component";
+import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
 
 
 const menuRoutes: Routes = [
@@ -45,6 +46,7 @@ const menuRoutes: Routes = [
         , {path:'bodega',component: BodegaSucursalComponent}
         , {path:'traslados',component: TrasladoProductoComponent}
         , {path:'reportes',component: ReporteComponent}
+        , {path:'producto-proveedor',component: ProductoProveedorComponent}
 
     ]
   },

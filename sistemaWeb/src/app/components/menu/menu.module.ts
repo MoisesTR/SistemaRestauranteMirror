@@ -40,6 +40,8 @@ import {CargoComponent} from "../cargo/cargo.component";
 import {ReporteComponent} from "../reporte/reporte.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
 import {UploadService} from "../../services/upload.service";
+import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
+import {ProductoProveedorService} from "../../services/producto-proveedor.service";
 
 
 @NgModule({
@@ -62,6 +64,7 @@ import {UploadService} from "../../services/upload.service";
     , CargoComponent
     , ReporteComponent
     , TrasladoProductoComponent
+    , ProductoProveedorComponent
 
   ],
   imports: [
@@ -95,6 +98,7 @@ import {UploadService} from "../../services/upload.service";
     , BodegaSucursalService
     , TrabajadorService
     , UploadService
+    , ProductoProveedorService
 
   ]
 })

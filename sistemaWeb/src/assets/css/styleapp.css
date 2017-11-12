@@ -150,11 +150,13 @@ h6 {
 
 /* Estilos panel administrativo */
 .background-gray{
-  background: url(../img/landingpage/background-historia.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-image: url(../img/landingpage/background-historia.jpg);
+  min-height: 100%;
+  min-width: 100%;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
 }
 .color-primary{
   background-color: #E67E22;

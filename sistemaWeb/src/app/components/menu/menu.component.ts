@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 declare var $:any;
 declare var jQuery:any;
 import swal from 'sweetalert2'
-
+declare var $:any;
 
 
 @Component({
@@ -15,8 +15,6 @@ export class MenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    $(".button-collapse").sideNav();    
   }
-
-
 }

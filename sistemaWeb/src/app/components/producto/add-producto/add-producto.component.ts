@@ -63,7 +63,7 @@ export class AddProductoComponent implements OnInit, OnChanges {
       maximumSelectionLength: 1
     });
 
-    $(".selectcsubclasificación").select2({
+    $(".selectcsubclasificacion").select2({
       maximumSelectionLength: 1
     });
 

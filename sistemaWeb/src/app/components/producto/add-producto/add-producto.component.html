@@ -1,5 +1,4 @@
 <section>
-
   <form [formGroup]="formAddProducto" (ngSubmit)="createProducto(formAddProducto)" novalidate>
     <div class="row">
 
@@ -33,21 +32,22 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form ">
-                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control ">
-                  <label for="nombreproducto" class="">Nombre</label>
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter" length="50" autocomplete="off">
+                  <label for="nombreproducto" class="input-char-counter">Nombre</label>
                 </div>
               </div>
               <div class="col-md-6">
-                <br>
-                <div class="md-form ">
-                  <input type="number" id="costoproducto" class="form-control ">
-                  <label for="costoproducto" class="">Costo</label>
-                </div>
+                <label for="clasificacion">Clasificación</label>
+                <select class="selectclasificacion" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Clasificación</option>
+                  <option  class="chip" value="2">Clasificación 2</option>
+                </select>
               </div>
               <div class="col-md-6">
-                <label for="proveedor">Proveedor</label>
-                <select class="form-control selectproveedor" id="proveedor" formControlName="proveedor" multiple="multiple" style="width: 100%">
-                  <option class="chip" *ngFor="let proveedor of proveedores" [value]="proveedor.IdProveedor">{{proveedor.NombreProveedor }}</option>
+                <label for="subclasificacion">Subclasificación</label>
+                <select class="selectcsubclasificacion" multiple="multiple" style="width: 100%">
+                  <option class="chip" value="1">Subclasificación</option>
+                  <option  class="chip" value="2">Subclasificación 2</option>
                 </select>
               </div>
               <div class="col-md-6">
@@ -57,59 +57,10 @@
                   <option  class="chip" value="2">Categoria 2</option>
                 </select>
               </div>
-              <div class="col-md-6">
-                <label for="subclasificacion">SubClasificación</label>
-                <select class="selectcsubclasificación" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">SubClasificación</option>
-                  <option  class="chip" value="2">SubClasificación 2</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="empaque">Empaque</label>
-                <select class="selectempaque" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">Empaque</option>
-                  <option  class="chip" value="2">Empaque 2</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <br>
-                <div class="md-form ">
-                  <input type="number" id="cantidadempaqueproducto" class="form-control ">
-                  <label for="cantidadempaqueproducto" class="">Cantidad Empaque</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="envase">Envase</label>
-                <select class="selectenvase" id="envase" multiple="multiple" style="width: 100%">
-                  <option class="chip" *ngFor="let envase of envases" [value]="envase.IdEnvase">{{envase.NombreEnvase }}</option>
-                </select>
-              </div>
-
-              <div class="col-md-6">
-                <label for="unidadmedida">Unidad de Medida</label>
-                <select class="selectunidadmedida" id="unidadmedida" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">Unidad de Medida</option>
-                  <option  class="chip" value="2">Unidad de Medida 2</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="valorunidadmedida">Valor Unidad de Medidad</label>
-                <select class="selectvalorunidadmedida" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">Valor</option>
-                  <option  class="chip" value="2">Valor 2</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="estado">Estado</label>
-                <select class="selectestado" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">Estado</option>
-                  <option  class="chip" value="2">Estado 2</option>
-                </select>
-              </div>
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea type="text" id="descripcionproducto" class="md-textarea"></textarea>
+                  <textarea type="text" id="descripcionproducto" class="md-textarea" autocomplete="off"></textarea>
                   <label for="descripcionproducto">Descripción</label>
                 </div>
               </div>

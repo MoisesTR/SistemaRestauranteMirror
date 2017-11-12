@@ -1,3 +1,7 @@
+.active-submenu {
+  background: rgba(192, 57, 43,0.6) !important;
+}
+
 .nopadding {
   margin-top: 0 !important;
 }

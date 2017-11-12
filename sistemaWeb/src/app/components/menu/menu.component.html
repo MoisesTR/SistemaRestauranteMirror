@@ -38,20 +38,18 @@
                 </li>
               </ul>
             </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/ventas.png" height="18"></i> Ventas <i class="fa fa-angle-down rotate-icon"></i></a>
+          </li>          
+          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/sucursales.png" height="18"></i> Sucursales </a>
             <div class="collapsible-body">
               <!--Contenido submenu-->
             </div>
           </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Sucursales </a>
+          <li><a class="collapsible-header waves-effect arrow-r"  ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores <i class="fa fa-angle-down rotate-icon"></i></a>
             <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['proveedores']" ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores </a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
+                <li><a class="waves-effect" [routerLink]="['proveedores']">Proveedores</a>
+                </li>
+                <li><a class="waves-effect" [routerLink]="['producto-proveedor']">Productos</a>
+                </li>
             </div>
           </li>
           <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['trabajador']"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>

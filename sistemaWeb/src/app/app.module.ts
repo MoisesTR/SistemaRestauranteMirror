@@ -8,9 +8,6 @@ import { NotFound404Component } from './components/not-found-404/not-found-404.c
 import {MenuModule} from "./components/menu/menu.module";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
-import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
-
-
 
 const routes: Routes = [
   {path: '', component: LoginComponent },

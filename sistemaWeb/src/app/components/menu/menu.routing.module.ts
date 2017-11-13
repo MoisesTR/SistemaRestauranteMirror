@@ -20,6 +20,8 @@ import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.compon
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
 import {ReporteComponent} from "../reporte/reporte.component";
 import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
+import {RolUsuario} from "../../models/RolUsuario";
+import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 
 
 const menuRoutes: Routes = [
@@ -47,6 +49,7 @@ const menuRoutes: Routes = [
         , {path:'traslados',component: TrasladoProductoComponent}
         , {path:'reportes',component: ReporteComponent}
         , {path:'producto-proveedor',component: ProductoProveedorComponent}
+        , {path:'rol',component: RolusuarioComponent}
 
     ]
   },

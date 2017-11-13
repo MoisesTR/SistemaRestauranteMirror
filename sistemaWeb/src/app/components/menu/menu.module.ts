@@ -42,6 +42,7 @@ import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.
 import {UploadService} from "../../services/upload.service";
 import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
 import {ProductoProveedorService} from "../../services/producto-proveedor.service";
+import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import {ProductoProveedorService} from "../../services/producto-proveedor.servic
     , ReporteComponent
     , TrasladoProductoComponent
     , ProductoProveedorComponent
+    , RolusuarioComponent
 
   ],
   imports: [

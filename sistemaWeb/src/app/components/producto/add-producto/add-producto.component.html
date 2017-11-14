@@ -9,7 +9,7 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300"/>
+            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300" formControlName="imagen"/>
           </div>
         </div>
         <div *ngIf="producto.Imagen">
@@ -38,14 +38,17 @@
               </div>
               <div class="col-md-6">
                 <label for="clasificacion">Clasificación</label>
-                <select class="selectclasificacion" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="1">Clasificación</option>
-                  <option  class="chip" value="2">Clasificación 2</option>
+
+                <select class="form-control selectclasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion">
+                  <option class = "chip" value = 1 >orange</option>
+                  <option class = "chip" value = 2 >white</option>
+                  <option class = "chip" value = 3 >purple</option>
                 </select>
+
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <select class="selectcsubclasificacion" multiple="multiple" style="width: 100%">
+                <select class="selectcsubclasificacion" multiple="multiple" style="width: 100%" formControlName="subclasificacion">
                   <option class="chip" value="1">Subclasificación</option>
                   <option  class="chip" value="2">Subclasificación 2</option>
                 </select>
@@ -53,7 +56,7 @@
               <div class="col-md-6">
                 <br>
                 <label for="categoria">Categoria</label>
-                <select class="selectcategoria" multiple="multiple" style="width: 100%">
+                <select class="selectcategoria" multiple="multiple" style="width: 100%" formControlName="categoria">
                   <option class="chip" value="1">Categoria</option>
                   <option  class="chip" value="2">Categoria 2</option>
                 </select>
@@ -61,7 +64,7 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea type="text" id="descripcionproducto" class="md-textarea" autocomplete="off"></textarea>
+                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
                   <label for="descripcionproducto">Descripción</label>
                 </div>
               </div>

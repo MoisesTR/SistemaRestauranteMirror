@@ -1,8 +1,5 @@
-import {Component, Directive, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {
-  AbstractControl, FormControl, FormGroup, NG_VALIDATORS, NgForm, ValidationErrors,
-  Validator
-} from "@angular/forms";
+import {AfterViewInit, Component, Directive, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+
 import {Provedor} from "../../../models/Provedor";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProveedorService} from "../../../services/proveedor.service";
@@ -15,7 +12,7 @@ import {UploadService} from "../../../services/upload.service";
 import {Global} from "../../../services/global";
 import {Producto} from "../../../models/Producto";
 declare var $:any;
-
+import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
 @Component({
   selector: 'app-add-producto',
   templateUrl: './add-producto.component.html',
@@ -23,14 +20,22 @@ declare var $:any;
 })
 
 
-export class AddProductoComponent implements OnInit, OnChanges {
+export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
+  ngAfterViewInit(): void {
+    $(document).ready(function(){
+
+      $('.selectclasificacion').val(['1', '3']);
+      $('.selectclasificacion').trigger('change');
+    });
+
+  }
   ngOnChanges(changes: SimpleChanges): void {
 
-    this.formAddProducto.get('proveedor').valueChanges.subscribe(val => {
+    console.log('cambiaste');
+   /* this.formAddProducto.get('proveedor').valueChanges.subscribe(val => {
       console.log({val});
-    });
+    });*/
   }
-
 
   public producto : Producto;
   formAddProducto: FormGroup;
@@ -54,7 +59,7 @@ export class AddProductoComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log('asdasd');
+
     $(document).ready(function(){
 
       $('.dropify').dropify();
@@ -95,37 +100,28 @@ export class AddProductoComponent implements OnInit, OnChanges {
         maximumSelectionLength: 1
       });
 
-      this.formAddProducto = new FormGroup({
-        'proveedor': new FormControl(),
-        'nombreProducto': new FormControl()
 
-      });
-      $(".selectcargo").select2();
+
+    });
+    this.cargarCategorias();
+    this.formAddProducto = new FormGroup({
+      'nombreProducto': new FormControl(),
+      'descripcionProducto': new FormControl(),
+      'subclasificacion' : new FormControl(),
+      'categoria' : new FormControl(),
+      'imagen' : new FormControl(),
+      'clasificacion': new FormControl('',Validators.required)
 
     });
 
 
-
-    this.cargarProveedores();
-    this.cargarCategorias();
-    this.cargarEnvases();
-
   }
 
-  cargarProveedores(){
 
-    this._proveedorService.getProveedores().subscribe(
-      response =>{
-        if(response.proveedores){
-          this.proveedores = response.proveedores;
-        } else {
 
-        }
-      }, error =>{
-
-      }
-    )
-  }
+cambios(){
+    console.log('hola');
+}
 
   cargarCategorias(){
 
@@ -141,24 +137,6 @@ export class AddProductoComponent implements OnInit, OnChanges {
 
       }
     )
-
-  }
-
-  cargarEnvases(){
-    this._envaseService.getEnvases().subscribe(
-      response =>{
-        if(response.envases){
-          this.envases = response.envases;
-        } else {
-
-        }
-      }, error =>{
-
-      }
-    )
-  }
-
-  cargarUnidadesDeMedida(){
 
   }
 
@@ -184,8 +162,15 @@ export class AddProductoComponent implements OnInit, OnChanges {
   }
   createProducto(myForm: NgForm){
 
+    /*this.uploadImage();*/
+    let variable = null;
+    variable = $( ".selectclasificacion" ).val();
 
-    this.uploadImage();
+    console.log(variable[0]);
+
+    if(variable[0] == null){
+      console.log('No hay dato en la variable');
+    }
   /*  this.formAddProducto.controls['make'].valueChanges.subscribe((value) => {
       console.log(value);
 

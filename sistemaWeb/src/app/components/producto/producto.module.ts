@@ -8,6 +8,7 @@ import { AddProductoComponent } from './add-producto/add-producto.component';
 import { ListProductosComponent } from './list-productos/list-productos.component';
 import { UpdateProductoComponent } from './update-producto/update-producto.component';
 import {ProductoRoutingModule} from "./producto.routing.module";
+import {ShowErrorsComponent} from "../show-errors.component";
 
 @NgModule({
   imports: [

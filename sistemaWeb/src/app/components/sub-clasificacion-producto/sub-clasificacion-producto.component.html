@@ -82,7 +82,7 @@
                   <div class="container-fluid">
                     <br>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <br>
                         <div class="md-form ">
                           <input type="text" id="addnombresubclasificacion"
@@ -96,8 +96,16 @@
                           <show-errors [control]="formAddSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
                           <label for="addnombresubclasificacion" class="">Nombre</label>
                         </div>
-
                       </div>
+
+                      <div class="col-md-6">
+                        <label for="selectclasificacion">Clasificación</label>
+                        <select name="selectclasificacion"  class="selectclasificacion" multiple="multiple" style="width: 100%">
+                          <option class="chip" value="IdClasificacion">Clasificacion 1</option>
+                          <option  class="chip" value="IdClasificacion">Clasificacion 2</option>
+                        </select>
+                      </div>
+
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">

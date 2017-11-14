@@ -57,6 +57,10 @@ export class SubClasificacionProductoComponent implements OnInit {
       , ordering:  true
     };
 
+    $(".selectclasificacion").select2({
+      maximumSelectionLength: 1
+    });
+
     $(".letras").keypress(function (key) {
       if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
         && (key.charCode < 65 || key.charCode > 90) //letras minusculas

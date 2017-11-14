@@ -23,7 +23,7 @@ export class CategoriaProductoComponent implements OnInit {
   public categoriasProductos: CategoriaProducto[];
   public mensaje : string;
 
- 
+
 
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
@@ -32,6 +32,8 @@ export class CategoriaProductoComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
+  public formAddCategoria: FormGroup;
+  public formUpdateCategoria:FormGroup;
 
   constructor(
     private _route: ActivatedRoute,

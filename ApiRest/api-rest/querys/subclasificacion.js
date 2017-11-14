@@ -3,8 +3,8 @@ var sql = require('mssql')
 function createSubClasificacion(pool,data){ 
     return  pool.request()
         .input('IdClasificacion',sql.Int,data.IdClasificacion)
-        .input('NombreClasificacion',sql.NVarChar(50),data.NombreClasificacion)
-        .input('DescripcionClasificacion'.sql.NVarChar(150),data.DescripcionClasificacion)
+        .input('NombreSubClasificacion',sql.NVarChar(50),data.NombreClasificacion)
+        .input('DescripcionSubClasificacion'.sql.NVarChar(150),data.DescripcionClasificacion)
         .execute('USP_CREATE_SUBCLASIFICACION'); 
 }
 function getSubclasificaciones(pool){

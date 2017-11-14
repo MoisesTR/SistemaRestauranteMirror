@@ -24,7 +24,7 @@ function getConnectionPoolGlobal(){
                 console.log('Nuevo pool Creado')
             }).catch(err =>{
                 reject(err)
-                })
+            })
         }      
     }
     return new Promise(conect)

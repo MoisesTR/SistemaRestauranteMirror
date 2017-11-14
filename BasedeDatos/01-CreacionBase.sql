@@ -105,14 +105,16 @@ GO
 CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
     IdNumero INT IDENTITY(1,1),
     IdProveedor INT,
+	IdOperadora INT,
     Prefijo NVARCHAR(3),
-    NumeroTelefono NVARCHAR(50) not null,
+    NumeroTelefono NVARCHAR(20) not null,
     Habilitado Bit default 1,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
     CONSTRAINT Fk_ProveedorTele FOREIGN KEY (IdProveedor)
         REFERENCES Proveedor (IdProveedor),
-	CONSTRAINT PK_IdNumeroTelefProv PRIMARY KEY (IdNumero,IdProveedor)
+	CONSTRAINT PK_IdNumeroTelefProv PRIMARY KEY (IdNumero,IdProveedor),
+	CONSTRAINT FK_OPERADORA_TELEFONO_PROVEEDOR FOREIGN KEY(IdOperadora) REFERENCES OPERADORA_TELEFONICA(IdOperadora)
 );
 GO
 INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,NumeroTelefono) 
@@ -168,7 +170,8 @@ CREATE TABLE CLASIFICACION_PRODUCTO (
 GO
 INSERT INTO CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion) 
 VALUES	('Pollo','Las distintas cortes de pollo.')
-		,('Pastas','Distintos tipos de pasta');
+		,('Pastas','Distintos tipos de pasta')
+		,('Granos Basicos',NULL)
 GO
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     IdSubclasificacion INT IDENTITY(1,1),
@@ -258,7 +261,7 @@ INSERT INTO ESTADO_PRODUCTO(Nombre,Descripcion)
 VALUES ('Sin Procesar','Producto que no se ha procesado')
 		,('Semiterminado','Producto que se esta procesando.')
         ,('Terminado','Producto terminado.');
-
+GO
 CREATE TABLE PRODUCTO (
     IdProducto INT IDENTITY(1,1),
 	IdCategoria INT NOT NULL,
@@ -267,7 +270,7 @@ CREATE TABLE PRODUCTO (
     NombreProducto NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(200) NOT NULL,
     Imagen NVARCHAR(100) NULL, --
-    Habilitado Bit default 0 not null,
+    Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
     CONSTRAINT PK_ID_PRODUCT PRIMARY KEY (IdProducto),
@@ -341,7 +344,6 @@ CREATE TABLE SUCURSAL (
     Principal Bit not null default 0,
     NombreSucursal NVARCHAR(100) NOT NULL,
     Direccion NVARCHAR(250) NOT NULL,
-    TelefonoPrincipal NVARCHAR(10),
     Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
@@ -350,6 +352,19 @@ CREATE TABLE SUCURSAL (
 )
 INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
+GO
+CREATE TABLE TELEFONO_SUCURSAL(
+	IdTelefonoSucursal INT IDENTITY(1,1), 
+	IdSucursal INT NOT NULL,
+	IdOperadora INT NOT NULL,
+	NumeroTelefono NVARCHAR(20) NOT NULL,
+	Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
+	CONSTRAINT PK_TELEFONO_SUCURSAL PRIMARY KEY(IdTelefonoSucursal),
+	CONSTRAINT FK_TELEFONO_SUCURSAL FOREIGN KEY(IdSucursal) REFERENCES SUCURSAL(IdSucursal),
+	CONSTRAINT FK_TELEFONO_OPERADORA FOREIGN KEY(IdOperadora) REFERENCES OPERADORA_TELEFONICA(IdOperadora)
+)
 GO
 CREATE TABLE TRABAJADOR (
     IdTrabajador INT IDENTITY(1,1),

@@ -13,13 +13,23 @@ CREATE TABLE NUMERO_TELEFONO_TRABAJADOR(
     constraint fk_OperadoraTelefono foreign key(IdOperadora) references OPERADORA_TELEFONICA(IdOperadora)
 )
 GO
+create TABLE AREA_PRODUCCION(
+	IdAreaProduccion int IDENTITY(1,1),
+    Nombre NVARCHAR(50) NOT NULL,
+    Habilitado Bit default 1 not null,
+    constraint pk_IdAreaProduccion primary key(IdAreaProduccion)
+)
+GO
 --NOMBRE ANTERIOR BODEGA_AREA_PRODUCCION
 create table BODEGA_AREA_PRODUCCION(
 	IdBodegaAP int IDENTITY(1,1),
+	IdAreaProduccion INT NOT NULL,
     Nombre NVARCHAR(50) not null,
     Descripcion NVARCHAR(300) null,
     Habilitado Bit default 1 not null,
-    constraint pk_IdBodegaAP primary key(IdBodegaAP)
+    constraint pk_IdBodegaAP primary key(IdBodegaAP),
+	constraint FK_BODEGA_AREA_PRODUCCION foreign key(IdAreaProduccion) references AREA_PRODUCCION(IdBodegaAP),
+	constraint u_BODEA_PARA_AP UNIQUE(IdAreaProduccion)
 )
 GO
 --NOMBRE ANTERIOR 
@@ -37,21 +47,15 @@ create table DETALLE_BODEGA_AP(
     constraint fk_IdProducto foreign key(IdProducto) references PRODUCTO(IdProducto),
     constraint fk_IdUsoProducto foreign key(IdUso) references UsoProducto(IdUso)
 )
-	GO
-create TABLE AREA_PRODUCCION(
-	IdAreaProduccion int IDENTITY(1,1),
-    IdBodegaAP int not null,
-    Habilitado Bit default 1 not null,
-    constraint pk_IdAreaProduccion primary key(IdAreaProduccion),
-    constraint fk_BodegaAreaP foreign key(IdBodegaAP) references BODEGA_AREA_PRODUCCION(IdBodegaAP)
-)
 GO
 create table BODEGA_CENTRAL(
-	IdBodegaC int IDENTITY(1,1),
-    Nombre NVARCHAR(50),
+	IdBodegaC INT IDENTITY(1,1) NOT NULL,
+	IdUbicacion INT NULL, --Es el id de la sucursal en que se encuentra
+    Nombre NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(50),
-    Habilitado Bit default 1 not null,
-    constraint pk_IdBodegaAPCentral primary key(IdBodegaC)
+    Habilitado Bit default 1 NOT NULL,
+    constraint pk_IdBodegaAPCentral primary key(IdBodegaC),
+	CONSTRAINT FK_UBICACION_BODEGA_CENTRAL FOREIGN KEY(IdUbicacion) REFERENCES SUCURSAL(IdSucursal) 
 )
 GO
 create table DETALLE_BODEGA_CENTRAL(

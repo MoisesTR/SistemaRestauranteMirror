@@ -18,6 +18,7 @@ VALUES('Hongos','Bolsa de Hongos.',1,3,NULL,1);
 
 
 INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
+select NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado from PRODUCTO
 VALUES('Res','Bolsa de Res.',2,3,NULL,1);
 
 -- INSERT INTO BodegaSucursal(Nombre,DescripcionLocal)
@@ -38,5 +39,9 @@ VALUES('Res','Bolsa de Res.',2,3,NULL,1);
 -- INSERT INTO DetalleEntradaBodegaCentral(IdEntrada,IdProducto,Cantidad,IdProcedencia)
 -- VALUES(1,2,2,2);#cambiar a 1
 -- 
-SELECT * FROM CLASIFICACION_PRODUCTO
-SELECT * FROM SUBCLASIFICACION_PRODUCTO
+--SELECT * FROM CLASIFICACION_PRODUCTO 
+
+
+alter table producto drop constraint u_productounico
+
+select * from PRODUCTO

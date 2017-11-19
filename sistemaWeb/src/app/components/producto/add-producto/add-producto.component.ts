@@ -38,9 +38,8 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     var str:string;
     $('#clasificacion').change((e)=> {
 
-      str = $( ".selectclasificacion" ).val()
-      console.log(str);
-      document.getElementsByName("clasi")[0].clasificacion.IdClasificacion;
+      str = $( ".selectclasificacion" ).val()[0]
+      console.log(str.split(':'));
       let variable:Number;
       this.numero = $( ".selectclasificacion" ).select2("val");
       this._subclasificacionService.getSubClasificacionByIdClasificacion(1).subscribe(

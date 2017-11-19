@@ -45,6 +45,7 @@ import {ProductoProveedorService} from "../../services/producto-proveedor.servic
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 import {HabilitadosComponent} from "../habilitados/habilitados.component";
 import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
+import {FacturaModule} from "../factura/factura.module";
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
     , HabilitadosComponent
     , UnidadmedidaComponent
 
+
   ],
   imports: [
     CommonModule
@@ -82,6 +84,7 @@ import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
     , ReactiveFormsModule
     , DataTablesModule
     , UsuarioRoutingModule
+    , FacturaModule
 
 
 

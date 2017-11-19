@@ -60,6 +60,17 @@ function getClasificacionById(req,res){
         })
     }
 }
+function changeStateProducto(req,res){
+    var data = req.body
+    config.getConnectionPoolGlobal()-then((poolObt) => {
+        return querys.changeStateProducto(poolObt,IdProducto)        
+    }).then((results) => {
+        res.status(200).json(results)
+        console.log('Producto cambiado de estado con exito!')
+    }).catch((err) => {
+       res.status(500).json(err) 
+    });
+}
 module.exports={
    createClasificacion,
    getClasificacionById,

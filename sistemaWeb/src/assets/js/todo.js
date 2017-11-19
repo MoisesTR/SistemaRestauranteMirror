@@ -1,5 +1,3 @@
-$(".button-collapse").sideNav();
-
 //fecha$(".letras").keypress(function (key) {
 $(document).ready(function(){
   var date = new Date();

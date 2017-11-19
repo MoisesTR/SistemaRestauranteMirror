@@ -46,13 +46,10 @@ function updateProveedor(req,res){
 function changeStateProveedor(req,res){
 
 }
-function updateUDM(req,res){
-}
 module.exports={
     createProveedor,
     getProveedorById,
     getProveedores,
     updateProveedor,
-    changeStateProveedor,
-    updateUDM
+    changeStateProveedor
 }

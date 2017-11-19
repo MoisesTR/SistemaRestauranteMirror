@@ -1,7 +1,7 @@
 var querys = require('../querys/categoria')
 var config = require('../config/mssqlConfig')
 
-function createCategoria(req,res){ 
+function createRol(req,res){ 
     var data = req.body
     console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
     if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 
@@ -21,7 +21,7 @@ function createCategoria(req,res){
         })
     }
 }
-function getCategorias(req,res){
+function getRoles(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getCategorias(poolObt);
     }).then((results) => {
@@ -32,7 +32,18 @@ function getCategorias(req,res){
         res.status(500).json(err)
     });
 }
-function updateCategoria(req,res){
+function getRolbyId(req,res){
+    config.getConnectionPoolGlobal().then((poolObt) => {
+        return querys.getCategorias(poolObt);
+    }).then((results) => {
+        res.status(200).json({
+            categorias:results.recordset
+        })
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
+}
+function updateRol(req,res){
     var data = req.body
     if(data.IdCategoria != undefined && data.Nombre != undefined && data.Descripcion != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
@@ -52,27 +63,10 @@ function updateCategoria(req,res){
         })
     }
 }
-function getCategoriaById(req,res){
-    var data = req.params
-    if(data.IdCategoria){
-        config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getCategoriaById(poolObt,data.IdCategoria)
-        }).then((results) => {
-           res.status(200).json({categoria:results.recordset[0]}) 
-        }).catch((err) => {
-            res.status(500).json(err)
-        });
-    }else{
-        res.status(401).json({
-            error:true,
-            code:'EPARAMS',
-            message:'Envie el id de la Categoria a Obtener'
-        })
-    }
-}
+
 module.exports={
-    createCategoria,
-    getCategoriaById,
-    getCategorias,
-    updateCategoria
+    createRol,
+    getRoles,
+    getRolbyId,
+    updateRol
 }

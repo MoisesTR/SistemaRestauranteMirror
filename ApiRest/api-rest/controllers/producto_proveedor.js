@@ -11,7 +11,7 @@ function getProductoProveedorById(req,res){
             res.status(500).json(err)
         });
 }
-function getProductoProveedores(req,res){
+function getProveedoresOfProducto(req,res){
     var data = req.body;
     config.getConnectionPoolGlobal().then((pooObt) => {
         return querys.getProductoById(pooObt,data.IdProducto)
@@ -30,9 +30,9 @@ function getProductosProveedores(req,res){
         res.status(500).json(err)
     });
 }
-function createProducto(req,res){
+function createProductoProveedor(req,res){
     var data=req.body
-    config.getConnectionPoolGlobal()-then((poolObt) => {
+    config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createProducto(poolObt,data)        
     }).then((results) => {
         res.status(200).json(results.recordset[0])
@@ -40,9 +40,12 @@ function createProducto(req,res){
        res.status(500).json(err) 
     });
 }
+function getProductosByProveedorId(req,res){
+
+}
 function updateProducto(req,res){
     var data = req.body
-    config.getConnectionPoolGlobal()-then((poolObt) => {
+    config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.updateProducto(poolObt,data)        
     }).then((results) => {
         res.status(200).json({
@@ -53,9 +56,9 @@ function updateProducto(req,res){
        res.status(500).json(err) 
     });
 }
-function changeStateProducto(req,res){
+function changeStateProductoProveedor(req,res){
     var data = req.body
-    config.getConnectionPoolGlobal()-then((poolObt) => {
+    config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.changeStateProducto(poolObt,IdProducto)        
     }).then((results) => {
         res.status(200).json(results)
@@ -68,8 +71,10 @@ function changeStateProducoPro(req,res){
 
 }
 module.exports={
-    createProducto,
-    changeStateProducto,
+    createProductoProveedor,
+    changeStateProductoProveedor,
     getProductosProveedores,
-    getProductoProveedorById
+    getProductoProveedorById,
+    getProveedoresOfProducto,
+    getProductosByProveedorId
 }

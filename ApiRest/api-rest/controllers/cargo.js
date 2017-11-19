@@ -70,9 +70,13 @@ function getCargoById(req,res){
         })
     }
 }
+function changeStateCargo(req,res){
+
+}
 module.exports={
     createCargo,
     getCargoById,
     getCargos,
-    updateCargo
+    updateCargo,
+    changeStateCargo
 }

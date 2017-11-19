@@ -24,21 +24,32 @@ import {SubClasificacionProductoService} from "../../../services/sub-clasificaci
 })
 
 
-export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
+export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
+
+
+  public IdClasificacionSeleccionado:Number;
+  public numero:Number[]
+  ngOnChanges(changes: SimpleChanges): void {
+
+
+  }
 
   ngAfterViewInit(): void {
- /*   $(document).ready(function(){
+    var str:string;
+    $('#clasificacion').change((e)=> {
 
-      $('.selectclasificacion').val(['1', '3']);
-
-    });*/
-
-    $('.selectclasificacion').on("select2:selecting", () => {
+      str = $( ".selectclasificacion" ).val()
+      console.log(str);
+      document.getElementsByName("clasi")[0].clasificacion.IdClasificacion;
+      let variable:Number;
+      this.numero = $( ".selectclasificacion" ).select2("val");
       this._subclasificacionService.getSubClasificacionByIdClasificacion(1).subscribe(
 
         response =>{
           if(response.subclasificaciones){
             this.subclasificaciones = response.subclasificaciones;
+            console.log(this.subclasificaciones);
+            $('#subclasificacion').trigger('change');
 
           }
         }, error=>{
@@ -47,16 +58,8 @@ export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
       )
     });
 
-    $('.selectsubclasificacion').trigger('change');
-
   }
-  ngOnChanges(changes: SimpleChanges): void {
 
-    console.log('cambiaste');
-   /* this.formAddProducto.get('proveedor').valueChanges.subscribe(val => {
-      console.log({val});
-    });*/
-  }
 
   public producto : Producto;
   formAddProducto: FormGroup;
@@ -122,10 +125,12 @@ export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
         maximumSelectionLength: 1
       });
 
+
+
     });
     this.cargarCategorias();
     this.getClasificaciones();
-    /*this.getSubClasificacionByIdClasificacion(1);*/
+
     console.log(this.subclasificaciones);
 
     this.formAddProducto = new FormGroup({
@@ -139,12 +144,6 @@ export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
     });
 
 
-  }
-
-
-
-  mensaje(){
-    console.log('m,ensaje')
   }
 
   cargarCategorias(){
@@ -190,9 +189,6 @@ export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
       }
     )
 
-  }
-  carga(){
-    alert('hola');
   }
 
   uploadImage(){

@@ -39,15 +39,15 @@
               <div class="col-md-6">
                 <label for="clasificacion">Clasificación</label>
 
-                <select class="form-control selectclasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion" (change)="carga()">
-                  <option class = "chip" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
+                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion">
+                  <option class = "chip" name = "clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
                 </select>
 
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <select class="selectcsubclasificacion" multiple="multiple" style="width: 100%" formControlName="subclasificacion">
-                  <option class="chip" *ngFor="let subclasificacion of subclasificaciones">{{subclasificacion.NombreSubClasificacion}}</option>
+                <select class="form-control selectcsubclasificacion" id="subclasificacion" multiple="multiple" style="width: 100%" formControlName="subclasificacion">
+                  <option class="chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
 
                 </select>
               </div>

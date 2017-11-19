@@ -18,6 +18,7 @@ import {ClasificacionProductoService} from "../../../services/clasificacion-prod
 import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
 import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
 import {ProductoService} from "../../../services/producto.service";
+
 @Component({
   selector: 'app-add-producto',
   templateUrl: './add-producto.component.html',

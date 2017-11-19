@@ -24,6 +24,9 @@ import {RolUsuario} from "../../models/RolUsuario";
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 import {HabilitadosComponent} from "../habilitados/habilitados.component";
 import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
+import {AddfacturaComponent} from "../factura/addfactura/addfactura.component";
+import {ListFacturaComponent} from "../factura/list-factura/list-factura.component";
+import {DeleteFacturaComponent} from "../factura/delete-factura/delete-factura.component";
 
 
 const menuRoutes: Routes = [
@@ -54,6 +57,10 @@ const menuRoutes: Routes = [
         , {path:'rol',component: RolusuarioComponent}
         , {path:'habilitados',component: HabilitadosComponent}
         , {path:'unidadmedida',component: UnidadmedidaComponent}
+        /*FACTURA MODULO*/
+        , {path:'factura/add',component: AddfacturaComponent}
+        , {path:'factura/list',component: ListFacturaComponent}
+        , {path:'factura/delete',component: DeleteFacturaComponent}
 
     ]
   },

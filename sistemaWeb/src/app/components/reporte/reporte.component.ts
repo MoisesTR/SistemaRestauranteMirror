@@ -16,6 +16,7 @@ export class ReporteComponent implements OnInit {
   public clasificaciones: ClasificacionProducto[];
   public productos: Producto[];
   public url: string;
+  public buscando;
   constructor(
     private _route: ActivatedRoute
     , private _router: Router

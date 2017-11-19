@@ -27,8 +27,8 @@ export class ProductoService {
     return this._http.get(this.url + 'producto/'+IdProducto).map(res => res.json());
   }
 
-  getProductos(){
-    return this._http.get(this.url + 'productos').map(res => res.json());
+  getProductos(Habilitado = 1){
+    return this._http.get(this.url + 'productos?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateProducto(IdProducto,Producto){
@@ -43,8 +43,8 @@ export class ProductoService {
       .map(res => res.json());
   }
 
-  deleteProducto(Producto){
-    let params = JSON.stringify(Producto);
+  deleteProducto(IdProducto){
+   /* let params = JSON.stringify(Producto);*/
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'token'
@@ -52,13 +52,13 @@ export class ProductoService {
 
     let body = JSON.stringify(
       {
-        "Habilitado": 0,
+        "Habilitado": 0
 
       }
     );
 
     let options = new RequestOptions({headers:headers,body:body});
-    return this._http.delete(this.url+'producto/'+Producto.IdProducto,options)
+    return this._http.delete(this.url+'producto/'+IdProducto,options)
       .map(res => res.json());
 
   }

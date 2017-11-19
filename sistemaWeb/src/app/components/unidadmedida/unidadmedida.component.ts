@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UnidadMedida} from "../../models/UnidadMedida";
+declare var $:any;
 @Component({
   selector: 'app-unidadmedida',
   templateUrl: './unidadmedida.component.html',
@@ -12,6 +13,11 @@ export class UnidadmedidaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    $(document).ready(function(){
+      $(".selectclasificacionunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+    });
   }
 
   getUnidadMedida() {}

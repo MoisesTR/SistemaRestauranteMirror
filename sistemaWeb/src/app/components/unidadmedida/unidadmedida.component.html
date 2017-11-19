@@ -90,24 +90,35 @@
                                      class="form-control"
                                      name="nombreunidadmedida"
                                      required >
-                              <label for="nombre" class="">Nombre</label>
+                              <label for="nombreunidadmedida" class="">Nombre</label>
                             </div>
-
                           </div>
-                          <div class="col-md-12">
+
+                          <div class="col-md-6">
                             <br>
-                            <div class="md-form">
-                              <textarea type="text" minlength="3" maxlength="150" id="descripcion"
-                                        class="md-textarea" name="descripcion"
-                                        required ></textarea>
-                              <label for="descripcion">Descripción</label>
+                            <div class="md-form ">
+                              <input type="text" id="nombre"
+                                      minlength="4"
+                                      maxlength="50"
+                                      class="form-control"
+                                      name="simbolounidadmedida"
+                                      required >
+                              <label for="simbolounidadmedida" class="">Simbolo</label>
                             </div>
-
                           </div>
+
+                          <div class="col-md-6">
+                            <label for="clasificacionunidadmedida">Clasificación</label>      
+                            <select class="form-control selectclasificacionunidadmedida" name="clasi" id="clasificacionunidadmedida" multiple="multiple" style="width: 100%" formControlName="clasificacionunidadmedida">
+                              <option class = "chip" ></option>
+                            </select>            
+                          </div>
+  
+
                         </div>
                         <br>
                         <div class="text-center mt-1-half">
-                          <button class="btn orange-chang mb-1" type="submit" [disabled]="!formEmpaque.form.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+                          <button class="btn orange-chang mb-1" type="submit" >Ingresar <i class="fa fa-check ml-1"></i></button>
                         </div>
                         <br>
                       </div>

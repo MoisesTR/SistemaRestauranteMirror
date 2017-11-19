@@ -21,8 +21,10 @@ function updateProducto(pool,data){
     .input('Imagen',sql.NVarChar(100),data.Imagen)
     .execute('USP_UPDATE_PRODUCTO')
 }
-function getProductos(pool){
+function getProductos(pool,Habilitado){
+    (!Habilitado ) ? console.log('sin query'): console.log('con query');
     return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_PRODUCTOS');
 }
 function getProductoById(pool,IdProducto){
@@ -30,9 +32,10 @@ function getProductoById(pool,IdProducto){
         .input('IdProducto',sql.Int,IdProducto)
         .execute('USP_GET_PRODUCTO')
 }
-function changeStateProducto(pool,IdProducto){
+function changeStateProducto(pool,IdProducto,Habilitado){
     return pool.request()
         .input('IdProducto',sql.Int,IdProducto)
+        .input('Habilitado',sql.Bit,Habilitado)
         .execute('USP_DISP_PRODUCTO')
 }
 module.exports={

@@ -9,8 +9,9 @@ function createProveedor(pool,data){
         .input('NombreRepresentante',sql.NVarChar(200),data.NombreRepresentante)
         .execute('USP_CREATE_PROVEEDOR')
 } 
-function getProveedores(pool){
+function getProveedores(pool,Habilitado){
     return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_PROVEEDORES');
 }
 function updateProveedor(pool,data){

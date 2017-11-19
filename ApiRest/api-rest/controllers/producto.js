@@ -14,8 +14,9 @@ function getProductoById(req,res){
         });
 }
 function getProductos(req,res){
+    let Habilitado = req.query.Habilitado;
     config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getProductos(poolObt)
+       return querys.getProductos(poolObt,Habilitado)
     }).then((results) => {
        res.status(200).json({productos:results.recordset}) 
     }).catch((err) => {

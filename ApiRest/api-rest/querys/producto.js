@@ -21,8 +21,10 @@ function updateProducto(pool,data){
     .input('Imagen',sql.NVarChar(100),data.Imagen)
     .execute('USP_UPDATE_PRODUCTO')
 }
-function getProductos(pool){
+function getProductos(pool,Habilitado){
+    (!Habilitado ) ? console.log('sin query'): console.log('con query');
     return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_PRODUCTOS');
 }
 function getProductoById(pool,IdProducto){

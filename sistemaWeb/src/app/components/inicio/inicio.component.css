@@ -69,7 +69,7 @@ input[type="text"]:focus:not([readonly])+label {
 .font-orange{
   color:#E67E22;
 }
-.red-chang{
+.red-chang-dregadate{
   background-color: rgba(192, 57, 43, 0.7);
 }
 .padding-0{

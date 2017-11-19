@@ -44,9 +44,23 @@ function updateSubclasificacion(req,res){
         res.status(500).json(err)
     });
 }
+
+function getSubclasificacionesByIdClasificacion(req,res){
+    var data = req.params
+        config.getConnectionPoolGlobal().then((poolObt) => {
+            console.log('IdClasificacion:',data)
+           return querys.getSubclasificacionesByIdClasificacion(poolObt,data.IdClasificacion)
+        }).then((results) => {
+           res.status(200).json({subclasificaciones:results.recordset[0]}) 
+        }).catch((err) => {
+            res.status(500).json(err)
+        });
+}
+
 module.exports={
     createSubclasificacion,
     getSubclasificacionById,
     getSubclasificaciones,
-    updateSubclasificacion
+    updateSubclasificacion,
+    getSubclasificacionesByIdClasificacion
 }

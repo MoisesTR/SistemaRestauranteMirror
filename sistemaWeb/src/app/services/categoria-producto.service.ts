@@ -18,9 +18,9 @@ export class CategoriaProductoService {
   createCategoriaProducto(CategoriaProducto){
 
     let params = JSON.stringify(CategoriaProducto);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
-    return this._http.post(this.url+'createCategoria',params,{headers:headers})
+    return this._http.post(this.url+'categoria',params,{headers:headers})
                       .map(res => res.json());
 
   }
@@ -33,7 +33,7 @@ export class CategoriaProductoService {
     return this._http.get(this.url + 'categorias').map(res => res.json());
   }
 
-  updateCategoriaProducto(IdCategoria,Categoria){
+  updateCategoriaProducto(Categoria){
 
     let params = JSON.stringify(Categoria);
     let headers = new Headers({
@@ -41,7 +41,7 @@ export class CategoriaProductoService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'categoria/'+IdCategoria,params,{headers:headers})
+    return this._http.put(this.url+'categoria',params,{headers:headers})
                       .map(res => res.json());
 
   }

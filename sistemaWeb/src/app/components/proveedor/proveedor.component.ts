@@ -4,9 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Provedor} from "../../models/Provedor";
 import {idioma_espanol} from "../../services/global";
 import { Subject } from 'rxjs/Rx';
-import { FormGroup, FormControl, FormArray, NgForm } from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
+import {CustomValidators} from "../../validadores/CustomValidators";
 declare var $:any;
 
 @Component({
@@ -20,17 +21,21 @@ export class ProveedorComponent implements OnInit {
   public proveedor: Provedor;
   public proveedores: Provedor[];
   public mensaje: string;
+
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
-  myForm: FormGroup;
+
+  addForm: FormGroup;
+  updateForm: FormGroup;
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
               private _proveedorService: ProveedorService) {
+
     this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
   }
 
@@ -38,14 +43,19 @@ export class ProveedorComponent implements OnInit {
   ngOnInit() {
 
     this.dtOptions = {
-      pagingType: 'full_numbers'
+      autoWidth : false
+      , pagingType: 'full_numbers'
       , pageLength: 10
       , language: idioma_espanol
+      , "lengthChange": false
+      , searching: true
+      , ordering:  true
+
+
       /*select: true*/
     };
-
+    $('.telefono').mask('0000-0000');
     this.listarProveedores();
-
 
   }
 
@@ -75,7 +85,23 @@ export class ProveedorComponent implements OnInit {
       }
     );
 
-    this.myForm = new FormGroup({
+    this.addForm = new FormGroup({
+      'nombreProveedor': new FormControl()
+      , 'descripcionProveedor': new FormControl()
+      , 'correoProveedor': new FormControl('',[Validators.required])
+      , 'direccionProveedor': new FormControl()
+      , 'nombreRepresentante': new FormControl('',
+                              [
+                                Validators.required,
+                                Validators.minLength(5),
+                                Validators.maxLength(10),
+                                CustomValidators.espaciosVacios
+                              ])
+      , 'telefonoProveedor': new FormControl('',[Validators.required])
+
+    });
+
+    this.updateForm = new FormGroup({
       'nombreProveedor': new FormControl()
       , 'descripcionProveedor': new FormControl()
       , 'correoProveedor': new FormControl()
@@ -84,6 +110,7 @@ export class ProveedorComponent implements OnInit {
       , 'telefonoProveedor': new FormControl()
 
     });
+
 
 
   }
@@ -97,14 +124,15 @@ export class ProveedorComponent implements OnInit {
         if (response.IdProveedor) {
 
           swal(
-            'Producto',
-            'El producto ha sido creado exitosamente!',
+            'Proveedor',
+            'El proveedor ha sido creado exitosamente!',
             'success'
           ).then(function () {
             $('#modalingresarproveedor').modal('toggle');
-            this.myForm.reset();
+
+            this.addForm.reset();
           })
-          this.listarProveedores();
+
 
         } else {
           swal(
@@ -115,6 +143,7 @@ export class ProveedorComponent implements OnInit {
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
+        this.listarProveedores();
       }, error => {
         if (error.status == 500) {
           swal(
@@ -127,30 +156,88 @@ export class ProveedorComponent implements OnInit {
 
       }
     )
+    this.proveedor = new Provedor(null,null, null, null, null, null, null, null);
   }
 
   capturarDadosProveedor() {
-    this.proveedor.NombreProveedor = this.myForm.value.nombreProveedor;
-    this.proveedor.NombreRepresentante = this.myForm.value.nombreRepresentante;
-    this.proveedor.Descripcion = this.myForm.value.descripcionProveedor;
-    this.proveedor.Direccion = this.myForm.value.direccionProveedor;
-    this.proveedor.Telefono = this.myForm.value.telefonoProveedor;
-    this.proveedor.Email = this.myForm.value.correoProveedor;
+    this.proveedor.NombreProveedor = this.addForm.value.nombreProveedor;
+    this.proveedor.NombreRepresentante = this.addForm.value.nombreRepresentante;
+    this.proveedor.Descripcion = this.addForm.value.descripcionProveedor;
+    this.proveedor.Direccion = this.addForm.value.direccionProveedor;
+    this.proveedor.Telefono = this.addForm.value.telefonoProveedor;
+    this.proveedor.Email = this.addForm.value.correoProveedor;
   }
 
-  getProveedor() {
+  capturarDatosActualizados(){
+    this.proveedor.NombreProveedor = this.updateForm.value.nombreProveedor;
+    this.proveedor.NombreRepresentante = this.updateForm.value.nombreRepresentante;
+    this.proveedor.Descripcion = this.updateForm.value.descripcionProveedor;
+    this.proveedor.Direccion = this.updateForm.value.direccionProveedor;
+    this.proveedor.Telefono = this.updateForm.value.telefonoProveedor;
+    this.proveedor.Email = this.updateForm.value.correoProveedor;
+  }
+
+  getProveedorById(IdProveedor) {
 
   }
 
-  getProveedores() {
 
-  }
+  showModalUpdateProveedor(proveedor){
 
-  updateProveedor() {
-    $('#modalingresarproveedor').modal('show');
-    this.myForm.setValue({
-      'nombreProveedor': 'asdasd'
+    $('#modalUpdateProveedor').modal('show');
+    let Proveedor : Provedor;
+    Proveedor = proveedor;
+
+    this.proveedor.IdProveedor = proveedor.IdProveedor;
+
+    this.updateForm.reset();
+    this.updateForm.setValue({
+      nombreProveedor: Proveedor.NombreProveedor
+      , descripcionProveedor: Proveedor.Descripcion
+      , correoProveedor: Proveedor.Email
+      , direccionProveedor: Proveedor.Direccion
+      , nombreRepresentante: Proveedor.NombreRepresentante
+      , telefonoProveedor: '87792956'
     })
+
+  }
+  updateProveedor(myForm: NgForm) {
+
+    this.capturarDatosActualizados();
+    this._proveedorService.updateProveedor(this.proveedor).subscribe(
+      response =>{
+        if(response.success){
+          swal(
+            'Proveedor',
+            'El proveedor ha sido actualizado exitosamente!',
+            'success'
+          ).then(function () {
+            $('#modalUpdateProveedor').modal('toggle');
+
+            this.addForm.reset();
+          })
+
+
+        } else {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
+            'error'
+          )
+        }
+      }, error =>{
+        if (error.status == 500) {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error en el servidor, intenta nuevamente!',
+            'error'
+          )
+        }
+      }
+    )
+
+    this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
+
   }
 
   deleteProveedor(IdProveedor) {
@@ -167,7 +254,14 @@ export class ProveedorComponent implements OnInit {
         this._proveedorService.deleteProveedor(IdProveedor).subscribe(
           response =>{
             if(response.success){
-
+              swal(
+                'Eliminado!',
+                'El proveedor ha sido eliminado exitosamente',
+                'success'
+              ).then(function () {
+                /*this.addForm.reset();
+                this.listarProveedores();*/
+              })
             } else {
               console.log('Ha ocurrido un error, intenta nuevamente')
             }
@@ -177,14 +271,7 @@ export class ProveedorComponent implements OnInit {
               }
           }
         )
-        swal(
-          'Eliminado!',
-          'El proveedor ha sido eliminado exitosamente',
-          'success'
-        ).then(function () {
-          this.myForm.reset();
-          this.listarProveedores();
-        })
+
       }
     });
   }

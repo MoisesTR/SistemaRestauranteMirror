@@ -1,4 +1,5 @@
 import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import {isNumber, isString} from "util";
 
 export class CustomValidators {
 
@@ -15,6 +16,31 @@ export class CustomValidators {
     };
     return isValid ? null : message;
   }
+
+  static noNumeros(c: FormControl): ValidationErrors {
+
+    const isNumero = isString(String(c.value))
+    const message = {
+      'noNumeros': {
+          'message': 'Solo se permite texto'
+      }
+    };
+
+    return isNumero ? message : null;
+  }
+
+  static espaciosVacios(c:FormControl): ValidationErrors{
+    const cadena = String(c.value).trim();
+
+    const message = {
+      'espaciosVacios':{
+        'message': 'No se permiten espacios vacios'
+      }
+    };
+
+    return cadena.length == 0 ? message : null;
+  }
+
 
   static countryCity(form: FormGroup): ValidationErrors {
     const countryControl = form.get('location.country');

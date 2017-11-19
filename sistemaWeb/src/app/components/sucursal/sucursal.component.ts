@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Sucursal} from "../../models/Sucursal";
 import { Subject } from 'rxjs/Rx';
 import {idioma_espanol} from "../../services/global";
+declare var $:any;
 
 @Component({
   selector: 'app-sucursal',
@@ -37,9 +38,10 @@ export class SucursalComponent implements OnInit {
   ngOnInit() {
 
     this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: idioma_espanol
+      pagingType: 'full_numbers'
+      , pageLength: 10
+      , language: idioma_espanol
+      , "lengthChange": false
       /*select: true*/
     };
 
@@ -54,6 +56,15 @@ export class SucursalComponent implements OnInit {
 
       }
     );
+
+    $(".selectoperadora").select2({
+      maximumSelectionLength: 1
+    });
+
+    $(".selectoperadorasecundario").select2({
+      maximumSelectionLength: 1
+    });
+
   }
 
   createSucursal(){

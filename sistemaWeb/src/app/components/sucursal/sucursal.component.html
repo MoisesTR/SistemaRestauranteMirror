@@ -22,6 +22,7 @@
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
+              <th class="header-negrita">ID</th>
               <th class="header-negrita">Nombre Sucursal</th>
               <th class="header-negrita">Dirección</th>
               <th class="header-negrita">Telefóno</th>
@@ -30,9 +31,10 @@
             </thead>
             <tbody>
             <tr *ngFor="let sucursal of sucursales">
-              <td class="body-negrita">{{ sucursal.NombreSucursal  }}</td>
+              <td class="body-negrita">{{ sucursal.IdSucursal }}</td>
+              <td class="body-negrita">{{ sucursal.NombreSucursal }}</td>
+              <td class="body-negrita">{{ sucursal.Direccion  }}</td>
               <td class="body-negrita">{{ sucursal.TelefonoPrincipal }}</td>
-              <td class="body-negrita">{{ sucursal.Direccion  }}</td>              
               <td width="25%" class="body-negrita">
                 <div class="text-center">
                   <button type="button" (click)="getSucursal()" class="btn btn-sm orange-chang"  id="btnGetSucursal" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
@@ -73,7 +75,7 @@
                   <div class="container-fluid"><br>
                     <div class="row">
                       <!-- Campos a ingresar -->
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <br>
                         <div class="md-form ">
                           <input type="text" id="NombreSucursal"
@@ -99,6 +101,37 @@
                         </div>
                       </div>
 
+                      <div class="col-md-6">
+                        <label for="selectoperadora">Operadora</label>
+                        <select class="selectoperadora" multiple="multiple" style="width: 100%">
+                          <option class="chip" value="1">Movistar</option>
+                          <option  class="chip" value="2">Claro</option>
+                          <option  class="chip" value="3">Cootel</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-6">
+                          <br>
+                          <div class="md-form ">
+                            <input type="text" id="TelefonoSecundario"
+                                    minlength="4"
+                                    maxlength="50"
+                                    class="form-control"
+                                    name="TelefonoSecundario"
+                                    required >
+                            <label for="TelefonoSecundario" class="">Telefóno (Opcional)</label>
+                          </div>
+                        </div>
+  
+                        <div class="col-md-6">
+                          <label for="selectoperadorasecundario">Operadora</label>
+                          <select class="selectoperadorasecundario" multiple="multiple" style="width: 100%">
+                            <option class="chip" value="1">Movistar</option>
+                            <option  class="chip" value="2">Claro</option>
+                            <option  class="chip" value="3">Cootel</option>
+                          </select>
+                        </div>
+
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
@@ -109,7 +142,7 @@
                         </div>
                       </div>
                     </div> <br>
-                    
+
                     <!-- Boton ingresa -->
                     <div class="text-center mt-1-half">
                       <button class="btn orange-chang mb-1" type="submit" [disabled]="!formSucursal.form.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
@@ -124,4 +157,4 @@
       </div>
     </div>
   </div>
-</div>    
+</div>

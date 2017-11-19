@@ -6,19 +6,18 @@ import { HttpModule } from '@angular/http';
 import { MenuRoutingModule } from './menu.routing.module';
 import {DataTablesModule} from "angular-datatables";
 
+
 //Componentes
 import {ClasificacionProductoComponent} from "../clasificacion-producto/clasificacion-producto.component";
 import {ProveedorComponent} from "../proveedor/proveedor.component";
 import {SucursalComponent} from "../sucursal/sucursal.component";
 import {CategoriaProductoComponent} from "../categoria-producto/categoria-producto.component";
-import {UsuarioComponent} from "../usuario/usuario.component";
 import {SubClasificacionProductoComponent} from "../sub-clasificacion-producto/sub-clasificacion-producto.component";
 import {EnvaseComponent} from "../envase/envase.component";
 import {TrabajadorComponent} from "../trabajador/trabajador.component";
 import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
 import {EmpaqueComponent} from "../empaque/empaque.component";
 import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
-import {RegistroUsuarioComponent} from "../registro-usuario/registro-usuario.component";
 import {MenuComponent} from "./menu.component";
 
 //Servicios
@@ -36,6 +35,17 @@ import {ProductoModule} from "../producto/producto.module";
 import {ShowErrorsComponent} from "../show-errors.component";
 import {TelephoneNumberFormatValidatorDirective} from "../../validadores/telephoneNumber";
 import {BirthYearValidatorDirective} from "../../validadores/birthYear";
+import {UsuarioRoutingModule} from "../usuario/usuario.routing.module";
+import {CargoComponent} from "../cargo/cargo.component";
+import {ReporteComponent} from "../reporte/reporte.component";
+import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
+import {UploadService} from "../../services/upload.service";
+import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
+import {ProductoProveedorService} from "../../services/producto-proveedor.service";
+import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
+import {HabilitadosComponent} from "../habilitados/habilitados.component";
+import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
+import {FacturaModule} from "../factura/factura.module";
 
 
 @NgModule({
@@ -45,18 +55,24 @@ import {BirthYearValidatorDirective} from "../../validadores/birthYear";
     , SubClasificacionProductoComponent
     , ProveedorComponent
     , SucursalComponent
-    , UsuarioComponent
     , EnvaseComponent
     , AddUsuarioComponent
     , EmpaqueComponent
     , BodegaSucursalComponent
     , TrabajadorComponent
-    , RegistroUsuarioComponent
     , SucursalComponent
     , MenuComponent
     , ShowErrorsComponent
     , TelephoneNumberFormatValidatorDirective
     , BirthYearValidatorDirective
+    , CargoComponent
+    , ReporteComponent
+    , TrasladoProductoComponent
+    , ProductoProveedorComponent
+    , RolusuarioComponent
+    , HabilitadosComponent
+    , UnidadmedidaComponent
+
 
   ],
   imports: [
@@ -64,9 +80,11 @@ import {BirthYearValidatorDirective} from "../../validadores/birthYear";
     , FormsModule
     , HttpModule
     , MenuRoutingModule
-    , DataTablesModule
     , ProductoModule
     , ReactiveFormsModule
+    , DataTablesModule
+    , UsuarioRoutingModule
+    , FacturaModule
 
 
 
@@ -88,6 +106,8 @@ import {BirthYearValidatorDirective} from "../../validadores/birthYear";
     , EmpaqueService
     , BodegaSucursalService
     , TrabajadorService
+    , UploadService
+    , ProductoProveedorService
 
   ]
 })

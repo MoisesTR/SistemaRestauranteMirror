@@ -32,7 +32,7 @@ export class ProveedorService {
       return this._http.get(this.url + 'proveedores').map(res => res.json());
   }
 
-  updateProveedor(IdProveedor,Proveedor){
+  updateProveedor(Proveedor){
 
     let params = JSON.stringify(Proveedor);
     let headers = new Headers({
@@ -40,7 +40,7 @@ export class ProveedorService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'proveedor/'+IdProveedor,params,{headers:headers})
+    return this._http.put(this.url+'proveedor',params,{headers:headers})
       .map(res => res.json());
   }
 

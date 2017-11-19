@@ -14,6 +14,8 @@ const ProductoProveedorController = require('../controllers/producto_proveedor')
 const TrabajadorController = require('../controllers/trabajador');
 const CargoController = require('../controllers/cargo')
 var Router = express.Router()
+var multipart = require('connect-multiparty');
+var md_upload = multipart({uploadDir: './uploads/productos'});
 
 Router
     .get('/',(req,res) => {
@@ -50,17 +52,21 @@ Router
     //Rutas subclasificacion Controller
     .get('/subclasificacion/:IdSubclasificacion(\\d+)',SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones',SubclasificacionController.getSubclasificaciones)
+    .get('/subclasificaciones/:IdClasificacion(\\d+)',SubclasificacionController.getSubclasificacionesByIdClasificacion)
     .post('/subclasificacion',SubclasificacionController.createSubclasificacion)
-    .put('/subclasificacion/:IdSubclasificacion(\\d+)',SubclasificacionController.updateSubclasificacion)
+	.put('/subclasificacion/:IdSubclasificacion(\\d+)',SubclasificacionController.updateSubclasificacion)
     //Rutas estadoproducto controller
     .get('/estadosproductos',EstadoProductoController.getEstados)
     .get('/estadoproducto/:IdEstado(\\d+)',EstadoProductoController.getEstadoById)
     //Rutas producto controller
     .get('/productos',ProductoController.getProductos)
     .get('/producto/:IdProducto(\\d+)',ProductoController.getProductoById)
+    .post('/productoUploadImage',[md_upload],ProductoController.uploadImage)
+    .get('/productoGetImage/:imageFile',ProductoController.getImageFile)
     .post('/producto',ProductoController.createProducto)
     .put('/producto/:IdProduco(\\d+)',ProductoController.updateProducto)
     .delete('/producto/:IdProducto(\\d+)',ProductoController.changeStateProducto)
+
     //Rutas sucursal Controller
     .get('/sucursales',SucursalController.getSucursales)
     .get('/sucursal/:IdSucursal(\\d+)',SucursalController.getSucursalById)

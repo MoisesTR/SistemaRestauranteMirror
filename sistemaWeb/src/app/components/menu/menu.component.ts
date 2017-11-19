@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 declare var $:any;
 declare var jQuery:any;
 import swal from 'sweetalert2'
-
+declare var $:any;
 
 
 @Component({
@@ -12,11 +12,10 @@ import swal from 'sweetalert2'
 })
 export class MenuComponent implements OnInit {
 
+  public rol : string = 'normal';
+
   constructor() { }
 
   ngOnInit() {
-
-    console.log('Prueba');
   }
-
 }

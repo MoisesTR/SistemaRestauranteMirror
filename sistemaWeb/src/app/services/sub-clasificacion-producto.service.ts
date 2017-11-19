@@ -31,7 +31,12 @@ export class SubClasificacionProductoService {
     return this._http.get(this.url + 'subclasificaciones').map(res => res.json());
   }
 
-  updateSubClasificacionProducto(IdSubclasificacion,SubClasificacion){
+  getSubClasificacionByIdClasificacion(IdClasificacion){
+    return this._http.get(this.url + 'subclasificaciones/'+IdClasificacion).map(res => res.json());
+
+  }
+
+  updateSubClasificacionProducto(SubClasificacion){
 
     let params = JSON.stringify(SubClasificacion);
     let headers = new Headers({
@@ -39,7 +44,7 @@ export class SubClasificacionProductoService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'subclasificacion/'+IdSubclasificacion,params,{headers:headers})
+    return this._http.put(this.url+'subclasificacion',params,{headers:headers})
       .map(res => res.json());
 
   }

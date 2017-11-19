@@ -8,13 +8,6 @@ import { AbstractControlDirective, AbstractControl } from '@angular/forms';
    <ul *ngIf="shouldShowErrors()">
      <li style="color: red" *ngFor="let error of listOfErrors()">{{error}}</li>
    </ul>
-  <!-- <div *ngIf="shouldShowErrors()" >
-     <span class="glyphicon glyphicon-remove form-control-feedback fix-error-icon"></span>
-     <span class="sr-only" *ngFor="let error of listOfErrors()">{{error}}</span>
-     <div class="error-msg">
-       
-     </div>
-   </div>-->
  `,
 })
 export class ShowErrorsComponent {

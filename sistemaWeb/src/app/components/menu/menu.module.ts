@@ -46,6 +46,7 @@ import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 import {HabilitadosComponent} from "../habilitados/habilitados.component";
 import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
 import {FacturaModule} from "../factura/factura.module";
+import {BuscarPipe} from "../../pipe/buscar.pipe";
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import {FacturaModule} from "../factura/factura.module";
     , RolusuarioComponent
     , HabilitadosComponent
     , UnidadmedidaComponent
+    , BuscarPipe
 
 
   ],

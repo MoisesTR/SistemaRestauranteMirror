@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListFacturaComponent implements OnInit {
 
-  constructor() { }
+  public lista:any;
+
+
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

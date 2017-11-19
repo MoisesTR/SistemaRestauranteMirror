@@ -45,6 +45,7 @@ function getProveedorById(pool,IdProveedor){
         .input('IdProveedor',sql.Int,IdProveedor)
         .execute('USP_GET_PROVEEDOR');
 }
+
 module.exports={
     createProveedor,
     getProveedores,

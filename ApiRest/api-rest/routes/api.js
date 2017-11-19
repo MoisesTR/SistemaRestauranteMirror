@@ -9,7 +9,8 @@ const EstadoProductoController = require('../controllers/estadoproducto')
 const ProductoController = require('../controllers/producto')
 const SucursalController = require('../controllers/sucursal')
 const UnidadMedidaController = require('../controllers/unidadmedida');
-const ProductoProveedorController = require('../controllers/producto_proveedor');
+const RoleController = require('../controllers/rol')
+const ProductoProveedorController = require('../controllers/producto_proveedor')
 var Router = express.Router()
 var multipart = require('connect-multiparty');
 var md_upload = multipart({uploadDir: './uploads/productos'});
@@ -25,12 +26,12 @@ Router
     .get('/categorias',CategoriaController.getCategorias)
     .post('/categoria',CategoriaController.createCategoria)
     .put('/categoria',CategoriaController.updateCategoria)
-    .delete('/categoria',CategoriaController.)
+    .delete('/categoria/:IdCategoria(\\d+)',CategoriaController.changeStateCategoria)
     //Rutas clasificacion controller
     .get('/clasificacion/:IdClasificacion(\\d+)',ClasificacionController.getClasificacionById)
     .get('/clasificaciones',ClasificacionController.getClasificaciones)
     .post('/clasificacion',ClasificacionController.createClasificacion)
-    .put('/clasificacion',ClasificacionController.updateClasificacion)
+    .put('/clasificacion/:IdClasificacion(\\d+)',ClasificacionController.updateClasificacion)
     //Rutas empaque controller
     .get('/empaque/:IdEmpaque(\\d+)',EmpaqueController.getEmpaqueById)
     .get('/empaques',EmpaqueController.getEmpaques)
@@ -44,7 +45,8 @@ Router
     .get('/proveedores',ProveedorController.getProveedores)
     .post('/proveedor',ProveedorController.createProveedor)
     .put('/proveedor/:IdProveedor(\\d+)',ProveedorController.updateProveedor)
-    .delete('/proveedor/:IdProveedor(\\d+)',ProveedorController)
+    .delete('/proveedor/:IdProveedor(\\d+)',ProveedorController.changeStateProveedor)
+
     //Rutas subclasificacion Controller
     .get('/subclasificacion/:IdSubclasificacion(\\d+)',SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones',SubclasificacionController.getSubclasificaciones)
@@ -72,23 +74,22 @@ Router
     .get('/unidadesmedida',UnidadMedidaController.getUnidadesMedida)
     .get('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController.getUnidadById)
     .post('/unidadmedida',UnidadMedidaController.createUnidadMedida)
-    .put('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController)
-    .delete('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController)
+    .put('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController.updateUDM)
+    .delete('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController.changeStateUnidadMedida)
     //Rutas para Producto Proveedor
     .get('/productos/proveedores',ProductoProveedorController.getProductosProveedores)
-    .get('/producto/:IdProducto(\\d+)/proveedor/:IdProveedor(\\d+)',ProductoProveedor.)
-    .get('/producto/:IdProducto(\\d+)/proveedores',ProductoProveedorController)
-    .get('/productos/proveedor/:IdProveedor(\\d+)',ProductoProveedorController)
-    .post('/producto/proveedor',ProductoProveedorController)
-    .put('/producto/proveedor/',ProductoProveedorController)
+    .get('/producto/:IdProducto(\\d+)/proveedor/:IdProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
+    //.get('/productos/proveedor/:IdProveedor(\\d+)',ProductoProveedorController)
+    .post('/producto/proveedor',ProductoProveedorController.createProducto)
+    .put('/producto/proveedor/:IdProductoProveedor(\\d+)',ProductoProveedorController.changeStateProducto)
 
     /*********** faltan */
     //Rutas para Rol Controller
-    .get('/roles',RolController)
-    .get('/rol/:IdRol(\\d+)',RolController)
+    //.get('/roles',RolController)
+    //.get('/rol/:IdRol(\\d+)',RolController)
 
     //Rutas para Trabajador Controller
-    .get('/trabajadores',TrabajadorController)
+    /*.get('/trabajadores',TrabajadorController)
     .post('/trabajador',TrabajadorController)
     .get('/trabajador/:IdTrabajador(\\d+)',TrabajadorController)
     .put('/trabajador/:IdTrabajador(\\d+)',TrabajadorController)
@@ -100,6 +101,6 @@ Router
     .get('/cargo/:IdCargo(\\d+)',CargoController)
     .put('/cargo/:IdCargo(\\d+)',CargoController)
     .delete('/cargo/:IdCargo(\\d+)',CargoController)
-
+*/
     
     module.exports=Router

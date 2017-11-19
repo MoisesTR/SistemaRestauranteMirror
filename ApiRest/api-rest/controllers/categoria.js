@@ -70,9 +70,13 @@ function getCategoriaById(req,res){
         })
     }
 }
+function changeStateCategoria(req,res){
+
+}
 module.exports={
     createCategoria,
     getCategoriaById,
     getCategorias,
-    updateCategoria
+    updateCategoria,
+    changeStateCategoria
 }

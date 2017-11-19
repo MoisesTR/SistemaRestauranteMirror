@@ -53,6 +53,7 @@ function changeStateProducto(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.changeStateProducto(poolObt,IdProducto,Habilitado)        
     }).then((results) => {
+        console.log(results)
         let afectadas = results.rowsAffected[0]
         let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
         res.status(200).json((afectadas > 0) ? {success:'Producto '+accion+' con exito!'} :{failed:'No se encontro el producto solicitado!'})

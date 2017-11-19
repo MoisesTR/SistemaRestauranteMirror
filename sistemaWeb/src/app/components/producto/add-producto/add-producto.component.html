@@ -47,7 +47,7 @@
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
                 <select class="selectcsubclasificacion" multiple="multiple" style="width: 100%" formControlName="subclasificacion">
-                  <option class="chip" value="1">Subclasificación</option>
+                  <option class="chip" *ngFor="let subclasificacion of subclasificaciones">{{subclasificacion.NombreSubClasificacion}}</option>
 
                 </select>
               </div>

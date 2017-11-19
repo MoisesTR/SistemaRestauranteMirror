@@ -22,6 +22,7 @@ import {ReporteComponent} from "../reporte/reporte.component";
 import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
 import {RolUsuario} from "../../models/RolUsuario";
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
+import {HabilitadosComponent} from "../habilitados/habilitados.component";
 
 
 const menuRoutes: Routes = [
@@ -50,6 +51,7 @@ const menuRoutes: Routes = [
         , {path:'reportes',component: ReporteComponent}
         , {path:'producto-proveedor',component: ProductoProveedorComponent}
         , {path:'rol',component: RolusuarioComponent}
+        , {path:'habilitados',component: HabilitadosComponent}
 
     ]
   },

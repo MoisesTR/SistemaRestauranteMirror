@@ -43,6 +43,7 @@ import {UploadService} from "../../services/upload.service";
 import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
 import {ProductoProveedorService} from "../../services/producto-proveedor.service";
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
+import {HabilitadosComponent} from "../habilitados/habilitados.component";
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
     , TrasladoProductoComponent
     , ProductoProveedorComponent
     , RolusuarioComponent
+    , HabilitadosComponent
 
   ],
   imports: [

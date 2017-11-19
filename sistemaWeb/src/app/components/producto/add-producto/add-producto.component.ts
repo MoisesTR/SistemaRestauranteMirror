@@ -27,25 +27,27 @@ import {SubClasificacionProductoService} from "../../../services/sub-clasificaci
 export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
-    $(document).ready(function(){
+ /*   $(document).ready(function(){
 
       $('.selectclasificacion').val(['1', '3']);
-      $('.selectclasificacion').trigger('change');
-    });
+
+    });*/
 
     $('.selectclasificacion').on("select2:selecting", () => {
-      this._clasificaionService.getClasificaciones().subscribe(
+      this._subclasificacionService.getSubClasificacionByIdClasificacion(1).subscribe(
 
         response =>{
-          if(response.clasificaciones){
-            this.clasificaciones = response.clasificaciones;
-            console.log(this.clasificaciones);
+          if(response.subclasificaciones){
+            this.subclasificaciones = response.subclasificaciones;
+
           }
         }, error=>{
 
         }
       )
     });
+
+    $('.selectsubclasificacion').trigger('change');
 
   }
   ngOnChanges(changes: SimpleChanges): void {

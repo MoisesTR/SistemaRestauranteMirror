@@ -269,7 +269,7 @@ CREATE TABLE PRODUCTO (
     IdEstado int not null,
     NombreProducto NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(200) NOT NULL,
-    Imagen NVARCHAR(100) NULL, --
+    Imagen NVARCHAR(100) NULL, --	
     Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,

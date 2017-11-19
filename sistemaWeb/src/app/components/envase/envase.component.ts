@@ -33,9 +33,7 @@ export class EnvaseComponent implements OnInit {
 
 
    @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-
-
+    dtElement: DataTableDirective;
 
   constructor(
     private _route: ActivatedRoute,
@@ -44,8 +42,6 @@ export class EnvaseComponent implements OnInit {
   ) {
     this.envase = new Envase(null,null,null,null);
   }
-
-
 
   ngOnInit() {
 
@@ -206,7 +202,7 @@ getEnvase(){
           })
 
         } else {
-          swal(    
+          swal(
             'Error inesperado',
             'Ha ocurrido un error al insertar Envase, intenta nuevamente!',
             'error'

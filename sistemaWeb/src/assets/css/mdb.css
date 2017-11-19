@@ -955,7 +955,7 @@
   background-color: #0d47a1 !important; }
 
 .secondary-color {
-  background-color: #aa66cc !important; }
+  background-color: #E67E22 !important; }
 
 .secondary-color-dark {
   background-color: #9933CC !important; }
@@ -1159,7 +1159,7 @@
   background-color: #2BBBAD !important; }
 
 .bg-secondary {
-  background-color: #aa66cc !important; }
+  background-color: #E67E22 !important; }
 
 .bg-elegant {
   background-color: #2E2E2E !important; }
@@ -5306,22 +5306,22 @@ button:focus {
     border-color: #2BBBAD; }
 
 .btn-secondary {
-  background-color: #aa66cc; }
+  background-color: #E67E22; }
   .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active {
     background-color: #b579d2 !important; }
   .btn-secondary.dropdown-toggle {
-    background-color: #aa66cc !important; }
+    background-color: #E67E22 !important; }
     .btn-secondary.dropdown-toggle:hover, .btn-secondary.dropdown-toggle:focus {
       background-color: #b579d2 !important; }
 
 .btn-outline-secondary {
-  border: 2px solid #aa66cc;
-  color: #aa66cc !important;
+  border: 2px solid #E67E22;
+  color: #E67E22 !important;
   background-color: transparent; }
   .btn-outline-secondary:hover, .btn-outline-secondary:focus, .btn-outline-secondary:active, .btn-outline-secondary:active:focus, .btn-outline-secondary.active {
     background-color: transparent;
-    color: #aa66cc;
-    border-color: #aa66cc; }
+    color: #E67E22;
+    border-color: #E67E22; }
 
 .btn-elegant {
   background-color: #2E2E2E; }
@@ -6069,7 +6069,7 @@ button:focus {
   background-color: #2BBBAD; }
 
 .badge-secondary {
-  background-color: #aa66cc; }
+  background-color: #E67E22; }
 
 .badge-elegant {
   background-color: #2E2E2E; }
@@ -7612,7 +7612,7 @@ table.table-sm td {
   padding: 0;
   border-radius: 50%;
   margin: 10px;
-  background-color: #aa66cc;
+  background-color: #E67E22;
   color: #fff;
   cursor: pointer;
   -webkit-transition: 0.3s;
@@ -7949,10 +7949,10 @@ button, html [type="button"], [type="reset"], [type="submit"] {
   background-color: #2BBBAD; }
 
 .pills-secondary .nav-item .nav-link.active {
-  background-color: #aa66cc; }
+  background-color: #E67E22; }
 
 .tabs-secondary {
-  background-color: #aa66cc; }
+  background-color: #E67E22; }
 
 .pills-elegant .nav-item .nav-link.active {
   background-color: #2E2E2E; }
@@ -8490,7 +8490,7 @@ button, html [type="button"], [type="reset"], [type="submit"] {
   .dropdown .dropdown-menu.dropdown-default .dropdown-item:hover, .dropdown .dropdown-menu.dropdown-default .dropdown-item:active {
     background-color: #2BBBAD; }
   .dropdown .dropdown-menu.dropdown-secondary .dropdown-item:hover, .dropdown .dropdown-menu.dropdown-secondary .dropdown-item:active {
-    background-color: #aa66cc; }
+    background-color: #E67E22; }
   .dropdown .dropdown-menu.dropdown-success .dropdown-item:hover, .dropdown .dropdown-menu.dropdown-success .dropdown-item:active {
     background-color: #00C851; }
   .dropdown .dropdown-menu.dropdown-info .dropdown-item:hover, .dropdown .dropdown-menu.dropdown-info .dropdown-item:active {
@@ -8605,12 +8605,12 @@ button, html [type="button"], [type="reset"], [type="submit"] {
   box-shadow: 0 1px 0 0 #2BBBAD; }
 
 .dropdown-secondary .dropdown-content li.active, .dropdown-secondary .dropdown-content li a, .dropdown-secondary .dropdown-content li span:hover {
-  background-color: #aa66cc; }
+  background-color: #E67E22; }
 
 .dropdown-secondary .search-wrap input:focus {
-  border-bottom: 1px solid #aa66cc;
-  -webkit-box-shadow: 0 1px 0 0 #aa66cc;
-  box-shadow: 0 1px 0 0 #aa66cc; }
+  border-bottom: 1px solid #E67E22;
+  -webkit-box-shadow: 0 1px 0 0 #E67E22;
+  box-shadow: 0 1px 0 0 #E67E22; }
 
 .dropdown-success .dropdown-content li.active, .dropdown-success .dropdown-content li a, .dropdown-success .dropdown-content li span:hover {
   background-color: #00C851; }
@@ -9804,8 +9804,8 @@ a.pswp__share--download:hover {
   border-color: transparent #fff #fff transparent; }
 
 [type="checkbox"][class*='filled-in']:checked + label:after {
-  border-color: #aa66cc;
-  background-color: #aa66cc;
+  border-color: #E67E22;
+  background-color: #E67E22;
   z-index: 0; }
 
 [type="checkbox"][class*='filled-in']:disabled:not(:checked) + label:before {
@@ -9939,7 +9939,7 @@ select {
     .switch label input[type=checkbox]:checked + .lever {
       background-color: #dccfe2; }
     .switch label input[type=checkbox]:checked + .lever:after {
-      background-color: #aa66cc;
+      background-color: #E67E22;
       left: 24px; }
     .switch label input[type=checkbox]:checked:not(:disabled) ~ .lever:active:after {
       -webkit-box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(170, 102, 204, 0.1);

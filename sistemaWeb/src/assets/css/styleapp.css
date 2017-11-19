@@ -55,8 +55,11 @@ footer.page-footer {
 .font-orange{
   color:#E67E22 !important;
 }
-.red-chang{
+.red-chang-dregadate{
   background-color: rgba(192, 57, 43, 0.7) !important;
+}
+.red-chang{
+  background-color: #C0392B !important;
 }
 .orange-chang{
   background-color: #E67E22 !important;

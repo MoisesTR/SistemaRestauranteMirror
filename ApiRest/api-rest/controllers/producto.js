@@ -24,7 +24,7 @@ function getProductos(req,res){
 }
 function createProducto(req,res){
     var data=req.body
-    config.getConnectionPoolGlobal()-then((poolObt) => {
+    config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createProducto(poolObt,data)        
     }).then((results) => {
         res.status(200).json(results.recordset[0])
@@ -34,7 +34,7 @@ function createProducto(req,res){
 }
 function updateProducto(req,res){
     var data = req.body
-    config.getConnectionPoolGlobal()-then((poolObt) => {
+    config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.updateProducto(poolObt,data)        
     }).then((results) => {
         res.status(200).json({
@@ -47,7 +47,7 @@ function updateProducto(req,res){
 }
 function changeStateProducto(req,res){
     var data = req.body
-    config.getConnectionPoolGlobal()-then((poolObt) => {
+    config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.changeStateProducto(poolObt,IdProducto)        
     }).then((results) => {
         res.status(200).json(results)

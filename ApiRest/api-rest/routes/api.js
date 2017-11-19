@@ -9,8 +9,10 @@ const EstadoProductoController = require('../controllers/estadoproducto')
 const ProductoController = require('../controllers/producto')
 const SucursalController = require('../controllers/sucursal')
 const UnidadMedidaController = require('../controllers/unidadmedida');
-const RoleController = require('../controllers/rol')
+const RoleController = require('../controllers/rol');
 const ProductoProveedorController = require('../controllers/producto_proveedor')
+const TrabajadorController = require('../controllers/trabajador');
+const CargoController = require('../controllers/cargo')
 var Router = express.Router()
 var multipart = require('connect-multiparty');
 var md_upload = multipart({uploadDir: './uploads/productos'});
@@ -78,29 +80,31 @@ Router
     .delete('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController.changeStateUnidadMedida)
     //Rutas para Producto Proveedor
     .get('/productos/proveedores',ProductoProveedorController.getProductosProveedores)
-    .get('/producto/:IdProducto(\\d+)/proveedor/:IdProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
-    //.get('/productos/proveedor/:IdProveedor(\\d+)',ProductoProveedorController)
-    .post('/producto/proveedor',ProductoProveedorController.createProducto)
-    .put('/producto/proveedor/:IdProductoProveedor(\\d+)',ProductoProveedorController.changeStateProducto)
+    .get('/producto/proveedor/:IdProductoProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
+    .get('/productos/proveedor/:IdProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
+    .get('/producto/proveedores/:IdProducto(\\d+)',ProductoProveedorController.getProveedoresOfProducto)
+    .post('/producto/proveedor',ProductoProveedorController.createProductoProveedor)
+    .put('/producto/proveedor/:IdProductoProveedor(\\d+)',ProductoProveedorController.changeStateProductoProveedor)
+
+    //Rutas para Rol Controller
+    .post('/rol',RoleController.createRol)
+    .get('/roles',RoleController.getRoles)
+    .get('/rol/:IdRol(\\d+)',RoleController.getRolbyId)
+    .put('/rol/:IdRol(\\d+)',RoleController.updateRol)
 
     /*********** faltan */
-    //Rutas para Rol Controller
-    //.get('/roles',RolController)
-    //.get('/rol/:IdRol(\\d+)',RolController)
-
     //Rutas para Trabajador Controller
-    /*.get('/trabajadores',TrabajadorController)
-    .post('/trabajador',TrabajadorController)
-    .get('/trabajador/:IdTrabajador(\\d+)',TrabajadorController)
-    .put('/trabajador/:IdTrabajador(\\d+)',TrabajadorController)
-    .delete('/trabajador/:IdTrabajador(\\d+)',TrabajadorController)
+    .get('/trabajadores',TrabajadorController.getTrabajadores)
+    .post('/trabajador',TrabajadorController.createTrabajador)
+    .get('/trabajador/:IdTrabajador(\\d+)',TrabajadorController.getTrabajadorById)
+    .put('/trabajador/:IdTrabajador(\\d+)',TrabajadorController.updateTrabajador)
+    .delete('/trabajador/:IdTrabajador(\\d+)',TrabajadorController.changeStateTrabajador)
 
     //Rutas Para Cargo Controller
-    .get('/cargos',CargoController)
-    .post('/cargo',CargoController)
-    .get('/cargo/:IdCargo(\\d+)',CargoController)
-    .put('/cargo/:IdCargo(\\d+)',CargoController)
-    .delete('/cargo/:IdCargo(\\d+)',CargoController)
-*/
+    .get('/cargos',CargoController.getCargos)
+    .post('/cargo',CargoController.createCargo)
+    .get('/cargo/:IdCargo(\\d+)',CargoController.getCargoById)
+    .put('/cargo/:IdCargo(\\d+)',CargoController.updateCargo)
+    .delete('/cargo/:IdCargo(\\d+)',CargoController.changeStateCargo)
     
     module.exports=Router

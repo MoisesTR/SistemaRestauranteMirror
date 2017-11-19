@@ -1,5 +1,47 @@
 USE pruebas_node;
 GO
+create TABLE AREA_PRODUCCION(
+	IdAreaProduccion int IDENTITY(1,1),
+	IdSucursal INT NOT NULL,
+    Nombre NVARCHAR(50) NOT NULL,
+    Habilitado Bit default 1 not null,
+	CreateAt DATETIME NOT NULL DEFAULT GETDATE(),
+	UpdateAt DATETIME NULL,
+    constraint pk_IdAreaProduccion primary key(IdAreaProduccion), 
+	CONSTRAINT FK_SUCURSAL_AREA_PRODUCCION FOREIGN KEY(IdSucursal) REFERENCES SUCURSAL(IdSucursal),
+	CONSTRAINT U_SUCURSAL_AREA_PRODUCCION UNIQUE(IdSucursal)
+)
+GO
+--NOMBRE ANTERIOR BODEGA_AREA_PRODUCCION
+create table BODEGA_AREA_PRODUCCION(
+	IdBodegaAreaP int IDENTITY(1,1),
+	IdAreaProduccion INT NOT NULL,
+    Nombre NVARCHAR(50) not null,
+    Descripcion NVARCHAR(300) null,
+    Habilitado Bit default 1 not null,
+	CreateAt DATETIME NOT NULL DEFAULT GETDATE(),
+	UpdateAt DATETIME NULL,
+    constraint pk_IdBodegaAP primary key(IdBodegaAreaP),
+	constraint FK_BODEGA_AREA_PRODUCCION foreign key(IdAreaProduccion) references AREA_PRODUCCION(IdAreaProduccion),
+	constraint u_BODEA_PARA_AP UNIQUE(IdAreaProduccion)
+)
+GO
+--NOMBRE ANTERIOR 
+create table DETALLE_BODEGA_AP(
+	IdDetalle int IDENTITY(1,1),
+	IdBodegaAreaP int not null,
+    IdProducto int not null,
+	IdEntradaBodegaAP INT NOT NULL,
+    Cantidad int not null,
+    FechaHoraIngreso datetime not null,
+    FechaHoraProduccion datetime null,
+    Habilitado Bit default 1 not null,
+    constraint pk_IdDetalleBodega primary key(IdDetalle,IdBodegaAreaP),	
+    constraint fk_BodegaDelleAP foreign key(IdBodegaAreaP) references BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
+    constraint fk_IdProducto foreign key(IdProducto) references PRODUCTO(IdProducto),
+    constraint fk_IdUsoProducto foreign key(IdUso) references UsoProducto(IdUso)
+)
+GO
 CREATE TABLE ENTRADA_BODEGA_CENTRAL (
     IdEntrada INT IDENTITY(1,1),
     IdBodega INT not null,
@@ -36,37 +78,6 @@ CREATE TABLE DETALLE_ENTRADA_BODEGA_CENTRAL (
 	constraint fk_ProdenciaEntradaBodegaC foreign key(IdProcedencia) references Procedencia(IdProcedencia)
 );
 GO
-CREATE TABLE ENTRADA_BODEGA_AREA_PRODUCCION (
-    IdEntrada INT IDENTITY,
-    IdBodega INT not null,
-    FechaHora DATETIME NOT NULL,
-    IdTrabajador INT NOT NULL,
-    Habilitado BIT NOT NULL DEFAULT 1,
-    CreatedAt DATETIME NOT NULL DEFAULT 1,
-    UpdateAt DATETIME NULL,
-    constraint pk_IdEntradaBodega primary key(IdEntrada),
-    constraint fk_BodegaEntradaB foreign key(IdBodega) references BodegaAreaProduccion(IdBodega),
-    constraint fk_TrabIngreEntradaB foreign key(IdTrabajador) references Trabajador(IdTrabajador)
-);
-GO
-CREATE TABLE DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION (
-    IdDetalle INT IDENTITY(1,1),
-    IdEntrada INT NOT NULL,
-    IdDetalleBc int not null,
-    IdBodegaBc int not null,
-    IdProducto INT NOT NULL,
-    Cantidad INT NOT NULL,
-    IdProcedencia int not null,
-    Habilitado BIT NOT NULL DEFAULT 1,
-    CreatedAt DATETIME NOT NULL DEFAULT 1,
-    UpdateAt DATETIME NULL,
-    constraint Pk_DetalleEntradaInv PRIMARY KEY (IdDetalle , IdEntrada),
-    CONSTRAINT FK_DetalleEntrada FOREIGN KEY (IdEntrada) REFERENCES ENTRADA_BODEGA_AREA_PRODUCCION(IdEntrada),
-    CONSTRAINT FK_ProductoDet_EntradaInvent FOREIGN KEY (IdDetalleBc,IdBodegaBc) REFERENCES DetalleBodegaCentral(IdDetalle,IdBodega),
-    CONSTRAINT FK_Producto_EntradaInvent FOREIGN KEY (IdProducto) REFERENCES Producto (IdProducto),
-	constraint fk_ProdenciaEntradaBodega foreign key(IdProcedencia) references Procedencia(IdProcedencia)
-);
-GO
 Create table SALIDA_BODEGA_CENTRAL(
 	IdSalida int IDENTITY(1,1),
     FechaHora datetime not null,
@@ -85,6 +96,7 @@ Create table SALIDA_BODEGA_CENTRAL(
     constraint Ch_CantidadDescBC Check(Cantidad > 0)
 );
 GO
+
 Create table SALIDA_BODEGA_AREA_PRODUCTO(
 	IdSalida int IDENTITY(1,1),
     FechaHora datetime not null,

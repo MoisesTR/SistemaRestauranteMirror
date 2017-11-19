@@ -185,14 +185,6 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   }
 
-  createProducto(){
-
-    this._productoService.createProducto(this.producto).subscribe(
-      response =>{
-        if(producto.)
-      }
-    )
-  }
 
   cargarCategorias(){
 
@@ -276,7 +268,15 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   createProducto(myForm: NgForm){
 
     this.getDataNewProducto();
-    /*this.uploadImage();*/
+
+    this._productoService.createProducto(this.producto).subscribe(
+      response =>{
+
+      }, error =>{
+
+      }
+    )
+    this.uploadImage();
    /* let variable = null;
     variable = $( ".selectclasificacion" ).val();
 

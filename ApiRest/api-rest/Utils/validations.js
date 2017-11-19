@@ -64,7 +64,33 @@ const createProveedor=[
     check('Descripcion'),
     check('NombreRepresentante').exists()
 ],updateProveedor=[
-    check('')
+    check('IdProveedor').isInt(),
+    check('NombreProveedor').exists(),
+    check('Direccion'),
+    check('Email'),
+    check('Descripcion'),
+    check('NombreRepresentante').exists()
+],changeStateProveedor=[
+    check('IdProveedor').exists(),
+    check('Habilitado').isBoolean()
+];
+
+const createEntradaBodegaAP=[
+    check('IdBodegaAreaP').exists(),
+    check('IdTrabajado'),
+	check('IdProveedor'),
+	check('IdEstadoEdicion'),
+	check('NFactura'),
+	check('RepresentanteProveedor'),
+	check('SubTotalFactura'),
+	check('PorcRetencion'),
+	check('Retencion'),
+	check('PorcIva'),
+	check('IvaTotal'),
+	check('PorcDescuento'),
+	check('DescuentoTotal'),
+	check('TotalFactura'),
+	check('FechaHora')
 ]
 module.exports={
     userSignUpValidation,
@@ -72,5 +98,14 @@ module.exports={
     userFindEmail,
     userFindUsername,
     validsParamas,
-    userUpdate
+    userUpdate,
+    changeStateCargo,
+    changeStateCategoria,
+    changeStateProveedor,
+    createCargo,
+    createProveedor,
+    categoriaCreate, 
+    updateCargo,
+    updateCategoria,
+    updateProveedor
 }   

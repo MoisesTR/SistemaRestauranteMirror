@@ -64,7 +64,12 @@ function changeStateProducto(req,res){
        res.status(500).json(err) 
     });
 }
+function changeStateProducoPro(req,res){
+
+}
 module.exports={
     createProducto,
-    getProductosProveedores
+    changeStateProducto,
+    getProductosProveedores,
+    getProductoProveedorById
 }

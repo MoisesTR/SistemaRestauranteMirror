@@ -6,6 +6,10 @@
   margin-top: 0 !important;
 }
 
+.nomargin {
+  margin-left: -2% !important;
+}
+
 .navbar {
   background-color: transparent;
 }

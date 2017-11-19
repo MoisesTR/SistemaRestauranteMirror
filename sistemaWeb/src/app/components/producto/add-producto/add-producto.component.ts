@@ -17,6 +17,8 @@ import {ClasificacionProducto} from "../../../models/ClasificacionProducto";
 import {ClasificacionProductoService} from "../../../services/clasificacion-producto.service";
 import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
 import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
+import {ProductoService} from "../../../services/producto.service";
+
 @Component({
   selector: 'app-add-producto',
   templateUrl: './add-producto.component.html',
@@ -39,19 +41,20 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       str = $( ".selectclasificacion" ).val()[0]
       if(str != null){
         console.log(str.split(':')[1]);
-        let variable:Number;
+        let variable:number;
         variable = parseInt(str.split(':')[1]);
+        console.log('arriba')
+        console.log(variable)
 
         this._subclasificacionService.getSubClasificacionByIdClasificacion(variable).subscribe(
 
           response =>{
             if(response.subclasificaciones){
+
               this.subclasificaciones = response.subclasificaciones;
               console.log(this.subclasificaciones);
               $('.selectsubclasificacion').val(null)
                 .trigger('change');
-            /*  $( "#subclasificacion" ).val(this.subclasificaciones)*/
-             /* /!**!/$('#subclasificacion').select2({data:this.subclasificaciones[$(this).val()]});*/
 
             }
           }, error=>{
@@ -61,11 +64,11 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       }
     });
 
-    $('.selectsubclasificacion').change((e)=> {
-    console.log('hola')
+    $('#subclasificacion').change((e)=> {
+
+      this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
 
     });
-
   }
 
 
@@ -86,6 +89,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     , private _uploadService : UploadService
     , private _clasificaionService: ClasificacionProductoService
     , private _subclasificacionService: SubClasificacionProductoService
+    , private _productoService : ProductoService
   ) {
     this.url = Global.url;
     this.producto = new Producto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
@@ -154,6 +158,33 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   }
 
+
+  getDataNewProducto() {
+    this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
+    this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
+
+   /* if(subclasificacion != null) {
+      let variable: number;
+      variable = parseInt(subclasificacion.split(':')[1]);
+      console.log(variable);
+      this.producto.IdSubclasificacion = variable;
+
+    }*/
+
+    let categoria:string = null;
+    categoria = $(".selectcategoria").val()[0];
+
+    if(categoria != null) {
+      let variable: number;
+      variable = parseInt(categoria.split(':')[1]);
+
+      this.producto.IdCategoria = variable;
+      console.log(variable)
+    }
+
+    console.log(this.producto);
+
+  }
 
 
   cargarCategorias(){
@@ -237,15 +268,24 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   }
   createProducto(myForm: NgForm){
 
-    /*this.uploadImage();*/
-    let variable = null;
+    this.getDataNewProducto();
+
+    this._productoService.createProducto(this.producto).subscribe(
+      response =>{
+
+      }, error =>{
+
+      }
+    )
+    this.uploadImage();
+   /* let variable = null;
     variable = $( ".selectclasificacion" ).val();
 
     console.log(variable[0]);
 
     if(variable[0] == null){
       console.log('No hay dato en la variable');
-    }
+    }*/
   /*  this.formAddProducto.controls['make'].valueChanges.subscribe((value) => {
       console.log(value);
 

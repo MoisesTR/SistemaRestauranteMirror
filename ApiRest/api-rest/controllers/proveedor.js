@@ -43,9 +43,16 @@ function updateProveedor(req,res){
         res.status(500).json(err)
     });
 }
+function changeStateProveedor(req,res){
+
+}
+function updateUDM(req,res){
+}
 module.exports={
     createProveedor,
     getProveedorById,
     getProveedores,
-    updateProveedor
+    updateProveedor,
+    changeStateProveedor,
+    updateUDM
 }

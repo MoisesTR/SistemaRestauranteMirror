@@ -35,26 +35,30 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    var str:string;
+    var str:string = null;
     $('#clasificacion').change((e)=> {
 
       str = $( ".selectclasificacion" ).val()[0]
-      console.log(str.split(':'));
-      let variable:Number;
-      this.numero = $( ".selectclasificacion" ).select2("val");
-      this._subclasificacionService.getSubClasificacionByIdClasificacion(1).subscribe(
+      if(str != null){
+        console.log(str.split(':')[1]);
+        let variable:Number;
+        variable = parseInt(str.split(':')[1]);
 
-        response =>{
-          if(response.subclasificaciones){
-            this.subclasificaciones = response.subclasificaciones;
-            console.log(this.subclasificaciones);
-            $('#subclasificacion').trigger('change');
+        this._subclasificacionService.getSubClasificacionByIdClasificacion(variable).subscribe(
+
+          response =>{
+            if(response.subclasificaciones){
+              this.subclasificaciones = response.subclasificaciones;
+              console.log(this.subclasificaciones);
+              $( "#subclasificacion" ).val(this.subclasificaciones)
+              $('#subclasificacion').trigger('change');
+
+            }
+          }, error=>{
 
           }
-        }, error=>{
-
-        }
-      )
+        )
+      }
     });
 
   }

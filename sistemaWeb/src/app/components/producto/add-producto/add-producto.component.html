@@ -39,10 +39,8 @@
               <div class="col-md-6">
                 <label for="clasificacion">Clasificación</label>
 
-                <select class="form-control selectclasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion">
-                  <option class = "chip" value = 1 >orange</option>
-                  <option class = "chip" value = 2 >white</option>
-                  <option class = "chip" value = 3 >purple</option>
+                <select class="form-control selectclasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion" (change)="carga()">
+                  <option class = "chip" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
                 </select>
 
               </div>
@@ -50,15 +48,14 @@
                 <label for="subclasificacion">Subclasificación</label>
                 <select class="selectcsubclasificacion" multiple="multiple" style="width: 100%" formControlName="subclasificacion">
                   <option class="chip" value="1">Subclasificación</option>
-                  <option  class="chip" value="2">Subclasificación 2</option>
+
                 </select>
               </div>
               <div class="col-md-6">
                 <br>
                 <label for="categoria">Categoria</label>
                 <select class="selectcategoria" multiple="multiple" style="width: 100%" formControlName="categoria">
-                  <option class="chip" value="1">Categoria</option>
-                  <option  class="chip" value="2">Categoria 2</option>
+                  <option class="chip" *ngFor="let categoria of categorias">{{categoria.NombreCategoria}}</option>
                 </select>
               </div>
               <div class="col-md-12">

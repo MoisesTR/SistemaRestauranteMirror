@@ -13,19 +13,38 @@ import {Global} from "../../../services/global";
 import {Producto} from "../../../models/Producto";
 declare var $:any;
 import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {ClasificacionProducto} from "../../../models/ClasificacionProducto";
+import {ClasificacionProductoService} from "../../../services/clasificacion-producto.service";
+import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
 @Component({
   selector: 'app-add-producto',
   templateUrl: './add-producto.component.html',
-  styleUrls: ['./add-producto.component.css']
+  styleUrls: ['./add-producto.component.css'],
+
 })
 
 
 export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
+
   ngAfterViewInit(): void {
     $(document).ready(function(){
 
       $('.selectclasificacion').val(['1', '3']);
       $('.selectclasificacion').trigger('change');
+    });
+
+    $('.selectclasificacion').on("select2:selecting", () => {
+      this._clasificaionService.getClasificaciones().subscribe(
+
+        response =>{
+          if(response.clasificaciones){
+            this.clasificaciones = response.clasificaciones;
+            console.log(this.clasificaciones);
+          }
+        }, error=>{
+
+        }
+      )
     });
 
   }
@@ -43,16 +62,17 @@ export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
   public categorias: CategoriaProducto[];
   public envases: Envase[];
   public unidadesMedida : UnidadMedida[];
+  public clasificaciones: ClasificacionProducto[];
+  public subclasificaciones: SubClasificacionProductoService;
   public url: string;
 
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
-    , private _proveedorService: ProveedorService
     , private _categoriaService: CategoriaProductoService
-    , private _envaseService: EnvaseService
     , private _uploadService : UploadService
-
+    , private _clasificaionService: ClasificacionProductoService
+    , private _subclasificacionService: SubClasificacionProductoService
   ) {
     this.url = Global.url;
     this.producto = new Producto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
@@ -100,10 +120,12 @@ export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
         maximumSelectionLength: 1
       });
 
-
-
     });
     this.cargarCategorias();
+    this.getClasificaciones();
+    /*this.getSubClasificacionByIdClasificacion(1);*/
+    console.log(this.subclasificaciones);
+
     this.formAddProducto = new FormGroup({
       'nombreProducto': new FormControl(),
       'descripcionProducto': new FormControl(),
@@ -119,9 +141,9 @@ export class AddProductoComponent implements OnInit, OnChanges, AfterViewInit {
 
 
 
-cambios(){
-    console.log('hola');
-}
+  mensaje(){
+    console.log('m,ensaje')
+  }
 
   cargarCategorias(){
 
@@ -129,7 +151,6 @@ cambios(){
       response =>{
         if(response.categorias){
           this.categorias = response.categorias;
-
         } else {
 
         }
@@ -138,6 +159,38 @@ cambios(){
       }
     )
 
+  }
+
+  getClasificaciones(){
+
+    this._clasificaionService.getClasificaciones().subscribe(
+
+      response =>{
+        if(response.clasificaciones){
+          this.clasificaciones = response.clasificaciones;
+        }
+      }, error=>{
+
+      }
+    )
+  }
+
+  getSubClasificacionByIdClasificacion(IdClasificacion){
+
+    this._subclasificacionService.getSubClasificacionByIdClasificacion(IdClasificacion).subscribe(
+
+      response =>{
+        if(response.subclasificaciones){
+          this.subclasificaciones = response.subclasificaciones;
+        }
+      }, error =>{
+
+      }
+    )
+
+  }
+  carga(){
+    alert('hola');
   }
 
   uploadImage(){

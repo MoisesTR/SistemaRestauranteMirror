@@ -1,10 +1,11 @@
+$(".button-collapse").sideNav();
 
-angular.element(document).ready(function () {
+//fecha$(".letras").keypress(function (key) {
+$(document).ready(function(){
   var date = new Date();
   var currentMonth = date.getMonth();
   var currentDate = date.getDate();
   var currentYear = date.getFullYear();
- /* $(".button-collapse").sideNav();*/
 
   $('.datepicker').pickadate({
 
@@ -23,40 +24,9 @@ angular.element(document).ready(function () {
     max: new Date(currentYear, currentMonth, currentDate),
     format: 'yyyy-mm-dd'
   });
+});
 
-  $(".letras").keypress(function (key) {
-    if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-      && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-      && (key.charCode != 45) //retroceso
-      && (key.charCode != 241) //ñ
-      && (key.charCode != 209) //Ñ
-      && (key.charCode != 32) //espacio
-      && (key.charCode != 225) //á
-      && (key.charCode != 233) //é
-      && (key.charCode != 237) //í
-      && (key.charCode != 243) //ó
-      && (key.charCode != 250) //ú
-      && (key.charCode != 193) //Á
-      && (key.charCode != 201) //É
-      && (key.charCode != 205) //Í
-      && (key.charCode != 211) //Ó
-      && (key.charCode != 218) //Ú
-
-    )
-      return false;
-  });
-
-
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-
-  $('.dropify').dropify();
-
-})
-
-
-/*//productos
+//productos
 $("#btnEliminarproductos").click(function(e) {
   e.preventDefault();
   var btn = "button";
@@ -219,10 +189,71 @@ $("#btneliminarproveedores").click(function(e) {
       )
     }
   })
-});*/
+});
+
+$(".letras").keypress(function (key) {
+  if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+    && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+    && (key.charCode != 45) //retroceso
+    && (key.charCode != 241) //ñ
+    && (key.charCode != 209) //Ñ
+    && (key.charCode != 32) //espacio
+    && (key.charCode != 225) //á
+    && (key.charCode != 233) //é
+    && (key.charCode != 237) //í
+    && (key.charCode != 243) //ó
+    && (key.charCode != 250) //ú
+    && (key.charCode != 193) //Á
+    && (key.charCode != 201) //É
+    && (key.charCode != 205) //Í
+    && (key.charCode != 211) //Ó
+    && (key.charCode != 218) //Ú
+
+  )
+    return false;
+});
+
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+
+$(document).ready(function(){
+
+  $('.dropify').dropify();
+});
 
 
 
+$(document).ready(function() {
+  $('#datatables').DataTable( {
+    dom: 'Bfrtip',
+    buttons: [
+      {
+        extend:    'copyHtml5',
+        text:      '<i class="fa"><img src="assets/img/icon/copiar.png" height="20"> Copiar</i>',
+        titleAttr: 'Copy'
+      },
+      {
+        extend:    'excelHtml5',
+        text:      '<i class="fa"><img src="assets/img/icon/excel.png" height="20"> Excel</i>',
+        titleAttr: 'Excel'
+      },
+      {
+        extend:    'csvHtml5',
+        text:      '<i class="fa"><img src="assets/img/icon/csv.png" height="20"> Csv</i>',
+        titleAttr: 'CSV'
+      },
+      {
+        extend:    'pdfHtml5',
+        text:      '<i class="fa"><img src="assets/img/icon/pdf.png" height="20"> Pdf</i>',
+        titleAttr: 'PDF'
+      },
+
+    ]
+  } );
+} );
 
 /*$(document).ready(function () {
   $('select[name="datatables_length"]').material_select();

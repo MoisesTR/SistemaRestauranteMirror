@@ -1,3 +1,8 @@
-<p>
-  reporte works!
-</p>
+<div class="col-md-6">
+  <label for="clasificacion">Clasificación</label>
+
+  <select class="form-control selectclasificacion" multiple="multiple" style="width: 100%" onchange="prueba()" >
+    <option class = "chip" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
+  </select>
+
+</div>

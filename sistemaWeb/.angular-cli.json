@@ -28,7 +28,6 @@
         "../node_modules/jquery-mask-plugin/dist/jquery.mask.js"
         , "../node_modules/datatables.net/js/jquery.dataTables.js"
         , "../node_modules/datatables.net-responsive/js/dataTables.responsive.js"
-        , "assets/js/todo.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

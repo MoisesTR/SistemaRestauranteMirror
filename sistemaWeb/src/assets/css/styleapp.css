@@ -71,6 +71,10 @@ footer.page-footer {
 .orange-header{
   background-color: rgba(230, 126, 34, 0.7) !important;
 }
+.orange-chan-text {
+  color: #E67E22 !important;
+}
+
 .padding-0{
   padding-right:0;
   padding-left:0;

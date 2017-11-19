@@ -43,15 +43,23 @@ export class ProductoService {
       .map(res => res.json());
   }
 
-  deleteProducto(IdProducto){
-
+  deleteProducto(Producto){
+    let params = JSON.stringify(Producto);
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
 
-    let options = new RequestOptions({headers:headers});
-    return this._http.delete(this.url+'producto/'+IdProducto,options)
+    let body = JSON.stringify(
+      {
+        "Habilitado": 0,
+
+      }
+    );
+
+    let options = new RequestOptions({headers:headers,body:body});
+    return this._http.delete(this.url+'producto/'+Producto.IdProducto,options)
       .map(res => res.json());
+
   }
 }

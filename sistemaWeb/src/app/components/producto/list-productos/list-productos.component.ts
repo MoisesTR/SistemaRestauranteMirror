@@ -108,37 +108,48 @@ export class ListProductosComponent implements OnInit {
 
   }
 
-  deleteProducto(){
+  deleteProducto(IdProducto){
 
     swal({
-      title: 'Estas seguro?',
-      text: "El producto eliminado no podra ser reestablecido!",
+      title: "Estas seguro(a)?",
+      text: "La empaque sera eliminada permanentemente!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminalo!',
-      cancelButtonText: 'No, Cancelar!',
-      confirmButtonClass: 'btn btn-success',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: false
-    }).then(function () {
-      swal(
-        'Eliminado!',
-        'El producto ha sido eliminado.',
-        'success'
-      )
-    }, function (dismiss) {
-      // dismiss can be 'cancel', 'overlay',
-      // 'close', and 'timer'
-      if (dismiss === 'cancel') {
-        swal(
-          'Cancelado',
-          'Your imaginary file is safe :)',
-          'error'
+      confirmButtonText: 'Si, Eliminala!'
+    }).then((eliminar) => {
+      if (eliminar) {
+        this._ProductoServicio.deleteProducto(IdProducto).subscribe(
+          response =>{
+            if(response.success){
+              swal(
+                'Eliminada!',
+                'El producto ha sido eliminado exitosamente',
+                'success'
+              ).then(() => {
+
+              })
+            } else {
+              swal(
+                'Error inesperado',
+                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
+                'error'
+              )
+            }
+          }, error =>{
+            if(error.status = 500){
+              swal(
+                'Error inesperado',
+                'Ha ocurrido un error en el servidor, intenta nuevamente!',
+                'error'
+              )
+            }
+          }
         )
+
       }
-    })
+    });
   }
 
 }

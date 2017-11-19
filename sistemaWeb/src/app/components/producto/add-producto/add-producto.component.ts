@@ -240,6 +240,9 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     )
   }
 
+  deleteProducto(){
+
+  }
   uploadImage(){
     this._uploadService.makeFileRequest(
       this.url+'productoUploadImage',
@@ -282,22 +285,6 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.getDataNewProducto();
     this.uploadImage();
-
-
-
-   /* let variable = null;
-    variable = $( ".selectclasificacion" ).val();
-
-    console.log(variable[0]);
-
-    if(variable[0] == null){
-      console.log('No hay dato en la variable');
-    }*/
-  /*  this.formAddProducto.controls['make'].valueChanges.subscribe((value) => {
-      console.log(value);
-
-    });*/
-    /*console.log(myForm.value.proveedor);*/
 
   }
 

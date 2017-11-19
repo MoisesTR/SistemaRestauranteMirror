@@ -17,6 +17,7 @@ function getSubclasificacionById(pool, IdSubClasificacion){
         .execute('USP_GET_SUBCLASIFICACION');
 }
 function getSubclasificacionesByIdClasificacion(pool,IdClasificacion){
+    console.log('buscando');
     return pool.request()
         .input('IdClasificacion',sql.Int,IdClasificacion)
         .execute('USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION');
@@ -43,5 +44,6 @@ module.exports={
     createSubClasificacion,
     getSubclasificacionById,
     getSubclasificaciones,
-    updateSubclasificacion
+    updateSubclasificacion,
+    getSubclasificacionesByIdClasificacion
 }

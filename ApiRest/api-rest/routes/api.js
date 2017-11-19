@@ -46,8 +46,10 @@ Router
     //Rutas subclasificacion Controller
     .get('/subclasificacion/:IdSubclasificacion(\\d+)',SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones',SubclasificacionController.getSubclasificaciones)
+    .get('/subclasificaciones/:IdClasificacion(\\d+)',SubclasificacionController.getSubclasificacionesByIdClasificacion)
     .post('/subclasificacion',SubclasificacionController.createSubclasificacion)
     .put('/subclasificacion',SubclasificacionController.updateSubclasificacion)
+    
     //Rutas estadoproducto controller
     .get('/estadosproductos',EstadoProductoController.getEstados)
     .get('/estadoproducto/:IdEstado(\\d+)',EstadoProductoController.getEstadoById)

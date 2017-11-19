@@ -150,7 +150,7 @@ getClasificacion(){
     });
   }
 
-  getValuesFormAddCategoria(){
+  getValuesFormAddClasificacion(){
 
     this.clasificacion.NombreClasificacion = this.formAddClasificacion.value.nombreClasificacion;
     this.clasificacion.DescripcionClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
@@ -163,9 +163,9 @@ getClasificacion(){
     this.clasificacion.DescripcionClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
   }
 
-  showModalUpdateCategoria(clasificacion){
+  showModalUpdateClasificacion(clasificacion){
 
-    $('#modalUpdateCategoria').modal('show');
+    $('#modalUpdateClasificacion').modal('show');
     let Clasificacion : ClasificacionProducto;
     Clasificacion = clasificacion;
 
@@ -173,15 +173,15 @@ getClasificacion(){
 
     this.formUpdateClasificacion.reset();
     this.formUpdateClasificacion.setValue({
-      nombreCategoria: Clasificacion.NombreClasificacion
+      nombreClasificacion: Clasificacion.NombreClasificacion
       , descripcionClasificacion: Clasificacion.DescripcionClasificacion
     });
 
 
   }
 
-  createCategoriaProducto(){
-    this.getValuesFormAddCategoria();
+  createClasificacionProducto(){
+    this.getValuesFormAddClasificacion();
 
     this._clasificacionService.createClasificacionProducto(this.clasificacion).subscribe(
       response => {
@@ -189,20 +189,20 @@ getClasificacion(){
         if (response.IdClasficcacion) {
 
           swal(
-            'Categoría',
-            'La categoría ha sido creada exitosamente!',
+            'Clasificaciom',
+            'La clasificacion ha sido creada exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddCategoria').modal('toggle');
+            $('#modalAddClasificacion').modal('toggle');
             this.formAddClasificacion.reset();
             this.clasificacion = new ClasificacionProducto(null,null,null,null);
             this.getClasificacionesRender();
           })
 
         } else {
-          swal(
+          swal(    
             'Error inesperado',
-            'Ha ocurrido un error al insertar la categoria, intenta nuevamente!',
+            'Ha ocurrido un error al insertar la clasificacion, intenta nuevamente!',
             'error'
           )
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
@@ -266,7 +266,7 @@ getClasificacion(){
             'La clasificacion ha sido actualizada exitosamente!',
             'success'
           ).then(() => {
-            $('#modalUpdateCategoria').modal('toggle');
+            $('#modalUpdateClasificacion').modal('toggle');
             this.formUpdateClasificacion.reset();
             this.getClasificacionesRender();
           })
@@ -298,7 +298,7 @@ getClasificacion(){
 
     swal({
       title: "Estas seguro(a)?",
-      text: "La categoria sera eliminada permanentemente!",
+      text: "La clasificacion sera eliminada permanentemente!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

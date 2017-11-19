@@ -51,7 +51,7 @@ function getSubclasificacionesByIdClasificacion(req,res){
             console.log('IdClasificacion:',data)
            return querys.getSubclasificacionesByIdClasificacion(poolObt,data.IdClasificacion)
         }).then((results) => {
-           res.status(200).json({subclasificaciones:results.recordset[0]}) 
+           res.status(200).json({subclasificaciones:results.recordset}) 
         }).catch((err) => {
             res.status(500).json(err)
         });

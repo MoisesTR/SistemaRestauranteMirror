@@ -44,6 +44,7 @@ import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveed
 import {ProductoProveedorService} from "../../services/producto-proveedor.service";
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 import {HabilitadosComponent} from "../habilitados/habilitados.component";
+import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import {HabilitadosComponent} from "../habilitados/habilitados.component";
     , ProductoProveedorComponent
     , RolusuarioComponent
     , HabilitadosComponent
+    , UnidadmedidaComponent
 
   ],
   imports: [

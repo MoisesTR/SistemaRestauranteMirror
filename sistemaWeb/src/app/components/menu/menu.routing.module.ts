@@ -23,6 +23,7 @@ import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveed
 import {RolUsuario} from "../../models/RolUsuario";
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 import {HabilitadosComponent} from "../habilitados/habilitados.component";
+import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
 
 
 const menuRoutes: Routes = [
@@ -52,6 +53,7 @@ const menuRoutes: Routes = [
         , {path:'producto-proveedor',component: ProductoProveedorComponent}
         , {path:'rol',component: RolusuarioComponent}
         , {path:'habilitados',component: HabilitadosComponent}
+        , {path:'unidadmedida',component: UnidadmedidaComponent}
 
     ]
   },

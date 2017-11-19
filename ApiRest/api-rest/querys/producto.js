@@ -32,9 +32,10 @@ function getProductoById(pool,IdProducto){
         .input('IdProducto',sql.Int,IdProducto)
         .execute('USP_GET_PRODUCTO')
 }
-function changeStateProducto(pool,IdProducto){
+function changeStateProducto(pool,IdProducto,Habilitado){
     return pool.request()
         .input('IdProducto',sql.Int,IdProducto)
+        .input('Habilitado',sql.Bit,Habilitado)
         .execute('USP_DISP_PRODUCTO')
 }
 module.exports={

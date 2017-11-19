@@ -47,14 +47,19 @@ function updateProducto(req,res){
     });
 }
 function changeStateProducto(req,res){
-    var data = req.body
+    let IdProducto = req.params.IdProducto
+    let Habilitado = req.body.Habilitado
+    console.log('IdProducto:'+IdProducto,'Habilitado:'+Habilitado)
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.changeStateProducto(poolObt,IdProducto)        
+        return querys.changeStateProducto(poolObt,IdProducto,Habilitado)        
     }).then((results) => {
-        res.status(200).json(results)
+        let afectadas = results.rowsAffected[0]
+        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+        res.status(200).json((afectadas > 0) ? {success:'Producto '+accion+' con exito!'} :{failed:'No se encontro el producto solicitado!'})
         console.log('Producto cambiado de estado con exito!')
     }).catch((err) => {
        res.status(500).json(err) 
+       console.log('Error:',err)
     });
 }
 

@@ -316,10 +316,10 @@ CREATE TABLE  PRODUCTO_ORIGEN(
 );
 GO
 CREATE TABLE ESTADO_EMPAQUE(
-	IdEstado INT IDENTITY(1,1),
+	IdEstadoEmpaque INT IDENTITY(1,1),
     NombreEstado NVARCHAR(50),
     Habilitado Bit default 1 not null,
-    CONSTRAINT PK_ESTADO_PRODUC PRIMARY KEY(IdEstado),
+    CONSTRAINT PK_ESTADO_PRODUC PRIMARY KEY(IdEstadoEmpaque),
 	CONSTRAINT U_EstadoEmpaqueUnico UNIQUE(NombreEstado)
 );
 GO
@@ -387,3 +387,99 @@ CREATE TABLE TRABAJADOR (
 	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
 )
 GO
+create TABLE AREA_PRODUCCION(
+	IdAreaProduccion int IDENTITY(1,1),
+	IdSucursal INT NOT NULL,
+    Nombre NVARCHAR(50) NOT NULL,
+    Habilitado Bit default 1 not null,
+	CreateAt DATETIME NOT NULL DEFAULT GETDATE(),
+	UpdateAt DATETIME NULL,
+    constraint pk_IdAreaProduccion primary key(IdAreaProduccion), 
+	CONSTRAINT FK_SUCURSAL_AREA_PRODUCCION FOREIGN KEY(IdSucursal) REFERENCES SUCURSAL(IdSucursal),
+	CONSTRAINT U_SUCURSAL_AREA_PRODUCCION UNIQUE(IdSucursal)
+)
+GO
+--NOMBRE ANTERIOR BODEGA_AREA_PRODUCCION
+create table BODEGA_AREA_PRODUCCION(
+	IdBodegaAreaP int IDENTITY(1,1),
+	IdAreaProduccion INT NOT NULL,
+    Nombre NVARCHAR(50) not null,
+    Descripcion NVARCHAR(300) null,
+    Habilitado Bit default 1 not null,
+	CreateAt DATETIME NOT NULL DEFAULT GETDATE(),
+	UpdateAt DATETIME NULL,
+    constraint pk_IdBodegaAP primary key(IdBodegaAreaP),
+	constraint FK_BODEGA_AREA_PRODUCCION foreign key(IdAreaProduccion) references AREA_PRODUCCION(IdAreaProduccion),
+	constraint u_BODEA_PARA_AP UNIQUE(IdAreaProduccion)
+)
+GO
+CREATE TABLE ESTADO_EDICION(
+	IdEstadoEdicion INT IDENTITY(1,1),
+	NombreEstado NVARCHAR(50) NOT NULL,
+	CONSTRAINT PK_ESTADO_EDICION PRIMARY KEY(IdEstadoEdicion)
+)
+GO
+INSERT INTO ESTADO_EDICION
+VALUES('Abierta'),('Cerrada')
+GO
+CREATE TABLE ENTRADA_BODEGA_AREA_PRODUCCION (
+    IdEntradaBodegaAP INT IDENTITY,
+    IdBodegaAreaP INT not null,
+    IdTrabajador INT NOT NULL,
+	IdProveedor INT NOT NULL,
+	IdEstadoEdicion INT NOT NULL DEFAULT 1,
+	NFactura NVARCHAR(20) NOT NULL,
+	RepresentanteProveedor NVARCHAR(50) NOT NULL,
+	SubTotalFactura MONEY NULL CHECK(SubTotalFactura > 0),
+	PorcRetencion NUMERIC(3,2) NULL,
+	Retencion MONEY NULL,
+	PorcIva NUMERIC(3,2) NULL,
+	IvaTotal MONEY NULL,
+	PorcDescuento NUMERIC(3,2) NULL,
+	DescuentoTotal MONEY NULL CHECK(DescuentoTotal >= 0),
+	TotalFactura MONEY NULL,
+	FechaHora DATETIME NOT NULL,
+    Habilitado BIT NOT NULL DEFAULT 1,
+    CreatedAt DATETIME NOT NULL DEFAULT 1,
+    UpdateAt DATETIME NULL,
+    constraint pk_IdEntradaBodega primary key(IdEntradaBodegaAP),
+    constraint fk_BodegaEntradaB foreign key(IdBodegaAreaP) references BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
+	constraint fk_ENTRADA_BAP_EDICION FOREIGN KEY(IdEstadoEdicion) references ESTADO_EDICION(IdEstadoEdicion),
+	constraint fk_ProveedorEntradaProducto foreign key(IdProveedor) REFERENCES PROVEEDOR(IdProveedor),
+    constraint fk_TrabIngreEntradaB foreign key(IdTrabajador) references TRABAJADOR(IdTrabajador)
+);
+GO
+CREATE TABLE DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION (
+    IdDetalleEntradaAP INT IDENTITY(1,1),
+    IdEntradaBodegaAP INT NOT NULL,
+    IdProductoProveedor INT NOT NULL,
+    Cantidad INT NOT NULL,
+	PrecioUnitarioEntrada MONEY NOT NULL CHECK(PrecioUnitarioEntrada >=0),
+	PrecioUnitarioActual MONEY NOT NULL,
+	DescuentoCalculado MONEY NOT NULL,
+    Habilitado BIT NOT NULL DEFAULT 1,
+    CreatedAt DATETIME NOT NULL DEFAULT 1,
+    UpdateAt DATETIME NULL,
+    constraint Pk_DetalleEntradaInv PRIMARY KEY (IdDetalleEntradaAP , IdEntradaBodegaAP),
+    CONSTRAINT FK_DetalleEntrada FOREIGN KEY (IdEntradaBodegaAP) REFERENCES ENTRADA_BODEGA_AREA_PRODUCCION(IdEntradaBodegaAP),
+    CONSTRAINT FK_Producto_EntradaInvent FOREIGN KEY (IdProductoProveedor) REFERENCES PRODUCTO_PROVEEDOR(IdProductoProveedor)
+);
+GO
+--NOMBRE ANTERIOR 
+create table DETALLE_BODEGA_AP(
+	IdDetalle int IDENTITY(1,1),
+	IdBodegaAreaP int not null,
+	IdDetalleEntradaAP INT NOT NULL,-- PAra saber que producto de que detalle
+	IdEntradaBodegaAP INT NOT NULL,--
+    IdProductoProveedor int not null,
+	IdEstadoEmpaque INT NOT NULL,
+    Cantidad int not null check(Cantidad >= 0),
+    FechaHoraIngreso datetime not null,
+    FechaHoraProduccion datetime null,
+    Habilitado Bit default 1 not null,
+    constraint pk_IdDetalleBodega primary key(IdDetalle,IdBodegaAreaP),	
+    constraint fk_BodegaDelleAP foreign key(IdBodegaAreaP) references BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
+	constraint fk_DetalleEntradaBodegaAP foreign key(IdDetalleEntradaAP,IdEntradaBodegaAP) references DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdDetalleEntradaAP,IdEntradaBodegaAP),
+    constraint fk_IdProducto foreign key(IdProductoProveedor) references PRODUCTO_PROVEEDOR(IdProductoProveedor),
+	constraint fk_EstadoEmpaqueProductoBodega FOREIGN KEY(IdEstadoEmpaque) REFERENCES ESTADO_EMPAQUE(IdEstadoEmpaque)
+)

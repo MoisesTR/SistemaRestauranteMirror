@@ -17,7 +17,7 @@ export class ProductoService {
 
   createProducto(Producto){
     let params = JSON.stringify(Producto);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'producto',params,{headers:headers})
       .map(res => res.json());

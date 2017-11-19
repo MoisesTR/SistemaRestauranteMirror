@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Directive, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-
+import swal from 'sweetalert2';
 import {Provedor} from "../../../models/Provedor";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProveedorService} from "../../../services/proveedor.service";
@@ -162,14 +162,8 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   getDataNewProducto() {
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
-
-   /* if(subclasificacion != null) {
-      let variable: number;
-      variable = parseInt(subclasificacion.split(':')[1]);
-      console.log(variable);
-      this.producto.IdSubclasificacion = variable;
-
-    }*/
+    this.producto.IdEstado = 1;
+    /*this.producto.Imagen = */
 
     let categoria:string = null;
     categoria = $(".selectcategoria").val()[0];
@@ -182,7 +176,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       console.log(variable)
     }
 
-    console.log(this.producto);
+
 
   }
 
@@ -254,7 +248,25 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       'token',
       'image').then((result:any)=>{
         this.producto.Imagen = result.image;
-        console.log(this.producto.Imagen);
+      this._productoService.createProducto(this.producto).subscribe(
+        response =>{
+          if(response.IdProducto){
+            swal(
+              'Producto',
+              'El producto ha sido creado exitosamente!',
+              'success'
+            ).then(() => {
+
+              this._router.navigate(['menu/producto']);
+
+            })
+
+          }
+
+        }, error =>{
+
+        }
+      )
     });
 
   }
@@ -269,15 +281,10 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   createProducto(myForm: NgForm){
 
     this.getDataNewProducto();
-
-    this._productoService.createProducto(this.producto).subscribe(
-      response =>{
-
-      }, error =>{
-
-      }
-    )
     this.uploadImage();
+
+
+
    /* let variable = null;
     variable = $( ".selectclasificacion" ).val();
 

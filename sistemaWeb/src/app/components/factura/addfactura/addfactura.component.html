@@ -1,0 +1,92 @@
+<section>
+  <form>
+    <div class="row">  
+      <!--Lista de productos agregados-->
+      <div class="col-lg-4">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Productos Agregados</h4>
+          </div>            
+          
+          <div class="container-fluid">
+            <br>
+            <div class="list-group">                  
+                <a href="#" class="list-group-item">
+                  <h5 class="mb-1 font-orange">Bacon</h5>
+                  <small class="font-orange">Hace 3 min</small>
+                </a>
+                <a href="#" class="list-group-item">
+                  <h5 class="mb-1 font-orange">Chorizo</h5>
+                  <small class="font-orange">Hace 5 min</small>
+                </a>
+                <a href="#" class="list-group-item">
+                  <h5 class="mb-1 font-orange">Mortadela</h5>
+                  <small class="font-orange">Hace 10 min</small>
+                </a>
+            </div>
+            <br>
+          </div>
+        </div>        
+      </div>
+      <!-- /.Imagen -->
+
+      <!--Datos del producto-->
+      <div class="col-lg-8  ">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Datos del Producto</h4>
+          </div>
+          <!-- Contenido -->
+          <div class="card-body ">
+            <div class="row">
+
+              <div class="col-md-12">
+                <br>
+                <div class="md-form">
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter" length="50" autocomplete="off">
+                  <label for="nombreproducto" class="input-char-counter">Nombre producto</label>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <br>
+                <div class="md-form">
+                  <input type="text" id="nombreproveedor" formControlName="nombreproveedor" class="form-control input-char-counter" length="50" autocomplete="off">
+                  <label for="nombreproveedor" class="input-char-counter">Nombre proveedor</label>
+                </div>
+              </div>
+
+
+              <!-- <div class="col-md-6">
+                <label for="clasificacion">Clasificación</label>
+
+                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion">
+                  <option class = "chip" name = "clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
+                </select>
+
+              </div>
+              
+              <div class="col-md-12">
+                <br>
+                <div class="md-form">
+                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
+                  <label for="descripcionproducto">Descripción</label>
+                </div>
+              </div> -->
+
+            </div>
+            <br>
+            <div class="text-center mt-1-half">
+              <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+            </div>
+
+          </div>
+          <!-- Contenido -->
+        </div>
+      </div>
+      <!-- /.Datos del usuario-->
+
+    </div>
+  </form>
+  </section>
+  

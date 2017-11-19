@@ -1,3 +1,83 @@
-<p>
-  list-factura works!
-</p>
+<div class="row">    
+  <div class="col-md-12">
+    <div class="card card-cascade narrower">
+      <!--Titulo-->
+      <div class="view gradient-card-header orange-chang" >
+        <h2 class="h2-responsive">Facturas</h2>
+      </div>
+      <!--/Titulo-->
+      <div class="card-body" >
+        <div class="container-fluid">                   
+
+            <div class="col-md-12 mx-auto white mb-r">
+                
+              <div class="row">                
+                <div class="col-sm-6 col-md-3">
+                  <div class="md-form">
+                    <input placeholder="Buscar..." type="text" id="form5" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-9 ">
+                  <div class="text-right" style="margin-top:3%;">
+                    <button type="button" class="btn orange-chang" [routerLink]="'factura/add'">Nueva Factura de Productos</button>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-md-12 pb-3">
+                      
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Proveedor</th>
+                                      <th>Descripción</th>
+                                      <th>Hora y Fecha</th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>                                  
+                                  <tr> 
+                                    <th>01</th>
+                                    <td><img src="assets/img/productos/cainsa.png" alt="" class="img-factura"> Cainsa</td>
+                                    <td>Lorep ipsum Atomic developers</td>
+                                    <td>
+                                      <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                                      <br>
+                                      <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                                    </td>
+                                    <td>
+                                      <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>02</th>
+                                    <td><img src="assets/img/productos/tiptop.png" alt="" class="img-factura"> Tip Top</td>
+                                    <td>Lorep ipsum Atomic developers</td>
+                                     <td>
+                                      <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                                      <br>
+                                      <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
+                                    </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      
+                  </div>
+              </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        

@@ -208,3 +208,9 @@ h6 {
 .picker__select--month, .picker__select--year {
   padding: 0 !important;
 }
+.img-factura {
+  display: inline-block;
+  width: 80px;
+  margin-right: 8px;
+  border-radius: 50%;
+}

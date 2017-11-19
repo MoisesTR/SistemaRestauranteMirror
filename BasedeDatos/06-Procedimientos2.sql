@@ -46,8 +46,12 @@ IF OBJECT_ID('USP_GET_PRODUCTOS','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_PRODUCTOS
 GO
 CREATE PROCEDURE USP_GET_PRODUCTOS
+	@Habilitado BIT null
 AS BEGIN
-	SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO
+	IF @Habilitado is null
+		SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO
+	ELSE
+		SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO WHERE Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_DISP_PRODUCTO','P') IS NOT NULL
@@ -64,8 +68,12 @@ IF OBJECT_ID('USP_GET_PRODUCTOS_PROVEEDORES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_PRODUCTOS_PROVEEDORES
 GO
 CREATE PROCEDURE USP_GET_PRODUCTOS_PROVEEDORES
+	@Habilitado BIT null
 AS BEGIN
-	SELECT * FROM V_ProductosDetallados;
+	IF @Habilitado is NULL
+		SELECT * FROM V_ProductosDetallados;
+	ELSE
+		SELECT * FROM V_ProductosDetallados WHERE Habilitado = @Habilitado;
 END 
 GO
 IF OBJECT_ID('USP_GET_PRODUCTO_PROVEEDORES','P') IS NOT NULL
@@ -103,8 +111,12 @@ IF OBJECT_ID('USP_GET_EMPAQUES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_EMPAQUES
 GO
 CREATE PROCEDURE USP_GET_EMPAQUES
+	@Habilitado BIT NULL
 AS BEGIN
-	SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE
+	IF @Habilitado IS NULL
+		SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE
+	ELSE
+		SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE Habilitado = @Habilitado;
 END
 GO
 IF OBJECT_ID('USP_CREATE_ENVASE','P') IS NOT NULL
@@ -124,8 +136,12 @@ IF OBJECT_ID('USP_GET_ENVASES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_ENVASES
 GO
 CREATE PROCEDURE USP_GET_ENVASES
+	@Habilitado BIT NULL
 AS BEGIN
-	SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE
+	IF  @Habilitado IS NULL
+		SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE
+	ELSE
+		SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE WHERE Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_DISP_ENVASES','P') IS NOT NULL
@@ -144,8 +160,12 @@ IF OBJECT_ID('USP_GET_ESTADOSPRODUCTO','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_ESTADOSPRODUCTO
 GO
 CREATE PROCEDURE USP_GET_ESTADOSPRODUCTO
+	@Habilitado BIT NULL
 AS BEGIN
-	SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO
+	IF @Habilitado IS NULL
+		SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO
+	ELSE
+		SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO WHERE Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_GET_ESTADOPRODUCTO_BY_ID','P') IS NOT NULL

@@ -6,8 +6,9 @@ function createCategoria(pool,data){
         .input('DescripcionCategoria',sql.NVarChar(150),data.DescripcionCategoria)
         .execute('USP_CREATE_CATEGORIA')
     } 
-function getCategorias(pool){
+function getCategorias(pool,Habilitado){
     return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_CATEGORIAS');
 }
 function updateCategoria(pool,data){

@@ -12,8 +12,9 @@ function getEnvaseById(req,res){
         });
 }
 function getEnvases(req,res){
+    let Habilitado = req.query.Habilitado;
     config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getEnvases(poolObt)
+       return querys.getEnvases(poolObt,Habilitado)
     }).then((results) => {
        res.status(200).json({envases:results.recordset}) 
     }).catch((err) => {

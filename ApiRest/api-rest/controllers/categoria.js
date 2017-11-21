@@ -22,8 +22,9 @@ function createCategoria(req,res){
     }
 }
 function getCategorias(req,res){
+    let Habilitado = req.query.Habilitado;
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getCategorias(poolObt);
+        return querys.getCategorias(poolObt,Habilitado);
     }).then((results) => {
         res.status(200).json({
             categorias:results.recordset

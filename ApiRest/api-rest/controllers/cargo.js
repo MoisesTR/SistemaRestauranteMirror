@@ -22,8 +22,9 @@ function createCargo(req,res){
     }
 }
 function getCargos(req,res){
+    let Habilitado = req.query.Habilitado;
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getCategorias(poolObt);
+        return querys.getCategorias(poolObt,Habilitado);
     }).then((results) => {
         res.status(200).json({
             categorias:results.recordset
@@ -71,7 +72,7 @@ function getCargoById(req,res){
     }
 }
 function changeStateCargo(req,res){
-
+    
 }
 module.exports={
     createCargo,

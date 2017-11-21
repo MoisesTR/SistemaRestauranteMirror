@@ -1,7 +1,8 @@
 var sql = require('mssql')
 
-function getSucursales(pool){
+function getSucursales(pool,Habilitado){
     return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_SUCURSALES')
 }
  function getSucursal(pool,IdSucursal){

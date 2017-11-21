@@ -1,7 +1,8 @@
 var sql = require('mssql')
 
-function getEmpaques(pool){
+function getEmpaques(pool,Habilitado){
     return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_EMPAQUES')
 }
 function getEmpaque(pool,IdEmpaque){

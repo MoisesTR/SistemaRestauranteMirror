@@ -12,8 +12,9 @@ function getEmpaqueById(req,res){
         });
 }
 function getEmpaques(req,res){
+    let Habilitado = req.query.Habilitado;
     config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getEmpaques(poolObt)
+       return querys.getEmpaques(poolObt,Habilitado)
     }).then((results) => {
        res.status(200).json({empaques:results.recordset}) 
     }).catch((err) => {

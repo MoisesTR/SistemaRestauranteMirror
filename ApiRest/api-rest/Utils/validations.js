@@ -78,24 +78,22 @@ const createProveedor=[
 
 const createEntradaBodegaAP=[
     check('IdBodegaAreaP').exists(),
-    check('IdTrabajador'),
-	check('IdProveedor'),
-	check('IdEstadoEdicion'),
-	check('NFactura'),
-	check('RepresentanteProveedor'),
-	check('SubTotalFactura'),
-	check('PorcRetencion'),
-	check('Retencion'),
-	check('PorcIva'),
-	check('IvaTotal'),
-	check('PorcDescuento'),
-	check('DescuentoTotal'),
-	check('TotalFactura'),
-	check('FechaHora')
+    check('IdTrabajador').isInt(),
+	check('IdProveedor').isInt(),
+	check('IdEstadoEdicion').isInt(),
+	check('NFactura').exists(),
+	check('RepresentanteProveedor').exists(),
+	check('PorcRetencion').isInt(),
+	check('PorcIva').isInt(),
+	check('PorcDescuento').isInt(),
+	check('FechaHora').exists()
 ],editEntradaBodegaAP=[
-    check('IdEntrada')
-]
+    check('IdEntradaBodegaAP').isInt()
+],crearFactura=[
+    check('IdEntradaBodegaAP'.isInt())
+];
 
+const creat
 const createTrabajador=[
     check('IdSucursal','IdSucursal debe ser entero!').isInt(),
     check('IdCargo','IdCargo debe ser entero').isInt(),

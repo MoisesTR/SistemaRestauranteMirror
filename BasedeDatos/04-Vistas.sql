@@ -8,7 +8,7 @@ AS
 SELECT p.IdProducto,p.NombreProducto,PP.Costo,p.Descripcion,p.IdCategoria,cp.NombreCategoria,p.IdSubClasificacion,
     sp.NombreSubClasificacion,cl.IdClasificacion,cl.NombreClasificacion,PP.IdEnvase,e.NombreEnvase,PP.IdEmpaque,em.NombreEmpaque,
     PP.CantidadEmpaque,p.Imagen,PP.IdUnidadMedida,um.NombreUnidad,PP.ValorUnidadMedida,p.IdEstado,ep.Nombre,
-    PP.IdProveedor,PV.NombreProveedor,p.Habilitado,P.CreatedAt,P.UpdateAt
+    PP.IdProveedor,PV.NombreProveedor,p.Habilitado,P.DiasCaducidad,P.CreatedAt,P.UpdateAt
     FROM Producto p INNER JOIN CATEGORIA_PRODUCTO cp ON p.IdCategoria = cp.IdCategoria
 	INNER JOIN PRODUCTO_PROVEEDOR PP ON P.IdProducto = PP.IdProducto
     INNER JOIN PROVEEDOR PV ON PP.IdProveedor = PV.IdProveedor

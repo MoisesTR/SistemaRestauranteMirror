@@ -80,9 +80,10 @@
                   <div class="container-fluid">
                     <br>
                     <div class="row">
+
                       <div class="col-md-12">
                         <br>
-                        <div class="md-form ">
+                        <div class="md-form">
                           <input type="text" id="nombre" class="form-control"
                                  name="nombre"
                                  required
@@ -93,27 +94,108 @@
                           <label for="nombre" class="">Nombre</label>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <br>
-                      <div class="md-form">
-                          <textarea type="text" id="descripcion" class="md-textarea"
-                                    name="descripcion"
-                                    required
-                                    formControlName="descripcionClasificacion"
-                          >
 
-                          </textarea>
-                        <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
-                        <label for="descripcion">Descripción</label>
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                            <textarea type="text" id="descripcion" class="md-textarea"
+                                      name="descripcion"
+                                      required
+                                      formControlName="descripcionClasificacion"
+                            >
+
+                            </textarea>
+                          <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
+                          <label for="descripcion">Descripción</label>
+                        </div>
+
                       </div>
-
                     </div>
                     <br>
+
                     <div class="text-center mt-1-half">
                       <button class="btn orange-chang mb-1"type="submit" [disabled]="!formAddClasificacion.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- Final form -->
+          <br>
+        </div>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>
+<!-- /.Modal clasificación -->
+
+<!-- Modal actualizar clasificación -->
+<div class="modal fade" id="modalUpdateClasificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray">
+
+      <!--Titulo-->
+      <div class="modal-header orange-chang white-text">
+        <h4 class="title"> Clasificación</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form [formGroup] = "formUpdateClasificacion" (ngSubmit)="updateClasificacion()" novalidate>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+                  <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos de la clasificación</div>
+                  <div class="container-fluid">
+                    <br>
+                    <div class="row">
+
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                          <input type="text" id="upnombreClase" class="form-control"
+                                 name="nombre"
+                                 required
+                                 formControlName="nombreClasificacion"
+
+                          >
+                          <show-errors [control]="formUpdateClasificacion.controls['nombreClasificacion']"></show-errors>
+                          <label for="nombre" class="">Nombre</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                            <textarea type="text" id="updescripcion" class="md-textarea"
+                                      name="descripcion"
+                                      required
+                                      formControlName="descripcionClasificacion"
+                            >
+
+                            </textarea>
+                          <show-errors [control]="formUpdateClasificacion.controls['descripcionClasificacion']"></show-errors>
+                          <label for="descripcion">Descripción</label>
+                        </div>
+
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="text-center mt-1-half">
+                      <button class="btn orange-chang mb-1"type="submit" [disabled]="!formUpdateClasificacion.valid" >Actualizar <i class="fa fa-check ml-1"></i></button>
+                    </div>
+                    <br>
+
                   </div>
                 </div>
               </div>

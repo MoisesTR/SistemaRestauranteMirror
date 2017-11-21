@@ -5,6 +5,8 @@ export class RolUsuario{
     , public NombreRol : string
     , public DescripcionRol: string
     , public Habilitado : number
+    , public CreateAt: string
+    , public UpdateAt: string
   ){
 
   }

@@ -170,7 +170,7 @@ CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION(
 	@IdClasificacion INT
 )
 AS BEGIN
-	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado FROM SUBCLASIFICACION_PRODUCTO s
+	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,S.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
     INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion where s.IdClasificacion=@IdClasificacion;
 END
 GO
@@ -180,7 +180,7 @@ GO
 --Nombre anterios USP_ListSubClasificaciones 
 CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES 
 AS BEGIN
-	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado FROM SUBCLASIFICACION_PRODUCTO s
+	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
     INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion;
 END
 GO
@@ -202,7 +202,7 @@ GO
 CREATE PROCEDURE USP_GET_SUBCLASIFICACION(
 	@IdSubClasificacion INT
 ) AS BEGIN 
-	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado 
+	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt 
 	FROM SUBCLASIFICACION_PRODUCTO s INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion 
 	WHERE IdSubClasificacion=@IdSubClasificacion;
 END
@@ -302,7 +302,9 @@ CREATE PROCEDURE USP_GET_NUMEROESPECIFICO(
 	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END
 GO
-
+IF OBJECT_ID('UFN_CHECK_ESTADO_EMPAQUE','FN') IS NOT NULL
+	DROP FUNCTION UFN_CHECK_ESTADO_EMPAQUE
+GO
 CREATE FUNCTION UFN_CHECK_ESTADO_EMPAQUE(
 	@IdProductoProveedor INT,
 	@Cantidad INT

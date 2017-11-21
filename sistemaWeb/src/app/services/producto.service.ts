@@ -32,7 +32,7 @@ export class ProductoService {
   }
 
 
-  updateProducto(IdProducto,Producto){
+  updateProducto(Producto){
 
     let params = JSON.stringify(Producto);
     let headers = new Headers({
@@ -40,7 +40,7 @@ export class ProductoService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'producto/'+IdProducto,params,{headers:headers})
+    return this._http.put(this.url+'producto',params,{headers:headers})
       .map(res => res.json());
   }
 

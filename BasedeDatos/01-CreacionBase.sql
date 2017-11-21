@@ -55,14 +55,14 @@ GO
 CREATE TABLE CARGO(
     IdCargo INT IDENTITY(1,1),
     NombreCargo NVARCHAR(50) NOT NULL,
-    DrescripcionCargo NVARCHAR(100),
+    DescripcionCargo NVARCHAR(100),
     Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,    
     CONSTRAINT PK_IdCargo PRIMARY KEY (IdCargo)
 );
 GO
-INSERT INTO CARGO(NombreCargo,DrescripcionCargo) 
+INSERT INTO CARGO(NombreCargo,DescripcionCargo) 
 VALUES ('Propietario','Propietario del restaurante')
 		,('Gerente','')
         ,('Chofer','')
@@ -269,7 +269,7 @@ CREATE TABLE PRODUCTO (
     IdEstado int not null,
     NombreProducto NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(200) NOT NULL,
-    Imagen NVARCHAR(100) NULL, --	
+    Imagen NVARCHAR(100) NOT NULL DEFAULT 'nodisponible.png', --	
     Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
@@ -385,6 +385,19 @@ CREATE TABLE TRABAJADOR (
     CONSTRAINT FK_TRABAJADOR_SUCURSAL FOREIGN KEY (IdSucursal)
         REFERENCES SUCURSAL (IdSucursal),
 	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
+)
+GO
+CREATE TABLE TELEFONO_TRABAJADOR(
+	IdTelefonoTrabajador INT IDENTITY(1,1), 
+	IdTrabajador INT NOT NULL,
+	IdOperadora INT NOT NULL,
+	NumeroTelefono NVARCHAR(20) NOT NULL,
+	Habilitado Bit default 1 not null,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt DATETIME NULL,
+	CONSTRAINT PK_TELEFONO_TRABAJADOR PRIMARY KEY(IdTelefonoTrabajador),
+	CONSTRAINT FK_TELEFONO_TRABAJADOR FOREIGN KEY(IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador),
+	CONSTRAINT FK_TELEFONO_OPERADORA FOREIGN KEY(IdOperadora) REFERENCES OPERADORA_TELEFONICA(IdOperadora)
 )
 GO
 create TABLE AREA_PRODUCCION(

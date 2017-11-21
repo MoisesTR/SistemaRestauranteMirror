@@ -30,13 +30,15 @@
                 </li>
                 <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['clasificacion-productos']" >Clasificación</a>
                 </li>
-                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['subclasificacion-productos']">SubClasificación</a>
+                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['subclasificacion-productos']">Subclasificación</a>
                 </li>
                 <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['empaques']">Empaques</a>
                 </li>
                 <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['envases']">Envases</a>
                 </li>
                 <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['unidadmedida']">Unidad de Medida</a>
+                </li>
+                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['salida-producto']">Salidas</a>
                 </li>
               </ul>
             </div>
@@ -116,8 +118,14 @@
   <!--/.Menu-->
 
   <!--Contenido principal-->
-  <main>
+  <main id="top-panel">
     <div class="container-fluid mt-5">
+
+      <div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px;" id="backToTop" style="visibility: hidden;">
+          <a href="#top-panel" class="btn-floating btn-large orange-chang">
+              <i class="fa fa-arrow-up"></i>
+          </a>
+      </div>
 
       <router-outlet></router-outlet>
       <div style="height: 40px"></div>

@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="formUpdateProducto" (ngSubmit)="updateProducto(formUpdateProducto)" novalidate>
+  <form [formGroup]="formUpdateProducto" (ngSubmit)="validarCampos(formUpdateProducto)" novalidate>
     <div class="row">
 
       <!--Imagen-->
@@ -23,7 +23,7 @@
       <div class="col-lg-8  ">
         <div class="card card-cascade narrower">
           <div class="view gradient-card-header orange-chang">
-            <h4 class="mb-0">Datos del Producto</h4>
+            <h4 class="mb-0">Actualizar Datos del Producto</h4>
           </div>
           <!-- Contenido -->
           <div class="card-body ">
@@ -32,7 +32,8 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter" length="50" autocomplete="off">
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off">
+                  <show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>
                   <label for="nombreproducto" class="input-char-counter">Nombre</label>
                 </div>
               </div>
@@ -61,13 +62,14 @@
                 <br>
                 <div class="md-form">
                   <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
+                  <show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
                 </div>
               </div>
             </div>
             <br>
             <div class="text-center mt-1-half">
-              <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+              <button class="btn orange-chang mb-1" [disabled]="!formUpdateProducto.valid">Actualizar <i class="fa fa-check ml-1"></i></button>
             </div>
 
           </div>

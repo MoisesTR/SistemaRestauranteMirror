@@ -6,31 +6,35 @@ function validsParamas(req,res,next){
     (!errors.isEmpty()) ? res.status(402).json(errors.array()) : next();
 }
 const userSignUpValidation=[
-        check('username','username es requerido!').exists(),
-        check('username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
-        check('role','El rol es requerido').exists(),
-        check('email','El campo email es requerido!').exists(),
-        check('email','Campo email debe ser un Email').isEmail(),
-        check('password','password es requerido!').exists(),
-        check('password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:8,max:20})
+        check('IdRol','IdRol es requerido y debe ser un entero').isInt(),
+        check('IdTrabajador','IdTrabajador es requerido y debe ser un entero').isInt(),
+        check('Username','username es requerido!').exists(),
+        check('Username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
+        check('Email','El campo email es requerido!').exists(),
+        check('Email','Campo email debe ser un Email').isEmail(),
+        check('Password','password es requerido!').exists(),
+        check('Password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:4,max:20}),
+        sanitize('IdRol').toInt(),
+        sanitize('IdTrabajador').toInt()
 ],userFindUsername=[
-    check('username','username es requerido!').exists(),
-    check('username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50})
+    check('Username','username es requerido!').exists(),
+    check('Username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50})
 ], userFindEmail=[
-    check('email','El campo email es requerido!').exists(),
-    check('email','Campo email debe ser un Email').isEmail()
+    check('Email','El campo email es requerido!').exists(),
+    check('Email','Campo email debe ser un Email').isEmail()
 ], userSignInValidation=[
-    check('username','8username es requerido!').exists(),
-    check('username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
-    check('password','password es requerido!').exists(),
-    check('password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:8,max:20}),
+    check('Username','8username es requerido!').exists(),
+    check('Username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
+    check('Password','password es requerido!').exists(),
+    check('Password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:4,max:20}),
     check('gettoken','gettoken debe ser un boleano').isBoolean().optional({nullable:true}),
     sanitize('gettoken').toBoolean()
 ], userUpdate=[
-    check('id','id debe ser un Entero!').isInt().optional({nullable:false}),
-    check('username').isLength({min:5,max:20}).optional({nullable:true}),
-    check('password').isLength({min:8,max:25}).optional({nullable:true}),
-    check('role').optional({nullable:true})
+    check('IdUsuario','IdUsuario debe ser un Entero!').isInt().optional({nullable:false}),
+    check('Username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
+    check('Password','password es requerido!').exists(),
+    check('Password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:4,max:20}),
+    check('IdRol').optional({nullable:true})
 ];
 
 const categoriaCreate=[
@@ -43,10 +47,10 @@ const categoriaCreate=[
 ],changeStateCategoria=[
     check('IdCategoria').isInt(),
     check('Habilitado','Habilitado debe ser un booleano.').isBoolean()
-];
+];  
 
 const createCargo=[
-    check('NombreCargo').exist(),
+    check('NombreCargo').exists(),
     check('DescripcionCargo').exists()
 ],updateCargo=[
     check('IdCargo').exists().isInt(),
@@ -74,7 +78,7 @@ const createProveedor=[
 
 const createEntradaBodegaAP=[
     check('IdBodegaAreaP').exists(),
-    check('IdTrabajado'),
+    check('IdTrabajador'),
 	check('IdProveedor'),
 	check('IdEstadoEdicion'),
 	check('NFactura'),
@@ -91,6 +95,34 @@ const createEntradaBodegaAP=[
 ],editEntradaBodegaAP=[
     check('IdEntrada')
 ]
+
+const createTrabajador=[
+    check('IdSucursal','IdSucursal debe ser entero!').isInt(),
+    check('IdCargo','IdCargo debe ser entero').isInt(),
+    check('Nombres','Nombres debe tener un minimo de 4 y un maximo de 50').isLength({min:4,max:50}),
+    check('Apellidos','Apellidos debe tener un minimo de 4 y un maximo de 50').isLength({min:4, max:50}),
+    check('NumeroCedula','NumeroCedula es requerido').exists(),
+    check('FechaNacimiento','FechaNacimiento debe ser una fecha').exists(),
+    check('Direccion','Direccion debe tener un minimo de 10 y un maximo de 300').isLength({min:10,max:300}),
+    check('FechaIngreso','FechaIngreso es requerida!').exists(),
+    sanitize('IdSucursal').toInt(),
+    sanitize('IdCargo').toInt()
+],updateTrabajador=[
+    check('IdTrabajador','IdTrabajador debe ser un entero!').exists().isInt(),
+    sanitize('IdTrabajador').toInt()
+],deleteTrabajador=[
+    check('Habilitado','Habilitado es requerido y debe ser un boolean').isBoolean(),
+    sanitize('Habilitado').toBoolean()
+];
+
+const createSucursalTelef=[
+    check('IdSucursal','IdSucursal debe ser entero').isInt(),
+    check('IdOperadora','IdOperadora debe ser entero').isInt(),
+    check('NumeroTelefono','NumeroTelefono es requerido').exists(),
+    sanitize('IdSucursal').toInt(),
+    sanitize('IdOperadora').toInt()
+];
+
 module.exports={
     userSignUpValidation,
     userSignInValidation,
@@ -106,5 +138,9 @@ module.exports={
     categoriaCreate, 
     updateCargo,
     updateCategoria,
-    updateProveedor
+    updateProveedor,
+    createTrabajador,
+    updateTrabajador,
+    deleteTrabajador,
+    createSucursalTelef
 }   

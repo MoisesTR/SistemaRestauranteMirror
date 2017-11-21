@@ -11,6 +11,7 @@ export class Producto{
       , public Habilitado: number
       , public NombreClasificacion?:string
       , public NombreSubclasificacion?:string
+      , public IdClasificacion?: number
   ){}
 
 }

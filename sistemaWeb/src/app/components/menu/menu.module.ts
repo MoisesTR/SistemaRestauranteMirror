@@ -14,10 +14,9 @@ import {SucursalComponent} from "../sucursal/sucursal.component";
 import {CategoriaProductoComponent} from "../categoria-producto/categoria-producto.component";
 import {SubClasificacionProductoComponent} from "../sub-clasificacion-producto/sub-clasificacion-producto.component";
 import {EnvaseComponent} from "../envase/envase.component";
-import {TrabajadorComponent} from "../trabajador/trabajador.component";
 import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
 import {EmpaqueComponent} from "../empaque/empaque.component";
-import {AddUsuarioComponent} from "../usuario/add-usuario/add-usuario.component";
+
 import {MenuComponent} from "./menu.component";
 
 //Servicios
@@ -35,7 +34,6 @@ import {ProductoModule} from "../producto/producto.module";
 import {ShowErrorsComponent} from "../show-errors.component";
 import {TelephoneNumberFormatValidatorDirective} from "../../validadores/telephoneNumber";
 import {BirthYearValidatorDirective} from "../../validadores/birthYear";
-import {UsuarioRoutingModule} from "../usuario/usuario.routing.module";
 import {CargoComponent} from "../cargo/cargo.component";
 import {ReporteComponent} from "../reporte/reporte.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
@@ -49,6 +47,9 @@ import {FacturaModule} from "../factura/factura.module";
 import {BuscarPipe} from "../../pipe/buscar.pipe";
 import {DashBoardComponent} from "../dash-board/dash-board.component";
 import {SharedModuleModule} from "../shared-module/shared-module.module";
+import {SalidaProductoComponent} from "../salida-producto/salida-producto.component";
+import {TrabajadorModule} from "../trabajador/trabajador.module";
+import {UsuarioModule} from "../usuario/usuario.module";
 
 
 @NgModule({
@@ -59,10 +60,8 @@ import {SharedModuleModule} from "../shared-module/shared-module.module";
     , ProveedorComponent
     , SucursalComponent
     , EnvaseComponent
-    , AddUsuarioComponent
     , EmpaqueComponent
     , BodegaSucursalComponent
-    , TrabajadorComponent
     , SucursalComponent
     , MenuComponent
     , TelephoneNumberFormatValidatorDirective
@@ -75,6 +74,7 @@ import {SharedModuleModule} from "../shared-module/shared-module.module";
     , HabilitadosComponent
     , UnidadmedidaComponent
     , DashBoardComponent
+    , SalidaProductoComponent
     , BuscarPipe
 
 
@@ -87,9 +87,11 @@ import {SharedModuleModule} from "../shared-module/shared-module.module";
     , ProductoModule
     , ReactiveFormsModule
     , DataTablesModule
-    , UsuarioRoutingModule
     , FacturaModule
+    , TrabajadorModule
+    , UsuarioModule
     , SharedModuleModule
+
 
 
 

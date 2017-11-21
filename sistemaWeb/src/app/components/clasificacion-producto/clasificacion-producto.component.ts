@@ -299,7 +299,7 @@ export class ClasificacionProductoComponent implements OnInit {
 
     this.getValuesFormUpdateClasificacion();
 
-    this._clasificacionService.updateClasificacionProducto(this.clasificacion,ClasificacionProducto).subscribe(
+    this._clasificacionService.updateClasificacionProducto(this.clasificacion).subscribe(
       response =>{
         if(response.success){
           swal(

@@ -13,6 +13,7 @@ function getEnvaseById(req,res){
 }
 function getEnvases(req,res){
     let Habilitado = req.query.Habilitado;
+    console.log('Getting envases')
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.getEnvases(poolObt,Habilitado)
     }).then((results) => {

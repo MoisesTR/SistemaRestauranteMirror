@@ -1,36 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { TrabajadorService } from '../../services/trabajador.service';
+import {Trabajador} from "../../../models/Trabajador";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Trabajador} from "../../models/Trabajador";
+import {TrabajadorService} from "../../../services/trabajador.service";
 declare var $:any
+
 @Component({
-  selector: 'app-trabajador',
-  templateUrl: './trabajador.component.html',
-  styleUrls: ['./trabajador.component.css'],
-  providers: [TrabajadorService]
+  selector: 'app-add-trabajador',
+  templateUrl: './add-trabajador.component.html',
+  styleUrls: ['./add-trabajador.component.css']
 })
-export class TrabajadorComponent implements OnInit {
+export class AddTrabajadorComponent implements OnInit {
 
   public trabajador: Trabajador;
   public trabajadores: Trabajador[];
 
   constructor(
-  	private _route: ActivatedRoute,
+    private _route: ActivatedRoute,
     private _router: Router,
-  	private _TrabajadorServicio : TrabajadorService
-  	) {
+    private _TrabajadorServicio : TrabajadorService
+  ) {
 
 
     this._TrabajadorServicio.getTrabajadores().subscribe(
 
       response=>{
 
-      if(response.trabajadores){
-        this.trabajadores = response.trabajadores;
-      }
-    },error =>{
+        if(response.trabajadores){
+          this.trabajadores = response.trabajadores;
+        }
+      },error =>{
 
-    }
+      }
 
     )
   }
@@ -40,7 +40,7 @@ export class TrabajadorComponent implements OnInit {
   }
 
   ngOnInit() {
-      $(document).ready(function(){
+    $(document).ready(function(){
 
       $('.cedula').mask('000-000000-0000A',{'translation': {
         A: {pattern: /[A-Za-z]/},
@@ -83,5 +83,8 @@ export class TrabajadorComponent implements OnInit {
     });
 
   }
+
+
+
 
 }

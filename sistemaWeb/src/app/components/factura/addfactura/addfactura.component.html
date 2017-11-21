@@ -11,11 +11,12 @@
           <div class="container-fluid">
             <br>
             <div class="row">
-              <div class="col-md-6 btn-sm-12">
-                <button type="button" class="btn btn-outline-warning waves-effect">Ver factura</button>
+              <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
+                <button type="button" class="btn btn-outline-warning waves-effect btn-block">Ver factura</button>
+                <br>
               </div>
-              <div class="col-md-6 btn-sm-12">
-                  <button type="button" class="btn btn-outline-warning waves-effect">Generar factura</button>
+              <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
+                  <button type="button" class="btn btn-outline-warning waves-effect btn-block">Generar factura</button>
                 </div>
             </div>
             <br>
@@ -54,20 +55,6 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input type="search" id="nombreproducto" class="form-control autocomplete-producto" autocomplete="off">
-                  <button class="mdb-autocomplete-clear">
-                      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
-                          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                          <path d="M0 0h24v24H0z" fill="none" />
-                      </svg>
-                  </button>
-                  <label for="nombreproducto">Nombre de producto</label>
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <br>
-                <div class="md-form">
                   <input type="search" id="nombreproveedor" class="form-control autocomplete-proveedor" autocomplete="off">
                   <button class="mdb-autocomplete-clear">
                       <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
@@ -82,6 +69,20 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
+                  <input type="search" id="nombreproducto" class="form-control autocomplete-producto" autocomplete="off">
+                  <button class="mdb-autocomplete-clear">
+                      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+                          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                          <path d="M0 0h24v24H0z" fill="none" />
+                      </svg>
+                  </button>
+                  <label for="nombreproducto">Nombre de producto</label>
+                </div>
+              </div>
+              
+              <div class="col-md-12">
+                <br>
+                <div class="md-form">
                   <input type="text" id="nombrerepresentanteproveedor" formControlName="nombrerepresentanteproveedor" class="form-control input-char-counter" length="50" autocomplete="off">
                   <label for="nombrerepresentanteproveedor" class="input-char-counter">Nombre representante proveedor</label>
                 </div>
@@ -93,6 +94,39 @@
                 <div class="md-form">
                   <input type="text" id="nombretrabajador" value="Chang" class="form-control" autocomplete="off" disabled>                  
                 </div>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <div class="md-form">
+                  <input type="number" id="precio" class="form-control" autocomplete="off">
+                  <label for="precio">Precio</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <div class="md-form">
+                  <input type="number" id="cantidad" class="form-control" autocomplete="off">
+                  <label for="cantidad">Cantidad</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <div class="md-form">
+                  <input type="number" id="valorunidadmedida" class="form-control" autocomplete="off">
+                  <label for="valorunidadmedida">Valor unidad de medida</label>
+                </div>
+              </div>
+              
+
+              <div class="col-md-6">
+                <label for="selectunidadmedidad">Unidad de medida</label>
+                <select name="selectunidadmedidad"  class="selectunidadmedidad" multiple="multiple" style="width: 100%" disabled>
+                  <option class="chip" value="IdUnidadMedida">Unidad 1</option>
+                  <option  class="chip" value="IdUnidadMedida">Unidad 2</option>
+                </select>
               </div>
 
               <div class="col-md-6">
@@ -118,56 +152,6 @@
                   <label for="descuento">Descuento</label>
                 </div>
               </div>
-
-              <div class="col-md-6">
-                <br>
-                <div class="md-form">
-                  <input type="number" id="cantidad" class="form-control" autocomplete="off">
-                  <label for="cantidad">Cantidad</label>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <br>
-                <div class="md-form">
-                  <input type="number" id="precio" class="form-control" autocomplete="off">
-                  <label for="precio">Precio</label>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <label for="selectunidadmedidad">Unidad de medida</label>
-                <select name="selectunidadmedidad"  class="selectunidadmedidad" multiple="multiple" style="width: 100%">
-                  <option class="chip" value="IdUnidadMedida">Unidad 1</option>
-                  <option  class="chip" value="IdUnidadMedida">Unidad 2</option>
-                </select>
-              </div>
-
-              <div class="col-md-6">
-                <br>
-                <div class="md-form">
-                  <input type="number" id="valorunidadmedida" class="form-control" autocomplete="off">
-                  <label for="valorunidadmedida">Valor unidad de medida</label>
-                </div>
-              </div>
-
-
-              <!-- <div class="col-md-6">
-                <label for="clasificacion">Clasificación</label>
-
-                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion">
-                  <option class = "chip" name = "clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
-                </select>
-
-              </div>
-              
-              <div class="col-md-12">
-                <br>
-                <div class="md-form">
-                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
-                  <label for="descripcionproducto">Descripción</label>
-                </div>
-              </div> -->
 
             </div>
             <br>

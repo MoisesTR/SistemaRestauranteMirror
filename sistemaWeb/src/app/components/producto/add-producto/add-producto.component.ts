@@ -279,9 +279,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     )
   }
 
-  deleteProducto(){
 
-  }
   uploadImage(){
 
     if(this.filesToUpload != null){

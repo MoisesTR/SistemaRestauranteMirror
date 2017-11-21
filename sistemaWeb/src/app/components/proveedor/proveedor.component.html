@@ -78,7 +78,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form [formGroup]="addForm" (ngSubmit)="createProveedor(addForm)" novalidate>
+          <form [formGroup]="addForm  " (ngSubmit)="createProveedor(addForm)" novalidate>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -89,11 +89,14 @@
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombreProveedor" class="form-control letras"
+                          <input type="text" id="nombreProveedor"
+                                 class="form-control letras"
                                  name = "nombreProveedor"
                                  formControlName="nombreProveedor"
                                  required
                           >
+
+                          <show-errors [control]="addForm.controls['nombreProveedor']"></show-errors>
                           <label for="nombreProveedor" class="">Nombre</label>
                         </div>
                       </div>
@@ -125,7 +128,8 @@
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombreRepresentante" class="form-control "
+                          <input type="text" id="nombreRepresentante"
+                                 class="form-control letras"
                                  name = "nombreRepresentante"
                                  formControlName="nombreRepresentante"
                                  required

@@ -80,30 +80,32 @@
                         <br>
                         <div class="md-form ">
                           <input type="text"
-                                 id="Nombrecargo"
-                                 class="form-control "
-                                 name="nombreCargo"
+                                 id="nombrecargo"
+                                 class="form-control letras"
+                                 name="nombrecargo"
                                  minlength="3"
                                  maxlength="40"
-                                 formControlName="NombreCargo"
+                                 formControlName="nombreCargo"
                                  required
                           >
-                          <show-errors [control]="formAddCargo.controls['NombreCargo']"></show-errors>
-                          <label for="Nombrecargo">Nombre</label>
+                          <show-errors [control]="formAddCargo.controls['nombreCargo']"></show-errors>
+                          <label for="nombrecargo">Nombre</label>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
-                          <textarea type="text" id="DescripcionCargo" class="md-textarea"
+                          <textarea type="text"
+                                    id="descripcioncargo"
+                                    class="md-textarea"
                                     name="DescripcionCargo"
                                     minlength="5"
                                     maxlength="150"
                                     formControlName="descripcionCargo"
                                     required
                           ></textarea>
-                          <show-errors [control]="formAddCargo.controls['descripcionCargo]"></show-errors>
-                          <label for="DescripcionCargo"  >Descripción</label>
+                          <show-errors [control]="formAddCargo.controls['descripcionCargo']"></show-errors>
+                          <label for="descripcioncargo"  >Descripción</label>
                         </div>
                       </div>
                     </div>

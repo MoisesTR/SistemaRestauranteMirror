@@ -12,7 +12,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalingresarsucursal">Nueva Sucursal</button>
+                  <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalAddSucursal">Nueva Sucursal</button>
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@
 </section>
 
 <!-- Modal Sucursal -->
-<div class="modal fade" id="modalingresarsucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAddSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">
@@ -67,7 +67,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form #formSucursal="ngForm" (ngSubmit)="createSucursal()">
+          <form [formGroup]="formSucursal " (ngSubmit)="createSucursal()">
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -81,9 +81,11 @@
                           <input type="text" id="NombreSucursal"
                                   minlength="4"
                                   maxlength="50"
-                                  class="form-control"
+                                  class="form-control letras"
                                   name="NombreSucursal"
+                                 formControlName="nombreSucursal"
                                   required >
+                          <show-errors [control]="formSucursal.controls['nombreSucursal']"></show-errors>
                           <label for="NombreSucursal" class="">Nombre Sucursal</label>
                         </div>
                       </div>
@@ -94,7 +96,7 @@
                           <input type="text" id="TelefonoPrincipal"
                                   minlength="4"
                                   maxlength="50"
-                                  class="form-control"
+                                  class="form-control telefono"
                                   name="TelefonoPrincipal"
                                   required >
                           <label for="TelefonoPrincipal" class="">Telefóno</label>
@@ -116,7 +118,7 @@
                             <input type="text" id="TelefonoSecundario"
                                     minlength="4"
                                     maxlength="50"
-                                    class="form-control"
+                                    class="form-control telefono"
                                     name="TelefonoSecundario"
                                     required >
                             <label for="TelefonoSecundario" class="">Telefóno (Opcional)</label>
@@ -145,7 +147,7 @@
 
                     <!-- Boton ingresa -->
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formSucursal.form.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formSucursal.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div> <br>
 
                   </div>

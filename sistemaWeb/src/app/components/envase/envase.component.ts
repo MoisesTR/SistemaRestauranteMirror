@@ -4,9 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import { Subject } from 'rxjs/Rx';
 import {idioma_espanol} from "../../services/global";
 import {Envase} from "../../models/Envase";
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
+import {CustomValidators} from "../../validadores/CustomValidators";
 declare var $:any;
 
 @Component({
@@ -38,37 +39,97 @@ export class EnvaseComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _envaseService : EnvaseService
+    private _envaseService : EnvaseService,
+    private _formBuilderEnvase : FormBuilder
   ) {
     this.envase = new Envase(null,null,null,null);
   }
 
   ngOnInit() {
 
-    this.dtOptions = {
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , language: idioma_espanol
-      , "lengthChange": false
-      /*,select: true*/
-    };
 
-    this._envaseService.getEnvases().subscribe(
-      response => {
-        if(response.envases){
-          this.envases = response.envases;
-          this.dtTrigger.next();
-        }
-      }, error =>{
+    $(document).ready(function() {
 
-      }
-    );
+      $(".letras").keypress(function (key) {
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+          && (key.charCode != 45) //retroceso
+          && (key.charCode != 241) //ñ
+          && (key.charCode != 209) //Ñ
+          && (key.charCode != 32) //espacio
+          && (key.charCode != 225) //á
+          && (key.charCode != 233) //é
+          && (key.charCode != 237) //í
+          && (key.charCode != 243) //ó
+          && (key.charCode != 250) //ú
+          && (key.charCode != 193) //Á
+          && (key.charCode != 201) //É
+          && (key.charCode != 205) //Í
+          && (key.charCode != 211) //Ó
+          && (key.charCode != 218) //Ú
 
+        )
+          return false;
+      });
 
+      $('.dropify').dropify();
 
+      $(".selectcategoria").select2({
+        maximumSelectionLength: 1
+      });
 
+      $(".selectsubclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectproveedor").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectenvase").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectempaque").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectestado").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectvalorunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
+    });
+
+      this.settingsDatatable();
+      this.getEnvase();
+      this.initFormAddEnvase();
+      this.initFormUpdateEnvase();
 
   }
+
+    settingsDatatable(){
+
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = {
+        pagingType: 'full_numbers'
+        , pageLength: 10
+        , language: idioma_espanol
+        , "lengthChange": false
+        /*,select: true*/
+      };
+    }
 
  rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -80,47 +141,26 @@ export class EnvaseComponent implements OnInit {
 
     }
 
+
+
 private initConstructorEnvase() {
     this.envase = new Envase(null,null,null,null);
   }
 
-  createEnvase(myForm: NgForm){
 
-
-    this.envase.Descripcion = this.formEnvase.value.descripcion;
-    this.envase.NombreEnvase = this.formEnvase.value.nombre;
-    this.formEnvase.reset;
-
-    this._envaseService.createEnvase(this.envase).subscribe(
-      response =>{
-
-        if(response.IdEnvase){
-          console.log('Creado con exito');
-        }
-      },
-      error=>{
-
-      }
-    )
-
-    console.log(this.envase.Descripcion + this.envase.NombreEnvase);
-
-
-
-  }
-
-getEnvase(){
-
+  getEnvase(){
     this._envaseService.getEnvases().subscribe(
       response => {
-        if(response.envases){
-          this.envases= response.envases;
-          this.dtTrigger.next();
-        }
-      }, error =>{
 
+        if(!response.envases){
+          console.log('Ha ocurrido un error');
+        } else {
+          this.envases = response.envases;
+        }
+      },error => {
+        console.log(<any>error);
       }
-    );
+    )
   }
 
   getEnvasesRender(){
@@ -139,9 +179,21 @@ getEnvase(){
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddEnvase(){
 
-    this.formAddEnvase = new FormGroup({
-      'nombreEnvase': new FormControl()
-      , 'descripcionEnvase': new FormControl()
+    this.formAddEnvase = this._formBuilderEnvase.group({
+      'nombreEnvase': new FormControl('',[
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
+        ])
+      , 'descripcionEnvase': new FormControl('',[
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(100),
+            CustomValidators.espaciosVacios
+        ]
+
+      )
     });
 
   }
@@ -149,8 +201,21 @@ getEnvase(){
   initFormUpdateEnvase(){
 
     this.formUpdateEnvase = new FormGroup({
-      'nombreEnvase': new FormControl()
-      , 'descripcionEnvase': new FormControl()
+      'nombreEnvase': new FormControl('',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
+        ]
+         )
+      , 'descripcionEnvase': new FormControl('',[
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
+        ]
+        )
     });
   }
 
@@ -240,21 +305,6 @@ getEnvase(){
       },error => {
         console.log(<any>error);
       }
-    )
-  }
-
-  getEnvases(){
-    this._envaseService.getEnvases().subscribe(
-      response => {
-
-        if(!response.envases){
-          console.log('Ha ocurrido un error');
-        } else {
-          this.envases = response.envases;
-        }
-      },error => {
-        console.log(<any>error);
-    }
     )
   }
 

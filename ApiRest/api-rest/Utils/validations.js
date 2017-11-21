@@ -139,5 +139,7 @@ module.exports={
     createTrabajador,
     updateTrabajador,
     deleteTrabajador,
-    createSucursalTelef
+    createSucursalTelef,
+    createEntradaBodegaAP,
+    crearFactura
 }   

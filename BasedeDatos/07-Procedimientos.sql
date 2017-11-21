@@ -184,6 +184,9 @@ AS BEGIN
 	INNER JOIN CLASIFICACION_PRODUCTO CP ON SP.IdClasificacion = CP.IdClasificacion
 END
 GO
+IF OBJECT_ID('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION','P') IS NOT NULL
+	DROP PROCEDURE USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION
+GO
 CREATE PROCEDURE USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION(
 	@IdBodegaAreaP INT,
     @IdTrabajador INT,
@@ -205,6 +208,9 @@ AS BEGIN
 	values(@IdBodegaAreaP,@IdTrabajador,@IdProveedor,@NFactura,@RepresentanteProveedor,@PorcRetencion,@PorcIva,@PorcDescuento,@FechaHora)
 END
 GO
+IF OBJECT_ID('USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION','P') IS NOT NULL
+	DROP PROCEDURE USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION
+GO
 CREATE PROCEDURE USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(
 	@IdEntradaBodegaAP INT,
     @IdProductoProveedor INT,
@@ -215,9 +221,13 @@ CREATE PROCEDURE USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(
 AS BEGIN
 	DECLARE @PrecioUnitarioActual MONEY
 	SELECT @PrecioUnitarioActual = Costo FROM PRODUCTO_PROVEEDOR  WHERE IdProductoProveedor = @IdProductoProveedor
+
 	INSERT INTO DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdEntradaBodegaAP,IdProductoProveedor,Cantidad,PrecioUnitarioEntrada,PrecioUnitarioActual,DescuentoCalculado)
-	VALUES(@IdEntradaBodegaAP,@IdProductoProveedor,@Cantidad,@PrecioUnitarioEntrada,@PrecioUnitarioActual,@DescuentoCalculado
+	VALUES(@IdEntradaBodegaAP,@IdProductoProveedor,@Cantidad,@PrecioUnitarioEntrada,@PrecioUnitarioActual,@DescuentoCalculado)
 END
+GO
+IF OBJECT_ID('USP_GENERAR_FACTURA','P') IS NOT NULL
+	DROP PROCEDURE USP_GENERAR_FACTURA
 GO
 CREATE PROCEDURE USP_GENERAR_FACTURA
 	@IdEntradaBodegaAP INT

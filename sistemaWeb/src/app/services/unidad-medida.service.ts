@@ -15,23 +15,51 @@ export class UnidadMedidaService {
     this.url = Global.url;
   }
 
-  createUnidadMedida(){
+  createUnidadMedida(UnidadMedida){
+
+    let params = JSON.stringify(UnidadMedida);
+    let headers = new Headers({'Content-Type':''});
+
+    return this._http.post(this.url+'unidadMedida',params,{headers:headers})
+      .map(res => res.json());
 
   }
 
-  getUnidadMedida(){
+  getUnidadMedida(IdUnidadMedida){
 
+     return this._http.get(this.url + 'unidadmedida/'+IdUnidadMedida).map(res => res.json());
   }
+  
 
   getUnidadesMedida(){
     return this._http.get(this.url + 'unidadesmedida').map(res => res.json());
   }
 
-  updateUnidadMedida(){
+  updateUnidadMedida(IdUnidadMedida,UnidadMedida){
+
+      let params = JSON.stringify(UnidadMedida);
+      let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    })
+
+    return this._http.put(this.url+'unidadmedida/'+IdUnidadMedida,params,{headers:headers})
+      .map(res => res.json());
+
 
   }
 
-  deleteUnidadMedida(){
+  deleteUnidadMedida(IdUnidadMedida){
 
+     let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    });
+
+    let options = new RequestOptions({headers:headers});
+    return this._http.delete(this.url+'unidadmedida/'+IdUnidadMedida,options)
+      .map(res => res.json());
+  
   }
+  
 }

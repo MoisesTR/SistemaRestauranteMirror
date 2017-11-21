@@ -56,6 +56,9 @@ footer.page-footer {
   background: url("../img/landingpage/background-historia.jpg")no-repeat center center;
   background-size: cover;
 }
+
+/* Paleta de colores */
+
 .font-orange{
   color:#E67E22 !important;
 }

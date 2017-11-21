@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalingresarempaque">Nuevo Empaque</button>
+                  <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalAddEmpaque">Nuevo Empaque</button>
                 </div>
               </div>
             </div>
@@ -31,15 +31,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let empaque of empaques">
-              <td class="body-negrita">{{ empaque.IdEmpaque }}</td>
+            <tr *ngFor="let empaque of empaques; let i = index">
+              <td class="body-negrita">{{ i+1}}</td>
               <td class="body-negrita">{{ empaque.NombreEmpaque }}</td>
               <td class="body-negrita">{{ empaque.Descripcion}}</td>
               <td width="25%" class="body-negrita">
                 <div class="text-center">
-                  <button type="button" (click)="getEmpaque()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEmpaque" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                  <button type="button" (click)="updateEmpaque()" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteEmpaque()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEmpaque" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                  <!--<button type="button" (click)="getEmpaque()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEmpaque" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
+                  <button type="button" (click)="showModalUpdateEmpaque(empaque)" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button" (click)="deleteEmpaque(empaque.IdEmpaque)" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEmpaque" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
                 </div>
               </td>
             </tr>
@@ -55,7 +55,7 @@
 </section>
 
 <!-- Modal Empaque -->
-<div class="modal fade" id="modalingresarempaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAddEmpaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">
@@ -71,7 +71,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form #formEmpaque="ngForm" (ngSubmit)="createEmpaque()">
+          <form [formGroup]="formAddEmpaque"  (ngSubmit)="createEmpaque()" novalidate>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -82,30 +82,37 @@
                       <div class="col-md-12">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombre"
+                          <input type="text" id="addnombreEmpaque"
                                  minlength="4"
                                  maxlength="50"
-                                 class="form-control"
-                                 name="nombresubclasificacion"
+                                 class="form-control letras"
+                                 name="nombreempaque"
+                                 formControlName = "nombreEmpaque"
                                  required >
-                          <label for="nombre" class="">Nombre</label>
+                          <show-errors [control]="formAddEmpaque.controls['nombreEmpaque']"></show-errors>
+                          <label for="addnombreEmpaque" class="">Nombre</label>
                         </div>
 
                       </div>
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
-                          <textarea type="text" minlength="3" maxlength="150" id="descripcion"
-                                    class="md-textarea" name="descripcion"
+                          <textarea type="text"
+                                    minlength="3"
+                                    maxlength="150"
+                                    id="adddescripcionempaque"
+                                    formControlName="descripcionEmpaque"
+                                    class="md-textarea" name="descripcionempaque"
                                     required ></textarea>
-                          <label for="descripcion">Descripción</label>
+                          <show-errors [control]="formAddEmpaque.controls['descripcionEmpaque']"></show-errors>
+                          <label for="adddescripcionempaque">Descripción</label>
                         </div>
 
                       </div>
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formEmpaque.form.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddEmpaque.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>

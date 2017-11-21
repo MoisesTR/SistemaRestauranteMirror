@@ -7,6 +7,8 @@ import { Subject } from 'rxjs/Rx';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
 import {idioma_espanol} from "../../services/global";
+import {CustomValidators} from "../../validadores/CustomValidators";
+
 declare var $:any;
 
 @Component({
@@ -23,6 +25,7 @@ export class EmpaqueComponent implements OnInit {
 
   public empaque: Empaque;
   public empaques: Empaque[];
+  public mensaje : string;
 
   public formAddEmpaque: FormGroup;
   public formUpdateEmpaque: FormGroup;
@@ -45,6 +48,79 @@ export class EmpaqueComponent implements OnInit {
 
   ngOnInit() {
 
+    $(document).ready(function(){
+
+      $(".letras").keypress(function (key) {
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+          && (key.charCode != 45) //retroceso
+          && (key.charCode != 241) //ñ
+          && (key.charCode != 209) //Ñ
+          && (key.charCode != 32) //espacio
+          && (key.charCode != 225) //á
+          && (key.charCode != 233) //é
+          && (key.charCode != 237) //í
+          && (key.charCode != 243) //ó
+          && (key.charCode != 250) //ú
+          && (key.charCode != 193) //Á
+          && (key.charCode != 201) //É
+          && (key.charCode != 205) //Í
+          && (key.charCode != 211) //Ó
+          && (key.charCode != 218) //Ú
+
+        )
+          return false;
+      });
+
+      $('.dropify').dropify();
+
+      $(".selectcategoria").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectsubclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectproveedor").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectenvase").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectempaque").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectestado").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectvalorunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
+    });
+    this.settingsDatatable();
+    this.getEmpaques();
+    this.initFormAddEmpaque();
+    this.initFormUpdateEmpaque();
+
+  }
+
+  settingsDatatable(){
+
+    /*PROPIEDADES GENERALES DE LA DATATABLE*/
     this.dtOptions = {
       pagingType: 'full_numbers'
       , pageLength: 10
@@ -52,18 +128,6 @@ export class EmpaqueComponent implements OnInit {
       , "lengthChange": false
       /*,select: true*/
     };
-
-    this._EmpaqueServicio.getEmpaques().subscribe(
-      response => {
-        if(response.empaques){
-          this.empaques = response.empaques;
-          this.dtTrigger.next();
-        }
-      }, error =>{
-
-      }
-    );
-
   }
 
   rerender(): void {
@@ -76,30 +140,10 @@ export class EmpaqueComponent implements OnInit {
   }
 
   private initConstructorEmpaque() {
-    this.empaque = new Empaque(null,null,null,null);
+    this.empaque = new Empaque(null, null, null,null);
   }
 
-  createEmpaque(myForm: NgForm){
-
-
-    this.empaque.Descripcion= this.formEmpaque.value.descripcion;
-    this.empaque.NombreEmpaque = this.formEmpaque.value.nombre;
-    this.formEmpaque.reset;
-
-    this._EmpaqueServicio.createEmpaque(this.empaque).subscribe(
-      response =>{
-
-        if(response.IdEmpaque){
-          console.log('Creado con exito');
-        }
-      },
-      error=>{
-
-      }
-    )
-  }
-
-  getEmpaque(){
+  getEmpaques(){
 
       this._EmpaqueServicio.getEmpaques().subscribe(
         response => {
@@ -126,12 +170,27 @@ export class EmpaqueComponent implements OnInit {
     );
   }
 
+
+
+
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddEmpaque(){
 
     this.formAddEmpaque = new FormGroup({
-      'nombreEmpaque': new FormControl()
-      , 'descripcionEmpaque': new FormControl()
+      'nombreEmpaque': new FormControl('',[
+
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
+        ])
+
+      , 'descripcionEmpaque': new FormControl('',[
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
+      ])
     });
 
   }
@@ -139,8 +198,20 @@ export class EmpaqueComponent implements OnInit {
   initFormUpdateEmpaque(){
 
     this.formUpdateEmpaque = new FormGroup({
-      'nombreEmpaque': new FormControl()
-      , 'descripcionEmpaque': new FormControl()
+      'nombreEmpaque': new FormControl('',[
+
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(100),
+        CustomValidators.espaciosVacios
+      ])
+      , 'descripcionEmpaque': new FormControl('',
+        [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(100),
+            CustomValidators.espaciosVacios
+        ])
     });
   }
 
@@ -174,17 +245,18 @@ export class EmpaqueComponent implements OnInit {
 
   }
 
-  createEmpaqueProducto(){
+
+  createEmpaque(){
     this.getValuesFormAddEmpaque();
 
     this._EmpaqueServicio.createEmpaque(this.empaque).subscribe(
       response => {
 
-        if (response.IdClasficcacion) {
+        if (response.IdEmpaque) {
 
           swal(
             'Empaque',
-            'El empaque ha sido creado exitosamente!',
+            'El Empaque ha sido creado exitosamente!',
             'success'
           ).then(() => {
             $('#modalAddEmpaque').modal('toggle');
@@ -202,7 +274,7 @@ export class EmpaqueComponent implements OnInit {
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
-        this.getEmpaque();
+        this.getEmpaquesProductos();
       }, error => {
         if (error.status == 500) {
           swal(
@@ -217,7 +289,11 @@ export class EmpaqueComponent implements OnInit {
     )
   }
 
-  getEmpaqueProducto(IdEmpaque){
+  MetodoReset(){
+
+  }
+
+  getEmpaque(IdEmpaque){
 
     this._EmpaqueServicio.getEmpaque(IdEmpaque).subscribe(
       response => {
@@ -233,7 +309,7 @@ export class EmpaqueComponent implements OnInit {
     )
   }
 
-  getEmpaques(){
+  getEmpaquesProductos(){
     this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
 

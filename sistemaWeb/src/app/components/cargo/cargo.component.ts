@@ -4,9 +4,11 @@ import { Subject } from 'rxjs/Rx';
 import {idioma_espanol} from "../../services/global";
 import { ActivatedRoute, Router} from "@angular/router";
 import {CargoService} from "../../services/cargo.service";
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators, Validator, FormBuilder} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
+import {CustomValidators} from "../../validadores/CustomValidators";
+
 declare var $:any;
 
 
@@ -23,6 +25,8 @@ export class CargoComponent implements OnInit {
 
   public cargo : Cargo;
   public cargos: Cargo[];
+  public mensaje : string;
+
 
 
   public formAddCargo: FormGroup;
@@ -40,7 +44,8 @@ export class CargoComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _cargoServicio : CargoService
+    private _cargoServicio : CargoService,
+    private _formBuilderCargo : FormBuilder
 
     ) {
         this.cargo = new Cargo(null,null,null,null);
@@ -48,6 +53,17 @@ export class CargoComponent implements OnInit {
 
   ngOnInit() {
 
+    this.settingsDatatable();
+    this.getCargo();
+    this.initFormAddCargo();
+    this.initFormUpdateCargo();
+
+  }
+
+
+  settingsDatatable(){
+
+    /*PROPIEDADES GENERALES DE LA DATATABLE*/
     this.dtOptions = {
       pagingType: 'full_numbers'
       , pageLength: 10
@@ -55,19 +71,8 @@ export class CargoComponent implements OnInit {
       , "lengthChange": false
       /*,select: true*/
     };
-
-
-        this._cargoServicio.getCargos().subscribe(
-      response => {
-        if(response.cargos){
-          this.cargos= response.cargos;
-          this.dtTrigger.next();
-        }
-      }, error =>{
-
-      }
-    )
   }
+
 
    rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -84,30 +89,6 @@ export class CargoComponent implements OnInit {
     this.cargo = new Cargo(null,null,null,null);
   }
 
-  createCargo(myForm: NgForm){
-
-
-    this.cargo.DescripcionCargo = this.formCargo.value.descripcionCargo;
-    this.cargo.NombreCargo = this.formCargo.value.nombreCargo;
-    this.formCargo.reset;
-
-    this._cargoServicio.createCargo(this.cargo).subscribe(
-      response =>{
-
-        if(response.IdCargo){
-          console.log('Creado con exito');
-        }
-      },
-      error=>{
-
-      }
-    )
-
-    console.log(this.cargo.DescripcionCargo + this.cargo.NombreCargo);
-
-
-
-  }
 
 getCargo(){
 
@@ -139,18 +120,41 @@ getCargo(){
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddCargo(){
 
-    this.formAddCargo = new FormGroup({
-      'nombreCargo': new FormControl()
-      , 'descripcionCargo': new FormControl()
-    });
+    this.formAddCargo = this._formBuilderCargo.group({
+      'nombreCargo': new FormControl('',[
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+          CustomValidators.espaciosVacios
 
+      ])
+      , 'descripcionCargo': new FormControl('',
+          [ Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(100),
+            CustomValidators.espaciosVacios
+          ])
+    });
   }
 
   initFormUpdateCargo(){
 
-    this.formUpdateCargo = new FormGroup({
-      'nombreCargo': new FormControl()
-      , 'descripcionCargo': new FormControl()
+    this.formUpdateCargo = this._formBuilderCargo.group({
+      'nombreCargo': new FormControl('',[
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        CustomValidators.espaciosVacios
+      ])
+      , 'descripcionCargo': new FormControl( '',[
+
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(100),
+        CustomValidators.espaciosVacios
+        ]
+
+      )
     });
   }
 

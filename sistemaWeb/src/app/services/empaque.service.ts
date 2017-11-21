@@ -17,9 +17,9 @@ export class EmpaqueService {
   createEmpaque(Empaque){
 
     let params = JSON.stringify(Empaque);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
-    return this._http.post(this.url+'createEmpaque',params,{headers:headers})
+    return this._http.post(this.url+'empaque',params,{headers:headers})
       .map(res => res.json());
   }
 

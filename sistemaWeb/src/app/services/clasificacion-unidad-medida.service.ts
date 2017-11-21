@@ -27,8 +27,7 @@ export class ClasificacionUnidadMedidaService {
   }
 
   getClasificacionUnidadMedida(){
-    /*return this._http.get(this.url+'createClasificacion',params,{headers:headers})
-      .map(res => res.json());*/
+    return this._http.get(this.url + 'clasificacionesunidadesmedidaHabilitado').map(res => res.json());
   }
 
   getClasificacionUnidadesMedida(){

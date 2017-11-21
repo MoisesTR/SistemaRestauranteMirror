@@ -80,9 +80,9 @@ Router
     .post('/sucursal',SucursalController.createSucursal)
     .post('/sucursal/:IdSucursal(\\d+)/telefono',SucursalController.createTelefonoSucursal)
     .get('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)',SucursalController.getTelefonoSucursal)
-    .update('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)',SucursalController.updateTelefonoSucursal)
+    //.update('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)',SucursalController.updateTelefonoSucursal)
     .get('/sucursal/:IdSucursal(\\d+)/telefonos',SucursalController.getTelefonosBySucursalId)
-    .put('/sucursal/:IdSucursal(\\d+)')
+    //.put('/sucursal/:IdSucursal(\\d+)')
     //Rutas para unidad de Medida Controller
     .get('/unidadesmedida',UnidadMedidaController.getUnidadesMedida)
     .get('/unidadmedida/:IdUnidadMedida(\\d+)',UnidadMedidaController.getUnidadById)

@@ -24,6 +24,7 @@ function updateClasificacion(pool,data){
         .execute('USP_UPDATE_CLASIFICACION');
 }
 function getClasificacionById(pool,IdClasificacion){
+    console.log('clasificacion')
     return pool.request()
         .input('IdClasificacion',sql.Int,IdClasificacion)
         .execute('USP_GET_CLASIFICACION');

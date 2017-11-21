@@ -112,17 +112,40 @@ function getUsers(req,res){
 }
 //
 function updateUser(req,res){
-    var userId = req.params.id;
+    var userData = matchedData(req,{locations:'body'});
     var update = req.body;
 
-    if(userId != req.user){
+    if(IdUsuario != req.user.sub){
         return res.status(403).json({status:403,code:'EUNAUTH',message:'Este no es tu usuario'});
     }
+        var aoj=[];
+    pushAOJParam(aoj,'IdUsuario',)
+    pushAOJParam(aoj,'Email')
+    pushAOJParam(aoj,'Email',)
     res.status(200).json({status:200,code:'',message:'Usuario actualizado'});
+}
+function changeStateUser(req,res){
+    let IdUsuario= req.params.IdUsuario
+    let Habilitado = req.body.Habilitado
+    console.log('IdUsuario:'+IdUsuario,'Habilitado:'+Habilitado)
+    var aoj=[];
+    database.pushAOJParam(aoj,'IdUsuario',sql.Int,IdUsuario)
+    database.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
+    database.storedProcExecute('USP_DISP_USUARIO',aoj).then((results) => {
+        console.log(results)
+        let afectadas = results.rowsAffected[0]
+        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+        res.status(200).json((afectadas > 0) ? {success:'Usuario '+accion+' con exito!'} :{failed:'No se encontro el usuario solicitado!'})
+        console.log('Usuario cambiado de estado con exito!')
+    }).catch((err) => {
+       res.status(500).json(err) 
+       console.log('Error:',err)
+    });
 }
 module.exports={
     signUp,
     singIn,
     updateUser,
-    getUsers
+    getUsers,
+    changeStateUser
 };

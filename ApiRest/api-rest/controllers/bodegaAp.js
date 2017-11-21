@@ -2,27 +2,45 @@ var querys = require('../querys/cargo')
 var config = require('../config/mssqlConfig')
 var database = require('../services/database')
 var sql = require('mssql')
+const { matchedData, sanitize } = require('express-validator/filter');
 
 function createEntradaBodegaAp(req,res){ 
-    var data = req.body
+    var data = matchedData(req,{locations:'body'})
     console.log('mandaste los campos')
     var aoj = [];
-    database.pushAOJParam(aoj,'IdBodegaAreap',sql.Int,IdBodegaAreap);
-    database.pushAOJParam(aoj,'IdTrabajador',sql.Int,IdTrabajador);
-    database.pushAOJParam(aoj,'IdProveedor',sql.Int,IdProveedor);
+    database.pushAOJParam(aoj,'IdBodegaAreap',sql.Int,data.IdBodegaAreaP);
+    database.pushAOJParam(aoj,'IdTrabajador',sql.Int,data.IdTrabajador);
+    database.pushAOJParam(aoj,'IdProveedor',sql.Int,data.IdProveedor);
     //database.pushAOJParam(IdEstadoEdicicion,sql.,);
-    database.pushAOJParam(aoj,'NFactura',sql.NVarChar(20),NFactura);
-    database.pushAOJParam(aoj,'RepresentanteProveedor',sql.NVarChar(50),RepresentanteProveedor);
-    database.pushAOJParam(aoj,'PorcRetencion',sql.Int,PorcRetencion);
-    database.pushAOJParam(aoj,'PorcIva',sql.Int,PorcIva);
-    database.pushAOJParam(aoj,'PorcDescuento',sql.Int,PorcDescuento);
-    database.pushAOJParam(aoj,'FechaHora',sql.Date,FechaHora);
+    database.pushAOJParam(aoj,'NFactura',sql.NVarChar(20),data.NFactura);
+    database.pushAOJParam(aoj,'RepresentanteProveedor',sql.NVarChar(50),data.RepresentanteProveedor);
+    database.pushAOJParam(aoj,'PorcRetencion',sql.Int,data.PorcRetencion);
+    database.pushAOJParam(aoj,'PorcIva',sql.Int,data.PorcIva);
+    database.pushAOJParam(aoj,'PorcDescuento',sql.Int,data.PorcDescuento);
+    database.pushAOJParam(aoj,'FechaHora',sql.Date,data.FechaHora);
     database.storedProcExecute('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json(err)
     })
 }
+function createDetalleEntrada(req,res){ 
+    var data = matchedData(req,{locations:'body'})
+    console.log('mandaste los campos')
+    var aoj = [];
+    database.pushAOJParam(aoj,'IdEntradaBodegaAP',sql.Int,data.IdEntradaBodegaAP);
+    database.pushAOJParam(aoj,'IdProductoProveedor',sql.Int,data.IdProductoProveedor);
+    database.pushAOJParam(aoj,'Cantidad',sql.Int,data.Cantidad);
+    //database.pushAOJParam(IdEstadoEdicicion,sql.,);
+    database.pushAOJParam(aoj,'PrecioUnitarioEntrada',sql.Money,data.PrecioUnitarioEntrada);
+    database.pushAOJParam(aoj,'DescuentoCalculado',sql.Money,data.DescuentoCalculado);
+    database.storedProcExecute('USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
+        res.status(200).json(results.recordset[0])
+    }).catch((err) => {
+        res.status(500).json(err)
+    })
+}
+
 function getDetalleBodegaAp(req,res){
     let Habilitado = req.query.Habilitado;
     let aoj=[];
@@ -35,23 +53,15 @@ function getDetalleBodegaAp(req,res){
         res.status(500).json(err)
     });
 }
-function getCargoById(req,res){
-    var data = req.params
-    if(data.IdCargo){
-        config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getCargoById(poolObt,data.IdCargo)
-        }).then((results) => {
-           res.status(200).json({cargo:results.recordset[0]}) 
-        }).catch((err) => {
-            res.status(500).json(err)
-        });
-    }else{
-        res.status(401).json({
-            error:true,
-            code:'EPARAMS',
-            message:'Envie el id de la Cargo a Obtener'
-        })
-    }
+function generarFactura(req,res){
+    var data = matchedData(req,{locations:'params'})
+    let aoj =[];
+    database.pushAOJParam(aoj,'IdEntradaBodegaAP',data.IdEntradaBodegaAP)
+    database.storedProcExecute('USP_GENERAR_FACTURA',aoj).then((result) => {
+        res.status(200).json({success:'Factura generada con exito!'})    
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
 }
 function changeStateCargo(req,res){
     let IdCargo= req.params.IdCargo
@@ -73,5 +83,7 @@ function changeStateCargo(req,res){
 }
 module.exports={
    createEntradaBodegaAp,
-   getDetalleBodegaAp
+   getDetalleBodegaAp,
+   generarFactura,
+   createDetalleEntrada
 }

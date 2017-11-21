@@ -5,29 +5,29 @@ var sql = require('mssql')
 
 function createEntradaBodegaAp(req,res){ 
     var data = req.body
-    console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
-    if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 
-      console.log('mandaste los campos')
-          config.getConnectionPoolGlobal().then((poolObt) => {
-            return querys.createCargo(poolObt,data)
-        }).then((results) => {
-            res.status(200).json(results.recordset[0])
-        }).catch((err) => {
-            res.status(500).json(err)
-        })
-    }else{
-        res.status(401).send({
-            error:true,
-            code:'EPARAMS',
-            message:'Para crear un cargo envie correctamente los parametros!'
-        })
-    }
+    console.log('mandaste los campos')
+    var aoj = [];
+    database.pushAOJParam(aoj,'IdBodegaAreap',sql.Int,IdBodegaAreap);
+    database.pushAOJParam(aoj,'IdTrabajador',sql.Int,IdTrabajador);
+    database.pushAOJParam(aoj,'IdProveedor',sql.Int,IdProveedor);
+    //database.pushAOJParam(IdEstadoEdicicion,sql.,);
+    database.pushAOJParam(aoj,'NFactura',sql.NVarChar(20),NFactura);
+    database.pushAOJParam(aoj,'RepresentanteProveedor',sql.NVarChar(50),RepresentanteProveedor);
+    database.pushAOJParam(aoj,'PorcRetencion',sql.Int,PorcRetencion);
+    database.pushAOJParam(aoj,'PorcIva',sql.Int,PorcIva);
+    database.pushAOJParam(aoj,'PorcDescuento',sql.Int,PorcDescuento);
+    database.pushAOJParam(aoj,'FechaHora',sql.Date,FechaHora);
+    database.storedProcExecute('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
+        res.status(200).json(results.recordset[0])
+    }).catch((err) => {
+        res.status(500).json(err)
+    })
 }
 function getDetalleBodegaAp(req,res){
     let Habilitado = req.query.Habilitado;
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getCargos(poolObt,Habilitado);
-    }).then((results) => {
+    let aoj=[];
+    database.pushAOJParam(aoj,'IdBodegaAreaP',sql.Int,1);
+    database.storedProcExecute('USP_GET_DETALLE_BODEGA_AP',aoj).then((results) => {
         res.status(200).json({
             cargos:results.recordset
         })
@@ -92,9 +92,6 @@ function changeStateCargo(req,res){
     });
 }
 module.exports={
-    createCargo,
-    getCargoById,
-    getCargos,
-    updateCargo,
-    changeStateCargo
+   createEntradaBodegaAp,
+   getDetalleBodegaAp
 }

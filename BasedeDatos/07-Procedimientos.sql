@@ -185,11 +185,11 @@ AS BEGIN
 END
 GO
 CREATE PROCEDURE USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION(
-	@IdBodegaAreaP INT not null,
-    @IdTrabajador INT NOT NULL,
-	@IdProveedor INT NOT NULL,
-	@NFactura NVARCHAR(20) NOT NULL,
-	@RepresentanteProveedor NVARCHAR(50) NOT NULL,
+	@IdBodegaAreaP INT,
+    @IdTrabajador INT,
+	@IdProveedor INT,
+	@NFactura NVARCHAR(20),
+	@RepresentanteProveedor NVARCHAR(50),
 	--SubTotalFactura MONEY NULL CHECK(SubTotalFactura > 0),
 	@PorcRetencion NUMERIC(3,2) NULL,
 	--Retencion MONEY NULL,
@@ -198,7 +198,7 @@ CREATE PROCEDURE USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION(
 	@PorcDescuento NUMERIC(3,2) NULL,
 	--DescuentoTotal MONEY NULL CHECK(DescuentoTotal >= 0),
 	--TotalFactura MONEY NULL,
-	@FechaHora DATETIME NOT NULL
+	@FechaHora DATETIME
 )
 AS BEGIN
 	INSERT INTO ENTRADA_BODEGA_AREA_PRODUCCION(IdBodegaAreaP,IdTrabajador,IdProveedor,NFactura,RepresentanteProveedor,PorcRetencion,PorcIva,PorcDescuento,FechaHora)
@@ -206,11 +206,11 @@ AS BEGIN
 END
 GO
 CREATE PROCEDURE USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(
-	@IdEntradaBodegaAP INT NOT NULL,
-    @IdProductoProveedor INT NOT NULL,
-    @Cantidad INT NOT NULL,
-	@PrecioUnitarioEntrada MONEY NOT NULL,
-	@DescuentoCalculado MONEY NOT NULL
+	@IdEntradaBodegaAP INT,
+    @IdProductoProveedor INT,
+    @Cantidad INT,
+	@PrecioUnitarioEntrada MONEY,
+	@DescuentoCalculado MONEY
 )
 AS BEGIN
 	DECLARE @PrecioUnitarioActual MONEY

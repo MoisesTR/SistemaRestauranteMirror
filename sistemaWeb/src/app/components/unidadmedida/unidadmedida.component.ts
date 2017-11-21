@@ -8,6 +8,8 @@ import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
+import {ClasificacionProducto} from "../../models/ClasificacionProducto";
+import {ClasificacionProductoService} from "../../services/clasificacion-producto.service";
 declare var $:any;
 
 
@@ -24,6 +26,7 @@ export class UnidadmedidaComponent implements OnInit {
 
   public unidadMedida : UnidadMedida;
   public unidadesMedida : UnidadMedida[];
+  public clasificaciones: ClasificacionProducto[];
 
   public mensaje : string;
 
@@ -45,6 +48,7 @@ export class UnidadmedidaComponent implements OnInit {
     private _route: ActivatedRoute
     , private _router: Router
     , private _UnidadMedidaServicio : UnidadMedidaService
+    , private _clasificacionService : ClasificacionProductoService
     , private fBuilderUnidadMedida: FormBuilder
     ) {
 
@@ -52,6 +56,9 @@ export class UnidadmedidaComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+
     this.dtOptions = {
       autoWidth : false
       , pagingType: 'full_numbers'
@@ -61,9 +68,33 @@ export class UnidadmedidaComponent implements OnInit {
       , searching: true
       , ordering:  true
     };
+
+
     $(document).ready(function(){
       $(".selectclasificacionunidadmedida").select2({
         maximumSelectionLength: 1
+      });
+
+      $(".letras").keypress(function (key) {
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+          && (key.charCode != 45) //retroceso
+          && (key.charCode != 241) //ñ
+          && (key.charCode != 209) //Ñ
+          && (key.charCode != 32) //espacio
+          && (key.charCode != 225) //á
+          && (key.charCode != 233) //é
+          && (key.charCode != 237) //í
+          && (key.charCode != 243) //ó
+          && (key.charCode != 250) //ú
+          && (key.charCode != 193) //Á
+          && (key.charCode != 201) //É
+          && (key.charCode != 205) //Í
+          && (key.charCode != 211) //Ó
+          && (key.charCode != 218) //Ú
+
+        )
+          return false;
       });
     });
 
@@ -78,6 +109,10 @@ export class UnidadmedidaComponent implements OnInit {
       }
     );
 
+    this.initFormAdd();
+    this.initFormUpdate();
+    this.getClasificaciones();
+
   }
 
   initFormAdd(){
@@ -89,7 +124,30 @@ export class UnidadmedidaComponent implements OnInit {
         , Validators.maxLength(100)
         , CustomValidators.espaciosVacios
       ]) ,
-      'descripcionUnidadMedida': new FormControl('')
+      'simboloUnidadMedida': new FormControl('',[
+        Validators.required
+        , Validators.minLength(2)
+        , Validators.maxLength(3)
+        , CustomValidators.espaciosVacios
+      ])
+    })
+  }
+
+  initFormUpdate(){
+    this.formUpdateUnidadMedida = this.fBuilderUnidadMedida.group({
+
+      'nombreUnidadMedida': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(100)
+        , CustomValidators.espaciosVacios
+      ]) ,
+      'simboloUnidadMedida': new FormControl('',[
+        Validators.required
+        , Validators.minLength(2)
+        , Validators.maxLength(3)
+        , CustomValidators.espaciosVacios
+      ])
     })
   }
 
@@ -107,25 +165,56 @@ export class UnidadmedidaComponent implements OnInit {
     this.unidadMedida = new UnidadMedida(null,null,null,null,null);
   }
 
-  createUnidadMedida(myForm: NgForm){
+  createUnidadMedida(){
 
-    this.unidadMedida.NombreUnidad = this.formUnidadMedida.value.nombre;
-    this.formUnidadMedida.reset;
+    let str : string;
+    str = $( "#clasificacionunidadmedida" ).val()[0]
+
+    if(str != null) {
+      let variable: number;
+      variable = parseInt(str);
+      this.unidadMedida.IdClasificacionUnidadMedida = variable;
+
+    }
+    this.unidadMedida.NombreUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
+    this.unidadMedida.Simbolo = this.formAddUnidadMedida.value.simboloUnidadMedida;
 
     this._UnidadMedidaServicio.createUnidadMedida(this.unidadMedida).subscribe(
       response =>{
 
         if(response.IdUnidadMedida){
-          console.log('Creado con exito');
+          swal(
+            'Unidad medida',
+            'La unidad ha sido creada exitosamente!',
+            'success'
+          ).then(() => {
+            $('#modalAddUnidadMedida').modal('toggle');
+            this.formAddUnidadMedida.reset();
+            this.unidadMedida = new UnidadMedida(null,null,null,null,null);
+            this.getUnidadesMedidaRender();
+          })
+        } else {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error al insertar la categoria, intenta nuevamente!',
+            'error'
+          )
         }
+        /*this.getUnidadesMedida();*/
       },
       error=>{
+        if (error.status == 500) {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error en el servidor, intenta nuevamente!',
+            'error'
+          )
 
+        }
       }
     )
 
-
-
+    this.formAddUnidadMedida.reset;
   }
 
   getUnidaMedida(){
@@ -156,12 +245,108 @@ export class UnidadmedidaComponent implements OnInit {
       )
     }
 
-    showModalUpdate(){
+    getUnidadesMedidaRender(){
+
+      this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
+        response =>{
+          if(response.unidadesmedida){
+            this.unidadesMedida = response.unidadesmedida;
+            this.rerender();
+
+          } else {
+
+          }
+        }, error =>{
+
+        }
+      )
+    }
+
+    getClasificaciones(){
+      this._clasificacionService.getClasificaciones().subscribe(
+        response =>{
+          if(response.clasificaciones){
+            this.clasificaciones = response.clasificaciones;
+          } else {
+
+          }
+        }
+      )
+    }
+
+    ngSubmit(){
+      console.log('submit')
+    }
+    showModalUpdate(unidadmedida){
+
+      this.formUpdateUnidadMedida.reset();
+
+      $('#modalUpdateUnidadMedida').modal('show');
+      $('.selectclasificacionunidadmedida').val(this.unidadMedida.IdClasificacionUnidadMedida).trigger('change.select2');
+
+
+      let Unidad : UnidadMedida;
+      Unidad = unidadmedida;
+
+      this.unidadMedida.IdUnidadMedida = Unidad.IdUnidadMedida;
+
+      this.formUpdateUnidadMedida.reset();
+      this.formUpdateUnidadMedida.setValue({
+        nombreUnidadMedida: Unidad.NombreUnidad
+        , simboloUnidadMedida: Unidad.Simbolo
+      });
 
     }
 
-    deleteUnidadMedida(){
+  deleteUnidadMedida(IdUnidad){
 
+    swal({
+      title: "Estas seguro(a)?",
+      text: "La categoria sera eliminada permanentemente!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminala!'
+    }).then((eliminar) => {
+      if (eliminar) {
+        this._UnidadMedidaServicio.deleteUnidadMedida(IdUnidad).subscribe(
+          response =>{
+            if(response.success){
+              swal(
+                'Eliminada!',
+                'La unidad de medida ha sido eliminada exitosamente',
+                'success'
+              ).then(() => {
+                this.getUnidadesMedidaRender();
+              })
+            } else {
+              swal(
+                'Error inesperado',
+                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
+                'error'
+              )
+            }
+          }, error =>{
+            if(error.status = 500){
+              swal(
+                'Error inesperado',
+                'Ha ocurrido un error en el servidor, intenta nuevamente!',
+                'error'
+              )
+            }
+          }
+        )
+
+      }
+    });
+
+  }
+
+    cleanFormAdd(){
+      this.formAddUnidadMedida.reset();
+      $('#clasificacionunidadmedida').val(null)
+        .trigger('change');
     }
 
   /**Falta**/

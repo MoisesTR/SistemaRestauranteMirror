@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ClasificacionProducto} from "../../models/ClasificacionProducto";
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
 import { Subject } from 'rxjs/Rx';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
 import {idioma_espanol} from "../../services/global";
+import {CustomValidators} from "../../validadores/CustomValidators";
 declare var $:any;
 
 @Component({
@@ -33,9 +34,10 @@ export class ClasificacionProductoComponent implements OnInit {
   dtElement: DataTableDirective;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _clasificacionService : ClasificacionProductoService
+    private _route: ActivatedRoute
+    , private _router: Router
+    , private _clasificacionService : ClasificacionProductoService
+    , private formBuilderClasificacion : FormBuilder
   ) {
     this.initConstructorClasificacion();
 
@@ -55,8 +57,6 @@ export class ClasificacionProductoComponent implements OnInit {
       response => {
         if(response.clasificaciones){
           this.clasificaciones = response.clasificaciones;
-          console.log(this.clasificaciones);
-
           this.dtTrigger.next();
         }
       }, error =>{
@@ -64,7 +64,10 @@ export class ClasificacionProductoComponent implements OnInit {
       }
     );
 
-    console.log('hola')
+    this.initFormAddClasificacion();
+    this.initFormUpdateClasificacion();
+
+
   }
 
   rerender(): void {
@@ -80,42 +83,62 @@ export class ClasificacionProductoComponent implements OnInit {
     this.clasificacion = new ClasificacionProducto(null,null,null,null);
   }
 
-  createClasificacion(myForm: NgForm){
+  createClasificacion(){
 
-/*
-    this.clasificacion.DescripcionClasificacion = this.formClasificacion.value.descripcion;
-    this.clasificacion.NombreClasificacion = this.formClasificacion.value.nombre;
-    this.formClasificacion.reset;
+    this.clasificacion.DescripcionClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
+    this.clasificacion.NombreClasificacion = this.formAddClasificacion.value.nombreClasificacion;
 
     this._clasificacionService.createClasificacionProducto(this.clasificacion).subscribe(
       response =>{
 
         if(response.IdClasificacion){
-          console.log('Creado con exito');
+          swal(
+            'Clasificación',
+            'La clasificación ha sido creada exitosamente!',
+            'success'
+          ).then(() => {
+            $('#modalAddClasificacion').modal('toggle');
+            this.formAddClasificacion.reset();
+            this.clasificacion = new ClasificacionProducto(null,null,null,null);
+            this.getClasificacionesRender();
+          })
+        } else {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error al insertar la categoria, intenta nuevamente!',
+            'error'
+          )
         }
       },
       error=>{
-
+        if (error.status == 500) {
+          swal(
+            'Error inesperado',
+            'Ha ocurrido un error en el servidor, intenta nuevamente!',
+            'error'
+          )
+          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+        }
       }
     )
-
-    console.log(this.clasificacion.DescripcionClasificacion + this.clasificacion.NombreClasificacion);*/
+    this.formAddClasificacion.reset;
+    console.log(this.clasificacion.DescripcionClasificacion + this.clasificacion.NombreClasificacion);
 
   }
 
-getClasificacion(){
+  getClasificacion(){
 
-    this._clasificacionService.getClasificaciones().subscribe(
-      response => {
-        if(response.clasificaciones){
-          this.clasificaciones= response.clasificaciones;
-          this.dtTrigger.next();
+      this._clasificacionService.getClasificaciones().subscribe(
+        response => {
+          if(response.clasificaciones){
+            this.clasificaciones= response.clasificaciones;
+            this.dtTrigger.next();
+          }
+        }, error =>{
+
         }
-      }, error =>{
-
-      }
-    );
-  }
+      );
+    }
 
   getClasificacionesRender(){
     this._clasificacionService.getClasificaciones().subscribe(
@@ -133,18 +156,38 @@ getClasificacion(){
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddClasificacion(){
 
-    this.formAddClasificacion = new FormGroup({
-      'nombreClasificacion': new FormControl()
-      , 'descripcionClasificacion': new FormControl()
+    this.formAddClasificacion = this.formBuilderClasificacion.group({
+      'nombreClasificacion': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(100)
+        , CustomValidators.espaciosVacios
+      ])
+      , 'descripcionClasificacion': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ])
     });
 
   }
 
   initFormUpdateClasificacion(){
 
-    this.formUpdateClasificacion = new FormGroup({
-      'nombreClasificacion': new FormControl()
-      , 'descripcionClasificacion': new FormControl()
+    this.formUpdateClasificacion = this.formBuilderClasificacion.group({
+      'nombreClasificacion': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(100)
+        , CustomValidators.espaciosVacios
+      ])
+      , 'descripcionClasificacion': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ])
     });
   }
 
@@ -337,6 +380,10 @@ getClasificacion(){
 
   }
 
+
+  cleanAddForm(){
+    this.formAddClasificacion.reset();
+  }
 
 
 

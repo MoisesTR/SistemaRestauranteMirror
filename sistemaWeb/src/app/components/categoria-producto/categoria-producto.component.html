@@ -108,7 +108,7 @@
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" [disabled]="!formAddCategoria.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>
@@ -178,7 +178,7 @@
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" [disabled]="!formUpdateCategoria.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>

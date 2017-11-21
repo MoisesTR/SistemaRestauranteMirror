@@ -4,7 +4,7 @@ import { ActivatedRoute, Router} from "@angular/router";
 import { CategoriaProducto } from '../../models/CategoriaProducto';
 import { Subject } from 'rxjs/Rx';
 import {idioma_espanol} from "../../services/global";
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
@@ -36,9 +36,10 @@ export class CategoriaProductoComponent implements OnInit {
   public formUpdateCategoria:FormGroup;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _categoriaProductoServicio : CategoriaProductoService
+    private _route: ActivatedRoute
+    , private _router: Router
+    , private _categoriaProductoServicio : CategoriaProductoService
+    , private _formBuilderCategoria: FormBuilder
   ) {
     this.categoriaProducto = new CategoriaProducto(null,null,null,null);
   }
@@ -112,7 +113,7 @@ export class CategoriaProductoComponent implements OnInit {
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddCategoria(){
 
-    this.formAddCategoria = new FormGroup({
+    this.formAddCategoria = this._formBuilderCategoria.group({
       'nombreCategoria': new FormControl('',
         [
           Validators.required,
@@ -133,7 +134,7 @@ export class CategoriaProductoComponent implements OnInit {
 
   initFormUpdateCategoria(){
 
-    this.formUpdateCategoria = new FormGroup({
+    this.formUpdateCategoria = this._formBuilderCategoria.group({
       'nombreCategoria': new FormControl('',
         [
           Validators.required,
@@ -209,7 +210,7 @@ export class CategoriaProductoComponent implements OnInit {
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
-        this.getCategoriasProductos();
+       /* this.getCategoriasProductos();*/
       }, error => {
         if (error.status == 500) {
           swal(

@@ -18,7 +18,7 @@ export class ClasificacionProductoService {
   createClasificacionProducto(ClasificacionProducto){
 
     let params = JSON.stringify(ClasificacionProducto);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'clasificacion',params,{headers:headers})
       .map(res => res.json());
@@ -52,7 +52,14 @@ export class ClasificacionProductoService {
       'Authorization': 'token'
     });
 
-    let options = new RequestOptions({headers:headers});
+    let body = JSON.stringify(
+      {
+        "Habilitado": 0
+
+      }
+    );
+
+    let options = new RequestOptions({headers:headers,body:body});
     return this._http.delete(this.url+'clasificacion/'+IdClasificacion,options)
       .map(res => res.json());
   }

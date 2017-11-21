@@ -15,7 +15,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="text-right" style="margin-top:3%;">
-                      <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalunidaddemedida">Nueva unidad de medida</button>
+                      <button type="button" class="btn orange-chang" (click)="cleanFormAdd()" data-toggle="modal" data-target="#modalAddUnidadMedida">Nueva unidad de medida</button>
                     </div>
                   </div>
                 </div>
@@ -32,16 +32,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let unidadmedidad of unidadesMedida">
-                  <td class="body-negrita">{{ unidadmedidad.IdUnidadMedida }}</td>
-                  <td class="body-negrita">{{ unidadmedidad.NombreUnidad }}</td>
-                  <td class="body-negrita">{{ unidadmedidad.IdClasificacionUnidadMedida }}</td>
-                  <td class="body-negrita">{{ unidadmedidad.Simbolo}}</td>
+                <tr *ngFor="let unidadmedida of unidadesMedida">
+                  <td class="body-negrita">{{ unidadmedida.IdUnidadMedida }}</td>
+                  <td class="body-negrita">{{ unidadmedida.NombreUnidad }}</td>
+                  <td class="body-negrita">{{ unidadmedida.IdClasificacionUnidadMedida }}</td>
+                  <td class="body-negrita">{{ unidadmedida.Simbolo}}</td>
                   <td width="25%" class="body-negrita">
                     <div class="text-center">
                       <button type="button" (click)="getUnidaMedida()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEmpaque" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                      <button type="button" (click)="showModalUpdate()" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                      <button type="button" (click)="deleteUnidadMedida()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEmpaque" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                      <button type="button" (click)="showModalUpdate(unidadmedida)" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                     <!-- <button type="button" (click)="deleteUnidadMedida()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEmpaque" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>-->
                     </div>
                   </td>
                 </tr>
@@ -56,8 +56,8 @@
 
     </section>
 
-    <!-- Modal Unidad de medida -->
-    <div class="modal fade" id="modalunidaddemedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!-- Modal Agregar unidad de medida -->
+    <div class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg cascading-modal " role="document">
         <!--Contenido-->
         <div class="modal-content background-gray">
@@ -73,7 +73,7 @@
           <div class="modal-body mb-0">
             <div class="container-fluid">
               <!-- Inicio form-->
-              <form [formGroup] = "formAddUnidadMedida"      novalidate >
+              <form [formGroup] = "formAddUnidadMedida" (ngSubmit)="createUnidadMedida()" novalidate >
                 <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="card">
@@ -85,29 +85,36 @@
                             <br>
                             <div class="md-form ">
                               <input type="text"
-                                     class="form-control"
+                                     class="form-control letras"
                                      name="nombreunidadmedida"
-                                     required >
-                              <label for="nombreunidadmedida" class="">Nombre</label>
+                                     formControlName="nombreUnidadMedida"
+                                     id ="nombreUnidadMedida"
+                                     required
+                              >
+                              <show-errors [control]="formAddUnidadMedida.controls['nombreUnidadMedida']"></show-errors>
+                              <label for="nombreUnidadMedida" class="">Nombre</label>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <label for="clasificacionunidadmedida">Clasificación</label>
-                            <select class="form-control selectclasificacionunidadmedida" name="clasi" id="clasificacionunidadmedida" multiple="multiple" style="width: 100%" formControlName="clasificacionunidadmedida">
-                              <option class = "chip" ></option>
+                            <select class="form-control selectclasificacionunidadmedida" name="clasi" id="clasificacionunidadmedida" multiple="multiple" style="width: 100%">
+                              <option class = "chip" [value]="clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.NombreClasificacion}}</option>
                             </select>
+
                           </div>
 
                           <div class="col-md-6">
                             <br>
                             <div class="md-form ">
-                              <input type="text" id="nombre"
-                                      minlength="4"
-                                      maxlength="50"
-                                      class="form-control"
+                              <input type="text" id="simbolounidadmedida"
+                                      class="form-control letras"
                                       name="simbolounidadmedida"
-                                      required >
+                                      formControlName="simboloUnidadMedida"
+                                      required
+
+                              >
+                              <show-errors [control]="formAddUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
                               <label for="simbolounidadmedida" class="">Simbolo</label>
                             </div>
                           </div>
@@ -115,7 +122,7 @@
                         </div>
                         <br>
                         <div class="text-center mt-1-half">
-                          <button class="btn orange-chang mb-1" type="submit" >Ingresar <i class="fa fa-check ml-1"></i></button>
+                          <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddUnidadMedida.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
                         </div>
                         <br>
                       </div>
@@ -131,3 +138,85 @@
         <!--/.Contenido-->
       </div>
     </div>
+
+
+<!-- Modal Agregar unidad de medida -->
+<div class="modal fade" id="modalUpdateUnidadMedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray">
+
+      <!--Titulo-->
+      <div class="modal-header orange-chang white-text">
+        <h4 class="title">Unidad de Medida</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form [formGroup] = "formUpdateUnidadMedida" (ngSubmit)="formUpdateUnidadMedida" novalidate >
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+                  <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i>Actualizar unidad de medida</div>
+                  <div class="container-fluid">
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form ">
+                          <input type="text"
+                                 class="form-control"
+                                 name="nombreunidadmedida"
+                                 formControlName="nombreUnidadMedida"
+                                 id ="upnombreUnidadMedida"
+                                 required
+                          >
+                          <show-errors [control]="formAddUnidadMedida.controls['nombreUnidadMedida']"></show-errors>
+                          <label for="upnombreUnidadMedida" class="">Nombre</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="upclasificacionunidadmedida">Clasificación</label>
+                        <select class="form-control selectclasificacionunidadmedida" name="clasi" id="upclasificacionunidadmedida" multiple="multiple" style="width: 100%">
+                          <option class = "chip" [value]="clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.NombreClasificacion}}</option>
+                        </select>
+
+                      </div>
+
+                      <div class="col-md-6">
+                        <br>
+                        <div class="md-form ">
+                          <input type="text" id="upsimbolounidadmedida"
+                                 class="form-control"
+                                 name="simbolounidadmedida"
+                                 formControlName="simboloUnidadMedida"
+                                 required >
+                          <show-errors [control]="formAddUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
+                          <label for="upsimbolounidadmedida" class="">Simbolo</label>
+                        </div>
+                      </div>
+
+                    </div>
+                    <br>
+                    <div class="text-center mt-1-half">
+                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateUnidadMedida.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- Final form -->
+          <br>
+        </div>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

@@ -18,7 +18,7 @@ export class UnidadMedidaService {
   createUnidadMedida(UnidadMedida){
 
     let params = JSON.stringify(UnidadMedida);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'unidadMedida',params,{headers:headers})
       .map(res => res.json());

@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalingresarclasificacion">Nueva Clasificación</button>
+                  <button type="button" class="btn orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalAddClasificacion">Nueva Clasificación</button>
                 </div>
               </div>
             </div>
@@ -37,9 +37,9 @@
               <td class="body-negrita">{{ clasificacion.DescripcionClasificacion}}</td>
               <td width="25%" class="body-negrita">
                 <div class="text-center">
-                  <button type="button" (click)="getClasificacion()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetClasificacion" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                  <button type="button" (click)="updateClasificacion()" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateClasificacion" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteClasificacion()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteClasificacion" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                  <button type="button" (click)="getClasificacion(clasificacion)" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetClasificacion" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
+                  <button type="button" (click)="showModalUpdateClasificacion(clasificacion)" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateClasificacion" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button" (click)="deleteClasificacion(clasificacion.IdClasificacion)" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteClasificacion" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
                 </div>
               </td>
             </tr>
@@ -55,8 +55,8 @@
 </section>
 
 
-<!-- Modal clasificación -->
-<div class="modal fade" id="modalingresarclasificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Modal añadir clasificación -->
+<div class="modal fade" id="modalAddClasificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">
@@ -72,7 +72,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form #formClasificacion="ngForm" (ngSubmit)="createClasificacion(formClasificacion)" novalidate>
+          <form [formGroup] = "formAddClasificacion" (ngSubmit)="createClasificacion(formAddClasificacion)" novalidate>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -83,18 +83,14 @@
                       <div class="col-md-12">
                         <br>
                         <div class="md-form ">
-                          <input type="text" id="nombre" ngModel class="form-control"
+                          <input type="text" id="nombre" class="form-control"
                                  name="nombre"
-                                 minlength="3"
-                                 maxlength="50"
                                  required
-                                 email
-                                 #nombre = "ngModel"
+                                 formControlName="nombreClasificacion"
 
                           >
+                          <show-errors [control]="formAddClasificacion.controls['nombreClasificacion']"></show-errors>
                           <label for="nombre" class="">Nombre</label>
-                          <i class = "fa fa-check-circle check" *ngIf="nombre.valid"></i>
-                          <i class = "fa fa-exclamation-circle uncheck" *ngIf="nombre.invalid && nombre.touched"></i>
                         </div>
                       </div>
                     </div>
@@ -103,17 +99,19 @@
                       <div class="md-form">
                           <textarea type="text" id="descripcion" class="md-textarea"
                                     name="descripcion"
-                                    ngModel
-                                    minlength="5"
-                                    maxlength="100"
-                                    required></textarea>
+                                    required
+                                    formControlName="descripcionClasificacion"
+                          >
+
+                          </textarea>
+                        <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
                         <label for="descripcion">Descripción</label>
                       </div>
 
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1"type="submit" [disabled]="!formClasificacion.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1"type="submit" [disabled]="!formAddClasificacion.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>

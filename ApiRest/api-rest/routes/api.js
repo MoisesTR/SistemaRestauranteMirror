@@ -123,7 +123,7 @@ Router
     .delete('/cargo/:IdCargo(\\d+)',CargoController.changeStateCargo)
 
     //Rutas para Bodega Area Produccion
-    .post('/bodegaap',validations.createEntradaBodegaAP,validations.validsParamas,bodegaApController.createEntradaBodegaAp);
+    .post('/bodegaap',validations.createEntradaBodegaAP,validations.validsParamas,bodegaApController.createEntradaBodegaAp)
     .get('/detallebodegaap',bodegaApController.getDetalleBodegaAp)
     //Rutas para 
     .post('/signup',validations.userSignUpValidation,validations.validsParamas,AuthController.signUp)

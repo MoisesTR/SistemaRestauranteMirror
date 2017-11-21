@@ -3,92 +3,89 @@
 
   <!--Menu-->
   <header>
-    <ul id="slide-out" class="side-nav fixed  sn-bg-1 custom-scrollbar">
+    <div id="slide-out" class="side-nav sn-bg-1 fixed mdb-sidenav">
+      <ul class="custom-scrollbar list-unstyled" style="max-height:100vh;">
 
-      <!-- Logo -->
-      <li>
-        <div class="logo-wrapper sn-ad-avatar-wrapper">
-          <img src="./assets/img/usuarios/admin.png" class="img-fluid ">
-          <div class="rgba-stylish-strong">
-            <p class="user white-text" >Nombre de usuario<br>Cargo</p>
+        <!-- Logo -->
+        <li>
+          <div class="logo-wrapper sn-ad-avatar-wrapper">
+            <img src="./assets/img/usuarios/admin.png" class="img-fluid ">
+            <div class="rgba-stylish-strong">
+              <p class="user white-text" >Nombre de usuario<br>Cargo</p>
+            </div>
           </div>
-        </div>
-      </li>
-      <!--/. Logo -->
-      <div class="dropdown-divider"></div>
-      <!-- Side de navegacion -->
-      <li>
-        <ul class="collapsible collapsible-accordion">
-          <li [routerLink]="['dashboard']" ><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/home.png" height="18"></i> Inicio</a>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/product.png" height="18"></i>Productos <i class="fa fa-angle-down rotate-icon"></i></a>
-            <div class="collapsible-body">
-              <ul>
-                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['producto']" >Productos</a>
-                </li>
-                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['categorias']" >Categoria</a>
-                </li>
-                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['clasificacion-productos']" >Clasificación</a>
-                </li>
-                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['subclasificacion-productos']">Subclasificación</a>
-                </li>
-                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['empaques']">Empaques</a>
-                </li>
-                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['envases']">Envases</a>
-                </li>
-                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['unidadmedida']">Unidad de Medida</a>
-                </li>
-                <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['salida-producto']">Salidas</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/sucursales.png" height="18"></i> Sucursales </a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r"  ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores <i class="fa fa-angle-down rotate-icon"></i></a>
-            <div class="collapsible-body">
-                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['proveedores']">Proveedores</a>
-                </li>
-                <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['producto-proveedor']">Productos</a>
-                </li>
-            </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['trabajador']"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['cargo']" ><i class="fa"><img src="./assets/img/icon/roles.png" height="18"></i> Cargos </a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'usuario'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-          <li *ngIf="rol == 'admin'"><a class="collapsible-header waves-effect arrow-r" [routerLink]="'rol'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Roles </a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'factura/list'" ><i class="fa"><img src="./assets/img/icon/facturas.png" height="18"></i>Factura productos</a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-          <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'reportes'" ><i class="fa"><img src="./assets/img/icon/desarrollo.png" height="18"></i> Pantalla de desarrollo </a>
-            <div class="collapsible-body">
-              <!--Contenido submenu-->
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
+        </li>
+        <!--/. Logo -->
+        <div class="dropdown-divider"></div>
+        <!-- Side de navegacion -->
+        <li>
+          <ul class="collapsible collapsible-accordion">
+            <li [routerLink]="['dashboard']" ><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/home.png" height="18"></i> Inicio</a>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/product.png" height="18"></i>Productos <i class="fa fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['producto']" >Productos</a>
+                  </li>
+                  <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['categorias']" >Categoria</a>
+                  </li>
+                  <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['clasificacion-productos']" >Clasificación</a>
+                  </li>
+                  <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['subclasificacion-productos']">Subclasificación</a>
+                  </li>
+                  <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['empaques']">Empaques</a>
+                  </li>
+                  <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['envases']">Envases</a>
+                  </li>
+                  <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['unidadmedida']">Unidad de Medida</a>
+                  </li>
+                  <li routerLinkActive="active-submenu" ><a class="waves-effect" [routerLink]="['salida-producto']">Salidas</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/sucursales.png" height="18"></i> Sucursales </a>
+              <div class="collapsible-body">
+                <!--Contenido submenu-->
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r"  ><i class="fa"><img src="./assets/img/icon/proveedores.png" height="18"></i> Proveedores <i class="fa fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                  <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['proveedores']">Proveedores</a>
+                  </li>
+                  <li routerLinkActive="active-submenu"><a class="waves-effect" [routerLink]="['producto-proveedor']">Productos</a>
+                  </li>
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['trabajador']"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>
+              <div class="collapsible-body">
+                <!--Contenido submenu-->
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['cargo']" ><i class="fa"><img src="./assets/img/icon/roles.png" height="18"></i> Cargos </a>
+              <div class="collapsible-body">
+                <!--Contenido submenu-->
+              </div>
+            </li>
+              <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'usuario'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
+              <div class="collapsible-body">
+                <!--Contenido submenu-->
+              </div>
+            </li>
+            <li *ngIf="rol == 'admin'"><a class="collapsible-header waves-effect arrow-r" [routerLink]="'rol'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Roles </a>
+              <div class="collapsible-body">
+                <!--Contenido submenu-->
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'factura/list'" ><i class="fa"><img src="./assets/img/icon/facturas.png" height="18"></i>Factura productos</a>
+              <div class="collapsible-body">
+                <!--Contenido submenu-->
+              </div>
+            </li>            
+          </ul>
+        </li>
+      </ul>
+    </div>
 
     <!--/. Side de navegacion -->
     <!-- Navbar -->

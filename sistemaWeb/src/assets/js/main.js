@@ -1,4 +1,5 @@
 $(".button-collapse").sideNav();
+
 window.onscroll = function () {
     if (pageYOffset >= 200) {
         document.getElementById('backToTop').style.visibility = "visible";
@@ -6,3 +7,7 @@ window.onscroll = function () {
         document.getElementById('backToTop').style.visibility = "hidden";
     }
 };
+
+$('[data-toggle="tooltip"]').tooltip({
+    trigger : 'hover'
+})  

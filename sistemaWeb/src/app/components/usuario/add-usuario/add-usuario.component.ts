@@ -12,6 +12,8 @@ export class AddUsuarioComponent implements OnInit {
   ngOnInit() {
     $(".selectrol").select2();
 
+    $(".selecttrabajador").select2();
+
     $(document).ready(function(){
 
       $('.dropify').dropify();

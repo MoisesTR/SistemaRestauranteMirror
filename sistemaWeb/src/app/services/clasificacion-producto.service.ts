@@ -32,7 +32,7 @@ export class ClasificacionProductoService {
     return this._http.get(this.url + 'clasificaciones?Habilitado='+Habilitado).map(res => res.json());
   }
 
-  updateClasificacionProducto(IdClasificacion,Clasificacion){
+  updateClasificacionProducto(Clasificacion){
 
     let params = JSON.stringify(Clasificacion);
     let headers = new Headers({
@@ -40,7 +40,7 @@ export class ClasificacionProductoService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'clasificacion/'+IdClasificacion,params,{headers:headers})
+    return this._http.put(this.url+'clasificacion',params,{headers:headers})
       .map(res => res.json());
 
   }

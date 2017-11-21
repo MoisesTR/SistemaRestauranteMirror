@@ -28,8 +28,8 @@ export class TrabajadorService{
     return this._http.get(this.url + 'trabajador/'+IdTrabajador).map(res => res.json());
   }
 
-  getTrabajadores(){
-    return this._http.get(this.url + 'trabajadores').map(res => res.json());
+  getTrabajadores(Habilitado = 1){
+    return this._http.get(this.url + 'trabajadores?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateTrabajador(IdTrabjador,Trabajador){

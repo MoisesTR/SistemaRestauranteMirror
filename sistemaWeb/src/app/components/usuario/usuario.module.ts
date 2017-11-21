@@ -5,7 +5,7 @@ import { ListUsuariosComponent } from './list-usuarios/list-usuarios.component';
 import { UpdateUsuarioComponent } from './update-usuario/update-usuario.component';
 import {HttpModule} from "@angular/http";
 import {DataTablesModule} from "angular-datatables";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UsuarioService} from "../../services/usuario.service";
 import {UsuarioRoutingModule} from "./usuario.routing.module";
 
@@ -15,8 +15,8 @@ import {UsuarioRoutingModule} from "./usuario.routing.module";
     , FormsModule
     , HttpModule
     , DataTablesModule
-    , UsuarioModule
     , UsuarioRoutingModule
+    , ReactiveFormsModule
   ],
   exports: [],
   declarations: [

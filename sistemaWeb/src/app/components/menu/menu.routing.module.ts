@@ -14,7 +14,6 @@ import {EmpaqueComponent} from "../empaque/empaque.component";
 import {ListProductosComponent} from "../producto/list-productos/list-productos.component";
 import {AddProductoComponent} from "../producto/add-producto/add-producto.component";
 import {UpdateProductoComponent} from "../producto/update-producto/update-producto.component";
-import {TrabajadorComponent} from "../trabajador/trabajador.component";
 import {CargoComponent} from "../cargo/cargo.component";
 import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
@@ -29,6 +28,11 @@ import {ListFacturaComponent} from "../factura/list-factura/list-factura.compone
 import {DeleteFacturaComponent} from "../factura/delete-factura/delete-factura.component";
 import {DashBoardComponent} from "../dash-board/dash-board.component";
 import {SalidaProductoComponent} from "../salida-producto/salida-producto.component";
+import {AddTrabajadorComponent} from "../trabajador/add-trabajador/add-trabajador.component";
+import {ListTrabajadorComponent} from "../trabajador/list-trabajador/list-trabajador.component";
+import {UpdateTrabajadorComponent} from "../trabajador/update-trabajador/update-trabajador.component";
+import {ListUsuariosComponent} from "../usuario/list-usuarios/list-usuarios.component";
+import {UpdateUsuarioComponent} from "../usuario/update-usuario/update-usuario.component";
 
 
 const menuRoutes: Routes = [
@@ -41,16 +45,17 @@ const menuRoutes: Routes = [
         , {path:'producto',component: ListProductosComponent}
         , {path:'producto/add',component: AddProductoComponent}
         , {path:'producto/update/:id',component: UpdateProductoComponent}
-        , {path:'add-usuario',component:AddUsuarioComponent }
+        /*MODULO USUARIO*/
+        , {path:'usuario/add',component:AddUsuarioComponent }
+        , {path:'usuario',component:ListUsuariosComponent }
+        , {path:'usuario/update',component:UpdateUsuarioComponent }
         , {path:'categorias',component: CategoriaProductoComponent}
         , {path:'clasificacion-productos',component: ClasificacionProductoComponent}
         , {path:'proveedores',component: ProveedorComponent}
         , {path:'subclasificacion-productos',component: SubClasificacionProductoComponent}
-        , {path:'usuario',component: AddUsuarioComponent}
         , {path:'sucursales',component: SucursalComponent}
         , {path:'empaques',component: EmpaqueComponent}
         , {path:'envases',component: EnvaseComponent}
-        , {path:'trabajador',component: TrabajadorComponent}
         , {path:'cargo',component: CargoComponent}
         , {path:'bodega',component: BodegaSucursalComponent}
         , {path:'traslados',component: TrasladoProductoComponent}
@@ -63,6 +68,12 @@ const menuRoutes: Routes = [
         , {path:'factura/add',component: AddfacturaComponent}
         , {path:'factura/list',component: ListFacturaComponent}
         , {path:'factura/delete',component: DeleteFacturaComponent}
+
+        /*TRABAJADOR MODULO*/
+      /*FACTURA MODULO*/
+        , {path:'trabajador/add',component: AddTrabajadorComponent}
+        , {path:'trabajador',component: ListTrabajadorComponent}
+        , {path:'trabajador/update',component: UpdateTrabajadorComponent}
         , {path:'dashboard',component: DashBoardComponent}
         , {path:'salida-producto',component: SalidaProductoComponent}
 

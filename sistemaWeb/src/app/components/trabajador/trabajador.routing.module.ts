@@ -5,7 +5,18 @@ import {RouterModule, Routes} from '@angular/router';
 //Componentes
 
 
+/*const produtoRoutes: Routes = [
 
+  {
+    path:'producto',
+    component: ListProductosComponent,
+    children: [
+      {path:'',component:AddProductoComponent,pathMatch:'full'}
+
+
+    ]
+  },
+];*/
 
 @NgModule({
   imports: [
@@ -18,6 +29,6 @@ import {RouterModule, Routes} from '@angular/router';
 })
 
 
-export class UsuarioRoutingModule {
+export class TrabajadorRoutingModule {
 
 }

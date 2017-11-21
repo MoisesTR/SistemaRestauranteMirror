@@ -124,4 +124,13 @@ Router
     .get('/users',AuthController.getUsers)
     .put('/update-user/:IdUsuario(\\d+)',validations.userSignInValidation,validations.userUpdate,validations.validsParamas,AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)',AuthController.changeStateUser)    
+
+
+    .get('/bodegaap',)
+    .get('/bodegaap/detalle')
+    .post('/bodegaap/entrada')
+    .post('/bodegaap/entrada/detalle')
+    .get('/bodegaap/')
+    .ge
+    .post
     module.exports=Router

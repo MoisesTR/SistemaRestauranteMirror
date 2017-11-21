@@ -28,22 +28,21 @@ create table BODEGA_AREA_PRODUCCION(
 GO
 --NOMBRE ANTERIOR 
 create table DETALLE_BODEGA_AP(
-	IdDetalle int IDENTITY(1,1),
+	IdDetalleBAp int IDENTITY(1,1),
 	IdBodegaAreaP int not null,
-    IdProducto int not null,
+    IdProductoProveedor int not null,
 	IdEntradaBodegaAP INT NOT NULL,
     Cantidad int not null,
     FechaHoraIngreso datetime not null,
     FechaHoraProduccion datetime null,
     Habilitado Bit default 1 not null,
-    constraint pk_IdDetalleBodega primary key(IdDetalle,IdBodegaAreaP),	
+    constraint pk_IdDetalleBodega primary key(IdDetalleBAp,IdBodegaAreaP),	
     constraint fk_BodegaDelleAP foreign key(IdBodegaAreaP) references BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
-    constraint fk_IdProducto foreign key(IdProducto) references PRODUCTO(IdProducto),
-    constraint fk_IdUsoProducto foreign key(IdUso) references UsoProducto(IdUso)
+    constraint fk_IdProducto foreign key(IdProductoProveedor) references PRODUCTO_PROVEEDOR(IdProductoProveedor)
 )
 GO
 CREATE TABLE ENTRADA_BODEGA_CENTRAL (
-    IdEntrada INT IDENTITY(1,1),
+    IdEntradaAp INT IDENTITY(1,1),
     IdBodega INT not null,
 	IdTrabajador INT NOT NULL,
 	IdProveedor INT NOT NULL,
@@ -111,7 +110,7 @@ Create table SALIDA_BODEGA_AREA_PRODUCTO(
     constraint pk_IdDescuentoBodega primary key(Idsalida),
 	constraint fk_TrabajadorSalidadBAP foreign key(IdTrabajador) references TRABAJADOR(IdTrabajador),
     constraint fk_ProductoDescBAP foreign key(IdDetalleBAP,IdBodega) references DETALLE_BODEGA_AREA_PRODUCCION(IdDetalle,IdBodega),
-    constraint fk_MOTIVO_DESCUENTO_AREA_PRODUCCION foreign key(IdMotivo) references MOTIVO_DESCUENTO(IdMotivo),
+    constraint fk_MOTIVO_DESCUENTO_AREA_PRODUCCION foreign key(IdMotivo) references MOTIVO_BAJA_PRODUCTO(IdMotivo),
     constraint Ch_CantidadDescAP Check(Cantidad > 0)
 );
 GO
@@ -129,7 +128,7 @@ Create table SALIDA_BODEGA_SUCURSAL(
     constraint pk_IdDescuentoInventarioS primary key(Idsalida),
     constraint fk_IdTrabajadorSIS foreign key(IdTrabajador) references TRABAJADOR(IdTrabajador),
     constraint fk_ProductoDescIS foreign key(IdDetalleBS,IdBodega) references DETALLE_BODEGA_SUCURSAL(IdDetalle,IdBodega),
-    constraint fk_MOTIVO_DESCUENTOIS foreign key(IdMotivo) references MOTIVO_DESCUENTO(IdMotivo),
+    constraint fk_MOTIVO_DESCUENTO foreign key(IdMotivo) references MOTIVO_DESCUENTO(IdMotivo),
     constraint Ch_CantidadDescIS Check(Cantidad > 0)
 );
 GO

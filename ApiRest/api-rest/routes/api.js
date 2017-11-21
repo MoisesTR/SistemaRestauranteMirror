@@ -14,6 +14,7 @@ const ProductoProveedorController = require('../controllers/producto_proveedor')
 const TrabajadorController = require('../controllers/trabajador');
 const CargoController = require('../controllers/cargo')
 const clasificacionUnidadMedidaController = require('../controllers/clasificacionudm')
+const bodegaApController = require('../controllers/bodegaAp')
 
 const validations = require('../Utils/validations');
 const jwt = require('../services/jwt')
@@ -121,6 +122,9 @@ Router
     .put('/cargo',CargoController.updateCargo)
     .delete('/cargo/:IdCargo(\\d+)',CargoController.changeStateCargo)
 
+    //Rutas para Bodega Area Produccion
+    .post('/bodegaap',validations.createEntradaBodegaAP,validations.validsParamas,bodegaApController.createEntradaBodegaAp)
+    .get('/detallebodegaap',bodegaApController.getDetalleBodegaAp)
     //Rutas para 
     .post('/signup',validations.userSignUpValidation,validations.validsParamas,AuthController.signUp)
     .post('/signin',validations.userSignInValidation,validations.validsParamas,AuthController.singIn)

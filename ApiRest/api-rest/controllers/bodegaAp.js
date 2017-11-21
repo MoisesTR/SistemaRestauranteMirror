@@ -29,31 +29,11 @@ function getDetalleBodegaAp(req,res){
     database.pushAOJParam(aoj,'IdBodegaAreaP',sql.Int,1);
     database.storedProcExecute('USP_GET_DETALLE_BODEGA_AP',aoj).then((results) => {
         res.status(200).json({
-            cargos:results.recordset
+            detalles:results.recordset
         })
     }).catch((err) => {
         res.status(500).json(err)
     });
-}
-function updateCargo(req,res){
-    var data = req.body
-    if(data.IdCargo != undefined && data.NombreCargo != undefined && data.Descripcion != undefined){
-        config.getConnectionPoolGlobal().then((poolObt) => {
-            return querys.updateCargo(poolObt,data)
-        }).then((results) => {
-            res.status(200).json({
-                success:'Cargo Actualizado Exitosamente!'
-            })
-        }).catch((err) => {
-            res.status(500).json(err)
-        });
-    }else{
-        res.status(401).send({
-            error:true,
-            code:'EPARAMS',
-            message:'Para actualizar envie correctamente los parametros!'
-        })
-    }
 }
 function getCargoById(req,res){
     var data = req.params

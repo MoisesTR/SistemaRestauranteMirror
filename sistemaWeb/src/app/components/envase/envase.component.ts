@@ -66,6 +66,8 @@ export class EnvaseComponent implements OnInit {
 
 
 
+
+
   }
 
  rerender(): void {

@@ -17,9 +17,9 @@ INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,I
 VALUES('Hongos','Bolsa de Hongos.',1,3,NULL,1);
 
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
-select NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado from PRODUCTO
-VALUES('Res','Bolsa de Res.',2,3,NULL,1);
+--INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
+--select NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado from PRODUCTO
+--VALUES('Res','Bolsa de Res.',2,3,NULL,1);
 
 -- INSERT INTO BodegaSucursal(Nombre,DescripcionLocal)
 -- VALUES('Bodega de Rubenia','');

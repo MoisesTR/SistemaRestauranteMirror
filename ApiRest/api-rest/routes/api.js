@@ -13,6 +13,11 @@ const RoleController = require('../controllers/rol');
 const ProductoProveedorController = require('../controllers/producto_proveedor')
 const TrabajadorController = require('../controllers/trabajador');
 const CargoController = require('../controllers/cargo')
+
+const validations = require('../Utils/validations');
+const jwt = require('../services/jwt')
+const AuthController = require('../controllers/auth')
+
 var Router = express.Router()
 var multipart = require('connect-multiparty');
 var md_upload = multipart({uploadDir: './uploads/productos'});
@@ -34,6 +39,7 @@ Router
     .get('/clasificaciones',ClasificacionController.getClasificaciones)
     .post('/clasificacion',ClasificacionController.createClasificacion)
     .put('/clasificacion/:IdClasificacion(\\d+)',ClasificacionController.updateClasificacion)
+    .delete('/clasificacion/:IdClasificacion(\\d+)',ClasificacionController.changeStateClasificacion)
     //Rutas empaque controller
     .get('/empaque/:IdEmpaque(\\d+)',EmpaqueController.getEmpaqueById)
     .get('/empaques',EmpaqueController.getEmpaques)
@@ -95,10 +101,10 @@ Router
     /*********** faltan */
     //Rutas para Trabajador Controller
     .get('/trabajadores',TrabajadorController.getTrabajadores)
-    .post('/trabajador',TrabajadorController.createTrabajador)
+    .post('/trabajador',validations.createTrabajador,validations.validsParamas,TrabajadorController.createTrabajador)
     .get('/trabajador/:IdTrabajador(\\d+)',TrabajadorController.getTrabajadorById)
-    .put('/trabajador/:IdTrabajador(\\d+)',TrabajadorController.updateTrabajador)
-    .delete('/trabajador/:IdTrabajador(\\d+)',TrabajadorController.changeStateTrabajador)
+    .put('/trabajador/:IdTrabajador(\\d+)',validations.createTrabajador.concat(validations.updateTrabajador),validations.validsParamas,TrabajadorController.updateTrabajador)
+    .delete('/trabajador/:IdTrabajador(\\d+)',validations.deleteTrabajador,validations.validsParamas,TrabajadorController.changeStateTrabajador)
 
     //Rutas Para Cargo Controller
     .get('/cargos',CargoController.getCargos)
@@ -106,5 +112,11 @@ Router
     .get('/cargo/:IdCargo(\\d+)',CargoController.getCargoById)
     .put('/cargo/:IdCargo(\\d+)',CargoController.updateCargo)
     .delete('/cargo/:IdCargo(\\d+)',CargoController.changeStateCargo)
+
+    //Rutas para 
+    .post('/signup',validations.userSignUpValidation,validations.validsParamas,AuthController.signUp)
+    .post('/signin',validations.userSignInValidation,validations.validsParamas,AuthController.singIn)
+    .get('/users',AuthController.getUsers)
+    .put('/update-user/:id(\\d+)',validations.userSignInValidation,validations.userUpdate,AuthController.singIn,validations.validsParamas,AuthController.updateUser)
     
     module.exports=Router

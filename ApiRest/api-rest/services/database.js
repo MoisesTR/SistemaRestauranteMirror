@@ -7,12 +7,13 @@ function pushAOJParam(aoj, name, type, value) {
 	}
 }
 function storedProcExecute(spName, parametersJsonArray) {
+    console.log('storedProcExec')
     return conSql.getConnectionPoolGlobal()
     .then(function(pool) {	
         console.log('Conecto');
         let request  = pool.request()
         for (var i = 0; i < parametersJsonArray.length; i++) {
-     //       console.log(parametersJsonArray[i]);
+            console.log(parametersJsonArray[i]);
             request.input(
                 parametersJsonArray[i]['pName'],
                 eval(parametersJsonArray[i]['pType']),

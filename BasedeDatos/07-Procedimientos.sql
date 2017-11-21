@@ -8,7 +8,7 @@ CREATE PROCEDURE USP_CREATE_CARGO(
     @DescripcionCargo NVARCHAR(150)
 )
 AS BEGIN
-	INSERT INTO CARGO(NombreCargo,DrescripcionCargo)
+	INSERT INTO CARGO(NombreCargo,DescripcionCargo)
 	VALUES(@NombreCargo,@DescripcionCargo)
 END
 GO
@@ -67,7 +67,7 @@ CREATE PROCEDURE USP_GET_TRABAJADOR(
 	@IdTrabajador INT
 )
 AS BEGIN
-	SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.IdCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
+	SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
 	FROM TRABAJADOR T 
 	INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
 	INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
@@ -82,12 +82,12 @@ CREATE PROCEDURE USP_GET_TRABAJADORES(
 )
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.IdCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
+		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
 		FROM TRABAJADOR T 
 		INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
 		INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
 	ELSE
-		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.IdCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
+		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
 		FROM TRABAJADOR T 
 		INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
 		INNER JOIN CARGO C ON T.IdCargo = C.IdCargo

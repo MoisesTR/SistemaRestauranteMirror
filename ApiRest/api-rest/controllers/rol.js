@@ -22,8 +22,9 @@ function createRol(req,res){
     }
 }
 function getRoles(req,res){
+    let Habilitado = req.query.Habilitado
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getRoles(poolObt);
+        return querys.getRoles(poolObt,Habilitado);
     }).then((results) => {
         res.status(200).json({
             roles:results.recordset

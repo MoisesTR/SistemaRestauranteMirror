@@ -77,7 +77,7 @@ const createProveedor=[
 ];
 
 const createEntradaBodegaAP=[
-    check('IdBodegaAreaP').exists(),
+    check('IdBodegaAreaP').isInt(),
     check('IdTrabajador').isInt(),
 	check('IdProveedor').isInt(),
 	//check('IdEstadoEdicion').isInt(),
@@ -91,7 +91,24 @@ const createEntradaBodegaAP=[
     check('IdEntradaBodegaAP').isInt()
 ],crearFactura=[
     check('IdEntradaBodegaAP').isInt()
+],detalleEntradaBodega =[
+    check('IdEntradaBodegaAP').isInt(),
+    check('IdProductoProveedor').isInt(),
+    check('Cantidad').isInt(),
+    check('PrecioUnitarioEntrada').isFloat(),
+	check('DescuentoCalculado').isFloat()
 ];
+const createProductoProveedor =[
+    check('IdProducto').isInt(),
+    check('IdProveedor').isInt(),
+    check('IdEnvase').isInt(),
+    check('IdEmpaque').isInt(),
+    check('Costo').isFloat(),
+    check('CantidadEmpaque').isInt(),
+    check('IdUnidadMedida').isInt(),
+    check('ValorUnidadMedida').isFloat(),
+    check('DiasCaducidad').optional({nullable:true})
+]
 
 const createTrabajador=[
     check('IdSucursal','IdSucursal debe ser entero!').isInt(),
@@ -102,8 +119,8 @@ const createTrabajador=[
     check('FechaNacimiento','FechaNacimiento debe ser una fecha').exists(),
     check('Direccion','Direccion debe tener un minimo de 10 y un maximo de 300').isLength({min:10,max:300}),
     check('FechaIngreso','FechaIngreso es requerida!').exists(),
-    sanitize('IdSucursal').toInt(),
-    sanitize('IdCargo').toInt()
+    sanitize('IdSucursal','IdSucursal debe ser entero').toInt(),
+    sanitize('IdCargo','IdCargo debe ser entero').toInt()
 ],updateTrabajador=[
     check('IdTrabajador','IdTrabajador debe ser un entero!').exists().isInt(),
     sanitize('IdTrabajador').toInt()
@@ -141,5 +158,6 @@ module.exports={
     deleteTrabajador,
     createSucursalTelef,
     createEntradaBodegaAP,
-    crearFactura
+    crearFactura,detalleEntradaBodega,
+    createProductoProveedor
 }   

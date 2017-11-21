@@ -6,7 +6,6 @@ export class Sucursal {
       ,public Principal: number
       ,public NombreSucursal: string
       ,public Direccion: string
-      ,public TelefonoPrincipal: number
       ,public Habilitado: number
   ){}
 }

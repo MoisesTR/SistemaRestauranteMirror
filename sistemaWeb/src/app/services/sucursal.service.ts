@@ -18,7 +18,7 @@ export class SucursalService {
   createSucursal(Sucursal){
 
     let params = JSON.stringify(Sucursal);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'sucursal',params,{headers:headers})
       .map(res => res.json());
@@ -28,8 +28,8 @@ export class SucursalService {
     return this._http.get(this.url + 'sucursal/'+IdSucursal).map(res => res.json());
   }
 
-  getSucursales(){
-    return this._http.get(this.url + 'sucursales').map(res => res.json());
+  getSucursales(Habilitado=1){
+    return this._http.get(this.url + 'sucursales?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateSucursal(IdSucursal,Sucursal){

@@ -39,6 +39,7 @@ Router
     .get('/clasificaciones',ClasificacionController.getClasificaciones)
     .post('/clasificacion',ClasificacionController.createClasificacion)
     .put('/clasificacion/:IdClasificacion(\\d+)',ClasificacionController.updateClasificacion)
+    .delete('/clasificacion/:IdClasificacion(\\d+)',ClasificacionController.changeStateClasificacion)
     //Rutas empaque controller
     .get('/empaque/:IdEmpaque(\\d+)',EmpaqueController.getEmpaqueById)
     .get('/empaques',EmpaqueController.getEmpaques)
@@ -115,6 +116,7 @@ Router
     //Rutas para 
     .post('/signup',validations.userSignUpValidation,validations.validsParamas,AuthController.signUp)
     .post('/signin',validations.userSignInValidation,validations.validsParamas,AuthController.singIn)
+    .get('/users',AuthController.getUsers)
     .put('/update-user/:id(\\d+)',validations.userSignInValidation,validations.userUpdate,AuthController.singIn,validations.validsParamas,AuthController.updateUser)
     
     module.exports=Router

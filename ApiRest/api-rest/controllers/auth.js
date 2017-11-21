@@ -100,6 +100,16 @@ function singIn(req,res){
         res.status(500).json(err)
     })
 }
+function getUsers(req,res){
+    let Habilitado = req.query.Habilitado;
+    var aoj=[];
+    pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado);
+    database.storedProcExecute('USP_GET_USUARIOS',aoj).then((result) => {
+        res.status(200).json({usuarios:result.recordset})
+    }).catch((error) => {
+        res.status(500).json(error)
+    })
+}
 //
 function updateUser(req,res){
     var userId = req.params.id;
@@ -113,5 +123,6 @@ function updateUser(req,res){
 module.exports={
     signUp,
     singIn,
-    updateUser
+    updateUser,
+    getUsers
 };

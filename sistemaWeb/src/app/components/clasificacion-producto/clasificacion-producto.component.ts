@@ -17,9 +17,6 @@ declare var $:any;
 })
 export class ClasificacionProductoComponent implements OnInit {
 
-  @ViewChild('formClasificacion') formClasificacion: NgForm;
-
-
   public clasificacion : ClasificacionProducto;
   public clasificaciones: ClasificacionProducto[];
 
@@ -32,19 +29,19 @@ export class ClasificacionProductoComponent implements OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-    @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
- 
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _clasificacionService : ClasificacionProductoService
   ) {
     this.initConstructorClasificacion();
+
   }
 
   ngOnInit() {
-
 
     this.dtOptions = {
       pagingType: 'full_numbers'
@@ -58,6 +55,8 @@ export class ClasificacionProductoComponent implements OnInit {
       response => {
         if(response.clasificaciones){
           this.clasificaciones = response.clasificaciones;
+          console.log(this.clasificaciones);
+
           this.dtTrigger.next();
         }
       }, error =>{
@@ -65,6 +64,7 @@ export class ClasificacionProductoComponent implements OnInit {
       }
     );
 
+    console.log('hola')
   }
 
   rerender(): void {
@@ -82,7 +82,7 @@ export class ClasificacionProductoComponent implements OnInit {
 
   createClasificacion(myForm: NgForm){
 
-
+/*
     this.clasificacion.DescripcionClasificacion = this.formClasificacion.value.descripcion;
     this.clasificacion.NombreClasificacion = this.formClasificacion.value.nombre;
     this.formClasificacion.reset;
@@ -99,9 +99,7 @@ export class ClasificacionProductoComponent implements OnInit {
       }
     )
 
-    console.log(this.clasificacion.DescripcionClasificacion + this.clasificacion.NombreClasificacion);
-
-
+    console.log(this.clasificacion.DescripcionClasificacion + this.clasificacion.NombreClasificacion);*/
 
   }
 
@@ -200,7 +198,7 @@ getClasificacion(){
           })
 
         } else {
-          swal(    
+          swal(
             'Error inesperado',
             'Ha ocurrido un error al insertar la clasificacion, intenta nuevamente!',
             'error'

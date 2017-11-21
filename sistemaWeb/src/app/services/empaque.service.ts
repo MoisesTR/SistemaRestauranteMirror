@@ -27,8 +27,8 @@ export class EmpaqueService {
     return this._http.get(this.url + 'empaque/'+IdEmpaque).map(res => res.json());
   }
 
-  getEmpaques(){
-    return this._http.get(this.url + 'empaques').map(res => res.json());
+  getEmpaques(Habilitado = 1){
+    return this._http.get(this.url + 'empaques?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateEmpaque(IdEmpaque,Empaque){

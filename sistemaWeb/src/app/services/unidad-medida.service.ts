@@ -29,10 +29,10 @@ export class UnidadMedidaService {
 
      return this._http.get(this.url + 'unidadmedida/'+IdUnidadMedida).map(res => res.json());
   }
-  
 
-  getUnidadesMedida(){
-    return this._http.get(this.url + 'unidadesmedida').map(res => res.json());
+
+  getUnidadesMedida(Habilitado = 1){
+    return this._http.get(this.url + 'unidadesmedida?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateUnidadMedida(IdUnidadMedida,UnidadMedida){
@@ -59,7 +59,7 @@ export class UnidadMedidaService {
     let options = new RequestOptions({headers:headers});
     return this._http.delete(this.url+'unidadmedida/'+IdUnidadMedida,options)
       .map(res => res.json());
-  
+
   }
-  
+
 }

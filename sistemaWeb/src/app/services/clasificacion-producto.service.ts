@@ -28,8 +28,8 @@ export class ClasificacionProductoService {
     return this._http.get(this.url + 'clasificacion/'+IdClasificacion).map(res => res.json());
   }
 
-  getClasificaciones(){
-    return this._http.get(this.url + 'clasificaciones').map(res => res.json());
+  getClasificaciones(Habilitado = 1){
+    return this._http.get(this.url + 'clasificaciones?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateClasificacionProducto(IdClasificacion,Clasificacion){

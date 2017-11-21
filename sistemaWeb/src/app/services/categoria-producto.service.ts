@@ -29,8 +29,8 @@ export class CategoriaProductoService {
     return this._http.get(this.url + 'categoria/'+IdCategoria).map(res => res.json());
   }
 
-  getCategoriasProductos(){
-    return this._http.get(this.url + 'categorias').map(res => res.json());
+  getCategoriasProductos(Habilitado = 1){
+    return this._http.get(this.url + 'categorias?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateCategoriaProducto(Categoria){

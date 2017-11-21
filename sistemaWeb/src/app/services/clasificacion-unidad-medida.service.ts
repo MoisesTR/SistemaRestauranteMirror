@@ -27,11 +27,11 @@ export class ClasificacionUnidadMedidaService {
   }
 
   getClasificacionUnidadMedida(){
-    return this._http.get(this.url + 'clasificacionesunidadesmedidaHabilitado').map(res => res.json());
+
   }
 
-  getClasificacionUnidadesMedida(){
-
+  getClasificacionUnidadesMedida(Habilitado = 1){
+    return this._http.get(this.url + 'clasificacionesunidadmedida?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateClasificacionUnidadMedida(){

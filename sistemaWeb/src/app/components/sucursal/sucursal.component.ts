@@ -267,8 +267,6 @@ export class SucursalComponent implements OnInit {
     this.sucursal.Direccion = this.formAddSucursal.value.descripcionSucursal;
 
 
-
-
   }
 
   showModalUpdateSucursal(sucursal){

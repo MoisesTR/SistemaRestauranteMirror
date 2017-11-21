@@ -23,26 +23,26 @@
           <!-- Contenido -->
           <div class="card-body ">
             <!-- Formulario -->
-            <form method="" autocomplete="off" action="">
+            <form [formGroup] = "formularioAddUsuario" novalidate>
               <!-- Campos a ingresar -->
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form">
-                    <input type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control validate " autocomplete="off">
+                    <input type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control validate " formControlName="nombre" autocomplete="off">
                     <label for="UsuarioNombre">Nombres y Apellidos</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="email" id="Correo" name="Correo" class="form-control validate" autocomplete="off">
+                    <input type="email" id="Correo" name="Correo" class="form-control validate" formControlName="correo" autocomplete="off">
                     <label for="Correo">Correo Electrónico</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="password" id="Contrasenia" name="Contrasenia" class="form-control validate" autocomplete="off">
+                    <input type="password" id="Contrasenia" name="Contrasenia" class="form-control validate" formControlName="contrasenia" autocomplete="off">
                     <label for="Contrasenia">Contraseña</label>
                   </div>
                 </div>

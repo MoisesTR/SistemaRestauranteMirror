@@ -10,6 +10,8 @@ import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
 import {ClasificacionProducto} from "../../models/ClasificacionProducto";
 import {ClasificacionProductoService} from "../../services/clasificacion-producto.service";
+import {ClasificacionUnidadMedidaService} from "../../services/clasificacion-unidad-medida.service";
+import {ClasificacionUnidadDeMedida} from "../../models/ClasificacionUnidadDeMedida";
 declare var $:any;
 
 
@@ -31,6 +33,7 @@ export class UnidadmedidaComponent implements OnInit {
   public mensaje : string;
 
   public formUpdateUnidadMedida: FormGroup;
+  public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
 
   tOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
@@ -49,6 +52,7 @@ export class UnidadmedidaComponent implements OnInit {
     , private _router: Router
     , private _UnidadMedidaServicio : UnidadMedidaService
     , private _clasificacionService : ClasificacionProductoService
+    , private _clasificacionUnidad: ClasificacionUnidadMedidaService
     , private fBuilderUnidadMedida: FormBuilder
     ) {
 
@@ -112,6 +116,7 @@ export class UnidadmedidaComponent implements OnInit {
     this.initFormAdd();
     this.initFormUpdate();
     this.getClasificaciones();
+    this.getClasificacionUnidades();
 
   }
 
@@ -151,6 +156,17 @@ export class UnidadmedidaComponent implements OnInit {
     })
   }
 
+  getClasificacionUnidades(){
+    this._clasificacionUnidad.getClasificacionUnidadesMedida().subscribe(
+      response =>{
+        if(response.clasificaciones){
+          this.clasificacionesUnidad = response.clasificaciones;
+        }
+      }, error =>{
+
+      }
+    )
+  }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

@@ -9,6 +9,7 @@ import {DataTablesModule} from "angular-datatables";
 import {ProductoRoutingModule} from "../producto/producto.routing.module";
 import {SharedModuleModule} from "../shared-module/shared-module.module";
 import {TrabajadorService} from "../../services/trabajador.service";
+import {CargoService} from "../../services/cargo.service";
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import {TrabajadorService} from "../../services/trabajador.service";
     , SharedModuleModule
   ],
   declarations: [AddTrabajadorComponent, ListTrabajadorComponent, UpdateTrabajadorComponent]
-  , providers : [TrabajadorService]
+  , providers : [TrabajadorService, CargoService]
 })
 export class TrabajadorModule { }

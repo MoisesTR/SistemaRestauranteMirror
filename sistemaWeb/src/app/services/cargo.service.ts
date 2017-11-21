@@ -18,7 +18,7 @@ public url: string;
      createCargo(Cargo){
 
     let params = JSON.stringify(Cargo);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'createCargo',params,{headers:headers})
       .map(res => res.json());

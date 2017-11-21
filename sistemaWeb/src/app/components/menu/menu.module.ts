@@ -50,6 +50,7 @@ import {SharedModuleModule} from "../shared-module/shared-module.module";
 import {SalidaProductoComponent} from "../salida-producto/salida-producto.component";
 import {TrabajadorModule} from "../trabajador/trabajador.module";
 import {UsuarioModule} from "../usuario/usuario.module";
+import {ClasificacionUnidadMedidaService} from "../../services/clasificacion-unidad-medida.service";
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import {UsuarioModule} from "../usuario/usuario.module";
     , TrabajadorService
     , UploadService
     , ProductoProveedorService
+    , ClasificacionUnidadMedidaService
 
   ]
 })

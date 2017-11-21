@@ -79,29 +79,26 @@
                         <br>
                         <div class="md-form ">
                           <input type="text" id="NombreSucursal"
-                                  minlength="4"
-                                  maxlength="50"
                                   class="form-control letras"
                                   name="NombreSucursal"
                                   formControlName="nombreSucursal"
                                   required >
-                          <show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>
+                          <!--<show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>-->
                           <label for="NombreSucursal" class="">Nombre Sucursal</label>
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <br>
-                        <div class="md-form ">
+                        <div class="md-form">
                           <input type="number" id="TelefonoPrincipal"
                                   class="form-control"
                                   name="TelefonoPrincipal"
                                   formControl="telefonoPrincipal"
-                                  required
-                                  telefono
+
                           >
-                          <show-errors [control]="formAddSucursal.controls['telefonoPrincipal']"></show-errors>
-                          <label for="TelefonoPrincipal" class="">Telefóno</label>
+                         <!-- <show-errors [control]="formAddSucursal.controls['telefonoPrincipal']"></show-errors>-->
+                          <label for="TelefonoPrincipal" >Telefóno</label>
                         </div>
                       </div>
 

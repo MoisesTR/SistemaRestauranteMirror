@@ -18,7 +18,7 @@ export class TrabajadorService{
   createTrabajador(Trabajador){
 
     let params = JSON.stringify(Trabajador);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'trabajador',params,{headers:headers})
       .map(res => res.json());

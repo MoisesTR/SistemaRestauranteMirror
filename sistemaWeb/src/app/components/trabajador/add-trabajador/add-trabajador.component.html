@@ -23,14 +23,14 @@
           <!-- Contenido -->
           <div class="card-body ">
             <!-- Formulario -->
-            <form method="" autocomplete="off" action="">
+            <form [formGroup]="formAddTrabajador" (ngSubmit)="createTrabajador()" novalidate>
               <!-- Campos a ingresar -->
               <div class="row">
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="Nombres" name="Nombres" formControlName="nombre" required class="form-control validate letras" >
-                    <label for="Nombres">Nombres</label>
+                    <input type="text" id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required class="form-control validate letras" >
+                    <label for="nombreTrabajador">Nombres</label>
                   </div>
                 </div>
 
@@ -44,8 +44,7 @@
                 <div class="col-md-6">
                   <label for="selectsucursales">Sucursal</label>
                   <select name="selectsucursales"  class="selectsucursales" multiple="multiple" style="width: 100%">
-                    <option class="chip" value="IdSucursal">Rubenia</option>
-                    <option  class="chip" value="IdSucursal">Bello Horizonte</option>
+                    <option class="chip" [value]="sucursal.IdSucursal" *ngFor="let sucursal of sucursales">{{sucursal.NombreSucursal}}</option>
                   </select>
                 </div>
 
@@ -105,7 +104,7 @@
                            class="form-control"
                            name="TelefonoSecundarioTrabajador"
                            formControlName="telefonoSecundario"
-                            >
+                    >
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>
@@ -121,7 +120,7 @@
 
                 <div class="col-md-12">
                   <div class="md-form">
-                    <textarea type="text" id="Direccion"name="Direccion" class="md-textarea"></textarea>
+                    <textarea type="text" id="Direccion"name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
                     <label for="Direccion">Dirección</label>
                   </div>
                 </div>
@@ -129,8 +128,8 @@
                 <div class="col-md-12">
                   <label for="selectcargo">Cargo</label>
                   <select name="RolTrabajador" class="selectcargo" multiple="multiple" style="width: 100%">
-                    <option class="chip" value="1">Administrador</option>
-                    <option  class="chip" value="2">Chofer</option>
+                    <option class="chip" [value]="cargo.IdCargo" *ngFor="let cargo of cargos">{{cargo.NombreCargo}}</option>
+
                   </select>
                 </div>
 

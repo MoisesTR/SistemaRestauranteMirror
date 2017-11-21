@@ -24,12 +24,12 @@ export class SubClasificacionProductoComponent implements OnInit {
   public mensaje : string;
 
   @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  dtElement: DataTableDirective;
 
   formAddSubClasificacion : FormGroup;
   formUpdateSubClasificacion: FormGroup;
@@ -56,33 +56,33 @@ export class SubClasificacionProductoComponent implements OnInit {
       , searching: true
       , ordering:  true
     };
+    $(document).ready(function(){
+      $(".selectclasificacion").select2({
+        maximumSelectionLength: 1
+      });
 
-    $(".selectclasificacion").select2({
-      maximumSelectionLength: 1
+      $(".letras").keypress(function (key) {
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+          && (key.charCode != 45) //retroceso
+          && (key.charCode != 241) //ñ
+          && (key.charCode != 209) //Ñ
+          && (key.charCode != 32) //espacio
+          && (key.charCode != 225) //á
+          && (key.charCode != 233) //é
+          && (key.charCode != 237) //í
+          && (key.charCode != 243) //ó
+          && (key.charCode != 250) //ú
+          && (key.charCode != 193) //Á
+          && (key.charCode != 201) //É
+          && (key.charCode != 205) //Í
+          && (key.charCode != 211) //Ó
+          && (key.charCode != 218) //Ú
+
+        )
+          return false;
+      });
     });
-
-    $(".letras").keypress(function (key) {
-      if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-        && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-        && (key.charCode != 45) //retroceso
-        && (key.charCode != 241) //ñ
-        && (key.charCode != 209) //Ñ
-        && (key.charCode != 32) //espacio
-        && (key.charCode != 225) //á
-        && (key.charCode != 233) //é
-        && (key.charCode != 237) //í
-        && (key.charCode != 243) //ó
-        && (key.charCode != 250) //ú
-        && (key.charCode != 193) //Á
-        && (key.charCode != 201) //É
-        && (key.charCode != 205) //Í
-        && (key.charCode != 211) //Ó
-        && (key.charCode != 218) //Ú
-
-      )
-        return false;
-    });
-
     this.listarSubclasificaciones();
   }
 

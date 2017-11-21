@@ -3,6 +3,10 @@ import {Trabajador} from "../../../models/Trabajador";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TrabajadorService} from "../../../services/trabajador.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {SucursalService} from "../../../services/sucursal.service";
+import {Sucursal} from "../../../models/Sucursal";
+import {CargoService} from "../../../services/cargo.service";
+import {Cargo} from "../../../models/Cargo";
 declare var $:any
 
 @Component({
@@ -15,16 +19,21 @@ export class AddTrabajadorComponent implements OnInit {
   public trabajador: Trabajador;
   public trabajadores: Trabajador[];
   formAddTrabajador : FormGroup;
+  public sucursales : Sucursal[];
+  public cargos: Cargo[];
 
   constructor(
     private _route: ActivatedRoute
     ,private _router: Router
     , private _TrabajadorServicio : TrabajadorService
     , private formBuilderAddTrabajador : FormBuilder
+    , private _sucursalService: SucursalService
+    , private _cargoService: CargoService
   ) {
 
 
 
+    this.trabajador  = new Trabajador(null,null,null,null,null,null,null,null,null,null,null)
 
     this._TrabajadorServicio.getTrabajadores().subscribe(
 
@@ -38,6 +47,8 @@ export class AddTrabajadorComponent implements OnInit {
       }
 
     )
+
+    this.getCargos();
   }
 
   private initConstructorTrabajador(){
@@ -88,21 +99,82 @@ export class AddTrabajadorComponent implements OnInit {
     });
 
     this.initFormTrabajador();
+    this.getSucursales();
 
   }
 
 
   initFormTrabajador(){
     this.formAddTrabajador = this.formBuilderAddTrabajador.group({
-      'nombre' : new FormControl('', [Validators.required])
+      'nombreTrabajador' : new FormControl('', [Validators.required])
       ,'apellido' : new FormControl('', [Validators.required])
       ,'cedula' : new FormControl('', [Validators.required])
+      ,'direccion' : new FormControl('', [Validators.required])
       ,'fechaNacimiento' : new FormControl('', [Validators.required])
       ,'fechaIngreso' : new FormControl('', [Validators.required])
       ,'telefonoPrincipal' : new FormControl('', [Validators.required])
       ,'telefonoSecundario' : new FormControl('', [Validators.required])
 
     })
+  }
+
+  createTrabajador(){
+
+
+    this.trabajador.Nombres = this.formAddTrabajador.value.nombreTrabajador;
+    this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
+    this.trabajador.NumeroCedula = this.formAddTrabajador.value.cedula;
+    this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
+
+    if($( ".selectsucursales" ).val()[0] != null){
+      this.trabajador.IdSucursal = parseInt($( ".selectsucursales" ).val()[0]);
+    }
+    this.trabajador.FechaNacimiento = $( "#FechaNacimiento" ).val();
+    this.trabajador.FechaIngreso =  $( "#FechaIngreso" ).val();
+    if($( ".selectcargo" ).val()[0] != null){
+      this.trabajador.IdCargo = parseInt($( ".selectcargo" ).val()[0]);
+    }
+
+    this._TrabajadorServicio.createTrabajador(this.trabajador).subscribe(
+      response =>{
+        if(response.IdTrabajador){
+          console.log('Todo bien')
+        } else {
+          console.log('Todo mal')
+        }
+      }, error =>{
+        console.log('Error en el servidor')
+        console.log(error)
+      }
+    )
+
+   console.log(this.trabajador)
+  }
+
+  getSucursales(){
+    this._sucursalService.getSucursales().subscribe(
+      response =>{
+        if(response.sucursales){
+          this.sucursales = response.sucursales;
+        } else {
+
+        }
+      }, error=>{
+
+      }
+    )
+  }
+
+  getCargos(){
+    this._cargoService.getCargos().subscribe(
+      response =>{
+        if(response.cargos){
+          this.cargos = response.cargos;
+        }
+      }, error =>{
+
+      }
+    )
   }
 
 

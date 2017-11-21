@@ -61,4 +61,13 @@ export class UsuarioService {
     }
     return this.token;
   }
+
+  createUsuario(Usuario){
+
+    let params = JSON.stringify(Usuario);
+    let headers = new Headers({'Content-Type':'application/json'});
+
+    return this._http.post(this.url+'signup',params,{headers:headers})
+      .map(res => res.json());
+  }
 }

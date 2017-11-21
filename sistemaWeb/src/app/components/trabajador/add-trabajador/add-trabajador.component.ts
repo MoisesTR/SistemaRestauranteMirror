@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Trabajador} from "../../../models/Trabajador";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TrabajadorService} from "../../../services/trabajador.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 declare var $:any
 
 @Component({
@@ -13,12 +14,16 @@ export class AddTrabajadorComponent implements OnInit {
 
   public trabajador: Trabajador;
   public trabajadores: Trabajador[];
+  formAddTrabajador : FormGroup;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _TrabajadorServicio : TrabajadorService
+    private _route: ActivatedRoute
+    ,private _router: Router
+    , private _TrabajadorServicio : TrabajadorService
+    , private formBuilderAddTrabajador : FormBuilder
   ) {
+
+
 
 
     this._TrabajadorServicio.getTrabajadores().subscribe(
@@ -82,6 +87,22 @@ export class AddTrabajadorComponent implements OnInit {
       });
     });
 
+    this.initFormTrabajador();
+
+  }
+
+
+  initFormTrabajador(){
+    this.formAddTrabajador = this.formBuilderAddTrabajador.group({
+      'nombre' : new FormControl('', [Validators.required])
+      ,'apellido' : new FormControl('', [Validators.required])
+      ,'cedula' : new FormControl('', [Validators.required])
+      ,'fechaNacimiento' : new FormControl('', [Validators.required])
+      ,'fechaIngreso' : new FormControl('', [Validators.required])
+      ,'telefonoPrincipal' : new FormControl('', [Validators.required])
+      ,'telefonoSecundario' : new FormControl('', [Validators.required])
+
+    })
   }
 
 

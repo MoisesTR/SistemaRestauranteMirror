@@ -43,7 +43,7 @@ function updateUDM(req,res){
 
 }
 function changeStateUnidadMedida(req,res){
-
+    
 }
 module.exports={
     createUnidadMedida,

@@ -29,14 +29,14 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="Nombres" name="Nombres" class="form-control validate letras" >
+                    <input type="text" id="Nombres" name="Nombres" formControlName="nombre" required class="form-control validate letras" >
                     <label for="Nombres">Nombres</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="Apellidos" name="Apellidos" class="form-control validate letras" >
+                    <input type="text" id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control validate letras" >
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
@@ -52,21 +52,21 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="NumeroCedula" name="NumeroCedula" class="cedula form-control validate">
+                    <input type="text" id="NumeroCedula" name="NumeroCedula" formControlName="cedula" required class="cedula form-control validate">
                     <label for="NumeroCedula">Número de Cedula</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="FechaNacimiento" name="FechaNacimiento" class="form-control datepicker">
+                    <input type="text" id="FechaNacimiento" name="FechaNacimiento" formControlName="fechaNacimiento" required class="form-control datepicker">
                     <label for="FechaNacimiento">Fecha de Nacimiento</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="FechaIngreso" name="FechaIngreso" class="form-control datepicker">
+                    <input type="text" id="FechaIngreso" name="FechaIngreso" formControlName="fechaIngreso" required class="form-control datepicker">
                     <label for="FechaIngreso">Fecha Ingreso</label>
                   </div>
                 </div>
@@ -79,7 +79,10 @@
                            maxlength="50"
                            class="form-control"
                            name="TelefonoPrincipalTrabajador"
-                           required >
+                           required
+                           formControlName="telefonoPrincipal"
+
+                    >
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
                 </div>
@@ -101,7 +104,8 @@
                            maxlength="50"
                            class="form-control"
                            name="TelefonoSecundarioTrabajador"
-                           required >
+                           formControlName="telefonoSecundario"
+                            >
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>

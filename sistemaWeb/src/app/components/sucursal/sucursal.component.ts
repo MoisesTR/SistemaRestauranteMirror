@@ -72,9 +72,20 @@ export class SucursalComponent implements OnInit {
         )
           return false;
       });
+
+      $(".selectoperadora").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectoperadorasecundario").select2({
+        maximumSelectionLength: 1
+      });
+
+      $('.telefono').mask('0000-0000');
+
     });
 
-    $('.telefono').mask('0000-0000');
+
 
 
     this.dtOptions = {
@@ -97,23 +108,28 @@ export class SucursalComponent implements OnInit {
       }
     );
 
-    $(".selectoperadora").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectoperadorasecundario").select2({
-      maximumSelectionLength: 1
-    });
 
     this.settingsDatatable();
     this.getSucursal();
     this.initFormAddSucursal();
     this.initFormUpdateSucursal();
-
+    this.getSucursales();
 
 
   }
 
+
+  getSucursales(){
+    this._sucursalService.getSucursales().subscribe(
+      response =>{
+        if(response.sucursales){
+          this.sucursales = response.sucursales;
+        }
+      }, error =>{
+
+      }
+    )
+  }
   settingsDatatable(){
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
@@ -403,6 +419,11 @@ export class SucursalComponent implements OnInit {
       }
     });
 
+  }
+
+  cleanFormAdd(){
+    
+    this.formAddSucursal.reset();
   }
 
 

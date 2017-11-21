@@ -39,7 +39,12 @@ CREATE PROCEDURE USP_GET_PRODUCTO(
 	@IdProducto INT
 )
 AS BEGIN
-	SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO WHERE IdProducto =@IdProducto
+	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+	FROM PRODUCTO P
+	INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
+	INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+	INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
+	 WHERE IdProducto =@IdProducto
 END
 GO
 IF OBJECT_ID('USP_GET_PRODUCTOS','P') IS NOT NULL
@@ -49,9 +54,17 @@ CREATE PROCEDURE USP_GET_PRODUCTOS
 	@Habilitado BIT null
 AS BEGIN
 	IF @Habilitado is null
-		SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		FROM PRODUCTO P
+		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
+		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+		INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
 	ELSE
-		SELECT IdProducto,IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen,Habilitado,CreatedAt,UpdateAt FROM PRODUCTO WHERE Habilitado = @Habilitado
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		FROM PRODUCTO P
+		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
+		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+		INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion WHERE P.Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_DISP_PRODUCTO','P') IS NOT NULL
@@ -61,8 +74,8 @@ CREATE PROCEDURE USP_DISP_PRODUCTO(
 	@IdProducto INT,
 	@Habilitado BIT
 ) AS BEGIN
-	select  @Habilitado
 	UPDATE PRODUCTO SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdProducto=@IdProducto
+	select  @Habilitado as Habilitado
 END
 GO
 exec USP_DISP_PRODUCTO 2,0

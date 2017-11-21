@@ -6,8 +6,9 @@ function createClasificacion(pool,data){
         .input('DescripcionClasificacion',sql.NVarChar(150),data.DescripcionClasificacion)
         .execute('USP_CREATE_CLASIFICACION');
     } 
-function getClasificaciones(pool){
+function getClasificaciones(pool,Habilitado){
     return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_CLASIFICACIONES');
 }
 function dispClasificacion(pool,IdClasificacion){

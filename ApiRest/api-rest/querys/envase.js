@@ -2,7 +2,7 @@
 
     function getEnvases(pool){
         return pool.request()
-            .input('Habilitado',sql.Bit,Habilitado)
+            .input('Habilitado',sql.Int,Habilitado)
             .execute('USP_GET_ENVASES')
     }
     function getEnvase(pool,IdEnvase){

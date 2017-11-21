@@ -14,8 +14,9 @@ function createClasificacion(req,res){
     }
 }
 function getClasificaciones(req,res){
+    let Habilitado = req.query.Habilitado;
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getClasificaciones(poolObt);
+        return querys.getClasificaciones(poolObt,Habilitado);
     }).then((results) => {
         res.status(200).json({
             clasificaciones:results.recordset

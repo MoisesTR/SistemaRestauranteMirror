@@ -8,10 +8,10 @@ const sql = require('mssql');
 function createToken(user){
     var _token='';
     const payload={
-        sub:user.id,
-        username:user.username,
-        email:user.email,
-        role:user.role,
+        sub:user.IdUsuario,
+        username:user.Username,
+        email:user.Email,
+        role:user.IdRol,
         IdTrabajador:user.IdTrabajador,
         iar:moment().unix(), /* Fecha de creacion */
         exp:moment().add(1,"days").unix() /* Token expira en un dia */

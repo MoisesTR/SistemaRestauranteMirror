@@ -20,7 +20,7 @@ const userSignUpValidation=[
     check('email','El campo email es requerido!').exists(),
     check('email','Campo email debe ser un Email').isEmail()
 ], userSignInValidation=[
-    check('username','username es requerido!').exists(),
+    check('username','8username es requerido!').exists(),
     check('username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
     check('password','password es requerido!').exists(),
     check('password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:8,max:20}),
@@ -50,10 +50,7 @@ const createCargo=[
     check('DescripcionCargo').exists()
 ],updateCargo=[
     check('IdCargo').exists().isInt(),
-    check('NombreCargo').exist(),
-    check('DescripcionCargo').exists()
 ],changeStateCargo=[
-    check('IdCargo').exists().isInt(),
     check('Habilitado').isBoolean()
 ]
 
@@ -91,6 +88,8 @@ const createEntradaBodegaAP=[
 	check('DescuentoTotal'),
 	check('TotalFactura'),
 	check('FechaHora')
+],editEntradaBodegaAP=[
+    check('IdEntrada')
 ]
 module.exports={
     userSignUpValidation,

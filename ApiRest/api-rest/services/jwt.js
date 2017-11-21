@@ -20,7 +20,8 @@ function createToken(user){
     //Generated jwts will include an iat (issued at) claim by default unless noTimestamp is specified. 
     //If iat is inserted in the payload, it will be used instead of the real timestamp for calculating other things like exp given a timespan in options.expiresIn.
     //En este caso la fecha de expiracion la calculamos con moment
-    return jwt.sign(payload,secret,{algorithm:'RS256'});
+    console.log('Creando payload')
+    return jwt.sign(payload,secret);
 }
 function ensureAuth(req,res,next){
     if(!req.headers.authorization){

@@ -1,10 +1,11 @@
 var querys = require('../querys/trabajador')
 var config = require('../config/mssqlConfig')
+const { matchedData, sanitize } = require('express-validator/filter');
 
 function getTrabajadorById(req,res){
     var data = req.params
         config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getProductoById(poolObt,data.IdProducto)
+           return querys.getTrabajador(poolObt,data.IdTrabajador)
         }).then((results) => {
            res.status(200).json({ producto:results.recordset[0] }) 
         }).catch((err) => {
@@ -12,26 +13,29 @@ function getTrabajadorById(req,res){
         });
 }
 function getTrabajadores(req,res){
+    let Habilitado = req.query.Habilitado
     config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getProductos(poolObt)
+       return querys.getTrabajadores(poolObt,Habilitado)
     }).then((results) => {
-       res.status(200).json({productos:results.recordset}) 
+       res.status(200).json({trabajadores:results.recordset}) 
     }).catch((err) => {
         res.status(500).json(err)
     });
 }
+function setDataRepetida(){
+    ('IdSucursal',sql.Int,trabajadorData.IdSucursal)
+    ('IdCargo',sql.Int,trabajadorData.IdCargo)
+    ('Nombres',sql.NVarChar(50),trabajadorData.Nombres)
+    ('Apellidos',sql.NVarChar(50),trabajadorData.Apellidos)
+    ('NumeroCedula',sql.NVarChar(50),trabajadorData.NumeroCedula)
+    ('FechaNacimiento',sql.Date,trabajadorData.FechaNacimiento)
+    ('Direccion',sql.NVarChar(300),trabajadorData.Direccion)    
+    ('FechaIngreso',sql.Date,trabajadorData.FechaIngreso)
+}
 function createTrabajador(req,res){
-    var data=req.body
+    var trabajadorData=matchedData(req,{locations:['body']});
     config.getConnectionPoolGlobal().then((poolObt) => {
-        ('IdSucursal',sql.Int,trabajadorData.IdSucursal)
-        ('IdCargo',sql.Int,trabajadorData.IdCargo)
-        ('Nombres',sql.NVarChar(50),trabajadorData.Nombres)
-        ('Apellidos',sql.NVarChar(50),trabajadorData.Apellidos)
-        ('NumeroCedula',sql.NVarChar(50),trabajadorData.NumeroCedula)
-        ('FechaNacimiento',sql.Date,trabajadorData.FechaNacimiento)
-        ('Direccion',sql.NVarChar(300),trabajadorData.Direccion)    
-        ('FechaIngreso',sql.Date,trabajadorData.FechaIngreso)
-        return querys.c0reateProducto(poolObt,data)        
+        return querys.createTrabajador(poolObt,trabajadorData)        
     }).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {

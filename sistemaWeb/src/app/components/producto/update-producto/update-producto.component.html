@@ -9,12 +9,12 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300" formControlName="imagen"/>
+            <input type="file" id="imageProducto" data-default-file="" class="dropify" (change)="fileChangeEvent($event)" data-height="300"  />
           </div>
         </div>
-        <div *ngIf="producto.Imagen">
+       <!-- <div *ngIf="producto.Imagen">
           <img src="{{url + 'productoGetImage/' + producto.Imagen}}" style="width: 500px;height:300px;" />
-        </div>
+        </div>-->
 
       </div>
       <!-- /.Imagen -->
@@ -39,7 +39,7 @@
               <div class="col-md-6">
                 <label for="clasificacion">Clasificación</label>
 
-                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion">
+                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" >
                   <option class = "chip" name = "clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
                 </select>
 
@@ -53,7 +53,7 @@
               <div class="col-md-6">
                 <br>
                 <label for="categoria">Categoria</label>
-                <select class="selectcategoria" multiple="multiple" style="width: 100%" formControlName="categoria">
+                <select class="selectcategoria" multiple="multiple" style="width: 100%" >
                   <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
                 </select>
               </div>

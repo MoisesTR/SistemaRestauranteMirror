@@ -38,7 +38,7 @@ const menuRoutes: Routes = [
         {path:'',redirectTo:'menu',pathMatch:'full'}
         , {path:'producto',component: ListProductosComponent}
         , {path:'producto/add',component: AddProductoComponent}
-        , {path:'producto/update',component: UpdateProductoComponent}
+        , {path:'producto/update/:id',component: UpdateProductoComponent}
         , {path:'add-usuario',component:AddUsuarioComponent }
         , {path:'categorias',component: CategoriaProductoComponent}
         , {path:'clasificacion-productos',component: ClasificacionProductoComponent}

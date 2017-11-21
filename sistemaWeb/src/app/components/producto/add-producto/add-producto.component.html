@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="formAddProducto" (ngSubmit)="createProducto(formAddProducto)" novalidate>
+  <form [formGroup]="formAddProducto" (ngSubmit)="validarCamposProduto(formAddProducto)" novalidate>
     <div class="row">
 
       <!--Imagen-->
@@ -9,12 +9,12 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300" formControlName="imagen" data-allowed-file-extensions="jpg png jpeg"/>
+            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg png jpeg"/>
           </div>
         </div>
-        <div *ngIf="producto.Imagen">
+       <!-- <div *ngIf="producto.Imagen">
           <img src="{{url + 'productoGetImage/' + producto.Imagen}}" style="width: 500px;height:300px;" />
-        </div>
+        </div>-->
 
       </div>
       <!-- /.Imagen -->
@@ -32,14 +32,15 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter" length="50" autocomplete="off">
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
+                  <show-errors [control]="formAddProducto.controls['nombreProducto']"></show-errors>
                   <label for="nombreproducto" class="input-char-counter">Nombre</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="clasificacion">Clasificación</label>
 
-                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" formControlName="clasificacion">
+                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" >
                   <option class = "chip"  *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
                 </select>
 
@@ -53,21 +54,22 @@
               <div class="col-md-6">
                 <br>
                 <label for="categoria">Categoria</label>
-                <select class="selectcategoria" multiple="multiple" style="width: 100%" formControlName="categoria">
+                <select class="selectcategoria" multiple="multiple" style="width: 100%">
                   <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
                 </select>
               </div>
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
+                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off" required></textarea>
+                  <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
                 </div>
               </div>
             </div>
             <br>
             <div class="text-center mt-1-half">
-              <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
             </div>
 
           </div>

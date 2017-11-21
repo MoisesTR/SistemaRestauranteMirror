@@ -47,6 +47,8 @@ import {HabilitadosComponent} from "../habilitados/habilitados.component";
 import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
 import {FacturaModule} from "../factura/factura.module";
 import {BuscarPipe} from "../../pipe/buscar.pipe";
+import {DashBoardComponent} from "../dash-board/dash-board.component";
+import {SharedModuleModule} from "../shared-module/shared-module.module";
 
 
 @NgModule({
@@ -63,7 +65,6 @@ import {BuscarPipe} from "../../pipe/buscar.pipe";
     , TrabajadorComponent
     , SucursalComponent
     , MenuComponent
-    , ShowErrorsComponent
     , TelephoneNumberFormatValidatorDirective
     , BirthYearValidatorDirective
     , CargoComponent
@@ -73,6 +74,7 @@ import {BuscarPipe} from "../../pipe/buscar.pipe";
     , RolusuarioComponent
     , HabilitadosComponent
     , UnidadmedidaComponent
+    , DashBoardComponent
     , BuscarPipe
 
 
@@ -87,6 +89,7 @@ import {BuscarPipe} from "../../pipe/buscar.pipe";
     , DataTablesModule
     , UsuarioRoutingModule
     , FacturaModule
+    , SharedModuleModule
 
 
 

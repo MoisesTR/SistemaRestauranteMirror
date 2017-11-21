@@ -9,6 +9,7 @@ import { ListProductosComponent } from './list-productos/list-productos.componen
 import { UpdateProductoComponent } from './update-producto/update-producto.component';
 import {ProductoRoutingModule} from "./producto.routing.module";
 import {ShowErrorsComponent} from "../show-errors.component";
+import {SharedModuleModule} from "../shared-module/shared-module.module";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {ShowErrorsComponent} from "../show-errors.component";
     , DataTablesModule
     , ProductoRoutingModule
     , ReactiveFormsModule
+    , SharedModuleModule
   ],
   declarations: [
   AddProductoComponent

@@ -34,7 +34,6 @@ export class ListProductosComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.dtOptions = {
       pagingType: 'full_numbers'
       , pageLength: 10
@@ -43,16 +42,7 @@ export class ListProductosComponent implements OnInit {
       /*,select: true*/
     };
 
-    this._ProductoServicio.getProductos().subscribe(
-      response => {
-        if(response.productos){
-          this.productos = response.productos;
-          this.dtTrigger.next();
-        }
-      }, error =>{
-
-      }
-    );
+    this.getProductos();
 
   }
 
@@ -106,28 +96,52 @@ export class ListProductosComponent implements OnInit {
 
   getProductos(){
 
+    this._ProductoServicio.getProductos().subscribe(
+      response => {
+        if(response.productos){
+          this.productos = response.productos;
+          this.dtTrigger.next();
+        }
+      }, error =>{
+
+      }
+    );
+  }
+  getProductosRender(){
+
+    this._ProductoServicio.getProductos().subscribe(
+      response => {
+        if(response.productos){
+          this.productos = response.productos;
+          this.rerender();
+        }
+      }, error =>{
+
+      }
+    );
   }
 
   deleteProducto(IdProducto){
 
     swal({
       title: "Estas seguro(a)?",
-      text: "La empaque sera eliminada permanentemente!",
+      text: "El producto sera eliminado!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
+      confirmButtonText: 'Si, Eliminalo!'
     }).then((eliminar) => {
       if (eliminar) {
         this._ProductoServicio.deleteProducto(IdProducto).subscribe(
           response =>{
             if(response.success){
               swal(
-                'Eliminada!',
+                'Eliminado  !',
                 'El producto ha sido eliminado exitosamente',
                 'success'
               ).then(() => {
+                this.getProductosRender();
 
               })
             } else {

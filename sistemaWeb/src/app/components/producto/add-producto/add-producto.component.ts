@@ -12,12 +12,13 @@ import {UploadService} from "../../../services/upload.service";
 import {Global} from "../../../services/global";
 import {Producto} from "../../../models/Producto";
 declare var $:any;
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
 import {ClasificacionProducto} from "../../../models/ClasificacionProducto";
 import {ClasificacionProductoService} from "../../../services/clasificacion-producto.service";
 import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
 import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
 import {ProductoService} from "../../../services/producto.service";
+import {CustomValidators} from "../../../validadores/CustomValidators";
 
 @Component({
   selector: 'app-add-producto',
@@ -39,12 +40,12 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     $('#clasificacion').change((e)=> {
 
       str = $( ".selectclasificacion" ).val()[0]
+
       if(str != null){
-        console.log(str.split(':')[1]);
+       /* console.log(str.split(':')[1]);*/
         let variable:number;
-        variable = parseInt(str.split(':')[1]);
-        console.log('arriba')
-        console.log(variable)
+     /*   variable = parseInt(str.split(':')[1]);*/
+        variable = parseInt(str);
 
         this._subclasificacionService.getSubClasificacionByIdClasificacion(variable).subscribe(
 
@@ -66,7 +67,10 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
     $('#subclasificacion').change((e)=> {
 
-      this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
+      if($( ".selectsubclasificacion" ).val()[0] != null){
+        this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
+      }
+
 
     });
   }
@@ -90,15 +94,37 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     , private _clasificaionService: ClasificacionProductoService
     , private _subclasificacionService: SubClasificacionProductoService
     , private _productoService : ProductoService
+    , private _fAddProducto: FormBuilder
   ) {
     this.url = Global.url;
-    this.producto = new Producto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+    this.producto = new Producto(null,null,null,null,null,null,null,null,null,null);
   }
 
   ngOnInit() {
 
     $(document).ready(function(){
 
+      $(".letras").keypress(function (key) {
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+          && (key.charCode != 45) //retroceso
+          && (key.charCode != 241) //ñ
+          && (key.charCode != 209) //Ñ
+          && (key.charCode != 32) //espacio
+          && (key.charCode != 225) //á
+          && (key.charCode != 233) //é
+          && (key.charCode != 237) //í
+          && (key.charCode != 243) //ó
+          && (key.charCode != 250) //ú
+          && (key.charCode != 193) //Á
+          && (key.charCode != 201) //É
+          && (key.charCode != 205) //Í
+          && (key.charCode != 211) //Ó
+          && (key.charCode != 218) //Ú
+
+        )
+          return false;
+      });
       $('.dropify').dropify();
 
       $(".selectcategoria").select2({
@@ -137,47 +163,57 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         maximumSelectionLength: 1
       });
 
-
-
     });
     this.cargarCategorias();
     this.getClasificaciones();
-    /*this.getSubClasificacionByIdClasificacion(1);*/
-    this.getSubClasificaciones();
+     /* this.getSubClasificaciones();*/
+
+    this.formAddProducto =  this._fAddProducto.group({
+      'nombreProducto': new FormControl('',[
+          Validators.required
+          , Validators.minLength(5)
+          , Validators.maxLength(100)
+          , CustomValidators.espaciosVacios
+        ]
+
+      ),
+      'descripcionProducto': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ]),
+
+    })
 
 
-    this.formAddProducto = new FormGroup({
-      'nombreProducto': new FormControl(),
-      'descripcionProducto': new FormControl(),
-      'categoria' : new FormControl(),
-      'imagen' : new FormControl(),
-      'clasificacion': new FormControl('',Validators.required)
-
-    });
-
+    this.onChanges();
 
   }
 
+  onChanges(): void{
+    this.formAddProducto.valueChanges.subscribe(valor => {
+      console.log('hola');
+    });
+  }
 
   getDataNewProducto() {
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
-    /*this.producto.Imagen = */
 
     let categoria:string = null;
     categoria = $(".selectcategoria").val()[0];
 
     if(categoria != null) {
       let variable: number;
-      variable = parseInt(categoria.split(':')[1]);
+     /* variable = parseInt(categoria.split(':')[1]);*/
+      variable = parseInt(categoria);
 
       this.producto.IdCategoria = variable;
-      console.log(variable)
+
+
     }
-
-
-
   }
 
 
@@ -244,34 +280,53 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   }
   uploadImage(){
-    this._uploadService.makeFileRequest(
-      this.url+'productoUploadImage',
-      [],
-      this.filesToUpload,
-      'token',
-      'image').then((result:any)=>{
+
+    if(this.filesToUpload != null){
+      this._uploadService.makeFileRequest(
+        this.url+'productoUploadImage',
+        [],
+        this.filesToUpload,
+        'token',
+        'image').then((result:any)=>{
         this.producto.Imagen = result.image;
-      this._productoService.createProducto(this.producto).subscribe(
-        response =>{
-          if(response.IdProducto){
-            swal(
-              'Producto',
-              'El producto ha sido creado exitosamente!',
-              'success'
-            ).then(() => {
+        this.createProducto();
 
-              this._router.navigate(['menu/producto']);
+      },error =>{
+        swal(
+          'Producto',
+          'Ha ocurrido un error en la carga de la imagen, intenta nuevamente!',
+          'error'
+        )
+      });
+    } else {
+      this.createProducto();
+    }
 
-            })
 
-          }
+  }
 
-        }, error =>{
+
+  createProducto(){
+
+    this._productoService.createProducto(this.producto).subscribe(
+      response =>{
+        if(response.IdProducto){
+          swal(
+            'Producto',
+            'El producto ha sido creado exitosamente!',
+            'success'
+          ).then(() => {
+
+            this._router.navigate(['menu/producto']);
+
+          })
 
         }
-      )
-    });
 
+      }, error =>{
+
+      }
+    )
   }
 
   public filesToUpload: Array<File>;
@@ -281,7 +336,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     console.log(this.filesToUpload);
 
   }
-  createProducto(myForm: NgForm){
+  validarCamposProduto(myForm: NgForm){
 
     this.getDataNewProducto();
     this.uploadImage();

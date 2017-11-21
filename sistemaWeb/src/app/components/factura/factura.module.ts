@@ -8,6 +8,7 @@ import { AddfacturaComponent } from './addfactura/addfactura.component';
 import { DeleteFacturaComponent } from './delete-factura/delete-factura.component';
 import { ListFacturaComponent } from './list-factura/list-factura.component';
 import {FacturaRoutingModule} from "./factura.routing.module";
+import {SharedModuleModule} from "../shared-module/shared-module.module";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {FacturaRoutingModule} from "./factura.routing.module";
     , DataTablesModule
     , ReactiveFormsModule
     , FacturaRoutingModule
+    , SharedModuleModule
   ],
   declarations: [
 

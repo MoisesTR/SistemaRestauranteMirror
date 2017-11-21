@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Provedor} from "../../../models/Provedor";
 import {Producto} from "../../../models/Producto";
 import {CategoriaProducto} from "../../../models/CategoriaProducto";
@@ -7,7 +7,7 @@ import {Envase} from "../../../models/Envase";
 import {UnidadMedida} from "../../../models/UnidadMedida";
 import {ClasificacionProducto} from "../../../models/ClasificacionProducto";
 import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {UploadService} from "../../../services/upload.service";
 import {ClasificacionProductoService} from "../../../services/clasificacion-producto.service";
 import {ProductoService} from "../../../services/producto.service";
@@ -41,54 +41,63 @@ export class UpdateProductoComponent implements OnInit {
     , private _clasificaionService: ClasificacionProductoService
     , private _subclasificacionService: SubClasificacionProductoService
     , private _productoService : ProductoService
+    , private formBuilderUProducto : FormBuilder
   ) {
     this.url = Global.url;
-    this.producto = new Producto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+    this.producto = new Producto(null,null,null,null,null,null,null,null,null,null);
   }
 
   ngOnInit() {
+
     $(document).ready(function(){
 
+      /*$("#imageProducto").attr("data-default-file", this.url + 'productoGetImage/' + this.producto.Imagen);*/
       $('.dropify').dropify();
+
+      $(".selectcategoria").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectsubclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectproveedor").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectenvase").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectempaque").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectclasificacion").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectestado").select2({
+        maximumSelectionLength: 1
+      });
+
+      $(".selectvalorunidadmedida").select2({
+        maximumSelectionLength: 1
+      });
+
     });
 
-    $(".selectcategoria").select2({
-      maximumSelectionLength: 1
-    });
+    this.formUpdateProducto = this.formBuilderUProducto.group({
+      'nombreProducto' : new FormControl(this.producto.NombreProducto)
+      , 'descripcionProducto': new FormControl(this.producto.NombreProducto)
+    })
+    this.getProducto();
 
-    $(".selectcsubclasificación").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectproveedor").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectenvase").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectempaque").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectunidadmedida").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectclasificacion").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectestado").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectvalorunidadmedida").select2({
-      maximumSelectionLength: 1
-    });
-
-    $(".selectcargo").select2();
 
   }
 
@@ -96,6 +105,29 @@ export class UpdateProductoComponent implements OnInit {
 
   }
 
+  getProducto(){
+    this._route.params.forEach((params: Params)=>{
+        let id = params['id'];
+        console.log('el id'+id)
+        this._productoService.getProducto(id).subscribe(
+          response =>{
+            if(response.producto){
+              this.producto = response.producto;
+              this.setValuesProducto();
+            } else {
+              this._router.navigate(['producto/list']);
+            }
+          }, error =>{
+
+          }
+        )
+    });
+  }
+
+  setValuesProducto(){
+    this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
+    this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
+  }
   uploadImage(){
     this._uploadService.makeFileRequest(
       this.url+'productoUploadImage',

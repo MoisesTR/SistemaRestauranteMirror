@@ -31,6 +31,7 @@ export class ProductoService {
     return this._http.get(this.url + 'productos?Habilitado='+Habilitado).map(res => res.json());
   }
 
+
   updateProducto(IdProducto,Producto){
 
     let params = JSON.stringify(Producto);

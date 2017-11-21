@@ -10,6 +10,7 @@ function createProductoProveedor(pool,data){
     .input('CantidadEmpaque',sql.Int,data.CantidadEmpaque)
     .input('IdUnidadMedida',sql.Int,data.IdUnidadMedida)
     .input('ValorUnidadMedida',sql.Float,data.ValorUnidadMedida)
+    .input('DiasCaducidad',sql.Int,data.DiasCaducidad)
     .execute('USP_CREATE_PRODUCTO_PROVEEDOR')
 } 
 function updateProductoProveedor(pool,data){
@@ -37,5 +38,8 @@ function changeStateProductoProveedor(pool,IdProductoProveedor){
         .execute('USP_DISP_PRODUCTO_PROVEEDOR')
 }
 module.exports={
-    getProductosProveedores
+    getProductosProveedores,
+    changeStateProductoProveedor,
+    getProductoProveedorById,
+    createProductoProveedor
     }

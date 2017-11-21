@@ -96,7 +96,7 @@ Router
     .get('/producto/proveedor/:IdProductoProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
     .get('/productos/proveedor/:IdProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
     .get('/producto/proveedores/:IdProducto(\\d+)',ProductoProveedorController.getProveedoresOfProducto)
-    .post('/producto/proveedor',ProductoProveedorController.createProductoProveedor)
+    .post('/producto/proveedor',validations.createProductoProveedor,validations.validsParamas,ProductoProveedorController.createProductoProveedor)
     .put('/producto/proveedor',ProductoProveedorController.changeStateProductoProveedor)
     //.delete('/producto/proveedor')
     //Rutas para Rol Controller
@@ -123,12 +123,15 @@ Router
     .delete('/cargo/:IdCargo(\\d+)',CargoController.changeStateCargo)
 
     //Rutas para Bodega Area Produccion
-    .post('/bodegaap',validations.createEntradaBodegaAP,validations.validsParamas,bodegaApController.createEntradaBodegaAp)
+    .post('/entradabodegaap',validations.createEntradaBodegaAP,validations.validsParamas,bodegaApController.createEntradaBodegaAp)
+    .post('/detalleentradabodegaap',validations.detalleEntradaBodega,validations.validsParamas,bodegaApController.createDetalleEntrada)
     .get('/detallebodegaap',bodegaApController.getDetalleBodegaAp)
+    .put('/generarfactura/:IdEntradaBodegaAP(\\d+)',validations.crearFactura,validations.validsParamas,bodegaApController.generarFactura)
+    .get('/listarfacturas',)
     //Rutas para 
     .post('/signup',validations.userSignUpValidation,validations.validsParamas,AuthController.signUp)
     .post('/signin',validations.userSignInValidation,validations.validsParamas,AuthController.singIn)
     .get('/users',AuthController.getUsers)
     .put('/update-user/:IdUsuario(\\d+)',validations.userSignInValidation,validations.userUpdate,validations.validsParamas,AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)',AuthController.changeStateUser)    
-    module.exports=Router
+    module.exports=Router   

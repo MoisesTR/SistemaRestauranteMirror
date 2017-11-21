@@ -1,5 +1,6 @@
 var querys = require('../querys/producto_proveedor')
 var config = require('../config/mssqlConfig')
+const { matchedData, sanitize } = require('express-validator/filter');
 
 function getProductoProveedorById(req,res){
     var data = req.params
@@ -31,9 +32,9 @@ function getProductosProveedores(req,res){
     });
 }
 function createProductoProveedor(req,res){
-    var data=req.body
+    var data=matchedData(req,{locations:'body'})
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.createProducto(poolObt,data)        
+        return querys.createProductoProveedor(poolObt,data)        
     }).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {

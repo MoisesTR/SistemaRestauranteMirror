@@ -92,12 +92,13 @@ export class UpdateProductoComponent implements OnInit {
 
     });
 
+    this.getClasificaciones();
     this.formUpdateProducto = this.formBuilderUProducto.group({
       'nombreProducto' : new FormControl(this.producto.NombreProducto)
       , 'descripcionProducto': new FormControl(this.producto.NombreProducto)
     })
-    this.getProducto();
 
+    this.getProducto();
 
   }
 
@@ -127,6 +128,8 @@ export class UpdateProductoComponent implements OnInit {
   setValuesProducto(){
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
+
+    $('.selectclasificacion').val(this.producto.IdSubclasificacion).trigger('change.select2');
   }
   uploadImage(){
     this._uploadService.makeFileRequest(
@@ -147,6 +150,20 @@ export class UpdateProductoComponent implements OnInit {
     this.filesToUpload = <Array<File>>fileInput.target.files;
     console.log(this.filesToUpload);
 
+  }
+
+  getClasificaciones(){
+
+    this._clasificaionService.getClasificaciones().subscribe(
+
+      response =>{
+        if(response.clasificaciones){
+          this.clasificaciones = response.clasificaciones;
+        }
+      }, error=>{
+
+      }
+    )
   }
 
 }

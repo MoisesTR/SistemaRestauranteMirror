@@ -28,8 +28,8 @@ export class EnvaseService {
     return this._http.get(this.url + 'envase/'+IdEnvase).map(res => res.json());
   }
 
-  getEnvases(){
-    return this._http.get(this.url + 'envases').map(res => res.json());
+  getEnvases(Habilitado = 1){
+    return this._http.get(this.url + 'envases?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateEnvase(IdEnvase,Envase){

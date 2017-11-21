@@ -32,7 +32,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log('cambio')
+
   }
 
   ngAfterViewInit(): void {
@@ -125,6 +125,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         )
           return false;
       });
+
       $('.dropify').dropify();
 
       $(".selectcategoria").select2({
@@ -164,7 +165,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       });
 
     });
-    this.cargarCategorias();
+    this.getCategorias();
     this.getClasificaciones();
      /* this.getSubClasificaciones();*/
 
@@ -186,7 +187,6 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
     })
 
-
     this.onChanges();
 
   }
@@ -198,6 +198,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getDataNewProducto() {
+
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
@@ -213,11 +214,13 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       this.producto.IdCategoria = variable;
 
 
+    } else {
+      console.log('esta vacio')
     }
   }
 
 
-  cargarCategorias(){
+  getCategorias(){
 
     this._categoriaService.getCategoriasProductos().subscribe(
       response =>{
@@ -282,6 +285,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   uploadImage(){
 
     if(this.filesToUpload != null){
+
       this._uploadService.makeFileRequest(
         this.url+'productoUploadImage',
         [],
@@ -324,6 +328,11 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         }
 
       }, error =>{
+        swal(
+          'Producto',
+          'Ha ocurrido un error interno en el servidor, intente nuevamente',
+          'error'
+        )
 
       }
     )

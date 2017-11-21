@@ -15,7 +15,7 @@ declare var $:any;
   styleUrls: ['./empaque.component.css'],
   providers: [EmpaqueService]
 })
-export class EmpaqueComponent implements OnInit {  
+export class EmpaqueComponent implements OnInit {
 
   @ViewChild('formEmpaque') formEmpaque: NgForm;
 
@@ -97,26 +97,21 @@ export class EmpaqueComponent implements OnInit {
 
       }
     )
-
-    console.log(this.empaque.Descripcion + this.empaque.NombreEmpaque);
-
-
-
   }
 
-getEmpaque(){
+  getEmpaque(){
 
-    this._EmpaqueServicio.getEmpaques().subscribe(
-      response => {
-        if(response.empaques){
-          this.empaques= response.empaques;
-          this.dtTrigger.next();
+      this._EmpaqueServicio.getEmpaques().subscribe(
+        response => {
+          if(response.empaques){
+            this.empaques= response.empaques;
+            this.dtTrigger.next();
+          }
+        }, error =>{
+
         }
-      }, error =>{
-
-      }
-    );
-  }
+      );
+    }
 
   getEmpaquesRender(){
     this._EmpaqueServicio.getEmpaques().subscribe(
@@ -199,7 +194,7 @@ getEmpaque(){
           })
 
         } else {
-          swal(    
+          swal(
             'Error inesperado',
             'Ha ocurrido un error al insertar Empaque, intenta nuevamente!',
             'error'

@@ -12,7 +12,7 @@ declare var $:any;
 })
 export class MenuComponent implements OnInit {
 
-  public rol : string = 'normal';
+  public rol : string = 'admin';
 
   constructor() { }
 

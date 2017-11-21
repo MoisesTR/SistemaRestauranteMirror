@@ -15,6 +15,7 @@ export class SalidaProductoComponent implements OnInit {
 
       $('#horaSalida').pickatime({
         twelvehour: true
+        , default: 'now'
       });
 
       var date = new Date();

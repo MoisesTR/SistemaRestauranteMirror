@@ -27,7 +27,7 @@ function getClasificaciones(req,res){
 }
 function updateClasificacion(req,res){
     var data = req.body
-    if(data.IdClasificacion != undefined && data.Nombre != undefined && data.Descripcion != undefined){
+    if(data.IdClasificacion != undefined && data.NombreClasificacion != undefined && data.DescripcionCategoria != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateClasificacion(poolObt,data)
         }).then((results) => {

@@ -3,7 +3,7 @@ var config = require('../config/mssqlConfig')
 var database = require('../services/database')
 var sql = require('mssql')
 
-function createCargo(req,res){ 
+function createEntradaBodegaAp(req,res){ 
     var data = req.body
     console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
     if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 

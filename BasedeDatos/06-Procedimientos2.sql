@@ -9,7 +9,7 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
     @IdEstado int,
     @NombreProducto NVARCHAR(50),
     @Descripcion NVARCHAR(200),
-    @Imagen NVARCHAR(100) NOT NULL DEFAULT 'nodisponible.png'
+    @Imagen NVARCHAR(100)
 ) AS BEGIN
 	INSERT INTO PRODUCTO(IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen)
 	VALUES(@IdCategoria,@IdSubclasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen)

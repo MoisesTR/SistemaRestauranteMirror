@@ -89,6 +89,7 @@ CREATE TABLE PROVEEDOR(
     NombreProveedor NVARCHAR(50) NOT NULL,
     Direccion NVARCHAR(200) NOT NULL,
     Email NVARCHAR(100) NULL,
+	Imagen NVARCHAR(50) NOT NULL DEFAULT 'proveedor.png',
     Descripcion NVARCHAR(200) NULL,
     NombreRepresentante NVARCHAR(100) NOT NULL,
     Habilitado Bit default 1,

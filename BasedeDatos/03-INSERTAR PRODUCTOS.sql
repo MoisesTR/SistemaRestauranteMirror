@@ -1,20 +1,20 @@
 USE pruebas_node;
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
-VALUES('Filete de Pollo','Filetes de pollo sin hueso.',2,1,NULL,1);
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+VALUES('Filete de Pollo','Filetes de pollo sin hueso.',2,1,1);
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
-VALUES('Tallarin','Bolsa de tallarines.',1,3,NULL,1);
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+VALUES('Tallarin','Bolsa de tallarines.',1,3,1);
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
-VALUES('Camaron','Bolsa de Camarones.',1,3,NULL,1);
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+VALUES('Camaron','Bolsa de Camarones.',1,3,1);
 
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
-VALUES('Arroz','Bolsa de Arroz.',3,3,NULL,1);
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+VALUES('Arroz','Bolsa de Arroz.',3,3,1);
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
-VALUES('Hongos','Bolsa de Hongos.',1,3,NULL,1);
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+VALUES('Hongos','Bolsa de Hongos.',1,3,1);
 
 
 --INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
@@ -42,6 +42,5 @@ VALUES('Hongos','Bolsa de Hongos.',1,3,NULL,1);
 --SELECT * FROM CLASIFICACION_PRODUCTO 
 
 
-alter table producto drop constraint u_productounico
 
 select * from PRODUCTO

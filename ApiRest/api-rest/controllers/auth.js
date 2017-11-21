@@ -73,6 +73,7 @@ function singIn(req,res){
                     console.log('Las contrasenas coinciden');    
                     console.log((userData.gettoken==true) ? 'Se retornara un token' : 'Se retornara la informacion del usuario');
                     if(userData.gettoken ==true){
+                        console.log('Mande get token')
                         let tokenGen=jwt.createToken(user);
                         //console.log('Devolviendo token, del usuario '+user.username);
                         console.log('token:'+tokenGen);

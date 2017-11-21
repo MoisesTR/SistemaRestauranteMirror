@@ -89,8 +89,11 @@ const createEntradaBodegaAP=[
 	check('FechaHora').exists()
 ],editEntradaBodegaAP=[
     check('IdEntradaBodegaAP').isInt()
-]   
+],crearFactura=[
+    check('IdEntradaBodegaAP'.isInt())
+];
 
+const creat
 const createTrabajador=[
     check('IdSucursal','IdSucursal debe ser entero!').isInt(),
     check('IdCargo','IdCargo debe ser entero').isInt(),

@@ -8,7 +8,7 @@ function createEntradaBodegaAp(req,res){
     console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
     if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 
       console.log('mandaste los campos')
-        config.getConnectionPoolGlobal().then((poolObt) => {
+          config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createCargo(poolObt,data)
         }).then((results) => {
             res.status(200).json(results.recordset[0])
@@ -23,7 +23,7 @@ function createEntradaBodegaAp(req,res){
         })
     }
 }
-function getCargos(req,res){
+function getDetalleBodegaAp(req,res){
     let Habilitado = req.query.Habilitado;
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getCargos(poolObt,Habilitado);

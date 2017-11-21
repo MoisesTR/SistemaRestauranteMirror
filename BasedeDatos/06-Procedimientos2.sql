@@ -39,7 +39,7 @@ CREATE PROCEDURE USP_GET_PRODUCTO(
 	@IdProducto INT
 )
 AS BEGIN
-	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 	FROM PRODUCTO P
 	INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 	INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
@@ -54,13 +54,13 @@ CREATE PROCEDURE USP_GET_PRODUCTOS
 	@Habilitado BIT null
 AS BEGIN
 	IF @Habilitado is null
-		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		FROM PRODUCTO P
 		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
 		INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
 	ELSE
-		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		FROM PRODUCTO P
 		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
@@ -267,7 +267,8 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO_PROVEEDOR(
 	@IdUnidadMedida INT,
     @ValorUnidadMedida FLOAT,
 	@CantidadEmpaque INT NULL, --si tiene empaque 
-	@Costo Money
+	@Costo Money,
+	@DiasCaducidad INT
 ) AS BEGIN
 	INSERT INTO PRODUCTO_PROVEEDOR(IdProducto,IdProveedor,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,Costo)
 	VALUES(@IdProducto,@IdProveedor,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque,@Costo)

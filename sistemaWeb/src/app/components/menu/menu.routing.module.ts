@@ -27,6 +27,7 @@ import {UnidadmedidaComponent} from "../unidadmedida/unidadmedida.component";
 import {AddfacturaComponent} from "../factura/addfactura/addfactura.component";
 import {ListFacturaComponent} from "../factura/list-factura/list-factura.component";
 import {DeleteFacturaComponent} from "../factura/delete-factura/delete-factura.component";
+import {DashBoardComponent} from "../dash-board/dash-board.component";
 
 
 const menuRoutes: Routes = [
@@ -61,6 +62,7 @@ const menuRoutes: Routes = [
         , {path:'factura/add',component: AddfacturaComponent}
         , {path:'factura/list',component: ListFacturaComponent}
         , {path:'factura/delete',component: DeleteFacturaComponent}
+        , {path:'dashboard',component: DashBoardComponent}
 
     ]
   },

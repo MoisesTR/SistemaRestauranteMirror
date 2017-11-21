@@ -15,8 +15,9 @@ function getSucursalById(req,res){
         });
 }
 function getSucursales(req,res){
+    let Habilitado = req.query.Habilitado
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getSucursales(poolObt)
+        return querys.getSucursales(poolObt,Habilitado)
     }).then((results) => {
         res.status(200).json({sucursales:results.recordset}) 
     }).catch((err) => {

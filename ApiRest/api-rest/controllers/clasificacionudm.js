@@ -6,7 +6,7 @@ var sql = require('mssql')
 function getClasificacionesUdm(req,res){
     let Habilitado = req.query.Habilitado;
     var aoj = [];
-    pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
+    database.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
     database.storedProcExecute('USP_GET_CLASIFICACIONES_UDM',aoj).then((results) => {
         res.status(200).json({
             clasificaciones:results.recordset
@@ -19,7 +19,7 @@ function getClasificacionUdmById(req,res){
     var data = req.params
     if(data.IdClasificacionUnidadMedida){
         var aoj=[];
-        pushAOJParam(aoj,'IdClasificacionUnidadMedida',sql.Int,data.IdClasificacionUnidadMedida)
+        database.pushAOJParam(aoj,'IdClasificacionUnidadMedida',sql.Int,data.IdClasificacionUnidadMedida)
         database.storedProcExecute('USP_GET_CLASIFICACION_UDM',aoj).then((results) => {
            res.status(200).json({clasificacion:results.recordset[0]}) 
         }).catch((err) => {

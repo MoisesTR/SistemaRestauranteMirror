@@ -9,7 +9,7 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
     @IdEstado int,
     @NombreProducto NVARCHAR(50),
     @Descripcion NVARCHAR(200),
-    @Imagen NVARCHAR(100) NULL
+    @Imagen NVARCHAR(100) NOT NULL DEFAULT 'nodisponible.png'
 ) AS BEGIN
 	INSERT INTO PRODUCTO(IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen)
 	VALUES(@IdCategoria,@IdSubclasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen)
@@ -39,7 +39,7 @@ CREATE PROCEDURE USP_GET_PRODUCTO(
 	@IdProducto INT
 )
 AS BEGIN
-	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 	FROM PRODUCTO P
 	INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 	INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
@@ -54,13 +54,13 @@ CREATE PROCEDURE USP_GET_PRODUCTOS
 	@Habilitado BIT null
 AS BEGIN
 	IF @Habilitado is null
-		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		FROM PRODUCTO P
 		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
 		INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
 	ELSE
-		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		FROM PRODUCTO P
 		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
@@ -240,8 +240,12 @@ IF OBJECT_ID('USP_GET_SUCURSALES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_SUCURSALES
 GO
 CREATE PROCEDURE USP_GET_SUCURSALES
+	@Habilitado BIT NULL
 AS 
-SELECT IdSucursal,NombreSucursal,Direccion from SUCURSAL
+	IF @Habilitado IS NULL
+		SELECT IdSucursal,NombreSucursal,Direccion from SUCURSAL
+	ELSE
+		SELECT IdSucursal,NombreSucursal,Direccion from SUCURSAL WHERE Habilitado = @Habilitado
 GO
 IF OBJECT_ID('USP_GET_SUCURSAL','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_SUCURSAL
@@ -263,7 +267,8 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO_PROVEEDOR(
 	@IdUnidadMedida INT,
     @ValorUnidadMedida FLOAT,
 	@CantidadEmpaque INT NULL, --si tiene empaque 
-	@Costo Money
+	@Costo Money,
+	@DiasCaducidad INT
 ) AS BEGIN
 	INSERT INTO PRODUCTO_PROVEEDOR(IdProducto,IdProveedor,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,Costo)
 	VALUES(@IdProducto,@IdProveedor,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque,@Costo)

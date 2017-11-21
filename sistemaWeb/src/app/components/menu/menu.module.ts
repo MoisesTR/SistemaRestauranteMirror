@@ -49,6 +49,7 @@ import {FacturaModule} from "../factura/factura.module";
 import {BuscarPipe} from "../../pipe/buscar.pipe";
 import {DashBoardComponent} from "../dash-board/dash-board.component";
 import {SharedModuleModule} from "../shared-module/shared-module.module";
+import {SalidaProductoComponent} from "../salida-producto/salida-producto.component";
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import {SharedModuleModule} from "../shared-module/shared-module.module";
     , HabilitadosComponent
     , UnidadmedidaComponent
     , DashBoardComponent
+    , SalidaProductoComponent
     , BuscarPipe
 
 

@@ -180,3 +180,9 @@ AS BEGIN
 	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
 	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE Username=@Username
 END
+
+select * from cargo
+
+select * from clasificacion_producto
+
+select * from usuario

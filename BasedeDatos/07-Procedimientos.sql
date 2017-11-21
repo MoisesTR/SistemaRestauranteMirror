@@ -103,3 +103,67 @@ CREATE PROCEDURE USP_DISP_TRABAJADOR(
 ) AS BEGIN
 	UPDATE TRABAJADOR SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdTrabajador=@IdTrabajador
 END
+GO
+IF OBJECT_ID('USP_GET_TELEFONOS_TRABAJADOR','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_TELEFONOS_TRABAJADOR
+GO
+CREATE PROCEDURE USP_GET_TELEFONOS_TRABAJADOR(
+	@IdTrabajador INT,
+	@Habilitado BIT
+) AS BEGIN
+	IF @Habilitado IS NULL
+		SELECT IdTelefonoTrabajador,IdTrabajador,TT.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+		FROM TELEFONO_TRABAJADOR TT
+		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TT.IdOperadora
+		WHERE TT.IdTrabajador= @IdTrabajador
+	ELSE
+		SELECT IdTelefonoTrabajador,IdTrabajador,TT.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+		FROM TELEFONO_TRABAJADOR TT
+		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TT.IdOperadora
+		WHERE TT.IdTrabajador= @IdTrabajador AND TT.Habilitado= @Habilitado
+END
+GO
+IF OBJECT_ID('USP_GET_TELEFONOS_SUCURSAL','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_TELEFONOS_SUCURSAL
+GO
+CREATE PROCEDURE USP_GET_TELEFONOS_SUCURSAL(
+	@IdSucursal INT,
+	@Habilitado BIT
+) AS BEGIN
+	IF @Habilitado IS NULL
+		SELECT IdTelefonoSucursal,IdSucursal,TS.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
+		FROM TELEFONO_SUCURSAL TS
+		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TS.IdOperadora
+		WHERE TS.IdSucursal= @IdSucursal
+	ELSE
+		SELECT IdTelefonoSucursal,IdSucursal,TS.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
+		FROM TELEFONO_SUCURSAL TS
+		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TS.IdOperadora
+		WHERE TS.IdSucursal= @IdSucursal AND TS.Habilitado= @Habilitado
+END
+GO
+IF OBJECT_ID('USP_GET_TELEFONO_SUCURSAL','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_TELEFONO_SUCURSAL
+GO
+CREATE PROCEDURE USP_GET_TELEFONO_SUCURSAL(
+	@IdTelefonoSucursal INT,
+	@IdSucursal INT
+) AS BEGIN
+		SELECT IdTelefonoSucursal,IdSucursal,TS.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
+		FROM TELEFONO_SUCURSAL TS
+		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TS.IdOperadora
+		WHERE TS.IdSucursal= @IdSucursal AND IdTelefonoSucursal= @IdTelefonoSucursal
+END
+GO
+IF OBJECT_ID('USP_GET_TELEFONO_TRABAJADOR','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_TELEFONO_TRABAJADOR
+GO
+CREATE PROCEDURE USP_GET_TELEFONO_TRABAJADOR(
+	@IdTelefonoTrabajador INT,
+	@IdTrabajador INT
+) AS BEGIN
+		SELECT IdTelefonoTrabajador,IdTrabajador,TT.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+		FROM TELEFONO_TRABAJADOR TT
+		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TT.IdOperadora
+		WHERE TT.IdTrabajador= @IdTrabajador AND IdTelefonoTrabajador = @IdTelefonoTrabajador
+END

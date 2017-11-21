@@ -31,8 +31,9 @@ const userSignUpValidation=[
     sanitize('gettoken').toBoolean()
 ], userUpdate=[
     check('IdUsuario','IdUsuario debe ser un Entero!').isInt().optional({nullable:false}),
-    check('Username').isLength({min:5,max:20}).optional({nullable:true}),
-    check('Password').isLength({min:8,max:25}).optional({nullable:true}),
+    check('Username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
+    check('Password','password es requerido!').exists(),
+    check('Password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:4,max:20}),
     check('IdRol').optional({nullable:true})
 ];
 
@@ -114,6 +115,14 @@ const createTrabajador=[
     sanitize('Habilitado').toBoolean()
 ];
 
+const createSucursalTelef=[
+    check('IdSucursal','IdSucursal debe ser entero').isInt(),
+    check('IdOperadora','IdOperadora debe ser entero').isInt(),
+    check('NumeroTelefono','NumeroTelefono es requerido').exists(),
+    sanitize('IdSucursal').toInt(),
+    sanitize('IdOperadora').toInt()
+];
+
 module.exports={
     userSignUpValidation,
     userSignInValidation,
@@ -132,5 +141,6 @@ module.exports={
     updateProveedor,
     createTrabajador,
     updateTrabajador,
-    deleteTrabajador
+    deleteTrabajador,
+    createSucursalTelef
 }   

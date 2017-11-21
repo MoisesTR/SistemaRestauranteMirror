@@ -56,11 +56,28 @@ function getSubclasificacionesByIdClasificacion(req,res){
             res.status(500).json(err)
         });
 }
-
+function changeStateSubClasificacion(req,res){
+    let IdSubClasificacion = req.params.IdSubClasificacion
+    let Habilitado = req.body.Habilitado
+    console.log('IdSubClasificacion:'+IdSubClasificacion,'Habilitado:'+Habilitado)
+    config.getConnectionPoolGlobal().then((poolObt) => {
+        return querys.changeStateSubClasificacion(poolObt,IdSubClasificacion,Habilitado)        
+    }).then((results) => {
+        console.log(results)
+        let afectadas = results.rowsAffected[0]
+        let accion = (Habilitado == 0) ? 'Deshabilitada' : 'Habilitada';
+        res.status(200).json((afectadas > 0) ? {success:'SubClasificacion'+accion+' con exito!'} :{failed:'No se encontro la SubClasificacion solicitada!'})
+        console.log('SubClasificacion cambiada de estado con exito!')
+    }).catch((err) => {
+       res.status(500).json(err) 
+       console.log('Error:',err)
+    });
+}
 module.exports={
     createSubclasificacion,
     getSubclasificacionById,
     getSubclasificaciones,
     updateSubclasificacion,
-    getSubclasificacionesByIdClasificacion
+    getSubclasificacionesByIdClasificacion,
+    changeStateSubClasificacion
 }

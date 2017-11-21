@@ -1,13 +1,13 @@
-var querys = require('../querys/categoria')
+var querys = require('../querys/rol')
 var config = require('../config/mssqlConfig')
 
 function createRol(req,res){ 
     var data = req.body
-    console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
-    if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 
+    console.log(((data.NombreRol != undefined) && (data.DescripcionRol != undefined)))
+    if((data.NombreRol != undefined) && (data.DescripcionRol != undefined)){ 
       console.log('mandaste los campos')
         config.getConnectionPoolGlobal().then((poolObt) => {
-            return querys.createCategoria(poolObt,data)
+            return querys.createRol(poolObt,data)
         }).then((results) => {
             res.status(200).json(results.recordset[0])
         }).catch((err) => {
@@ -17,27 +17,28 @@ function createRol(req,res){
         res.status(401).send({
             error:true,
             code:'EPARAMS',
-            message:'Para crear una categoria envie correctamente los parametros!'
+            message:'Para crear una rol envie correctamente los parametros!'
         })
     }
 }
 function getRoles(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getCategorias(poolObt);
+        return querys.getRoles(poolObt);
     }).then((results) => {
         res.status(200).json({
-            categorias:results.recordset
+            roles:results.recordset
         })
     }).catch((err) => {
         res.status(500).json(err)
     });
 }
 function getRolbyId(req,res){
+    var IdCargo = req.params.IdCargo
     config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getCategorias(poolObt);
+        return querys.getRolById(poolObt,IdRol);
     }).then((results) => {
         res.status(200).json({
-            categorias:results.recordset
+            rol:results.recordset
         })
     }).catch((err) => {
         res.status(500).json(err)
@@ -45,12 +46,12 @@ function getRolbyId(req,res){
 }
 function updateRol(req,res){
     var data = req.body
-    if(data.IdCategoria != undefined && data.Nombre != undefined && data.Descripcion != undefined){
+    if(data.IdRol != undefined && data.NombreRol != undefined && data.DescripcionRol != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
-            return querys.updateCategoria(poolObt,data)
+            return querys.updaterol(poolObt,data)
         }).then((results) => {
             res.status(200).json({
-                success:'Categoria Actualizada Exitosamente!'
+                success:'rol Actualizada Exitosamente!'
             })
         }).catch((err) => {
             res.status(500).json(err)

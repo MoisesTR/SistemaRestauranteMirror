@@ -5,6 +5,8 @@ CREATE TABLE ROL_USUARIO(
 	NombreRol NVARCHAR(50) NOT NULL,
 	DescripcionRol NVARCHAR(150) NULL,
 	Habilitado BIT NOT NULL DEFAULT 1,
+	CreateAt DATETIME NOT NULL DEFAULT GETDATE(),
+	UpdateAt DATETIME NULL,
 	CONSTRAINT PK_ROL_USUARIO PRIMARY KEY(IdRol),
 	CONSTRAINT U_NOMBRE_ROL UNIQUE(NombreRol)
 )
@@ -19,15 +21,32 @@ CREATE PROCEDURE USP_CREATE_ROL_USUARIO(
 AS BEGIN
 	INSERT INTO ROL_USUARIO(NombreRol,DescripcionRol)
 	VALUES(@NombreRol,@DescripcionRol)
+
 	SELECT @@IDENTITY AS IdRol
+END
+GO
+IF OBJECT_ID('dbo.USP_UPDATE_ROL','P') IS NOT NULL
+	DROP PROCEDURE USP_UPDATE_ROL
+GO
+CREATE PROCEDURE USP_UPDATE_ROL(
+	@IdRol INT,
+	@NombreRol NVARCHAR(50),
+	@DescripcionRol NVARCHAR(150)
+)
+AS BEGIN
+	UPDATE ROL_USUARIO SET NombreRol=@NombreRol,@DescripcionRol=@DescripcionRol WHERE IdRol = @IdRol
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_ROLES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_ROLES
 GO
 CREATE PROCEDURE USP_GET_ROLES
+	@Habilitado BIT NULL
 AS BEGIN 
-	SELECT IdRol,NombreRol,DescripcionRol,Habilitado FROM ROL_USUARIO
+	IF @Habilitado IS NULL
+		SELECT IdRol,NombreRol,DescripcionRol,Habilitado,CreateAt,UpdateAt FROM ROL_USUARIO
+	ELSE
+		SELECT IdRol,NombreRol,DescripcionRol,Habilitado,CreateAt,UpdateAt FROM ROL_USUARIO WHERE Habilitado=@Habilitado
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_ROL','P') IS NOT NULL
@@ -67,15 +86,30 @@ CREATE PROCEDURE USP_CREATE_USUARIO(
 AS BEGIN 
 	INSERT INTO USUARIO(IdTrabajador,Username,Email,Password)
 	VALUES(@IdTrabajador,@Username,@Email,@Password)
-	SELECT IdUsuario,IdTrabajador,IdRol,Username,Email,Password FROM USUARIO WHERE IdTrabajador = @@IDENTITY
+
+	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+	FROM USUARIO U
+	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
+	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIOS','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_USUARIOS
 GO
-CREATE PROCEDURE USP_GET_USUARIOS
+CREATE PROCEDURE USP_GET_USUARIOS(
+	@Habilitado BIT NULL
+)
 AS BEGIN
-	SELECT IdUsuario,IdTrabajador,IdRol,Username,Email,Password FROM USUARIO
+	IF @Habilitado IS NULL
+		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+		FROM USUARIO U
+		INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
+		INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
+	ELSE
+		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+		FROM USUARIO U
+		INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
+		INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE U.Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIO_BY_ID','P') IS NOT NULL
@@ -85,7 +119,10 @@ CREATE PROCEDURE USP_GET_USUARIO_BY_ID(
 	@IdUsuario INT
 )
 AS BEGIN 
-	SELECT IdUsuario,IdTrabajador,IdRol,Username,Email,Password FROM USUARIO WHERE IdUsuario=@IdUsuario
+	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+	FROM USUARIO U
+	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
+	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE IdUsuario=@IdUsuario
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIO_BY_TRABAJADOR','P') IS NOT NULL
@@ -95,7 +132,10 @@ CREATE PROCEDURE USP_GET_USUARIO_BY_TRABAJADOR(
 	@IdTrabajador INT
 )
 AS BEGIN
-	SELECT IdUsuario,IdTrabajador,IdRol,Username,Email,Password FROM USUARIO WHERE IdTrabajador=@IdTrabajador
+	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+	FROM USUARIO U
+	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
+	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE U.IdTrabajador = @IdTrabajador
 END
 GO
 IF OBJECT_ID('dbo.USP_DISP_USUARIO','P') IS NOT NULL

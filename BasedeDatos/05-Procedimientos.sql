@@ -23,9 +23,14 @@ IF OBJECT_ID('USP_GET_CATEGORIAS','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_CATEGORIAS
 GO
 CREATE PROCEDURE USP_GET_CATEGORIAS
+	@Habilitado BIT NULL
 AS 
 BEGIN
-	SELECT IdCategoria,NombreCategoria,DescripcionCategoria,Habilitado FROM CATEGORIA_PRODUCTO;
+	IF @Habilitado IS NULL
+		SELECT IdCategoria,NombreCategoria,DescripcionCategoria,Habilitado,CreatedAt,UpdateAt FROM CATEGORIA_PRODUCTO;
+	ELSE
+		SELECT IdCategoria,NombreCategoria,DescripcionCategoria,Habilitado,CreatedAt,UpdateAt FROM CATEGORIA_PRODUCTO
+		WHERE Habilitado = @Habilitado
 END
 GO
 IF	OBJECT_ID('USP_UPDATE_CATEGORIA','P') IS NOT NULL
@@ -82,8 +87,13 @@ IF OBJECT_ID('USP_GET_CLASIFICACIONES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_CLASIFICACIONES
 GO
 CREATE PROCEDURE USP_GET_CLASIFICACIONES
+	@Habilitado BIT NULL
 AS BEGIN
-	SELECT IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM CLASIFICACION_PRODUCTO;
+	IF @Habilitado IS NULL
+		SELECT IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM CLASIFICACION_PRODUCTO;
+	ELSE
+		SELECT IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM CLASIFICACION_PRODUCTO
+		WHERE Habilitado= @Habilitado
 END
 GO
 IF OBJECT_ID('USP_UPDATE_CLASIFICACION','P') IS NOT NULL

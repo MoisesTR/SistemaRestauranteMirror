@@ -80,7 +80,7 @@ const createEntradaBodegaAP=[
     check('IdBodegaAreaP').exists(),
     check('IdTrabajador').isInt(),
 	check('IdProveedor').isInt(),
-	check('IdEstadoEdicion').isInt(),
+	//check('IdEstadoEdicion').isInt(),
 	check('NFactura').exists(),
 	check('RepresentanteProveedor').exists(),
 	check('PorcRetencion').isInt(),

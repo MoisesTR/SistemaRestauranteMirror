@@ -80,9 +80,10 @@
                   <div class="container-fluid">
                     <br>
                     <div class="row">
+
                       <div class="col-md-12">
                         <br>
-                        <div class="md-form ">
+                        <div class="md-form">
                           <input type="text" id="nombre" class="form-control"
                                  name="nombre"
                                  required
@@ -93,27 +94,30 @@
                           <label for="nombre" class="">Nombre</label>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <br>
-                      <div class="md-form">
-                          <textarea type="text" id="descripcion" class="md-textarea"
-                                    name="descripcion"
-                                    required
-                                    formControlName="descripcionClasificacion"
-                          >
+                    
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                            <textarea type="text" id="descripcion" class="md-textarea"
+                                      name="descripcion"
+                                      required
+                                      formControlName="descripcionClasificacion"
+                            >
 
-                          </textarea>
-                        <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
-                        <label for="descripcion">Descripción</label>
+                            </textarea>
+                          <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
+                          <label for="descripcion">Descripción</label>
+                        </div>
+
                       </div>
-
                     </div>
                     <br>
+                    
                     <div class="text-center mt-1-half">
                       <button class="btn orange-chang mb-1"type="submit" [disabled]="!formAddClasificacion.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
+                  
                   </div>
                 </div>
               </div>

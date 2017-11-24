@@ -4,11 +4,12 @@ export class Usuario {
     public Imagen: string,
     public IdUsuario: number,
     public IdRol: number,
-    public UsuarioNombre: string,
+    public Username : string,
     public Estatus: string,
-    public Contrasenia: string,
-    public Correo: string
+    public Password: string,
+    public Email: string
     , public IdTrabajador : number
+    , public NombreCargo?: string
   ) {}
 
 }

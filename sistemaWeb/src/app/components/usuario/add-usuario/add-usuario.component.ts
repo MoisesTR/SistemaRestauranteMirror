@@ -3,6 +3,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UsuarioService} from "../../../services/usuario.service";
 import {Usuario} from "../../../models/Usuario";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {TrabajadorService} from "../../../services/trabajador.service";
+import {RolusuarioService} from "../../../services/rolusuario.service";
+import {RolUsuario} from "../../../models/RolUsuario";
+import {Trabajador} from "../../../models/Trabajador";
 declare var $:any;
 
 @Component({
@@ -14,12 +18,16 @@ export class AddUsuarioComponent implements OnInit {
 
   public usuario : Usuario;
   public usuarios : Usuario[];
+  public roles: RolUsuario[];
+  public trabajadores: Trabajador[];
 
   formularioAddUsuario : FormGroup
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
     , private _usuarioService : UsuarioService
+    , private _trabajadorService : TrabajadorService
+    , private _RolService : RolusuarioService
     , private formBuilderUsuario : FormBuilder
 
   ) {
@@ -29,16 +37,19 @@ export class AddUsuarioComponent implements OnInit {
 
   ngOnInit() {
 
-    $(".selecttrabajador").select2();
+
 
     $(document).ready(function(){
       $(".selectrol").select2();
+      $(".selecttrabajador").select2();
       $('.dropify').dropify();
     });
 
 
 
     this.initForm();
+    this.getRoles();
+    this.getTrabajadores();
   }
 
 
@@ -63,10 +74,46 @@ export class AddUsuarioComponent implements OnInit {
       this.usuario.IdRol = parseInt($( ".selectrol" ).val()[0]);
     }
 
-    this._usuarioService
+    this._usuarioService.createUsuario(this.usuario).subscribe(
+      response =>{
+        if(response.IdUsuario){
+          this.usuario = response.IdUsuario;
+        }
+      }, error=>{
+
+      }
+    )
   }
 
-  
+
+  getRoles(){
+    this._RolService.getRoles().subscribe(
+      response =>{
+        if(response.roles){
+          this.roles = response.roles;
+        } else {
+
+        }
+      }, error =>{
+
+      }
+    )
+  }
+
+  getTrabajadores(){
+    this._trabajadorService.getTrabajadores().subscribe(
+
+      response =>{
+        if(response.trabajadores){
+          this.trabajadores = response.trabajadores;
+        }
+      }, error =>{
+
+      }
+    )
+  }
+
+
 
 
 }

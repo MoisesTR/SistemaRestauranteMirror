@@ -8,6 +8,8 @@ import {DataTablesModule} from "angular-datatables";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UsuarioService} from "../../services/usuario.service";
 import {UsuarioRoutingModule} from "./usuario.routing.module";
+import {TrabajadorService} from "../../services/trabajador.service";
+import {RolusuarioService} from "../../services/rolusuario.service";
 
 @NgModule({
   imports: [
@@ -24,7 +26,7 @@ import {UsuarioRoutingModule} from "./usuario.routing.module";
     , ListUsuariosComponent
     , UpdateUsuarioComponent
   ]
-  ,providers: [UsuarioService]
+  ,providers: [UsuarioService, TrabajadorService, RolusuarioService]
 })
 export class UsuarioModule { }
 

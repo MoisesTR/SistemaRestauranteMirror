@@ -50,15 +50,15 @@
                 <div class="col-md-6">
                   <label for="selecttrabajador">Nombre trabajador</label>
                   <select name="trabajador" class="selecttrabajador" multiple="multiple" style="width: 100%">
-                    <option class="chip" value="1">Trabajador</option>
+                    <option class="chip" [value]="trabajador.IdTrabajador" *ngFor="let trabajador of trabajadores">{{trabajador.Nombres}}</option>
                   </select>
                 </div>
 
                 <div class="col-md-6">
                   <label for="selectrol">Rol</label>
                   <select name="RolUsuario" class="selectrol" multiple="multiple" style="width: 100%">
-                    <option class="chip" value="1">Administrador</option>
-                    <option  class="chip" value="2">Chofer</option>
+                    <option class="chip" [value]="rol.IdRol" *ngFor="let rol of roles">{{rol.NombreRol}}</option>
+
                   </select>
                 </div>
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Usuario} from "../../models/Usuario";
 import {UsuarioService} from "../../services/usuario.service";
 import {ActivatedRoute, Router} from "@angular/router";
-
+import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,43 +13,62 @@ export class LoginComponent implements OnInit {
 
   public usuario : Usuario;
   public title: String;
-  public identity;
+  public identity: Usuario;
   public token;
   public status;
+
+  formLoginUser: FormGroup;
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private usuarioServicio: UsuarioService
-  ) { }
+    private usuarioServicio: UsuarioService,
+    private formBuilderUser : FormBuilder
+  ) {
 
-  ngOnInit() {
-    console.log(this.usuarioServicio.getIdentity());
-    console.log(this.usuarioServicio.getToken());
+    this.usuario = new Usuario(null,null,null,null,null,null,null,null);
   }
 
+  ngOnInit() {
+    /*console.log(this.usuarioServicio.getIdentity());
+    console.log(this.usuarioServicio.getToken());*/
+
+    this.formLoginUser = this.formBuilderUser.group({
+        'nombre' : new FormControl(''),
+        'password' : new FormControl('')
+    })
+  }
+
+
+  getValuesLogin(){
+    this.usuario.Username = this.formLoginUser.value.nombre;
+    this.usuario.Password = this.formLoginUser.value.password;
+
+  }
   navegar(){
 
     this._router.navigate(['/menu']);
   }
   onSubmit(){
+    this.getValuesLogin();
     //Logear al usuario y conseguir el objeto
-    this.usuarioServicio.login(this.usuario).subscribe(
+    this.usuarioServicio.login2(this.usuario).subscribe(
 
       response =>{
-        this.identity = response.usuario;
-
-        if(!this.identity || !this.identity.idUsuario){
+        this.identity = response;
+        console.log( response.IdUsuario);
+        if(!this.identity || !this.identity.IdUsuario){
           console.log('El usuario no se ha logeado correctamente');
 
         } else {
 
-          this.identity.contrasenia = '';
+          this.identity.Password = '';
 
           //Local storage solo deja guardar numeros o string
           localStorage.setItem('identity',JSON.stringify(this.identity));
 
           //Conseguir el token
-          this.usuarioServicio.login(this.usuario,true).subscribe(
+          this.usuarioServicio.login2(this.usuario,true).subscribe(
             response =>{
               this.token = response.token;
               console.log(this.token);
@@ -60,7 +79,8 @@ export class LoginComponent implements OnInit {
               } else {
 
                 this.status = 'success';
-                this._router.navigate(['/']);
+                console.log(this.identity);
+                this._router.navigate(['/menu']);
               }
             },
             error => {
@@ -75,6 +95,7 @@ export class LoginComponent implements OnInit {
         if(errorMensaje!=null){
           var body = JSON.parse(error._body);
           this.status = 'error';
+          console.log(error)
         } else {
 
         }

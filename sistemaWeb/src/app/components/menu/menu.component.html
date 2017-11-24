@@ -11,7 +11,8 @@
           <div class="logo-wrapper sn-ad-avatar-wrapper">
             <img src="./assets/img/usuarios/admin.png" class="img-fluid ">
             <div class="rgba-stylish-strong">
-              <p class="user white-text" >Nombre de usuario<br>Cargo</p>
+              <p class="user white-text" *ngIf="Usuario">{{Usuario.Username}}<br>{{Usuario.NombreCargo}}</p>
+              <p class="user white-text" *ngIf="!Usuario">Indefinido<br>Cargo</p>
             </div>
           </div>
         </li>
@@ -44,7 +45,7 @@
                 </ul>
               </div>
             </li>
-            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/sucursales.png" height="18"></i> Sucursales </a>
+            <li *ngIf="Usuario.IdRol == 1"><a class="collapsible-header waves-effect arrow-r" [routerLink]="['sucursales']" ><i class="fa"><img src="./assets/img/icon/sucursales.png" height="18"></i> Sucursales </a>
               <div class="collapsible-body">
                 <!--Contenido submenu-->
               </div>
@@ -57,7 +58,7 @@
                   </li>
               </div>
             </li>
-            <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="['trabajador']"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>
+            <li *ngIf="Usuario.IdRol == 1"><a class="collapsible-header waves-effect arrow-r" [routerLink]="['trabajador']"><i class="fa"><img src="./assets/img/icon/trabajadores.png" height="18"></i> Trabajadores </a>
               <div class="collapsible-body">
                 <!--Contenido submenu-->
               </div>
@@ -67,12 +68,12 @@
                 <!--Contenido submenu-->
               </div>
             </li>
-              <li><a class="collapsible-header waves-effect arrow-r" [routerLink]="'usuario/add'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
+              <li *ngIf="Usuario.IdRol == 1"><a class="collapsible-header waves-effect arrow-r" [routerLink]="'usuario/add'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Usuarios </a>
               <div class="collapsible-body">
                 <!--Contenido submenu-->
               </div>
             </li>
-            <li *ngIf="rol == 'admin'"><a class="collapsible-header waves-effect arrow-r" [routerLink]="'rol'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Roles </a>
+            <li *ngIf="Usuario.IdRol == 1"><a class="collapsible-header waves-effect arrow-r" [routerLink]="'rol'"><i class="fa"><img src="./assets/img/icon/usuarios.png" height="18"></i> Roles </a>
               <div class="collapsible-body">
                 <!--Contenido submenu-->
               </div>
@@ -81,7 +82,7 @@
               <div class="collapsible-body">
                 <!--Contenido submenu-->
               </div>
-            </li>            
+            </li>
           </ul>
         </li>
       </ul>
@@ -98,14 +99,26 @@
       <div class="breadcrumb-dn mr-auto">
         <p>Panel Administrativo</p>
       </div>
-      <ul class="nav navbar-nav nav-flex-icons ml-auto">
+      <ul class="nav navbar-nav nav-flex-icons ml-auto" *ngIf="!Usuario">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle waves-effect" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle waves-effect" id="userDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Perfil</span></a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="display: none; position: absolute;">
             <a class="dropdown-item waves-effect waves-light" >Cerrar Sesion</a>
             <a class="dropdown-item waves-effect waves-light" >Mi Cuenta</a>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav nav-flex-icons ml-auto" *ngIf="Usuario">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle waves-effect" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">{{Usuario.Username}}</span></a>
+
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="display: none; position: absolute;">
+            <a class="dropdown-item waves-effect waves-light" >Mis datos</a>
+
           </div>
         </li>
       </ul>

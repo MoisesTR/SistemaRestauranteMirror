@@ -44,6 +44,9 @@ export class ListTrabajadorComponent implements OnInit {
     this.getTrabajadores();
   }
 
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
 
   getTrabajadores(){
 

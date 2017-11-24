@@ -23,7 +23,7 @@
           <!-- Contenido -->
           <div class="card-body ">
             <!-- Formulario -->
-            <form [formGroup] = "formularioAddUsuario" novalidate>
+            <form [formGroup] = "formularioAddUsuario" (ngSubmit)="createUsuario()" novalidate>
               <!-- Campos a ingresar -->
               <div class="row">
                 <div class="col-md-12">
@@ -49,7 +49,7 @@
 
                 <div class="col-md-6">
                   <label for="selecttrabajador">Nombre trabajador</label>
-                  <select name="trabajador" class="selecttrabajador" multiple="multiple" style="width: 100%">
+                  <select name="trabajador" id="trabajador" class="selecttrabajador" multiple="multiple" style="width: 100%">
                     <option class="chip" [value]="trabajador.IdTrabajador" *ngFor="let trabajador of trabajadores">{{trabajador.Nombres}}</option>
                   </select>
                 </div>

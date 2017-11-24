@@ -8,7 +8,7 @@ import {Sucursal} from "../../../models/Sucursal";
 import {CargoService} from "../../../services/cargo.service";
 import {Cargo} from "../../../models/Cargo";
 declare var $:any
-
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-add-trabajador',
   templateUrl: './add-trabajador.component.html',
@@ -138,13 +138,24 @@ export class AddTrabajadorComponent implements OnInit {
     this._TrabajadorServicio.createTrabajador(this.trabajador).subscribe(
       response =>{
         if(response.IdTrabajador){
-          console.log('Todo bien')
+          swal(
+            'Trabajador',
+            'El trabajador ha sido creado exitosamente!',
+            'success'
+          ).then(() => {
+
+            this._router.navigate(['menu/trabajador']);
+
+          })
         } else {
           console.log('Todo mal')
         }
       }, error =>{
-        console.log('Error en el servidor')
-        console.log(error)
+        swal(
+          'Trabajador',
+          'Esta cedula ya esta registrada, intenta con otra!',
+          'error'
+        )
       }
     )
 

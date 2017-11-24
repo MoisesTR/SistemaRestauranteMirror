@@ -6,7 +6,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFound404Component } from './components/not-found-404/not-found-404.component';
 import {MenuModule} from "./components/menu/menu.module";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import { SalidaProductoComponent } from './components/salida-producto/salida-producto.component';
 
@@ -29,7 +29,8 @@ const routes: Routes = [
     HttpModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    MenuModule
+    MenuModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

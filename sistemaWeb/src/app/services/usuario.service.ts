@@ -37,6 +37,19 @@ export class UsuarioService {
 
   }
 
+  login2(usuarioLogin,gettoken=null){
+
+    if(gettoken != null){
+      usuarioLogin.gettoken = gettoken;
+
+    }
+    let params = JSON.stringify(usuarioLogin);
+    let headers = new Headers({'Content-Type':'application/json'});
+
+    return this._http.post(this.url+'signin',params,{headers:headers})
+      .map(res => res.json());
+
+  }
   getIdentity() {
 
     let identity = JSON.parse(localStorage.getItem('identity'));
@@ -69,5 +82,9 @@ export class UsuarioService {
 
     return this._http.post(this.url+'signup',params,{headers:headers})
       .map(res => res.json());
+  }
+
+  getUsuarios(){
+    return this._http.get(this.url + 'users').map(res => res.json());
   }
 }

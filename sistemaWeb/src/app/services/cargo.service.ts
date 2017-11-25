@@ -15,17 +15,17 @@ public url: string;
   	this.url = Global.url;
    }
 
-     createCargo(Cargo){
+  createCargo(Cargo){
 
     let params = JSON.stringify(Cargo);
     let headers = new Headers({'Content-Type':'application/json'});
-
-    return this._http.post(this.url+'createCargo',params,{headers:headers})
+    console.log(params);
+    return this._http.post(this.url+'cargo',params,{headers:headers})
       .map(res => res.json());
   }
 
   getCargo(IdCargo){
-    return this._http.get(this.url + 'cargo/'+IdCargo).map(res => res.json());
+    return this._http.get(this.url + 'cargo'+IdCargo).map(res => res.json());
   }
 
   getCargos(){
@@ -52,7 +52,7 @@ public url: string;
     });
 
     let options = new RequestOptions({headers:headers});
-    return this._http.delete(this.url+'cargo/'+IdCargo,options)
+    return this._http.delete(this.url+'cargo'+IdCargo,options)
       .map(res => res.json());
   }
 

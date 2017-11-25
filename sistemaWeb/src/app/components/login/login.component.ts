@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   }
   navegar(){
 
-    this._router.navigate(['/menu']);
+    this._router.navigate(['/menu/dashboard']);
   }
   onSubmit(){
     this.getValuesLogin();

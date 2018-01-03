@@ -41,7 +41,7 @@ const menuRoutes: Routes = [
     path:'menu',
     component: MenuComponent,
     children: [
-        {path:'',redirectTo:'menu',pathMatch:'full'}
+        {path:'',redirectTo:'dashboard',pathMatch:'full'}
         , {path:'producto',component: ListProductosComponent}
         , {path:'producto/add',component: AddProductoComponent}
         , {path:'producto/update/:id',component: UpdateProductoComponent}

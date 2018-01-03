@@ -228,6 +228,7 @@ getCargo(){
 
     this.cargo.NombreCargo = this.formAddCargo.value.nombreCargo;
     this.cargo.DescripcionCargo = this.formAddCargo.value.descripcionCargo;
+    console.log(this.cargo);
 
   }
 
@@ -260,7 +261,7 @@ getCargo(){
     this._cargoServicio.createCargo(this.cargo).subscribe(
       response => {
 
-        if (response.IdCargo) {
+        if (response) {
 
           swal(
             'Cargo',
@@ -282,7 +283,7 @@ getCargo(){
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
-        this.getCargo();
+        
       }, error => {
         if (error.status == 500) {
           swal(
@@ -291,6 +292,7 @@ getCargo(){
             'error'
           )
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+          console.log(error);
         }
 
       }

@@ -68,7 +68,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form  [formGroup]="formAddCargo" novalidate>
+          <form  [formGroup]="formAddCargo" (ngSubmit)="createCargoUsuario()" novalidate>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">

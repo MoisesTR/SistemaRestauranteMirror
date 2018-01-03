@@ -273,7 +273,6 @@ export class CategoriaProductoComponent implements OnInit {
             this.getCategoriasRender();
           })
 
-
         } else {
           swal(
             'Error inesperado',
@@ -298,7 +297,7 @@ export class CategoriaProductoComponent implements OnInit {
 
   deleteCategoria(IdCategoria){
 
-    swal({
+    /*swal({
       title: "Estas seguro(a)?",
       text: "La categoria sera eliminada permanentemente!",
       type: 'warning',
@@ -337,7 +336,7 @@ export class CategoriaProductoComponent implements OnInit {
         )
 
       }
-    });
+    });*/
 
   }
 

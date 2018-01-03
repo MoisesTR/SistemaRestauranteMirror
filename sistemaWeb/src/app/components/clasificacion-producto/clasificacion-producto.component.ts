@@ -191,19 +191,6 @@ export class ClasificacionProductoComponent implements OnInit {
     });
   }
 
-  getValuesFormAddClasificacion(){
-
-    this.clasificacion.NombreClasificacion = this.formAddClasificacion.value.nombreClasificacion;
-    this.clasificacion.DescripcionClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
-
-  }
-
-  getValuesFormUpdateClasificacion(){
-
-    this.clasificacion.NombreClasificacion= this.formUpdateClasificacion.value.nombreClasificacion;
-    this.clasificacion.DescripcionClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
-  }
-
   showModalUpdateClasificacion(clasificacion){
 
     $('#modalUpdateClasificacion').modal('show');
@@ -333,6 +320,19 @@ export class ClasificacionProductoComponent implements OnInit {
 
     this.clasificacion = new ClasificacionProducto(null, null, null, null);
 
+  }
+
+  getValuesFormAddClasificacion(){
+
+    this.clasificacion.NombreClasificacion = this.formAddClasificacion.value.nombreClasificacion;
+    this.clasificacion.DescripcionClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
+
+  }
+
+  getValuesFormUpdateClasificacion(){
+
+    this.clasificacion.NombreClasificacion= this.formUpdateClasificacion.value.nombreClasificacion;
+    this.clasificacion.DescripcionClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
   }
 
   deleteClasificacion(IdClasificacion){

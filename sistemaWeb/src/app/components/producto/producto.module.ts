@@ -10,6 +10,8 @@ import { UpdateProductoComponent } from './update-producto/update-producto.compo
 import {ProductoRoutingModule} from "./producto.routing.module";
 import {ShowErrorsComponent} from "../show-errors.component";
 import {SharedModuleModule} from "../shared-module/shared-module.module";
+import { FileUploadModule } from 'ng2-file-upload';
+
 
 @NgModule({
   imports: [
@@ -20,6 +22,7 @@ import {SharedModuleModule} from "../shared-module/shared-module.module";
     , ProductoRoutingModule
     , ReactiveFormsModule
     , SharedModuleModule
+    , FileUploadModule
   ],
   declarations: [
   AddProductoComponent

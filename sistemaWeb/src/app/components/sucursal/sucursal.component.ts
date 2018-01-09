@@ -76,7 +76,7 @@ export class SucursalComponent implements OnInit {
           return false;
       });
 
-      $(".selectoperadora").select2({
+      $(".selectoperadoraprincipal").select2({
         maximumSelectionLength: 1
       });
 

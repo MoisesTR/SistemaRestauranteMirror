@@ -16,6 +16,7 @@ import {SubClasificacionProductoService} from "../../../services/sub-clasificaci
 import {CategoriaProductoService} from "../../../services/categoria-producto.service";
 import {CustomValidators} from "../../../validadores/CustomValidators";
 import swal from 'sweetalert2';
+
 declare var $:any;
 @Component({
   selector: 'app-update-producto',
@@ -158,6 +159,15 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
 
   }
 
+  inicializarValoresFormularioProducto(){
+    this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
+    this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
+
+    $('.selectclasificacion').val(this.producto.IdClasificacion).trigger('change.select2');
+    $('.selectsubclasificacion').val(this.producto.IdSubclasificacion).trigger('change.select2');
+    $('.selectcategoria').val(this.producto.IdCategoria).trigger('change.select2');
+  }
+
   validarCampos(){
     this.obtenerDatosFormularioProducto();
     this.cargarImagen();
@@ -183,14 +193,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     });
   }
 
-  inicializarValoresFormularioProducto(){
-    this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
-    this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
 
-    $('.selectclasificacion').val(this.producto.IdClasificacion).trigger('change.select2');
-    $('.selectsubclasificacion').val(this.producto.IdSubclasificacion).trigger('change.select2');
-    $('.selectcategoria').val(this.producto.IdCategoria).trigger('change.select2');
-  }
 
   cargarImagen(){
     if(this.filesToUpload != null){

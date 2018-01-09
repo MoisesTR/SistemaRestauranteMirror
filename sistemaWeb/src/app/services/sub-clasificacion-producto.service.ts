@@ -17,7 +17,7 @@ export class SubClasificacionProductoService {
   createSubClasificacionProducto(Subclasificacion){
 
     let params = JSON.stringify(Subclasificacion);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'subclasificacion',params,{headers:headers})
       .map(res => res.json());

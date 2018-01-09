@@ -21,8 +21,6 @@ export class EmpaqueComponent implements OnInit {
 
   @ViewChild('formEmpaque') formEmpaque: NgForm;
 
-
-
   public empaque: Empaque;
   public empaques: Empaque[];
   public mensaje : string;
@@ -215,19 +213,6 @@ export class EmpaqueComponent implements OnInit {
     });
   }
 
-  getValuesFormAddEmpaque(){
-
-    this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
-    this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
-
-  }
-
-  getValuesFormUpdateEmpaque(){
-
-    this.empaque.NombreEmpaque= this.formUpdateEmpaque.value.nombreEmpaque;
-    this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
-  }
-
   showModalUpdateEmpaque(empaque){
 
     $('#modalUpdateEmpaque').modal('show');
@@ -289,10 +274,20 @@ export class EmpaqueComponent implements OnInit {
     )
   }
 
-  MetodoReset(){
+  getValuesFormAddEmpaque(){
 
+    this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
+    this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
+    console.log(this.empaque);
   }
 
+  getValuesFormUpdateEmpaque(){
+
+    this.empaque.NombreEmpaque= this.formUpdateEmpaque.value.nombreEmpaque;
+    this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
+
+
+  }
   getEmpaque(IdEmpaque){
 
     this._EmpaqueServicio.getEmpaque(IdEmpaque).subscribe(

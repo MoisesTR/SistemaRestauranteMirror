@@ -100,9 +100,8 @@
 
                       <div class="col-md-6">
                         <label for="selectclasificacion">Clasificación</label>
-                        <select name="selectclasificacion"  class="selectclasificacion" multiple="multiple" style="width: 100%">
-                          <option class="chip" value="IdClasificacion">Clasificacion 1</option>
-                          <option  class="chip" value="IdClasificacion">Clasificacion 2</option>
+                        <select name="selectclasificacion"  class="selectclasificacion"  multiple="multiple" style="width: 100%">
+                          <option class="chip" [value]="clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.NombreClasificacion}}</option>
                         </select>
                       </div>
 
@@ -141,7 +140,7 @@
   </div>
 </div>
 
-<!-- Modal para actualiazar subclasificacion -->
+<!-- Modal para actualizar subclasificacion -->
 <div class="modal fade" id="modalUpdateSubClasificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->

@@ -8,6 +8,8 @@ import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/fo
 import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
 import swal from 'sweetalert2';
+import {ClasificacionProductoService} from "../../services/clasificacion-producto.service";
+import {ClasificacionProducto} from "../../models/ClasificacionProducto";
 declare var $:any;
 
 
@@ -21,23 +23,27 @@ export class SubClasificacionProductoComponent implements OnInit {
 
   public subclasificacion : SubClasificacionProducto;
   public subclasificaciones: SubClasificacionProducto[];
+  public clasificaciones: ClasificacionProducto;
+
   public mensaje : string;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
+
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
-
 
   formAddSubClasificacion : FormGroup;
   formUpdateSubClasificacion: FormGroup;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _subClasificacionService : SubClasificacionProductoService
+    private _route: ActivatedRoute
+    , private _router: Router
+    , private _subClasificacionService : SubClasificacionProductoService
+    , private _clasificacionService: ClasificacionProductoService
+
   ) {
     this.initConstructorSubClasificacion();
   }
@@ -83,7 +89,8 @@ export class SubClasificacionProductoComponent implements OnInit {
           return false;
       });
     });
-    this.listarSubclasificaciones();
+    this.getSubClasificaciones();
+    this.getClasificaciones();
   }
 
   ngAfterViewInit(): void {
@@ -100,7 +107,7 @@ export class SubClasificacionProductoComponent implements OnInit {
   }
 
 
-  listarSubclasificaciones(){
+  getSubClasificaciones(){
     this._subClasificacionService.getSubClasificaciones().subscribe(
       response => {
 
@@ -176,30 +183,15 @@ export class SubClasificacionProductoComponent implements OnInit {
 
   }
 
-  capturarDatosActualizados(){
-    this.subclasificacion.NombreSubClasificacion = this.formUpdateSubClasificacion.value.nombreSubClasificacion;
-    this.subclasificacion.DescripcionSubClasificacion = this.formUpdateSubClasificacion.value.descripcionCategoria;
-  }
-  capturarDatosIngresados(){
-    this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
-    this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionCategoria;
-  }
-
-  getSubclasificacion(){
-
-  }
-
-  getSubClasificaciones(){
-
-  }
 
   createSubCasificacion(){
 
     this.capturarDatosIngresados();
+
     this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
       response => {
 
-        if (response.IdSubClasificacion) {
+        if (response.IdSubclasificacion) {
 
           swal(
             'Subclasificación',
@@ -221,7 +213,7 @@ export class SubClasificacionProductoComponent implements OnInit {
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
-        this.listarSubclasificaciones();
+        this.getSubClasificaciones();
       }, error => {
         if (error.status == 500) {
           swal(
@@ -236,6 +228,22 @@ export class SubClasificacionProductoComponent implements OnInit {
     )
     this.subclasificacion = new SubClasificacionProducto(null,null,null,null,null);
 
+  }
+
+  capturarDatosIngresados(){
+
+    this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
+    this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
+
+    let IdClasificacion:string = null;
+    IdClasificacion = $(".selectclasificacion").val()[0];
+
+    if(IdClasificacion != null) {
+      this.subclasificacion.IdClasificacion = parseInt(IdClasificacion);
+    } else {
+      console.log('esta vacio')
+    }
+    console.log(this.subclasificacion);
   }
 
   updateSubClasificacion(){
@@ -277,8 +285,23 @@ export class SubClasificacionProductoComponent implements OnInit {
 
   }
 
+  capturarDatosActualizados(){
+    this.subclasificacion.NombreSubClasificacion = this.formUpdateSubClasificacion.value.nombreSubClasificacion;
+    this.subclasificacion.DescripcionSubClasificacion = this.formUpdateSubClasificacion.value.descripcionSubClasificacion;
+
+    let IdClasificacion:string = null;
+    IdClasificacion = $(".selectclasificacion").val()[0];
+
+    if(IdClasificacion != null) {
+      this.subclasificacion.IdClasificacion = parseInt(IdClasificacion);
+    } else {
+      console.log('esta vacio')
+    }
+    console.log(this.subclasificacion);
+  }
+
   deleteSubClasificacion(IdSubClasificacion){
-    swal({
+   /* swal({
       title: "Estas seguro(a)?",
       text: "La Subclasificación sera eliminada permanentemente!",
       type: 'warning',
@@ -297,7 +320,7 @@ export class SubClasificacionProductoComponent implements OnInit {
                 'success'
               ).then(() => {
 
-                this.listarSubclasificaciones();
+                this.getSubClasificaciones();
               })
             } else {
               console.log('Ha ocurrido un error, intenta nuevamente')
@@ -310,7 +333,26 @@ export class SubClasificacionProductoComponent implements OnInit {
         )
 
       }
-    });
+    });*/
+  }
+
+  getDataNewSubClasificacion(){
+
+  }
+  getClasificaciones(){
+
+    this._clasificacionService.getClasificaciones().subscribe(
+      response => {
+        if(response.clasificaciones){
+          this.clasificaciones = response.clasificaciones;
+        } else {
+          console.log('Ha ocurrido un error obteniendo las clasificaciones');
+        }
+
+      }, error => {
+        console.log(<any>error);
+      }
+    )
   }
 
 }

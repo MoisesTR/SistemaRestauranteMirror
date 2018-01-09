@@ -21,7 +21,6 @@ export class ClasificacionProductoComponent implements OnInit {
   public clasificacion : ClasificacionProducto;
   public clasificaciones: ClasificacionProducto[];
 
-
   public formAddClasificacion: FormGroup;
   public formUpdateClasificacion: FormGroup;
 
@@ -66,7 +65,6 @@ export class ClasificacionProductoComponent implements OnInit {
 
     this.initFormAddClasificacion();
     this.initFormUpdateClasificacion();
-
 
   }
 

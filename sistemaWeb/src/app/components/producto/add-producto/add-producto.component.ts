@@ -27,11 +27,9 @@ import {CustomValidators} from "../../../validadores/CustomValidators";
 
 })
 
-
 export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
-
 
   }
 
@@ -71,10 +69,8 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
       }
 
-
     });
   }
-
 
   public producto : Producto;
   formAddProducto: FormGroup;
@@ -197,7 +193,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     });
   }
 
-  getDataNewProducto() {
+  obtenerDatosFormNuevoProducto() {
 
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
@@ -280,7 +276,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
 
-  uploadImage(){
+  cargarImagen(){
 
     if(this.filesToUpload != null){
 
@@ -291,7 +287,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         'token',
         'image').then((result:any)=>{
         this.producto.Imagen = result.image;
-        this.createProducto();
+        this.crearProducto();
 
       },error =>{
         swal(
@@ -301,14 +297,11 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         )
       });
     } else {
-      this.createProducto();
+      this.crearProducto();
     }
 
-
   }
-
-
-  createProducto(){
+  crearProducto(){
 
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
@@ -343,10 +336,12 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     console.log(this.filesToUpload);
 
   }
+
+
   validarCamposProduto(myForm: NgForm){
 
-    this.getDataNewProducto();
-    this.uploadImage();
+    this.obtenerDatosFormNuevoProducto();
+    this.cargarImagen();
 
   }
 

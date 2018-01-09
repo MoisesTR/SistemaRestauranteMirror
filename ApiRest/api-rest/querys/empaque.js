@@ -11,6 +11,7 @@ function getEmpaque(pool,IdEmpaque){
         .query('SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE IdEmpaque = @IdEmpaque')
 }
 function createEmpaque(pool,data){
+    console.log(data);
     return pool.request()
         .input('NombreEmpaque',sql.NVarChar(50),data.NombreEmpaque)
         .input('Descripcion',sql.NVarChar(150),data.Descripcion)

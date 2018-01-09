@@ -24,6 +24,7 @@ function getSubclasificaciones(req,res){
 
 function createSubclasificacion(req,res){
     var data = req.body
+    console.log(data);
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.createSubClasificacion(poolObt,data)
     }).then((results) => {

@@ -11,9 +11,10 @@ function getSucursales(pool,Habilitado){
         .execute('USP_GET_SUCURSAL')
 }
 function createSucursal(pool,data){
+    console.log(data);
     return pool.request()
-        .input('NombreSucursal',sql.Nvarchar(50),data.NombreSucursal)
-        .input('Direccion',sql.Nvarchar(150),data.Direccion)
+        .input('NombreSucursal',sql.NVarChar(100),data.NombreSucursal)
+        .input('Direccion',sql.NVarChar(250),data.Direccion)
         .execute('USP_CREATE_SUCURSAL')
 }
 module.exports={

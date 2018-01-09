@@ -159,8 +159,8 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
   }
 
   validarCampos(){
-    this.getDataUpdateProducto();
-    this.uploadImage();
+    this.obtenerDatosFormularioProducto();
+    this.cargarImagen();
   }
 
   getProducto(){
@@ -172,7 +172,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
           response =>{
             if(response.producto){
               this.producto = response.producto;
-              this.setValuesProducto();
+              this.inicializarValoresFormularioProducto();
             } else {
               this._router.navigate(['producto/list']);
             }
@@ -183,7 +183,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     });
   }
 
-  setValuesProducto(){
+  inicializarValoresFormularioProducto(){
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
 
@@ -191,7 +191,8 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     $('.selectsubclasificacion').val(this.producto.IdSubclasificacion).trigger('change.select2');
     $('.selectcategoria').val(this.producto.IdCategoria).trigger('change.select2');
   }
-  uploadImage(){
+
+  cargarImagen(){
     if(this.filesToUpload != null){
 
       this._uploadService.makeFileRequest(
@@ -201,7 +202,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
         'token',
         'image').then((result:any)=>{
         this.producto.Imagen = result.image;
-        this.updateProducto();
+        this.actualizarProducto();
 
       },error =>{
         swal(
@@ -211,12 +212,12 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
         )
       });
     } else {
-      this.updateProducto();
+      this.actualizarProducto();
     }
 
   }
 
-  updateProducto(){
+  actualizarProducto(){
 
     this._productoService.updateProducto(this.producto).subscribe(
       response =>{
@@ -294,7 +295,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     )
   }
 
-  getDataUpdateProducto() {
+  obtenerDatosFormularioProducto() {
 
     this.producto.NombreProducto = this.formUpdateProducto.value.nombreProducto;
     this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
@@ -309,7 +310,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
       variable = parseInt(categoria);
 
       this.producto.IdCategoria = variable;
-
 
     } else {
 

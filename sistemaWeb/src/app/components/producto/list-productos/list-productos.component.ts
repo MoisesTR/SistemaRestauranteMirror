@@ -22,8 +22,10 @@ export class ListProductosComponent implements OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
+
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
+
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
@@ -121,7 +123,7 @@ export class ListProductosComponent implements OnInit {
     );
   }
 
-  deleteProducto(IdProducto){
+  eliminarProducto(IdProducto){
 
     swal({
       title: "Estas seguro(a)?",

@@ -233,7 +233,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getClasificaciones(){
-
+  
     this._clasificaionService.getClasificaciones().subscribe(
 
       response =>{
@@ -275,8 +275,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     )
   }
 
-
-  cargarImagen(){
+  guardarImagenProducto(){
 
     if(this.filesToUpload != null){
 
@@ -297,6 +296,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         )
       });
     } else {
+      this.producto.Imagen = 'nodisponible.png';
       this.crearProducto();
     }
 
@@ -311,20 +311,15 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
             'El producto ha sido creado exitosamente!',
             'success'
           ).then(() => {
-
             this._router.navigate(['menu/producto']);
-
           })
-
         }
-
       }, error =>{
         swal(
           'Producto',
           'Ha ocurrido un error interno en el servidor, intente nuevamente',
           'error'
         )
-
       }
     )
   }
@@ -338,10 +333,10 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
 
-  validarCamposProduto(myForm: NgForm){
+  validarCamposProduto(){
 
     this.obtenerDatosFormNuevoProducto();
-    this.cargarImagen();
+    this.guardarImagenProducto();
 
   }
 

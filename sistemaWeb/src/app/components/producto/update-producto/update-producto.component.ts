@@ -56,9 +56,8 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
       str = $( ".selectclasificacion" ).val()[0]
 
       if(str != null){
-        /* console.log(str.split(':')[1]);*/
+
         let variable:number;
-        /*   variable = parseInt(str.split(':')[1]);*/
         variable = parseInt(str);
 
         this._subclasificacionService.getSubClasificacionByIdClasificacion(variable).subscribe(
@@ -85,57 +84,15 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
         this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
       }
 
-
     });
   }
   ngOnInit() {
 
-    $(document).ready(function(){
-
-      /*$("#imageProducto").attr("data-default-file", this.url + 'productoGetImage/' + this.producto.Imagen);*/
-      $('.dropify').dropify();
-
-      $(".selectcategoria").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectsubclasificacion").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectproveedor").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectenvase").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectempaque").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectclasificacion").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectestado").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectvalorunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
-    });
-
     this.getClasificaciones()
     this.getSubClasificaciones();
     this.getCategorias();
+    this.getProducto();
+
 
     this.formUpdateProducto =  this.formBuilderUProducto.group({
       'nombreProducto': new FormControl('',[
@@ -155,7 +112,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
 
     })
 
-    this.getProducto();
 
   }
 
@@ -175,13 +131,60 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
 
   getProducto(){
     this._route.params.forEach((params: Params)=>{
+
         let id = params['id'];
         this.producto.IdProducto = id;
-        console.log('el id'+id)
+
         this._productoService.getProducto(id).subscribe(
           response =>{
             if(response.producto){
               this.producto = response.producto;
+
+              //Inicializar componentes de la vista
+              $(document).ready(()=>{
+                var test =  this.url + 'productoGetImage/' + this.producto.Imagen;
+                console.log('url:'+this.url + 'productoGetImage/' + this.producto.Imagen);
+                $('.dropify').dropify({
+                  defaultFile: test
+                });
+
+                $(".selectcategoria").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectsubclasificacion").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectproveedor").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectenvase").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectempaque").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectunidadmedida").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectclasificacion").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectestado").select2({
+                  maximumSelectionLength: 1
+                });
+
+                $(".selectvalorunidadmedida").select2({
+                  maximumSelectionLength: 1
+                });
+
+              });
               this.inicializarValoresFormularioProducto();
             } else {
               this._router.navigate(['producto/list']);

@@ -51,6 +51,8 @@ import {SalidaProductoComponent} from "../salida-producto/salida-producto.compon
 import {TrabajadorModule} from "../trabajador/trabajador.module";
 import {UsuarioModule} from "../usuario/usuario.module";
 import {ClasificacionUnidadMedidaService} from "../../services/clasificacion-unidad-medida.service";
+import {TelefonoSucursal} from "../../models/TelefonoSucursal";
+import {TelefonosucursalService} from "../../services/telefonosucursal.service";
 
 
 @NgModule({
@@ -96,6 +98,7 @@ import {ClasificacionUnidadMedidaService} from "../../services/clasificacion-uni
 
 
 
+
   ],
   exports: [
     MenuComponent
@@ -117,6 +120,7 @@ import {ClasificacionUnidadMedidaService} from "../../services/clasificacion-uni
     , UploadService
     , ProductoProveedorService
     , ClasificacionUnidadMedidaService
+    , TelefonosucursalService
 
   ]
 })

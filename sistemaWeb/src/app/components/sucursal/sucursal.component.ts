@@ -8,6 +8,7 @@ import {idioma_espanol} from "../../services/global";
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
+import {TelefonosucursalService} from "../../services/telefonosucursal.service";
 import {TelefonoSucursal} from "../../models/TelefonoSucursal";
 declare var $:any;
 
@@ -37,10 +38,11 @@ export class SucursalComponent implements OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _sucursalService : SucursalService,
-    private _formBuilderSucursal : FormBuilder
+    private _route: ActivatedRoute
+    , private _router: Router
+    , private _sucursalService : SucursalService
+    , private _telefonoService: TelefonosucursalService
+    , private _formBuilderSucursal : FormBuilder
   ) {
 
     this.initConstructorSucursal();
@@ -48,6 +50,8 @@ export class SucursalComponent implements OnInit {
 
   private initConstructorSucursal(){
     this.sucursal = new Sucursal(null,null,null,null,null,null);
+    this.telefonoPrincipal = new TelefonoSucursal(null,null,null,null,null,null,null)
+    this.telefonoSecundario = new TelefonoSucursal(null,null,null,null,null,null,null);
   }
 
   ngOnInit() {
@@ -258,6 +262,8 @@ export class SucursalComponent implements OnInit {
 
     this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formAddSucursal.value.direccion;
+    this.telefonoPrincipal.NumeroTelefono = this.formAddSucursal.value.telefonoPrincipal;
+    this.telefonoSecundario.NumeroTelefono = this.formAddSucursal.value.telefonoSecundario;
 
   }
 
@@ -265,7 +271,6 @@ export class SucursalComponent implements OnInit {
 
     this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formAddSucursal.value.descripcionSucursal;
-
 
   }
 
@@ -294,17 +299,28 @@ export class SucursalComponent implements OnInit {
       response => {
 
         if (response.IdSucursal) {
+          this.telefonoPrincipal.IdSucursal = response.IdSucursal;
+          this.telefonoPrincipal.IdOperadora = 1;
+          this._telefonoService.createTelefonoSucursal(this.telefonoPrincipal).subscribe(
+            response => {
+              if(response.IdTelefonoSucursal){
+                swal(
+                  'Sucursal',
+                  'El sucursal ha sido creado exitosamente!',
+                  'success'
+                ).then(() => {
+                  $('#modalAddSucursal').modal('toggle');
+                  this.formAddSucursal.reset();
+                  this.sucursal = new Sucursal(null,null,null,null,null,null);
+                  this.getSucursalRender();
+                })
+              } else {
 
-          swal(
-            'Sucursal',
-            'El sucursal ha sido creado exitosamente!',
-            'success'
-          ).then(() => {
-            $('#modalAddSucursal').modal('toggle');
-            this.formAddSucursal.reset();
-            this.sucursal = new Sucursal(null,null,null,null,null,null);
-            this.getSucursalRender();
-          })
+              }
+            }, error =>{
+
+            }
+          )
 
         } else {
           swal(

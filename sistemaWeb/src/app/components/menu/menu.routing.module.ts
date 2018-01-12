@@ -18,7 +18,7 @@ import {CargoComponent} from "../cargo/cargo.component";
 import {BodegaSucursalComponent} from "../bodega-sucursal/bodega-sucursal.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
 import {ReporteComponent} from "../reporte/reporte.component";
-import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
+//import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
 import {RolUsuario} from "../../models/RolUsuario";
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 import {HabilitadosComponent} from "../habilitados/habilitados.component";
@@ -33,6 +33,8 @@ import {ListTrabajadorComponent} from "../trabajador/list-trabajador/list-trabaj
 import {UpdateTrabajadorComponent} from "../trabajador/update-trabajador/update-trabajador.component";
 import {ListUsuariosComponent} from "../usuario/list-usuarios/list-usuarios.component";
 import {UpdateUsuarioComponent} from "../usuario/update-usuario/update-usuario.component";
+import {InformacionFacturaComponent} from "../informacion-factura/informacion-factura.component";
+import {BuscarGeneralFacturaComponent} from "../buscar-general-factura/buscar-general-factura.component";
 
 
 const menuRoutes: Routes = [
@@ -60,7 +62,7 @@ const menuRoutes: Routes = [
         , {path:'bodega',component: BodegaSucursalComponent}
         , {path:'traslados',component: TrasladoProductoComponent}
         , {path:'reportes',component: ReporteComponent}
-        , {path:'producto-proveedor',component: ProductoProveedorComponent}
+  //      , {path:'producto-proveedor',component: ProductoProveedorComponent}
         , {path:'rol',component: RolusuarioComponent}
         , {path:'habilitados',component: HabilitadosComponent}
         , {path:'unidadmedida',component: UnidadmedidaComponent}
@@ -68,6 +70,8 @@ const menuRoutes: Routes = [
         , {path:'factura/add',component: AddfacturaComponent}
         , {path:'factura/list',component: ListFacturaComponent}
         , {path:'factura/delete',component: DeleteFacturaComponent}
+        , {path:'factura/informacion',component: InformacionFacturaComponent}
+        , {path:'factura/busqueda',component: BuscarGeneralFacturaComponent}
 
         /*TRABAJADOR MODULO*/
       /*FACTURA MODULO*/

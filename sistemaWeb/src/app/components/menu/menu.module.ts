@@ -38,7 +38,7 @@ import {CargoComponent} from "../cargo/cargo.component";
 import {ReporteComponent} from "../reporte/reporte.component";
 import {TrasladoProductoComponent} from "../traslado-producto/traslado-producto.component";
 import {UploadService} from "../../services/upload.service";
-import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
+//import {ProductoProveedorComponent} from "../producto-proveedor/producto-proveedor.component";
 import {ProductoProveedorService} from "../../services/producto-proveedor.service";
 import {RolusuarioComponent} from "../rolusuario/rolusuario.component";
 import {HabilitadosComponent} from "../habilitados/habilitados.component";
@@ -70,7 +70,7 @@ import {ClasificacionUnidadMedidaService} from "../../services/clasificacion-uni
     , CargoComponent
     , ReporteComponent
     , TrasladoProductoComponent
-    , ProductoProveedorComponent
+  //  , ProductoProveedorComponent
     , RolusuarioComponent
     , HabilitadosComponent
     , UnidadmedidaComponent

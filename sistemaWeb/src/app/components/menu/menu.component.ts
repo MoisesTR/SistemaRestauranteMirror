@@ -29,4 +29,10 @@ export class MenuComponent implements OnInit {
     this.Usuario = this._usuarioService.getIdentity();
 
   }
+
+  logout(){
+    localStorage.clear();
+    this._usuarioService.identity = null;
+    this._router.navigate(['/']);
+  }
 }

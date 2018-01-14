@@ -11,9 +11,14 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
     @Descripcion NVARCHAR(200),
     @Imagen NVARCHAR(100)
 ) AS BEGIN
-	INSERT INTO PRODUCTO(IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen)
-	VALUES(@IdCategoria,@IdSubclasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen)
-	SELECT @@IDENTITY AS IdProducto
+	IF EXISTS (SELECT NombreProducto FROM PRODUCTO WHERE @NombreProducto = NombreProducto )
+		RAISERROR('El nombre del producto ya existe',14,1)
+	ELSE
+		BEGIN
+		INSERT INTO PRODUCTO(IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen)
+		VALUES(@IdCategoria,@IdSubclasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen)
+		SELECT @@IDENTITY AS IdProducto
+		END 
 END 
 GO
 IF OBJECT_ID('USP_UPDATE_PRODUCTO','P') IS NOT NULL

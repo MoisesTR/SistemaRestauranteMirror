@@ -117,7 +117,6 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
           && (key.charCode != 205) //Í
           && (key.charCode != 211) //Ó
           && (key.charCode != 218) //Ú
-
         )
           return false;
       });

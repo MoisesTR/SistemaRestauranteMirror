@@ -9,6 +9,8 @@ import {MenuModule} from "./components/menu/menu.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import { SalidaProductoComponent } from './components/salida-producto/salida-producto.component';
+import { InformacionFacturaComponent } from './components/informacion-factura/informacion-factura.component';
+import { BuscarGeneralFacturaComponent } from './components/buscar-general-factura/buscar-general-factura.component';
 
 
 const routes: Routes = [
@@ -22,7 +24,7 @@ const routes: Routes = [
     AppComponent
     , InicioComponent
     , LoginComponent
-    , NotFound404Component
+    , NotFound404Component, InformacionFacturaComponent, BuscarGeneralFacturaComponent
   ],
   imports: [
     BrowserModule,

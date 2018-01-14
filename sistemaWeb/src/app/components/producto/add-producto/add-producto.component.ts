@@ -19,6 +19,7 @@ import {SubClasificacionProductoService} from "../../../services/sub-clasificaci
 import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
 import {ProductoService} from "../../../services/producto.service";
 import {CustomValidators} from "../../../validadores/CustomValidators";
+import {Utilidades} from "../../Utilidades";
 
 @Component({
   selector: 'app-add-producto',
@@ -232,7 +233,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getClasificaciones(){
-  
+
     this._clasificaionService.getClasificaciones().subscribe(
 
       response =>{
@@ -316,7 +317,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       }, error =>{
         swal(
           'Producto',
-          'Ha ocurrido un error interno en el servidor, intente nuevamente',
+          Utilidades.mensajeError(<any>error),
           'error'
         )
       }

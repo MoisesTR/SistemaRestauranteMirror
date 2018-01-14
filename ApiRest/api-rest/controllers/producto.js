@@ -30,7 +30,11 @@ function createProducto(req,res){
     }).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json(
+           {
+               mensaje:err.originalError.info.message
+               , codigo:'PRUEBA'
+            }) 
     });
 }
 function updateProducto(req,res){

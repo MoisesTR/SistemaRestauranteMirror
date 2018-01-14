@@ -18,6 +18,11 @@ import {ClasificacionProductoService} from "../../../services/clasificacion-prod
 import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
 import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
 import {ProductoService} from "../../../services/producto.service";
+<<<<<<< Updated upstream
+=======
+import {CustomValidators} from "../../../validadores/CustomValidators";
+import {Utilidades} from "../../Utilidades";
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-add-producto',
@@ -26,6 +31,7 @@ import {ProductoService} from "../../../services/producto.service";
 
 })
 
+<<<<<<< Updated upstream
 
 export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
@@ -70,6 +76,9 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
     });
   }
+=======
+export class AddProductoComponent implements OnInit, AfterViewInit {
+>>>>>>> Stashed changes
 
 
   public producto : Producto;
@@ -87,7 +96,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     , private _router: Router
     , private _categoriaService: CategoriaProductoService
     , private _uploadService : UploadService
-    , private _clasificaionService: ClasificacionProductoService
+    , private _clasificacionService: ClasificacionProductoService
     , private _subclasificacionService: SubClasificacionProductoService
     , private _productoService : ProductoService
   ) {
@@ -140,12 +149,32 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
 
     });
+<<<<<<< Updated upstream
     this.cargarCategorias();
     this.getClasificaciones();
     /*this.getSubClasificacionByIdClasificacion(1);*/
     this.getSubClasificaciones();
+=======
+
+    this.getCategorias();
+    this.getClasificaciones();
+    this.initFormAddProducto();
+    this.onChanges();
+
+  }
+
+  initFormAddProducto() {
+    this.formAddProducto =  this._fAddProducto.group({
+      'nombreProducto': new FormControl('',[
+          Validators.required
+          , Validators.minLength(5)
+          , Validators.maxLength(100)
+          , CustomValidators.espaciosVacios
+        ]
+>>>>>>> Stashed changes
 
 
+<<<<<<< Updated upstream
     this.formAddProducto = new FormGroup({
       'nombreProducto': new FormControl(),
       'descripcionProducto': new FormControl(),
@@ -155,9 +184,56 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
     });
 
+=======
+    })
+  }
+>>>>>>> Stashed changes
 
   }
 
+<<<<<<< Updated upstream
+=======
+  ngAfterViewInit(): void {
+    var str:string = null;
+    $('#clasificacion').change((e)=> {
+
+      str = $( ".selectclasificacion" ).val()[0]
+
+      if(str != null){
+        /* console.log(str.split(':')[1]);*/
+        let variable:number;
+        /*   variable = parseInt(str.split(':')[1]);*/
+        variable = parseInt(str);
+
+        this._subclasificacionService.getSubClasificacionByIdClasificacion(variable).subscribe(
+
+          response =>{
+            if(response.subclasificaciones){
+
+              this.subclasificaciones = response.subclasificaciones;
+              console.log(this.subclasificaciones);
+              $('.selectsubclasificacion').val(null)
+                .trigger('change');
+
+            }
+          }, error=>{
+
+          }
+        )
+      }
+    });
+
+    $('#subclasificacion').change((e)=> {
+
+      if($( ".selectsubclasificacion" ).val()[0] != null){
+        this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
+      }
+
+    });
+  }
+
+  obtenerDatosFormNuevoProducto() {
+>>>>>>> Stashed changes
 
   getDataNewProducto() {
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
@@ -176,6 +252,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
     if(categoria != null) {
       let variable: number;
+<<<<<<< Updated upstream
       variable = parseInt(categoria.split(':')[1]);
 
       this.producto.IdCategoria = variable;
@@ -184,6 +261,13 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
     console.log(this.producto);
 
+=======
+      variable = parseInt(categoria);
+      this.producto.IdCategoria = variable;
+    } else {
+      console.log('esta vacio')
+    }
+>>>>>>> Stashed changes
   }
 
 
@@ -194,18 +278,18 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         if(response.categorias){
           this.categorias = response.categorias;
         } else {
-
         }
       }, error =>{
-
       }
     )
-
   }
-
   getClasificaciones(){
 
+<<<<<<< Updated upstream
     this._clasificaionService.getClasificaciones().subscribe(
+=======
+    this._clasificacionService.getClasificaciones().subscribe(
+>>>>>>> Stashed changes
 
       response =>{
         if(response.clasificaciones){
@@ -217,6 +301,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     )
   }
 
+<<<<<<< Updated upstream
   getSubClasificacionByIdClasificacion(IdClasificacion){
 
     this._subclasificacionService.getSubClasificacionByIdClasificacion(IdClasificacion).subscribe(
@@ -253,17 +338,53 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       this.filesToUpload,
       'token',
       'image').then((result:any)=>{
+=======
+  guardarImagenProducto(){
+
+    if(this.filesToUpload != null){
+
+      this._uploadService.makeFileRequest(
+        this.url+'productoUploadImage',
+        [],
+        this.filesToUpload,
+        'token',
+        'image').then((result:any)=>{
+>>>>>>> Stashed changes
         this.producto.Imagen = result.image;
         console.log(this.producto.Imagen);
     });
 
   }
+<<<<<<< Updated upstream
+=======
+  crearProducto(){
 
+    this._productoService.createProducto(this.producto).subscribe(
+      response =>{
+        if(response.IdProducto){
+          swal(
+            'Producto',
+            'El producto ha sido creado exitosamente!',
+            'success'
+          ).then(() => {
+            this._router.navigate(['menu/producto']);
+          })
+        }
+      }, error =>{
+        swal(
+          'Producto',
+          Utilidades.mensajeError(error),
+          'error'
+        )
+      }
+    )
+  }
+>>>>>>> Stashed changes
+
+  //Subir un archivo
   public filesToUpload: Array<File>;
   fileChangeEvent(fileInput:any){
-
     this.filesToUpload = <Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload);
 
   }
   createProducto(myForm: NgForm){
@@ -281,6 +402,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
    /* let variable = null;
     variable = $( ".selectclasificacion" ).val();
 
+<<<<<<< Updated upstream
     console.log(variable[0]);
 
     if(variable[0] == null){
@@ -288,6 +410,9 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     }*/
   /*  this.formAddProducto.controls['make'].valueChanges.subscribe((value) => {
       console.log(value);
+=======
+  validarCamposProduto(){
+>>>>>>> Stashed changes
 
     });*/
     /*console.log(myForm.value.proveedor);*/

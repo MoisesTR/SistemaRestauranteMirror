@@ -44,7 +44,10 @@ export class ProductoService {
   }
 
   deleteProducto(IdProducto){
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'token'

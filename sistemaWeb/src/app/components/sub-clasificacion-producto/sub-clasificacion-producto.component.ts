@@ -70,6 +70,21 @@ export class SubClasificacionProductoComponent implements OnInit {
         , CustomValidators.espaciosVacios
       ])
     })
+
+    this.formUpdateSubClasificacion = this.formBuilderSubClasificacion.group({
+      'nombreSubClasificacion' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(100)
+        , CustomValidators.espaciosVacios
+      ])
+      , 'descripcionSubClasificacion' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ])
+    })
   }
 
   ngOnInit() {

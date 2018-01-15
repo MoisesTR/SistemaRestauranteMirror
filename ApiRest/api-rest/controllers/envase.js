@@ -27,10 +27,9 @@ function createEnvase(req,res){
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.createEnvase(poolObt,data)
     }).then((results) => {
-       res.status(200).json({
-           message:'Envase Creado con exito!!'
-       }) 
+        res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
+    
         res.status(500).json(err)
     });
 }

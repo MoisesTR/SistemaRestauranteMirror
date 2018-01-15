@@ -32,9 +32,8 @@ export class EnvaseComponent implements OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-
-   @ViewChild(DataTableDirective)
-    dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
 
   constructor(
     private _route: ActivatedRoute,
@@ -152,10 +151,11 @@ private initConstructorEnvase() {
     this._envaseService.getEnvases().subscribe(
       response => {
 
-        if(!response.envases){
-          console.log('Ha ocurrido un error');
-        } else {
+        if(response.envases){
           this.envases = response.envases;
+          this.dtTrigger.next();
+        } else {
+
         }
       },error => {
         console.log(<any>error);
@@ -251,10 +251,8 @@ private initConstructorEnvase() {
 
   createEnvaseProducto(){
     this.getValuesFormAddEnvase();
-
     this._envaseService.createEnvase(this.envase).subscribe(
       response => {
-
         if (response.IdEnvase) {
 
           swal(
@@ -263,8 +261,9 @@ private initConstructorEnvase() {
             'success'
           ).then(() => {
             $('#modalAddEnvase').modal('toggle');
-            this.formAddEnvase.reset();
+
             this.envase = new Envase(null,null,null,null);
+            this.formAddEnvase.reset();
             this.getEnvasesRender();
           })
 
@@ -274,10 +273,7 @@ private initConstructorEnvase() {
             'Ha ocurrido un error al insertar Envase, intenta nuevamente!',
             'error'
           )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
         }
-        this.getEnvase();
       }, error => {
         if (error.status == 500) {
           swal(
@@ -285,9 +281,7 @@ private initConstructorEnvase() {
             'Ha ocurrido un error en el servidor, intenta nuevamente!',
             'error'
           )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
         }
-
       }
     )
   }
@@ -391,5 +385,9 @@ private initConstructorEnvase() {
       }
     });
 
+  }
+
+  clearAddForm(){
+    this.formAddEnvase.reset();
   }
 }

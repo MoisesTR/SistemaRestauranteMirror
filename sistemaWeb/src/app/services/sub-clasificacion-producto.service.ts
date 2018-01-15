@@ -31,7 +31,7 @@ export class SubClasificacionProductoService {
     return this._http.get(this.url + 'subclasificaciones').map(res => res.json());
   }
 
-  getSubClasificacionByIdClasificacion(IdClasificacion){
+  getSubClasificacionesByIdClasificacion(IdClasificacion){
     return this._http.get(this.url + 'subclasificaciones/'+IdClasificacion).map(res => res.json());
 
   }

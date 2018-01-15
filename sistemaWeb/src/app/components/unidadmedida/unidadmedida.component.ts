@@ -60,9 +60,6 @@ export class UnidadmedidaComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
-
     this.dtOptions = {
       autoWidth : false
       , pagingType: 'full_numbers'
@@ -359,12 +356,11 @@ export class UnidadmedidaComponent implements OnInit {
 
   }
 
-    cleanFormAdd(){
-      this.formAddUnidadMedida.reset();
-      $('#clasificacionunidadmedida').val(null)
-        .trigger('change');
-    }
+  cleanFormAdd(){
+    this.formAddUnidadMedida.reset();
+    $('#clasificacionunidadmedida').val(null)
+      .trigger('change');
+  }
 
-  /**Falta**/
 
 }

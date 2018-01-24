@@ -3,8 +3,8 @@ import {SubClasificacionProductoService} from "../../services/sub-clasificacion-
 import {ActivatedRoute, Router} from "@angular/router";
 import {SubClasificacionProducto} from "../../models/SubClasificacionProducto";
 import { Subject } from 'rxjs/Rx';
-import {idioma_espanol} from '../../services/global';
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {idioma_espanol} from "../../services/global";
+import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
 import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
 import swal from 'sweetalert2';
@@ -43,13 +43,48 @@ export class SubClasificacionProductoComponent implements OnInit {
     , private _router: Router
     , private _subClasificacionService : SubClasificacionProductoService
     , private _clasificacionService: ClasificacionProductoService
+    , private formBuilderSubClasificacion : FormBuilder
 
   ) {
     this.initConstructorSubClasificacion();
+    this.initCustomValidatorsFormSubClasificacion();
   }
 
   private initConstructorSubClasificacion(){
     this.subclasificacion = new SubClasificacionProducto(null,null,null,null,null);
+  }
+
+  private initCustomValidatorsFormSubClasificacion(){
+
+    this.formAddSubClasificacion = this.formBuilderSubClasificacion.group({
+      'nombreSubClasificacion' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(100)
+        , CustomValidators.espaciosVacios
+      ])
+      , 'descripcionSubClasificacion' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ])
+    })
+
+    this.formUpdateSubClasificacion = this.formBuilderSubClasificacion.group({
+      'nombreSubClasificacion' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(100)
+        , CustomValidators.espaciosVacios
+      ])
+      , 'descripcionSubClasificacion' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ])
+    })
   }
 
   ngOnInit() {

@@ -61,10 +61,9 @@ export class UnidadmedidaComponent implements OnInit {
 
   ngOnInit() {
 
-
-
     this.dtOptions = <DataTables.Settings>{
       autoWidth: false
+
       , pagingType: 'full_numbers'
       , pageLength: 10
       , 'lengthChange': false
@@ -359,12 +358,11 @@ export class UnidadmedidaComponent implements OnInit {
 
   }
 
-    cleanFormAdd(){
-      this.formAddUnidadMedida.reset();
-      $('#clasificacionunidadmedida').val(null)
-        .trigger('change');
-    }
+  cleanFormAdd(){
+    this.formAddUnidadMedida.reset();
+    $('#clasificacionunidadmedida').val(null)
+      .trigger('change');
+  }
 
-  /**Falta**/
 
 }

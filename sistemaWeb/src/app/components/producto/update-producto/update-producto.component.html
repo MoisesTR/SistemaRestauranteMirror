@@ -12,10 +12,6 @@
             <input type="file" id="imageProducto"  class="dropify" (change)="fileChangeEvent($event)" data-height="300"  />
           </div>
         </div>
-       <!-- <div *ngIf="producto.Imagen">
-          <img src="{{url + 'productoGetImage/' + producto.Imagen}}" style="width: 500px;height:300px;" />
-        </div>-->
-
       </div>
       <!-- /.Imagen -->
 
@@ -41,14 +37,14 @@
                 <label for="clasificacion">Clasificación</label>
 
                 <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" >
-                  <option class = "chip" name = "clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
+                  <option class = "chip"  *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
                 </select>
 
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
                 <select class="form-control selectsubclasificacion" id="subclasificacion" multiple="multiple" style="width: 100%" >
-                  <option class = "chip"  *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
+                  <option class = "chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
                 </select>
               </div>
               <div class="col-md-6">

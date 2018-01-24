@@ -18,9 +18,9 @@ export class EnvaseService {
   createEnvase(Envase){
 
     let params = JSON.stringify(Envase);
-    let headers = new Headers({'Content-Type':''});
+    let headers = new Headers({'Content-Type':'application/json'});
 
-    return this._http.post(this.url+'createEnvase',params,{headers:headers})
+    return this._http.post(this.url+'envase',params,{headers:headers})
       .map(res => res.json());
   }
 

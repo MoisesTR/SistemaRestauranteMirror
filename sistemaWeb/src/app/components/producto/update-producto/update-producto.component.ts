@@ -50,9 +50,9 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    var str:string = null;
-    $('#clasificacion').change((e)=> {
 
+    var str:string = null;
+    $('#clasificacion').change(()=> {
       str = $( ".selectclasificacion" ).val()[0]
 
       if(str != null){
@@ -60,15 +60,12 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
         let variable:number;
         variable = parseInt(str);
 
-        this._subclasificacionService.getSubClasificacionByIdClasificacion(variable).subscribe(
+        this._subclasificacionService.getSubClasificacionesByIdClasificacion(variable).subscribe(
 
           response =>{
             if(response.subclasificaciones){
-
               this.subclasificaciones = response.subclasificaciones;
-              console.log(this.subclasificaciones);
-              $('.selectsubclasificacion').val(null)
-                .trigger('change');
+              $('.selectsubclasificacion').val(null).trigger('change');
 
             }
           }, error=>{
@@ -85,14 +82,19 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
       }
 
     });
+
   }
   ngOnInit() {
 
-    this.getClasificaciones()
+    this.initValidatorsFormProducto();
+    this.getClasificaciones();
     this.getSubClasificaciones();
     this.getCategorias();
     this.getProducto();
 
+  }
+
+  initValidatorsFormProducto(){
 
     this.formUpdateProducto =  this.formBuilderUProducto.group({
       'nombreProducto': new FormControl('',[
@@ -112,7 +114,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
 
     })
 
-
   }
 
   inicializarValoresFormularioProducto(){
@@ -120,11 +121,12 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
 
     $('.selectclasificacion').val(this.producto.IdClasificacion).trigger('change.select2');
-    $('.selectsubclasificacion').val(this.producto.IdSubclasificacion).trigger('change.select2');
     $('.selectcategoria').val(this.producto.IdCategoria).trigger('change.select2');
+    $('.selectsubclasificacion').val(this.producto.IdSubclasificacion).trigger('change');
   }
 
   validarCampos(){
+
     this.obtenerDatosFormularioProducto();
     this.cargarImagen();
   }
@@ -139,13 +141,12 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
           response =>{
             if(response.producto){
               this.producto = response.producto;
-
               //Inicializar componentes de la vista
               $(document).ready(()=>{
-                var test =  this.url + 'productoGetImage/' + this.producto.Imagen;
-                console.log('url:'+this.url + 'productoGetImage/' + this.producto.Imagen);
+                var imagenProducto =  this.url + 'productoGetImage/' + this.producto.Imagen;
+
                 $('.dropify').dropify({
-                  defaultFile: test
+                  defaultFile: imagenProducto
                 });
 
                 $(".selectcategoria").select2({
@@ -197,7 +198,34 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
   }
 
 
+  getSubClasificacionesByIdClasificacion(IdClasificacion){
 
+    this._subclasificacionService.getSubClasificacionesByIdClasificacion(IdClasificacion).subscribe(
+      response => {
+        if(response.subclasificaciones){
+          this.subclasificaciones = response.subclasificaciones;
+        } else {
+
+        }
+      }, error =>{
+
+      }
+    )
+  }
+
+  getSubClasificaciones(){
+    this._subclasificacionService.getSubClasificaciones().subscribe(
+      response =>{
+        if(response.subclasificaciones){
+          this.subclasificaciones = response.subclasificaciones;
+        } else {
+
+        }
+      },error=>{
+
+      }
+    )
+  }
   cargarImagen(){
     if(this.filesToUpload != null){
 
@@ -228,6 +256,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     this._productoService.updateProducto(this.producto).subscribe(
       response =>{
         if(response.success){
+
           swal(
             'Producto',
             'El producto ha sido actualizado exitosamente!',
@@ -273,20 +302,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     )
   }
 
-  getSubClasificaciones(){
-
-    this._subclasificacionService.getSubClasificaciones().subscribe(
-
-      response =>{
-        if(response.subclasificaciones){
-          this.subclasificaciones = response.subclasificaciones;
-        }
-      }, error=>{
-
-      }
-    )
-  }
-
   getCategorias(){
 
     this._categoriaService.getCategoriasProductos().subscribe(
@@ -321,7 +336,5 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
 
     }
   }
-
-
 
 }

@@ -46,7 +46,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
      /*   variable = parseInt(str.split(':')[1]);*/
         variable = parseInt(str);
 
-        this._subclasificacionService.getSubClasificacionByIdClasificacion(variable).subscribe(
+        this._subclasificacionService.getSubClasificacionesByIdClasificacion(variable).subscribe(
 
           response =>{
             if(response.subclasificaciones){
@@ -248,7 +248,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   getSubClasificacionByIdClasificacion(IdClasificacion){
 
-    this._subclasificacionService.getSubClasificacionByIdClasificacion(IdClasificacion).subscribe(
+    this._subclasificacionService.getSubClasificacionesByIdClasificacion(IdClasificacion).subscribe(
 
       response =>{
         if(response.subclasificaciones){

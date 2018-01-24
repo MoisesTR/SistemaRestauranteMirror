@@ -84,7 +84,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <br>
-                        <div class="md-form ">
+                        <div class="md-form">
                           <input type="text" id="addnombresubclasificacion"
                                  minlength="5"
                                  maxlength="100"
@@ -108,14 +108,13 @@
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
-                          <textarea type="text" minlength="3" maxlength="150" id="adddescripcionsubclasificacion"
+                          <textarea type="text"  id="adddescripcionsubclasificacion"
                                     class="md-textarea" name="descripcionsubclasificacion"
+                                    minlength="5"
                                     formControlName="descripcionSubClasificacion"
-                                    required
-                          >
-
-                          <show-errors [control]="formAddSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
+                                    required>
                           </textarea>
+                          <show-errors [control]="formAddSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
                           <label for="adddescripcionsubclasificacion">Descripción</label>
                         </div>
 
@@ -170,7 +169,6 @@
                         <div class="md-form ">
                           <input type="text" id="upnombresubclasificacion"
                                  minlength="5"
-                                 maxlength="100"
                                  class="form-control letras"
                                  name="nombresubclasificacion"
                                  formControlName="nombreSubClasificacion"
@@ -183,14 +181,12 @@
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
-                          <textarea type="text" minlength="3" maxlength="150" id="updescripcionsubclasificacion"
+                          <textarea type="text" minlength="5" id="updescripcionsubclasificacion"
                                     class="md-textarea" name="descripcionsubclasificacion"
                                     formControlName="descripcionSubClasificacion"
-                                    required
-                          >
-
-                          <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
+                                    required>
                           </textarea>
+                          <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
                           <label for="updescripcionsubclasificacion">Descripción</label>
                         </div>
 

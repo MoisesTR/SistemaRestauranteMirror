@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {EmpaqueService} from "../../services/empaque.service";
 import {Empaque} from "../../models/Empaque";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
 import { Subject } from 'rxjs/Rx';
 import swal from 'sweetalert2';
 import {DataTableDirective} from "angular-datatables";
@@ -37,9 +37,10 @@ export class EmpaqueComponent implements OnInit {
   dtElement: DataTableDirective;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _EmpaqueServicio : EmpaqueService
+    private _route: ActivatedRoute
+    , private _router: Router
+    , private _EmpaqueServicio : EmpaqueService
+    , private formBuilderEmpaque: FormBuilder
   ) {
     this.empaque = new Empaque(null,null,null,null);
   }
@@ -109,6 +110,7 @@ export class EmpaqueComponent implements OnInit {
       });
 
     });
+
     this.settingsDatatable();
     this.getEmpaques();
     this.initFormAddEmpaque();
@@ -173,7 +175,7 @@ export class EmpaqueComponent implements OnInit {
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddEmpaque(){
 
-    this.formAddEmpaque = new FormGroup({
+    this.formAddEmpaque = this.formBuilderEmpaque.group({
       'nombreEmpaque': new FormControl('',[
 
           Validators.required,
@@ -194,7 +196,7 @@ export class EmpaqueComponent implements OnInit {
 
   initFormUpdateEmpaque(){
 
-    this.formUpdateEmpaque = new FormGroup({
+    this.formUpdateEmpaque = this.formBuilderEmpaque.group({
       'nombreEmpaque': new FormControl('',[
 
         Validators.required,
@@ -226,7 +228,6 @@ export class EmpaqueComponent implements OnInit {
       , descripcionEmpaque: Empaque.Descripcion
     });
 
-
   }
 
 
@@ -237,7 +238,6 @@ export class EmpaqueComponent implements OnInit {
       response => {
 
         if (response.IdEmpaque) {
-
           swal(
             'Empaque',
             'El Empaque ha sido creado exitosamente!',
@@ -321,8 +321,12 @@ export class EmpaqueComponent implements OnInit {
   updateEmpaque(){
 
     this.getValuesFormUpdateEmpaque();
+    //Codigo temporal
+    $('#modalUpdateEmpaque').modal('toggle');
+    this.formUpdateEmpaque.reset();
+    //
 
-    this._EmpaqueServicio.updateEmpaque(this.empaque,Empaque).subscribe(
+    /*this._EmpaqueServicio.updateEmpaque(this.empaque,Empaque).subscribe(
       response =>{
         if(response.success){
           swal(
@@ -352,7 +356,7 @@ export class EmpaqueComponent implements OnInit {
           )
         }
       }
-    )
+    )*/
 
     this.empaque = new Empaque(null, null, null, null);
 
@@ -401,6 +405,10 @@ export class EmpaqueComponent implements OnInit {
       }
     });
 
+  }
+
+  cleanAddForm(){
+    this.formAddEmpaque.reset();
   }
 
 

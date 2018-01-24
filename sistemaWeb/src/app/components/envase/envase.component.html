@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right" style="margin-top:3%;">
-                  <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalAddEnvase">Nuevo Envase</button>
+                  <button type="button" class="btn orange-chang" (click)="clearAddForm()" data-toggle="modal" data-target="#modalAddEnvase">Nuevo Envase</button>
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="text-center">
                   <!--<button type="button" (click)="getEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEnvase" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
                   <button type="button" (click)="updateEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEnvase" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEnvase" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                  <button type="button"  class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEnvase" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
                 </div>
               </td>
             </tr>
@@ -71,7 +71,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form [formGroup]="formAddEnvase"  (ngSubmit)="createEnvase()" required>
+          <form [formGroup]="formAddEnvase"  (ngSubmit)="createEnvaseProducto()" required>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">

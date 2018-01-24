@@ -12,8 +12,8 @@ function getEnvase(pool,IdEnvase){
 }
 function createEnvase(pool,data){
     return pool.request()
-        .input('NombreEnvase',sql.Nvarchar(50),data.NombreEnvase)
-        .input('Descripcion',sql.Nvarchar(150),data.Descripcion)
+        .input('NombreEnvase',sql.NVarChar(50),data.NombreEnvase)
+        .input('Descripcion',sql.NVarChar(150),data.Descripcion)
         .execute('USP_CREATE_ENVASE')
 }
 module.exports={

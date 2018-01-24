@@ -96,7 +96,6 @@ export class SucursalComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers'
       , pageLength: 10
-      , language: idioma_espanol
       , "lengthChange": false
       /*select: true*/
     };
@@ -138,12 +137,11 @@ export class SucursalComponent implements OnInit {
   settingsDatatable(){
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
-    this.dtOptions = {
+    this.dtOptions = <DataTables.Settings>{
       pagingType: 'full_numbers'
       , pageLength: 10
+      , 'lengthChange': false
       , language: idioma_espanol
-      , "lengthChange": false
-      /*,select: true*/
     };
   }
 

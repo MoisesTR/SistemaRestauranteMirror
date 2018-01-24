@@ -3,7 +3,7 @@ import {SubClasificacionProductoService} from "../../services/sub-clasificacion-
 import {ActivatedRoute, Router} from "@angular/router";
 import {SubClasificacionProducto} from "../../models/SubClasificacionProducto";
 import { Subject } from 'rxjs/Rx';
-import {idioma_espanol} from "../../services/global";
+import {idioma_espanol} from '../../services/global';
 import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
 import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
@@ -53,14 +53,14 @@ export class SubClasificacionProductoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dtOptions = {
-      autoWidth : false
+    this.dtOptions = <DataTables.Settings>{
+      autoWidth: false
       , pagingType: 'full_numbers'
       , pageLength: 10
-      , language: idioma_espanol
-      , "lengthChange": false
+      , 'lengthChange': false
       , searching: true
-      , ordering:  true
+      , ordering: true
+      , language: idioma_espanol
     };
     $(document).ready(function(){
       $(".selectclasificacion").select2({

@@ -133,7 +133,6 @@ export class CargoComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers'
       , pageLength: 10
-      , language: idioma_espanol
       , "lengthChange": false
       /*,select: true*/
     };
@@ -283,7 +282,7 @@ getCargo(){
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
-        
+
       }, error => {
         if (error.status == 500) {
           swal(

@@ -44,11 +44,10 @@ export class ClasificacionProductoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dtOptions = {
+    this.dtOptions = <DataTables.Settings>{
       pagingType: 'full_numbers'
       , pageLength: 10
       , language: idioma_espanol
-      , "lengthChange": false
       /*,select: true*/
     };
 

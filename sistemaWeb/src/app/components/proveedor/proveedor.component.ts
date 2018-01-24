@@ -74,7 +74,6 @@ export class ProveedorComponent implements OnInit {
       autoWidth : false
       , pagingType: 'full_numbers'
       , pageLength: 10
-      , language: idioma_espanol
       , "lengthChange": false
       , searching: true
       , ordering:  true

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Usuario} from "../../models/Usuario";
 import {UsuarioService} from "../../services/usuario.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -12,11 +12,10 @@ import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from
 export class LoginComponent implements OnInit {
 
   public usuario : Usuario;
-  public title: String;
   public identity: Usuario;
+  public title: String;
   public token;
   public status;
-
   formLoginUser: FormGroup;
 
   constructor(
@@ -30,27 +29,35 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*console.log(this.usuarioServicio.getIdentity());
-    console.log(this.usuarioServicio.getToken());*/
 
-    this.formLoginUser = this.formBuilderUser.group({
-        'nombre' : new FormControl(''),
-        'password' : new FormControl('')
-    })
+    this.initFormLogin();
+
   }
 
+  initFormLogin(){
 
-  getValuesLogin(){
+    this.formLoginUser = this.formBuilderUser.group({
+      'nombre' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(4)
+        , Validators.maxLength(20)
+      ]),
+      'password' : new FormControl('',[
+        Validators.required
+        , Validators.minLength(8)
+        , Validators.maxLength(10)
+      ])
+    })
+  }
+  obtenerValoresFormLogin(){
     this.usuario.Username = this.formLoginUser.value.nombre;
     this.usuario.Password = this.formLoginUser.value.password;
 
   }
-  navegar(){
-
-    this._router.navigate(['/menu/dashboard']);
-  }
   onSubmit(){
-    this.getValuesLogin();
+
+    this.obtenerValoresFormLogin();
+
     //Logear al usuario y conseguir el objeto
     this.usuarioServicio.login2(this.usuario).subscribe(
 

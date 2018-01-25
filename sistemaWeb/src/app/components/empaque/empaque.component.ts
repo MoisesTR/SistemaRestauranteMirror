@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {EmpaqueService} from "../../services/empaque.service";
-import {Empaque} from "../../models/Empaque";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
-import { Subject } from 'rxjs/Rx';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {EmpaqueService} from '../../services/empaque.service';
+import {Empaque} from '../../models/Empaque';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs/Rx';
 import swal from 'sweetalert2';
-import {DataTableDirective} from "angular-datatables";
-import {idioma_espanol} from "../../services/global";
-import {CustomValidators} from "../../validadores/CustomValidators";
+import {DataTableDirective} from 'angular-datatables';
+import {idioma_espanol} from '../../services/global';
+import {CustomValidators} from '../../validadores/CustomValidators';
 
 declare var $:any;
 
@@ -18,8 +18,6 @@ declare var $:any;
   providers: [EmpaqueService]
 })
 export class EmpaqueComponent implements OnInit {
-
-  @ViewChild('formEmpaque') formEmpaque: NgForm;
 
   public empaque: Empaque;
   public empaques: Empaque[];

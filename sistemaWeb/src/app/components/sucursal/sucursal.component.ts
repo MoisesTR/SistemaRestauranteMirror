@@ -5,7 +5,7 @@ import {Sucursal} from "../../models/Sucursal";
 import { Subject } from 'rxjs/Rx';
 import swal from 'sweetalert2';
 import {idioma_espanol} from "../../services/global";
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DataTableDirective} from "angular-datatables";
 import {CustomValidators} from "../../validadores/CustomValidators";
 import {TelefonosucursalService} from "../../services/telefonosucursal.service";
@@ -19,15 +19,12 @@ declare var $:any;
   providers: [SucursalService]
 })
 export class SucursalComponent implements OnInit {
-  @ViewChild('formEnvase') formSucursal: NgForm;
 
   public sucursal : Sucursal;
   public sucursales : Sucursal[];
   public telefonoPrincipal: TelefonoSucursal;
   public telefonoSecundario: TelefonoSucursal;
   public mensaje : string;
-
-
   public formAddSucursal: FormGroup;
   public formUpdateSucursal: FormGroup;
 

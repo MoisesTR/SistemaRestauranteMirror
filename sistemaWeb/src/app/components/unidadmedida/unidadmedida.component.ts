@@ -1,19 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {UnidadMedida} from "../../models/UnidadMedida";
-import {UnidadMedidaService} from "../../services/unidad-medida.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import { Subject } from 'rxjs/Rx';
-import {idioma_espanol} from "../../services/global";
-import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {UnidadMedida} from '../../models/UnidadMedida';
+import {UnidadMedidaService} from '../../services/unidad-medida.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subject} from 'rxjs/Rx';
+import {idioma_espanol} from '../../services/global';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
-import {DataTableDirective} from "angular-datatables";
-import {CustomValidators} from "../../validadores/CustomValidators";
-import {ClasificacionProducto} from "../../models/ClasificacionProducto";
-import {ClasificacionProductoService} from "../../services/clasificacion-producto.service";
-import {ClasificacionUnidadMedidaService} from "../../services/clasificacion-unidad-medida.service";
-import {ClasificacionUnidadDeMedida} from "../../models/ClasificacionUnidadDeMedida";
+import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
+import {ClasificacionProducto} from '../../models/ClasificacionProducto';
+import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
+import {ClasificacionUnidadMedidaService} from '../../services/clasificacion-unidad-medida.service';
+import {ClasificacionUnidadDeMedida} from '../../models/ClasificacionUnidadDeMedida';
 declare var $:any;
-
 
 @Component({
   selector: 'app-unidadmedida',
@@ -21,17 +20,13 @@ declare var $:any;
   styleUrls: ['./unidadmedida.component.css'],
   providers:[UnidadMedidaService]
 })
+
 export class UnidadmedidaComponent implements OnInit {
-
-    @ViewChild('formUnidadMedida') formUnidadMedida: NgForm;
-
 
   public unidadMedida : UnidadMedida;
   public unidadesMedida : UnidadMedida[];
   public clasificaciones: ClasificacionProducto[];
-
   public mensaje : string;
-
   public formUpdateUnidadMedida: FormGroup;
   public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
 

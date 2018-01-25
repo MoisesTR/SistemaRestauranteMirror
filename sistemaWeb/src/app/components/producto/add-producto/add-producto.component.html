@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="formAddProducto" (ngSubmit)="validarCamposProduto(formAddProducto)" novalidate>
+  <form [formGroup]="formAddProducto" (ngSubmit)="validarCamposProduto()" novalidate>
     <div class="row">
 
       <!--Imagen-->
@@ -53,7 +53,7 @@
               </div>
               <div class="col-md-6">
                 <br>
-                <label for="categoria">Categoria</label>
+                <label for="selectcategoria">Categoria</label>
                 <select class="selectcategoria" multiple="multiple" style="width: 100%">
                   <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
                 </select>

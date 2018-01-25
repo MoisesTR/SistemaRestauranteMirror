@@ -1,14 +1,16 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Usuario} from "../../models/Usuario";
-import {UsuarioService} from "../../services/usuario.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Usuario} from '../../models/Usuario';
+import {UsuarioService} from '../../services/usuario.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [UsuarioService]
 })
+
 export class LoginComponent implements OnInit {
 
   public usuario : Usuario;

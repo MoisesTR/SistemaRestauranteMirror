@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProveedorService} from '../../services/proveedor.service';
-import {ActivatedRoute, Router} from "@angular/router";
-import {Provedor} from "../../models/Provedor";
-import {idioma_espanol} from "../../services/global";
-import { Subject } from 'rxjs/Rx';
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Provedor} from '../../models/Provedor';
+import {Subject} from 'rxjs/Rx';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
-import {DataTableDirective} from "angular-datatables";
-import {CustomValidators} from "../../validadores/CustomValidators";
+import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
+
 declare var $:any;
 
 @Component({
@@ -142,7 +142,7 @@ export class ProveedorComponent implements OnInit {
 
   }
 
-  createProveedor(myForm: NgForm) {
+  createProveedor() {
 
     this.capturarDadosProveedor();
     this._proveedorService.createProveedor(this.proveedor).subscribe(
@@ -228,7 +228,7 @@ export class ProveedorComponent implements OnInit {
     })
 
   }
-  updateProveedor(myForm: NgForm) {
+  updateProveedor() {
 
     this.capturarDatosActualizados();
     this._proveedorService.updateProveedor(this.proveedor).subscribe(

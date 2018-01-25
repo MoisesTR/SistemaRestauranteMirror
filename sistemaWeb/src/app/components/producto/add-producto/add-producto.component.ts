@@ -2,17 +2,15 @@ import {AfterViewInit, Component, Directive, DoCheck, OnChanges, OnInit, SimpleC
 import swal from 'sweetalert2';
 import {Provedor} from "../../../models/Provedor";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ProveedorService} from "../../../services/proveedor.service";
 import {CategoriaProductoService} from "../../../services/categoria-producto.service";
 import {CategoriaProducto} from "../../../models/CategoriaProducto";
 import {Envase} from "../../../models/Envase";
-import {EnvaseService} from "../../../services/envase.service";
 import {UnidadMedida} from "../../../models/UnidadMedida";
 import {UploadService} from "../../../services/upload.service";
 import {Global} from "../../../services/global";
 import {Producto} from "../../../models/Producto";
 declare var $:any;
-import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
+import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import {ClasificacionProducto} from "../../../models/ClasificacionProducto";
 import {ClasificacionProductoService} from "../../../services/clasificacion-producto.service";
 import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
@@ -36,7 +34,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     var str:string = null;
-    $('#clasificacion').change((e)=> {
+    $('#clasificacion').change(()=> {
 
       str = $( ".selectclasificacion" ).val()[0]
 

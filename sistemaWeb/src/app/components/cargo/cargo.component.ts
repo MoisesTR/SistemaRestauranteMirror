@@ -1,17 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {Cargo} from "../../models/Cargo";
-import { Subject } from 'rxjs/Rx';
-import {idioma_espanol} from "../../services/global";
-import { ActivatedRoute, Router} from "@angular/router";
-import {CargoService} from "../../services/cargo.service";
-import {FormGroup, FormControl, FormArray, NgForm, Validators, Validator, FormBuilder} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Cargo} from '../../models/Cargo';
+import {Subject} from 'rxjs/Rx';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CargoService} from '../../services/cargo.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
-import {DataTableDirective} from "angular-datatables";
-import {CustomValidators} from "../../validadores/CustomValidators";
-
+import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
 declare var $:any;
-
-
 
 @Component({
   selector: 'app-cargo',
@@ -21,7 +17,6 @@ declare var $:any;
 })
 export class CargoComponent implements OnInit {
 
-   @ViewChild('formCargo') formCargo: NgForm;
 
   public cargo : Cargo;
   public cargos: Cargo[];

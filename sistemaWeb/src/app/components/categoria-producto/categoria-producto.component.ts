@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { CategoriaProductoService} from '../../services/categoria-producto.service'
-import { ActivatedRoute, Router} from "@angular/router";
-import { CategoriaProducto } from '../../models/CategoriaProducto';
-import { Subject } from 'rxjs/Rx';
-import {idioma_espanol} from "../../services/global";
-import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
+import {CategoriaProductoService} from '../../services/categoria-producto.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CategoriaProducto} from '../../models/CategoriaProducto';
+import {Subject} from 'rxjs/Rx';
+import {idioma_espanol} from '../../services/global';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
-import {DataTableDirective} from "angular-datatables";
-import {CustomValidators} from "../../validadores/CustomValidators";
+import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
 
 declare var $:any;
 

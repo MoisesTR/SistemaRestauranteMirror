@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {RolUsuario} from "../../models/RolUsuario";
-import {RolusuarioService} from "../../services/rolusuario.service";
-import {Subject} from "rxjs/Subject";
-import {idioma_espanol} from "../../services/global";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormGroup, FormControl, FormArray, NgForm, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {RolUsuario} from '../../models/RolUsuario';
+import {RolusuarioService} from '../../services/rolusuario.service';
+import {Subject} from 'rxjs/Subject';
+import {idioma_espanol} from '../../services/global';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormControl, FormGroup} from '@angular/forms';
 import swal from 'sweetalert2';
-import {DataTableDirective} from "angular-datatables";
+import {DataTableDirective} from 'angular-datatables';
+
 declare var $:any;
 
 @Component({
@@ -17,8 +18,6 @@ declare var $:any;
 })
 export class RolusuarioComponent implements OnInit {
 
-
-   @ViewChild('formRolUsuario') formRolUsuario: NgForm;
 
   public rol: RolUsuario;
   public roles: RolUsuario[];
@@ -84,10 +83,10 @@ rerender(): void {
    this.rol = new RolUsuario(null,null,null,null,null,null);
   }
 
-  createRol(myForm: NgForm){
+  createRol(){
 
 
-    this.rol.DescripcionRol = this.formRolUsuario.value.descripcionRol;
+   /* this.rol.DescripcionRol = this.formRolUsuario.value.descripcionRol;
     this.rol.NombreRol = this.formRolUsuario.value.nombreRol;
     this.formRolUsuario.reset;
 
@@ -102,7 +101,7 @@ rerender(): void {
 
       }
     )
-
+*/
     console.log(this.rol.DescripcionRol + this.rol.NombreRol);
 
 

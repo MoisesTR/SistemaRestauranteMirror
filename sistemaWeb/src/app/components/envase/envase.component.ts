@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {EnvaseService} from "../../services/envase.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import { Subject } from 'rxjs/Rx';
-import {idioma_espanol} from "../../services/global";
-import {Envase} from "../../models/Envase";
-import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {EnvaseService} from '../../services/envase.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subject} from 'rxjs/Rx';
+import {idioma_espanol} from '../../services/global';
+import {Envase} from '../../models/Envase';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
-import {DataTableDirective} from "angular-datatables";
-import {CustomValidators} from "../../validadores/CustomValidators";
+import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
 declare var $:any;
 
 @Component({
@@ -17,8 +17,6 @@ declare var $:any;
   providers: [EnvaseService]
 })
 export class EnvaseComponent implements OnInit {
-
-  @ViewChild('formEnvase') formEnvase: NgForm;
 
   public envase : Envase;
   public envases: Envase[];

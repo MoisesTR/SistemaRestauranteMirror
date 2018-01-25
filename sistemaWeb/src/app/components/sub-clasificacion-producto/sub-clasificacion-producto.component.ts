@@ -1,17 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SubClasificacionProductoService} from "../../services/sub-clasificacion-producto.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {SubClasificacionProducto} from "../../models/SubClasificacionProducto";
-import { Subject } from 'rxjs/Rx';
-import {idioma_espanol} from "../../services/global";
-import {FormGroup, FormControl, FormArray, NgForm, Validators, FormBuilder} from '@angular/forms';
-import {DataTableDirective} from "angular-datatables";
-import {CustomValidators} from "../../validadores/CustomValidators";
+import {SubClasificacionProductoService} from '../../services/sub-clasificacion-producto.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SubClasificacionProducto} from '../../models/SubClasificacionProducto';
+import {Subject} from 'rxjs/Rx';
+import {idioma_espanol} from '../../services/global';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {ClasificacionProductoService} from "../../services/clasificacion-producto.service";
-import {ClasificacionProducto} from "../../models/ClasificacionProducto";
+import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
+import {ClasificacionProducto} from '../../models/ClasificacionProducto';
 declare var $:any;
-
 
 @Component({
   selector: 'app-sub-clasificacion-producto',

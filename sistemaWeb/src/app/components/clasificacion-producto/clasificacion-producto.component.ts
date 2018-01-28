@@ -49,7 +49,7 @@ export class ClasificacionProductoComponent implements OnInit {
       pagingType: 'full_numbers'
       , pageLength: 10
       , language: idioma_espanol
-      /*,select: true*/
+      , 'lengthChange': false
     };
 
     this._clasificacionService.getClasificaciones().subscribe(
@@ -215,8 +215,8 @@ export class ClasificacionProductoComponent implements OnInit {
         if (response.IdClasficcacion) {
 
           swal(
-            'Clasificaciom',
-            'La clasificacion ha sido creada exitosamente!',
+            'Clasificacion',
+            'La clasificación ha sido creada exitosamente!',
             'success'
           ).then(() => {
             $('#modalAddClasificacion').modal('toggle');
@@ -288,8 +288,8 @@ export class ClasificacionProductoComponent implements OnInit {
       response =>{
         if(response.success){
           swal(
-            'Clasificacion',
-            'La clasificacion ha sido actualizada exitosamente!',
+            'Clasificación',
+            'La clasificación ha sido actualizada exitosamente!',
             'success'
           ).then(() => {
             $('#modalUpdateClasificacion').modal('toggle');
@@ -301,7 +301,7 @@ export class ClasificacionProductoComponent implements OnInit {
         } else {
           swal(
             'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
+            'Ha ocurrido un error en la actualización, intenta nuevamente!',
             'error'
           )
         }
@@ -382,7 +382,5 @@ export class ClasificacionProductoComponent implements OnInit {
   cleanAddForm(){
     this.formAddClasificacion.reset();
   }
-
-
 
 }

@@ -11,6 +11,7 @@ import {HttpModule} from '@angular/http';
 import {InformacionFacturaComponent} from './components/informacion-factura/informacion-factura.component';
 import {BuscarGeneralFacturaComponent} from './components/buscar-general-factura/buscar-general-factura.component';
 import {SharedModuleModule} from './components/shared-module/shared-module.module';
+import {Select2Module} from 'ng2-select2';
 
 
 const routes: Routes = [

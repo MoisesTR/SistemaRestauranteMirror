@@ -23,8 +23,6 @@ export class CategoriaProductoComponent implements OnInit {
   public categoriasProductos: CategoriaProducto[];
   public mensaje : string;
 
-
-
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
@@ -70,7 +68,6 @@ export class CategoriaProductoComponent implements OnInit {
       , pageLength: 10
       , language: idioma_espanol
       , 'lengthChange': false
-      /*,select: true*/
     };
   }
 

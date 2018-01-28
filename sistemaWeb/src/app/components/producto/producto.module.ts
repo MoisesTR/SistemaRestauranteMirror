@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import {ProductoService} from "../../services/producto.service";
-import {DataTablesModule} from "angular-datatables";
-import { AddProductoComponent } from './add-producto/add-producto.component';
-import { ListProductosComponent } from './list-productos/list-productos.component';
-import { UpdateProductoComponent } from './update-producto/update-producto.component';
-import {ProductoRoutingModule} from "./producto.routing.module";
-import {ShowErrorsComponent} from "../show-errors.component";
-import {SharedModuleModule} from "../shared-module/shared-module.module";
-import { FileUploadModule } from 'ng2-file-upload';
+import {HttpModule} from '@angular/http';
+import {ProductoService} from '../../services/producto.service';
+import {DataTablesModule} from 'angular-datatables';
+import {AddProductoComponent} from './add-producto/add-producto.component';
+import {ListProductosComponent} from './list-productos/list-productos.component';
+import {UpdateProductoComponent} from './update-producto/update-producto.component';
+import {ProductoRoutingModule} from './producto.routing.module';
+import {SharedModuleModule} from '../shared-module/shared-module.module';
+import {Select2Module} from 'ng2-select2';
 
 
 @NgModule({
@@ -22,7 +21,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     , ProductoRoutingModule
     , ReactiveFormsModule
     , SharedModuleModule
-    , FileUploadModule
+    , Select2Module
   ],
   declarations: [
   AddProductoComponent

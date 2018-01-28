@@ -18,6 +18,8 @@ import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto
 import {ProductoService} from "../../../services/producto.service";
 import {CustomValidators} from "../../../validadores/CustomValidators";
 import {Utilidades} from "../../Utilidades";
+import {Select2OptionData} from 'ng2-select2';
+import {Select} from '../../../models/select';
 
 @Component({
   selector: 'app-add-producto',
@@ -31,44 +33,49 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
   }
+  public exampleData: Array<Select2OptionData>;
+  public datos: Select[];
+  public dato : Select;
 
   ngAfterViewInit(): void {
-    var str:string = null;
-    $('#clasificacion').change(()=> {
+    // var str:string = null;
+    // $('#clasificacion').change(()=> {
+    //
+    //   str = $( ".selectclasificacion" ).val()[0]
+    //
+    //   if(str != null){
+    //    /* console.log(str.split(':')[1]);*/
+    //     let variable:number;
+    //  /*   variable = parseInt(str.split(':')[1]);*/
+    //     variable = parseInt(str);
+    //
+    //     this._subclasificacionService.getSubClasificacionesByIdClasificacion(variable).subscribe(
+    //
+    //       response =>{
+    //         if(response.subclasificaciones){
+    //
+    //           this.subclasificaciones = response.subclasificaciones;
+    //           console.log(this.subclasificaciones);
+    //           $('.selectsubclasificacion').val(null)
+    //             .trigger('change');
+    //
+    //         }
+    //       }, error=>{
+    //
+    //       }
+    //     )
+    //   }
+    // });
+    //
+    // $('#subclasificacion').change((e)=> {
+    //
+    //   if($( ".selectsubclasificacion" ).val()[0] != null){
+    //     this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
+    //   }
+    //
+    // });
 
-      str = $( ".selectclasificacion" ).val()[0]
 
-      if(str != null){
-       /* console.log(str.split(':')[1]);*/
-        let variable:number;
-     /*   variable = parseInt(str.split(':')[1]);*/
-        variable = parseInt(str);
-
-        this._subclasificacionService.getSubClasificacionesByIdClasificacion(variable).subscribe(
-
-          response =>{
-            if(response.subclasificaciones){
-
-              this.subclasificaciones = response.subclasificaciones;
-              console.log(this.subclasificaciones);
-              $('.selectsubclasificacion').val(null)
-                .trigger('change');
-
-            }
-          }, error=>{
-
-          }
-        )
-      }
-    });
-
-    $('#subclasificacion').change((e)=> {
-
-      if($( ".selectsubclasificacion" ).val()[0] != null){
-        this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
-      }
-
-    });
   }
 
   public producto : Producto;
@@ -97,8 +104,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit() {
 
-    $(document).ready(function(){
-
+    $(document).ready(()=>{
       $(".letras").keypress(function (key) {
         if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
           && (key.charCode < 65 || key.charCode > 90) //letras minusculas
@@ -119,15 +125,18 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         )
           return false;
       });
-
       $('.dropify').dropify();
 
-      $(".selectcategoria").select2({
+      $("#selectclasificacion").select2({
+        multiple: true,
         maximumSelectionLength: 1
       });
 
-      $(".selectsubclasificacion").select2({
-        maximumSelectionLength: 1
+      $("#subclasificacion").select2({
+        allowClear: true,
+        width: 'resolve', // need to override the changed default,
+        multiple: true
+
       });
 
       $(".selectproveedor").select2({
@@ -146,10 +155,6 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
         maximumSelectionLength: 1
       });
 
-      $(".selectclasificacion").select2({
-        maximumSelectionLength: 1
-      });
-
       $(".selectestado").select2({
         maximumSelectionLength: 1
       });
@@ -159,9 +164,10 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       });
 
     });
+
+
     this.getCategorias();
     this.getClasificaciones();
-     /* this.getSubClasificaciones();*/
 
     this.formAddProducto =  this._fAddProducto.group({
       'nombreProducto': new FormControl('',[
@@ -189,6 +195,23 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     this.formAddProducto.valueChanges.subscribe(valor => {
       console.log('hola');
     });
+  }
+
+  changed(event){
+    console.log(event);
+  }
+
+  transformarDatos(lista: ClasificacionProducto[]){
+
+    this.datos = [];
+
+    for(let li of lista){
+      this.dato = new Select(null,null);
+      this.dato.id = li.IdClasificacion;
+      this.dato.text = li.DescripcionClasificacion;
+      this.datos.push(this.dato);
+    }
+
   }
 
   obtenerDatosFormNuevoProducto() {
@@ -236,7 +259,9 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
       response =>{
         if(response.clasificaciones){
-          this.clasificaciones = response.clasificaciones;
+
+          this.clasificaciones = response.clasificaciones;;
+
         }
       }, error=>{
 
@@ -330,12 +355,8 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
 
   }
 
-
   validarCamposProduto(){
-
     this.obtenerDatosFormNuevoProducto();
     this.guardarImagenProducto();
-
   }
-
 }

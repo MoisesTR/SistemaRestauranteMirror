@@ -38,25 +38,23 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="clasificacion">Clasificación</label>
-
-                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" >
-                  <option class = "chip"  *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
-                </select>
-
+                <label for="selectclasificacion">Clasificación</label>
+                <select2 (valueChanged)="changed(event)" class="form-control" id="selectclasificacion" style="width: 100%" >
+                  <option class="chip" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
+                </select2>
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <select class="form-control selectsubclasificacion" id="subclasificacion" multiple="multiple" style="width: 100%" >
-                  <option class = "chip"  *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
+                <select class="form-control selectsubclasificacion"  id="subclasificacion" style="width: 100%" >
+                  <option class="chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
                 </select>
               </div>
               <div class="col-md-6">
                 <br>
                 <label for="selectcategoria">Categoria</label>
-                <select class="selectcategoria" multiple="multiple" style="width: 100%">
+                <select2 class="selectcategoria"  multiple="multiple" id='selectcategoria' style="width: 100%">
                   <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
-                </select>
+                </select2>
               </div>
               <div class="col-md-12">
                 <br>

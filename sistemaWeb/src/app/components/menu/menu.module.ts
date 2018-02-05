@@ -47,6 +47,7 @@ import {TrabajadorModule} from '../trabajador/trabajador.module';
 import {UsuarioModule} from '../usuario/usuario.module';
 import {ClasificacionUnidadMedidaService} from '../../services/clasificacion-unidad-medida.service';
 import {TelefonosucursalService} from '../../services/telefonosucursal.service';
+import {Select2Module} from 'ng2-select2';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import {TelefonosucursalService} from '../../services/telefonosucursal.service';
     , TrabajadorModule
     , UsuarioModule
     , SharedModuleModule
+    , Select2Module
   ],
   exports: [
     MenuComponent

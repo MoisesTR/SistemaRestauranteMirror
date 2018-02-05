@@ -235,24 +235,18 @@ export class SubClasificacionProductoComponent implements OnInit {
   createSubCasificacion(){
 
     this.capturarDatosIngresados();
-    console.log('Datos ingresados metodo')
-    console.log(this.subclasificacion)
+
     this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
       response => {
-
-
         if (response.IdSubclasificacion) {
-
           swal(
             'Subclasificación',
             'la Subclasificación ha sido creado exitosamente!',
             'success'
-          ).then(function () {
+          ).then( () => {
             $('#modalAddSubClasificacion').modal('toggle');
-            // this.formAddSubClasificacion.reset();
+            this.formAddSubClasificacion.reset();
           })
-
-
         } else {
           swal(
             'Error inesperado',

@@ -39,20 +39,20 @@
               </div>
               <div class="col-md-6">
                 <label for="selectclasificacion">Clasificación</label>
-                <select2 (valueChanged)="changed(event)" class="form-control" id="selectclasificacion" style="width: 100%" >
+                <select2 (valueChanged)="changeSelectClasificacion($event)" [options]="optionsSelect2" class="form-control" id="selectclasificacion"  >
                   <option class="chip" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
                 </select2>
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <select class="form-control selectsubclasificacion"  id="subclasificacion" style="width: 100%" >
+                <select2 (valueChanged)="changeSelectSubClasificacion($event)"  [options]="optionsSelect2" class="form-control selectsubclasificacion"  id="subclasificacion"  >
                   <option class="chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
-                </select>
+                </select2>
               </div>
               <div class="col-md-6">
                 <br>
                 <label for="selectcategoria">Categoria</label>
-                <select2 class="selectcategoria"  multiple="multiple" id='selectcategoria' style="width: 100%">
+                <select2 (valueChanged)="changeSelectCategoria($event)" [options]="optionsSelect2" class="selectcategoria"  id='selectcategoria' >
                   <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
                 </select2>
               </div>

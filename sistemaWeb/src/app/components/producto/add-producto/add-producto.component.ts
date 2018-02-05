@@ -28,55 +28,8 @@ import {Select} from '../../../models/select';
 
 })
 
-export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
+export class AddProductoComponent implements OnInit {
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-  public exampleData: Array<Select2OptionData>;
-  public datos: Select[];
-  public dato : Select;
-
-  ngAfterViewInit(): void {
-    // var str:string = null;
-    // $('#clasificacion').change(()=> {
-    //
-    //   str = $( ".selectclasificacion" ).val()[0]
-    //
-    //   if(str != null){
-    //    /* console.log(str.split(':')[1]);*/
-    //     let variable:number;
-    //  /*   variable = parseInt(str.split(':')[1]);*/
-    //     variable = parseInt(str);
-    //
-    //     this._subclasificacionService.getSubClasificacionesByIdClasificacion(variable).subscribe(
-    //
-    //       response =>{
-    //         if(response.subclasificaciones){
-    //
-    //           this.subclasificaciones = response.subclasificaciones;
-    //           console.log(this.subclasificaciones);
-    //           $('.selectsubclasificacion').val(null)
-    //             .trigger('change');
-    //
-    //         }
-    //       }, error=>{
-    //
-    //       }
-    //     )
-    //   }
-    // });
-    //
-    // $('#subclasificacion').change((e)=> {
-    //
-    //   if($( ".selectsubclasificacion" ).val()[0] != null){
-    //     this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
-    //   }
-    //
-    // });
-
-
-  }
 
   public producto : Producto;
   formAddProducto: FormGroup;
@@ -87,6 +40,7 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
+  public optionsSelect2: Select2Options;
 
   constructor(
     private _route: ActivatedRoute
@@ -100,6 +54,12 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   ) {
     this.url = Global.url;
     this.producto = new Producto(null,null,null,null,null,null,null,null,null,null);
+    this.optionsSelect2 = {
+      multiple: true
+      , maximumSelectionLength : 1
+      , width: '100%'
+    }
+
   }
 
   ngOnInit() {
@@ -127,66 +87,11 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
       });
       $('.dropify').dropify();
 
-      $("#selectclasificacion").select2({
-        multiple: true,
-        maximumSelectionLength: 1
-      });
-
-      $("#subclasificacion").select2({
-        allowClear: true,
-        width: 'resolve', // need to override the changed default,
-        multiple: true
-
-      });
-
-      $(".selectproveedor").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectenvase").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectempaque").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectestado").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectvalorunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
     });
-
 
     this.getCategorias();
     this.getClasificaciones();
-
-    this.formAddProducto =  this._fAddProducto.group({
-      'nombreProducto': new FormControl('',[
-          Validators.required
-          , Validators.minLength(5)
-          , Validators.maxLength(100)
-          , CustomValidators.espaciosVacios
-        ]
-
-      ),
-      'descripcionProducto': new FormControl('',[
-        Validators.required
-        , Validators.minLength(5)
-        , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
-      ]),
-
-    })
-
+    this.initFormAddProducto();
     this.onChanges();
 
   }
@@ -197,21 +102,41 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
     });
   }
 
-  changed(event){
-    console.log(event);
+  changeSelectCategoria(event){
+
+    let idCategoria = event.value[0];
+
+    if(idCategoria != null){
+      this.producto.IdCategoria = idCategoria;
+    }
   }
 
-  transformarDatos(lista: ClasificacionProducto[]){
+  changeSelectClasificacion(event){
 
-    this.datos = [];
+    let idClasificacion = event.value[0];
 
-    for(let li of lista){
-      this.dato = new Select(null,null);
-      this.dato.id = li.IdClasificacion;
-      this.dato.text = li.DescripcionClasificacion;
-      this.datos.push(this.dato);
+    if(idClasificacion != null) {
+      this.producto.IdClasificacion = idClasificacion;
+      this._subclasificacionService.getSubClasificacionesByIdClasificacion(idClasificacion).subscribe(
+
+            response =>{
+              if(response.subclasificaciones){
+                this.subclasificaciones = response.subclasificaciones;
+              }
+            }, error=>{
+
+            }
+          )
     }
+  }
 
+  changeSelectSubClasificacion(event){
+
+    let idSubClasificacion = event.value[0];
+
+    if(idSubClasificacion != null){
+      this.producto.IdSubclasificacion = idSubClasificacion;
+    }
   }
 
   obtenerDatosFormNuevoProducto() {
@@ -358,5 +283,25 @@ export class AddProductoComponent implements OnInit, AfterViewInit, OnChanges {
   validarCamposProduto(){
     this.obtenerDatosFormNuevoProducto();
     this.guardarImagenProducto();
+  }
+
+  private initFormAddProducto() {
+    this.formAddProducto =  this._fAddProducto.group({
+      'nombreProducto': new FormControl('',[
+          Validators.required
+          , Validators.minLength(5)
+          , Validators.maxLength(100)
+          , CustomValidators.espaciosVacios
+        ]
+
+      ),
+      'descripcionProducto': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ]),
+
+    })
   }
 }

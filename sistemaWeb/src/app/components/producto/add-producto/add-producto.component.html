@@ -32,9 +32,9 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
                   <show-errors [control]="formAddProducto.controls['nombreProducto']"></show-errors>
-                  <label for="nombreproducto" class="input-char-counter">Nombre</label>
+                  <label for="nombreproducto">Nombre</label>
                 </div>
               </div>
               <div class="col-md-6">

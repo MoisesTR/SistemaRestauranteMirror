@@ -1,25 +1,24 @@
-import {AfterViewInit, Component, Directive, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import swal from 'sweetalert2';
-import {Provedor} from "../../../models/Provedor";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CategoriaProductoService} from "../../../services/categoria-producto.service";
-import {CategoriaProducto} from "../../../models/CategoriaProducto";
-import {Envase} from "../../../models/Envase";
-import {UnidadMedida} from "../../../models/UnidadMedida";
-import {UploadService} from "../../../services/upload.service";
-import {Global} from "../../../services/global";
-import {Producto} from "../../../models/Producto";
+import {Provedor} from '../../../models/Provedor';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CategoriaProductoService} from '../../../services/categoria-producto.service';
+import {CategoriaProducto} from '../../../models/CategoriaProducto';
+import {Envase} from '../../../models/Envase';
+import {UnidadMedida} from '../../../models/UnidadMedida';
+import {UploadService} from '../../../services/upload.service';
+import {Global} from '../../../services/global';
+import {Producto} from '../../../models/Producto';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
+import {ClasificacionProductoService} from '../../../services/clasificacion-producto.service';
+import {SubClasificacionProductoService} from '../../../services/sub-clasificacion-producto.service';
+import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto';
+import {ProductoService} from '../../../services/producto.service';
+import {CustomValidators} from '../../../validadores/CustomValidators';
+import {Utilidades} from '../../Utilidades';
+
 declare var $:any;
-import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
-import {ClasificacionProducto} from "../../../models/ClasificacionProducto";
-import {ClasificacionProductoService} from "../../../services/clasificacion-producto.service";
-import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
-import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
-import {ProductoService} from "../../../services/producto.service";
-import {CustomValidators} from "../../../validadores/CustomValidators";
-import {Utilidades} from "../../Utilidades";
-import {Select2OptionData} from 'ng2-select2';
-import {Select} from '../../../models/select';
 
 @Component({
   selector: 'app-add-producto',
@@ -29,7 +28,6 @@ import {Select} from '../../../models/select';
 })
 
 export class AddProductoComponent implements OnInit {
-
 
   public producto : Producto;
   formAddProducto: FormGroup;
@@ -54,6 +52,8 @@ export class AddProductoComponent implements OnInit {
   ) {
     this.url = Global.url;
     this.producto = new Producto(null,null,null,null,null,null,null,null,null,null);
+
+    //Opciones o configuraciones generales de los select2
     this.optionsSelect2 = {
       multiple: true
       , maximumSelectionLength : 1
@@ -98,7 +98,6 @@ export class AddProductoComponent implements OnInit {
 
   onChanges(): void{
     this.formAddProducto.valueChanges.subscribe(valor => {
-      console.log('hola');
     });
   }
 
@@ -145,20 +144,6 @@ export class AddProductoComponent implements OnInit {
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
 
-    let categoria:string = null;
-    categoria = $(".selectcategoria").val()[0];
-
-    if(categoria != null) {
-      let variable: number;
-     /* variable = parseInt(categoria.split(':')[1]);*/
-      variable = parseInt(categoria);
-
-      this.producto.IdCategoria = variable;
-
-
-    } else {
-      console.log('esta vacio')
-    }
   }
 
 
@@ -193,36 +178,6 @@ export class AddProductoComponent implements OnInit {
       }
     )
   }
-
-  getSubClasificacionByIdClasificacion(IdClasificacion){
-
-    this._subclasificacionService.getSubClasificacionesByIdClasificacion(IdClasificacion).subscribe(
-
-      response =>{
-        if(response.subclasificaciones){
-          this.subclasificaciones = response.subclasificaciones;
-        }
-      }, error =>{
-
-      }
-    )
-
-  }
-
-  getSubClasificaciones(){
-    this._subclasificacionService.getSubClasificaciones().subscribe(
-
-      response =>{
-        if(response.subclasificaciones){
-          this.subclasificaciones = response.subclasificaciones;
-          console.log(this.subclasificaciones)
-        }
-      }, error=>{
-
-      }
-    )
-  }
-
   guardarImagenProducto(){
 
     if(this.filesToUpload != null){

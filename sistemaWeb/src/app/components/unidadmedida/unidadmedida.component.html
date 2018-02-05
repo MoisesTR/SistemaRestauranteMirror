@@ -98,10 +98,9 @@
 
                           <div class="col-md-6">
                             <label for="clasificacionunidadmedida">Clasificación</label>
-                            <select class="form-control selectclasificacionunidadmedida" name="clasi" id="clasificacionunidadmedida" multiple="multiple" style="width: 100%">
-                              <option class = "chip" *ngFor="let uni of clasificacionesUnidad" [value]="uni.IdClasificacionUnidadMedida" >{{uni.NombreClasificacion}}</option>
-                            </select>
-
+                            <select2 (valueChanged)="changedSelectClasificacion($event)" class="form-control" name="clasi" id="clasificacionunidadmedida" [options]="optionsSelect2">
+                              <option *ngFor="let uni of clasificacionesUnidad" [value]="uni.IdClasificacionUnidadMedida" >{{uni.NombreClasificacion}}</option>
+                            </select2>
                           </div>
 
                           <div class="col-md-6">
@@ -140,7 +139,7 @@
     </div>
 
 
-<!-- Modal Agregar unidad de medida -->
+<!-- Modal Actualizar unidad de medida -->
 <div class="modal fade" id="modalUpdateUnidadMedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
@@ -182,9 +181,9 @@
 
                       <div class="col-md-6">
                         <label for="upclasificacionunidadmedida">Clasificación</label>
-                        <select class="form-control selectclasificacionunidadmedida" name="clasi" id="upclasificacionunidadmedida" multiple="multiple" style="width: 100%">
+                        <select2 class="form-control selectclasificacionunidadmedida" id="upclasificacionunidadmedida"  [options]="optionsSelect2">
                           <option class = "chip" [value]="clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.NombreClasificacion}}</option>
-                        </select>
+                        </select2>
 
                       </div>
 

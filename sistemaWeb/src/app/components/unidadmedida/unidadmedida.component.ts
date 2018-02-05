@@ -35,7 +35,9 @@ export class UnidadmedidaComponent implements OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  formAddUnidadMedida : FormGroup;
+  formAddUnidadMedida : FormGroup
+
+  public optionsSelect2 : Select2Options;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -52,13 +54,18 @@ export class UnidadmedidaComponent implements OnInit {
     ) {
 
     this.unidadMedida = new UnidadMedida(null,null,null,null,null);
+
+    this.optionsSelect2 = {
+      multiple: true
+      , maximumSelectionLength : 1
+      , width : '100%'
+    }
   }
 
   ngOnInit() {
 
     this.dtOptions = <DataTables.Settings>{
       autoWidth: false
-
       , pagingType: 'full_numbers'
       , pageLength: 10
       , 'lengthChange': false
@@ -69,10 +76,6 @@ export class UnidadmedidaComponent implements OnInit {
 
 
     $(document).ready(function(){
-      $(".selectclasificacionunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
       $(".letras").keypress(function (key) {
         if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
           && (key.charCode < 65 || key.charCode > 90) //letras minusculas
@@ -171,21 +174,12 @@ export class UnidadmedidaComponent implements OnInit {
 
     }
 
- private initConstructorUnidadMedida() {
+  private initConstructorUnidadMedida() {
     this.unidadMedida = new UnidadMedida(null,null,null,null,null);
   }
 
   createUnidadMedida(){
 
-    let str : string;
-    str = $( "#clasificacionunidadmedida" ).val()[0]
-
-    if(str != null) {
-      let variable: number;
-      variable = parseInt(str);
-      this.unidadMedida.IdClasificacionUnidadMedida = variable;
-
-    }
     this.unidadMedida.NombreUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
     this.unidadMedida.Simbolo = this.formAddUnidadMedida.value.simboloUnidadMedida;
 
@@ -210,7 +204,6 @@ export class UnidadmedidaComponent implements OnInit {
             'error'
           )
         }
-        /*this.getUnidadesMedida();*/
       },
       error=>{
         if (error.status == 500) {
@@ -224,7 +217,16 @@ export class UnidadmedidaComponent implements OnInit {
       }
     )
 
-    this.formAddUnidadMedida.reset;
+  }
+
+  changedSelectClasificacion(event){
+
+    let idClasificacionUnidad = event.value[0];
+
+    if(idClasificacionUnidad != null){
+      this.unidadMedida.IdClasificacionUnidadMedida  = idClasificacionUnidad;
+    }
+
   }
 
   getUnidaMedida(){
@@ -241,19 +243,6 @@ export class UnidadmedidaComponent implements OnInit {
       );
     }
 
-    getUnidadesMedida(){
-      this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
-        response => {
-          if(response.unidadesmedida){
-            this.unidadesMedida = response.unidadesmedida;
-          } else {
-
-          }
-        }, error=>{
-
-        }
-      )
-    }
 
     getUnidadesMedidaRender(){
 
@@ -284,9 +273,6 @@ export class UnidadmedidaComponent implements OnInit {
       )
     }
 
-    ngSubmit(){
-      console.log('submit')
-    }
     showModalUpdate(unidadmedida){
 
       this.formUpdateUnidadMedida.reset();

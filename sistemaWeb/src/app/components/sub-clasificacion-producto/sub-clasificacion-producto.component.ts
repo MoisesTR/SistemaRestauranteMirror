@@ -243,7 +243,7 @@ export class SubClasificacionProductoComponent implements OnInit {
             'Subclasificación',
             'la Subclasificación ha sido creado exitosamente!',
             'success'
-          ).then( () => {
+          ).then( () =>  {
             $('#modalAddSubClasificacion').modal('toggle');
             this.formAddSubClasificacion.reset();
           })

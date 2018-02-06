@@ -10,7 +10,9 @@ export class Usuario {
     public Habilitado: number,
     public CreateAt: string,
     public UpdateAt: string,
-    public IdTrabajador?:number
+    public IdTrabajador?:number,
+    public Nombres ? : string,
+    public DescripcionRol ? : string
   ) {}
 
 }

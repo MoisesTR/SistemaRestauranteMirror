@@ -235,3 +235,6 @@ h6 {
     overflow: hidden;
 }
 
+.centrar-texto {
+  text-align: center;
+}

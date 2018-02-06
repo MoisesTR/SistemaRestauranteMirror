@@ -18,7 +18,7 @@ $(document).ready(function(){
   var currentMonth = date.getMonth();
   var currentDate = date.getDate();
   var currentYear = date.getFullYear();
-
+  
   $('.datepicker').pickadate({
 
     monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -27,17 +27,24 @@ $(document).ready(function(){
     today: 'Hoy',
     clear: 'Limpiar',
     close: 'Cerrar',
-    closeOnSelect: false,
+    closeOnSelect: true,
     closeOnClear: false,
-    selectMonths: false,
-    selectYears: false,
+    selectMonths: true,
+    selectYears: true,
     firstDay: true,
-    min: new Date(currentYear - 50 , 1, 1),
-    max: new Date(currentYear, currentMonth, currentDate),
+    min: new Date(currentYear , 0, 1),  //currentMonth es 0 que equivale a Enero
+    max: new Date(currentYear, currentMonth, currentDate),    
     format: 'yyyy-mm-dd'
   });
 });
 
+$(document).ready(function(){
+  $('.timepicker').pickatime({
+    twelvehour: true,
+    donetext: 'Listo',
+    default: 'now'
+  });
+});
 
 $(".letras").keypress(function (key) {
   if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas

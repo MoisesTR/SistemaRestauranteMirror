@@ -211,7 +211,7 @@
                     </div>
 
                 </div>  
-                <br>                
+                                
             </div>         
         </div>
     </div>
@@ -219,47 +219,54 @@
       
 <!-- Modal Agregar porcentaje -->
 <div class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg cascading-modal " role="document">
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-          <div class="container-fluid">
-              <!-- Inicio form-->
-              <form  >
-                  <div class="row">
-                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                          <div class="card">
-                              <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Ingrese porcentaje de Descuento</div>
-                              <div class="container-fluid">
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                          <br>
-                                          <div class="md-form">
-                                              <div class="col-md-6" style="display: block; margin-left: auto; margin-right: auto;">
-                                                  <div class="md-form ">
-                                                      <input type="number" name="nombreUnidadMedida">
-                                                      <label for="nombreUnidadMedida" class="">Ingrese Descuento</label>
-                                                  </div>  
-                                              </div>  
-                                          </div>                                                                                                                    
-                                      </div>
-                                  </div>                                        
-                                  <br>
-                                  <div class="text-center mt-1-half">
-                                      <button class="btn orange-chang mb-1" type="submit">Ingresar <i class="fa fa-check ml-1"></i></button>
-                                  </div>
-                                  <br>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </form>
-              <!-- Final form -->
-              <br>
-          </div>
-      </div>
-      <!--/.Contenido-->
-  </div>
+    <div class="modal-dialog modal-lg cascading-modal " role="document">
+      
+        <!--Contenido-->
+        <div class="modal-content background-gray">
+
+            <!--Titulo-->
+            <div class="modal-header orange-chang white-text">
+                <h4 class="title">Porcentaje</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
+                <div class="container-fluid">
+                    <!-- Inicio form-->
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="card">                                    
+                                    <div class="container-fluid">                                        
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <br><br>
+                                                <div class="md-form">
+                                                    <input type="number" id="cantidadPorcentaje">
+                                                    <label for="cantidadPorcentaje" class="">Cantidad</label>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <br>
+                                        <div class="centrar-texto mt-1-half">
+                                            <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Final form -->
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
       
 <!-- Modal para agregar producto a a la factura -->

@@ -34,25 +34,24 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="clasificacion">Clasificación</label>
-
-                <select class="form-control selectclasificacion" name="clasi" id="clasificacion" multiple="multiple" style="width: 100%" >
-                  <option class = "chip"  *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
-                </select>
+                <label for="upClasifSelect">Clasificación</label>
+                <select2 class="form-control" id="upClasifSelect" [value]="valorInicialClasificacion | async" [options]="optionsSelect2" (valueChanged)="changedSelectClasificacion($event)">
+                  <option class = "chip" *ngFor="let clasificacion of clasificaciones"  [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
+                </select2>
 
               </div>
               <div class="col-md-6">
-                <label for="subclasificacion">Subclasificación</label>
-                <select class="form-control selectsubclasificacion" id="subclasificacion" multiple="multiple" style="width: 100%" >
+                <label for="selectSubClasificacion">Subclasificación</label>
+                <select2 id="selectSubClasificacion" [value]="valorInicialSubClasificacion | async" class="form-control selectsubclasificacion" [options]="optionsSelect2" (valueChanged)="changedSelectSubClasificacion($event)" >
                   <option class = "chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
-                </select>
+                </select2>
               </div>
               <div class="col-md-6">
                 <br>
-                <label for="categoria">Categoria</label>
-                <select class="selectcategoria" multiple="multiple" style="width: 100%" >
+                <label for="selectCategoria">Categoria</label>
+                <select2 class="selectcategoria" id="selectCategoria" [value]="valorInicialCategoria | async" [options]="optionsSelect2" (valueChanged)="changedSelectCategoria($event)">
                   <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
-                </select>
+                </select2>
               </div>
               <div class="col-md-12">
                 <br>

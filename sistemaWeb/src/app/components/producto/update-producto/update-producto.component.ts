@@ -1,21 +1,22 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Provedor} from "../../../models/Provedor";
-import {Producto} from "../../../models/Producto";
-import {CategoriaProducto} from "../../../models/CategoriaProducto";
-import {Envase} from "../../../models/Envase";
-import {UnidadMedida} from "../../../models/UnidadMedida";
-import {ClasificacionProducto} from "../../../models/ClasificacionProducto";
-import {SubClasificacionProducto} from "../../../models/SubClasificacionProducto";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {UploadService} from "../../../services/upload.service";
-import {ClasificacionProductoService} from "../../../services/clasificacion-producto.service";
-import {ProductoService} from "../../../services/producto.service";
-import {Global} from "../../../services/global";
-import {SubClasificacionProductoService} from "../../../services/sub-clasificacion-producto.service";
-import {CategoriaProductoService} from "../../../services/categoria-producto.service";
-import {CustomValidators} from "../../../validadores/CustomValidators";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Provedor} from '../../../models/Provedor';
+import {Producto} from '../../../models/Producto';
+import {CategoriaProducto} from '../../../models/CategoriaProducto';
+import {Envase} from '../../../models/Envase';
+import {UnidadMedida} from '../../../models/UnidadMedida';
+import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
+import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {UploadService} from '../../../services/upload.service';
+import {ClasificacionProductoService} from '../../../services/clasificacion-producto.service';
+import {ProductoService} from '../../../services/producto.service';
+import {Global} from '../../../services/global';
+import {SubClasificacionProductoService} from '../../../services/sub-clasificacion-producto.service';
+import {CategoriaProductoService} from '../../../services/categoria-producto.service';
+import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
+import {Observable} from 'rxjs/Observable';
 
 declare var $:any;
 @Component({
@@ -23,7 +24,7 @@ declare var $:any;
   templateUrl: './update-producto.component.html',
   styleUrls: ['./update-producto.component.css']
 })
-export class UpdateProductoComponent implements OnInit,AfterViewInit {
+export class UpdateProductoComponent implements OnInit {
 
   public producto : Producto;
   formUpdateProducto: FormGroup;
@@ -34,6 +35,10 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
+  public optionsSelect2: Select2Options;
+  public valorInicialClasificacion: Observable<string>;
+  public valorInicialSubClasificacion: Observable<string>;
+  public valorInicialCategoria: Observable<string>;
 
   constructor(
     private _route: ActivatedRoute
@@ -47,50 +52,24 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
   ) {
     this.url = Global.url;
     this.producto = new Producto(null,null,null,null,null,null,null,null,null,null);
-  }
 
-  ngAfterViewInit(): void {
 
-    var str:string = null;
-    $('#clasificacion').change(()=> {
-      str = $( ".selectclasificacion" ).val()[0]
-
-      if(str != null){
-
-        let variable:number;
-        variable = parseInt(str);
-
-        this._subclasificacionService.getSubClasificacionesByIdClasificacion(variable).subscribe(
-
-          response =>{
-            if(response.subclasificaciones){
-              this.subclasificaciones = response.subclasificaciones;
-              $('.selectsubclasificacion').val(null).trigger('change');
-
-            }
-          }, error=>{
-
-          }
-        )
-      }
-    });
-
-    $('#subclasificacion').change((e)=> {
-
-      if($( ".selectsubclasificacion" ).val()[0] != null){
-        this.producto.IdSubclasificacion = parseInt($( ".selectsubclasificacion" ).val()[0]);
-      }
-
-    });
+    this.optionsSelect2 = {
+      multiple: true
+      , maximumSelectionLength: 1
+      , width: '100%'
+    }
 
   }
+
   ngOnInit() {
 
     this.initValidatorsFormProducto();
+    this.getProducto();
     this.getClasificaciones();
     this.getSubClasificaciones();
     this.getCategorias();
-    this.getProducto();
+
 
   }
 
@@ -120,15 +99,62 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
 
-    $('.selectclasificacion').val(this.producto.IdClasificacion).trigger('change.select2');
-    $('.selectcategoria').val(this.producto.IdCategoria).trigger('change.select2');
-    $('.selectsubclasificacion').val(this.producto.IdSubclasificacion).trigger('change');
+    this.valorInicialClasificacion = Observable.create(obs => {
+      obs.next(this.producto.IdClasificacion);
+      obs.complete();
+    }).delay(100);
+
+    this.valorInicialSubClasificacion = Observable.create(obs => {
+      obs.next(this.producto.IdSubclasificacion);
+      obs.complete();
+    }).delay(100);
+
+    this.valorInicialCategoria = Observable.create(obs => {
+      obs.next(this.producto.IdCategoria);
+      obs.complete();
+    }).delay(100);
+
   }
 
   validarCampos(){
 
     this.obtenerDatosFormularioProducto();
     this.cargarImagen();
+  }
+
+  changedSelectCategoria(event){
+
+    let idCategoria = event.value[0];
+
+    if(idCategoria != null) {
+      this.producto.IdCategoria = idCategoria;
+    }
+  }
+
+  changedSelectSubClasificacion(event){
+    let idSubClasificacion = event[0];
+
+    if(idSubClasificacion) {
+      this.producto.IdSubclasificacion = idSubClasificacion;
+    }
+  }
+
+  changedSelectClasificacion(event){
+    let idClasificacion = event.value[0];
+
+    if(idClasificacion != null) {
+      this.producto.IdClasificacion = idClasificacion;
+      this._subclasificacionService.getSubClasificacionesByIdClasificacion(idClasificacion).subscribe(
+
+        response =>{
+          if(response.subclasificaciones){
+            this.subclasificaciones = response.subclasificaciones;
+          }
+        }, error=>{
+
+        }
+      )
+    }
   }
 
   getProducto(){
@@ -141,6 +167,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
           response =>{
             if(response.producto){
               this.producto = response.producto;
+
               //Inicializar componentes de la vista
               $(document).ready(()=>{
                 var imagenProducto =  this.url + 'productoGetImage/' + this.producto.Imagen;
@@ -149,41 +176,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
                   defaultFile: imagenProducto
                 });
 
-                $(".selectcategoria").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectsubclasificacion").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectproveedor").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectenvase").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectempaque").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectunidadmedida").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectclasificacion").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectestado").select2({
-                  maximumSelectionLength: 1
-                });
-
-                $(".selectvalorunidadmedida").select2({
-                  maximumSelectionLength: 1
-                });
 
               });
               this.inicializarValoresFormularioProducto();
@@ -195,22 +187,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
           }
         )
     });
-  }
-
-
-  getSubClasificacionesByIdClasificacion(IdClasificacion){
-
-    this._subclasificacionService.getSubClasificacionesByIdClasificacion(IdClasificacion).subscribe(
-      response => {
-        if(response.subclasificaciones){
-          this.subclasificaciones = response.subclasificaciones;
-        } else {
-
-        }
-      }, error =>{
-
-      }
-    )
   }
 
   getSubClasificaciones(){
@@ -226,6 +202,7 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
       }
     )
   }
+
   cargarImagen(){
     if(this.filesToUpload != null){
 
@@ -252,7 +229,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
   }
 
   actualizarProducto(){
-
     this._productoService.updateProducto(this.producto).subscribe(
       response =>{
         if(response.success){
@@ -262,13 +238,9 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
             'El producto ha sido actualizado exitosamente!',
             'success'
           ).then(() => {
-
             this._router.navigate(['menu/producto']);
-
           })
-
         }
-
       }, error =>{
         swal(
           'Producto',
@@ -305,7 +277,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
   getCategorias(){
 
     this._categoriaService.getCategoriasProductos().subscribe(
-
       response =>{
         if(response.categorias){
           this.categorias = response.categorias;
@@ -322,19 +293,6 @@ export class UpdateProductoComponent implements OnInit,AfterViewInit {
     this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
 
-    let categoria:string = null;
-    categoria = $(".selectcategoria").val()[0];
-
-    if(categoria != null) {
-      let variable: number;
-      /* variable = parseInt(categoria.split(':')[1]);*/
-      variable = parseInt(categoria);
-
-      this.producto.IdCategoria = variable;
-
-    } else {
-
-    }
   }
 
 }

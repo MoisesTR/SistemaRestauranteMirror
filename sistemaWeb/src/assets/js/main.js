@@ -1,5 +1,12 @@
 $(".button-collapse").sideNav();
 
+var container = document.getElementById('slide-out');
+Ps.initialize(container, {
+  wheelSpeed: 2,
+  wheelPropagation: true,
+  minScrollbarLength: 20
+});
+
 window.onscroll = function () {
     if (pageYOffset >= 200) {
         document.getElementById('backToTop').style.visibility = "visible";

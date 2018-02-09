@@ -1,281 +1,272 @@
 <section>
-  <div class="row">  
-      <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang" >
-          <h2 class="h2-responsive">Informacion Facturas</h2>
-          </div>
-          <div class="margin-paneladministrativo">
-              <div class="container-fluid">
-                  <!-- Inicio form-->
-                  <form [formGroup]="formAddEmpaque"  (ngSubmit)="createEmpaque()" novalidate>
-                      <div class="row">   
-                          <div class="container-fluid">                        
-                              <br>  
-                              <div class="row">
-                                  <div class="col-md-4">                            
-                                      <div class="md-form">
-                                          <input type="search" id="nombreproveedor" placeholder="#123ejemplo" class="form-control autocomplete-proveedor" autocomplete="off">
-                                          <button class="mdb-autocomplete-clear">
-                                              <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
-                                                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                                                  <path d="M0 0h24v24H0z" fill="none" />
-                                              </svg>
-                                          </button>
-                                          <label for="nombreproveedor">Numero de factura</label>
-                                      </div>
-                                  </div>
+    <div class="row">  
+        <div class="card card-cascade narrower">
+            <div class="view gradient-card-header orange-chang" >
+                <h2 class="h2-responsive">Informacion Facturas</h2>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">                    
+                    <!-- Inicio form-->
+                    <form [formGroup]="formAddEmpaque"  (ngSubmit)="createEmpaque()" novalidate>
+                        
+                        <div class="row">
 
-                                  <div class="col-md-4">
-                                      <div class="md-form">
-                                          <div class="text-center mt-1-half">                                                                        
-                                              <input type="text" id="nombrerepresentanteproveedor" formControlName="nombrerepresentanteproveedor" class="form-control input-char-counter" length="50" autocomplete="off">
-                                              <label for="nombrerepresentanteproveedor" class="input-char-counter">Nombre de Proveedor</label>
-                                          </div>
-                                      </div>
-                                  </div>
-                                                      
-                                  <div class="col-md-4">
-                                      <div class="md-form">
-                                          <button type="button" class="btn orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i> Buscar Producto</button>
-                                      </div>
-                                  </div>
+                            <div class="col-md-12">
+                                <div class="md-form">
+                                    <div class="text-center mt-1-half">                                                                        
+                                        <input type="text" id="nombrerepresentanteproveedor" formControlName="nombrerepresentanteproveedor" class="form-control" autocomplete="off">
+                                        <label for="nombrerepresentanteproveedor">Nombre de Proveedor</label>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>                            
+                                
+                            <div class="col-md-4">
+                                <div class="md-form">
+                                    <input type="search" id="nombreproveedor" placeholder="#123ejemplo" class="form-control autocomplete-proveedor" autocomplete="off">
+                                    <button class="mdb-autocomplete-clear">
+                                        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+                                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                                            <path d="M0 0h24v24H0z" fill="none" />
+                                        </svg>
+                                    </button>
+                                    <label for="nombreproveedor">Número de factura</label>
+                                </div>
+                            </div>
+                                                                                                                
+                            <div class="col-md-4">                                
+                                <div class="md-form">
+                                    <input type="text" class="form-control datepicker" name="FechaFactura" id="FechaFactura">                                
+                                    <label for="FechaFactura">Fecha</label>
+                                </div>                      
+                            </div>
 
+                            <div class="col-md-4">
+                                <div class="md-form">                                    
+                                    <input type="text" class="form-control timepicker" name="HoraFactura" id="HoraFactura">
+                                    <label for="HoraFactura">Hora</label>
+                                </div>
+                            </div>
+                                                                                                                                  
+                        </div>
+                        <div class="text-center mt-1-half">
+                            <button type="button" class="btn orange-chang waves-effect" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i>  Buscar Producto</button>
+                        </div>
+                    </form>
+                    <!-- Final form -->                    
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card card-cascade narrower">
+            <div class="container-fluid ">       
+                <br>  
+                <div class="container-fluid">
+                            
+                    <div class="table-responsive">
+                        <!-- Item list -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="header-negrita">Producto</th>
+                                    <th class="header-negrita">Cantidad</th>
+                                    <th class="header-negrita">U. Medida</th>
+                                    <th class="header-negrita">Precio unitario</th>
+                                    <th class="header-negrita">Descuento</th>
+                                    <th class="header-negrita">Precio Total</th>
+                                    <th class="header-negrita centrar-texto">Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>MDBootstrap Corporate License</td>
+                                    <td>1</td>
+                                    <td>lb</td>
+                                    <td>$319</td>
+                                    <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                    <td width="10%" class="body-negrita">$319</td>
+                                    <td width="25%" class="body-negrita">
+                                        <div class="text-center">
+                                            <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
+                                            <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                                            <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Material Design for Wordpress</td>
+                                    <td>2</td>
+                                    <td>lb</td>
+                                    <td>$69</td>
+                                    <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                    <td width="10%" class="body-negrita">$138</td>
+                                    <td width="25%" class="body-negrita">
+                                        <div class="text-center">
+                                            <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
+                                            <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                                            <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>MDBootstrap Portfolio Template Personal Licence</td>
+                                    <td>1</td>
+                                    <td>lb</td>
+                                    <td>$49</td>
+                                    <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                    <td width="10%" class="body-negrita">$49</td>
+                                    <td width="25%" class="body-negrita">
+                                        <div class="text-center">
+                                            <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
+                                            <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                                            <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>MDBootstrap Magazine Corporate Licence</td>
+                                    <td>1</td>
+                                    <td>lb</td>
+                                    <td>$249</td>
+                                    <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                    <td width="10%" class="body-negrita">$249</td>
+                                    <td width="25%" class="body-negrita">
+                                        <div class="text-center">
+                                            <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
+                                            <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                                            <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <!-- /.Item list -->  
+                    </div>
+                    
+                    <br>
+                    <br>        
+                </div>
+    
+                <div class="row">
+                    <div class="col-10">
+                        <form >                
+                            <div class="col-lg-12" style="padding-left: 30em">
+                            
+                                <div class="col-lg-6" >
+                                    <input type="checkbox" value="validando_checkbox2" name="seleccionadocheck" id="segundo1">
+                                    <label for="segundo1" data-toggle="modal" data-target="#modalAddUnidadMedida"><strong>Descuento</strong> </label>
+                                </div>
+                    
+                                <div class="col-lg-6" style="">
+                                    <input type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2">
+                                    <label for="segundo2"><strong>Retencion</strong></label>
+                                </div>
+                
+                            </div>                
+                            <label for="SubTotal" style="padding-left: 34em"><strong>SubTotal</strong> </label>
+                            <br>
+                            <label for="porcentajeiva" style="padding-left: 34em"><strong>IVA(15%)</strong></label>
+                            <br>
+                            <label for="Total" style="padding-left: 34em"><strong>Total</strong></label>
+                            <br>
+                        </form>    
+                    </div> <!-- 25% -->
+                    
+                    <div class="col-2">
+                        <form >
+                            <div class="">
+                                <label>25%</label>
+                            </div>
+                            <div class="">
+                                <label>2% aplicado</label>
+                            </div>
+                            <div class="">
+                                <label>C$ 43434</label>
+                            </div>                
+                            <div class="">
+                                <label>C$ 49949.1</label>
+                            </div>
+                            <div class="">
+                                <label>C$ 49949.1</label>
+                            </div>
+                        </form>
+                    </div> <!-- 75% -->
+                                    
+                </div>           
+                <br>
+                
+                <!-- Acciones -->
+                <div class="row justify-content-md-center">
+                        
+                    <div class="col-md-3">
+                        <div class="md-form">
+                            <button type="button" class="btn orange-chang waves-effect">Guardar factura</button>
+                        </div>
+                    </div>
 
-                                  <div class="col-md-3">
-                                      <div class="md-form">
-                                          <input type="text" name="FechaFactura" id="FechaFactura" placeholder="Fecha">                                
-                                      </div>                      
-                                  </div>
+                    <div class="col-md-3">
+                        <div class="md-form">
+                            <button type="button" class="btn orange-chang waves-effect">Imprimir Factura</button>
+                        </div>
+                    </div>
 
-                                  <div class="col-md-3">
-                                      <div class="md-form">                                    
-                                          <input type="text" name="HoraFactura" id="HoraFactura" placeholder="Hora">
-                                      </div>
-                                  </div>
-              
-                              </div>
-                              <br>
-                          </div>                                                                                                        
-                      </div>
-                  </form>
-                  <!-- Final form -->
-                  <br>
-              </div>
-          </div>
-      </div>
-      <br>
-      <div class="card card-cascade narrower">
-          <div class="card">
-              <div class="container-fluid ">       
-                  <br>  
-                  <div class="container-fluid">
-                      <div class="">
-                          <div class="row">
-
-                              <div class="col-md-6">
-                                  <div class="md-form">
-                                      <h2 style="color:gray"><strong>#NumeroFactura</strong></h2>  
-                                  </div>
-                              </div>
-
-                              <div class="col-md-3">
-                                  <div class="md-form">
-                                      <div style=" padding-left: 2.7em">
-                                          <button type="button" class="btn btn-outline-warning waves-effect btn-block">Guardar factura</button>
-                                      </div>
-                                  </div>
-                              </div> 
-                              <br>            
-                              <div class="col-md-3">
-                                  <div class="md-form">
-                                      <div style=" padding-left: 2.7em">
-                                          <button type="button" class="btn btn-outline-warning waves-effect btn-block">Imprimir Factura</button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>            
-
-                          <div class="table-responsive">
-                              <!-- Item list -->
-                              <table class="table">
-                                  <thead>
-                                      <tr>
-                                          <th class="header-negrita">Producto</th>
-                                          <th class="header-negrita">Cantidad</th>
-                                          <th class="header-negrita">U. Medida</th>
-                                          <th class="header-negrita">Precio unitario</th>
-                                          <th class="header-negrita">Descuento</th>
-                                          <th class="header-negrita">Precio Total</th>
-                                          <th class="header-negrita">Accion</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      <tr>
-                                          <td>MDBootstrap Corporate License</td>
-                                          <td>1</td>
-                                          <td>lb</td>
-                                          <td>$319</td>
-                                          <td width="10%" class="body-negrita"><strong>----</strong></td>
-                                          <td width="10%" class="body-negrita">$319</td>
-                                          <td width="25%" class="body-negrita">
-                                              <div class="text-center">
-                                                  <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                  <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                  <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td>Material Design for Wordpress</td>
-                                          <td>2</td>
-                                          <td>lb</td>
-                                          <td>$69</td>
-                                          <td width="10%" class="body-negrita"><strong>----</strong></td>
-                                          <td width="10%" class="body-negrita">$138</td>
-                                          <td width="25%" class="body-negrita">
-                                              <div class="text-center">
-                                                  <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                  <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                  <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td>MDBootstrap Portfolio Template Personal Licence</td>
-                                          <td>1</td>
-                                          <td>lb</td>
-                                          <td>$49</td>
-                                          <td width="10%" class="body-negrita"><strong>----</strong></td>
-                                          <td width="10%" class="body-negrita">$49</td>
-                                          <td width="25%" class="body-negrita">
-                                              <div class="text-center">
-                                                  <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                  <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                  <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td>MDBootstrap Magazine Corporate Licence</td>
-                                          <td>1</td>
-                                          <td>lb</td>
-                                          <td>$249</td>
-                                          <td width="10%" class="body-negrita"><strong>----</strong></td>
-                                          <td width="10%" class="body-negrita">$249</td>
-                                          <td width="25%" class="body-negrita">
-                                              <div class="text-center">
-                                                  <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                  <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                  <button type="button" (click)="deleteProducto(producto.IdProducto)" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </td>
-                                      </tr>
-                                  </tbody>
-                              </table>
-                          <!-- /.Item list -->  
-                          </div>
-                      </div>
-                      <br>
-                      <br>        
-                  </div>
-      
-                  <div class="row">
-                      <div class="col-10">
-                          <form >                
-                              <div class="col-lg-12" style="padding-left: 30em">
-                              
-                                  <div class="col-lg-6" >
-                                      <input type="checkbox" value="validando_checkbox2" name="seleccionadocheck" id="segundo1">
-                                      <label for="segundo1" data-toggle="modal" data-target="#modalAddUnidadMedida"><strong>Descuento</strong> </label>
-                                  </div>
-                      
-                                  <div class="col-lg-6" style="">
-                                      <input type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2">
-                                      <label for="segundo2"><strong>Retencion</strong></label>
-                                  </div>
-                  
-                              </div>                
-                              <label for="SubTotal" style="padding-left: 34em"><strong>SubTotal</strong> </label>
-                              <br>
-                              <label for="porcentajeiva" style="padding-left: 34em"><strong>IVA(15%)</strong></label>
-                              <br>
-                              <label for="Total" style="padding-left: 34em"><strong>Total</strong></label>
-                              <br>
-                          </form>    
-                      </div> <!-- 25% -->
-                      
-                      <div class="col-2">
-                          <form >
-                              <div class="">
-                                  <label>25%</label>
-                              </div>
-                              <div class="">
-                                  <label>2% aplicado</label>
-                              </div>
-                              <div class="">
-                                  <label>C$ 43434</label>
-                              </div>                
-                              <div class="">
-                                  <label>C$ 49949.1</label>
-                              </div>
-                              <div class="">
-                                  <label>C$ 49949.1</label>
-                              </div>
-                          </form>
-                      </div> <!-- 75% -->
-                                      
-                  </div>           
-                  <br>
-                  <br>
-              </div>  
-          </div>        
-      </div>
-  </div>
+                </div>  
+                                
+            </div>         
+        </div>
+    </div>
 </section>
       
 <!-- Modal Agregar porcentaje -->
 <div class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg cascading-modal " role="document">
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-          <div class="container-fluid">
-              <!-- Inicio form-->
-              <form  >
-                  <div class="row">
-                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                          <div class="card">
-                              <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Ingrese porcentaje de Descuento</div>
-                              <div class="container-fluid">
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                          <br>
-                                          <div class="md-form">
-                                              <div class="col-md-6" style="display: block; margin-left: auto; margin-right: auto;">
-                                                  <div class="md-form ">
-                                                      <input type="number" name="nombreUnidadMedida">
-                                                      <label for="nombreUnidadMedida" class="">Ingrese Descuento</label>
-                                                  </div>  
-                                              </div>  
-                                          </div>                                                                                                                    
-                                      </div>
-                                  </div>                                        
-                                  <br>
-                                  <div class="text-center mt-1-half">
-                                      <button class="btn orange-chang mb-1" type="submit">Ingresar <i class="fa fa-check ml-1"></i></button>
-                                  </div>
-                                  <br>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </form>
-              <!-- Final form -->
-              <br>
-          </div>
-      </div>
-      <!--/.Contenido-->
-  </div>
+    <div class="modal-dialog modal-lg cascading-modal " role="document">
+      
+        <!--Contenido-->
+        <div class="modal-content background-gray">
+
+            <!--Titulo-->
+            <div class="modal-header orange-chang white-text">
+                <h4 class="title">Porcentaje</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
+                <div class="container-fluid">
+                    <!-- Inicio form-->
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="card">                                    
+                                    <div class="container-fluid">                                        
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <br><br>
+                                                <div class="md-form">
+                                                    <input type="number" id="cantidadPorcentaje">
+                                                    <label for="cantidadPorcentaje" class="">Cantidad</label>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <br>
+                                        <div class="centrar-texto mt-1-half">
+                                            <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Final form -->
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
       
 <!-- Modal para agregar producto a a la factura -->

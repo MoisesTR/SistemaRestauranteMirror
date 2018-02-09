@@ -32,20 +32,20 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
                   <show-errors [control]="formAddProducto.controls['nombreProducto']"></show-errors>
-                  <label for="nombreproducto" class="input-char-counter">Nombre</label>
+                  <label for="nombreproducto">Nombre</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="selectclasificacion">Clasificación</label>
-                <select2 (valueChanged)="changeSelectClasificacion($event)" [options]="optionsSelect2" class="form-control" id="selectclasificacion"  >
+                <select2 (valueChanged)="changeSelectClasificacion($event)" [options]="optionsSelect2" class="" id="selectclasificacion"  >
                   <option class="chip" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
                 </select2>
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <select2 (valueChanged)="changeSelectSubClasificacion($event)"  [options]="optionsSelect2" class="form-control selectsubclasificacion"  id="subclasificacion"  >
+                <select2 (valueChanged)="changeSelectSubClasificacion($event)"  [options]="optionsSelect2" class="selectsubclasificacion"  id="subclasificacion"  >
                   <option class="chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
                 </select2>
               </div>

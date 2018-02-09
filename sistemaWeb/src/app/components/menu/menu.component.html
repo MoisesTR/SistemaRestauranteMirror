@@ -20,7 +20,7 @@
         <div class="dropdown-divider"></div>
         <!-- Side de navegacion -->
         <li>
-          <ul class="collapsible collapsible-accordion">
+          <ul id="firstCollapseMenu" class="collapsible collapsible-accordion">
             <li [routerLink]="['dashboard']" ><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/home.png" height="18"></i> Inicio</a>
             </li>
             <li><a class="collapsible-header waves-effect arrow-r"><i class="fa"><img src="./assets/img/icon/product.png" height="18"></i>Productos <i class="fa fa-angle-down rotate-icon"></i></a>
@@ -104,7 +104,7 @@
           <a class="nav-link dropdown-toggle waves-effect" id="userDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Perfil</span></a>
 
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="display: none; position: absolute;">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="display: none; position: absolute;">
             <a class="dropdown-item waves-effect waves-light" >Cerrar Sesion</a>
             <a class="dropdown-item waves-effect waves-light" >Mi Cuenta</a>
           </div>

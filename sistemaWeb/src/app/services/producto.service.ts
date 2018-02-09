@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Global } from './global';
-import { Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Global} from './global';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ProductoService {
@@ -10,43 +10,39 @@ export class ProductoService {
   public url: string;
 
   constructor(
-    private _http: Http
+    private _http: HttpClient
   ) {
     this.url = Global.url;
   }
 
-  createProducto(Producto){
+  createProducto(Producto): Observable<any>{
     let params = JSON.stringify(Producto);
-    let headers = new Headers({'Content-Type':'application/json'});
+    let headers = new HttpHeaders({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'producto',params,{headers:headers})
-      .map(res => res.json());
 
   }
-  getProducto(IdProducto){
-    return this._http.get(this.url + 'producto/'+IdProducto).map(res => res.json());
+  getProducto(IdProducto): Observable<any>{
+    return this._http.get(this.url + 'producto/'+IdProducto)
   }
 
-  getProductos(Habilitado = 1){
-    return this._http.get(this.url + 'productos?Habilitado='+Habilitado).map(res => res.json());
+  getProductos(Habilitado = 1): Observable<any>{
+    return this._http.get(this.url + 'productos?Habilitado='+Habilitado)
   }
 
-
-  updateProducto(Producto){
+  updateProducto(Producto): Observable<any>{
 
     let params = JSON.stringify(Producto);
-    let headers = new Headers({
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     })
 
     return this._http.put(this.url+'producto',params,{headers:headers})
-      .map(res => res.json());
   }
 
-  deleteProducto(IdProducto){
-   /* let params = JSON.stringify(Producto);*/
-    let headers = new Headers({
+  deleteProducto(IdProducto): Observable<any>{
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
@@ -54,13 +50,10 @@ export class ProductoService {
     let body = JSON.stringify(
       {
         "Habilitado": 0
-
       }
     );
+    return this._http.request('delete',this.url+'producto/'+IdProducto,{headers:headers,body:body})
 
-    let options = new RequestOptions({headers:headers,body:body});
-    return this._http.delete(this.url+'producto/'+IdProducto,options)
-      .map(res => res.json());
 
   }
 }

@@ -7,7 +7,7 @@ import {Trabajador} from '../../../models/Trabajador';
 import {UsuarioService} from '../../../services/usuario.service';
 import {Usuario} from '../../../models/Usuario';
 import {TrabajadorService} from '../../../services/trabajador.service';
-import {$} from '../add-usuario/add-usuario.component';
+declare var $:any;
 
 @Component({
   selector: 'app-update-usuario',

@@ -46,7 +46,7 @@ export class ListUsuarioComponent implements OnInit {
 
   ) {
     this.usuario = new Usuario(null,null,null,null,null,null,null,null,null);
-    
+
     this.initForm();
     this.getRoles();
     this.getTrabajadores();
@@ -125,14 +125,7 @@ export class ListUsuarioComponent implements OnInit {
     )
   }
 
-  initForm(){
-    this.formViewUser = this.formBuilderUsuario.group({
-      'nombre': new FormControl('',[Validators.required])
-      ,'contrasenia': new FormControl('',[Validators.required])
-      ,'correo': new FormControl('',[Validators.required])
 
-    })
-  }
 
   getUsuario(){
 

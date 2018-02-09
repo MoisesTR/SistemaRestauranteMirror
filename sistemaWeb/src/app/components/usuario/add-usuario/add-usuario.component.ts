@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {UsuarioService} from "../../../services/usuario.service";
-import {Usuario} from "../../../models/Usuario";
-import {FormBuilder, FormControl, FormGroup, Validators, Validator} from "@angular/forms";
-import {TrabajadorService} from "../../../services/trabajador.service";
-import {RolusuarioService} from "../../../services/rolusuario.service";
-import {RolUsuario} from "../../../models/RolUsuario";
-import {Trabajador} from "../../../models/Trabajador";
-import {CustomValidators} from "../../../validadores/CustomValidators";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UsuarioService} from '../../../services/usuario.service';
+import {Usuario} from '../../../models/Usuario';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {TrabajadorService} from '../../../services/trabajador.service';
+import {RolusuarioService} from '../../../services/rolusuario.service';
+import {RolUsuario} from '../../../models/RolUsuario';
+import {Trabajador} from '../../../models/Trabajador';
 declare var $:any;
 
 @Component({

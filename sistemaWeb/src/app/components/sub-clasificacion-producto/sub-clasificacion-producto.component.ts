@@ -36,6 +36,7 @@ export class SubClasificacionProductoComponent implements OnInit {
 
   formAddSubClasificacion : FormGroup;
   formUpdateSubClasificacion: FormGroup;
+  public optionsSelect2 : Select2Options;
 
   constructor(
     private _route: ActivatedRoute
@@ -47,6 +48,12 @@ export class SubClasificacionProductoComponent implements OnInit {
   ) {
     this.initConstructorSubClasificacion();
     this.initCustomValidatorsFormSubClasificacion();
+
+    this.optionsSelect2 = {
+      multiple : true
+      , maximumSelectionLength : 1
+      , width : '100%'
+    }
   }
 
   private initConstructorSubClasificacion(){
@@ -87,6 +94,7 @@ export class SubClasificacionProductoComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.dtOptions = <DataTables.Settings>{
       autoWidth: false
       , pagingType: 'full_numbers'
@@ -96,11 +104,8 @@ export class SubClasificacionProductoComponent implements OnInit {
       , ordering: true
       , language: idioma_espanol
     };
-    $(document).ready(function(){
-      $(".selectclasificacion").select2({
-        maximumSelectionLength: 1
-      });
 
+    $(document).ready(function(){
       $(".letras").keypress(function (key) {
         if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
           && (key.charCode < 65 || key.charCode > 90) //letras minusculas
@@ -200,6 +205,16 @@ export class SubClasificacionProductoComponent implements OnInit {
     })
   }
 
+  changedClasificacion(event){
+
+    let idClasificacion = event.value[0];
+
+    if(idClasificacion != null){
+      this.subclasificacion.IdClasificacion = idClasificacion;
+      console.log(this.subclasificacion.IdClasificacion)
+    }
+
+  }
   showModalUpdateSubClasificacion(subclasificacion){
 
     $('#modalUpdateSubClasificacion').modal('show');
@@ -212,7 +227,6 @@ export class SubClasificacionProductoComponent implements OnInit {
     this.formUpdateSubClasificacion.setValue({
       nombreSubClasificacion: SubClasificacion.NombreSubClasificacion
       , descripcionSubClasificacion: SubClasificacion.DescripcionSubClasificacion
-
     })
 
   }
@@ -224,20 +238,15 @@ export class SubClasificacionProductoComponent implements OnInit {
 
     this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
       response => {
-
         if (response.IdSubclasificacion) {
-
           swal(
             'Subclasificación',
             'la Subclasificación ha sido creado exitosamente!',
             'success'
-          ).then(function () {
+          ).then( () =>  {
             $('#modalAddSubClasificacion').modal('toggle');
-
-            this.formUpdateSubClasificacion.reset();
+            this.formAddSubClasificacion.reset();
           })
-
-
         } else {
           swal(
             'Error inesperado',
@@ -269,15 +278,6 @@ export class SubClasificacionProductoComponent implements OnInit {
     this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
 
-    let IdClasificacion:string = null;
-    IdClasificacion = $(".selectclasificacion").val()[0];
-
-    if(IdClasificacion != null) {
-      this.subclasificacion.IdClasificacion = parseInt(IdClasificacion);
-    } else {
-      console.log('esta vacio')
-    }
-    console.log(this.subclasificacion);
   }
 
   updateSubClasificacion(){
@@ -326,12 +326,12 @@ export class SubClasificacionProductoComponent implements OnInit {
     let IdClasificacion:string = null;
     IdClasificacion = $(".selectclasificacion").val()[0];
 
-    if(IdClasificacion != null) {
-      this.subclasificacion.IdClasificacion = parseInt(IdClasificacion);
-    } else {
-      console.log('esta vacio')
-    }
-    console.log(this.subclasificacion);
+    // if(IdClasificacion != null) {
+    //   this.subclasificacion.IdClasificacion = parseInt(IdClasificacion);
+    // } else {
+    //   console.log('esta vacio')
+    // }
+      // console.log(this.subclasificacion);
   }
 
   deleteSubClasificacion(IdSubClasificacion){
@@ -370,9 +370,6 @@ export class SubClasificacionProductoComponent implements OnInit {
     });*/
   }
 
-  getDataNewSubClasificacion(){
-
-  }
   getClasificaciones(){
 
     this._clasificacionService.getClasificaciones().subscribe(

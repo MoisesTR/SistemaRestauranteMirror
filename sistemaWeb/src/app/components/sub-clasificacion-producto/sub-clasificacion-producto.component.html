@@ -100,9 +100,9 @@
 
                       <div class="col-md-6">
                         <label for="selectclasificacion">Clasificación</label>
-                        <select name="selectclasificacion"  class="selectclasificacion"  multiple="multiple" style="width: 100%">
+                        <select2 name="selectclasificacion"  (valueChanged)="changedClasificacion($event)" [options]="optionsSelect2" class="selectclasificacion"  id="selectclasificacion" >
                           <option class="chip" [value]="clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.NombreClasificacion}}</option>
-                        </select>
+                        </select2>
                       </div>
 
                       <div class="col-md-12">

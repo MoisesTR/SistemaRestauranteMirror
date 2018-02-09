@@ -10,6 +10,8 @@ import {UsuarioService} from "../../services/usuario.service";
 import {UsuarioRoutingModule} from "./usuario.routing.module";
 import {TrabajadorService} from "../../services/trabajador.service";
 import {RolusuarioService} from "../../services/rolusuario.service";
+import {Select2Module} from 'ng2-select2';
+import {ListUsuarioComponent} from './list-usuario/list-usuario.component';
 
 @NgModule({
   imports: [
@@ -19,12 +21,14 @@ import {RolusuarioService} from "../../services/rolusuario.service";
     , DataTablesModule
     , UsuarioRoutingModule
     , ReactiveFormsModule
+    , Select2Module
   ],
   exports: [],
   declarations: [
     AddUsuarioComponent
     , ListUsuariosComponent
     , UpdateUsuarioComponent
+    , ListUsuarioComponent
   ]
   ,providers: [UsuarioService, TrabajadorService, RolusuarioService]
 })

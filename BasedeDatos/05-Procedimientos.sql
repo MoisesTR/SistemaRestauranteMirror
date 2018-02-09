@@ -139,7 +139,7 @@ CREATE PROCEDURE USP_CREATE_SUBCLASIFICACION(
     @NombreSubClasificacion NVARCHAR(50),
     @DescripcionSubClasificacion NVARCHAR(150)
 ) AS BEGIN
-	IF EXISTS(SELECT * FROM CLASIFICACION_PRODUCTO where IdClasificacion = @IdClasificacion)
+	IF NOT EXISTS(SELECT * FROM CLASIFICACION_PRODUCTO where IdClasificacion = @IdClasificacion)
 		RAISERROR('La Clasificacion Insertada no se encontro, por lo tanto no se inserto la Subclasificacion.',16,1);
     ELSE
 		BEGIN

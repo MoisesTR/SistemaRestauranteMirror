@@ -33,6 +33,7 @@ import {ListUsuariosComponent} from '../usuario/list-usuarios/list-usuarios.comp
 import {UpdateUsuarioComponent} from '../usuario/update-usuario/update-usuario.component';
 import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
 import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
+import {ListUsuarioComponent} from '../usuario/list-usuario/list-usuario.component';
 
 
 const menuRoutes: Routes = [
@@ -48,7 +49,8 @@ const menuRoutes: Routes = [
         /*MODULO USUARIO*/
         , {path:'usuario/add',component:AddUsuarioComponent }
         , {path:'usuario',component:ListUsuariosComponent }
-        , {path:'usuario/update',component:UpdateUsuarioComponent }
+        , {path:'usuario/update/:id',component:UpdateUsuarioComponent }
+        , {path:'usuario/view',component:ListUsuarioComponent }
         , {path:'categorias',component: CategoriaProductoComponent}
         , {path:'clasificacion-productos',component: ClasificacionProductoComponent}
         , {path:'proveedores',component: ProveedorComponent}

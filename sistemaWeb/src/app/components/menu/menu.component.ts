@@ -50,4 +50,8 @@ export class MenuComponent implements OnInit, AfterViewInit{
     this._usuarioService.identity = null;
     this._router.navigate(['/']);
   }
+
+  verInformacionUsuario(){
+    this._router.navigate(['menu/usuario/view']);
+  }
 }

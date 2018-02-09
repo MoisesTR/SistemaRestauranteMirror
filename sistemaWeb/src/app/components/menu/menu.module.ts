@@ -48,7 +48,7 @@ import {UsuarioModule} from '../usuario/usuario.module';
 import {ClasificacionUnidadMedidaService} from '../../services/clasificacion-unidad-medida.service';
 import {TelefonosucursalService} from '../../services/telefonosucursal.service';
 import {Select2Module} from 'ng2-select2';
-import {HttpClient, HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({

@@ -1,4 +1,4 @@
-$(".button-collapse").sideNav();
+
 
 window.onscroll = function () {
     if (pageYOffset >= 200) {
@@ -10,7 +10,7 @@ window.onscroll = function () {
 
 $('[data-toggle="tooltip"]').tooltip({
     trigger : 'hover'
-})  
+})
 
 //fecha$(".letras").keypress(function (key) {
 $(document).ready(function(){
@@ -18,7 +18,7 @@ $(document).ready(function(){
   var currentMonth = date.getMonth();
   var currentDate = date.getDate();
   var currentYear = date.getFullYear();
-  
+
   $('.datepicker').pickadate({
 
     monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -33,7 +33,7 @@ $(document).ready(function(){
     selectYears: true,
     firstDay: true,
     min: new Date(currentYear , 0, 1),  //currentMonth es 0 que equivale a Enero
-    max: new Date(currentYear, currentMonth, currentDate),    
+    max: new Date(currentYear, currentMonth, currentDate),
     format: 'yyyy-mm-dd'
   });
 });

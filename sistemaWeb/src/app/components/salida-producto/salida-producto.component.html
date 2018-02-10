@@ -1,5 +1,5 @@
 <section>
-  <form  novalidate>
+  <form [formGroup]="formSalida" (ngSubmit)="createSalida()"  novalidate>
     <div class="row">
 
       <!--Datos del producto-->
@@ -32,7 +32,7 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="fechaSalida" class="form-control datepicker">
+                  <input type="text" id="fechaSalida" class="form-control datepicker" formControlName="fechaSalida">
                   <label for="fechaSalida">Fecha de salida</label>
                 </div>
               </div>
@@ -40,7 +40,7 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="horaSalida" class="form-control timepicker">
+                  <input type="text" id="horaSalida" class="form-control timepicker" formControlName="horaSalida">
                   <label for="horaSalida">Hora de salida</label>
                 </div>
               </div>

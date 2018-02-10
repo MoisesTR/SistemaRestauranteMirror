@@ -43,15 +43,14 @@ $(document).ready(function(){
     max: new Date(currentYear, currentMonth, currentDate),
     format: 'yyyy-mm-dd'
   });
-});
 
-$(document).ready(function(){
   $('.timepicker').pickatime({
     twelvehour: true,
     donetext: 'Listo',
     default: 'now'
   });
 });
+
 
 $(".letras").keypress(function (key) {
   if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
@@ -79,12 +78,6 @@ $(".letras").keypress(function (key) {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
-
-
-$(document).ready(function(){
-
-  $('.dropify').dropify();
-});
 
 
 //Efecto Login

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+  import {Component, OnInit, ViewChild} from '@angular/core';
 import {EmpaqueService} from '../../services/empaque.service';
 import {Empaque} from '../../models/Empaque';
 import {ActivatedRoute, Router} from '@angular/router';

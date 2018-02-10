@@ -1719,11 +1719,11 @@ for (var func in conversions) {
   // export rgb2hsl and ["rgb"]["hsl"]
   convert[from] = convert[from] || {};
 
-  convert[from][to] = convert[func] = (function(func) { 
+  convert[from][to] = convert[func] = (function(func) {
     return function(arg) {
       if (typeof arg == "number")
         arg = Array.prototype.slice.call(arguments);
-      
+
       var val = conversions[func](arg);
       if (typeof val == "string" || val === undefined)
         return val; // keyword
@@ -1751,12 +1751,12 @@ Converter.prototype.routeSpace = function(space, args) {
    }
    // color.rgb(10, 10, 10)
    if (typeof values == "number") {
-      values = Array.prototype.slice.call(args);        
+      values = Array.prototype.slice.call(args);
    }
 
    return this.setValues(space, values);
 };
-  
+
 /* Set the values for a space, invalidating cache */
 Converter.prototype.setValues = function(space, values) {
    this.space = space;
@@ -13138,9 +13138,9 @@ WOW.prototype._appear = function (box, i) {
 };
 
 WOW.prototype._onStartAnimation = function (box, i) {
-  
+
   this._cleanupBoxVisibleListener[i] = this._boxVisible.bind(this, box, i);
-    
+
   box.addEventListener('animationstart', this._cleanupBoxVisibleListener[i]);
   box.addEventListener('webkitAnimationStart', this._cleanupBoxVisibleListener[i]);
 
@@ -13162,7 +13162,7 @@ WOW.prototype._getAnimationConfig = function (box) {
     delay: this._getDelay(box),
     duration: this._getDuration(box),
     iterations: this._getIterations(box)
-      
+
   }
 
 };
@@ -13181,9 +13181,9 @@ WOW.prototype._getDuration = function (box) {
 
 WOW.prototype._getIterations = function (box) {
 
-  return box.getAttribute('data-wow-iteration') || 
-    box.style.animationIterationCount || 
-    window.getComputedStyle(box, null).animationIterationCount || 
+  return box.getAttribute('data-wow-iteration') ||
+    box.style.animationIterationCount ||
+    window.getComputedStyle(box, null).animationIterationCount ||
     1;
 
 };
@@ -13234,7 +13234,7 @@ WOW.prototype._cleanupClass = function (box) {
 
     classArray.splice(animateIndex, 1);
     box.className = classArray.join(' ');
-    
+
   }
 
 };
@@ -13250,7 +13250,7 @@ WOW.prototype._eachBox = function (each) {
       (function (i) {
          each(this._boxes[i], i);
       }.bind(this))(i);
-      
+
     }
 
   }
@@ -13268,7 +13268,7 @@ WOW.prototype._scrollHandler = function () {
 };
 
 WOW.prototype._hideSeoFix = function () {
-  
+
   window.removeEventListener('scroll', this._hideSeoFixListener);
   delete this._hideSeoFixListener;
 
@@ -13359,7 +13359,7 @@ WOW.prototype._checkForChanges = function () {
 };
 
 WOW.prototype._mutations = function (mutations) {
-  
+
   mutations.forEach(function (mutation) {
 
     for (var i = 0; i < mutation.addedNodes.length; i++) {
@@ -14053,7 +14053,7 @@ Waves.init();
             var $this = $(input);
             var $labelAndIcon = $this.siblings("label, i");
             update_text_fields($this);
-            var isValid = input.validity.badInput; // pure js 
+            var isValid = input.validity.badInput; // pure js
             if (isValid) $labelAndIcon.addClass("active");
         });
 
@@ -14062,7 +14062,7 @@ Waves.init();
             $(e.target).siblings('label, i').addClass('active');
         });
 
-        // Remove active on blur when not needed or invalid 
+        // Remove active on blur when not needed or invalid
         $(document).on('blur', input_selector, function (e) {
             var $this = $(e.target);
             var noValue = !$this.val();
@@ -15005,7 +15005,7 @@ var dropdownSelectors = $('.dropdown, .dropup');
                     dropdownEffectStart(dropdown, dropdown.effectOut);
                     dropdownEffectEnd(dropdown, function () {
                         dropdown.dropdown.removeClass('open');
-                        dropdown.dropdown.removeClass('show');                        
+                        dropdown.dropdown.removeClass('show');
                     });
                 }
             },
@@ -18424,7 +18424,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * easy-pie-chart
  * Lightweight plugin to render simple, animated and retina optimized pie charts
  *
- * @license 
+ * @license
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
  * @version 2.1.7
  **/
@@ -18939,13 +18939,13 @@ $.fn.easyPieChart = function(options) {
 
       //Added to search
       var applySeachInList = function() {
-        
-        var ul = $(this).closest('ul');         
-        var searchValue = $(this).val();        
+
+        var ul = $(this).closest('ul');
+        var searchValue = $(this).val();
         var options = ul.find('li')
                         .find('span.filtrable');
-                
-        options.each(function() {                 
+
+        options.each(function() {
           if (typeof(this.outerText) == 'string') {
             var liValue = this.outerText.toLowerCase();
 
@@ -18957,7 +18957,7 @@ $.fn.easyPieChart = function(options) {
               $(this).parent().hide();
             }
           }
-        });     
+        });
       }
 
       //Added to search
@@ -18967,11 +18967,11 @@ $.fn.easyPieChart = function(options) {
         options.append(element);
         element.find('.search').keyup(applySeachInList);
       }
-      
+
       //Added to search
       var searchable = $select.attr('searchable') ? true : false;
-      
-      //Added to search   
+
+      //Added to search
       if (searchable) {
         setSearchableOption();
       }
@@ -18999,7 +18999,7 @@ $.fn.easyPieChart = function(options) {
           if (type === 'multiple') {
             options.append($('<li class="' + disabledClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span class="filtrable"><input type="checkbox"' + disabledClass + '/><label></label>' + option.html() + '</span></li>'));
           } else {
-            
+
             options.append($('<li class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span class="filtrable">' + option.html() + '</span></li>'));
           }
           return true;
@@ -19125,13 +19125,13 @@ $.fn.easyPieChart = function(options) {
 
       //Changed to search to treat search
       $newSelect.on('blur', function() {
-        
+
         if (!multiple && !searchable) {
           $(this).trigger('close');
         }
         options.find('li.selected').removeClass('selected');
       });
-      
+
       //Added to search
       if (!multiple && searchable) {
           options.find('li').on('click', function() {
@@ -19310,7 +19310,7 @@ jQuery('select').siblings('input.select-dropdown').on('mousedown', function (e) 
   }
 });
 
-/* How it Works !!!! 
+/* How it Works !!!!
 
 <select class="mdb-select" searchable="search here..">
 <option value="" disabled selected>Choose your option</option>
@@ -19321,7 +19321,7 @@ jQuery('select').siblings('input.select-dropdown').on('mousedown', function (e) 
 </select>
 <label>Example label</label>
 
-Without searchable it's a normal material select 
+Without searchable it's a normal material select
 
 */
 
@@ -21869,7 +21869,7 @@ $.extend($.fn.pickadate.defaults, {
 
       onRender: function () {
       var $pickerInstance = this.$root;
- 
+
           var year = this.get('highlight', 'yyyy');
           var day = this.get('highlight', 'dd');
           var month = this.get('highlight', 'mmm');
@@ -23978,7 +23978,7 @@ $.extend($.fn.pickadate.defaults, {
 
 var initPhotoSwipeFromDOM = function (gallerySelector) {
 
-    // parse slide data (url, title, size ...) from DOM elements 
+    // parse slide data (url, title, size ...) from DOM elements
     // (children of gallerySelector)
     var parseThumbnailElements = function (el) {
         var thumbElements = el.childNodes,
@@ -23993,7 +23993,7 @@ var initPhotoSwipeFromDOM = function (gallerySelector) {
 
             figureEl = thumbElements[i]; // <figure> element
 
-            // include only element nodes 
+            // include only element nodes
             if (figureEl.nodeType !== 1) {
                 continue;
             }
@@ -24138,7 +24138,7 @@ var initPhotoSwipeFromDOM = function (gallerySelector) {
         // PhotoSwipe opened from URL
         if (fromURL) {
             if (options.galleryPIDs) {
-                // parse real index when custom PIDs are used 
+                // parse real index when custom PIDs are used
                 // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
                 for (var j = 0; j < items.length; j++) {
                     if (items[j].pid == index) {
@@ -24354,7 +24354,7 @@ initPhotoSwipeFromDOM('.mdb-lightbox');/* jSticky Plugin
                 var $chips = $(this);
                 if ($chips.data('initialized'))
                     return; // Prevent double initialization.
-            
+
                 var options = $chips.data('options');
                 if (!options.data || !options.data instanceof Array)
                     options.data = [];
@@ -24413,12 +24413,12 @@ initPhotoSwipeFromDOM('.mdb-lightbox');/* jSticky Plugin
                     else if (index === length || (index + 1) === length)
                         selectIndex = length - 1
 
-                    if (selectIndex < 0) 
+                    if (selectIndex < 0)
                         selectIndex = null
 
                     if (null !== selectIndex)
                         self.selectChip(chipsIndex, selectIndex, $chips)
-                    if (!length) 
+                    if (!length)
                         $chips.find('input').focus()
 
                 } else if (isLeftArrow) {
@@ -24462,8 +24462,8 @@ initPhotoSwipeFromDOM('.mdb-lightbox');/* jSticky Plugin
                 if (isEnter) {
                     e.preventDefault();
                     self.addChip(
-                        chipsIndex, 
-                        { tag: $target.val() }, 
+                        chipsIndex,
+                        { tag: $target.val() },
                         $chips
                     );
                     $target.val('');
@@ -24507,7 +24507,7 @@ initPhotoSwipeFromDOM('.mdb-lightbox');/* jSticky Plugin
         }
 
         this.renderChip = function (elem) {
-            if (!elem.tag) 
+            if (!elem.tag)
                 return;
 
             var html = '<div class="chip">' + elem.tag;
@@ -26076,8 +26076,8 @@ initPhotoSwipeFromDOM('.mdb-lightbox');/* jSticky Plugin
         def_destroy.apply(_this);
     };
 }());
-/* 
- * Material Design for Bootstrap 
+/*
+ * Material Design for Bootstrap
  * MDB Autocomplete Plugin
  */
 

@@ -26,16 +26,17 @@ export class MenuComponent implements OnInit, AfterViewInit{
   ngOnInit() {
     $(document).ready(function(){
 
-    $('#firstCollapseMenu').collapsible({
-      accordion: true,
-      accordionUpSpeed: 400,
-      accordionDownSpeed: 400,
-      collapseSpeed: 400,
-      contentOpen: null,
-      arrowRclass: 'arrow-r',
-      arrowDclass: 'arrow-d',
-      animate: true
-    });
+      $('#firstCollapseMenu').collapsible({
+        accordion: true,
+        accordionUpSpeed: 400,
+        accordionDownSpeed: 400,
+        collapseSpeed: 400,
+        contentOpen: null,
+        arrowRclass: 'arrow-r',
+        arrowDclass: 'arrow-d',
+        animate: true
+      });
+
       $('.button-collapse').sideNav();
     });
 

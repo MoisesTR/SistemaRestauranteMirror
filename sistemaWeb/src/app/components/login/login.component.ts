@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.initFormLogin();
-    console.log(this.usuarioServicio.getIdentity())
 
   }
 

@@ -10,8 +10,10 @@ export class UsuarioService {
   public url: string;
   public identity;
   public token;
+  private usuarioLogeado;
   constructor(private _http: Http) {
     this.url = Global.url;
+    this.usuarioLogeado = false;
   }
 
   registrar(usuario) {
@@ -21,6 +23,14 @@ export class UsuarioService {
     return this._http.post(
       this.url+'addUsuario', params, {headers:headers})
       .map(res => res.json());
+  }
+
+  setUserLoggedIn(){
+    this.usuarioLogeado = true;
+  }
+
+  getUserLoggedIn(){
+    return this.usuarioLogeado;
   }
 
   login(usuarioLogin,gettoken=null){

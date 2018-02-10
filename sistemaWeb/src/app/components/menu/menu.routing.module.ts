@@ -42,7 +42,7 @@ const menuRoutes: Routes = [
     path:'menu',
     component: MenuComponent,
     children: [
-        {path:'',redirectTo:'dashboard',pathMatch:'full'}
+        {path:'',redirectTo:'dashboard',pathMatch:'full' }
         , {path:'producto',component: ListProductosComponent}
         , {path:'producto/add',component: AddProductoComponent}
         , {path:'producto/update/:id',component: UpdateProductoComponent}
@@ -89,9 +89,11 @@ const menuRoutes: Routes = [
   imports: [
       RouterModule.forChild(menuRoutes)
 
+
   ],
   exports: [
       RouterModule
+
   ]
 })
 

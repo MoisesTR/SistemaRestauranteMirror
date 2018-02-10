@@ -8,9 +8,6 @@ function getTrabajadorById(req,res){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getTrabajador(poolObt,data.IdTrabajador)
         }).then((results) => {
-            return querys.getTelefonosTrabajador(poolObt,IdTrabajador)
-        }).then((nums) => {
-           trabajador.telefonos
            res.status(200).json({ trabajador:results.recordset[0] }) 
         }).catch((err) => {
             res.status(500).json(err)

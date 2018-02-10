@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.initFormLogin();
+    console.log(this.usuarioServicio.getIdentity())
 
   }
 
@@ -88,6 +89,7 @@ export class LoginComponent implements OnInit {
               } else {
 
                 this.status = 'success';
+                this.usuarioServicio.setUserLoggedIn();
                 console.log(this.identity);
                 this._router.navigate(['/menu']);
               }

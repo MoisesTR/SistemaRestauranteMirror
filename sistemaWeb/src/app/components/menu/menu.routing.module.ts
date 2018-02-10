@@ -34,6 +34,7 @@ import {UpdateUsuarioComponent} from '../usuario/update-usuario/update-usuario.c
 import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
 import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
 import {ListUsuarioComponent} from '../usuario/list-usuario/list-usuario.component';
+import {AuthGuardService} from '../../services/auth/auth-guard.service';
 
 
 const menuRoutes: Routes = [
@@ -41,6 +42,7 @@ const menuRoutes: Routes = [
   {
     path:'menu',
     component: MenuComponent,
+    canActivate: [AuthGuardService],
     children: [
         {path:'',redirectTo:'dashboard',pathMatch:'full' }
         , {path:'producto',component: ListProductosComponent}

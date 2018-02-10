@@ -81,8 +81,7 @@ export class LoginComponent implements OnInit {
           this.usuarioServicio.login2(this.usuario,true).subscribe(
             response =>{
               this.token = response.token;
-              console.log(this.token);
-
+              localStorage.setItem('token',JSON.stringify(this.token));
               if(this.token.length <= 0){
                 console.log('El token no se ha generado');
 
@@ -90,7 +89,6 @@ export class LoginComponent implements OnInit {
 
                 this.status = 'success';
                 this.usuarioServicio.setUserLoggedIn();
-                console.log(this.identity);
                 this._router.navigate(['/menu']);
               }
             },

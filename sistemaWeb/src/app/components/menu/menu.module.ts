@@ -1,10 +1,11 @@
 ///Modulos
-import {NgModule} from '@angular/core';
+import {InjectionToken, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 import {MenuRoutingModule} from './menu.routing.module';
 import {DataTablesModule} from 'angular-datatables';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 //Componentes
 import {ClasificacionProductoComponent} from '../clasificacion-producto/clasificacion-producto.component';
 import {ProveedorComponent} from '../proveedor/proveedor.component';
@@ -48,7 +49,9 @@ import {UsuarioModule} from '../usuario/usuario.module';
 import {ClasificacionUnidadMedidaService} from '../../services/clasificacion-unidad-medida.service';
 import {TelefonosucursalService} from '../../services/telefonosucursal.service';
 import {Select2Module} from 'ng2-select2';
-import {HttpClientModule} from '@angular/common/http';
+import {AuthGuardService} from '../../services/auth/auth-guard.service';
+import {AuthService} from '../../services/auth/auth.service';
+import {JwtHelper} from 'angular2-jwt';
 
 
 @NgModule({
@@ -90,6 +93,7 @@ import {HttpClientModule} from '@angular/common/http';
     , SharedModuleModule
     , Select2Module
     , HttpClientModule
+
   ],
   exports: [
     MenuComponent
@@ -112,6 +116,9 @@ import {HttpClientModule} from '@angular/common/http';
     , ProductoProveedorService
     , ClasificacionUnidadMedidaService
     , TelefonosucursalService
+    , AuthGuardService
+    , AuthService
+    , JwtHelper
 
   ]
 })

@@ -48,6 +48,9 @@ export class ReporteComponent implements OnInit {
       response =>{
         if(response.productos){
           this.productos = response.productos;
+          if(this.productos.length == 0)
+            this.productos = null
+          console.log(this.productos)
         }
       }, error =>{
 

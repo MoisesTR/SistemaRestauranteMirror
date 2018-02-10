@@ -8,7 +8,7 @@
       <div class="col-md-12 text-center" >
     <section class="section">
 
-      <div class="row" *ngIf="productos.length != 0">
+      <div class="row" *ngIf="productos">
 
         <div class="col-md-12 mt-4">
           <div class="in input-group md-form form-inline form-sm form-2 pl-0">
@@ -53,7 +53,7 @@
 
       </div>
 
-      <div class="row" *ngIf="productos.length == 0">
+      <div class="row" *ngIf="productos==null">
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
             <h1>PRODUCTOS</h1>

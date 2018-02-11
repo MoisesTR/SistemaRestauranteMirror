@@ -13,7 +13,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="text-right" style="margin-top:3%;">
-                <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalAddCargo">Nuevo Cargo</button>
+                <button type="button" class="btn orange-chang" data-toggle="modal" (click)="cleanForm()" data-target="#modalAddCargo">Nuevo Cargo</button>
               </div>
             </div>
           </div>
@@ -36,8 +36,8 @@
             <td width="25%" class="body-negrita">
               <div class="text-center">
                 <!--<button type="button" (click)="getCargo()" class="btn btn-sm orange-chang" id="btnGetCargo" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                <button type="button" (click)="updateCargo()" class="btn btn-sm orange-chang" id="btnUpdateCargo" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                <button type="button" (click)="deleteCargo()" class="btn btn-sm orange-chang"  id="btnDeleteCargo" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                <button type="button" (click)="showModalUpdateCargo(cargo)" class="btn btn-sm orange-chang" id="btnUpdateCargo" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                <button type="button" (click)="deleteCargo(cargo.IdCargo)" class="btn btn-sm orange-chang"  id="btnDeleteCargo" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
               </div>
             </td>
           </tr>
@@ -51,7 +51,7 @@
 </div>
 
 
-<!-- Modal Cargos -->
+<!-- Modal crear Cargos -->
 <div class="modal fade" id="modalAddCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
@@ -82,11 +82,9 @@
                           <input type="text"
                                  id="nombrecargo"
                                  class="form-control letras"
-                                 name="nombrecargo"
                                  minlength="3"
                                  maxlength="40"
                                  formControlName="nombreCargo"
-                                 required
                           >
                           <show-errors [control]="formAddCargo.controls['nombreCargo']"></show-errors>
                           <label for="nombrecargo">Nombre</label>
@@ -98,7 +96,6 @@
                           <textarea type="text"
                                     id="descripcioncargo"
                                     class="md-textarea"
-                                    name="DescripcionCargo"
                                     minlength="5"
                                     maxlength="150"
                                     formControlName="descripcionCargo"
@@ -128,3 +125,78 @@
   </div>
 </div>
 <!-- /.Modal Cargos -->
+
+<!-- Modal actualizar Cargos -->
+<div class="modal fade" id="modalUpdateCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray">
+
+      <!--Titulo-->
+      <div class="modal-header orange-chang white-text">
+        <h4 class="title">Nuevo cargo</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form  [formGroup]="formUpdateCargo" (ngSubmit)="updateCargo()" novalidate>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+                  <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos del Cargo</div>
+                  <div class="container-fluid">
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form ">
+                          <input type="text"
+                                 id="upnombrecargo"
+                                 class="form-control letras"
+                                 minlength="3"
+                                 maxlength="40"
+                                 formControlName="nombreCargo"
+                          >
+                          <show-errors [control]="formUpdateCargo.controls['nombreCargo']"></show-errors>
+                          <label for="nombrecargo">Nombre</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                          <textarea type="text"
+                                    id="updescripcioncargo"
+                                    class="md-textarea"
+                                    minlength="5"
+                                    maxlength="150"
+                                    formControlName="descripcionCargo"
+                          ></textarea>
+                          <show-errors [control]="formUpdateCargo.controls['descripcionCargo']"></show-errors>
+                          <label for="descripcioncargo"  >Descripción</label>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="text-center mt-1-half">
+                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateCargo.valid">Actualizar <i class="fa fa-check ml-1"></i></button>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- Final form -->
+          <br>
+        </div>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>
+<!-- /.Modal Cargos -->
+

@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
+import {idioma_espanol} from '../../services/global';
 declare var $:any;
 
 @Component({
@@ -17,16 +18,11 @@ declare var $:any;
 })
 export class CargoComponent implements OnInit {
 
-
   public cargo : Cargo;
   public cargos: Cargo[];
   public mensaje : string;
-
-
-
-    public formAddCargo: FormGroup;
+  public formAddCargo: FormGroup;
   public formUpdateCargo: FormGroup;
-
 
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
@@ -34,7 +30,7 @@ export class CargoComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   @ViewChild(DataTableDirective)
-    dtElement: DataTableDirective;
+  dtElement: DataTableDirective;
 
   constructor(
     private _route: ActivatedRoute,
@@ -42,77 +38,12 @@ export class CargoComponent implements OnInit {
     private _cargoServicio : CargoService,
     private _formBuilderCargo : FormBuilder
 
-    ) {
-        this.cargo = new Cargo(null,null,null,null);
-     }
+  )
+  {
+    this.cargo = new Cargo(null,null,null,null);
+  }
 
   ngOnInit() {
-
-    $(document).ready(function(){
-
-      $(".letras").keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-          && (key.charCode != 45) //retroceso
-          && (key.charCode != 241) //ñ
-          && (key.charCode != 209) //Ñ
-          && (key.charCode != 32) //espacio
-          && (key.charCode != 225) //á
-          && (key.charCode != 233) //é
-          && (key.charCode != 237) //í
-          && (key.charCode != 243) //ó
-          && (key.charCode != 250) //ú
-          && (key.charCode != 193) //Á
-          && (key.charCode != 201) //É
-          && (key.charCode != 205) //Í
-          && (key.charCode != 211) //Ó
-          && (key.charCode != 218) //Ú
-
-        )
-          return false;
-      });
-
-      $('.dropify').dropify();
-
-      $(".selectcategoria").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectsubclasificacion").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectproveedor").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectenvase").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectempaque").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectclasificacion").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectestado").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectvalorunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
-    });
-
-
 
     this.settingsDatatable();
     this.getCargo();
@@ -121,18 +52,16 @@ export class CargoComponent implements OnInit {
 
   }
 
-
   settingsDatatable(){
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
-    this.dtOptions = {
+    this.dtOptions = <DataTables.Settings>{
       pagingType: 'full_numbers'
       , pageLength: 10
-      , "lengthChange": false
-      /*,select: true*/
+      , language: idioma_espanol
+      , 'lengthChange': false
     };
   }
-
 
    rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -140,29 +69,22 @@ export class CargoComponent implements OnInit {
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
-    });
-
+     });
     }
 
+  getCargo(){
 
- private initConstructorCargo() {
-    this.cargo = new Cargo(null,null,null,null);
-  }
+      this._cargoServicio.getCargos().subscribe(
+        response => {
+          if(response.cargos){
+            this.cargos= response.cargos;
+            this.dtTrigger.next();
+          }
+        }, error =>{
 
-
-getCargo(){
-
-    this._cargoServicio.getCargos().subscribe(
-      response => {
-        if(response.cargos){
-          this.cargos= response.cargos;
-          this.dtTrigger.next();
         }
-      }, error =>{
-
-      }
-    );
-  }
+      );
+    }
 
   getCargosRender(){
     this._cargoServicio.getCargos().subscribe(
@@ -201,19 +123,17 @@ getCargo(){
 
     this.formUpdateCargo = this._formBuilderCargo.group({
       'nombreCargo': new FormControl('',[
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(100),
-        CustomValidators.espaciosVacios
+        Validators.required,
+          , Validators.minLength(5)
+          , Validators.maxLength(100)
+          , CustomValidators.espaciosVacios
       ])
       , 'descripcionCargo': new FormControl( '',[
-
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(100),
-        CustomValidators.espaciosVacios
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(100)
+        , CustomValidators.espaciosVacios
         ]
-
       )
     });
   }
@@ -222,28 +142,29 @@ getCargo(){
 
     this.cargo.NombreCargo = this.formAddCargo.value.nombreCargo;
     this.cargo.DescripcionCargo = this.formAddCargo.value.descripcionCargo;
+
+    console.log('Probando metodo')
     console.log(this.cargo);
+
 
   }
 
   getValuesFormUpdateCargo(){
-
     this.cargo.NombreCargo= this.formUpdateCargo.value.nombreCargo;
     this.cargo.DescripcionCargo = this.formUpdateCargo.value.descripcionCargo;
   }
 
-  showModalUpdateCargo(cargo){
+  showModalUpdateCargo(cargoUpdate){
 
     $('#modalUpdateCargo').modal('show');
-    let Cargo : Cargo;
-    Cargo = cargo;
 
-    this.cargo.IdCargo  = Cargo.IdCargo;
+    this.cargo.IdCargo  = cargoUpdate.IdCargo;
 
+    console.log(cargoUpdate)
     this.formUpdateCargo.reset();
     this.formUpdateCargo.setValue({
-      nombreCargo: Cargo.NombreCargo
-      , descripcionCargo:Cargo.DescripcionCargo
+      nombreCargo: cargoUpdate.NombreCargo
+      , descripcionCargo:cargoUpdate.DescripcionCargo
     });
 
 
@@ -275,9 +196,7 @@ getCargo(){
             'error'
           )
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
         }
-
       }, error => {
         if (error.status == 500) {
           swal(
@@ -293,21 +212,6 @@ getCargo(){
     )
   }
 
-  getCargoUsuario(IdCargo){
-
-    this._cargoServicio.getCargo(IdCargo).subscribe(
-      response => {
-
-        if(!response.cargo){
-
-        } else {
-          this.cargo = response.cargo;
-        }
-      },error => {
-        console.log(<any>error);
-      }
-    )
-  }
 
   getCargos(){
     this._cargoServicio.getCargos().subscribe(
@@ -328,7 +232,7 @@ getCargo(){
 
     this.getValuesFormUpdateCargo();
 
-    this._cargoServicio.updateCargo(this.cargo,Cargo).subscribe(
+    this._cargoServicio.updateCargo(this.cargo).subscribe(
       response =>{
         if(response.success){
           swal(
@@ -340,8 +244,6 @@ getCargo(){
             this.formUpdateCargo.reset();
             this.getCargosRender();
           })
-
-
         } else {
           swal(
             'Error inesperado',
@@ -359,7 +261,6 @@ getCargo(){
         }
       }
     )
-
     this.cargo = new Cargo(null, null, null, null);
 
   }
@@ -373,14 +274,14 @@ getCargo(){
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
-    }).then((eliminar) => {
+      confirmButtonText: 'Si, Eliminalo!'
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._cargoServicio.deleteCargo(IdCargo).subscribe(
           response =>{
             if(response.success){
               swal(
-                'Eliminada!',
+                'Eliminado!',
                 'El cargo ha sido eliminada exitosamente',
                 'success'
               ).then(() => {
@@ -407,5 +308,8 @@ getCargo(){
       }
     });
 
+  }
+  cleanForm(){
+    this.formAddCargo.reset;
   }
 }

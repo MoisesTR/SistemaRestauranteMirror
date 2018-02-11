@@ -7,20 +7,23 @@
 //   minScrollbarLength: 20
 // });
 
-window.onscroll = function () {
-    if (pageYOffset >= 200) {
-        document.getElementById('backToTop').style.visibility = "visible";
-    } else {
-        document.getElementById('backToTop').style.visibility = "hidden";
-    }
-};
-
 $('[data-toggle="tooltip"]').tooltip({
     trigger : 'hover'
 })
 
 //fecha$(".letras").keypress(function (key) {
 $(document).ready(function(){
+
+  window.onscroll = function () {
+    if(document.getElementById('backToTop') != null) {
+      if (pageYOffset >= 200) {
+        document.getElementById('backToTop').style.visibility = "visible";
+      } else {
+        document.getElementById('backToTop').style.visibility = "hidden";
+      }
+    }
+  };
+
   var date = new Date();
   var currentMonth = date.getMonth();
   var currentDate = date.getDate();

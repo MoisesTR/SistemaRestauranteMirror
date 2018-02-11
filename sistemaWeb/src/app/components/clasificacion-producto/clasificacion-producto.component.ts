@@ -343,7 +343,7 @@ export class ClasificacionProductoComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminala!'
-    }).then((eliminar) => {
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._clasificacionService.deleteClasificacionProducto(IdClasificacion).subscribe(
           response =>{

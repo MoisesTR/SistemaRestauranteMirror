@@ -407,7 +407,7 @@ export class SucursalComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminala!'
-    }).then((eliminar) => {
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._sucursalService.deleteSucursal(IdSucursal).subscribe(
           response =>{

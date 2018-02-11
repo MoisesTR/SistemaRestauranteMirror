@@ -132,7 +132,7 @@ export class ListProductosComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminalo!'
-    }).then((eliminar) => {
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._ProductoServicio.deleteProducto(IdProducto).subscribe(
           response =>{

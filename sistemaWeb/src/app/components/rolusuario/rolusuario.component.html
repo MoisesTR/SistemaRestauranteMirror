@@ -13,7 +13,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="text-right" style="margin-top:3%;">
-                <button type="button" class="btn orange-chang" data-toggle="modal" data-target="#modalAddRol">Nuevo Rol</button>
+                <button type="button" class="btn orange-chang" data-toggle="modal" (click)="cleanFormAdd()" data-target="#modalAddRol">Nuevo Rol</button>
               </div>
             </div>
           </div>
@@ -36,8 +36,8 @@
             <td width="25%" class="body-negrita">
               <div class="text-center">
                 <button type="button" (click)="getRol(rol.IdRol)" class="btn btn-sm orange-chang" id="btnGetRol" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                <button type="button" (click)="showModalUpdateRol()" class="btn btn-sm orange-chang" id="btnUpdateRol" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                <button type="button" (click)="deleteRol(rol.IdRol)" class="btn btn-sm orange-chang"  id="btnDeleteRol" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                <button type="button" (click)="showModalUpdateRol(rol)" class="btn btn-sm orange-chang" id="btnUpdateRol" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                <button type="button" class="btn btn-sm orange-chang"  id="btnDeleteRol" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
               </div>
             </td>
           </tr>
@@ -68,7 +68,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form >
+          <form [formGroup]="formAddRolUsuario" (ngSubmit)="createRolUsuario()" novalidate>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -83,10 +83,11 @@
                                  name="nombreRol"
                                  minlength="3"
                                  maxlength="40"
-                                 required
+                                 formControlName="nombreRol"
+                                 [(ngModel)] = formAddRolUsuario.value.nombreRol
                           >
-
                           <label for="nombreRol" class="">Nombre</label>
+                          <show-errors [control]="formAddRolUsuario.controls['nombreRol']"></show-errors>
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -96,16 +97,17 @@
                                     name="createdescriopcionRol"
                                     minlength="5"
                                     maxlength="150"
-                                    required
+                                    formControlName="descripcionRol"
+                                    [(ngModel)] = formAddRolUsuario.value.descripcionRol
                           ></textarea>
-
                           <label for="createdescripcionRol">Descripción</label>
+                          <show-errors [control]="formAddRolUsuario.controls['descripcionRol']"></show-errors>
                         </div>
                       </div>
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" [disabled]="!formAddRolUsuario.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>
@@ -140,7 +142,7 @@
       <div class="modal-body mb-0">
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form >
+          <form [formGroup]="formUpdateRolUsuario" (ngSubmit)="updateRolUsuario()">
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
@@ -155,10 +157,11 @@
                                  name="upNombreRol"
                                  minlength="3"
                                  maxlength="40"
-                                 required
+                                 formControlName="nombreRol"
+                                 [(ngModel)] = formUpdateRolUsuario.value.nombreRol
                           >
-
                           <label for="upNombreRol" class="">Nombre</label>
+                          <show-errors [control]="formUpdateRolUsuario.controls['nombreRol']"></show-errors>
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -168,16 +171,17 @@
                                     name="upDescripcionRol"
                                     minlength="5"
                                     maxlength="150"
-                                    required
+                                    formControlName="descripcionRol"
+                                    [(ngModel)] = formUpdateRolUsuario.value.descripcionRol
                           ></textarea>
-
                           <label for="upDescriopcionRol">Descripción</label>
+                          <show-errors [control]="formUpdateRolUsuario.controls['descripcionRol']"></show-errors>
                         </div>
                       </div>
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1">Actualizar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" [disabled]="!formUpdateRolUsuario.valid">Actualizar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>

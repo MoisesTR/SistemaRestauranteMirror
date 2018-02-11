@@ -4,9 +4,10 @@ import {RolusuarioService} from '../../services/rolusuario.service';
 import {Subject} from 'rxjs/Subject';
 import {idioma_espanol} from '../../services/global';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
 
 declare var $:any;
 
@@ -21,7 +22,6 @@ export class RolusuarioComponent implements OnInit {
 
   public rol: RolUsuario;
   public roles: RolUsuario[];
-
   public formAddRolUsuario: FormGroup;
   public formUpdateRolUsuario: FormGroup;
 
@@ -30,20 +30,18 @@ export class RolusuarioComponent implements OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-
   @ViewChild(DataTableDirective)
     dtElement: DataTableDirective;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _RolusuarioService : RolusuarioService
+    private _route: ActivatedRoute
+    , private _router: Router
+    , private _RolusuarioService : RolusuarioService
+    , private formBuilderRol : FormBuilder
 
     ) {
-
     this.rol = new RolUsuario(null,null,null,null,null,null);
-}
-
+  }
 
   ngOnInit() {
 
@@ -52,10 +50,16 @@ export class RolusuarioComponent implements OnInit {
       , pageLength: 10
       , 'lengthChange': false
       , language: idioma_espanol
-      /*,select: true*/
     };
 
-      this._RolusuarioService.getRoles().subscribe(
+    this.getRoles();
+    this.initFormAddRolUsuario();
+    this.initFormUpdateRolUsuario();
+
+  }
+
+  getRoles(){
+    this._RolusuarioService.getRoles().subscribe(
       response => {
         if(response.roles){
           this.roles = response.roles;
@@ -65,50 +69,18 @@ export class RolusuarioComponent implements OnInit {
 
       }
     );
-
   }
 
-rerender(): void {
+  rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-
-    }
-
-
- private initConstructorRolUsuario() {
-   this.rol = new RolUsuario(null,null,null,null,null,null);
   }
 
-  createRol(){
-
-
-   /* this.rol.DescripcionRol = this.formRolUsuario.value.descripcionRol;
-    this.rol.NombreRol = this.formRolUsuario.value.nombreRol;
-    this.formRolUsuario.reset;
-
-    this._RolusuarioService.createRolUsuario(this.rol).subscribe(
-      response =>{
-
-        if(response.IdRol){
-          console.log('Creado con exito');
-        }
-      },
-      error=>{
-
-      }
-    )
-*/
-    console.log(this.rol.DescripcionRol + this.rol.NombreRol);
-
-
-
-  }
-
-getRol(){
+  getRol(){
 
     this._RolusuarioService.getRoles().subscribe(
       response => {
@@ -122,7 +94,7 @@ getRol(){
     );
   }
 
-  getRolRender(){
+  getRolesRender(){
     this._RolusuarioService.getRoles().subscribe(
       response => {
         if(response.roles){
@@ -138,19 +110,42 @@ getRol(){
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddRolUsuario(){
 
-    this.formAddRolUsuario = new FormGroup({
-      'nombreRolUsuario': new FormControl()
-      , 'descripcionRolUsuario': new FormControl()
+    this.formAddRolUsuario = this.formBuilderRol.group({
+      'nombreRol': new FormControl('',
+        [
+          Validators.required
+          , Validators.maxLength(20)
+          , Validators.minLength(5)
+          , CustomValidators.espaciosVacios
+        ])
+      , 'descripcionRol': new FormControl('',
+       [ Validators.required
+        , Validators.maxLength(20)
+        , Validators.minLength(5)
+        , CustomValidators.espaciosVacios
+      ])
     });
 
   }
 
   initFormUpdateRolUsuario(){
 
-    this.formUpdateRolUsuario = new FormGroup({
-      'nombreRolUsuario': new FormControl()
-      , 'descripcionRolUsuario': new FormControl()
+    this.formUpdateRolUsuario = this.formBuilderRol.group({
+      'nombreRol': new FormControl('',
+        [
+          Validators.required
+          , Validators.maxLength(20)
+          , Validators.minLength(5)
+          , CustomValidators.espaciosVacios
+        ])
+      , 'descripcionRol': new FormControl('',
+        [ Validators.required
+          , Validators.maxLength(20)
+          , Validators.minLength(5)
+          , CustomValidators.espaciosVacios
+        ])
     });
+
   }
 
   getValuesFormAddRolUsuario(){
@@ -166,31 +161,29 @@ getRol(){
     this.rol.DescripcionRol = this.formUpdateRolUsuario.value.descripcionRol;
   }
 
-  showModalUpdateRolUsuario(rol){
+  showModalUpdateRol(rolUpdate){
 
-    $('#modalUpdateRolUsuario').modal('show');
-    let RolUsuario : RolUsuario;
-     RolUsuario = rol;
+    $('#modalUpdateRol').modal('show');
+    // let RolUsuario : RolUsuario;
+    //  RolUsuario = rol;
 
-    this.rol.IdRol  = RolUsuario.IdRol;
-
+    this.rol.IdRol  = rolUpdate.IdRol;
     this.formUpdateRolUsuario.reset();
     this.formUpdateRolUsuario.setValue({
-      nombreRol: RolUsuario.NombreRol
-      , descripcionRol: RolUsuario.DescripcionRol
+      nombreRol: rolUpdate.NombreRol
+      , descripcionRol: rolUpdate.DescripcionRol
     });
-
 
   }
 
   createRolUsuario(){
     this.getValuesFormAddRolUsuario();
 
+    console.log(this.rol)
     this._RolusuarioService.createRolUsuario(this.rol).subscribe(
       response => {
 
         if (response.IdRol) {
-
           swal(
             'Rol',
             'El Rol ha sido creado exitosamente!',
@@ -199,7 +192,7 @@ getRol(){
             $('#modalAddRol').modal('toggle');
             this.formAddRolUsuario.reset();
             this.rol = new RolUsuario(null,null,null,null,null,null);
-            this.getRolRender();
+            this.getRolesRender();
           })
 
         } else {
@@ -211,7 +204,6 @@ getRol(){
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
-        this.getRol();
       }, error => {
         if (error.status == 500) {
           swal(
@@ -242,104 +234,95 @@ getRol(){
     )
   }
 
-  getRoles(){
-    this._RolusuarioService.getRoles().subscribe(
-      response => {
-
-        if(!response.roles){
-          console.log('Ha ocurrido un error');
-        } else {
-          this.roles = response.roles;
-        }
-      },error => {
-        console.log(<any>error);
-    }
-    )
-  }
-
   updateRolUsuario(){
 
-    this.getValuesFormUpdateRolUsuario();
+    //Descomentar cuando el metodo para actualizar en la api este listo
 
-    this._RolusuarioService.updateRol(RolUsuario).subscribe(
-      response =>{
-        if(response.success){
-          swal(
-            'Rol',
-            'El rol ha sido actualizado exitosamente!',
-            'success'
-          ).then(() => {
-            $('#modalUpdateRolUsuario').modal('toggle');
-            this.formUpdateRolUsuario.reset();
-            this.getRolRender();
-          })
-
-
-        } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-            'error'
-          )
-        }
-      }, error =>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
-      }
-    )
-
-    this.rol = new RolUsuario(null,null,null,null,null,null);
-
-  }
-
-  deleteRolUsuario(IdRol){
-
-    swal({
-      title: "Estas seguro(a)?",
-      text: "El rol sera eliminada permanentemente!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
-    }).then((eliminar) => {
-      if (eliminar) {
-        this._RolusuarioService.deleteRol(IdRol).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                'Eliminada!',
-                'El Rol ha sido eliminada exitosamente',
-                'success'
-              ).then(() => {
-               this.getRolRender();
-              })
-            } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
-            }
-          }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
-          }
-        )
-
-      }
-    });
+    // this.getValuesFormUpdateRolUsuario();
+    // this._RolusuarioService.updateRol(RolUsuario).subscribe(
+    //   response =>{
+    //     if(response){
+    //       console.log(response)
+    //       swal(
+    //         'Rol',
+    //         'El rol ha sido actualizado exitosamente!',
+    //         'success'
+    //       ).then(() => {
+    //         $('#modalUpdateRol').modal('toggle');
+    //         this.formUpdateRolUsuario.reset();
+    //         this.getRolesRender();
+    //       })
+    //
+    //
+    //     } else {
+    //       swal(
+    //         'Error inesperado',
+    //         'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
+    //         'error'
+    //       )
+    //     }
+    //   }, error =>{
+    //     if (error.status == 500) {
+    //       swal(
+    //         'Error inesperado',
+    //         'Ha ocurrido un error en el servidor, intenta nuevamente!',
+    //         'error'
+    //       )
+    //     }
+    //   }
+    // )
+    //
+    // this.rol = new RolUsuario(null,null,null,null,null,null);
 
   }
 
+  // deleteRolUsuario(IdRol){
+  //
+  //   swal({
+  //     title: "Estas seguro(a)?",
+  //     text: "El rol sera eliminada permanentemente!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Si, Eliminala!'
+  //   }).then((eliminar) => {
+  //     if (eliminar) {
+  //       this._RolusuarioService.deleteRol(IdRol).subscribe(
+  //         response =>{
+  //           if(response.success){
+  //             swal(
+  //               'Eliminada!',
+  //               'El Rol ha sido eliminada exitosamente',
+  //               'success'
+  //             ).then(() => {
+  //              this.getRolRender();
+  //             })
+  //           } else {
+  //             swal(
+  //               'Error inesperado',
+  //               'Ha ocurrido un error en la eliminación, intenta nuevamente!',
+  //               'error'
+  //             )
+  //           }
+  //         }, error =>{
+  //           if(error.status = 500){
+  //             swal(
+  //               'Error inesperado',
+  //               'Ha ocurrido un error en el servidor, intenta nuevamente!',
+  //               'error'
+  //             )
+  //           }
+  //         }
+  //       )
+  //
+  //     }
+  //   });
+  //
+  // }
+
+  cleanFormAdd(){
+
+    this.formAddRolUsuario.reset;
+  }
 }

@@ -35,7 +35,7 @@ export class RolusuarioService {
   updateRol(RolUsuario){
 
     let params = JSON.stringify(RolUsuario);
-    let headers = new Headers({'Content-Type':'application/json'});
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'token'});
 
     return this._http.put(this.url + 'rol',params,{headers:headers}).map(res => res.json());
   }

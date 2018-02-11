@@ -1,60 +1,60 @@
-import { Injectable } from '@angular/core';
-import { Global } from './global';
-import { Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Global} from './global';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class CargoService {
-public url: string;
-  constructor(
-  	private _http: Http
-  	) {
 
+  public url: string;
+
+  constructor(
+  	private _http: HttpClient
+  	) {
   	this.url = Global.url;
    }
 
-  createCargo(Cargo){
+  createCargo(Cargo): Observable<any>{
 
     let params = JSON.stringify(Cargo);
-    let headers = new Headers({'Content-Type':'application/json'});
-    console.log(params);
-    return this._http.post(this.url+'cargo',params,{headers:headers})
-      .map(res => res.json());
+    let headers = new HttpHeaders({'Content-Type':'application/json'});
+
+    return this._http.post(this.url+'cargo',params,{headers:headers});
   }
 
-  getCargo(IdCargo){
-    return this._http.get(this.url + 'cargo'+IdCargo).map(res => res.json());
+  getCargo(IdCargo): Observable<any>{
+    return this._http.get(this.url + 'cargo'+IdCargo)
   }
 
-  getCargos(){
-    return this._http.get(this.url + 'cargos').map(res => res.json());
+  getCargos(Habilitado = 1) : Observable<any>{
+    return this._http.get(this.url + 'cargos?Habilitado='+Habilitado);
   }
 
-  updateCargo(IdCargo,Cargo){
+  updateCargo(Cargo): Observable<any>{
 
     let params = JSON.stringify(Cargo);
-    let headers = new Headers({
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'cargo/'+IdCargo,params,{headers:headers})
-      .map(res => res.json());
+    return this._http.put(this.url+'cargo',params,{headers:headers})
   }
 
-  deleteCargo(IdCargo){
+  deleteCargo(IdCargo) : Observable<any>{
 
-    let headers = new Headers({
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
 
-    let options = new RequestOptions({headers:headers});
-    return this._http.delete(this.url+'cargo'+IdCargo,options)
-      .map(res => res.json());
+    let body = JSON.stringify(
+      {
+        "Habilitado": 0
+      }
+    );
+    return this._http.request('delete',this.url+'cargo/'+IdCargo,{headers:headers,body:body})
   }
-
 
 }

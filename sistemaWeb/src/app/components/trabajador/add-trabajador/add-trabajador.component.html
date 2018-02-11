@@ -40,12 +40,21 @@
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
-
+                                
                 <div class="col-md-6">
-                  <label for="selectsucursales">Sucursal</label>
-                  <select name="selectsucursales"  class="selectsucursales" multiple="multiple" style="width: 100%">
-                    <option class="chip" [value]="sucursal.IdSucursal" *ngFor="let sucursal of sucursales">{{sucursal.NombreSucursal}}</option>
-                  </select>
+                  <br>
+                  <div class="md-form">
+                    <input type="text" id="FechaNacimiento" name="FechaNacimiento" formControlName="fechaNacimiento" required class="form-control datepickerEdad">
+                    <label for="FechaNacimiento">Fecha de Nacimiento</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input type="text" id="FechaIngreso" name="FechaIngreso" formControlName="fechaIngreso" required class="form-control datepicker">
+                    <label for="FechaIngreso">Fecha Ingreso</label>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
@@ -53,20 +62,6 @@
                   <div class="md-form">
                     <input type="text" id="NumeroCedula" name="NumeroCedula" formControlName="cedula" required class="cedula form-control validate">
                     <label for="NumeroCedula">Número de Cedula</label>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="md-form">
-                    <input type="text" id="FechaNacimiento" name="FechaNacimiento" formControlName="fechaNacimiento" required class="form-control datepicker">
-                    <label for="FechaNacimiento">Fecha de Nacimiento</label>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="md-form">
-                    <input type="text" id="FechaIngreso" name="FechaIngreso" formControlName="fechaIngreso" required class="form-control datepicker">
-                    <label for="FechaIngreso">Fecha Ingreso</label>
                   </div>
                 </div>
 
@@ -87,15 +82,6 @@
                 </div>
 
                 <div class="col-md-6">
-                  <label for="selectoperadoraprincipalTrabajador">Operadora</label>
-                  <select class="selectoperadoraprincipalTrabajador" multiple="multiple" style="width: 100%">
-                    <option class="chip" value="1">Movistar</option>
-                    <option  class="chip" value="2">Claro</option>
-                    <option  class="chip" value="3">Cootel</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6">
                   <br>
                   <div class="md-form ">
                     <input type="text" id="TelefonoSecundarioTrabajador"
@@ -108,16 +94,7 @@
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>
-
-                <div class="col-md-6">
-                  <label for="selectoperadorasecundarioTrabajador">Operadora</label>
-                  <select class="selectoperadorasecundarioTrabajador" multiple="multiple" style="width: 100%">
-                    <option class="chip" value="1">Movistar</option>
-                    <option  class="chip" value="2">Claro</option>
-                    <option  class="chip" value="3">Cootel</option>
-                  </select>
-                </div>
-
+                
                 <div class="col-md-12">
                   <div class="md-form">
                     <textarea type="text" id="Direccion"name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
@@ -126,6 +103,14 @@
                 </div>
 
                 <div class="col-md-12">
+                  <label for="selectsucursales">Sucursal</label>
+                  <select name="selectsucursales"  class="selectsucursales" multiple="multiple" style="width: 100%">
+                    <option class="chip" [value]="sucursal.IdSucursal" *ngFor="let sucursal of sucursales">{{sucursal.NombreSucursal}}</option>
+                  </select>
+                </div>
+                
+                <div class="col-md-12">
+                  <br>
                   <label for="selectcargo">Cargo</label>
                   <select name="RolTrabajador" class="selectcargo" multiple="multiple" style="width: 100%">
                     <option class="chip" [value]="cargo.IdCargo" *ngFor="let cargo of cargos">{{cargo.NombreCargo}}</option>

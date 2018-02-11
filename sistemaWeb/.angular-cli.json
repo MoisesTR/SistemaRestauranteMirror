@@ -28,6 +28,9 @@
         , "../node_modules/datatables.net/js/jquery.dataTables.js"
         ,"assets/js/select2.min.js"
         ,"../node_modules/sidenavjs/dist/sidenav.min.js"
+        ,"assets/js/popper.min.js"
+        ,"assets/js/bootstrap.min.js"
+
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

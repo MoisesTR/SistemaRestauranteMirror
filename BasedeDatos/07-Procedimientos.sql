@@ -8,8 +8,14 @@ CREATE PROCEDURE USP_CREATE_CARGO(
     @DescripcionCargo NVARCHAR(150)
 )
 AS BEGIN
-	INSERT INTO CARGO(NombreCargo,DescripcionCargo)
-	VALUES(@NombreCargo,@DescripcionCargo)
+	IF EXISTS (SELECT @NombreCargo FROM CARGO WHERE @NombreCargo = NombreCargo )  
+		RAISERROR('El nombre del cargo ya existe',14,1)  
+	ELSE
+	BEGIN
+		INSERT INTO CARGO(NombreCargo,DescripcionCargo)
+		VALUES(@NombreCargo,@DescripcionCargo)
+		SELECT @@IDENTITY AS IdCargo
+	END
 END
 GO
 IF OBJECT_ID('USP_UPDATE_CARGO','P') IS NOT NULL

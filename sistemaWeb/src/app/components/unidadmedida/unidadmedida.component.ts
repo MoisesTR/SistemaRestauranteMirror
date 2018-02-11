@@ -28,6 +28,7 @@ export class UnidadmedidaComponent implements OnInit {
   public clasificaciones: ClasificacionProducto[];
   public mensaje : string;
   public formUpdateUnidadMedida: FormGroup;
+  public todoValidado = 0;
   public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
 
   tOptions: DataTables.Settings = {};
@@ -225,6 +226,10 @@ export class UnidadmedidaComponent implements OnInit {
 
     if(idClasificacionUnidad != null){
       this.unidadMedida.IdClasificacionUnidadMedida  = idClasificacionUnidad;
+      this.todoValidado = 1;
+    } else {
+      this.unidadMedida.IdClasificacionUnidadMedida = null;
+      this.todoValidado = 0;
     }
 
   }

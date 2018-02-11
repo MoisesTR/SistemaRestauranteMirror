@@ -1,10 +1,11 @@
 var sql = require('mssql')
 
 function createCargo(pool,data){ 
+    console.log(data);
     return pool.request()
         .input('NombreCargo',sql.NVarChar(50),data.NombreCargo)
         .input('DescripcionCargo',sql.NVarChar(100),data.DescripcionCargo)
-        .execute('USP_CREATE_Cargo')
+        .execute('USP_CREATE_CARGO')
     } 
 function getCargos(pool,Habilitado){
     return pool.request()

@@ -5,8 +5,8 @@ var sql = require('mssql')
 
 function createCargo(req,res){ 
     var data = req.body
-    console.log(((data.Nombre != undefined) && (data.Descripcion != undefined)))
-    if((data.Nombre != undefined) && (data.Descripcion != undefined)){ 
+    console.log(((data.NombreCargo != undefined) && (data.DescripcionCargo != undefined)))
+    if((data.NombreCargo != undefined) && (data.DescripcionCargo != undefined)){ 
       console.log('mandaste los campos')
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createCargo(poolObt,data)
@@ -37,7 +37,7 @@ function getCargos(req,res){
 }
 function updateCargo(req,res){
     var data = req.body
-    if(data.IdCargo != undefined && data.NombreCargo != undefined && data.Descripcion != undefined){
+    if(data.IdCargo != undefined && data.NombreCargo != undefined && data.DescripcionCargo != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateCargo(poolObt,data)
         }).then((results) => {

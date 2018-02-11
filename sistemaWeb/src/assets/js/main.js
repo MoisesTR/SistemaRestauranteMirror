@@ -7,14 +7,6 @@ Ps.initialize(container, {
   minScrollbarLength: 20
 });
 
-window.onscroll = function () {
-    if (pageYOffset >= 200) {
-        document.getElementById('backToTop').style.visibility = "visible";
-    } else {
-        document.getElementById('backToTop').style.visibility = "hidden";
-    }
-};
-
 $('[data-toggle="tooltip"]').tooltip({
     trigger : 'hover'
 })

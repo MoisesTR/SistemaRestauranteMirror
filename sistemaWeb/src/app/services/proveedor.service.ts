@@ -28,8 +28,8 @@ export class ProveedorService {
     return this._http.get(this.url + 'proveedor/'+IdProveedor).map(res => res.json());
   }
 
-  getProveedores(){
-      return this._http.get(this.url + 'proveedores').map(res => res.json());
+  getProveedores(Habilitado = 1){
+      return this._http.get(this.url + 'proveedores?Habilitado='+Habilitado).map(res => res.json());
   }
 
   updateProveedor(Proveedor){

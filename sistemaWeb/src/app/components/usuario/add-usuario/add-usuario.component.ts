@@ -7,6 +7,8 @@ import {TrabajadorService} from '../../../services/trabajador.service';
 import {RolusuarioService} from '../../../services/rolusuario.service';
 import {RolUsuario} from '../../../models/RolUsuario';
 import {Trabajador} from '../../../models/Trabajador';
+import {CustomValidators} from '../../../validadores/CustomValidators';
+import swal from 'sweetalert2';
 declare var $:any;
 
 @Component({
@@ -20,8 +22,10 @@ export class AddUsuarioComponent implements OnInit {
   public usuarios : Usuario[];
   public roles: RolUsuario[];
   public trabajadores: Trabajador[];
-
   formularioAddUsuario : FormGroup
+  public select2Options : Select2Options;
+  public todoValidado = 0;
+
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
@@ -33,60 +37,76 @@ export class AddUsuarioComponent implements OnInit {
   ) {
     this.usuario = new Usuario(null,null,null,null,null,null,null,null,null)
 
+    this.select2Options = {
+      multiple : true
+      , maximumSelectionLength : 1
+      , width : '100%'
+    }
   }
 
   ngOnInit() {
 
-
-
     $(document).ready(function(){
-      $(".selectrol").select2();
-      $(".selecttrabajador").select2();
       $('.dropify').dropify();
     });
-
-
 
     this.initForm();
     this.getRoles();
     this.getTrabajadores();
   }
 
-
   initForm(){
+
     this.formularioAddUsuario = this.formBuilderUsuario.group({
-      'nombre': new FormControl('',[Validators.required])
-      ,'contrasenia': new FormControl('',[Validators.required])
-      ,'correo': new FormControl('',[Validators.required])
-
+      'nombre': new FormControl('',
+        [
+          Validators.required
+          , Validators.maxLength(10)
+          , Validators.minLength(4)
+          , CustomValidators.espaciosVacios
+        ])
+      ,'contrasenia': new FormControl('',
+        [
+          Validators.required
+          , Validators.maxLength(10)
+          , Validators.minLength(5)
+          , CustomValidators.espaciosVacios
+        ])
+      ,'correo': new FormControl('',
+        [
+          Validators.required
+          , Validators.minLength(8)
+          , CustomValidators.espaciosVacios
+        ])
     })
+    this.onChanges();
   }
-
+  onChanges(): void {
+    this.formularioAddUsuario.valueChanges.subscribe(val => {
+     // console.log(val.correo);
+    });
+  }
   createUsuario(){
     this.usuario.Username = this.formularioAddUsuario.value.nombre;
     this.usuario.Password = this.formularioAddUsuario.value.contrasenia;
     this.usuario.Email = this.formularioAddUsuario.value.correo;
 
-    if($( "#trabajador" ).val()[0] != null){
-      this.usuario.IdTrabajador = parseInt($( "#trabajador" ).val()[0]);
-    }
-    if($( ".selectrol" ).val()[0] != null){
-      this.usuario.IdRol = parseInt($( ".selectrol" ).val()[0]);
-    }
-
     this._usuarioService.createUsuario(this.usuario).subscribe(
       response =>{
-        if(response.IdUsuario){
-          this.usuario = response.IdUsuario;
+        if(response.user){
+          swal(
+            'Usuario',
+            'El Usuario ha sido creado exitosamente!',
+            'success'
+          ).then(() => {
+            this._router.navigate(['menu/usuario']);
+          })
         }
       }, error=>{
         console.log(error)
       },
     )
-
-    console.log(this.usuario);
   }
-
 
   getRoles(){
     this._RolService.getRoles().subscribe(
@@ -94,17 +114,14 @@ export class AddUsuarioComponent implements OnInit {
         if(response.roles){
           this.roles = response.roles;
         } else {
-
         }
       }, error =>{
-
       }
     )
   }
 
   getTrabajadores(){
     this._trabajadorService.getTrabajadores().subscribe(
-
       response =>{
         if(response.trabajadores){
           this.trabajadores = response.trabajadores;
@@ -115,7 +132,37 @@ export class AddUsuarioComponent implements OnInit {
     )
   }
 
+  changedSelectRol(event){
+    let IdRol = event.value[0];
 
+    if(IdRol != null) {
+      this.usuario.IdRol = IdRol;
+    } else {
+      this.usuario.IdRol = null
+    }
+    this.validarCamposSelect2();
+  }
 
+  changedSelectTrabador(event) {
+
+    let idTrabajador = event.value[0];
+
+    if(idTrabajador != null) {
+      this.usuario.IdTrabajador = idTrabajador;
+    } else {
+      this.usuario.IdTrabajador = null;
+    }
+
+    this.validarCamposSelect2();
+  }
+
+  validarCamposSelect2(){
+
+    if(this.usuario.IdRol == null || this.usuario.IdTrabajador == null) {
+      this.todoValidado = 0;
+    } else {
+      this.todoValidado = 1;
+    }
+  }
 
 }

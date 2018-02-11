@@ -229,10 +229,7 @@ export class AddProductoComponent implements OnInit {
 
   public filesToUpload: Array<File>;
   fileChangeEvent(fileInput:any){
-
     this.filesToUpload = <Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload);
-
   }
 
   validarCamposProduto(){

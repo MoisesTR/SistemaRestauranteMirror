@@ -264,13 +264,19 @@ CREATE PROCEDURE USP_UPDATE_NUMERO_PROVEEDOR(
 ) AS BEGIN
 		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo,IdOperadora=@IdOperadora, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END 
-GO
+GO 
+
 IF OBJECT_ID('USP_GET_PROVEEDORES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_PROVEEDORES
 GO
 CREATE PROCEDURE USP_GET_PROVEEDORES
+	@Habilitado BIT null
 AS BEGIN
-	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR;
+	IF @Habilitado IS NULL
+		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR;
+	ELSE
+		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR
+		WHERE Habilitado = @Habilitado;
 END
 GO
 IF OBJECT_ID('USP_GET_PROVEEDOR','P') IS NOT NULL

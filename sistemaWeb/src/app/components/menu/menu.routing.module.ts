@@ -63,8 +63,8 @@ const menuRoutes: Routes = [
         , {path:'cargo',component: CargoComponent}
         , {path:'bodega',component: BodegaSucursalComponent}
         , {path:'traslados',component: TrasladoProductoComponent}
-        , {path:'reportes',component: ReporteComponent}
-  //      , {path:'producto-proveedor',component: ProductoProveedorComponent}
+        , {path:'busqueda-productos',component: ReporteComponent}
+       //, {path:'producto-proveedor',component: ProductoProveedorComponent}
         , {path:'rol',component: RolusuarioComponent}
         , {path:'habilitados',component: HabilitadosComponent}
         , {path:'unidadmedida',component: UnidadmedidaComponent}

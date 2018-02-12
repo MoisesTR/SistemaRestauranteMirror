@@ -40,6 +40,7 @@
     "pickadate": "^3.5.6",
     "rxjs": "^5.5.6",
     "select2": "^4.0.6-rc.1",
+    "select2-angular-component": "^5.1.2",
     "sidenavjs": "0.0.1",
     "sweetalert2": "^6.11.5",
     "zone.js": "^0.8.20"

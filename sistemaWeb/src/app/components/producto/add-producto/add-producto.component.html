@@ -45,7 +45,7 @@
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <select2 (valueChanged)="changeSelectSubClasificacion($event)"  [options]="optionsSelect2" class="selectsubclasificacion"  id="subclasificacion"  >
+                <select2 (valueChanged)="changeSelectSubClasificacion($event)" [options]="optionsSelect2" class="selectsubclasificacion"  id="subclasificacion"  >
                   <option class="chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
                 </select2>
               </div>
@@ -67,7 +67,7 @@
             </div>
             <br>
             <div class="text-center mt-1-half">
-              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid || todoValidado == 0">Ingresar <i class="fa fa-check ml-1"></i></button>
             </div>
 
           </div>

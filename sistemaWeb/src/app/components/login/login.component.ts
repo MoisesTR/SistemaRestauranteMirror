@@ -105,6 +105,7 @@ export class LoginComponent implements OnInit {
           // var body = JSON.parse(error._body);
           this.status = 'error';
           // toastr.error('El usuario ingresado no existe!');
+
           console.log(error)
         } else {
 

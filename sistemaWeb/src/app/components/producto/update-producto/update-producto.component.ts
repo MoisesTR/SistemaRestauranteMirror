@@ -17,7 +17,8 @@ import {CategoriaProductoService} from '../../../services/categoria-producto.ser
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Observable} from 'rxjs/Observable';
-
+import { AfterViewInit, AfterContentChecked, AfterContentInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Select2Module } from "select2-angular-component";
 declare var $:any;
 @Component({
   selector: 'app-update-producto',
@@ -39,6 +40,8 @@ export class UpdateProductoComponent implements OnInit {
   public valorInicialClasificacion: Observable<string>;
   public valorInicialSubClasificacion: Observable<string>;
   public valorInicialCategoria: Observable<string>;
+  public todoValidado = 0;
+  public banderaEntrada = 0;
 
   constructor(
     private _route: ActivatedRoute
@@ -95,6 +98,9 @@ export class UpdateProductoComponent implements OnInit {
 
   }
 
+  update(event){
+      console.log(event)
+  }
   inicializarValoresFormularioProducto(){
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
@@ -122,8 +128,11 @@ export class UpdateProductoComponent implements OnInit {
     this.cargarImagen();
   }
 
-  changedSelectCategoria(event){
+  onSelect(event){
+    console.log(event);
+  }
 
+  changedSelectCategoria(event){
     let idCategoria = event.value[0];
 
     if(idCategoria != null) {
@@ -136,7 +145,7 @@ export class UpdateProductoComponent implements OnInit {
 
     if(idSubClasificacion) {
       this.producto.IdSubclasificacion = idSubClasificacion;
-    }
+    } 
   }
 
   changedSelectClasificacion(event){
@@ -145,7 +154,6 @@ export class UpdateProductoComponent implements OnInit {
     if(idClasificacion != null) {
       this.producto.IdClasificacion = idClasificacion;
       this._subclasificacionService.getSubClasificacionesByIdClasificacion(idClasificacion).subscribe(
-
         response =>{
           if(response.subclasificaciones){
             this.subclasificaciones = response.subclasificaciones;
@@ -154,7 +162,7 @@ export class UpdateProductoComponent implements OnInit {
 
         }
       )
-    }
+    } 
   }
 
   getProducto(){
@@ -167,6 +175,7 @@ export class UpdateProductoComponent implements OnInit {
           response =>{
             if(response.producto){
               this.producto = response.producto;
+              console.log(this.producto)
 
               //Inicializar componentes de la vista
               $(document).ready(()=>{
@@ -223,6 +232,7 @@ export class UpdateProductoComponent implements OnInit {
         )
       });
     } else {
+      this.producto.Imagen = 'nodisponible.png'
       this.actualizarProducto();
     }
 
@@ -254,9 +264,7 @@ export class UpdateProductoComponent implements OnInit {
 
   public filesToUpload: Array<File>;
   fileChangeEvent(fileInput:any){
-
     this.filesToUpload = <Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload);
 
   }
 
@@ -293,6 +301,17 @@ export class UpdateProductoComponent implements OnInit {
     this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
 
+  }
+
+
+  validarSelect2Campos(){
+    if( this.producto.IdClasificacion == null || this.producto.IdSubclasificacion == null || this.producto.IdCategoria == null){
+      this.todoValidado = 0;
+    } else {
+      this.todoValidado = 1;
+    }
+
+  
   }
 
 }

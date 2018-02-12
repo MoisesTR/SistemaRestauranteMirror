@@ -58,10 +58,6 @@ footer.page-footer {
 }
 
 /* Paleta de colores */
-
-.font-orange{
-  color:#E67E22 !important;
-}
 .red-chang-dregadate{
   background-color: rgba(192, 57, 43, 0.7) !important;
 }
@@ -74,7 +70,7 @@ footer.page-footer {
 .orange-header{
   background-color: rgba(230, 126, 34, 0.7) !important;
 }
-.orange-chan-text {
+.orange-chang-text {
   color: #E67E22 !important;
 }
 

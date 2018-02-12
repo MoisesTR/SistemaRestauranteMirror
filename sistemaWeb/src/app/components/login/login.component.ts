@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.initFormLogin();
+    document.querySelector('.loginIncorrectoSweetAlert').onclick = function(){
+      toastr.error('Los datos ingresados no están correctos!');
+      toastr.warning('Los datos ingresados no están correctos!');
+    };
 
   }
 

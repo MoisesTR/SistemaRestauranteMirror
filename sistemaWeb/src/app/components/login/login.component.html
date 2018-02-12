@@ -38,7 +38,7 @@
                   </div>
 
                   <div class="text-center">
-                    <button class="btn orange-chang loginIncorrectoSweetAlert" (click)="onSubmit()"> <!--[routerLink]="['/menu']"-->Entrar</button>
+                    <button class="btn orange-chang loginIncorrectoSweetAlert" type="submit" [disabled]=!formLoginUser.valid> <!--[routerLink]="['/menu']"-->Ingresar</button>
                   </div>
                 </form>
 

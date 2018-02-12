@@ -3,6 +3,7 @@ import {Usuario} from '../../models/Usuario';
 import {UsuarioService} from '../../services/usuario.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { CustomValidators } from '../../validadores/CustomValidators';
 
 @Component({
   selector: 'app-login',
@@ -33,10 +34,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.initFormLogin();
-    document.querySelector('.loginIncorrectoSweetAlert').onclick = function(){
+   /* document.querySelector('.loginIncorrectoSweetAlert').onclick = function(){
       toastr.error('Los datos ingresados no están correctos!');
       toastr.warning('Los datos ingresados no están correctos!');
-    };
+    };*/
 
   }
 
@@ -45,13 +46,11 @@ export class LoginComponent implements OnInit {
     this.formLoginUser = this.formBuilderUser.group({
       'nombre' : new FormControl('',[
         Validators.required
-        , Validators.minLength(4)
-        , Validators.maxLength(20)
+        , CustomValidators.espaciosVacios
       ]),
       'password' : new FormControl('',[
         Validators.required
-        , Validators.minLength(8)
-        , Validators.maxLength(10)
+        , CustomValidators.espaciosVacios
       ])
     })
   }
@@ -69,9 +68,8 @@ export class LoginComponent implements OnInit {
 
       response =>{
         this.identity = response;
-        console.log( response.IdUsuario);
         if(!this.identity || !this.identity.IdUsuario){
-          console.log('El usuario no se ha logeado correctamente');
+          toastr.error('Tu cuenta o contraseña esta incorrecta, intenta nuevamente!');
 
         } else {
 
@@ -87,9 +85,7 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('token',JSON.stringify(this.token));
               if(this.token.length <= 0){
                 console.log('El token no se ha generado');
-
               } else {
-
                 this.status = 'success';
                 this.usuarioServicio.setUserLoggedIn();
                 this._router.navigate(['/menu']);
@@ -97,6 +93,7 @@ export class LoginComponent implements OnInit {
             },
             error => {
               console.log(<any>error);
+            
             }
           );
         }
@@ -107,6 +104,7 @@ export class LoginComponent implements OnInit {
         if(errorMensaje!=null){
           var body = JSON.parse(error._body);
           this.status = 'error';
+          toastr.error('El usuario ingresado no existe!');
           console.log(error)
         } else {
 

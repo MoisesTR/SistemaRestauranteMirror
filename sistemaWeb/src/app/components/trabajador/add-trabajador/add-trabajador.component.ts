@@ -87,14 +87,30 @@ export class AddTrabajadorComponent implements OnInit {
         today: 'Hoy',
         clear: 'Limpiar',
         close: 'Cerrar',
-        closeOnSelect: false,
+        closeOnSelect: true,
         closeOnClear: false,
-        selectMonths: false,
-        selectYears: false,
+        selectMonths: true,
+        selectYears: true,
         firstDay: true,
-        min: new Date(currentYear - 50 , 1, 1),
+        min: new Date(currentYear, 0, 1), //currentMonth es 0 que equivale a Enero
         max: new Date(currentYear, currentMonth, currentDate),
         format: 'yyyy-mm-dd'
+      });
+
+      $('.datepickerEdad').pickadate({
+
+        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
+        today: 'Hoy',
+        clear: 'Limpiar',
+        close: 'Cerrar',
+        viewMode: 'months',
+        minViewMode: 'months',
+        closeOnSelect: true,
+        closeOnClear: false,
+        selectYears: true,
+        selectMonths: true
       });
     });
 

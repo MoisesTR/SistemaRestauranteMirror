@@ -68,22 +68,6 @@ VALUES ('Propietario','Propietario del restaurante')
         ,('Chofer','')
         ,('Bodeguero','Encargado del manejo de los inventarios.')
         ,('Encargado de Sucursal','Encargado del funcionamiento de la Sucursal.');
-
-CREATE TABLE OPERADORA_TELEFONICA(
-	IdOperadora int IDENTITY(1,1),
-    Nombre NVARCHAR(50),
-    Abreviacion NVARCHAR(3),
-    Habilitado Bit default 1 not null,
-    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
-    UpdateAt DATETIME NULL,
-    constraint pk_IdOPERADORA_TELEFONICA primary key(IdOperadora)
-);
-GO
-INSERT INTO OPERADORA_TELEFONICA(Nombre,Abreviacion)
-VALUES	('Claro','Cl')
-		,('Movistar','Mv')
-        ,('Cootel','Co');
-GO
 CREATE TABLE PROVEEDOR(
     IdProveedor INT IDENTITY(1,1),
     NombreProveedor NVARCHAR(50) NOT NULL,
@@ -103,10 +87,17 @@ VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Repr
 		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante')
 		,('Insumos Chinos','asdasda sdasdsa asd','esteesun@correo.com','descripcion','Representante');
 GO		
+CREATE TABLE PAIS(
+	IdPais INT IDENTITY(1,1),
+	NombrePais NVARCHAR(50) NOT NULL UNIQUE,
+	Abreviatura NVARCHAR(3) NOT NULL UNIQUE,
+	Prefijo NVARCHAR(4) NOT NULL UNIQUE,
+	CONSTRAINT Pk_Pais PRIMARY KEY(IdPais)
+)
+GO
 CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
     IdNumero INT IDENTITY(1,1),
     IdProveedor INT,
-	IdOperadora INT,
     Prefijo NVARCHAR(3),
     NumeroTelefono NVARCHAR(20) not null,
     Habilitado Bit default 1,
@@ -114,8 +105,7 @@ CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
     UpdateAt DATETIME NULL,
     CONSTRAINT Fk_ProveedorTele FOREIGN KEY (IdProveedor)
         REFERENCES Proveedor (IdProveedor),
-	CONSTRAINT PK_IdNumeroTelefProv PRIMARY KEY (IdNumero,IdProveedor),
-	CONSTRAINT FK_OPERADORA_TELEFONO_PROVEEDOR FOREIGN KEY(IdOperadora) REFERENCES OPERADORA_TELEFONICA(IdOperadora)
+	CONSTRAINT PK_IdNumeroTelefProv PRIMARY KEY (IdNumero,IdProveedor)
 );
 GO
 INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,NumeroTelefono) 
@@ -352,20 +342,18 @@ CREATE TABLE SUCURSAL (
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
     constraint fk_BodegaSucursal foreign key(IdBodegaS) References BODEGA_SUCURSAL(IdBodegaS)
 )
-INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semáforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
+INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
 GO
 CREATE TABLE TELEFONO_SUCURSAL(
 	IdTelefonoSucursal INT IDENTITY(1,1), 
 	IdSucursal INT NOT NULL,
-	IdOperadora INT NOT NULL,
 	NumeroTelefono NVARCHAR(20) NOT NULL,
 	Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
 	CONSTRAINT PK_TELEFONO_SUCURSAL PRIMARY KEY(IdTelefonoSucursal),
-	CONSTRAINT FK_TELEFONO_SUCURSAL FOREIGN KEY(IdSucursal) REFERENCES SUCURSAL(IdSucursal),
-	CONSTRAINT FK_TELEFONO_OPERADORA FOREIGN KEY(IdOperadora) REFERENCES OPERADORA_TELEFONICA(IdOperadora)
+	CONSTRAINT FK_TELEFONO_SUCURSAL FOREIGN KEY(IdSucursal) REFERENCES SUCURSAL(IdSucursal)
 )
 GO
 CREATE TABLE TRABAJADOR (
@@ -392,14 +380,12 @@ GO
 CREATE TABLE TELEFONO_TRABAJADOR(
 	IdTelefonoTrabajador INT IDENTITY(1,1), 
 	IdTrabajador INT NOT NULL,
-	IdOperadora INT NOT NULL,
 	NumeroTelefono NVARCHAR(20) NOT NULL,
 	Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt DATETIME NULL,
 	CONSTRAINT PK_TELEFONO_TRABAJADOR PRIMARY KEY(IdTelefonoTrabajador),
-	CONSTRAINT FK_TELEFONO_TRABAJADOR FOREIGN KEY(IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador),
-	CONSTRAINT FK_TELEFONO_OPERADORA FOREIGN KEY(IdOperadora) REFERENCES OPERADORA_TELEFONICA(IdOperadora)
+	CONSTRAINT FK_TELEFONO_TRABAJADOR FOREIGN KEY(IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador)
 )
 GO
 create TABLE AREA_PRODUCCION(
@@ -498,4 +484,3 @@ create table DETALLE_BODEGA_AP(
     constraint fk_IdProducto foreign key(IdProductoProveedor) references PRODUCTO_PROVEEDOR(IdProductoProveedor),
 	constraint fk_EstadoEmpaqueProductoBodega FOREIGN KEY(IdEstadoEmpaque) REFERENCES ESTADO_EMPAQUE(IdEstadoEmpaque)
 )
-

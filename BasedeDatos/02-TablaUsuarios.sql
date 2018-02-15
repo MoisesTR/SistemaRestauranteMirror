@@ -65,6 +65,7 @@ CREATE TABLE USUARIO(
 	IdTrabajador INT NULL,
 	Username NVARCHAR(50) NOT NULL,
 	Email NVARCHAR(100) NULL,
+	Imagen NVARCHAR(100) NOT NULL DEFAULT 'nodisponible.jpg',
 	Password NVARCHAR(100) NOT NULL,
 	Habilitado BIT NOT NULL DEFAULT 1,
 	CreateAt DATETIME NOT NULL DEFAULT GETDATE(),
@@ -82,11 +83,12 @@ CREATE PROCEDURE USP_CREATE_USUARIO(
 	@IdRol INT,
 	@Username NVARCHAR(50),
 	@Email NVARCHAR(100),
+	@Imagen NVARCHAR(100) NULL,
 	@Password NVARCHAR(100)
 )
 AS BEGIN 
-	INSERT INTO USUARIO(IdRol,IdTrabajador,Username,Email,Password)
-	VALUES(@IdRol,@IdTrabajador,@Username,@Email,@Password)
+	INSERT INTO USUARIO(IdRol,IdTrabajador,Username,Email,Imagen,Password)
+	VALUES(@IdRol,@IdTrabajador,@Username,@Email,@Imagen,@Password)
 
 	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
 	FROM USUARIO U
@@ -94,6 +96,17 @@ AS BEGIN
 	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
 	INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
 END
+GO
+IF OBJECT_ID('dbo.VIEW_USUARIO_INFO', 'U') IS NOT NULL
+	DROP VIEW VIEW_USUARIO_INFO
+GO
+CREATE VIEW VIEW_USUARIO_INFO
+AS
+	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+	FROM USUARIO U
+	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
+	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
+	INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIOS','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_USUARIOS
@@ -103,13 +116,13 @@ CREATE PROCEDURE USP_GET_USUARIOS(
 )
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username, Imagen, Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
 		FROM USUARIO U
 		INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
 		INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
 		INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
 	ELSE
-		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username, Imagen, Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
 		FROM USUARIO U
 		INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
 		INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
@@ -124,7 +137,7 @@ CREATE PROCEDURE USP_GET_USUARIO_BY_ID(
 	@IdUsuario INT
 )
 AS BEGIN 
-	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username, Imagen, Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
 	FROM USUARIO U
 	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
 	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE IdUsuario=@IdUsuario

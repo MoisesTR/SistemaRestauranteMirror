@@ -314,14 +314,15 @@ CREATE PROCEDURE USP_CREATE_TRABAJADOR(
     @IdCargo INT,
     @Nombres NVARCHAR(50),
     @Apellidos NVARCHAR(50),
+	@Imagen		NVARCHAR(50),
     @NumeroCedula NVARCHAR(50),
     @FechaNacimiento DATE,
     @Direccion NVARCHAR(300),
     @FechaIngreso DATE 
 )
 AS BEGIN 
-	INSERT INTO TRABAJADOR(IdSucursal,IdCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,Direccion,FechaIngreso)
-	VALUES(@IdSucursal,@IdCargo,@Nombres,@Apellidos,@NumeroCedula,@FechaNacimiento,@Direccion,@FechaIngreso)
+	INSERT INTO TRABAJADOR(IdSucursal,IdCargo,Nombres,Apellidos, NumeroCedula, Imagen, FechaNacimiento,Direccion,FechaIngreso)
+	VALUES(@IdSucursal,@IdCargo,@Nombres,@Apellidos,@NumeroCedula, @Imagen, @FechaNacimiento,@Direccion,@FechaIngreso)
 	SELECT @@IDENTITY AS IdTrabajador
 END
 GO
@@ -335,12 +336,13 @@ CREATE PROCEDURE USP_UPDATE_TRABAJADOR(
     @Nombres NVARCHAR(50),
     @Apellidos NVARCHAR(50),
     @NumeroCedula NVARCHAR(50),
+	@Imagen	NVARCHAR(50), 
     @FechaNacimiento DATE,
     @Direccion NVARCHAR(300),
     @FechaIngreso DATE 
 )
 AS BEGIN 
-	UPDATE TRABAJADOR SET IdSucursal=@IdSucursal,IdCargo=@IdCargo,nombres=@Nombres,Apellidos=@Apellidos,
+	UPDATE TRABAJADOR SET IdSucursal=@IdSucursal,IdCargo=@IdCargo,nombres=@Nombres,Apellidos=@Apellidos, Imagen = @Imagen,
 	NumeroCedula=@NumeroCedula,FechaNacimiento=@FechaNacimiento,UpdateAt=GETDATE()
 END
 GO

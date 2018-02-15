@@ -4,7 +4,9 @@ var fs = require('fs');
 var path = require('path');
 
 function getProductoById(req,res){
-    var data = req.params
+    var data = req.params;
+    .input('IdProducto',sql.Int,IdProducto)
+    .execute('USP_GET_PRODUCTO')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getProductoById(poolObt,data.IdProducto)
         }).then((results) => {
@@ -15,6 +17,10 @@ function getProductoById(req,res){
 }
 function getProductos(req,res){
     let Habilitado = req.query.Habilitado;
+    (!Habilitado ) ? console.log('sin query'): console.log('con query');
+    return pool.request()
+        .input('Habilitado',sql.Int,Habilitado)
+        .execute('USP_GET_PRODUCTOS');
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.getProductos(poolObt,Habilitado)
     }).then((results) => {
@@ -24,7 +30,14 @@ function getProductos(req,res){
     });
 }
 function createProducto(req,res){
-    var data=req.body
+    var data=req.body;
+    .input('IdCategoria',sql.Int,data.IdCategoria)
+    .input('IdSubclasificacion',sql.Int,data.IdSubclasificacion)
+    .input('IdEstado',sql.Int,data.IdEstado)
+    .input('NombreProducto',sql.NVarChar(50),data.NombreProducto)
+    .input('Descripcion',sql.NVarChar(200),data.Descripcion)
+    .input('Imagen',sql.NVarChar(100),data.Imagen)
+    .execute('USP_CREATE_PRODUCTO')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createProducto(poolObt,data)        
     }).then((results) => {
@@ -38,7 +51,15 @@ function createProducto(req,res){
     });
 }
 function updateProducto(req,res){
-    var data = req.body
+    var data = req.body;
+    .input('IdProducto',sql.Int,data.IdProducto)
+    .input('IdCategoria',sql.Int,data.IdCategoria)
+    .input('IdSubclasificacion',sql.Int,data.IdSubclasificacion)
+    .input('IdEstado',sql.Int,data.IdEstado)
+    .input('NombreProducto',sql.NVarChar(50),data.NombreProducto)
+    .input('Descripcion',sql.NVarChar(200),data.Descripcion)
+    .input('Imagen',sql.NVarChar(100),data.Imagen)
+    .execute('USP_UPDATE_PRODUCTO')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.updateProducto(poolObt,data)        
     }).then((results) => {
@@ -51,8 +72,14 @@ function updateProducto(req,res){
     });
 }
 function changeStateProducto(req,res){
-    let IdProducto = req.params.IdProducto
-    let Habilitado = req.body.Habilitado
+    let IdProducto = req.params.IdProducto;
+    let Habilitado = req.body.Habilitado;
+    console.log('Changing state')
+    console.log(IdProducto+' ! ',Habilitado)
+     return pool.request()
+         .input('IdProducto',sql.Int,IdProducto)
+         .input('Habilitado',sql.Int,Habilitado)
+         .execute('USP_DISP_PRODUCTO')
     console.log('IdProducto:'+IdProducto,'Habilitado:'+Habilitado)
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.changeStateProducto(poolObt,IdProducto,Habilitado)        

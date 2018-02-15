@@ -2,9 +2,10 @@ var querys = require('../querys/rol')
 var config = require('../config/mssqlConfig')
 
 function createRol(req,res){ 
-    var data = req.body
-    console.log(((data.NombreRol != undefined) && (data.DescripcionRol != undefined)))
-    if((data.NombreRol != undefined) && (data.DescripcionRol != undefined)){ 
+    var data = req.body;
+    .input('NombreRol',sql.NVarChar(50),data.NombreRol)
+        .input('DescripcionRol',sql.NVarChar(150),data.DescripcionRol)
+        .execute('USP_CREATE_ROL_USUARIO')
       console.log('mandaste los campos')
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createRol(poolObt,data)
@@ -13,16 +14,11 @@ function createRol(req,res){
         }).catch((err) => {
             res.status(500).json(err)
         })
-    }else{
-        res.status(401).send({
-            error:true,
-            code:'EPARAMS',
-            message:'Para crear una rol envie correctamente los parametros!'
-        })
-    }
 }
 function getRoles(req,res){
-    let Habilitado = req.query.Habilitado
+    let Habilitado = req.query.Habilitado;
+    .input('Habilitado',sql.Int,Habilitado)
+        .execute('USP_GET_ROLES');
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getRoles(poolObt,Habilitado);
     }).then((results) => {
@@ -34,7 +30,9 @@ function getRoles(req,res){
     });
 }
 function getRolbyId(req,res){
-    var IdCargo = req.params.IdCargo
+    var IdCargo = req.params.IdCargo;
+    .input('IdRol',sql.Int,IdRol)
+        .execute('USP_GET_ROL') 
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getRolById(poolObt,IdRol);
     }).then((results) => {
@@ -42,11 +40,15 @@ function getRolbyId(req,res){
             rol:results.recordset
         })
     }).catch((err) => {
-        res.status(500).json(err)
     });
+    res.status(500).json(err)
 }
 function updateRol(req,res){
-    var data = req.body
+    var data = req.body;
+    .input('IdRol',sql.Int,data.IdRol)
+        .input('NombreRol',sql.NVarChar(50),data.NombreRol)
+        .input('DescripcionRol',sql.NVarChar(150),data.DescripcionRol)
+        .execute('USP_UPDATE_ROL')
     if(data.IdRol != undefined && data.NombreRol != undefined && data.DescripcionRol != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updaterol(poolObt,data)

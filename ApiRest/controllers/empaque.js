@@ -2,7 +2,9 @@ var querys = require('../querys/empaque')
 var config = require('../config/mssqlConfig')
 
 function getEmpaqueById(req,res){
-    var data = req.params
+    var data = req.params;
+    db.pushAOJParam(aoj, 'IdEmpaque',sql.Int,IdEmpaque)
+        .query('SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE IdEmpaque = @IdEmpaque')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getEmpaque(poolObt,data.IdEmpaque)
         }).then((results) => {
@@ -13,6 +15,8 @@ function getEmpaqueById(req,res){
 }
 function getEmpaques(req,res){
     let Habilitado = req.query.Habilitado;
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+        .execute('USP_GET_EMPAQUES')
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.getEmpaques(poolObt,Habilitado)
     }).then((results) => {
@@ -22,7 +26,10 @@ function getEmpaques(req,res){
     });
 }
 function createEmpaque(req,res){
-    var data = req.body
+    var data = req.body;
+    db.pushAOJParam(aoj, 'NombreEmpaque',sql.NVarChar(50),data.NombreEmpaque)
+        db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(150),data.Descripcion)
+        .execute('USP_CREATE_EMPAQUE')
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.createEmpaque(poolObt,data)
     }).then((results) => {

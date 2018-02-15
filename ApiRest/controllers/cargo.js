@@ -1,13 +1,13 @@
-var querys = require('../querys/cargo')
-var config = require('../config/mssqlConfig')
-var database = require('../services/database')
-var sql = require('mssql')
+const config = require('../config/mssqlConfig');
+const db = require('../services/database');
+const sql = require('mssql');
 
 function createCargo(req,res){ 
     var data = req.body
     console.log(((data.NombreCargo != undefined) && (data.DescripcionCargo != undefined)))
-    if((data.NombreCargo != undefined) && (data.DescripcionCargo != undefined)){ 
-      console.log('mandaste los campos')
+    db.pushAOJParam(aoj, 'NombreCargo',sql.NVarChar(50),data.NombreCargo)
+    db.pushAOJParam(aoj, 'DescripcionCargo',sql.NVarChar(100),data.DescripcionCargo)
+    .execute('USP_CREATE_CARGO')
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createCargo(poolObt,data)
         }).then((results) => {
@@ -15,16 +15,11 @@ function createCargo(req,res){
         }).catch((err) => {
             res.status(500).json(err)
         })
-    }else{
-        res.status(401).send({
-            error:true,
-            code:'EPARAMS',
-            message:'Para crear un cargo envie correctamente los parametros!'
-        })
-    }
 }
 function getCargos(req,res){
     let Habilitado = req.query.Habilitado;
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+        .execute('USP_GET_CARGOS');
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getCargos(poolObt,Habilitado);
     }).then((results) => {
@@ -36,9 +31,12 @@ function getCargos(req,res){
     });
 }
 function updateCargo(req,res){
-    var data = req.body
-    if(data.IdCargo != undefined && data.NombreCargo != undefined && data.DescripcionCargo != undefined){
-        config.getConnectionPoolGlobal().then((poolObt) => {
+    var data = req.body;
+    db.pushAOJParam(aoj, 'IdCargo',sql.Int,data.IdCargo)
+        db.pushAOJParam(aoj, 'NombreCargo',sql.NVarChar(50),data.NombreCargo)
+        db.pushAOJParam(aoj, 'DescripcionCargo',sql.NVarChar(100),data.DescripcionCargo)
+        .execute('USP_UPDATE_CARGO')
+    config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateCargo(poolObt,data)
         }).then((results) => {
             res.status(200).json({
@@ -47,17 +45,11 @@ function updateCargo(req,res){
         }).catch((err) => {
             res.status(500).json(err)
         });
-    }else{
-        res.status(401).send({
-            error:true,
-            code:'EPARAMS',
-            message:'Para actualizar envie correctamente los parametros!'
-        })
-    }
 }
 function getCargoById(req,res){
-    var data = req.params
-    if(data.IdCargo){
+    var data = req.params;
+    db.pushAOJParam(aoj, 'IdCargo',sql.Int,IdCargo)
+        .execute('USP_GET_CARGO')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getCargoById(poolObt,data.IdCargo)
         }).then((results) => {
@@ -65,13 +57,6 @@ function getCargoById(req,res){
         }).catch((err) => {
             res.status(500).json(err)
         });
-    }else{
-        res.status(401).json({
-            error:true,
-            code:'EPARAMS',
-            message:'Envie el id de la Cargo a Obtener'
-        })
-    }
 }
 function changeStateCargo(req,res){
     let IdCargo= req.params.IdCargo

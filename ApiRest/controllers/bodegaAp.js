@@ -1,4 +1,3 @@
-var querys = require('../querys/cargo')
 var config = require('../config/mssqlConfig')
 var database = require('../services/database')
 var sql = require('mssql')

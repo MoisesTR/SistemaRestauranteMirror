@@ -2,7 +2,9 @@ var querys = require('../querys/unidadmedida')
 var config = require('../config/mssqlConfig')
 
 function getUnidadById(req,res){
-    var data = req.params
+    var data = req.params;
+    .input('IdUnidadMedida',sql.Int,IdUnidadMedida)
+        .execute('USP_GET_UNIDAD_DE_MEDIDA')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getUnidadMedida(poolObt,data.IdUnidadMedida)
         }).then((results) => {
@@ -12,6 +14,7 @@ function getUnidadById(req,res){
         });
 }
 function getUnidadesMedida(req,res){
+    .execute('USP_GET_UNIDADES_DE_MEDIDA')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getUnidades(poolObt)
         }).then((results) => {
@@ -22,6 +25,10 @@ function getUnidadesMedida(req,res){
 }
 function createUnidadMedida(req,res){
     var data = req.body;
+    .input('IdClasificacionUnidadMedida',sql.Int,data.IdClasificacionUnidadMedida)
+        .input('NombreUnidad',sql.NVarChar(50),data.NombreUnidad)
+        .input('Simbolo',sql.NVarChar(3),data.Simbolo)
+        .execute('USP_CREATE_UNIDAD_MEDIDA')
     if(data.IdClasificacionUnidadMedida != null && data.NombreUnidad != null && data.Simbolo != null)
     {
         config.getConnectionPoolGlobal().then((poolObt) => {

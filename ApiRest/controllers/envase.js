@@ -1,32 +1,35 @@
-var querys = require('../querys/envase')
-var config = require('../config/mssqlConfig')
+const config = require('../config/mssqlConfig');
+const db     = require('../services/database');
 
 function getEnvaseById(req,res){
-    var data = req.params
-        config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getEnvase(poolObt,data.IdEnvase)
-        }).then((results) => {
-           res.status(200).json({envase:results.recordset[0]}) 
-        }).catch((err) => {
-            res.status(500).json(err)
-        });
-}
-function getEnvases(req,res){
-    let Habilitado = req.query.Habilitado;
-    console.log('Getting envases')
-    config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getEnvases(poolObt,Habilitado)
-    }).then((results) => {
-       res.status(200).json({envases:results.recordset}) 
+    var data = req.params;
+    db.pushAOJParam(aoj, 'IdEnvase',sql.Int,IdEnvase);
+    db.queryExecute('SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE where IdEnvase = @IdEnvase', aoj)
+    .then((results) => {
+        res.status(200).json({envase:results.recordset[0]}) 
     }).catch((err) => {
         res.status(500).json(err)
     });
 }
+function getEnvases(req,res){
+    let Habilitado = req.query.Habilitado;
+    console.log('Getting envases')
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado);
+    db.storedProcExecute('USP_GET_ENVASES', aoj)
+    .then((results) => {
+       res.status(200).json({
+           envases:results.recordset
+        });
+    }).catch((err) => {
+        res.status(500).json(err);
+    });
+}
 function createEnvase(req,res){
-    var data = req.body
-    config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.createEnvase(poolObt,data)
-    }).then((results) => {
+    var data = req.body;
+    db.pushAOJParam(aoj, 'NombreEnvase',sql.NVarChar(50),data.NombreEnvase)
+    db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(150),data.Descripcion)
+    db.storedProcExecute('USP_CREATE_ENVASE', aoj)
+    .then((results) => {
         res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
     

@@ -118,14 +118,12 @@ CREATE PROCEDURE USP_GET_TELEFONOS_TRABAJADOR(
 	@Habilitado BIT
 ) AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdTelefonoTrabajador,IdTrabajador,TT.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
 		FROM TELEFONO_TRABAJADOR TT
-		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TT.IdOperadora
 		WHERE TT.IdTrabajador= @IdTrabajador
 	ELSE
-		SELECT IdTelefonoTrabajador,IdTrabajador,TT.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
 		FROM TELEFONO_TRABAJADOR TT
-		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TT.IdOperadora
 		WHERE TT.IdTrabajador= @IdTrabajador AND TT.Habilitado= @Habilitado
 END
 GO
@@ -137,14 +135,12 @@ CREATE PROCEDURE USP_GET_TELEFONOS_SUCURSAL(
 	@Habilitado BIT
 ) AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdTelefonoSucursal,IdSucursal,TS.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
+		SELECT IdTelefonoSucursal,IdSucursal, NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
 		FROM TELEFONO_SUCURSAL TS
-		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TS.IdOperadora
 		WHERE TS.IdSucursal= @IdSucursal
 	ELSE
-		SELECT IdTelefonoSucursal,IdSucursal,TS.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
+		SELECT IdTelefonoSucursal,IdSucursal, NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
 		FROM TELEFONO_SUCURSAL TS
-		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TS.IdOperadora
 		WHERE TS.IdSucursal= @IdSucursal AND TS.Habilitado= @Habilitado
 END
 GO
@@ -155,9 +151,8 @@ CREATE PROCEDURE USP_GET_TELEFONO_SUCURSAL(
 	@IdTelefonoSucursal INT,
 	@IdSucursal INT
 ) AS BEGIN
-		SELECT IdTelefonoSucursal,IdSucursal,TS.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
+		SELECT IdTelefonoSucursal,IdSucursal, NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
 		FROM TELEFONO_SUCURSAL TS
-		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TS.IdOperadora
 		WHERE TS.IdSucursal= @IdSucursal AND IdTelefonoSucursal= @IdTelefonoSucursal
 END
 GO
@@ -168,9 +163,8 @@ CREATE PROCEDURE USP_GET_TELEFONO_TRABAJADOR(
 	@IdTelefonoTrabajador INT,
 	@IdTrabajador INT
 ) AS BEGIN
-		SELECT IdTelefonoTrabajador,IdTrabajador,TT.IdOperadora,OT.Abreviacion,OT.Nombre,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+		SELECT IdTelefonoTrabajador,IdTrabajador, NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
 		FROM TELEFONO_TRABAJADOR TT
-		INNER JOIN OPERADORA_TELEFONICA OT ON OT.IdOperadora = TT.IdOperadora
 		WHERE TT.IdTrabajador= @IdTrabajador AND IdTelefonoTrabajador = @IdTelefonoTrabajador
 END
 GO

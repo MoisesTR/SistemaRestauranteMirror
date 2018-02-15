@@ -243,12 +243,11 @@ GO
 --Nombre Anterior USP_InsertNumeroProveedor
 CREATE PROCEDURE USP_CREATE_NUMEROPROVEEDOR(
     @IdProveedor INT,
-	@IdOperadora INT,
     @Prefijo NVARCHAR(3),
     @NumeroTelefono NVARCHAR(50) --not null
 ) AS BEGIN
-	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,IdOperadora,Prefijo,NumeroTelefono)
-    VALUES(@IdProveedor,@IdOperadora,@Prefijo,@NumeroTelefono);
+	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,Prefijo,NumeroTelefono)
+    VALUES(@IdProveedor,@Prefijo,@NumeroTelefono);
 	SELECT @@IDENTITY AS IdNumero
 END 
 GO
@@ -257,12 +256,11 @@ IF OBJECT_ID('USP_UPDATE_NUMERO_PROVEEDOR','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_UPDATE_NUMERO_PROVEEDOR(
 	@IdProveedor INT,
-	@IdOperadora INT,
     @IdNumero INT,
 	@Prefijo NVARCHAR(3),
     @NumeroTelefono NVARCHAR(50) --not null
 ) AS BEGIN
-		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo,IdOperadora=@IdOperadora, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
+		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END 
 GO 
 

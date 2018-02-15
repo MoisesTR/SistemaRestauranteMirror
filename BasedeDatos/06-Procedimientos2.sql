@@ -349,12 +349,11 @@ IF	 OBJECT_ID('USP_CREATE_TELEFONO_TRABAJADOR','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_CREATE_TELEFONO_TRABAJADOR(
 	@IdTrabajador INT,
-	@IdOperadora INT,
 	@NumeroTelefono NVARCHAR(20)
 )
 AS BEGIN
-	INSERT INTO TELEFONO_TRABAJADOR(IdTrabajador,IdOperadora,NumeroTelefono)
-	VALUES(@IdTrabajador,@IdOperadora,@NumeroTelefono)
+	INSERT INTO TELEFONO_TRABAJADOR(IdTrabajador,NumeroTelefono)
+	VALUES(@IdTrabajador,@NumeroTelefono)
 	SELECT @@IDENTITY AS IdTelefonoTrabajador
 END
 GO
@@ -363,12 +362,11 @@ IF OBJECT_ID('USP_CREATE_TELEFONO_SUCURSAL','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_CREATE_TELEFONO_SUCURSAL(
 	@IdSucursal INT,
-	@IdOperadora INT,
 	@NumeroTelefono NVARCHAR(20)
 )
 AS BEGIN
-	INSERT INTO TELEFONO_SUCURSAL(IdSucursal,IdOperadora,NumeroTelefono)
-	VALUES(@IdSucursal,@IdOperadora,@NumeroTelefono)
+	INSERT INTO TELEFONO_SUCURSAL(IdSucursal,NumeroTelefono)
+	VALUES(@IdSucursal,@NumeroTelefono)
 	SELECT @@IDENTITY AS IdTelefonoSucursal
 END
 GO
@@ -378,11 +376,10 @@ GO
 CREATE PROCEDURE USP_UPDATE_TELEFONO_SUCURSAL(
 	@IdTelefonoSucursal INT,
 	@IdSucursal INT,
-	@IdOperadora INT,
 	@NumeroTelefono NVARCHAR(20)
 )
 AS BEGIN
-	UPDATE TELEFONO_SUCURSAL SET IdOperadora=@IdOperadora,NumeroTelefono=@NumeroTelefono
+	UPDATE TELEFONO_SUCURSAL SET NumeroTelefono=@NumeroTelefono
 	WHERE IdTelefonoSucursal=@IdTelefonoSucursal AND IdSucursal=@IdSucursal
 END
 GO
@@ -393,11 +390,10 @@ GO
 CREATE PROCEDURE USP_UPDATE_TELEFONO_TRABAJADOR(
 	@IdTelefonoTrabajador INT,
 	@IdTrabajador INT,
-	@IdOperadora INT,
 	@NumeroTelefono NVARCHAR(20)
 )
 AS BEGIN
-	UPDATE TELEFONO_TRABAJADOR SET IdOperadora=@IdOperadora,NumeroTelefono=@NumeroTelefono
+	UPDATE TELEFONO_TRABAJADOR SET NumeroTelefono=@NumeroTelefono
 	WHERE IdTelefonoTrabajador=@IdTelefonoTrabajador AND IdTrabajador=@IdTrabajador
 END
 GO

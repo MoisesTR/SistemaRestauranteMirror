@@ -12,6 +12,10 @@ export class AddfacturaComponent implements OnInit {
 
   ngOnInit() {
 
+    $(document).ready(()=>{      
+      $('.dropify').dropify();
+    });
+
     var IdProducto = [
       "Producto 1"      
       , "Producto 2"

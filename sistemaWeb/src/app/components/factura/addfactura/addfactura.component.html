@@ -1,7 +1,8 @@
 <section>
     <div class="row">  
-        <div class="col-md-7">
-            <div class="card card-cascade narrower">
+        
+        <div class="col-md-6">
+            <div class="card card-cascade narrower" style="height: 500px !important; ">
                 <div class="view gradient-card-header orange-chang" >
                     <h2 class="h2-responsive">Informacion Facturas</h2>
                 </div>
@@ -35,14 +36,14 @@
                                     </div>
                                 </div>
                                                                                                                     
-                                <div class="col-md-6">                                
+                                <div class="col-md-12">
                                     <div class="md-form">
                                         <input type="text" class="form-control datepicker" name="FechaFactura" id="FechaFactura">                                
                                         <label for="FechaFactura">Fecha</label>
                                     </div>                      
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="md-form">                                    
                                         <input type="text" class="form-control timepicker" name="HoraFactura" id="HoraFactura">
                                         <label for="HoraFactura">Hora</label>
@@ -58,56 +59,72 @@
                     </div>                                                
                 </div>
             </div>
+            <br>
         </div>
         
-        <div class="col-md-5">
-            <div class="card card-cascade narrower">
-                    <div class="view gradient-card-header orange-chang" >
-                        <h2 class="h2-responsive">Productos</h2>
-                    </div>
+        <div class="col-md-6 mb-r">
+                
+            <div class="card card-cascade narrower" style="height: 500px !important; ">
+                <div class="view gradient-card-header orange-chang" >
+                    <h2 class="h2-responsive">Productos</h2>
+                </div>
+                <div class="scrollbar-card scrollbar-ripe-malinka">
                     <div class="card-body" >
-                        <div class="container-fluid" >
-                            <div class="in input-group md-form form-inline form-sm form-2 pl-0">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
-                            </div> 
-                            <div class="" >
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                            <th>#</th>
-                                            <th>Nombre del producto</th>                                            
-                                            <th>Acción</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Pollo</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalElegirProducto" ><i class="fa fa-check" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Bacon</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Cerdo</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
+                        
+                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
                         </div>
+                    
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th width="10%">#</th>
+                                    <th width="50%">Nombre del producto</th>                                            
+                                    <th width="40%" class="text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>PolloPolloPolloPolloPolloPollo</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalAgregarDetalleProducto" ><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalVerProducto" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Bacon</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Cerdo</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Test</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
                     </div>
+                </div>
             </div>
+
         </div>
 
 
@@ -209,7 +226,7 @@
                                 
                                     <div class="col-lg-6" >
                                         <input type="checkbox" value="validando_checkbox2" name="seleccionadocheck" id="segundo1">
-                                        <label for="segundo1" data-toggle="modal" data-target="#modalAddUnidadMedida"><strong>Descuento</strong> </label>
+                                        <label for="segundo1" data-toggle="modal" data-target="#modalAddDescuento"><strong>Descuento</strong> </label>
                                     </div>
                         
                                     <div class="col-lg-6" style="">
@@ -273,16 +290,15 @@
     </div>
 </section>
       
-<!-- Modal Agregar porcentaje -->
-<div class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Modal Mostrar Info de producto -->
+<div class="modal fade" id="modalVerProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg cascading-modal " role="document">
-      
         <!--Contenido-->
         <div class="modal-content background-gray">
 
             <!--Titulo-->
             <div class="modal-header orange-chang white-text">
-                <h4 class="title">Porcentaje</h4>
+                <h4 class="title"> Información del producto</h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -291,23 +307,136 @@
             <div class="modal-body mb-0">
                 <div class="container-fluid">
                     <!-- Inicio form-->
-                    <form>
+                    <form >
                         <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="card">                                    
-                                    <div class="container-fluid">                                        
+                            
+                            <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                                <div class="card">
+                                    <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Imagen</div>
+                                    <div class="container-fluid">
+                                        <br>
                                         <div class="row">
+                                            <div class="card-body text-center">
+                                                <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg"/>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                                <div class="card">
+                                    <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Detalle del producto a agregar</div>
+                                    <div class="container-fluid">
+                                        <br>
+                                        <div class="row">
+                                            
                                             <div class="col-md-12">
-                                                <br><br>
                                                 <div class="md-form">
-                                                    <input type="number" id="cantidadPorcentaje">
-                                                    <label for="cantidadPorcentaje" class="">Cantidad</label>
+                                                    <input type="text" id="nombreProducto" class="form-control">
+                                                    <label for="nombreProducto" class="">Nombre</label>
                                                 </div>
                                             </div>
-                                        
+
+                                           <!-- <div class="col-md-6">
+                                                <label for="selectclasificacion">Clasificación</label>
+                                                <select2 class="selectclasificacion" id="selectclasificacion">
+                                                    <option class="chip">TEST </option>
+                                                </select2>
+                                            </div>
+
+                                             <div class="col-md-6">
+                                                <label for="subclasificacion">Subclasificación</label>
+                                                <select2 class="selectsubclasificacion"  id="subclasificacion"  >
+                                                        
+                                                </select2>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <br>
+                                                <label for="selectcategoria">Categoria</label>
+                                                <select2 class="selectcategoria"  id='selectcategoria' >
+                                                        
+                                                </select2>
+                                            </div> -->
+
+                                            <div class="col-md-12">
+                                                <br>
+                                                <div class="md-form">
+                                                    <textarea type="text" id="descripcionproducto"  class="md-textarea" autocomplete="off" ></textarea>
+                                                    <label for="descripcionproducto">Descripción</label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <!-- Final form -->
+                    <br>
+                </div>
+            </div>
+        </div>
+        <!--/.Contenido-->
+    </div>
+</div>
+      
+<!-- Modal para agregar detalles de producto -->
+<div class="modal fade" id="modalAgregarDetalleProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg cascading-modal " role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray">
+
+            <!--Titulo-->
+            <div class="modal-header orange-chang white-text">
+                <h4 class="title"> Producto</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
+                <div class="container-fluid">
+                    <!-- Inicio form-->
+                    <form >
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="card">
+                                <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Detalle del producto a agregar</div>
+                                    <div class="container-fluid">
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="md-form">
+                                                    <input type="number" id="cantidadProducto" class="form-control">
+                                                    <label for="cantidadProducto" class="">Cantidad</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="md-form">
+                                                    <input type="number" id="precioProducto" class="form-control">
+                                                    <label for="precioProducto" class="">Precio</label>
+                                                </div>
+                                            </div>                                
+                                            <div class="col-md-6">
+                                                <br>
+                                                <div class="md-form">
+                                                    <input type="number" id="descuentoTotalProducto" class="form-control">
+                                                    <label for="descuentoTotalProducto" class="">Descuento Total</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br><br>
+                                                <div class="form-group">
+                                                    <input type="checkbox" class="filled-in" checked="checked" id="checkboxIva">
+                                                    <label for="checkboxIva">Gravado de Iva</label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <br>
-                                        <div class="centrar-texto mt-1-half">
+                                        <div class="text-center mt-1-half">
                                             <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
                                         </div>
                                         <br>
@@ -320,79 +449,56 @@
                     <br>
                 </div>
             </div>
-
         </div>
+        <!--/.Contenido-->
     </div>
 </div>
-      
-<!-- Modal para agregar producto a a la factura -->
-<div class="modal fade" id="modalElegirProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg cascading-modal " role="document">
-      <!--Contenido-->
-      <div class="modal-content background-gray">
-          <!--Titulo-->
-          <div class="modal-header orange-chang white-text">
-              <h4 class="title"> Elegir producto</h4>
-              <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>        
-          <div class="card-body" >
-              <div class="container-fluid"  >
-                  <div class="col-md-12 mx-auto white mb-r">
-                      <div class="row">
-                          <div class="col-sm-6 col-md-3">
-                              <div class="md-form">
-                              <input placeholder="Buscar Producto..." type="text" id="form5" class="form-control" ngModel="buscar">
-                              </div>  
-                          </div>                        
-                      </div>
-                      <br>
-                      <div class="row">
-                          <div class="col-md-12 pb-3">
-                              <div class="table-responsive">
-                                  <table class="table">
-                                      <thead>
-                                          <tr>
-                                              <th>#</th>
-                                              <th>Producto</th>
-                                              <th>U. Medida</th>
-                                              <th>cantidad</th>
-                                              <th>Precio</th>
-                                              <th>Añadir</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          <tr>
-                                          <th>01</th>
-                                          <td>Pollo</td>
-                                          <td>lb</td>
-                                          <td>45</td>
-                                          <td>400</td>
-                                          <td>
-                                              <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                          </td>
-                                          </tr>
-                                          <tr>
-                                          <th>02</th>
-                                          <td>Mortadela</td>
-                                          <td>lt</td>
-                                          <td>49</td>
-                                          <td>283</td>
-                                          <td>
-                                              <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                          </td>
-                                          </tr>
-                                      </tbody>
-                                  </table>
-                              </div>  
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!--/.Contenido-->
-  </div>
-</div>
-    
+
+<!-- Modal para agregar descuento de factura  -->
+<div class="modal fade" id="modalAddDescuento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg cascading-modal " role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray">
+
+            <!--Titulo-->
+            <div class="modal-header orange-chang white-text">
+                <h4 class="title"> Descuento</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
+                <div class="container-fluid">
+                    <!-- Inicio form-->
+                    <form >
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="card">
+                                    <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Ingresar descuento total</div>
+                                    <div class="container-fluid">
+                                        <br>
+                                        <div class="col-md-12">
+                                            <div class="md-form">
+                                                <input type="number" id="descuentoFactura" class="form-control">
+                                                <label for="descuentoFactura" class="">Descuento</label>
+                                            </div>
+                                        </div>                                            
+                                        <br>
+                                        <div class="text-center mt-1-half">
+                                            <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Final form -->
+                    <br>
+                </div>
+            </div>
+        </div>
+        <!--/.Contenido-->
+    </div>
+</div>    

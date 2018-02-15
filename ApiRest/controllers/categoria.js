@@ -1,11 +1,12 @@
-var querys = require('../querys/categoria')
-var config = require('../config/mssqlConfig')
+const config = require('../config/mssqlConfig');
+const sql  = require('mssql');
 
 function createCategoria(req,res){ 
     var data = req.body
     console.log(((data.NombreCategoria != undefined) && (data.DescripcionCategoria != undefined)))
-    if((data.NombreCategoria != undefined) && (data.DescripcionCategoria != undefined)){ 
-      console.log('mandaste los campos')
+    db.pushAOJParam(aoj, 'NombreCategoria',sql.NVarChar(50),data.NombreCategoria)
+        db.pushAOJParam(aoj, 'DescripcionCategoria',sql.NVarChar(150),data.DescripcionCategoria)
+        .execute('USP_CREATE_CATEGORIA')
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createCategoria(poolObt,data)
         }).then((results) => {
@@ -13,16 +14,11 @@ function createCategoria(req,res){
         }).catch((err) => {
             res.status(500).json(err)
         })
-    }else{
-        res.status(401).send({
-            error:true,
-            code:'EPARAMS',
-            message:'Para crear una categoria envie correctamente los parametros!'
-        })
-    }
 }
 function getCategorias(req,res){
     let Habilitado = req.query.Habilitado;
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+        .execute('USP_GET_CATEGORIAS');
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getCategorias(poolObt,Habilitado);
     }).then((results) => {
@@ -34,9 +30,13 @@ function getCategorias(req,res){
     });
 }
 function updateCategoria(req,res){
-    var data = req.body
-    if(data.IdCategoria != undefined && data.NombreCategoria != undefined && data.DescripcionCategoria != undefined){
-        config.getConnectionPoolGlobal().then((poolObt) => {
+    var data = req.body;
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdCategoria',sql.Int,data.IdCategoria)
+    db.pushAOJParam(aoj, 'NombreCategoria',sql.NVarChar(50),data.NombreCategoria)
+    db.pushAOJParam(aoj, 'DescripcionCategoria',sql.NVarChar(150),data.DescripcionCategoria)
+        .execute('USP_UPDATE_CATEGORIA')
+    config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateCategoria(poolObt,data)
         }).then((results) => {
             res.status(200).json({
@@ -45,16 +45,12 @@ function updateCategoria(req,res){
         }).catch((err) => {
             res.status(500).json(err)
         });
-    }else{
-        res.status(401).send({
-            error:true,
-            code:'EPARAMS',
-            message:'Para actualizar envie correctamente los parametros!'
-        })
-    }
 }
 function getCategoriaById(req,res){
-    var data = req.params
+    var data = req.params;
+    var aoj  = [];
+    db.pushAOJParam(aoj, 'IdCategoria',sql.Int,IdCategoria)
+        .execute('USP_GET_CATEGORIA_BY_ID')
     if(data.IdCategoria){
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getCategoriaById(poolObt,data.IdCategoria)

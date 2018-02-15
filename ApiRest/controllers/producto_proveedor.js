@@ -14,6 +14,8 @@ function getProductoProveedorById(req,res){
 }
 function getProveedoresOfProducto(req,res){
     var data = req.body;
+    .input('IdProductoProveedor',sql.Int,IdProductoProveedor)
+        .execute('USP_GET_PRODUCTO_PROVEEDOR')
     config.getConnectionPoolGlobal().then((pooObt) => {
         return querys.getProductoById(pooObt,data.IdProducto)
     }).then((results) => {
@@ -23,6 +25,7 @@ function getProveedoresOfProducto(req,res){
     })
 }
 function getProductosProveedores(req,res){
+    .execute('USP_GET_PRODUCTOS_PROVEEDORES');
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.getProductosProveedores(poolObt)
     }).then((results) => {
@@ -32,7 +35,17 @@ function getProductosProveedores(req,res){
     });
 }
 function createProductoProveedor(req,res){
-    var data=matchedData(req,{locations:'body'})
+    var data=matchedData(req,{locations:'body'});
+    .input('IdProducto',sql.Int,data.IdProducto)
+    .input('IdProveedor',sql.Int,data.IdProveedor)
+    .input('IdEnvase',sql.Int,data.IdEnvase)
+    .input('IdEmpaque',sql.Int,data.IdEmpaque)
+    .input('Costo',sql.Float,data.Costo)
+    .input('CantidadEmpaque',sql.Int,data.CantidadEmpaque)
+    .input('IdUnidadMedida',sql.Int,data.IdUnidadMedida)
+    .input('ValorUnidadMedida',sql.Float,data.ValorUnidadMedida)
+    .input('DiasCaducidad',sql.Int,data.DiasCaducidad)
+    .execute('USP_CREATE_PRODUCTO_PROVEEDOR')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createProductoProveedor(poolObt,data)        
     }).then((results) => {
@@ -45,7 +58,15 @@ function getProductosByProveedorId(req,res){
 
 }
 function updateProducto(req,res){
-    var data = req.body
+    var data = req.body;
+    .input('IdProductoProveedor',sql.Int,data.IdProducto)
+    .input('IdEnvase',sql.Int,data.IdEnvase)
+    .input('IdEmpaque',sql.Int,data.IdEmpaque)
+    .input('Costo',sql.Float,data.Costo)
+    .input('CantidadEmpaque',sql.Int,data.CantidadEmpaque)
+    .input('IdUnidadMedida',sql.Int,data.IdUnidadMedida)
+    .input('ValorUnidadMedida',sql.Float,data.ValorUnidadMedida)
+    .execute('USP_UPDATE_PRODUCTO')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.updateProducto(poolObt,data)        
     }).then((results) => {
@@ -58,7 +79,9 @@ function updateProducto(req,res){
     });
 }
 function changeStateProductoProveedor(req,res){
-    var data = req.body
+    var data = req.body;
+    .input('IdProductoProveedor',sql.Int,IdProductoProveedor)
+    .execute('USP_DISP_PRODUCTO_PROVEEDOR')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.changeStateProducto(poolObt,IdProducto)        
     }).then((results) => {

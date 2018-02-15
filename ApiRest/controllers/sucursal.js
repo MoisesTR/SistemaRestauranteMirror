@@ -5,7 +5,9 @@ const database = require('../services/database');
 const { matchedData, sanitize } = require('express-validator/filter');
 
 function getSucursalById(req,res){
-    var data = req.params
+    var data = req.params;
+    .input('IdSucursal',sql.Int,IdSucursal)
+        .execute('USP_GET_SUCURSAL')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getSucursal(poolObt,data.IdSucursal)
         }).then((results) => {
@@ -15,7 +17,9 @@ function getSucursalById(req,res){
         });
 }
 function getSucursales(req,res){
-    let Habilitado = req.query.Habilitado
+    let Habilitado = req.query.Habilitado;
+    .input('Habilitado',sql.Int,Habilitado)
+        .execute('USP_GET_SUCURSALES')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getSucursales(poolObt,Habilitado)
     }).then((results) => {
@@ -26,6 +30,9 @@ function getSucursales(req,res){
 }
 function createSucursal(req,res){
     var data = req.body;
+    .input('NombreSucursal',sql.NVarChar(100),data.NombreSucursal)
+        .input('Direccion',sql.NVarChar(250),data.Direccion)
+        .execute('USP_CREATE_SUCURSAL')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createSucursal(poolObt,data)
     }).then((results) => {
@@ -68,8 +75,7 @@ function createTelefonoSucursal(req,res){
     const telefoData = matchedData(req,{locations:'body'});
     var aoj = [];
     database.pushAOJParam(aoj,'IdSucursal',sql.Int,IdSucursal);
-	database.pushAOJParam(aoj,'IdOperadora',sql.Int,telefoData.IdOperadora);
-    database.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.IdOperadora);
+    database.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.NumeroTelefono);
     database.storedProcExecute('USP_CREATE_TELEFONO_SUCURSAL',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
@@ -81,8 +87,7 @@ function updateTelefonoSucursal(req,res){
     var aoj = [];
     database.pushAOJParam(aoj,'IdTelefonoSucursal',sql.Int,telefoData.IdTelefonoSucursal    )
     database.pushAOJParam(aoj,'IdSucursal',sql.Int,telefoData.IdSucursal);
-	database.pushAOJParam(aoj,'IdOperadora',sql.Int,telefoData.IdOperadora);
-    database.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.IdOperadora);
+    database.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.NumeroTelefono);
     database.storedProcExecute('USP_UPDATE_TELEFONO_SUCURSAL',aoj).then((results) => {
         res.status(200).json({
             success:'Producto Actualizado exitosamente!!'

@@ -4,7 +4,10 @@ var database = require('../services/database')
 var sql = require('mssql')
 
 function createClasificacion(req,res){ 
-    var data = req.body
+    var data = req.body;
+    db.pushAOJParam(aoj, 'NombreClasificacion',sql.NVarChar(50),data.NombreClasificacion)
+        db.pushAOJParam(aoj, 'DescripcionClasificacion',sql.NVarChar(150),data.DescripcionClasificacion)
+        .execute('USP_CREATE_CLASIFICACION');
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.createClasificacion(poolObt,data);
         }).then((results) => {
@@ -15,6 +18,8 @@ function createClasificacion(req,res){
 }
 function getClasificaciones(req,res){
     let Habilitado = req.query.Habilitado;
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+        .execute('USP_GET_CLASIFICACIONES');
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getClasificaciones(poolObt,Habilitado);
     }).then((results) => {
@@ -26,7 +31,11 @@ function getClasificaciones(req,res){
     });
 }
 function updateClasificacion(req,res){
-    var data = req.body
+    var data = req.body;
+    db.pushAOJParam(aoj, 'IdClasificacion',sql.Int,data.IdClasificacion)
+        db.pushAOJParam(aoj, 'NombreClasificacion',sql.NVarChar(50),data.NombreClasificacion)
+        db.pushAOJParam(aoj, 'DescripcionClasificacion',sql.NVarChar(150),data.DescripcionClasificacion)
+        .execute('USP_UPDATE_CLASIFICACION');
     if(data.IdClasificacion != undefined && data.NombreClasificacion != undefined && data.DescripcionClasificacion != undefined){
         config.getConnectionPoolGlobal().then((poolObt) => {
             return querys.updateClasificacion(poolObt,data)
@@ -44,8 +53,10 @@ function updateClasificacion(req,res){
     }
 }
 function getClasificacionById(req,res){
-    var data = req.params
-    if(data.IdClasificacion){
+    var data = req.params;
+    var aoj  = [];
+    db.pushAOJParam(aoj, 'IdClasificacion',sql.Int,IdClasificacion)
+        .execute('USP_GET_CLASIFICACION');
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getClasificacionById(poolObt,data.IdClasificacion)
         }).then((results) => {
@@ -53,13 +64,6 @@ function getClasificacionById(req,res){
         }).catch((err) => {
             res.status(500).json(err)
         });
-    }else{
-        res.status(401).json({
-            error:true,
-            code:'EPARAMS',
-            message:'Envie el id de la Clasificacion a Obtener'
-        })
-    }
 }
 function changeStateClasificacion(req,res){
     let IdClasificacion= req.params.IdClasificacion

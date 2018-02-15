@@ -1,9 +1,9 @@
 'use strict'
-var sql = require('mssql');
-var jwt = require('../services/jwt');
-const moment = require('moment');
-const bcrypt = require('bcryptjs');
-const database = require('../services/database');
+var sql         = require('mssql');
+var jwt         = require('../services/jwt');
+const moment    = require('moment');
+const bcrypt    = require('bcryptjs');
+const database  = require('../services/database');
 const saltRounds = 10;
 const { matchedData, sanitize } = require('express-validator/filter');
 
@@ -22,8 +22,9 @@ function signUp(req,res){
     bcrypt.hash(userData.Password,saltRounds).then((hashPassw) => {
         userData.Password=hashPassw;
         console.log('password hasseada')
-        pushAOJParam(aoj,'Username',sql.NVarChar(20),userData.Username);
-        pushAOJParam(aoj,'Email',sql.NVarChar(100),userData.Email);
+        pushAOJParam(aoj,'Username', sql.NVarChar(20),userData.Username);
+        pushAOJParam(aoj,'Email', sql.NVarChar(100),userData.Email);
+        pushAOJParam(aoj,'Imagen', sql.NVarChar(100), userData.Imagen);
         console.log('entrando a stored proce')
         return database.storedProcExecute('USP_GET_USUARIO_BY_USERNAME_OR_EMAIL',aoj)
     }).then((usersfind) => {

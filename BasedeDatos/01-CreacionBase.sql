@@ -148,6 +148,33 @@ VALUES	(1,'Libra','Lb')
 		,(2,'Mililitro','Ml')
 		,(1,'Miligramo','Mg');
 GO
+CREATE TABLE UNIDAD_MEDIDA_FUNCIONAL(
+	IdUdmFuncional INT IDENTITY(1,1),
+	IdUnidadMedida INT NOT NULL,
+	Nombre		NVARCHAR(50) NOT NULL,
+	Descripcion NVARCHAR(50)  NULL,
+	ValorUdm	NUMERIC(7,3) NOT NULL CHECK( ValorUdm > 0),
+	CreatedAt	DATE NOT NULL DEFAULT GETDATE(),
+	UpdateAt	DATE NULL,
+	CONSTRAINT Pk_UnidadMedidaFuncional PRIMARY KEY(IdUdmFuncional),
+	CONSTRAINT FK_UnidadDeMedidaFuncional FOREIGN KEY(IdUnidadMedida) REFERENCES UNIDAD_MEDIDA(IdUnidadMedida)
+)
+GO
+IF OBJECT_ID('USP_CREATE_UNIDAD_MEDIDA', N'P') IS NOT NULL
+	DROP PROCEDURE USP_CREATE_UNIDAD_MEDIDA
+GO
+CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
+	@IdUdmFuncional INT OUTPUT,
+	@IdUnidadMedida INT,
+	@Nombre		NVARCHAR(50),
+	@Descripcion NVARCHAR(50)  NULL,
+	@ValorUdm	NUMERIC(7,3)
+) AS BEGIN
+	INSERT INTO UNIDAD_MEDIDA_FUNCIONAL(IdUnidadMedida, Nombre, Descripcion, ValorUdm)
+	VALUES(@IdUnidadMedida, @Nombre, @Descripcion, @ValorUdm)
+	SELECT @IdUdmFuncional = @@IDENTITY
+END
+GO
 CREATE TABLE CLASIFICACION_PRODUCTO (
     IdClasificacion INT IDENTITY(1,1),
     NombreClasificacion NVARCHAR(50) NOT NULL,

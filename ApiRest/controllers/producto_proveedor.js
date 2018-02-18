@@ -1,6 +1,7 @@
-var querys = require('../querys/producto_proveedor')
-var config = require('../config/mssqlConfig')
+var config = require('../config/mssqlConfig');
 const { matchedData, sanitize } = require('express-validator/filter');
+const sql = require('mssql');
+const db = require('../services/database');
 
 function getProductoProveedorById(req,res){
     var data = req.params
@@ -14,7 +15,7 @@ function getProductoProveedorById(req,res){
 }
 function getProveedoresOfProducto(req,res){
     var data = req.body;
-    .input('IdProductoProveedor',sql.Int,IdProductoProveedor)
+    db.pushAOJParam(aoj, 'IdProductoProveedor',sql.Int,IdProductoProveedor)
         .execute('USP_GET_PRODUCTO_PROVEEDOR')
     config.getConnectionPoolGlobal().then((pooObt) => {
         return querys.getProductoById(pooObt,data.IdProducto)
@@ -36,15 +37,15 @@ function getProductosProveedores(req,res){
 }
 function createProductoProveedor(req,res){
     var data=matchedData(req,{locations:'body'});
-    .input('IdProducto',sql.Int,data.IdProducto)
-    .input('IdProveedor',sql.Int,data.IdProveedor)
-    .input('IdEnvase',sql.Int,data.IdEnvase)
-    .input('IdEmpaque',sql.Int,data.IdEmpaque)
-    .input('Costo',sql.Float,data.Costo)
-    .input('CantidadEmpaque',sql.Int,data.CantidadEmpaque)
-    .input('IdUnidadMedida',sql.Int,data.IdUnidadMedida)
-    .input('ValorUnidadMedida',sql.Float,data.ValorUnidadMedida)
-    .input('DiasCaducidad',sql.Int,data.DiasCaducidad)
+    db.pushAOJParam(aoj, 'IdProducto',sql.Int,data.IdProducto)
+    db.pushAOJParam(aoj, 'IdProveedor',sql.Int,data.IdProveedor)
+    db.pushAOJParam(aoj, 'IdEnvase',sql.Int,data.IdEnvase)
+    db.pushAOJParam(aoj, 'IdEmpaque',sql.Int,data.IdEmpaque)
+    db.pushAOJParam(aoj, 'Costo',sql.Float,data.Costo)
+    db.pushAOJParam(aoj, 'CantidadEmpaque',sql.Int,data.CantidadEmpaque)
+    db.pushAOJParam(aoj, 'IdUnidadMedida',sql.Int,data.IdUnidadMedida)
+    db.pushAOJParam(aoj, 'ValorUnidadMedida',sql.Float,data.ValorUnidadMedida)
+    db.pushAOJParam(aoj, 'DiasCaducidad',sql.Int,data.DiasCaducidad)
     .execute('USP_CREATE_PRODUCTO_PROVEEDOR')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createProductoProveedor(poolObt,data)        
@@ -59,13 +60,13 @@ function getProductosByProveedorId(req,res){
 }
 function updateProducto(req,res){
     var data = req.body;
-    .input('IdProductoProveedor',sql.Int,data.IdProducto)
-    .input('IdEnvase',sql.Int,data.IdEnvase)
-    .input('IdEmpaque',sql.Int,data.IdEmpaque)
-    .input('Costo',sql.Float,data.Costo)
-    .input('CantidadEmpaque',sql.Int,data.CantidadEmpaque)
-    .input('IdUnidadMedida',sql.Int,data.IdUnidadMedida)
-    .input('ValorUnidadMedida',sql.Float,data.ValorUnidadMedida)
+    db.pushAOJParam(aoj, 'IdProductoProveedor',sql.Int,data.IdProducto)
+    db.pushAOJParam(aoj, 'IdEnvase',sql.Int,data.IdEnvase)
+    db.pushAOJParam(aoj, 'IdEmpaque',sql.Int,data.IdEmpaque)
+    db.pushAOJParam(aoj, 'Costo',sql.Float,data.Costo)
+    db.pushAOJParam(aoj, 'CantidadEmpaque',sql.Int,data.CantidadEmpaque)
+    db.pushAOJParam(aoj, 'IdUnidadMedida',sql.Int,data.IdUnidadMedida)
+    db.pushAOJParam(aoj, 'ValorUnidadMedida',sql.Float,data.ValorUnidadMedida)
     .execute('USP_UPDATE_PRODUCTO')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.updateProducto(poolObt,data)        
@@ -80,7 +81,7 @@ function updateProducto(req,res){
 }
 function changeStateProductoProveedor(req,res){
     var data = req.body;
-    .input('IdProductoProveedor',sql.Int,IdProductoProveedor)
+    db.pushAOJParam(aoj, 'IdProductoProveedor',sql.Int,IdProductoProveedor)
     .execute('USP_DISP_PRODUCTO_PROVEEDOR')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.changeStateProducto(poolObt,IdProducto)        

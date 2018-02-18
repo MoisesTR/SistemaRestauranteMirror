@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
         if(!this.identity || !this.identity.IdUsuario){
           // toastr.error('Tu cuenta o contraseña esta incorrecta, intenta nuevamente!');
 
+
         } else {
 
           this.identity.Password = '';
@@ -105,7 +106,6 @@ export class LoginComponent implements OnInit {
           // var body = JSON.parse(error._body);
           this.status = 'error';
           // toastr.error('El usuario ingresado no existe!');
-
           console.log(error)
         } else {
 

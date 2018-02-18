@@ -1,11 +1,12 @@
-var querys = require('../querys/producto')
 var config = require('../config/mssqlConfig')
 var fs = require('fs');
 var path = require('path');
+var sql  = require('mssql');
+var db   = require('../services/database');
 
 function getProductoById(req,res){
     var data = req.params;
-    .input('IdProducto',sql.Int,IdProducto)
+    db.pushAOJParam(aoj, 'IdProducto',sql.Int,IdProducto)
     .execute('USP_GET_PRODUCTO')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getProductoById(poolObt,data.IdProducto)
@@ -19,7 +20,7 @@ function getProductos(req,res){
     let Habilitado = req.query.Habilitado;
     (!Habilitado ) ? console.log('sin query'): console.log('con query');
     return pool.request()
-        .input('Habilitado',sql.Int,Habilitado)
+        db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
         .execute('USP_GET_PRODUCTOS');
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.getProductos(poolObt,Habilitado)
@@ -31,12 +32,12 @@ function getProductos(req,res){
 }
 function createProducto(req,res){
     var data=req.body;
-    .input('IdCategoria',sql.Int,data.IdCategoria)
-    .input('IdSubclasificacion',sql.Int,data.IdSubclasificacion)
-    .input('IdEstado',sql.Int,data.IdEstado)
-    .input('NombreProducto',sql.NVarChar(50),data.NombreProducto)
-    .input('Descripcion',sql.NVarChar(200),data.Descripcion)
-    .input('Imagen',sql.NVarChar(100),data.Imagen)
+    db.pushAOJParam(aoj, 'IdCategoria',sql.Int,data.IdCategoria)
+    db.pushAOJParam(aoj, 'IdSubclasificacion',sql.Int,data.IdSubclasificacion)
+    db.pushAOJParam(aoj, 'IdEstado',sql.Int,data.IdEstado)
+    db.pushAOJParam(aoj, 'NombreProducto',sql.NVarChar(50),data.NombreProducto)
+    db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(200),data.Descripcion)
+    db.pushAOJParam(aoj, 'Imagen',sql.NVarChar(100),data.Imagen)
     .execute('USP_CREATE_PRODUCTO')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createProducto(poolObt,data)        
@@ -52,13 +53,13 @@ function createProducto(req,res){
 }
 function updateProducto(req,res){
     var data = req.body;
-    .input('IdProducto',sql.Int,data.IdProducto)
-    .input('IdCategoria',sql.Int,data.IdCategoria)
-    .input('IdSubclasificacion',sql.Int,data.IdSubclasificacion)
-    .input('IdEstado',sql.Int,data.IdEstado)
-    .input('NombreProducto',sql.NVarChar(50),data.NombreProducto)
-    .input('Descripcion',sql.NVarChar(200),data.Descripcion)
-    .input('Imagen',sql.NVarChar(100),data.Imagen)
+    db.pushAOJParam(aoj, 'IdProducto',sql.Int,data.IdProducto)
+    db.pushAOJParam(aoj, 'IdCategoria',sql.Int,data.IdCategoria)
+    db.pushAOJParam(aoj, 'IdSubclasificacion',sql.Int,data.IdSubclasificacion)
+    db.pushAOJParam(aoj, 'IdEstado',sql.Int,data.IdEstado)
+    db.pushAOJParam(aoj, 'NombreProducto',sql.NVarChar(50),data.NombreProducto)
+    db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(200),data.Descripcion)
+    db.pushAOJParam(aoj, 'Imagen',sql.NVarChar(100),data.Imagen)
     .execute('USP_UPDATE_PRODUCTO')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.updateProducto(poolObt,data)        
@@ -77,8 +78,8 @@ function changeStateProducto(req,res){
     console.log('Changing state')
     console.log(IdProducto+' ! ',Habilitado)
      return pool.request()
-         .input('IdProducto',sql.Int,IdProducto)
-         .input('Habilitado',sql.Int,Habilitado)
+         db.pushAOJParam(aoj, 'IdProducto',sql.Int,IdProducto)
+         db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
          .execute('USP_DISP_PRODUCTO')
     console.log('IdProducto:'+IdProducto,'Habilitado:'+Habilitado)
     config.getConnectionPoolGlobal().then((poolObt) => {

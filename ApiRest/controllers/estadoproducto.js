@@ -1,5 +1,5 @@
-var config = require('../config/mssqlConfig')
-var querys = require('../querys/estadoproducto')
+var config = require('../config/mssqlConfig');
+const sql  = require('mssql');
 
 function getEstados(req,res){
     .execute('USP_GET_ESTADOSPRODUCTO')
@@ -13,7 +13,7 @@ function getEstados(req,res){
 }
 function getEstadoById(req,res){
     var IdEstado = req.params.IdEstado;
-    .input('IdEstado',sql.Int,IdEstado)
+    db.pushAOJParam(aoj, 'IdEstado',sql.Int,IdEstado)
         .execute('USP_GET_ESTADOPRODUCTO_BY_ID')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getEstadoById(poolObt,IdEstado)

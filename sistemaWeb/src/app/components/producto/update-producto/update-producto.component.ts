@@ -18,7 +18,7 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Observable} from 'rxjs/Observable';
 import { AfterViewInit, AfterContentChecked, AfterContentInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Select2Module } from "select2-angular-component";
+
 declare var $:any;
 @Component({
   selector: 'app-update-producto',

@@ -1,4 +1,3 @@
-var config = require('../config/mssqlConfig')
 var fs = require('fs');
 var path = require('path');
 var sql  = require('mssql');
@@ -6,42 +5,42 @@ var db   = require('../services/database');
 
 function getProductoById(req,res){
     var data = req.params;
-    db.pushAOJParam(aoj, 'IdProducto',sql.Int,IdProducto)
-    .execute('USP_GET_PRODUCTO')
-        config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getProductoById(poolObt,data.IdProducto)
-        }).then((results) => {
-           res.status(200).json({ producto:results.recordset[0] }) 
-        }).catch((err) => {
-            res.status(500).json(err)
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdProducto',sql.Int,data.IdProducto)
+    db.storedProcExecute('USP_GET_PRODUCTO', aoj)
+    .then((results) => {
+        res.status(200).json({
+            producto:results.recordset[0] 
         });
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
 }
 function getProductos(req,res){
     let Habilitado = req.query.Habilitado;
     (!Habilitado ) ? console.log('sin query'): console.log('con query');
-    return pool.request()
-        db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
-        .execute('USP_GET_PRODUCTOS');
-    config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getProductos(poolObt,Habilitado)
-    }).then((results) => {
-       res.status(200).json({productos:results.recordset}) 
+    var aoj  = [];
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+    db.storedProcExecute('USP_GET_PRODUCTOS', aoj)
+    .then((results) => {
+       res.status(200).json({
+           productos:results.recordset
+        }); 
     }).catch((err) => {
         res.status(500).json(err)
     });
 }
 function createProducto(req,res){
     var data=req.body;
+    var aoj  = [];
     db.pushAOJParam(aoj, 'IdCategoria',sql.Int,data.IdCategoria)
     db.pushAOJParam(aoj, 'IdSubclasificacion',sql.Int,data.IdSubclasificacion)
     db.pushAOJParam(aoj, 'IdEstado',sql.Int,data.IdEstado)
     db.pushAOJParam(aoj, 'NombreProducto',sql.NVarChar(50),data.NombreProducto)
     db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(200),data.Descripcion)
     db.pushAOJParam(aoj, 'Imagen',sql.NVarChar(100),data.Imagen)
-    .execute('USP_CREATE_PRODUCTO')
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.createProducto(poolObt,data)        
-    }).then((results) => {
+    db.storedProcExecute('USP_CREATE_PRODUCTO', aoj)
+    .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
        res.status(500).json(
@@ -60,13 +59,11 @@ function updateProducto(req,res){
     db.pushAOJParam(aoj, 'NombreProducto',sql.NVarChar(50),data.NombreProducto)
     db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(200),data.Descripcion)
     db.pushAOJParam(aoj, 'Imagen',sql.NVarChar(100),data.Imagen)
-    .execute('USP_UPDATE_PRODUCTO')
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.updateProducto(poolObt,data)        
-    }).then((results) => {
+    db.storedProcExecute('USP_UPDATE_PRODUCTO', aoj)
+    .then((results) => {
         res.status(200).json({
             success:'Producto Actualizado exitosamente!!'
-        })
+        });
         console.log('Producto Actualizado con exito!')
     }).catch((err) => {
        res.status(500).json(err) 
@@ -77,14 +74,11 @@ function changeStateProducto(req,res){
     let Habilitado = req.body.Habilitado;
     console.log('Changing state')
     console.log(IdProducto+' ! ',Habilitado)
-     return pool.request()
-         db.pushAOJParam(aoj, 'IdProducto',sql.Int,IdProducto)
-         db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
-         .execute('USP_DISP_PRODUCTO')
-    console.log('IdProducto:'+IdProducto,'Habilitado:'+Habilitado)
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.changeStateProducto(poolObt,IdProducto,Habilitado)        
-    }).then((results) => {
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdProducto',sql.Int,IdProducto)
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+    db.storedProcExecute('USP_DISP_PRODUCTO', aoj)
+    .then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]
         let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';

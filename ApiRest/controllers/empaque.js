@@ -1,45 +1,43 @@
-var querys = require('../querys/empaque')
-var config = require('../config/mssqlConfig')
+var sql = require('mssql');
+var db = require('../services/database');
 
 function getEmpaqueById(req,res){
-    var data = req.params;
-    db.pushAOJParam(aoj, 'IdEmpaque',sql.Int,IdEmpaque)
-        .query('SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE IdEmpaque = @IdEmpaque')
-        config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getEmpaque(poolObt,data.IdEmpaque)
-        }).then((results) => {
-           res.status(200).json({empaque:results.recordset[0]}) 
-        }).catch((err) => {
-            res.status(500).json(err)
-        });
+    const data = req.params;
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdEmpaque',sql.Int,IdEmpaque);
+    db.queryExecute('SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE IdEmpaque = @IdEmpaque', aoj)
+    .then((results) => {
+        res.status(200).json({empaque:results.recordset[0]}) 
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
 }
 function getEmpaques(req,res){
     let Habilitado = req.query.Habilitado;
-    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
-        .execute('USP_GET_EMPAQUES')
-    config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getEmpaques(poolObt,Habilitado)
-    }).then((results) => {
+    var  aoj = [];
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado);
+    db.storedProcExecute('USP_GET_EMPAQUES', aoj)
+    .then((results) => {
        res.status(200).json({empaques:results.recordset}) 
     }).catch((err) => {
         res.status(500).json(err)
     });
 }
 function createEmpaque(req,res){
-    var data = req.body;
-    db.pushAOJParam(aoj, 'NombreEmpaque',sql.NVarChar(50),data.NombreEmpaque)
-        db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(150),data.Descripcion)
-        .execute('USP_CREATE_EMPAQUE')
-    config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.createEmpaque(poolObt,data)
-    }).then((results) => {
+    const data = req.body;
+    var aoj = [];
+    db.pushAOJParam(aoj, 'NombreEmpaque',sql.NVarChar(50),data.NombreEmpaque);
+    db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(150),data.Descripcion);
+    db.storedProcExecute('USP_CREATE_EMPAQUE', aoj)
+    .then((results) => {
        res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
         res.status(500).json(err)
     });
 }
 function updateEmpaque(req,res){
-    var data = req.body
+    var data = req.body;
+    var aoj = [];
     config.getConnectionPoolGlobal().then((poolObt) => {
        return querys.updateEmpaque(poolObt,data)
     }).then((results) => {

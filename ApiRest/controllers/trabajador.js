@@ -1,15 +1,16 @@
-var config = require('../config/mssqlConfig');
+const {mssqlErrors} = require('../Utils/util')
 const { matchedData, sanitize } = require('express-validator/filter');
 const db = require('../services/database');
 
 function getTrabajadorById(req,res){
     var data = req.params;
-    db.pushAOJParam(aoj, 'IdTrabajador',sql.Int,IdSucursal);
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdTrabajador',sql.Int,data.IdSucursal);
     db.storedProcExecute('USP_GET_TRABAJADOR', aoj)
     .then((results) => {
         res.status(200).json({ trabajador:results.recordset[0] }) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getTrabajadores(req,res){
@@ -20,7 +21,7 @@ function getTrabajadores(req,res){
     .then((results) => {
        res.status(200).json({trabajadores:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createTrabajador(req,res){
@@ -35,40 +36,50 @@ function createTrabajador(req,res){
     db.pushAOJParam(aoj, 'FechaNacimiento',sql.Date,trabajadorData.FechaNacimiento);
     db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(300),trabajadorData.Direccion);
     db.pushAOJParam(aoj, 'FechaIngreso',sql.Date,trabajadorData.FechaIngreso);
+    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int)
     db.storedProcExecute('USP_CREATE_TRABAJADOR',aoj)
     .then((results) => {
-        res.status(200).json(results.recordset[0])
+        res.status(200).json(results.output)
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
     });
 }
 function updateTrabajador(req,res){
-    var data = req.body
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.updateTrabajador(poolObt,data)        
-    }).then((results) => {
+    var trabajadorData = matchedData(req);
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdSucursal',sql.Int,trabajadorData.IdSucursal);
+    db.pushAOJParam(aoj, 'IdCargo',sql.Int,trabajadorData.IdCargo);
+    db.pushAOJParam(aoj, 'Nombres',sql.NVarChar(50),trabajadorData.Nombres);
+    db.pushAOJParam(aoj, 'Apellidos',sql.NVarChar(50),trabajadorData.Apellidos);
+    db.pushAOJParam(aoj, 'NumeroCedula',sql.NVarChar(50),trabajadorData.NumeroCedula);
+    db.pushAOJParam(aoj, 'Imagen', sql.NVarChar(50), trabajadorData.Imagen);
+    db.pushAOJParam(aoj, 'FechaNacimiento',sql.Date,trabajadorData.FechaNacimiento);
+    db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(300),trabajadorData.Direccion);
+    db.pushAOJParam(aoj, 'FechaIngreso',sql.Date,trabajadorData.FechaIngreso);
+    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, trabajadorData.IdTrabajador);
+    db.storedProcExecute('USP_UPDATE_TRABAJADOR',aoj)
+    .then((results) => {
         res.status(200).json({
-            success:'Trabajador Actualizado exitosamente!!'
+            success:'Trabajador actualizado con exito!'
         })
-        console.log('Trabajador Actualizado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
     });
 }
 function changeStateTrabajador(req,res){
-    var Habilitado = req.body.Habilitado
-    var IdTrabajador = req.params.IdTrabajador
+    var data = matchedData(req);
     var aoj = [];   
     console.log('Changing state')
-    console.log(IdTrabajador+' ! ',Habilitado)
-    db.pushAOJParam(aoj, 'IdProducto',sql.Int,IdTrabajador)
+    db.pushAOJParam(aoj, 'IdProducto',sql.Int,data.IdTrabajador)
     db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
     db.storedProcExecute('USP_DISP_TRABAJADOR', aoj)
     .then((results) => {
-        res.status(200).json(results)
+        res.status(200).json({
+            success:'Trabajador '+(Habilitado) ? 'Habilitado' : 'Deshabilitado' +' con exito!'
+        })
         console.log('Trabajador '+(Habilitado) ? 'Habilitado' : 'Deshabilitado' +' con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
     });
 }
 function getTelefonos(req,res){
@@ -78,7 +89,7 @@ function getTelefonos(req,res){
     }).then((results) => {
        res.status(200).json({telefonos:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getTelefonosByTrabajadorId(req,res){
@@ -90,7 +101,7 @@ function getTelefonosByTrabajadorId(req,res){
     db.storedProcExecute('USP_GET_TELEFONOS_TRABAJADOR',aoj).then((results) => {
        res.status(200).json({telefonos:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getTelefonoTrabajador(req,res){
@@ -101,7 +112,7 @@ function getTelefonoTrabajador(req,res){
     db.storedProcExecute('USP_GET_TELEFONO_TRABAJADOR',aoj).then((results) => {
        res.status(200).json({telefono:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createTelefonoTrabajador(req,res){
@@ -112,7 +123,7 @@ function createTelefonoTrabajador(req,res){
     db.storedProcExecute('USP_CREATE_TELEFONO_TRABAJADOR',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err);
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function updateTelefonoTrabajador(req,res){
@@ -128,7 +139,7 @@ function updateTelefonoTrabajador(req,res){
         });
         console.log('Producto Actualizado con exito!');
     }).catch((err) => {
-        res.status(500).json(err);
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function changeStateTelefonoTrabajador(req,res){
@@ -149,7 +160,7 @@ function changeStateTelefonoTrabajador(req,res){
         );
         console.log('Telefono ha cambiado de estado con exito!');
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
        console.log('Error:',err)
     });
 }

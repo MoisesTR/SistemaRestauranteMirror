@@ -1,5 +1,5 @@
 var config = require('../config/mssqlConfig')
-var database = require('../services/database')
+var db = require('../services/database')
 var sql = require('mssql')
 const { matchedData, sanitize } = require('express-validator/filter');
 
@@ -7,17 +7,17 @@ function createEntradaBodegaAp(req,res){
     var data = matchedData(req,{locations:'body'})
     console.log('mandaste los campos')
     var aoj = [];
-    database.pushAOJParam(aoj,'IdBodegaAreap',sql.Int,data.IdBodegaAreaP);
-    database.pushAOJParam(aoj,'IdTrabajador',sql.Int,data.IdTrabajador);
-    database.pushAOJParam(aoj,'IdProveedor',sql.Int,data.IdProveedor);
-    //database.pushAOJParam(IdEstadoEdicicion,sql.,);
-    database.pushAOJParam(aoj,'NFactura',sql.NVarChar(20),data.NFactura);
-    database.pushAOJParam(aoj,'RepresentanteProveedor',sql.NVarChar(50),data.RepresentanteProveedor);
-    database.pushAOJParam(aoj,'PorcRetencion',sql.Int,data.PorcRetencion);
-    database.pushAOJParam(aoj,'PorcIva',sql.Int,data.PorcIva);
-    database.pushAOJParam(aoj,'PorcDescuento',sql.Int,data.PorcDescuento);
-    database.pushAOJParam(aoj,'FechaHora',sql.Date,data.FechaHora);
-    database.storedProcExecute('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
+    db.pushAOJParam(aoj,'IdBodegaAreap',sql.Int,data.IdBodegaAreaP);
+    db.pushAOJParam(aoj,'IdTrabajador',sql.Int,data.IdTrabajador);
+    db.pushAOJParam(aoj,'IdProveedor',sql.Int,data.IdProveedor);
+    //db.pushAOJParam(IdEstadoEdicicion,sql.,);
+    db.pushAOJParam(aoj,'NFactura',sql.NVarChar(20),data.NFactura);
+    db.pushAOJParam(aoj,'RepresentanteProveedor',sql.NVarChar(50),data.RepresentanteProveedor);
+    db.pushAOJParam(aoj,'PorcRetencion',sql.Int,data.PorcRetencion);
+    db.pushAOJParam(aoj,'PorcIva',sql.Int,data.PorcIva);
+    db.pushAOJParam(aoj,'PorcDescuento',sql.Int,data.PorcDescuento);
+    db.pushAOJParam(aoj,'FechaHora',sql.Date,data.FechaHora);
+    db.storedProcExecute('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json(err)
@@ -27,13 +27,13 @@ function createDetalleEntrada(req,res){
     var data = matchedData(req,{locations:'body'})
     console.log('mandaste los campos')
     var aoj = [];
-    database.pushAOJParam(aoj,'IdEntradaBodegaAP',sql.Int,data.IdEntradaBodegaAP);
-    database.pushAOJParam(aoj,'IdProductoProveedor',sql.Int,data.IdProductoProveedor);
-    database.pushAOJParam(aoj,'Cantidad',sql.Int,data.Cantidad);
-    //database.pushAOJParam(IdEstadoEdicicion,sql.,);
-    database.pushAOJParam(aoj,'PrecioUnitarioEntrada',sql.Money,data.PrecioUnitarioEntrada);
-    database.pushAOJParam(aoj,'DescuentoCalculado',sql.Money,data.DescuentoCalculado);
-    database.storedProcExecute('USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
+    db.pushAOJParam(aoj,'IdEntradaBodegaAP',sql.Int,data.IdEntradaBodegaAP);
+    db.pushAOJParam(aoj,'IdProductoProveedor',sql.Int,data.IdProductoProveedor);
+    db.pushAOJParam(aoj,'Cantidad',sql.Int,data.Cantidad);
+    //db.pushAOJParam(IdEstadoEdicicion,sql.,);
+    db.pushAOJParam(aoj,'PrecioUnitarioEntrada',sql.Money,data.PrecioUnitarioEntrada);
+    db.pushAOJParam(aoj,'DescuentoCalculado',sql.Money,data.DescuentoCalculado);
+    db.storedProcExecute('USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json(err)
@@ -43,8 +43,8 @@ function createDetalleEntrada(req,res){
 function getDetalleBodegaAp(req,res){
     let Habilitado = req.query.Habilitado;
     let aoj=[];
-    database.pushAOJParam(aoj,'IdBodegaAreaP',sql.Int,1);
-    database.storedProcExecute('USP_GET_DETALLE_BODEGA_AP',aoj).then((results) => {
+    db.pushAOJParam(aoj,'IdBodegaAreaP',sql.Int,1);
+    db.storedProcExecute('USP_GET_DETALLE_BODEGA_AP',aoj).then((results) => {
         res.status(200).json({
             detalles:results.recordset
         })
@@ -55,8 +55,8 @@ function getDetalleBodegaAp(req,res){
 function generarFactura(req,res){
     var data = matchedData(req,{locations:'params'})
     let aoj =[];
-    database.pushAOJParam(aoj,'IdEntradaBodegaAP',data.IdEntradaBodegaAP)
-    database.storedProcExecute('USP_GENERAR_FACTURA',aoj).then((result) => {
+    db.pushAOJParam(aoj,'IdEntradaBodegaAP',data.IdEntradaBodegaAP)
+    db.storedProcExecute('USP_GENERAR_FACTURA',aoj).then((result) => {
         res.status(200).json({success:'Factura generada con exito!'})    
     }).catch((err) => {
         res.status(500).json(err)
@@ -67,9 +67,9 @@ function changeStateCargo(req,res){
     let Habilitado = req.body.Habilitado
     console.log('IdCargo:'+IdCargo,'Habilitado:'+Habilitado)
     var aoj=[];
-    database.pushAOJParam(aoj,'IdCargo',sql.Int,IdCargo)
-    database.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
-    database.storedProcExecute('USP_DISP_CARGO',aoj).then((results) => {
+    db.pushAOJParam(aoj,'IdCargo',sql.Int,IdCargo)
+    db.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
+    db.storedProcExecute('USP_DISP_CARGO',aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]
         let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';

@@ -9,7 +9,7 @@ function getUnidadById(req,res){
     .then((results) => {
         res.status(200).json({unidadmedida:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getUnidadesMedida(req,res){
@@ -18,7 +18,7 @@ function getUnidadesMedida(req,res){
     .then((results) => {
         res.status(200).json({unidadesmedida:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createUnidadMedida(req,res){
@@ -31,7 +31,7 @@ function createUnidadMedida(req,res){
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function updateUDM(req,res){

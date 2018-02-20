@@ -20,7 +20,7 @@ function createEntradaBodegaAp(req,res){
     db.storedProcExecute('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function createDetalleEntrada(req,res){ 
@@ -36,7 +36,7 @@ function createDetalleEntrada(req,res){
     db.storedProcExecute('USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 
@@ -49,7 +49,7 @@ function getDetalleBodegaAp(req,res){
             detalles:results.recordset
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function generarFactura(req,res){
@@ -59,7 +59,7 @@ function generarFactura(req,res){
     db.storedProcExecute('USP_GENERAR_FACTURA',aoj).then((result) => {
         res.status(200).json({success:'Factura generada con exito!'})    
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function changeStateCargo(req,res){
@@ -76,7 +76,7 @@ function changeStateCargo(req,res){
         res.status(200).json((afectadas > 0) ? {success:'Cargo '+accion+' con exito!'} :{failed:'No se encontro el producto solicitado!'})
         console.log('Cargo cambiado de estado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
        console.log('Error:',err)
     });
 }

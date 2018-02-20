@@ -9,7 +9,7 @@ function getEnvaseById(req,res){
     .then((results) => {
         res.status(200).json({envase:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getEnvases(req,res){
@@ -23,7 +23,7 @@ function getEnvases(req,res){
            envases:results.recordset
         });
     }).catch((err) => {
-        res.status(500).json(err);
+        res.status(500).json( mssqlErrors(err) );;
     });
 }
 function createEnvase(req,res){
@@ -36,7 +36,7 @@ function createEnvase(req,res){
         res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
     
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 

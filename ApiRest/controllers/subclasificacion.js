@@ -11,7 +11,7 @@ function getSubclasificacionById(req,res){
         }).then((results) => {
            res.status(200).json({subclasificacion:results.recordset[0]}) 
         }).catch((err) => {
-            res.status(500).json(err)
+            res.status(500).json( mssqlErrors(err) );
         });
 }
 function getSubclasificaciones(req,res){
@@ -22,7 +22,7 @@ function getSubclasificaciones(req,res){
        res.status(200).json({subclasificaciones:results.recordset }) 
     }).catch((err) => {
         console.dir(err)
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 
@@ -38,7 +38,7 @@ function createSubclasificacion(req,res){
     }).then((results) => {
        res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function updateSubclasificacion(req,res){
@@ -55,7 +55,7 @@ function updateSubclasificacion(req,res){
            success:'Subclasificacion Actualizada con exito!!'
        }) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function disSubclasificaciones(pool,IdSubClasificacion){
@@ -73,7 +73,7 @@ function getSubclasificacionesByIdClasificacion(req,res){
         }).then((results) => {
            res.status(200).json({subclasificaciones:results.recordset}) 
         }).catch((err) => {
-            res.status(500).json(err)
+            res.status(500).json( mssqlErrors(err) );
         });
 }
 function changeStateSubClasificacion(req,res){
@@ -92,7 +92,7 @@ function changeStateSubClasificacion(req,res){
         res.status(200).json((afectadas > 0) ? {success:'SubClasificacion'+accion+' con exito!'} :{failed:'No se encontro la SubClasificacion solicitada!'})
         console.log('SubClasificacion cambiada de estado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
        console.log('Error:',err)
     });
 }

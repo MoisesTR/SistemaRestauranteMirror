@@ -9,7 +9,7 @@ function getEmpaqueById(req,res){
     .then((results) => {
         res.status(200).json({empaque:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getEmpaques(req,res){
@@ -20,7 +20,7 @@ function getEmpaques(req,res){
     .then((results) => {
        res.status(200).json({empaques:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createEmpaque(req,res){
@@ -32,7 +32,7 @@ function createEmpaque(req,res){
     .then((results) => {
        res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function updateEmpaque(req,res){
@@ -45,7 +45,7 @@ function updateEmpaque(req,res){
            success:'Empaque Actualizado con exito!'
        }) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 module.exports={

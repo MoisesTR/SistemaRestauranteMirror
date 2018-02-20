@@ -10,7 +10,7 @@ function getProveedorById(req,res){
     .then((results) => {
         res.status(200).json({proveedor:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getProveedores(req,res){
@@ -21,7 +21,7 @@ function getProveedores(req,res){
     .then((results) => {
        res.status(200).json({proveedores:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createProveedor(req,res){
@@ -36,7 +36,7 @@ function createProveedor(req,res){
     .then((results) => {
        res.status(200).json(results.recordset[0]) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function telefonoProveedor(req, res){
@@ -49,7 +49,7 @@ function telefonoProveedor(req, res){
     .then((result) => {
         res.status(200).json(result.recordset[0]);
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function updateTelefonoProveedor(req, res){
@@ -63,7 +63,7 @@ function updateTelefonoProveedor(req, res){
     .then((result) => {
         
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function updateProveedor(req,res){
@@ -81,7 +81,7 @@ function updateProveedor(req,res){
            success:'Proveedor Actualizado con exito!!'
        }) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function changeStateProveedor(req,res){

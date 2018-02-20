@@ -12,7 +12,7 @@ function createCategoria(req,res){
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function getCategorias(req,res){
@@ -25,7 +25,7 @@ function getCategorias(req,res){
             categorias:results.recordset
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function updateCategoria(req,res){
@@ -40,7 +40,7 @@ function updateCategoria(req,res){
             success:'Categoria Actualizada Exitosamente!'
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getCategoriaById(req,res){
@@ -51,7 +51,7 @@ function getCategoriaById(req,res){
     .then((results) => {
         res.status(200).json({categoria:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function changeStateCategoria(req,res){

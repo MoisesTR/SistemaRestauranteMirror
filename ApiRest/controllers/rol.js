@@ -10,7 +10,7 @@ function createRol(req,res){
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function getRoles(req,res){
@@ -23,7 +23,7 @@ function getRoles(req,res){
             roles:results.recordset
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getRolbyId(req,res){
@@ -37,7 +37,7 @@ function getRolbyId(req,res){
         })
     }).catch((err) => {
     });
-    res.status(500).json(err)
+    res.status(500).json( mssqlErrors(err) );
 }
 function updateRol(req,res){
     var data = req.body;
@@ -51,7 +51,7 @@ function updateRol(req,res){
             success:'rol Actualizada Exitosamente!'
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 

@@ -35,8 +35,10 @@ function createTrabajador(req,res){
     db.pushAOJParam(aoj, 'Imagen', sql.NVarChar(50), trabajadorData.Imagen);
     db.pushAOJParam(aoj, 'FechaNacimiento',sql.Date,trabajadorData.FechaNacimiento);
     db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(300),trabajadorData.Direccion);
+    db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), trabajadorData.Telefono1);
+    db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), trabajadorData.Telefono2);
     db.pushAOJParam(aoj, 'FechaIngreso',sql.Date,trabajadorData.FechaIngreso);
-    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int)
+    db.pushOutParam(aoj, 'IdTrabajador', sql.Int)
     db.storedProcExecute('USP_CREATE_TRABAJADOR',aoj)
     .then((results) => {
         res.status(200).json(results.output)
@@ -54,8 +56,10 @@ function updateTrabajador(req,res){
     db.pushAOJParam(aoj, 'NumeroCedula',sql.NVarChar(50),trabajadorData.NumeroCedula);
     db.pushAOJParam(aoj, 'Imagen', sql.NVarChar(50), trabajadorData.Imagen);
     db.pushAOJParam(aoj, 'FechaNacimiento',sql.Date,trabajadorData.FechaNacimiento);
-    db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(300),trabajadorData.Direccion);
-    db.pushAOJParam(aoj, 'FechaIngreso',sql.Date,trabajadorData.FechaIngreso);
+    db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(300), trabajadorData.Direccion);
+    db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), trabajadorData.Telefono1);
+    db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), trabajadorData.Telefono2);
+    db.pushAOJParam(aoj, 'FechaIngreso',sql.Date, trabajadorData.FechaIngreso);
     db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, trabajadorData.IdTrabajador);
     db.storedProcExecute('USP_UPDATE_TRABAJADOR',aoj)
     .then((results) => {
@@ -82,97 +86,10 @@ function changeStateTrabajador(req,res){
        res.status(500).json( mssqlErrors(err) ); 
     });
 }
-function getTelefonos(req,res){
-    let Habilitado = req.query.Habilitado
-    config.getConnectionPoolGlobal().then((poolObt) => {
-       return querys.getTelefonos(poolObt,Habilitado)
-    }).then((results) => {
-       res.status(200).json({telefonos:results.recordset}) 
-    }).catch((err) => {
-        res.status(500).json( mssqlErrors(err) );
-    });
-}
-function getTelefonosByTrabajadorId(req,res){
-    let IdTrabajador = req.params.IdTrabajador;
-    let Habilitado = req.query.Habilitado;
-    var aoj = [];
-    db.pushAOJParam(aoj,'IdTrabajador',sql.Int,IdTrabajador);
-    db.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
-    db.storedProcExecute('USP_GET_TELEFONOS_TRABAJADOR',aoj).then((results) => {
-       res.status(200).json({telefonos:results.recordset}) 
-    }).catch((err) => {
-        res.status(500).json( mssqlErrors(err) );
-    });
-}
-function getTelefonoTrabajador(req,res){
-    let telefoData = req.params;
-    var aoj =[];
-    db.pushAOJParam(aoj,'IdTelefonoTrabajador',sql.Int,telefoData.IdTelefonoTrabajador)
-    db.pushAOJParam(aoj,'IdTrabajador',sql.Int,telefoData.IdTrabajador);
-    db.storedProcExecute('USP_GET_TELEFONO_TRABAJADOR',aoj).then((results) => {
-       res.status(200).json({telefono:results.recordset[0]}) 
-    }).catch((err) => {
-        res.status(500).json( mssqlErrors(err) );
-    });
-}
-function createTelefonoTrabajador(req,res){
-    const telefoData = matchedData(req,{locations:'body'});
-    var aoj = [];
-    db.pushAOJParam(aoj,'IdTrabajador',sql.Int,telefoData.IdTrabajador);
-    db.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.NumeroTelefono);
-    db.storedProcExecute('USP_CREATE_TELEFONO_TRABAJADOR',aoj).then((results) => {
-        res.status(200).json(results.recordset[0])
-    }).catch((err) => {
-        res.status(500).json( mssqlErrors(err) );
-    })
-}
-function updateTelefonoTrabajador(req,res){
-    const telefoData = matchedData(req,{locations:'body'});
-    var aoj = [];
-    db.pushAOJParam(aoj,'IdTelefonoTrabajador',sql.Int,telefoData.IdTelefonoTrabajador)
-    db.pushAOJParam(aoj,'IdTrabajador',sql.Int,telefoData.IdTrabajor);
-    db.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.NumeroTelefono);
-    db.storedProcExecute('USP_UPDATE_TELEFONO_TRABAJADOR',aoj)
-    .then((results) => {
-        res.status(200).json({
-            success:'Producto Actualizado exitosamente!!'
-        });
-        console.log('Producto Actualizado con exito!');
-    }).catch((err) => {
-        res.status(500).json( mssqlErrors(err) );
-    });
-}
-function changeStateTelefonoTrabajador(req,res){
-    let telefoData= req.params
-    let Habilitado = req.body.Habilitado
-    console.log('IdTelefonoTrabajador:'+telefoData.IdTelefonoTrabajador,'Habilitado:'+Habilitado)
-    var aoj=[];
-    db.pushAOJParam(aoj,'IdTelefonoTrabajador',sql.Int,telefoData.IdTelefonoTrabajador)
-    db.pushAOJParam(aoj,'IdTrabajador',sql.Int,telefoData.IdTrabajor);
-	db.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
-    db.storedProcExecute('USP_DISP_TELEFONO_TRABAJADOR',aoj)
-    .then((results) => {
-        console.log(results)
-        let afectadas = results.rowsAffected[0]
-        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
-        res.status(200).json(
-            (afectadas > 0) ? {success:'Telefono '+accion+' con exito!'} :{failed:'No se encontro el telefono solicitado!'}
-        );
-        console.log('Telefono ha cambiado de estado con exito!');
-    }).catch((err) => {
-       res.status(500).json( mssqlErrors(err) ); 
-       console.log('Error:',err)
-    });
-}
 module.exports={
    createTrabajador,
    getTrabajadores,
    getTrabajadorById,
    updateTrabajador,
-   changeStateTrabajador,
-   createTelefonoTrabajador,
-   updateTelefonoTrabajador,
-   changeStateTelefonoTrabajador,
-   getTelefonosByTrabajadorId,
-   getTelefonoTrabajador
+   changeStateTrabajador
 }

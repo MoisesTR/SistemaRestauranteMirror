@@ -118,6 +118,8 @@ const createTrabajador=[
     check('NumeroCedula','NumeroCedula es requerido').exists(),
     check('FechaNacimiento','FechaNacimiento debe ser una fecha').exists(),
     check('Direccion','Direccion debe tener un minimo de 10 y un maximo de 300').isLength({min:10,max:300}),
+    check('Telefono1', 'EL primer telefono es requerido y debe tener 8 digitos!').isLength(8).isInt(),
+    check('Telefono2', 'El Telefono2 debe tener una longitud de 8 digitos y ser numerico!').isInt().isLength(8),
     check('FechaIngreso','FechaIngreso es requerida!').exists(),
     sanitize('IdSucursal','IdSucursal debe ser entero').toInt(),
     sanitize('IdCargo','IdCargo debe ser entero').toInt()

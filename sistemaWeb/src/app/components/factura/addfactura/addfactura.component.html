@@ -1,28 +1,28 @@
 <section>
-    <div class="row">  
-        
+    <div class="row">
+
         <div class="col-md-6">
             <div class="card card-cascade narrower" style="height: 500px !important; ">
                 <div class="view gradient-card-header orange-chang" >
                     <h2 class="h2-responsive">Informacion Facturas</h2>
                 </div>
                 <div class="card-body">
-                    <div class="container-fluid">                    
+                    <div class="container-fluid">
                         <!-- Inicio form-->
                         <form [formGroup]="formAddFactura"  (ngSubmit)="createFactura()" novalidate>
-                            
+
                             <div class="row">
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <div class="text-center mt-1-half">                                                                        
+                                        <div class="text-center mt-1-half">
                                             <input type="text" id="nombrerepresentanteproveedor" formControlName="nombrerepresentanteproveedor" class="form-control" autocomplete="off">
                                             <label for="nombrerepresentanteproveedor">Nombre de Proveedor</label>
                                         </div>
                                     </div>
                                     <br>
-                                </div>                            
-                                    
+                                </div>
+
                                 <div class="col-md-12">
                                     <div class="md-form">
                                         <input type="search" id="nombreproveedor" placeholder="#123ejemplo" class="form-control autocomplete-proveedor" autocomplete="off">
@@ -35,52 +35,52 @@
                                         <label for="nombreproveedor">Número de factura</label>
                                     </div>
                                 </div>
-                                                                                                                    
+
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <input type="text" class="form-control datepicker" name="FechaFactura" id="FechaFactura">                                
+                                        <input type="text" class="form-control datepicker" name="FechaFactura" id="FechaFactura">
                                         <label for="FechaFactura">Fecha</label>
-                                    </div>                      
+                                    </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="md-form">                                    
+                                    <div class="md-form">
                                         <input type="text" class="form-control timepicker" name="HoraFactura" id="HoraFactura">
                                         <label for="HoraFactura">Hora</label>
                                     </div>
                                 </div>
-                                                                                                                                                                    
+
                             </div>
                             <!-- <div class="text-center mt-1-half">
                                 <button type="button" class="btn orange-chang waves-effect" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i>  Buscar Producto</button>
                             </div> -->
                         </form>
-                        <!-- Final form -->                          
-                    </div>                                                
+                        <!-- Final form -->
+                    </div>
                 </div>
             </div>
             <br>
         </div>
-        
+
         <div class="col-md-6 mb-r">
-                
+
             <div class="card card-cascade narrower" style="height: 500px !important; ">
                 <div class="view gradient-card-header orange-chang" >
                     <h2 class="h2-responsive">Productos</h2>
                 </div>
                 <div class="scrollbar-card scrollbar-ripe-malinka">
                     <div class="card-body" >
-                        
+
                         <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                             <i class="fa fa-search" aria-hidden="true"></i>
                             <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
                         </div>
-                    
+
                         <table class="table table-sm">
                             <thead>
                                 <tr>
                                     <th width="10%">#</th>
-                                    <th width="50%">Nombre del producto</th>                                            
+                                    <th width="50%">Nombre del producto</th>
                                     <th width="40%" class="text-center">Acción</th>
                                 </tr>
                             </thead>
@@ -131,10 +131,10 @@
         <br>
         <div class="col-md-12">
             <div class="card card-cascade narrower">
-                <div class="container-fluid ">       
-                    <br>  
+                <div class="container-fluid ">
+                    <br>
                     <div class="container-fluid">
-                                
+
                         <div class="table-responsive">
                             <!-- Item list -->
                             <table class="table">
@@ -212,38 +212,38 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        <!-- /.Item list -->  
+                        <!-- /.Item list -->
                         </div>
-                        
+
                         <br>
-                        <br>        
+                        <br>
                     </div>
-        
+
                     <div class="row">
                         <div class="col-10">
-                            <form >                
+                            <form >
                                 <div class="col-lg-12" style="padding-left: 30em">
-                                
+
                                     <div class="col-lg-6" >
                                         <input type="checkbox" value="validando_checkbox2" name="seleccionadocheck" id="segundo1">
                                         <label for="segundo1" data-toggle="modal" data-target="#modalAddDescuento"><strong>Descuento</strong> </label>
                                     </div>
-                        
+
                                     <div class="col-lg-6" style="">
                                         <input type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2">
                                         <label for="segundo2"><strong>Retencion</strong></label>
                                     </div>
-                    
-                                </div>                
+
+                                </div>
                                 <label for="SubTotal" style="padding-left: 34em"><strong>SubTotal</strong> </label>
                                 <br>
                                 <label for="porcentajeiva" style="padding-left: 34em"><strong>IVA(15%)</strong></label>
                                 <br>
                                 <label for="Total" style="padding-left: 34em"><strong>Total</strong></label>
                                 <br>
-                            </form>    
+                            </form>
                         </div> <!-- 25% -->
-                        
+
                         <div class="col-2">
                             <form >
                                 <div class="">
@@ -254,7 +254,7 @@
                                 </div>
                                 <div class="">
                                     <label>C$ 43434</label>
-                                </div>                
+                                </div>
                                 <div class="">
                                     <label>C$ 49949.1</label>
                                 </div>
@@ -263,13 +263,13 @@
                                 </div>
                             </form>
                         </div> <!-- 75% -->
-                                        
-                    </div>           
+
+                    </div>
                     <br>
-                    
+
                     <!-- Acciones -->
                     <div class="row justify-content-md-center">
-                            
+
                         <div class="col-md-3">
                             <div class="md-form">
                                 <button type="button" class="btn orange-chang waves-effect">Guardar factura</button>
@@ -282,19 +282,19 @@
                             </div>
                         </div>
 
-                    </div>  
-                                    
-                </div>         
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 </section>
-      
+
 <!-- Modal Mostrar Info de producto -->
 <div class="modal fade" id="modalVerProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg cascading-modal " role="document">
         <!--Contenido-->
-        <div class="modal-content background-gray">
+        <div class="modal-content ">
 
             <!--Titulo-->
             <div class="modal-header orange-chang white-text">
@@ -309,65 +309,60 @@
                     <!-- Inicio form-->
                     <form >
                         <div class="row">
-                            
+
                             <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                                <div class="card">
-                                    <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Imagen</div>
-                                    <div class="container-fluid">
-                                        <br>
+                                <div class="card peach-gradient">                                    
+                                    <div class="container-fluid">                                        
                                         <div class="row">
                                             <div class="card-body text-center">
-                                                <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg"/>
+                                                <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" data-default-file="assets/img/productos/pollo preparado.jpg"/>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                                <div class="card">
-                                    <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Detalle del producto a agregar</div>
-                                    <div class="container-fluid">
-                                        <br>
-                                        <div class="row">
-                                            
-                                            <div class="col-md-12">
-                                                <div class="md-form">
-                                                    <input type="text" id="nombreProducto" class="form-control">
-                                                    <label for="nombreProducto" class="">Nombre</label>
-                                                </div>
-                                            </div>
+                                <div class="container-fluid">
+                                    <br>
+                                    <div class="row">
 
-                                           <!-- <div class="col-md-6">
-                                                <label for="selectclasificacion">Clasificación</label>
-                                                <select2 class="selectclasificacion" id="selectclasificacion">
-                                                    <option class="chip">TEST </option>
-                                                </select2>
+                                        <div class="col-md-12">
+                                            <div class="md-form">
+                                                <input type="text" id="nombreProducto" class="form-control">
+                                                <label for="nombreProducto" class="">Nombre</label>
                                             </div>
+                                        </div>
 
-                                             <div class="col-md-6">
-                                                <label for="subclasificacion">Subclasificación</label>
-                                                <select2 class="selectsubclasificacion"  id="subclasificacion"  >
-                                                        
-                                                </select2>
+                                       <!-- <div class="col-md-6">
+                                            <label for="selectclasificacion">Clasificación</label>
+                                            <select2 class="selectclasificacion" id="selectclasificacion">
+                                                <option class="chip">TEST </option>
+                                            </select2>
+                                        </div>
+
+                                         <div class="col-md-6">
+                                            <label for="subclasificacion">Subclasificación</label>
+                                            <select2 class="selectsubclasificacion"  id="subclasificacion"  >
+
+                                            </select2>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <br>
+                                            <label for="selectcategoria">Categoria</label>
+                                            <select2 class="selectcategoria"  id='selectcategoria' >
+
+                                            </select2>
+                                        </div> -->
+
+                                        <div class="col-md-12">
+                                            <br>
+                                            <div class="md-form">
+                                                <textarea type="text" id="descripcionproducto"  class="md-textarea" autocomplete="off" ></textarea>
+                                                <label for="descripcionproducto">Descripción</label>
                                             </div>
+                                        </div>
 
-                                            <div class="col-md-6">
-                                                <br>
-                                                <label for="selectcategoria">Categoria</label>
-                                                <select2 class="selectcategoria"  id='selectcategoria' >
-                                                        
-                                                </select2>
-                                            </div> -->
-
-                                            <div class="col-md-12">
-                                                <br>
-                                                <div class="md-form">
-                                                    <textarea type="text" id="descripcionproducto"  class="md-textarea" autocomplete="off" ></textarea>
-                                                    <label for="descripcionproducto">Descripción</label>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -382,64 +377,61 @@
         <!--/.Contenido-->
     </div>
 </div>
-      
+
 <!-- Modal para agregar detalles de producto -->
 <div class="modal fade" id="modalAgregarDetalleProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <div class="modal-dialog cascading-modal" role="document">
         <!--Contenido-->
-        <div class="modal-content background-gray">
+        <div class="modal-content">
 
-            <!--Titulo-->
             <div class="modal-header orange-chang white-text">
-                <h4 class="title"> Producto</h4>
+                <h4 class="title"> Agregar Producto</h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
                 <div class="container-fluid">
+                    
                     <!-- Inicio form-->
                     <form >
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="card">
-                                <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Detalle del producto a agregar</div>
-                                    <div class="container-fluid">
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="md-form">
-                                                    <input type="number" id="cantidadProducto" class="form-control">
-                                                    <label for="cantidadProducto" class="">Cantidad</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="md-form">
-                                                    <input type="number" id="precioProducto" class="form-control">
-                                                    <label for="precioProducto" class="">Precio</label>
-                                                </div>
-                                            </div>                                
-                                            <div class="col-md-6">
-                                                <br>
-                                                <div class="md-form">
-                                                    <input type="number" id="descuentoTotalProducto" class="form-control">
-                                                    <label for="descuentoTotalProducto" class="">Descuento Total</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <br><br>
-                                                <div class="form-group">
-                                                    <input type="checkbox" class="filled-in" checked="checked" id="checkboxIva">
-                                                    <label for="checkboxIva">Gravado de Iva</label>
-                                                </div>
+                                <div class="container-fluid">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="md-form">
+                                                <input type="number" id="cantidadProducto" class="form-control">
+                                                <label for="cantidadProducto">Cantidad</label>
                                             </div>
                                         </div>
-                                        <br>
-                                        <div class="text-center mt-1-half">
-                                            <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                        <div class="col-md-6">
+                                            <div class="md-form">
+                                                <input type="number" id="precioProducto" class="form-control">
+                                                <label for="precioProducto">Precio</label>
+                                            </div>
                                         </div>
-                                        <br>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="md-form">
+                                                <input type="number" id="descuentoTotalProducto" class="form-control">
+                                                <label for="descuentoTotalProducto">Descuento Total</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br><br>
+                                            <div class="form-group">
+                                                <input type="checkbox" class="filled-in" checked="checked" id="checkboxIva">
+                                                <label for="checkboxIva">Gravado de Iva</label>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    <br><br>
+                                    <div class="mt-1-half">                                        
+                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                        <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
                                     </div>
                                 </div>
                             </div>
@@ -456,15 +448,14 @@
 
 <!-- Modal para agregar descuento de factura  -->
 <div class="modal fade" id="modalAddDescuento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <div class="modal-dialog cascading-modal" role="document">
         <!--Contenido-->
-        <div class="modal-content background-gray">
+        <div class="modal-content">
 
-            <!--Titulo-->
             <div class="modal-header orange-chang white-text">
-                <h4 class="title"> Descuento</h4>
+                <h4 class="title"> Ingresar Descuento Total</h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!--Cuerpo modal-->
@@ -474,21 +465,18 @@
                     <form >
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="card">
-                                    <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Ingresar descuento total</div>
-                                    <div class="container-fluid">
-                                        <br>
-                                        <div class="col-md-12">
-                                            <div class="md-form">
-                                                <input type="number" id="descuentoFactura" class="form-control">
-                                                <label for="descuentoFactura" class="">Descuento</label>
-                                            </div>
-                                        </div>                                            
-                                        <br>
-                                        <div class="text-center mt-1-half">
-                                            <button class="btn orange-chang mb-1">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                <div class="container-fluid">
+                                    <br>
+                                    <div class="col-md-12">
+                                        <div class="md-form">
+                                            <input placeholder="Ej: 50" type="number" id="descuentoFactura" class="form-control">
+                                            <label for="descuentoFactura" class="font-weight-bold">Descuento</label>
                                         </div>
-                                        <br>
+                                    </div>
+                                    <br>
+                                    <div class="mt-1-half">                                        
+                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                        <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
                                     </div>
                                 </div>
                             </div>
@@ -501,4 +489,4 @@
         </div>
         <!--/.Contenido-->
     </div>
-</div>    
+</div>

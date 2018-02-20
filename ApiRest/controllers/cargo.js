@@ -1,4 +1,5 @@
-const config = require('../config/mssqlConfig');
+const {matchedData} = require('express-validator/filter')
+const {mssqlErrors} = require('../Utils/util');
 const db = require('../services/database');
 const sql = require('mssql');
 
@@ -28,7 +29,7 @@ function getCargos(req,res){
     });
 }
 function updateCargo(req,res){
-    var data = req.body;
+    var data = matchedData(req);
     var aoj =[];
     db.pushAOJParam(aoj, 'IdCargo',sql.Int,data.IdCargo);
     db.pushAOJParam(aoj, 'NombreCargo',sql.NVarChar(50),data.NombreCargo);

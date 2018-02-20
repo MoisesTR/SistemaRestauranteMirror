@@ -96,7 +96,7 @@ Router
     .get('/producto/proveedor/:IdProductoProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
     .get('/productos/proveedor/:IdProveedor(\\d+)',ProductoProveedorController.getProductoProveedorById)
     .get('/producto/proveedores/:IdProducto(\\d+)',ProductoProveedorController.getProveedoresOfProducto)
-    .post('/producto/proveedor',validations.createProductoProveedor,validations.validsParamas,ProductoProveedorController.createProductoProveedor)
+    .post('/producto/proveedor',validations.createProductoProveedor,validations.validsParams,ProductoProveedorController.createProductoProveedor)
     .put('/producto/proveedor',ProductoProveedorController.changeStateProductoProveedor)
     //.delete('/producto/proveedor')
     //Rutas para Rol Controller
@@ -110,29 +110,29 @@ Router
     /*********** faltan */
     //Rutas para Trabajador Controller
     .get('/trabajadores',TrabajadorController.getTrabajadores)
-    .post('/trabajador',validations.createTrabajador,validations.validsParamas,TrabajadorController.createTrabajador)
+    .post('/trabajador',validations.createTrabajador,validations.validsParams,TrabajadorController.createTrabajador)
     .get('/trabajador/:IdTrabajador(\\d+)',TrabajadorController.getTrabajadorById)
-    .put('/trabajador',validations.createTrabajador.concat(validations.updateTrabajador),validations.validsParamas,TrabajadorController.updateTrabajador)
-    .delete('/trabajador/:IdTrabajador(\\d+)',validations.deleteTrabajador,validations.validsParamas,TrabajadorController.changeStateTrabajador)
+    .put('/trabajador',validations.createTrabajador.concat(validations.updateTrabajador),validations.validsParams,TrabajadorController.updateTrabajador)
+    .delete('/trabajador/:IdTrabajador(\\d+)',validations.deleteTrabajador,validations.validsParams,TrabajadorController.changeStateTrabajador)
 
     //Rutas Para Cargo Controller
     .get('/cargos',CargoController.getCargos)
-    .post('/cargo',CargoController.createCargo)
+    .post('/cargo',validations.createCargo, validations.validsParams , CargoController.createCargo)
     .get('/cargo/:IdCargo(\\d+)',CargoController.getCargoById)
     .put('/cargo',CargoController.updateCargo)
     .delete('/cargo/:IdCargo(\\d+)',CargoController.changeStateCargo)
 
     //Rutas para Bodega Area Produccion
-    .post('/entradabodegaap',validations.createEntradaBodegaAP,validations.validsParamas,bodegaApController.createEntradaBodegaAp)
-    .post('/detalleentradabodegaap',validations.detalleEntradaBodega,validations.validsParamas,bodegaApController.createDetalleEntrada)
+    .post('/entradabodegaap',validations.createEntradaBodegaAP,validations.validsParams,bodegaApController.createEntradaBodegaAp)
+    .post('/detalleentradabodegaap',validations.detalleEntradaBodega,validations.validsParams,bodegaApController.createDetalleEntrada)
     .get('/detallebodegaap',bodegaApController.getDetalleBodegaAp)
-    .put('/generarfactura/:IdEntradaBodegaAP(\\d+)',validations.crearFactura,validations.validsParamas,bodegaApController.generarFactura)
+    .put('/generarfactura/:IdEntradaBodegaAP(\\d+)',validations.crearFactura,validations.validsParams,bodegaApController.generarFactura)
     .get('/listarfacturas',)
     //Rutas para 
-    .post('/signup',validations.userSignUpValidation,validations.validsParamas,AuthController.signUp)
-    .post('/signin',validations.userSignInValidation,validations.validsParamas,AuthController.singIn)
+    .post('/signup',validations.userSignUpValidation,validations.validsParams,AuthController.signUp)
+    .post('/signin',validations.userSignInValidation,validations.validsParams,AuthController.singIn)
     .get('/users',AuthController.getUsers)
-    .put('/update-user/:IdUsuario(\\d+)',validations.userSignInValidation,validations.userUpdate,validations.validsParamas,AuthController.updateUser)
+    .put('/update-user/:IdUsuario(\\d+)',validations.userSignInValidation,validations.userUpdate,validations.validsParams,AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)',AuthController.changeStateUser)    
 
 

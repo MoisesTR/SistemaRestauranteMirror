@@ -1,11 +1,11 @@
+const {matchedData} = require('express-validator/filter')
 const config = require('../config/mssqlConfig');
 const sql  = require('mssql');
 const db    = require('../services/database');
 
 function createCategoria(req,res){ 
-    var data = req.body;
+    var data = matchedData(req)
     var aoj = [];
-    console.log(((data.NombreCategoria != undefined) && (data.DescripcionCategoria != undefined)))
     db.pushAOJParam(aoj, 'NombreCategoria',sql.NVarChar(50),data.NombreCategoria)
     db.pushAOJParam(aoj, 'DescripcionCategoria',sql.NVarChar(150),data.DescripcionCategoria)
     db.storedProcExecute('USP_CREATE_CATEGORIA', aoj)

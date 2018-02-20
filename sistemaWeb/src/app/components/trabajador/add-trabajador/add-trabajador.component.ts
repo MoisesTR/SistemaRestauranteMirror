@@ -21,6 +21,7 @@ export class AddTrabajadorComponent implements OnInit {
   formAddTrabajador : FormGroup;
   public sucursales : Sucursal[];
   public cargos: Cargo[];
+  public optionsSelect2: Select2Options;
 
   constructor(
     private _route: ActivatedRoute
@@ -31,87 +32,30 @@ export class AddTrabajadorComponent implements OnInit {
     , private _cargoService: CargoService
   ) {
 
-
-
     this.trabajador  = new Trabajador(null,null,null,null,null,null,null,null,null,null,null)
 
-    this._TrabajadorServicio.getTrabajadores().subscribe(
+    this.optionsSelect2 = {
+      multiple: true
+      , maximumSelectionLength: 1
+      , width: '100%'
+    }
 
-      response=>{
-
-        if(response.trabajadores){
-          this.trabajadores = response.trabajadores;
-        }
-      },error =>{
-
-      }
-
-    )
-
+    this.getTrabajadores()
     this.getCargos();
-  }
-
-  private initConstructorTrabajador(){
-    this.trabajador = new Trabajador(null,null,null,null,null,null,null,null,null,null,null);
   }
 
   ngOnInit() {
     $(document).ready(function(){
 
-      $('.cedula').mask('000-000000-0000A',{'translation': {
-        A: {pattern: /[A-Za-z]/},
+      $('.cedula').mask('000-ZX0000-0000A',{'translation': {
+          A: {pattern: /[A-Za-z]/},
+          Z: {pattern: /[0-3]/},
+          X: {pattern: /[0-9]/},
       }
       });
       $('.dropify').dropify();
 
-      $(".selectcargo").select2();
-      $(".selectsucursales").select2();
-      $(".selectoperadoraprincipalTrabajador").select2({
-        maximumSelectionLength: 1
-      });
-      $(".selectoperadorasecundarioTrabajador").select2({
-        maximumSelectionLength: 1
-      });
 
-
-      var date = new Date();
-      var currentMonth = date.getMonth();
-      var currentDate = date.getDate();
-      var currentYear = date.getFullYear();
-
-      $('.datepicker').pickadate({
-
-        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
-        today: 'Hoy',
-        clear: 'Limpiar',
-        close: 'Cerrar',
-        closeOnSelect: true,
-        closeOnClear: false,
-        selectMonths: true,
-        selectYears: true,
-        firstDay: true,
-        min: new Date(currentYear, 0, 1), //currentMonth es 0 que equivale a Enero
-        max: new Date(currentYear, currentMonth, currentDate),
-        format: 'yyyy-mm-dd'
-      });
-
-      $('.datepickerEdad').pickadate({
-
-        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
-        today: 'Hoy',
-        clear: 'Limpiar',
-        close: 'Cerrar',
-        viewMode: 'months',
-        minViewMode: 'months',
-        closeOnSelect: true,
-        closeOnClear: false,
-        selectYears: true,
-        selectMonths: true
-      });
     });
 
     this.initFormTrabajador();
@@ -119,6 +63,18 @@ export class AddTrabajadorComponent implements OnInit {
 
   }
 
+  getTrabajadores(){
+
+    this._TrabajadorServicio.getTrabajadores().subscribe(
+      response => {
+        if(response.trabajadores){
+          this.trabajadores = response.trabajadores;
+        }
+      }, error =>{
+
+      }
+    )
+  }
 
   initFormTrabajador(){
     this.formAddTrabajador = this.formBuilderAddTrabajador.group({
@@ -135,7 +91,6 @@ export class AddTrabajadorComponent implements OnInit {
   }
 
   createTrabajador(){
-
 
     this.trabajador.Nombres = this.formAddTrabajador.value.nombreTrabajador;
     this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
@@ -175,7 +130,14 @@ export class AddTrabajadorComponent implements OnInit {
       }
     )
 
-   console.log(this.trabajador)
+  }
+
+  changeSelectSucursal(event){
+
+  }
+
+  changeSelectCargo(event){
+
   }
 
   getSucursales(){
@@ -203,7 +165,6 @@ export class AddTrabajadorComponent implements OnInit {
       }
     )
   }
-
 
 
 

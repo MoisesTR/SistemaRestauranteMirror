@@ -40,7 +40,7 @@
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
-                                
+
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
@@ -48,7 +48,7 @@
                     <label for="FechaNacimiento">Fecha de Nacimiento</label>
                   </div>
                 </div>
-                
+
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
@@ -94,7 +94,7 @@
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>
-                
+
                 <div class="col-md-12">
                   <div class="md-form">
                     <textarea type="text" id="Direccion"name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
@@ -103,19 +103,18 @@
                 </div>
 
                 <div class="col-md-12">
-                  <label for="selectsucursales">Sucursal</label>
-                  <select name="selectsucursales"  class="selectsucursales" multiple="multiple" style="width: 100%">
+                  <label for="sucursales">Sucursal</label>
+                  <select2 (valueChanged)="changeSelectSucursal($event)" id="sucursales" name="selectsucursales"  class="selectsucursales" [options]="optionsSelect2">
                     <option class="chip" [value]="sucursal.IdSucursal" *ngFor="let sucursal of sucursales">{{sucursal.NombreSucursal}}</option>
-                  </select>
+                  </select2>
                 </div>
-                
+
                 <div class="col-md-12">
                   <br>
-                  <label for="selectcargo">Cargo</label>
-                  <select name="RolTrabajador" class="selectcargo" multiple="multiple" style="width: 100%">
+                  <label for="cargo">Cargo</label>
+                  <select2 (valueChanged)="changeSelectCargo($event)" id="cargo" name="cargo" class="selectcargo" [options]="optionsSelect2">
                     <option class="chip" [value]="cargo.IdCargo" *ngFor="let cargo of cargos">{{cargo.NombreCargo}}</option>
-
-                  </select>
+                  </select2>
                 </div>
 
               </div><div class="margin-paneladministrativo"></div>

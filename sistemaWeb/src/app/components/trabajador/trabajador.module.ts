@@ -10,6 +10,7 @@ import {ProductoRoutingModule} from "../producto/producto.routing.module";
 import {SharedModuleModule} from "../shared-module/shared-module.module";
 import {TrabajadorService} from "../../services/trabajador.service";
 import {CargoService} from "../../services/cargo.service";
+import {Select2Module} from 'ng2-select2';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {CargoService} from "../../services/cargo.service";
     , ProductoRoutingModule
     , ReactiveFormsModule
     , SharedModuleModule
+    , Select2Module
   ],
   declarations: [AddTrabajadorComponent, ListTrabajadorComponent, UpdateTrabajadorComponent]
   , providers : [TrabajadorService, CargoService]

@@ -73,7 +73,7 @@ CREATE PROCEDURE USP_GET_TRABAJADOR(
 	@IdTrabajador INT
 )
 AS BEGIN
-	SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula, Imagen,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
+	SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula, Imagen,FechaNacimiento,T.Direccion, T.Telefono1, T.Telefono2,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
 	FROM TRABAJADOR T 
 	INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
 	INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
@@ -88,12 +88,12 @@ CREATE PROCEDURE USP_GET_TRABAJADORES(
 )
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula, Imagen, FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
+		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula, Imagen, FechaNacimiento,T.Direccion, T.Telefono1, T.Telefono2,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
 		FROM TRABAJADOR T 
 		INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
 		INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
 	ELSE
-		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
+		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,NumeroCedula,FechaNacimiento,T.Direccion, T.Telefono1, T.Telefono2,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
 		FROM TRABAJADOR T 
 		INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
 		INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
@@ -110,22 +110,22 @@ CREATE PROCEDURE USP_DISP_TRABAJADOR(
 	UPDATE TRABAJADOR SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdTrabajador=@IdTrabajador
 END
 GO
-IF OBJECT_ID('USP_GET_TELEFONOS_TRABAJADOR','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_TELEFONOS_TRABAJADOR
-GO
-CREATE PROCEDURE USP_GET_TELEFONOS_TRABAJADOR(
-	@IdTrabajador INT,
-	@Habilitado BIT
-) AS BEGIN
-	IF @Habilitado IS NULL
-		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
-		FROM TELEFONO_TRABAJADOR TT
-		WHERE TT.IdTrabajador= @IdTrabajador
-	ELSE
-		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
-		FROM TELEFONO_TRABAJADOR TT
-		WHERE TT.IdTrabajador= @IdTrabajador AND TT.Habilitado= @Habilitado
-END
+--IF OBJECT_ID('USP_GET_TELEFONOS_TRABAJADOR','P') IS NOT NULL
+--	DROP PROCEDURE USP_GET_TELEFONOS_TRABAJADOR
+--GO
+--CREATE PROCEDURE USP_GET_TELEFONOS_TRABAJADOR(
+--	@IdTrabajador INT,
+--	@Habilitado BIT
+--) AS BEGIN
+--	IF @Habilitado IS NULL
+--		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+--		FROM TELEFONO_TRABAJADOR TT
+--		WHERE TT.IdTrabajador= @IdTrabajador
+--	ELSE
+--		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+--		FROM TELEFONO_TRABAJADOR TT
+--		WHERE TT.IdTrabajador= @IdTrabajador AND TT.Habilitado= @Habilitado
+--END
 GO
 IF OBJECT_ID('USP_GET_TELEFONOS_SUCURSAL','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_TELEFONOS_SUCURSAL
@@ -156,17 +156,17 @@ CREATE PROCEDURE USP_GET_TELEFONO_SUCURSAL(
 		WHERE TS.IdSucursal= @IdSucursal AND IdTelefonoSucursal= @IdTelefonoSucursal
 END
 GO
-IF OBJECT_ID('USP_GET_TELEFONO_TRABAJADOR','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_TELEFONO_TRABAJADOR
-GO
-CREATE PROCEDURE USP_GET_TELEFONO_TRABAJADOR(
-	@IdTelefonoTrabajador INT,
-	@IdTrabajador INT
-) AS BEGIN
-		SELECT IdTelefonoTrabajador,IdTrabajador, NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
-		FROM TELEFONO_TRABAJADOR TT
-		WHERE TT.IdTrabajador= @IdTrabajador AND IdTelefonoTrabajador = @IdTelefonoTrabajador
-END
+--IF OBJECT_ID('USP_GET_TELEFONO_TRABAJADOR','P') IS NOT NULL
+--	DROP PROCEDURE USP_GET_TELEFONO_TRABAJADOR
+--GO
+--CREATE PROCEDURE USP_GET_TELEFONO_TRABAJADOR(
+--	@IdTelefonoTrabajador INT,
+--	@IdTrabajador INT
+--) AS BEGIN
+--		SELECT IdTelefonoTrabajador,IdTrabajador, NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+--		FROM TELEFONO_TRABAJADOR TT
+--		WHERE TT.IdTrabajador= @IdTrabajador AND IdTelefonoTrabajador = @IdTelefonoTrabajador
+--END
 GO
 IF OBJECT_ID('USP_GET_DETALLE_BODEGA_AP','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_DETALLE_BODEGA_AP

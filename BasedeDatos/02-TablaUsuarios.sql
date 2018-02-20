@@ -97,12 +97,12 @@ AS BEGIN
 	INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
 END
 GO
-IF OBJECT_ID('dbo.VIEW_USUARIO_INFO', 'U') IS NOT NULL
+IF OBJECT_ID('dbo.VIEW_USUARIO_INFO', 'V') IS NOT NULL
 	DROP VIEW VIEW_USUARIO_INFO
 GO
 CREATE VIEW VIEW_USUARIO_INFO
 AS
-	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
+	SELECT U.IdUsuario, U.IdTrabajador, T.Nombres,U.IdRol, R.NombreRol, R.DescripcionRol , C.NombreCargo, Username, U.Imagen, Email, Password,U.Habilitado,U.CreateAt,U.UpdateAt
 	FROM USUARIO U
 	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
 	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
@@ -116,18 +116,9 @@ CREATE PROCEDURE USP_GET_USUARIOS(
 )
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username, Imagen, Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
-		FROM USUARIO U
-		INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
-		INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
-		INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
+		SELECT * FROM VIEW_USUARIO_INFO
 	ELSE
-		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username, Imagen, Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
-		FROM USUARIO U
-		INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
-		INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
-		INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
-		WHERE U.Habilitado = @Habilitado
+		SELECT * FROM VIEW_USUARIO_INFO	WHERE Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIO_BY_ID','P') IS NOT NULL
@@ -137,10 +128,8 @@ CREATE PROCEDURE USP_GET_USUARIO_BY_ID(
 	@IdUsuario INT
 )
 AS BEGIN 
-	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username, Imagen, Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
-	FROM USUARIO U
-	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
-	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE IdUsuario=@IdUsuario
+	SELECT IdUsuario, IdTrabajador, Nombres,IdRol, NombreRol, DescripcionRol , NombreCargo, Username, Imagen, Email, Password,Habilitado,CreateAt,UpdateAt
+	FROM VIEW_USUARIO_INFO WHERE IdUsuario=@IdUsuario
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIO_BY_TRABAJADOR','P') IS NOT NULL
@@ -150,10 +139,8 @@ CREATE PROCEDURE USP_GET_USUARIO_BY_TRABAJADOR(
 	@IdTrabajador INT
 )
 AS BEGIN
-	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
-	FROM USUARIO U
-	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
-	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE U.IdTrabajador = @IdTrabajador
+	SELECT IdUsuario, IdTrabajador, Nombres,IdRol, NombreRol, DescripcionRol , NombreCargo, Username, Imagen, Email, Password,Habilitado,CreateAt,UpdateAt
+	FROM VIEW_USUARIO_INFO WHERE IdTrabajador = @IdTrabajador
 END
 GO
 IF OBJECT_ID('dbo.USP_DISP_USUARIO','P') IS NOT NULL
@@ -175,10 +162,8 @@ CREATE PROCEDURE USP_GET_USUARIO_BY_USERNAME_OR_EMAIL(
 	@Email NVARCHAR(100)
 )
 AS BEGIN 
-	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
-	FROM USUARIO U
-	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
-	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE Username=@Username or Email = @Email
+	SELECT IdUsuario, IdTrabajador, Nombres,IdRol, NombreRol, DescripcionRol , NombreCargo, Username, Imagen, Email, Password,Habilitado,CreateAt,UpdateAt
+	FROM VIEW_USUARIO_INFO WHERE Username=@Username or Email = @Email
 END
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIO_BY_USERNAME','P') IS NOT NULL
@@ -188,14 +173,7 @@ CREATE PROCEDURE USP_GET_USUARIO_BY_USERNAME(
 	@Username NVARCHAR(50)
 )
 AS BEGIN 
-	SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
-	FROM USUARIO U
-	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
-	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo WHERE Username=@Username
+	SELECT IdUsuario, IdTrabajador, Nombres,IdRol, NombreRol, DescripcionRol , NombreCargo, Username, Imagen, Email, Password,Habilitado,CreateAt,UpdateAt
+	FROM VIEW_USUARIO_INFO WHERE Username=@Username
 END
-
-select * from cargo
-
-select * from clasificacion_producto
-
-select * from usuario
+GO

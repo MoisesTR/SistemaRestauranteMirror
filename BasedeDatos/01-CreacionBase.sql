@@ -393,6 +393,8 @@ CREATE TABLE TRABAJADOR (
 	Imagen		NVARCHAR(50) NOT NULL,
     FechaNacimiento DATE NOT NULL,
     Direccion	NVARCHAR(300) not null,
+	Telefono1	NVARCHAR(20) NOT NULL,
+	Telefono2	NVARCHAR(20) NULL CHECK(Telefono1 <> Telefono2),
     FechaIngreso DATE NOT NULL,
     Habilitado	Bit default 1 not null,
     CreatedAt	DATETIME NOT NULL DEFAULT GETDATE(),
@@ -405,17 +407,17 @@ CREATE TABLE TRABAJADOR (
 	CONSTRAINT U_NumeroCedula UNIQUE(NumeroCedula)
 )
 GO
-CREATE TABLE TELEFONO_TRABAJADOR(
-	IdTelefonoTrabajador INT IDENTITY(1,1), 
-	IdTrabajador INT NOT NULL,
-	NumeroTelefono NVARCHAR(20) NOT NULL,
-	Habilitado Bit default 1 not null,
-    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
-    UpdateAt DATETIME NULL,
-	CONSTRAINT PK_TELEFONO_TRABAJADOR PRIMARY KEY(IdTelefonoTrabajador),
-	CONSTRAINT FK_TELEFONO_TRABAJADOR FOREIGN KEY(IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador)
-)
-GO
+--CREATE TABLE TELEFONO_TRABAJADOR(
+--	IdTelefonoTrabajador INT IDENTITY(1,1), 
+--	IdTrabajador INT NOT NULL,
+--	NumeroTelefono NVARCHAR(20) NOT NULL,
+--	Habilitado Bit default 1 not null,
+--    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+--    UpdateAt DATETIME NULL,
+--	CONSTRAINT PK_TELEFONO_TRABAJADOR PRIMARY KEY(IdTelefonoTrabajador),
+--	CONSTRAINT FK_TELEFONO_TRABAJADOR FOREIGN KEY(IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador)
+--)
+--GO
 create TABLE AREA_PRODUCCION(
 	IdAreaProduccion int IDENTITY(1,1),
 	IdSucursal INT NOT NULL,

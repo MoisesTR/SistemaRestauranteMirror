@@ -1,5 +1,3 @@
-const querys = require('../querys/sucursal');
-const config = require('../config/mssqlConfig');
 const sql = require('mssql');
 const database = require('../services/database');
 const { matchedData, sanitize } = require('express-validator/filter');
@@ -7,7 +5,7 @@ const { matchedData, sanitize } = require('express-validator/filter');
 function getSucursalById(req,res){
     var data = req.params;
     db.pushAOJParam(aoj, 'IdSucursal',sql.Int,IdSucursal)
-        .execute('USP_GET_SUCURSAL')
+        db.storedProcExecute('USP_GET_SUCURSAL')
         config.getConnectionPoolGlobal().then((poolObt) => {
            return querys.getSucursal(poolObt,data.IdSucursal)
         }).then((results) => {
@@ -19,7 +17,7 @@ function getSucursalById(req,res){
 function getSucursales(req,res){
     let Habilitado = req.query.Habilitado;
     db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
-        .execute('USP_GET_SUCURSALES')
+        db.storedProcExecute('USP_GET_SUCURSALES')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.getSucursales(poolObt,Habilitado)
     }).then((results) => {
@@ -32,7 +30,7 @@ function createSucursal(req,res){
     var data = req.body;
     db.pushAOJParam(aoj, 'NombreSucursal',sql.NVarChar(100),data.NombreSucursal)
         db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(250),data.Direccion)
-        .execute('USP_CREATE_SUCURSAL')
+        db.storedProcExecute('USP_CREATE_SUCURSAL')
     config.getConnectionPoolGlobal().then((poolObt) => {
         return querys.createSucursal(poolObt,data)
     }).then((results) => {

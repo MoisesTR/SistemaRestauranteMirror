@@ -8,7 +8,7 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input name="imagen" type="file" class="dropify" data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
+            <input name="imagen" type="file" class="dropify" disabled="disabled" data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
           </div>
         </div>
       </div>
@@ -28,8 +28,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form">
-                    <input type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control validate" [readonly]="true" formControlName="nombre" autocomplete="off">
-                    <label for="UsuarioNombre">Nombres y Apellidos</label>
+                    <input type="text" id="trabajador" name="trabajador" class="form-control validate" [readonly]="true" formControlName="trabajador" autocomplete="off">
+                    <label for="trabajador">Nombres y Apellidos</label>
                   </div>
                 </div>
 
@@ -44,19 +44,17 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="" name="trabajador" class="form-control validate" [readonly]="true" formControlName="" autocomplete="off">
-                    <label for="selectrabajador">Nombre de Usuario</label>
-                  </div>                  
-                  <!-- <select2 name="trabajador"  id="selectrabajador" [options]="optionsSelectTrabajador" [value]="usuario.IdTrabajador">
-                  </select2> -->
+                    <input type="text" id="username" name="username" class="form-control validate" [readonly]="true" formControlName="username" autocomplete="off">
+                    <label for="username">Nombre de Usuario</label>
+                  </div>
                 </div>
 
                 <div class="col-md-12">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="" name="RolUsuario" class="form-control validate" [readonly]="true" formControlName="" autocomplete="off">
-                    <label for="selectrol">Roles</label>
-                  </div>                  
+                    <input type="text" id="rol" name="RolUsuario" class="form-control validate" [readonly]="true" formControlName="rol" autocomplete="off">
+                    <label for="rol">Roles</label>
+                  </div>
                   <!-- <select2 name="RolUsuario" class="selectrol" id="selectrol" [options]="optionsSelectRol" [value]="usuario.IdRol">
                   </select2> -->
                 </div>

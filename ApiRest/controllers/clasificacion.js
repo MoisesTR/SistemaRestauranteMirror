@@ -1,5 +1,6 @@
-const database = require('../services/database')
-const sql = require('mssql')
+const db = require('../services/database')
+const sql = require('mssql');
+const {mssqlErrors} = require('../Utils/util');
 
 function createClasificacion(req,res){ 
     var data = req.body;

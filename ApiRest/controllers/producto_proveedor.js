@@ -10,7 +10,7 @@ function getProductoProveedorById(req,res){
         }).then((results) => {
            res.status(200).json({ producto:results.recordset[0] }) 
         }).catch((err) => {
-            res.status(500).json(err)
+            res.status(500).json( mssqlErrors(err) );
         });
 }
 function getProveedoresOfProducto(req,res){
@@ -21,7 +21,7 @@ function getProveedoresOfProducto(req,res){
     .then((results) => {
         res.status(200).json({productos:results.recordset})
     }).catch((err ) => {
-        res.status(500).json(err);
+        res.status(500).json( mssqlErrors(err) );;
     })
 }
 function getProductosProveedores(req,res){
@@ -30,7 +30,7 @@ function getProductosProveedores(req,res){
     .then((results) => {
        res.status(200).json({productos:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createProductoProveedor(req,res){
@@ -49,7 +49,7 @@ function createProductoProveedor(req,res){
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
     });
 }
 function getProductosByProveedorId(req,res){
@@ -72,7 +72,7 @@ function updateProducto(req,res){
         })
         console.log('Producto Actualizado con exito!');
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
     });
 }
 function changeStateProductoProveedor(req,res){
@@ -84,7 +84,7 @@ function changeStateProductoProveedor(req,res){
         res.status(200).json(results)
         console.log('Producto cambiado de estado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
     });
 }
 function changeStateProducoPro(req,res){

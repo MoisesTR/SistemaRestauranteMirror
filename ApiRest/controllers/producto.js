@@ -13,7 +13,7 @@ function getProductoById(req,res){
             producto:results.recordset[0] 
         });
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getProductos(req,res){
@@ -27,7 +27,7 @@ function getProductos(req,res){
            productos:results.recordset
         }); 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createProducto(req,res){
@@ -66,7 +66,7 @@ function updateProducto(req,res){
         });
         console.log('Producto Actualizado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
     });
 }
 function changeStateProducto(req,res){
@@ -85,7 +85,7 @@ function changeStateProducto(req,res){
         res.status(200).json((afectadas > 0) ? {success:'Producto '+accion+' con exito!'} :{failed:'No se encontro el producto solicitado!'})
         console.log('Producto cambiado de estado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
        console.log('Error:',err)
     });
 }

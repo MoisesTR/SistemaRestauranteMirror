@@ -11,7 +11,7 @@ function createCargo(req,res){
    .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function getCargos(req,res){
@@ -24,7 +24,7 @@ function getCargos(req,res){
             cargos:results.recordset
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function updateCargo(req,res){
@@ -39,7 +39,7 @@ function updateCargo(req,res){
             success:'Cargo Actualizado Exitosamente!'
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getCargoById(req,res){
@@ -50,7 +50,7 @@ function getCargoById(req,res){
     .then((results) => {
         res.status(200).json({cargo:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function changeStateCargo(req,res){
@@ -68,7 +68,7 @@ function changeStateCargo(req,res){
         res.status(200).json((afectadas > 0) ? {success:'Cargo '+accion+' con exito!'} :{failed:'No se encontro el producto solicitado!'})
         console.log('Cargo cambiado de estado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
        console.log('Error:',err)
     });
 }

@@ -10,7 +10,7 @@ function getClasificacionesUdm(req,res){
             clasificaciones:results.recordset
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getClasificacionUdmById(req,res){
@@ -21,7 +21,7 @@ function getClasificacionUdmById(req,res){
     .then((results) => {
         res.status(200).json({clasificacion:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 

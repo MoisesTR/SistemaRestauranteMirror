@@ -10,7 +10,7 @@ function createClasificacion(req,res){
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function getClasificaciones(req,res){
@@ -23,7 +23,7 @@ function getClasificaciones(req,res){
             clasificaciones:results.recordset
         })
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function updateClasificacion(req,res){
@@ -36,7 +36,7 @@ function updateClasificacion(req,res){
     .then((results) => {
         res.status(200).json({success:'Clasificacion actualizada con exito!'})
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getClasificacionById(req,res){
@@ -47,7 +47,7 @@ function getClasificacionById(req,res){
     .then((results) => {
         res.status(200).json({clasificacion:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function changeStateClasificacion(req,res){
@@ -65,7 +65,7 @@ function changeStateClasificacion(req,res){
         res.status(200).json((afectadas > 0) ? {success:'Clasificacion '+accion+' con exito!'} :{failed:'No se encontro la clasificacion solicitada!'})
         console.log('Clasificacion cambiado de estado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
        console.log('Error:',err)
     });
 }

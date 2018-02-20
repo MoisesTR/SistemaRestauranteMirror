@@ -11,7 +11,7 @@ function getSucursalById(req,res){
         }).then((results) => {
            res.status(200).json({sucursal:results.recordset[0]}) 
         }).catch((err) => {
-            res.status(500).json(err)
+            res.status(500).json( mssqlErrors(err) );
         });
 }
 function getSucursales(req,res){
@@ -23,7 +23,7 @@ function getSucursales(req,res){
     }).then((results) => {
         res.status(200).json({sucursales:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createSucursal(req,res){
@@ -36,7 +36,7 @@ function createSucursal(req,res){
     }).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     })
 }
 function getTelefonos(req,res){         
@@ -53,7 +53,7 @@ function getTelefonoSucursal(req,res){
     database.storedProcExecute('USP_GET_TELEFONO_SUCURSAL',aoj).then((results) => {
        res.status(200).json({telefono:results.recordset[0]}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function getTelefonosBySucursalId(req,res){
@@ -65,7 +65,7 @@ function getTelefonosBySucursalId(req,res){
     database.storedProcExecute('USP_GET_TELEFONOS_SUCURSAL',aoj).then((results) => {
        res.status(200).json({telefonos:results.recordset}) 
     }).catch((err) => {
-        res.status(500).json(err)
+        res.status(500).json( mssqlErrors(err) );
     });
 }
 function createTelefonoSucursal(req,res){
@@ -77,7 +77,7 @@ function createTelefonoSucursal(req,res){
     database.storedProcExecute('USP_CREATE_TELEFONO_SUCURSAL',aoj).then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
-        res.status(500).json(err);
+        res.status(500).json( mssqlErrors(err) );;
     })
 }
 function updateTelefonoSucursal(req,res){
@@ -92,7 +92,7 @@ function updateTelefonoSucursal(req,res){
         })
         console.log('Producto Actualizado con exito!')
     }).catch((err) => {
-        res.status(500).json(err);
+        res.status(500).json( mssqlErrors(err) );;
     })
 }
 function changeStateTelefonoSucursal(req,res){
@@ -110,7 +110,7 @@ function changeStateTelefonoSucursal(req,res){
         res.status(200).json((afectadas > 0) ? {success:'Telefono '+accion+' con exito!'} :{failed:'No se encontro el telefono solicitado!'})
         console.log('Telefono ha cambiado de estado con exito!')
     }).catch((err) => {
-       res.status(500).json(err) 
+       res.status(500).json( mssqlErrors(err) ); 
        console.log('Error:',err)
     });
 }

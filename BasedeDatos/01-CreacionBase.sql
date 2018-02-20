@@ -1,6 +1,6 @@
-CREATE DATABASE base;
+CREATE DATABASE pruebas_node;
 GO
-USE base;
+USE pruebas_node;
 GO
 CREATE TABLE PROCEDENCIA_PRODUCTO(
 	IdProcedencia int IDENTITY(1,1),

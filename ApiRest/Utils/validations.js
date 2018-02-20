@@ -1,7 +1,7 @@
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
-function validsParamas(req,res,next){
+function validsParams(req,res,next){
     let errors = validationResult(req);
     (!errors.isEmpty()) ? res.status(402).json(errors.array()) : next();
 }
@@ -38,8 +38,8 @@ const userSignUpValidation=[
 ];
 
 const categoriaCreate=[
-    check('Nombre','Nombre es requerido').exists(),
-    check('Descripcion').exists()
+    check('NombreCategoria','El nombre de la categoria es requerido').exists(),
+    check('DescripcionCategoria', 'La descripcion de la categoria es requerida!').exists()
 ],updateCategoria=[
     check('IdCategoria').isInt(),
     check('Nombre','Nombre es requerido').exists(),
@@ -50,8 +50,8 @@ const categoriaCreate=[
 ];  
 
 const createCargo=[
-    check('NombreCargo').exists(),
-    check('DescripcionCargo').exists()
+    check('NombreCargo','El nombre del cargo es requerido!').exists(),
+    check('DescripcionCargo', 'La descripcion del cargo es requerida!').exists()
 ],updateCargo=[
     check('IdCargo').exists().isInt(),
 ],changeStateCargo=[
@@ -144,7 +144,7 @@ module.exports={
     userSignInValidation,
     userFindEmail,
     userFindUsername,
-    validsParamas,
+    validsParams,
     userUpdate,
     changeStateCargo,
     changeStateCategoria,

@@ -1,5 +1,5 @@
 const {matchedData} = require('express-validator/filter')
-const config = require('../config/mssqlConfig');
+const {mssqlErrors} = require('../Utils/util');
 const sql  = require('mssql');
 const db    = require('../services/database');
 
@@ -46,7 +46,7 @@ function updateCategoria(req,res){
 function getCategoriaById(req,res){
     var data = req.params;
     var aoj  = [];
-    db.pushAOJParam(aoj, 'IdCategoria',sql.Int,IdCategoria);
+    db.pushAOJParam(aoj, 'IdCategoria',sql.Int,data.IdCategoria);
     db.storedProcExecute('USP_GET_CATEGORIA_BY_ID', aoj)
     .then((results) => {
         res.status(200).json({categoria:results.recordset[0]}) 

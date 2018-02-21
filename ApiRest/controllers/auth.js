@@ -1,32 +1,24 @@
-'use strict'
 var sql         = require('mssql');
 var jwt         = require('../services/jwt');
 const moment    = require('moment');
 const bcrypt    = require('bcryptjs');
-const database  = require('../services/database');
+const db  = require('../services/database');
 const saltRounds = 10;
 const { matchedData, sanitize } = require('express-validator/filter');
 
-function pushAOJParam(aoj, name, type, value) {
-	aoj[aoj.length] = {
-		pName: name,
-		pType: type,
-		pData: value
-	}
-}
 //funcion registro\
 function signUp(req,res){
-    const userData = matchedData(req,{locations:['body']});
+    var userData = matchedData(req);
     var aoj=[];
     console.log('signup',userData)
     bcrypt.hash(userData.Password,saltRounds).then((hashPassw) => {
         userData.Password=hashPassw;
         console.log('password hasseada')
-        pushAOJParam(aoj,'Username', sql.NVarChar(20),userData.Username);
-        pushAOJParam(aoj,'Email', sql.NVarChar(100),userData.Email);
-        pushAOJParam(aoj,'Imagen', sql.NVarChar(100), userData.Imagen);
+        db.pushAOJParam(aoj,'Username', sql.NVarChar(20),userData.Username);
+        db.pushAOJParam(aoj,'Email', sql.NVarChar(100),userData.Email);
+        db.pushAOJParam(aoj,'Imagen', sql.NVarChar(100), userData.Imagen);
         console.log('entrando a stored proce')
-        return database.storedProcExecute('USP_GET_USUARIO_BY_USERNAME_OR_EMAIL',aoj)
+        return db.storedProcExecute('USP_GET_USUARIO_BY_USERNAME_OR_EMAIL',aoj)
     }).then((usersfind) => {
         var users=usersfind.recordset;
         console.log(users)
@@ -42,10 +34,10 @@ function signUp(req,res){
                 throw {status:401,code:"EEXIST",message:'No se registro el usuario email:'+userData.email+', ya se encuentra registrado!'};
         }else{
             console.log('Creando Usuario');
-            pushAOJParam(aoj,'Password',sql.NVarChar(100),userData.Password);
-            pushAOJParam(aoj,'IdRol',sql.Int,userData.IdRol);
-            pushAOJParam(aoj,'IdTrabajador',sql.Int,userData.IdTrabajador)
-            return database.storedProcExecute('USP_CREATE_USUARIO',aoj)
+            db.pushAOJParam(aoj,'Password',sql.NVarChar(100),userData.Password);
+            db.pushAOJParam(aoj,'IdRol',sql.Int,userData.IdRol);
+            db.pushAOJParam(aoj,'IdTrabajador',sql.Int,userData.IdTrabajador)
+            return db.storedProcExecute('USP_CREATE_USUARIO',aoj)
         }
     }).then((result) => {
         console.log("Creado")
@@ -59,17 +51,19 @@ function signUp(req,res){
    // const playload = jwt.decode(token)
 }
 //funcion login
-function singIn(req,res){
-    const userData= matchedData(req,{locations:'body'});
+function singIn(req, res){
+    var userData= matchedData(req);
     var aoj=[];
-    pushAOJParam(aoj,'Username',sql.NVarChar(20),userData.Username);
-    database.storedProcExecute('USP_GET_USUARIO_BY_USERNAME',aoj).then((userResult) => {
-        var user= userResult.recordset[0];
-        const passh=user.Password;
+    db.pushAOJParam(aoj,'Username',sql.NVarChar(20), userData.Username);
+    console.log('no hay')
+    db.storedProcExecute('USP_GET_USUARIO_BY_USERNAME',aoj)
+    .then((userResult) => {
+        var user = userResult.recordset[0];
         if(user){
+            var passh = user.Password;
             console.log('Usuario encontrado');
 
-            bcrypt.compare(userData.Password,passh).then((isequal) => {
+            bcrypt.compare(userData.Password, passh).then((isequal) => {
                 if(isequal){  
                     console.log('Las contrasenas coinciden');    
                     console.log((userData.gettoken==true) ? 'Se retornara un token' : 'Se retornara la informacion del usuario');
@@ -104,8 +98,8 @@ function singIn(req,res){
 function getUsers(req,res){
     let Habilitado = req.query.Habilitado;
     var aoj=[];
-    pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado);
-    database.storedProcExecute('USP_GET_USUARIOS',aoj).then((result) => {
+    db.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado);
+    db.storedProcExecute('USP_GET_USUARIOS',aoj).then((result) => {
         res.status(200).json({usuarios:result.recordset})
     }).catch((error) => {
         res.status(500).json(error)
@@ -120,9 +114,9 @@ function updateUser(req,res){
         return res.status(403).json({status:403,code:'EUNAUTH',message:'Este no es tu usuario'});
     }
         var aoj=[];
-    pushAOJParam(aoj,'IdUsuario',)
-    pushAOJParam(aoj,'Email')
-    pushAOJParam(aoj,'Email',)
+    db.pushAOJParam(aoj,'IdUsuario',)
+    db.pushAOJParam(aoj,'Email')
+    db.pushAOJParam(aoj,'Email',)
     res.status(200).json({status:200,code:'',message:'Usuario actualizado'});
 }
 function changeStateUser(req,res){
@@ -130,9 +124,9 @@ function changeStateUser(req,res){
     let Habilitado = req.body.Habilitado
     console.log('IdUsuario:'+IdUsuario,'Habilitado:'+Habilitado)
     var aoj=[];
-    database.pushAOJParam(aoj,'IdUsuario',sql.Int,IdUsuario)
-    database.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
-    database.storedProcExecute('USP_DISP_USUARIO',aoj).then((results) => {
+    db.pushAOJParam(aoj,'IdUsuario',sql.Int,IdUsuario)
+    db.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
+    db.storedProcExecute('USP_DISP_USUARIO',aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]
         let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';

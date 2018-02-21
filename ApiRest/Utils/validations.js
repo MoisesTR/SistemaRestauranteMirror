@@ -23,12 +23,12 @@ const userSignUpValidation=[
     check('Email','El campo email es requerido!').exists(),
     check('Email','Campo email debe ser un Email').isEmail()
 ], userSignInValidation=[
-    check('Username','8username es requerido!').exists(),
     check('Username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),
-    check('Password','password es requerido!').exists(),
     check('Password','El password debe tener una longitud minima de 8 y maxima de 20').isLength({min:4,max:20}),
     check('gettoken','gettoken debe ser un boleano').isBoolean().optional({nullable:true}),
-    sanitize('gettoken').toBoolean()
+    sanitize('gettoken').toBoolean(),
+    sanitize('Username').toString(),
+    sanitize('Password').toString()
 ], userUpdate=[
     check('IdUsuario','IdUsuario debe ser un Entero!').isInt().optional({nullable:false}),
     check('Username','username debe tener un minimo de 5 caracteres').isLength({min:5,max:50}),

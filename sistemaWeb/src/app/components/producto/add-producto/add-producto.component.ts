@@ -18,6 +18,7 @@ import {ProductoService} from '../../../services/producto.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utilidades} from '../../Utilidades';
 
+
 declare var $:any;
 
 @Component({
@@ -39,6 +40,7 @@ export class AddProductoComponent implements OnInit {
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
   public optionsSelect2: Select2Options;
+  public todoValidado = 0;
 
   constructor(
     private _route: ActivatedRoute
@@ -107,7 +109,11 @@ export class AddProductoComponent implements OnInit {
 
     if(idCategoria != null){
       this.producto.IdCategoria = idCategoria;
+    } else {
+      this.producto.IdCategoria = null;
     }
+
+    this.validarSelect2Campos();
   }
 
   changeSelectClasificacion(event){
@@ -126,7 +132,12 @@ export class AddProductoComponent implements OnInit {
 
             }
           )
+    } else {
+      this.subclasificaciones = null;
+      this.producto.IdClasificacion = null;
+      this.producto.IdSubclasificacion = null;
     }
+    this.validarSelect2Campos();
   }
 
   changeSelectSubClasificacion(event){
@@ -135,7 +146,10 @@ export class AddProductoComponent implements OnInit {
 
     if(idSubClasificacion != null){
       this.producto.IdSubclasificacion = idSubClasificacion;
+    } else {
+      this.producto.IdSubclasificacion = null;
     }
+    this.validarSelect2Campos();
   }
 
   obtenerDatosFormNuevoProducto() {
@@ -205,7 +219,6 @@ export class AddProductoComponent implements OnInit {
 
   }
   crearProducto(){
-
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
         if(response.IdProducto){
@@ -220,7 +233,7 @@ export class AddProductoComponent implements OnInit {
       }, error =>{
         swal(
           'Producto',
-          Utilidades.mensajeError(<any>error),
+          Utilidades.mensajeError(error),
           'error'
         )
       }
@@ -255,5 +268,14 @@ export class AddProductoComponent implements OnInit {
       ]),
 
     })
+  }
+
+  validarSelect2Campos(){
+
+    if( this.producto.IdClasificacion == null || this.producto.IdSubclasificacion == null || this.producto.IdCategoria == null){
+      this.todoValidado = 0;
+    } else {
+      this.todoValidado = 1;
+    }
   }
 }

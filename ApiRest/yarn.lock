@@ -595,12 +595,15 @@ express-session@^1.15.6:
     uid-safe "~2.1.5"
     utils-merge "1.0.1"
 
+<<<<<<< HEAD:ApiRest/yarn.lock
 express-validation@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/express-validation/-/express-validation-1.0.2.tgz#7d589dd3b257c55b3e004665b6c69cb12cc2b142"
   dependencies:
     lodash "^4.9.0"
 
+=======
+>>>>>>> 10e25857b03477539c65ab8468f397f27dacee47:ApiRest/yarn.lock
 express-validator@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-5.0.1.tgz#8394ad15b865b5cb45346418c225d2f52db36173"
@@ -1244,7 +1247,7 @@ lodash@3.x:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.16.0, lodash@^4.9.0:
+lodash@^4.16.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
@@ -1372,9 +1375,9 @@ ms@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
 
-mssql@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/mssql/-/mssql-4.1.0.tgz#5a70e24d751c28bcb9f23acf709c1bdaccc8eae6"
+mssql@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/mssql/-/mssql-4.0.0.tgz#7e1cc9a2a77f22408adf31bd3e3361fe6b9a703a"
   dependencies:
     debug "^2.6.3"
     generic-pool "^3.1.7"

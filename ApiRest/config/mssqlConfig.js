@@ -8,7 +8,7 @@ const config = {
     port: '1433',
     parseJSON: true,
     options: {
-        trustedConnection: true
+        trustedConnection: false
     }
 }
 function getConnectionPoolGlobal(){

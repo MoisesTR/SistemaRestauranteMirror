@@ -57,10 +57,10 @@ export class MenuComponent implements OnInit, AfterViewInit{
   logout() {
     localStorage.clear();
     this._usuarioService.identity = null;
-    this._router.navigate(['/']);
+    this._router.navigate(['/login']);
   }
 
   verInformacionUsuario(){
-    this._router.navigate(['menu/usuario/view']);
+    this._router.navigate(['/usuario/view']);
   }
 }

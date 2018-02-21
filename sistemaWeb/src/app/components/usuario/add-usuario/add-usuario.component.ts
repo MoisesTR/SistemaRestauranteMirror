@@ -99,7 +99,7 @@ export class AddUsuarioComponent implements OnInit {
             'El Usuario ha sido creado exitosamente!',
             'success'
           ).then(() => {
-            this._router.navigate(['menu/usuario']);
+            this._router.navigate(['/usuario']);
           })
         }
       }, error=>{

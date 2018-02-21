@@ -40,11 +40,11 @@ import {AuthGuardService} from '../../services/auth/auth-guard.service';
 const menuRoutes: Routes = [
 
   {
-    path:'menu',
+    path:'',
     component: MenuComponent,
     canActivate: [AuthGuardService],
     children: [
-        {path:'',redirectTo:'dashboard',pathMatch:'full' }
+        {path:'',redirectTo:'/dashboard',pathMatch:'full' }
         , {path:'producto',component: ListProductosComponent}
         , {path:'producto/add',component: AddProductoComponent}
         , {path:'producto/update/:id',component: UpdateProductoComponent}

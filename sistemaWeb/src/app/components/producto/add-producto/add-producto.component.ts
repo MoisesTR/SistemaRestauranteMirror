@@ -227,7 +227,7 @@ export class AddProductoComponent implements OnInit {
             'El producto ha sido creado exitosamente!',
             'success'
           ).then(() => {
-            this._router.navigate(['menu/producto']);
+            this._router.navigate(['/producto']);
           })
         }
       }, error =>{

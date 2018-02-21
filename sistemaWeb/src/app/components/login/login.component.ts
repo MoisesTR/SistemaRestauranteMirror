@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
               } else {
                 this.status = 'success';
                 this.usuarioServicio.setUserLoggedIn();
-                this._router.navigate(['/menu']);
+                this._router.navigate(['/dashboard']);
               }
             },
             error => {

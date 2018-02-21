@@ -7,16 +7,12 @@ import {LoginComponent} from './components/login/login.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
 import {MenuModule} from './components/menu/menu.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
+import {HttpModule} from '@angular/http';
 import {InformacionFacturaComponent} from './components/informacion-factura/informacion-factura.component';
 import {BuscarGeneralFacturaComponent} from './components/buscar-general-factura/buscar-general-factura.component';
 import {SharedModuleModule} from './components/shared-module/shared-module.module';
-import {AuthGuardService} from './services/auth/auth-guard.service';
-import {AuthService} from './services/auth/auth.service';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent },
   {path: 'login', component: LoginComponent},
   {path:'**',component: NotFound404Component}
 ]

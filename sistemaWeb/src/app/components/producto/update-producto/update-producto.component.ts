@@ -145,7 +145,7 @@ export class UpdateProductoComponent implements OnInit {
 
     if(idSubClasificacion) {
       this.producto.IdSubclasificacion = idSubClasificacion;
-    } 
+    }
   }
 
   changedSelectClasificacion(event){
@@ -162,7 +162,7 @@ export class UpdateProductoComponent implements OnInit {
 
         }
       )
-    } 
+    }
   }
 
   getProducto(){
@@ -189,7 +189,7 @@ export class UpdateProductoComponent implements OnInit {
               });
               this.inicializarValoresFormularioProducto();
             } else {
-              this._router.navigate(['producto/list']);
+              this._router.navigate(['/producto/list']);
             }
           }, error =>{
 
@@ -248,7 +248,7 @@ export class UpdateProductoComponent implements OnInit {
             'El producto ha sido actualizado exitosamente!',
             'success'
           ).then(() => {
-            this._router.navigate(['menu/producto']);
+            this._router.navigate(['/producto']);
           })
         }
       }, error =>{
@@ -311,7 +311,7 @@ export class UpdateProductoComponent implements OnInit {
       this.todoValidado = 1;
     }
 
-  
+
   }
 
 }

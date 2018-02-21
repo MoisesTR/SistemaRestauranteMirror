@@ -160,7 +160,7 @@ export class AddTrabajadorComponent implements OnInit {
             'success'
           ).then(() => {
 
-            this._router.navigate(['menu/trabajador']);
+            this._router.navigate(['/trabajador']);
 
           })
         } else {

@@ -11,6 +11,9 @@ import {HttpModule} from '@angular/http';
 import {InformacionFacturaComponent} from './components/informacion-factura/informacion-factura.component';
 import {BuscarGeneralFacturaComponent} from './components/buscar-general-factura/buscar-general-factura.component';
 import {SharedModuleModule} from './components/shared-module/shared-module.module';
+import {DropdownModule} from 'ngx-dropdown';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -30,8 +33,16 @@ const routes: Routes = [
     , FormsModule
     , RouterModule.forRoot(routes)
     , SharedModuleModule
+    , BrowserAnimationsModule
     , MenuModule
     , ReactiveFormsModule
+    ,DropdownModule
+    ,  ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
+    ,
   ],
   providers: [],
   bootstrap: [AppComponent]

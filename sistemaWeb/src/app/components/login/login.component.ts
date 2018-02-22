@@ -4,6 +4,7 @@ import {UsuarioService} from '../../services/usuario.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from '../../validadores/CustomValidators';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private usuarioServicio: UsuarioService,
     private formBuilderUser : FormBuilder
+    , private toastr: ToastrService
   ) {
 
     this.usuario = new Usuario(null,null,null,null,null,null,null,null,null);
@@ -69,7 +71,7 @@ export class LoginComponent implements OnInit {
       response =>{
         this.identity = response;
         if(!this.identity || !this.identity.IdUsuario){
-
+          this.toastr.error('Error', 'Te equivocaste!');
         } else {
 
           this.identity.Password = '';

@@ -52,6 +52,7 @@ import {Select2Module} from 'ng2-select2';
 import {AuthGuardService} from '../../services/auth/auth-guard.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {JwtHelper} from 'angular2-jwt';
+import {ProductoProveedorModule} from '../producto-proveedor/producto-proveedor.module';
 
 
 @NgModule({
@@ -71,7 +72,6 @@ import {JwtHelper} from 'angular2-jwt';
     , CargoComponent
     , ReporteComponent
     , TrasladoProductoComponent
-  //  , ProductoProveedorComponent
     , RolusuarioComponent
     , HabilitadosComponent
     , UnidadmedidaComponent
@@ -92,6 +92,7 @@ import {JwtHelper} from 'angular2-jwt';
     , UsuarioModule
     , SharedModuleModule
     , Select2Module
+    , ProductoProveedorModule
     , HttpClientModule
 
   ],

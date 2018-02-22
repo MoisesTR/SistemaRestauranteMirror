@@ -1,0 +1,27 @@
+import {NgModule} from '@angular/core';
+import {SharedModuleModule} from '../shared-module/shared-module.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DataTablesModule} from 'angular-datatables';
+import {HttpClientModule} from '@angular/common/http';
+import {AddProductoProveedorComponent} from './add-producto-proveedor/add-producto-proveedor.component';
+import {ListProductoProveedorComponent} from './list-producto-proveedor/list-producto-proveedor.component';
+import {UpdateProductoProveedorComponent} from './update-producto-proveedor/update-producto-proveedor.component';
+import {ProductoProveedorRoutingModule} from './producto-proveedor.routing.module';
+
+@NgModule({
+  imports: [
+     ProductoProveedorRoutingModule
+    , FormsModule
+    , HttpClientModule
+    , DataTablesModule
+    , ReactiveFormsModule
+    , SharedModuleModule
+
+  ],
+  declarations: [
+    AddProductoProveedorComponent
+    , ListProductoProveedorComponent
+    , UpdateProductoProveedorComponent
+  ]
+})
+export class ProductoProveedorModule { }

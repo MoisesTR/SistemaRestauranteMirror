@@ -3,7 +3,6 @@ import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
-  /*  RouterModule.forChild(produtoRoutes)*/
 
   ],
   exports: [
@@ -12,6 +11,6 @@ import {RouterModule} from '@angular/router';
 })
 
 
-export class ProductoRoutingModule {
+export class ProductoProveedorRoutingModule {
 
 }

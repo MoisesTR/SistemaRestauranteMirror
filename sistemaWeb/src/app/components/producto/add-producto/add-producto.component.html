@@ -45,9 +45,12 @@
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <select2 (valueChanged)="changeSelectSubClasificacion($event)" [options]="optionsSelect2" class="selectsubclasificacion"  id="subclasificacion"  >
-                  <option class="chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
-                </select2>
+                <ng-select [items]="people"
+                           bindLabel="NombreProducto"
+                           bindValue="IdProducto"
+                           class="form-control" formControlName="subclasificacion">
+                </ng-select>
+                <show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>
               </div>
               <div class="col-md-6">
                 <br>

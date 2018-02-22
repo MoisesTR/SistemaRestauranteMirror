@@ -17,6 +17,7 @@ import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto
 import {ProductoService} from '../../../services/producto.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utilidades} from '../../Utilidades';
+import {Observable} from 'rxjs/Observable';
 
 
 declare var $:any;
@@ -41,7 +42,7 @@ export class AddProductoComponent implements OnInit {
   public url: string;
   public optionsSelect2: Select2Options;
   public todoValidado = 0;
-
+  people: Producto[];
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
@@ -95,6 +96,7 @@ export class AddProductoComponent implements OnInit {
     this.getClasificaciones();
     this.initFormAddProducto();
     this.onChanges();
+    this.productos();
 
   }
 
@@ -138,6 +140,19 @@ export class AddProductoComponent implements OnInit {
       this.producto.IdSubclasificacion = null;
     }
     this.validarSelect2Campos();
+  }
+
+  productos(){
+    this._productoService.getProductos().subscribe(
+      response=>{
+        if(response.productos){
+          this.people  = response.productos;
+          console.log(this.people)
+        }
+      }, error =>{
+
+      }
+    )
   }
 
   changeSelectSubClasificacion(event){
@@ -261,6 +276,12 @@ export class AddProductoComponent implements OnInit {
 
       ),
       'descripcionProducto': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ]),
+      'subclasificacion': new FormControl('',[
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(300)

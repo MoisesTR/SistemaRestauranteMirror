@@ -25,7 +25,7 @@
         "../node_modules/jquery/dist/jquery.js"
         ,"../node_modules/collapsible.js/jquery.collapsible.js"
         ,"../node_modules/jquery-mask-plugin/dist/jquery.mask.js"
-        , "../node_modules/datatables.net/js/jquery.dataTables.js"
+        ,"assets/js/datatables.min.js"
         ,"assets/js/select2.min.js"
         ,"../node_modules/sidenavjs/dist/sidenav.min.js"
         ,"assets/js/popper.min.js"

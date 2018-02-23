@@ -33,7 +33,7 @@ import {NG_SELECT_DEFAULT_CONFIG, NgSelectModule} from '@ng-select/ng-select';
   ,providers: [ProductoService,  {
     provide: NG_SELECT_DEFAULT_CONFIG,
     useValue: {
-      notFoundText: 'Custom not found'
+      notFoundText: 'No se encontraron resultados'
     }
   }]
   ,exports: []

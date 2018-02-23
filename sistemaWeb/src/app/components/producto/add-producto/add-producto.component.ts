@@ -42,7 +42,6 @@ export class AddProductoComponent implements OnInit {
   public url: string;
   public optionsSelect2: Select2Options;
   public todoValidado = 0;
-  people: Producto[];
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
@@ -96,86 +95,17 @@ export class AddProductoComponent implements OnInit {
     this.getClasificaciones();
     this.initFormAddProducto();
     this.onChanges();
-    this.productos();
 
   }
 
   onChanges(): void{
     this.formAddProducto.valueChanges.subscribe(valor => {
+     this.producto.IdClasificacion = valor.clasificacion;
+     this.producto.IdCategoria = valor.categoria;
+     this.producto.NombreProducto = valor.nombreProducto;
+     this.producto.Descripcion = valor.descripcionProducto;
     });
   }
-
-  changeSelectCategoria(event){
-
-    let idCategoria = event.value[0];
-
-    if(idCategoria != null){
-      this.producto.IdCategoria = idCategoria;
-    } else {
-      this.producto.IdCategoria = null;
-    }
-
-    this.validarSelect2Campos();
-  }
-
-  changeSelectClasificacion(event){
-
-    let idClasificacion = event.value[0];
-
-    if(idClasificacion != null) {
-      this.producto.IdClasificacion = idClasificacion;
-      this._subclasificacionService.getSubClasificacionesByIdClasificacion(idClasificacion).subscribe(
-
-            response =>{
-              if(response.subclasificaciones){
-                this.subclasificaciones = response.subclasificaciones;
-              }
-            }, error=>{
-
-            }
-          )
-    } else {
-      this.subclasificaciones = null;
-      this.producto.IdClasificacion = null;
-      this.producto.IdSubclasificacion = null;
-    }
-    this.validarSelect2Campos();
-  }
-
-  productos(){
-    this._productoService.getProductos().subscribe(
-      response=>{
-        if(response.productos){
-          this.people  = response.productos;
-          console.log(this.people)
-        }
-      }, error =>{
-
-      }
-    )
-  }
-
-  changeSelectSubClasificacion(event){
-
-    let idSubClasificacion = event.value[0];
-
-    if(idSubClasificacion != null){
-      this.producto.IdSubclasificacion = idSubClasificacion;
-    } else {
-      this.producto.IdSubclasificacion = null;
-    }
-    this.validarSelect2Campos();
-  }
-
-  obtenerDatosFormNuevoProducto() {
-
-    this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
-    this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
-    this.producto.IdEstado = 1;
-
-  }
-
-
   getCategorias(){
 
     this._categoriaService.getCategoriasProductos().subscribe(
@@ -191,14 +121,25 @@ export class AddProductoComponent implements OnInit {
     )
 
   }
+  onAddSelectClasificacion(event){
 
+    this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
+      response =>{
+        if(response.subclasificaciones){
+          this.subclasificaciones = response.subclasificaciones;
+        }
+      }, error=>{
+
+      }
+    )
+
+  }
   getClasificaciones(){
 
     this._clasificaionService.getClasificaciones().subscribe(
 
       response =>{
         if(response.clasificaciones){
-
           this.clasificaciones = response.clasificaciones;;
 
         }
@@ -261,7 +202,6 @@ export class AddProductoComponent implements OnInit {
   }
 
   validarCamposProduto(){
-    this.obtenerDatosFormNuevoProducto();
     this.guardarImagenProducto();
   }
 
@@ -281,7 +221,20 @@ export class AddProductoComponent implements OnInit {
         , Validators.maxLength(300)
         , CustomValidators.espaciosVacios
       ]),
+      'clasificacion': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ]),
       'subclasificacion': new FormControl('',[
+        Validators.required
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+        , CustomValidators.espaciosVacios
+      ]),
+
+      'categoria': new FormControl('',[
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(300)

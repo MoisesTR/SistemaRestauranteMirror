@@ -32,37 +32,52 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto"   [(ngModel)] = "formAddProducto.value.nombreProducto" class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
                   <show-errors [control]="formAddProducto.controls['nombreProducto']"></show-errors>
                   <label for="nombreproducto">Nombre</label>
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="selectclasificacion">Clasificación</label>
-                <select2 (valueChanged)="changeSelectClasificacion($event)" [options]="optionsSelect2" class="" id="selectclasificacion"  >
-                  <option class="chip" *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
-                </select2>
+                <label for="clasificacion">Clasificación</label>
+                <ng-select [items]="clasificaciones"
+                           bindLabel="NombreClasificacion"
+                           bindValue="IdClasificacion"
+                           placeholder="Selecciona una clasificacion"
+                           class="form-control" formControlName="clasificacion" id="clasificacion" (add)="onAddSelectClasificacion($event)"
+                           [(ngModel)] = "formAddProducto.value.clasificacion"
+                >
+                </ng-select>
+                <show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <ng-select [items]="people"
-                           bindLabel="NombreProducto"
-                           bindValue="IdProducto"
-                           class="form-control" formControlName="subclasificacion">
+                <ng-select [items]="subclasificaciones"
+                           bindLabel="NombreSubClasificacion"
+                           bindValue="IdSubclasificacion"
+                           placeholder="Selecciona una subclasificacion"
+                           class="form-control" formControlName="subclasificacion" id="subclasificacion"
+                           [(ngModel)] = "formAddProducto.value.subclasificacion"
+                >
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>
               </div>
               <div class="col-md-6">
                 <br>
-                <label for="selectcategoria">Categoria</label>
-                <select2 (valueChanged)="changeSelectCategoria($event)" [options]="optionsSelect2" class="selectcategoria"  id='selectcategoria' >
-                  <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
-                </select2>
+                <label for="categoria">Categoria</label>
+                <ng-select [items]="categorias"
+                           bindLabel="NombreCategoria"
+                           bindValue="IdCategoria"
+                           placeholder="Selecciona una categoria"
+                           class="form-control" formControlName="categoria" id="categoria"
+                           [(ngModel)] = "formAddProducto.value.categoria"
+                >
+                </ng-select>
+                <show-errors [control]="formAddProducto.controls['categoria']"></show-errors>
               </div>
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off" required></textarea>
+                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto"   [(ngModel)] = "formAddProducto.value.descripcionProducto" class="md-textarea" autocomplete="off" required></textarea>
                   <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
                 </div>

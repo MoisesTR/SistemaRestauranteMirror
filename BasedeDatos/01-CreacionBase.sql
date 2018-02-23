@@ -194,7 +194,7 @@ GO
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     IdSubclasificacion INT IDENTITY(1,1),
     IdClasificacion INT,
-    NombreSubclasificacion NVARCHAR(50),
+    NombreSubclasificacion NVARCHAR(50) NOT NULL,
     DescripcionSubclasificacion NVARCHAR(150),
     Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
@@ -212,7 +212,7 @@ VALUES (1,'Filete','Filete de pollo entero.')
 GO
 CREATE TABLE  CATEGORIA_PRODUCTO(
     IdCategoria INT IDENTITY(1,1),
-    NombreCategoria NVARCHAR(50),
+    NombreCategoria NVARCHAR(50)  NOT NULL,
     DescripcionCategoria NVARCHAR(150),
     Habilitado Bit default 1 not null,
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),

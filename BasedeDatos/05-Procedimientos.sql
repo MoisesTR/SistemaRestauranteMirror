@@ -179,9 +179,14 @@ IF OBJECT_ID('USP_GET_SUBCLASIFICACIONES','P') IS NOT NULL
 GO
 --Nombre anterios USP_ListSubClasificaciones 
 CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES 
+	@Habilitado BIT  NULL
 AS BEGIN
-	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
-    INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion;
+	IF @Habilitado IS NULL
+		SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
+		INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion
+	ELSE
+		SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
+			INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion WHERE c.Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_DISP_SUBCLASIFICACION','P') IS NOT NULL
@@ -327,3 +332,16 @@ BEGIN
 		SET @RETORNO= 2;
 	RETURN @RETORNO;
 END
+GO
+IF OBJECT_ID('USP_UPDATE_EMPAQUE','P') IS NOT NULL
+	DROP PROCEDURE USP_UPDATE_EMPAQUE
+GO
+CREATE PROCEDURE USP_UPDATE_EMPAQUE(
+	@IdEmpaque INT,
+	@NombreEmpaque NVARCHAR(50), 
+	@Descripcion NVARCHAR(150)
+)
+AS BEGIN
+	UPDATE EMPAQUE SET NombreEmpaque = @NombreEmpaque, Descripcion = @Descripcion WHERE IdEmpaque = @IdEmpaque
+END
+SELECT * FROM EMPAQUE

@@ -1,6 +1,7 @@
 const {mssqlErrors} = require('../Utils/util')
 const { matchedData, sanitize } = require('express-validator/filter');
 const db = require('../services/database');
+const sql = require('mssql')
 
 function getTrabajadorById(req,res){
     var data = req.params;

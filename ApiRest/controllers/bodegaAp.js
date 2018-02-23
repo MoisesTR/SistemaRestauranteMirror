@@ -17,7 +17,8 @@ function createEntradaBodegaAp(req,res){
     db.pushAOJParam(aoj,'PorcIva',sql.Int,data.PorcIva);
     db.pushAOJParam(aoj,'PorcDescuento',sql.Int,data.PorcDescuento);
     db.pushAOJParam(aoj,'FechaHora',sql.Date,data.FechaHora);
-    db.storedProcExecute('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
+    db.storedProcExecute('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION',aoj)
+    .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
@@ -33,7 +34,8 @@ function createDetalleEntrada(req,res){
     //db.pushAOJParam(IdEstadoEdicicion,sql.,);
     db.pushAOJParam(aoj,'PrecioUnitarioEntrada',sql.Money,data.PrecioUnitarioEntrada);
     db.pushAOJParam(aoj,'DescuentoCalculado',sql.Money,data.DescuentoCalculado);
-    db.storedProcExecute('USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION',aoj).then((results) => {
+    db.storedProcExecute('USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION',aoj)
+    .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
@@ -44,7 +46,8 @@ function getDetalleBodegaAp(req,res){
     let Habilitado = req.query.Habilitado;
     let aoj=[];
     db.pushAOJParam(aoj,'IdBodegaAreaP',sql.Int,1);
-    db.storedProcExecute('USP_GET_DETALLE_BODEGA_AP',aoj).then((results) => {
+    db.storedProcExecute('USP_GET_DETALLE_BODEGA_AP',aoj)
+    .then((results) => {
         res.status(200).json({
             detalles:results.recordset
         })

@@ -6,7 +6,7 @@ function createRol(req,res){
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreRol',sql.NVarChar(50),data.NombreRol)
     db.pushAOJParam(aoj, 'DescripcionRol',sql.NVarChar(150),data.DescripcionRol)
-    db.storedProcExecute('USP_CREATE_ROL_USUARIO')
+    db.storedProcExecute('USP_CREATE_ROL_USUARIO', aoj)
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {

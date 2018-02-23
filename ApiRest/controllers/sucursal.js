@@ -29,25 +29,20 @@ function createSucursal(req,res){
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreSucursal',sql.NVarChar(100),data.NombreSucursal)
     db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(250),data.Direccion)
-    db.storedProcExecute('USP_CREATE_SUCURSAL')
+    db.storedProcExecute('USP_CREATE_SUCURSAL', aoj)
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
     })
 }
-function getTelefonos(req,res){         
-    const Habilitado = req.query.Habilitado;
-    var aoj=[];
-    database.pushAOJParam('Habilitado',sql.Int,Habilitado);
-    database.storedProcExecute('')
-}
 function getTelefonoSucursal(req,res){
     let telefoData = req.params;
     var aoj =[];
     database.pushAOJParam(aoj,'IdTelefonoSucursal',sql.Int,telefoData.IdTelefonoSucursal)
     database.pushAOJParam(aoj,'IdSucursal',sql.Int,telefoData.IdSucursal);
-    database.storedProcExecute('USP_GET_TELEFONO_SUCURSAL',aoj).then((results) => {
+    database.storedProcExecute('USP_GET_TELEFONO_SUCURSAL',aoj)
+    .then((results) => {
        res.status(200).json({telefono:results.recordset[0]}) 
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
@@ -59,7 +54,8 @@ function getTelefonosBySucursalId(req,res){
     var aoj = [];
     database.pushAOJParam(aoj,'IdSucursal',sql.Int,IdSucursal);
     database.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
-    database.storedProcExecute('USP_GET_TELEFONOS_SUCURSAL',aoj).then((results) => {
+    database.storedProcExecute('USP_GET_TELEFONOS_SUCURSAL',aoj)
+    .then((results) => {
        res.status(200).json({telefonos:results.recordset}) 
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
@@ -71,7 +67,8 @@ function createTelefonoSucursal(req,res){
     var aoj = [];
     database.pushAOJParam(aoj,'IdSucursal',sql.Int,IdSucursal);
     database.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.NumeroTelefono);
-    database.storedProcExecute('USP_CREATE_TELEFONO_SUCURSAL',aoj).then((results) => {
+    database.storedProcExecute('USP_CREATE_TELEFONO_SUCURSAL',aoj)
+    .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );;
@@ -83,7 +80,8 @@ function updateTelefonoSucursal(req,res){
     database.pushAOJParam(aoj,'IdTelefonoSucursal',sql.Int,telefoData.IdTelefonoSucursal    )
     database.pushAOJParam(aoj,'IdSucursal',sql.Int,telefoData.IdSucursal);
     database.pushAOJParam(aoj,'NumeroTelefono',sql.NVarChar(20),telefoData.NumeroTelefono);
-    database.storedProcExecute('USP_UPDATE_TELEFONO_SUCURSAL',aoj).then((results) => {
+    database.storedProcExecute('USP_UPDATE_TELEFONO_SUCURSAL',aoj)
+    .then((results) => {
         res.status(200).json({
             success:'Producto Actualizado exitosamente!!'
         })

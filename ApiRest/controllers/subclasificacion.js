@@ -58,15 +58,20 @@ function updateSubclasificacion(req,res){
     });
 }
 function disSubclasificaciones(pool,IdSubClasificacion){
-    return pool.request()
-        db.pushAOJParam(aoj, 'IdSubClasificacion',sql.Int,IdSubClasificacion)
-        db.storedProcExecute('USP_DISP_SUBCLASIFICACION');
+    var aoj= [];
+    db.pushAOJParam(aoj, 'IdSubClasificacion',sql.Int,IdSubClasificacion)
+    db.storedProcExecute('USP_DISP_SUBCLASIFICACION', aoj)
+    .then((result) => {
+        res.status(200).json(result)
+    }).catch((err) => {
+        res.status(500).json( mssqlErrors(err) );
+    });
 }
 function getSubclasificacionesByIdClasificacion(req,res){
     var data = req.params;
     var aoj = [];
     db.pushAOJParam(aoj, 'IdClasificacion',sql.Int,data.IdClasificacion)
-    db.storedProcExecute('USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION')
+    db.storedProcExecute('USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION', aoj)
     .then((results) => {
         res.status(200).json({subclasificaciones:results.recordset}) 
     }).catch((err) => {
@@ -79,7 +84,7 @@ function changeStateSubClasificacion(req,res){
     let Habilitado = req.body.Habilitado
     db.pushAOJParam(aoj, 'IdSubClasificacion',sql.Int,IdSubClasificacion)
     db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
-    db.storedProcExecute('USP_DISP_SUBCLASIFICACION')
+    db.storedProcExecute('USP_DISP_SUBCLASIFICACION', aoj)
     .then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]

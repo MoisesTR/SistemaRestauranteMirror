@@ -27,7 +27,7 @@ function createUnidadMedida(req,res){
     db.pushAOJParam(aoj, 'IdClasificacionUnidadMedida',sql.Int,data.IdClasificacionUnidadMedida)
     db.pushAOJParam(aoj, 'NombreUnidad',sql.NVarChar(50),data.NombreUnidad)
     db.pushAOJParam(aoj, 'Simbolo',sql.NVarChar(3),data.Simbolo)
-    db.storedProcExecute('USP_CREATE_UNIDAD_MEDIDA')
+    db.storedProcExecute('USP_CREATE_UNIDAD_MEDIDA', aoj)
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {

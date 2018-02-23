@@ -1,6 +1,6 @@
 const { matchedData, sanitize } = require('express-validator/filter');
 const sql = require('mssql');
-const mssqlErrors = require('../Utils/util');
+const {mssqlErrors} = require('../Utils/util');
 const db = require('../services/database');
 
 function getProductoProveedorById(req,res){

@@ -14,6 +14,30 @@ function pushOutParam(aoj, name, type) {
 		pType: type
 	}
 }
+function storedProcExecuteServer(spName, parametersJsonArray) {
+    return conSql.getConnectionPoolGlobalServer()
+    .then(function(pool) {	
+        console.log('Conecto');
+        let request  = pool.request()
+        for (var i = 0; i < parametersJsonArray.length; i++) {
+            if(parametersJsonArray[i].pClasf == 1)
+                request.input(
+                    parametersJsonArray[i]['pName'],
+                    eval(parametersJsonArray[i]['pType']),
+                    parametersJsonArray[i]['pData']);
+            else
+                request.output(
+                    parametersJsonArray[i]['pName'],
+                    eval(parametersJsonArray[i]['pType']));
+        }
+       // console.dir(request.parameters)
+        return request.execute(spName);			
+    }).catch(function(err) {
+        //console.log("Connection Error: " + err);
+        throw err;
+    })
+}
+
 function storedProcExecute(spName, parametersJsonArray) {
     console.log('storedProcExec')
     return conSql.getConnectionPoolGlobal()

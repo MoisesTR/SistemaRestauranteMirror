@@ -595,6 +595,15 @@ express-session@^1.15.6:
     uid-safe "~2.1.5"
     utils-merge "1.0.1"
 
+<<<<<<< HEAD:ApiRest/yarn.lock
+express-validation@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/express-validation/-/express-validation-1.0.2.tgz#7d589dd3b257c55b3e004665b6c69cb12cc2b142"
+  dependencies:
+    lodash "^4.9.0"
+
+=======
+>>>>>>> 10e25857b03477539c65ab8468f397f27dacee47:ApiRest/yarn.lock
 express-validator@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-5.0.1.tgz#8394ad15b865b5cb45346418c225d2f52db36173"

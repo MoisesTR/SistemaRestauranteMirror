@@ -1,14 +1,13 @@
 const sql = require('mssql');
-const database = require('../services/database');
+const db = require('../services/database');
 const { matchedData, sanitize } = require('express-validator/filter');
 
 function getSucursalById(req,res){
     var data = req.params;
-    db.pushAOJParam(aoj, 'IdSucursal',sql.Int,IdSucursal)
-        db.storedProcExecute('USP_GET_SUCURSAL')
-        config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getSucursal(poolObt,data.IdSucursal)
-        }).then((results) => {
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdSucursal',sql.Int,data.IdSucursal)
+        db.storedProcExecute('USP_GET_SUCURSAL', aoj)
+        .then((results) => {
            res.status(200).json({sucursal:results.recordset[0]}) 
         }).catch((err) => {
             res.status(500).json( mssqlErrors(err) );
@@ -16,11 +15,10 @@ function getSucursalById(req,res){
 }
 function getSucursales(req,res){
     let Habilitado = req.query.Habilitado;
+    var aoj = [];
     db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
-        db.storedProcExecute('USP_GET_SUCURSALES')
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.getSucursales(poolObt,Habilitado)
-    }).then((results) => {
+    db.storedProcExecute('USP_GET_SUCURSALES', aoj)
+    .then((results) => {
         res.status(200).json({sucursales:results.recordset}) 
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
@@ -28,12 +26,11 @@ function getSucursales(req,res){
 }
 function createSucursal(req,res){
     var data = req.body;
+    var aoj = [];
     db.pushAOJParam(aoj, 'NombreSucursal',sql.NVarChar(100),data.NombreSucursal)
-        db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(250),data.Direccion)
-        db.storedProcExecute('USP_CREATE_SUCURSAL')
-    config.getConnectionPoolGlobal().then((poolObt) => {
-        return querys.createSucursal(poolObt,data)
-    }).then((results) => {
+    db.pushAOJParam(aoj, 'Direccion',sql.NVarChar(250),data.Direccion)
+    db.storedProcExecute('USP_CREATE_SUCURSAL')
+    .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );

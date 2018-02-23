@@ -15,9 +15,10 @@ function createClasificacion(req,res){
     })
 }
 function getClasificaciones(req,res){
-    let Habilitado = req.query.Habilitado;
+    var data = req.query;
     var aoj  = [];
-    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado);
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,data.Habilitado);
+    console.log('Agrego el parametro')
     db.storedProcExecute('USP_GET_CLASIFICACIONES', aoj)
     .then((results) => {
         res.status(200).json({

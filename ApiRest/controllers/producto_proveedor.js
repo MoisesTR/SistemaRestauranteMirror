@@ -1,17 +1,18 @@
 const { matchedData, sanitize } = require('express-validator/filter');
 const sql = require('mssql');
+const mssqlErrors = require('../Utils/util');
 const db = require('../services/database');
 
 function getProductoProveedorById(req,res){
     const data = req.params;
     var aoj = [];
-        config.getConnectionPoolGlobal().then((poolObt) => {
-           return querys.getProductoById(poolObt,data.IdProducto)
-        }).then((results) => {
-           res.status(200).json({ producto:results.recordset[0] }) 
-        }).catch((err) => {
-            res.status(500).json( mssqlErrors(err) );
-        });
+    db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int, data.IdProductoProveedor);
+    db.storedProcExecute('USP_GET_PRODUCTO_PROVEEDOR', aoj)   
+    .then((results) => {
+        res.status(200).json({ producto:results.recordset[0] }) 
+    }).catch((err) => {
+        res.status(500).json( mssqlErrors(err) );
+    });
 }
 function getProveedoresOfProducto(req,res){
     var data = req.body;

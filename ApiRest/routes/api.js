@@ -83,6 +83,7 @@ Router
     .post('/sucursal', SucursalController.createSucursal)
     .post('/sucursal/:IdSucursal(\\d+)/telefono', SucursalController.createTelefonoSucursal)
     .get('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)', SucursalController.getTelefonoSucursal)
+    .get('/sucursales/telefonos', SucursalController.getTelefonosSucursales)
     .put('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)', SucursalController.updateTelefonoSucursal)
     .get('/sucursal/:IdSucursal(\\d+)/telefonos', SucursalController.getTelefonosBySucursalId)
     .put('/sucursal/:IdSucursal(\\d+)')

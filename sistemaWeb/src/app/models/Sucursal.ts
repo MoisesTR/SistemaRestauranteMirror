@@ -1,3 +1,5 @@
+import {TelefonoSucursal} from './TelefonoSucursal';
+
 export class Sucursal {
 
   constructor(
@@ -6,7 +8,8 @@ export class Sucursal {
     ,public Principal: number
     ,public NombreSucursal: string
     ,public Direccion: string
-    ,public TelefonoPrincipal: number
+    ,public NumeroTelefono: number
     ,public Habilitado: number
+    ,public Telefono : TelefonoSucursal[]
   ){}
 }

@@ -3,6 +3,8 @@ import { Global } from './global';
 import { Http, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Sucursal} from '../models/Sucursal';
 
 @Injectable()
 export class SucursalService {
@@ -10,41 +12,39 @@ export class SucursalService {
   public url: string;
 
   constructor(
-    private _http: Http
+    private _http: HttpClient
   ) {
     this.url = Global.url;
   }
 
-  createSucursal(Sucursal){
+  createSucursal(Sucursal) : Observable<any> {
 
     let params = JSON.stringify(Sucursal);
-    let headers = new Headers({'Content-Type':'application/json'});
+    let headers = new HttpHeaders({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'sucursal',params,{headers:headers})
-      .map(res => res.json());
   }
 
-  getSucursal(IdSucursal){
-    return this._http.get(this.url + 'sucursal/'+IdSucursal).map(res => res.json());
+  getSucursal(IdSucursal) : Observable<any>{
+    return this._http.get(this.url + 'sucursal/'+IdSucursal)
   }
 
-  getSucursales(Habilitado=1){
-    return this._http.get(this.url + 'sucursales?Habilitado='+Habilitado).map(res => res.json());
+  getSucursales(Habilitado=1) : Observable<any> {
+    return this._http.get(this.url + 'sucursales?Habilitado='+Habilitado)
   }
 
-  updateSucursal(IdSucursal,Sucursal){
+  updateSucursal(Sucursal) : Observable<any> {
 
     let params = JSON.stringify(Sucursal);
-    let headers = new Headers({
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'sucursal/'+IdSucursal,params,{headers:headers})
-      .map(res => res.json());
+    return this._http.put(this.url+'sucursal/'+Sucursal.IdSucursal,params,{headers:headers})
   }
 
-  deleteSucursal(IdSucursal){
+  deleteSucursal(IdSucursal) : Observable<any> {
 
     let headers = new Headers({
       'Content-Type': 'application/json',
@@ -52,8 +52,9 @@ export class SucursalService {
     });
 
     let options = new RequestOptions({headers:headers});
-    return this._http.delete(this.url+'sucursal/'+IdSucursal,options)
-      .map(res => res.json());
+    // return this._http.delete(this.url+'sucursal/'+IdSucursal,options)
+    //   .map(res => res.json());
+    return null;
   }
 
 }

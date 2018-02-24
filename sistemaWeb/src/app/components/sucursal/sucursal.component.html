@@ -38,8 +38,8 @@
               <td width="25%" class="body-negrita">
                 <div class="text-center">
                   <!--<button type="button" (click)="getSucursal()" class="btn btn-sm orange-chang"  id="btnGetSucursal" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                  <button type="button" (click)="updateSucursal()" class="btn btn-sm orange-chang"  id="btnUpdateSucursal" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteSucursal()" class="btn btn-sm orange-chang"  id="btnDeleteSucursal" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                  <button type="button" (click)="showModalUpdateSucursal(sucursal)" class="btn btn-sm orange-chang"  id="btnUpdateSucursal" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button" (click)="deleteSucursal(sucursal.IdSucursal)" class="btn btn-sm orange-chang"  id="btnDeleteSucursal" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
                 </div>
               </td>
             </tr>
@@ -79,11 +79,11 @@
                         <br>
                         <div class="md-form ">
                           <input type="text" id="NombreSucursal"
-                                  class="form-control letras"
-                                  name="NombreSucursal"
-                                  formControlName="nombreSucursal"
-                                  required >
-                          <!--<show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>-->
+                                 class="form-control letras"
+                                 name="NombreSucursal"
+                                 formControlName="nombreSucursal"
+                          >
+                          <show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>
                           <label for="NombreSucursal" class="">Nombre Sucursal</label>
                         </div>
                       </div>
@@ -91,59 +91,36 @@
                       <div class="col-md-6">
                         <br>
                         <div class="md-form">
-                          <input type="number" id="TelefonoPrincipal"
-                                  class="form-control"
-                                  name="TelefonoPrincipal"
-                                  formControlName="telefonoPrincipal"
+                          <input type="text" id="TelefonoPrincipal"
+                                 class="form-control telefono"
+                                 name="TelefonoPrincipal"
+                                 formControlName="telefonoPrincipal"
 
                           >
-                         <!-- <show-errors [control]="formAddSucursal.controls['telefonoPrincipal']"></show-errors>-->
+                          <show-errors [control]="formAddSucursal.controls['telefonoPrincipal']"></show-errors>
                           <label for="TelefonoPrincipal" >Telefóno</label>
                         </div>
                       </div>
 
                       <div class="col-md-6">
-                        <label for="selectoperadoraprincipal">Operadora</label>
-                        <select class="selectoperadoraprincipal" multiple="multiple" style="width: 100%">
-                          <option class="chip" value="1">Movistar</option>
-                          <option  class="chip" value="2">Claro</option>
-                          <option  class="chip" value="3">Cootel</option>
-                        </select>
+                        <br>
+                        <div class="md-form ">
+                          <input type="text" id="TelefonoSecundario"
+                                 class="form-control telefono"
+                                 name="TelefonoSecundario"
+                                 formControlName="telefonoSecundario"
+
+                          >
+                          <show-errors [control]="formAddSucursal.controls['telefonoSecundario']"></show-errors>
+                          <label for="TelefonoSecundario" class="">Telefóno (Opcional)</label>
+                        </div>
                       </div>
-
-                      <div class="col-md-6">
-                          <br>
-                          <div class="md-form ">
-                            <input type="number" id="TelefonoSecundario"
-                                   class="form-control"
-                                    name="TelefonoSecundario"
-                                    required
-                                    telefono
-                                    formControlName="telefonoSecundario"
-
-                            >
-                            <show-errors [control]="formAddSucursal.controls['telefonoSecundario']"></show-errors>
-                            <label for="TelefonoSecundario" class="">Telefóno (Opcional)</label>
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <label for="selectoperadorasecundario">Operadora</label>
-                          <select class="selectoperadorasecundario" multiple="multiple" style="width: 100%">
-                            <option class="chip" value="1">Movistar</option>
-                            <option  class="chip" value="2">Claro</option>
-                            <option  class="chip" value="3">Cootel</option>
-                          </select>
-                        </div>
-
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">
-                          <textarea type="text" minlength="3" maxlength="150" id="Direccion"
+                          <textarea type="text" id="Direccion"
                                     class="md-textarea" name="Direccion"
                                     formControlName="direccion"
-                                    required
-
                           ></textarea>
                           <show-errors [control]="formAddSucursal.controls['direccion']"></show-errors>
                           <label for="Direccion">Dirección</label>
@@ -153,7 +130,102 @@
 
                     <!-- Boton ingresa -->
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1" type="submit" >Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddSucursal.valid" >Ingresar <i class="fa fa-check ml-1"></i></button>
+                    </div> <br>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Sucursal -->
+<div class="modal fade" id="modalUpdateSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray">
+      <!--Titulo-->
+      <div class="modal-header orange-chang white-text">
+        <h4 class="title">Sucursal</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form [formGroup]="formUpdateSucursal " (ngSubmit)="updateSucursal()">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+                  <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos de la Sucursal</div>
+                  <div class="container-fluid"><br>
+                    <div class="row">
+                      <!-- Campos a ingresar -->
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form ">
+                          <input type="text" id="UpNombreSucursal"
+                                 class="form-control letras"
+                                 name="NombreSucursal"
+                                 formControlName="nombreSucursal"
+                          >
+                          <show-errors [control]="formUpdateSucursal.controls['nombreSucursal']"></show-errors>
+                          <label for="NombreSucursal" class="">Nombre Sucursal</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <br>
+                        <div class="md-form">
+                          <input type="text" id="UpTelefonoPrincipal"
+                                 class="form-control telefono"
+                                 name="TelefonoPrincipal"
+                                 formControlName="telefonoPrincipal"
+
+                          >
+                          <show-errors [control]="formUpdateSucursal.controls['telefonoPrincipal']"></show-errors>
+                          <label for="TelefonoPrincipal" >Telefóno</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <br>
+                        <div class="md-form ">
+                          <input type="text" id="UpTelefonoSecundario"
+                                 class="form-control"
+                                 name="TelefonoSecundario"
+                                 telefono
+                                 formControlName="telefonoSecundario"
+
+                          >
+                          <show-errors [control]="formUpdateSucursal.controls['telefonoSecundario']"></show-errors>
+                          <label for="TelefonoSecundario" class="">Telefóno (Opcional)</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <br>
+                        <div class="md-form">
+                          <textarea type="text" id="UpDireccion"
+                                    class="md-textarea" name="Direccion"
+                                    formControlName="direccion"
+                          ></textarea>
+                          <show-errors [control]="formUpdateSucursal.controls['direccion']"></show-errors>
+                          <label for="Direccion">Dirección</label>
+                        </div>
+                      </div>
+                    </div> <br>
+
+                    <!-- Boton ingresa -->
+                    <div class="text-center mt-1-half">
+                      <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSucursal.valid" >Actualizar <i class="fa fa-check ml-1"></i></button>
                     </div> <br>
 
                   </div>

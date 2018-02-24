@@ -22,12 +22,10 @@ export class TelefonosucursalService {
 
     let body = JSON.stringify(
       {
-        "IdSucursal": TelefonoSucursal.IdSucursal
-        , "IdOperadora": TelefonoSucursal.IdOperadora
-        , "NumeroTelefono": TelefonoSucursal.NumeroTelefono
+        "NumeroTelefono": TelefonoSucursal.NumeroTelefono
       }
     );
-    return this._http.post(this.url+'sucursal/'+TelefonoSucursal.IdSucursal,params,{headers:headers,body:body})
+    return this._http.post(this.url+'sucursal/'+TelefonoSucursal.IdSucursal+'/telefono',params,{headers:headers,body:body})
       .map(res => res.json());
   }
 
@@ -37,6 +35,14 @@ export class TelefonosucursalService {
 
   getSucursales(Habilitado=1){
     return this._http.get(this.url + 'sucursales?Habilitado='+Habilitado).map(res => res.json());
+  }
+
+  getTelefonosSucursal(IdSucursal){
+    return this._http.get(this.url + 'sucursal/'+IdSucursal+'/telefonos').map(res => res.json());
+  }
+
+  getTelefonosSucursales(Habilitado = 1) {
+    return this._http.get(this.url + 'sucursales/telefonos?Habilitado='+Habilitado).map(res => res.json())
   }
 
   updateSucursal(IdSucursal,Sucursal){

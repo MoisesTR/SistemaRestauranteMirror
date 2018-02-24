@@ -7,15 +7,23 @@
         </div>
         <div class="card-body">
           <div class="container-fluid">
-            <form>
+            <form [formGroup]="formProveedor" (ngSubmit)="guardarProductoProveedor()" novalidate>
               <div class="row">
-                
+
                 <!-- Reemplazar -->
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control letras" autocomplete="off" >
-                    <label for="nombreproducto">Nombre del producto </label>
+                    <ng-select [items]="productos"
+                               bindLabel="NombreProducto"
+                               bindValue="IdProducto"
+                               placeholder="Selecciona un producto"
+                               formControlName="productosProveedor" id="productosProveedor" (add)="onAddSelectProducto($event)"
+                    >
+
+                    </ng-select>
+                    <show-errors [control]="formProveedor.controls['productosProveedor']"></show-errors>
+                    <!--<label for="nombreproveedor">Nombre del producto</label>-->
                   </div>
                 </div>
 
@@ -23,8 +31,16 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="nombreproveedor" formControlName="nombreProveedor" class="form-control letras" autocomplete="off">
-                    <label for="nombreproveedor">Nombre del proveedor</label>
+                    <ng-select [items]="proveedores"
+                               bindLabel="NombreProveedor"
+                               bindValue="IdProveedor"
+                               placeholder="Selecciona una proveedor"
+                               formControlName="nombreproveedor" id="nombreproveedor" (add)="onAddSelectProveedor($event)"
+                    >
+
+                    </ng-select>
+                    <show-errors [control]="formProveedor.controls['nombreproveedor']"></show-errors>
+                    <!--<label for="nombreproveedor">Nombre del proveedor</label>-->
                   </div>
                 </div>
 
@@ -32,8 +48,16 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="envase" formControlName="envase" class="form-control letras" autocomplete="off">
-                    <label for="envase">Envase</label>
+                    <ng-select [items]="envases"
+                               bindLabel="NombreEnvase"
+                               bindValue="IdEnvase"
+                               placeholder="Selecciona un envase"
+                               formControlName="envase" id="envase" (add)="onAddSelectEnvase($event)"
+                    >
+
+                    </ng-select>
+                    <show-errors [control]="formProveedor.controls['envase']"></show-errors>
+                    <!--<label for="envase">Envase</label>-->
                   </div>
                 </div>
 
@@ -41,40 +65,56 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="empaque" formControlName="empaque" class="form-control letras" autocomplete="off">
-                    <label for="empaque">Empaque</label>
+                    <ng-select [items]="empaques"
+                               bindLabel="NombreEmpaque"
+                               bindValue="IdEmpaque"
+                               placeholder="Selecciona un empaque"
+                               formControlName="empaque" id="empaque" (add)="onAddSelectEmpaque($event)"
+                    >
+
+                    </ng-select>
+                    <show-errors [control]="formProveedor.controls['empaque']"></show-errors>
+                    <!--<label for="empaque">Empaque</label>-->
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="number" id="empaque" formControlName="cantidadempaque" class="form-control letras" autocomplete="off">
+                    <input type="number" id="cantidadempaque" formControlName="cantidadempaque" class="form-control" autocomplete="off">
                     <label for="cantidadempaque">Cantidad de Empaque</label>
                   </div>
                 </div>
-      
+
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="number" id="costo" formControlName="costo" class="form-control letras" autocomplete="off">
+                    <input type="number" id="costo" formControlName="costo" class="form-control" autocomplete="off">
                     <label for="costo">Costo del producto</label>
                   </div>
                 </div>
-                
+
                 <!-- Reemplazar -->
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="unidadmedida" formControlName="unidadmedida" class="form-control letras" autocomplete="off">
-                    <label for="unidadmedida">Unidad de medida</label>
+                    <ng-select [items]="unidadesMedida"
+                               bindLabel="NombreUnidad"
+                               bindValue="IdUnidadMedida"
+                               placeholder="Selecciona una unidad de medida"
+                               formControlName="unidadmedida" id="unidadmedida" (add)="onAddSelectUnidadMedida($event)"
+                    >
+
+                    </ng-select>
+                    <show-errors [control]="formProveedor.controls['unidadmedida']"></show-errors>
+                    <!--<label for="unidadmedida">Unidad de medida</label>-->
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control letras" autocomplete="off">
+                    <input type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                     <label for="valorunidadmedida">Valor unidad de medida</label>
                   </div>
                 </div>
@@ -82,16 +122,16 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="number" id="caducidad" formControlName="caducidad" class="form-control letras" autocomplete="off">
+                    <input type="number" id="caducidad" formControlName="caducidad" class="form-control" autocomplete="off">
                     <label for="caducidad">Caducidad</label>
                   </div>
-                </div>  
-                                
+                </div>
+
               </div>
 
               <br>
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" >Ingresar <i class="fa fa-check ml-1"></i></button>
+                <button class="btn orange-chang mb-1" [disabled]="!formProveedor.valid"  >Ingresar <i class="fa fa-check ml-1"></i></button>
               </div>
 
             </form>

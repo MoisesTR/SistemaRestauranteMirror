@@ -60,7 +60,15 @@ function createProductoProveedor(req, res) {
 }
 
 function getProductosByProveedorId(req, res) {
-
+    var IdProductoProveedor = req.body.IdProductoProveedor;
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, IdProductoProveedor);
+    db.storedProcExecute('USP_GET_PRODUCTOS_PROVEEDOR', aoj)
+        .then((results) => {
+            res.status(200).json({ productos: results.recordset })
+        }).catch((err) => {
+            res.status(500).json(mssqlErrors(err));;
+        })
 }
 
 function updateProducto(req, res) {

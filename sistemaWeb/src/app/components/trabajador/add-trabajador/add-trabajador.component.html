@@ -8,7 +8,7 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input name="imagen" type="file" class="dropify" data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
+            <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300"  data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
           <!-- Contenido -->
           <div class="card-body ">
             <!-- Formulario -->
-            <form [formGroup]="formAddTrabajador" (ngSubmit)="createTrabajador()" novalidate>
+            <form [formGroup]="formAddTrabajador" (ngSubmit)="guardarImagenTrabajador()" novalidate>
               <!-- Campos a ingresar -->
               <div class="row">
 
@@ -46,7 +46,16 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="FechaNacimiento" name="FechaNacimiento" formControlName="fechaNacimiento" required class="form-control datepickerEdad">
+                    <input type="text" id="NumeroCedula" name="NumeroCedula" formControlName="cedula" required class="cedula form-control validate">
+                    <label for="NumeroCedula">Número de Cedula</label>
+                    <show-errors [control]="formAddTrabajador.controls['cedula']"></show-errors>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input type="text" id="FechaNacimiento" name="FechaNacimiento" formControlName="fechaNacimiento"  class="form-control datepicker">
                     <label for="FechaNacimiento">Fecha de Nacimiento</label>
                   </div>
                 </div>
@@ -54,18 +63,9 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="FechaIngreso" name="FechaIngreso" formControlName="fechaIngreso" required class="form-control datepicker">
+                    <input type="text" id="FechaIngreso" name="FechaIngreso" formControlName="fechaIngreso" class="form-control datepicker">
                     <label for="FechaIngreso">Fecha Ingreso</label>
                     <!--<show-errors [control]="formAddTrabajador.controls['cedula']"></show-errors>-->
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <br>
-                  <div class="md-form">
-                    <input type="text" id="NumeroCedula" name="NumeroCedula" formControlName="cedula" required class="cedula form-control validate">
-                    <label for="NumeroCedula">Número de Cedula</label>
-                    <show-errors [control]="formAddTrabajador.controls['cedula']"></show-errors>
                   </div>
                 </div>
 
@@ -75,10 +75,9 @@
                     <input type="text" id="TelefonoPrincipalTrabajador"
                            minlength="4"
                            maxlength="50"
-                           class="form-control"
+                           class="form-control telefono"
                            name="TelefonoPrincipalTrabajador"
-                           formControlName="telefonoPrincipal telefono"
-
+                           formControlName="telefonoPrincipal"
                     >
                     <show-errors [control]="formAddTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
@@ -91,7 +90,7 @@
                     <input type="text" id="TelefonoSecundarioTrabajador"
                            minlength="4"
                            maxlength="50"
-                           class="form-control"
+                           class="form-control telefono"
                            name="TelefonoSecundarioTrabajador"
                            formControlName="telefonoSecundario"
                     >
@@ -109,25 +108,37 @@
                 </div>
 
                 <div class="col-md-12">
-                  <label for="sucursales">Sucursal</label>
-                  <select2 (valueChanged)="changeSelectSucursal($event)" id="sucursales" name="selectsucursales"  class="selectsucursales" [options]="optionsSelect2">
-                    <option class="chip" [value]="sucursal.IdSucursal" *ngFor="let sucursal of sucursales">{{sucursal.NombreSucursal}}</option>
-                  </select2>
+                  <label for="sucursal">Sucursal</label>
+                  <ng-select [items]="sucursales"
+                             bindLabel="NombreSucursal"
+                             bindValue="IdSucursal"
+                             placeholder="Selecciona una sucursal"
+                             class="form-control"  id="sucursal"
+                             (add)="onAddSucursal($event)" formControlName="sucursal"
+                  >
+                  </ng-select>
+                  <show-errors [control]="formAddTrabajador.controls['sucursal']"></show-errors>
                 </div>
 
                 <div class="col-md-12">
                   <br>
                   <label for="cargo">Cargo</label>
-                  <select2 (valueChanged)="changeSelectCargo($event)" id="cargo" name="cargo" class="selectcargo" [options]="optionsSelect2">
-                    <option class="chip" [value]="cargo.IdCargo" *ngFor="let cargo of cargos">{{cargo.NombreCargo}}</option>
-                  </select2>
+                  <ng-select [items]="cargos"
+                             bindLabel="NombreCargo"
+                             bindValue="IdCargo"
+                             placeholder="Selecciona un cargo"
+                             class="form-control" id="cargo"
+                             (add)="onAddCargo($event)" formControlName="cargo"
+                  >
+                  </ng-select>
+                  <show-errors [control]="formAddTrabajador.controls['cargo']"></show-errors>
                 </div>
 
               </div><div class="margin-paneladministrativo"></div>
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" >Ingresar <i class="fa fa-check ml-1"></i></button>
+                <button class="btn orange-chang mb-1" type="submit" [disabled] = !formAddTrabajador.valid>Ingresar <i class="fa fa-check ml-1"></i></button>
               </div>
 
             </form>

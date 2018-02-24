@@ -11,6 +11,7 @@ import {SharedModuleModule} from "../shared-module/shared-module.module";
 import {TrabajadorService} from "../../services/trabajador.service";
 import {CargoService} from "../../services/cargo.service";
 import {Select2Module} from 'ng2-select2';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {Select2Module} from 'ng2-select2';
     , ReactiveFormsModule
     , SharedModuleModule
     , Select2Module
+    , NgSelectModule
   ],
   declarations: [AddTrabajadorComponent, ListTrabajadorComponent, UpdateTrabajadorComponent]
   , providers : [TrabajadorService, CargoService]

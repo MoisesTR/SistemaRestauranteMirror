@@ -1,7 +1,6 @@
 export class Trabajador{
 	constructor(
 		public IdTrabajador : number
-		,public Imagen: string
 		,public IdSucursal: number
 		,public IdCargo: number
 		,public Nombres: string
@@ -10,7 +9,10 @@ export class Trabajador{
 		,public FechaNacimiento: string
 		,public Direccion: string
 		,public FechaIngreso: number
+    ,public Telefono1 : string
+    ,public Telefono2: string
 		,public Habilitado: number
+    , public Imagen : string
 		){
 
 	}

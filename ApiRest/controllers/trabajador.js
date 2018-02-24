@@ -32,6 +32,7 @@ function getTrabajadores(req, res) {
 function createTrabajador(req, res) {
     var trabajadorData = matchedData(req, { locations: ['body'] });
     var aoj = [];
+    console.log(trabajadorData)
     db.pushAOJParam(aoj, 'IdSucursal', sql.Int, trabajadorData.IdSucursal);
     db.pushAOJParam(aoj, 'IdCargo', sql.Int, trabajadorData.IdCargo);
     db.pushAOJParam(aoj, 'Nombres', sql.NVarChar(50), trabajadorData.Nombres);
@@ -43,10 +44,10 @@ function createTrabajador(req, res) {
     db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), trabajadorData.Telefono1);
     db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), trabajadorData.Telefono2);
     db.pushAOJParam(aoj, 'FechaIngreso', sql.Date, trabajadorData.FechaIngreso);
-    db.pushOutParam(aoj, 'IdTrabajador', sql.Int)
+    // db.pushOutParam(aoj, 'IdTrabajador', sql.Int)
     db.storedProcExecute('USP_CREATE_TRABAJADOR', aoj)
         .then((results) => {
-            res.status(200).json(results.output)
+            res.status(200).json(results.recordset[0])
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));
         });

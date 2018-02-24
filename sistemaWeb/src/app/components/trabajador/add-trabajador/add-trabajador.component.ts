@@ -9,6 +9,9 @@ import {CargoService} from "../../../services/cargo.service";
 import {Cargo} from "../../../models/Cargo";
 declare var $:any
 import swal from 'sweetalert2';
+import {UploadService} from '../../../services/upload.service';
+import {Global} from '../../../services/global';
+import {CustomValidators} from '../../../validadores/CustomValidators';
 @Component({
   selector: 'app-add-trabajador',
   templateUrl: './add-trabajador.component.html',
@@ -21,8 +24,7 @@ export class AddTrabajadorComponent implements OnInit {
   formAddTrabajador : FormGroup;
   public sucursales : Sucursal[];
   public cargos: Cargo[];
-  public optionsSelect2: Select2Options;
-
+  public url: string;
   constructor(
     private _route: ActivatedRoute
     ,private _router: Router
@@ -30,15 +32,10 @@ export class AddTrabajadorComponent implements OnInit {
     , private formBuilderAddTrabajador : FormBuilder
     , private _sucursalService: SucursalService
     , private _cargoService: CargoService
+    , private _uploadService : UploadService
   ) {
-
-    this.trabajador  = new Trabajador(null,null,null,null,null,null,null,null,null,null,null)
-
-    this.optionsSelect2 = {
-      multiple: true
-      , maximumSelectionLength: 1
-      , width: '100%'
-    }
+    this.url = Global.url;
+    this.trabajador  = new Trabajador(null,null,null,null,null,null,null,null,null,null,null,null,null)
 
     this.getTrabajadores()
     this.getCargos();
@@ -55,9 +52,31 @@ export class AddTrabajadorComponent implements OnInit {
       });
       $('.dropify').dropify();
 
+      var date = new Date();
+      var currentMonth = date.getMonth();
+      var currentDate = date.getDate();
+      var currentYear = date.getFullYear();
 
+      $('.datepicker').pickadate({
+
+        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
+        today: 'Hoy',
+        clear: 'Limpiar',
+        close: 'Cerrar',
+        closeOnSelect: true,
+        closeOnClear: false,
+        selectMonths: true,
+        selectYears: true,
+        firstDay: true,
+        min: new Date(currentYear , 0, 1),
+        max: new Date(currentYear, currentMonth, currentDate),
+        format: 'yyyy-mm-dd'
+      });
     });
 
+    $('.telefono').mask('0000-0000');
     this.initFormTrabajador();
     this.getSucursales();
 
@@ -76,16 +95,57 @@ export class AddTrabajadorComponent implements OnInit {
     )
   }
 
+  onAddSucursal(event){
+    this.trabajador.IdSucursal = event.IdSucursal;
+  }
+
+  onAddCargo(event){
+
+    this.trabajador.IdCargo =  event.IdCargo;
+  }
+
   initFormTrabajador(){
     this.formAddTrabajador = this.formBuilderAddTrabajador.group({
-      'nombreTrabajador' : new FormControl('', [Validators.required])
-      ,'apellido' : new FormControl('', [Validators.required])
-      ,'cedula' : new FormControl('', [Validators.required])
-      ,'direccion' : new FormControl('', [Validators.required])
-      ,'fechaNacimiento' : new FormControl('', [Validators.required])
-      ,'fechaIngreso' : new FormControl('', [Validators.required])
-      ,'telefonoPrincipal' : new FormControl('', [Validators.required])
-      ,'telefonoSecundario' : new FormControl('', [Validators.required])
+      'nombreTrabajador' : new FormControl('', [
+        Validators.required,
+        CustomValidators.espaciosVacios
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+
+      ])
+      ,'apellido' : new FormControl('', [
+        Validators.required,
+        CustomValidators.espaciosVacios
+        , Validators.minLength(5)
+        , Validators.maxLength(300)
+
+      ])
+      ,'cedula' : new FormControl('', [
+        Validators.required,
+        CustomValidators.espaciosVacios
+        , Validators.maxLength(20)
+      ])
+      ,'direccion' : new FormControl('', [
+        Validators.required,
+        CustomValidators.espaciosVacios
+        , Validators.minLength(10)
+        , Validators.maxLength(300)
+      ])
+      ,'fechaNacimiento' : new FormControl('')
+      ,'fechaIngreso' : new FormControl('', )
+      ,'telefonoPrincipal' : new FormControl('', [
+        Validators.required,
+        CustomValidators.espaciosVacios
+        , Validators.minLength(8)
+        , Validators.maxLength(20)
+      ])
+      ,'telefonoSecundario' : new FormControl('',
+        [
+          Validators.minLength(8)
+          , Validators.maxLength(20)
+        ])
+      ,'sucursal' : new FormControl('', [Validators.required])
+      ,'cargo' : new FormControl('', [Validators.required])
 
     })
   }
@@ -95,7 +155,15 @@ export class AddTrabajadorComponent implements OnInit {
     this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
     this.trabajador.NumeroCedula = this.formAddTrabajador.value.cedula;
     this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
+    this.trabajador.FechaIngreso = $('#FechaIngreso').val();
+    this.trabajador.FechaNacimiento = $('#FechaNacimiento').val();
+    this.trabajador.Telefono1 = (this.formAddTrabajador.value.telefonoPrincipal).replace("-","");
+    this.trabajador.Telefono2 = (this.formAddTrabajador.value.telefonoSecundario).replace("-","");;
+
+    console.log(this.trabajador)
+
   }
+
   createTrabajador(){
 
     this.getValueFormAddTrabajador();
@@ -115,21 +183,16 @@ export class AddTrabajadorComponent implements OnInit {
           console.log('Todo mal')
         }
       }, error =>{
+        console.log(error)
         swal(
           'Trabajador',
           'Esta cedula ya esta registrada, intenta con otra!',
           'error'
         )
+      }, () =>{
+        this.formAddTrabajador.reset;
       }
     )
-
-  }
-
-  changeSelectSucursal(event){
-
-  }
-
-  changeSelectCargo(event){
 
   }
 
@@ -159,6 +222,43 @@ export class AddTrabajadorComponent implements OnInit {
     )
   }
 
+  guardarImagenTrabajador(){
+
+    if(this.filesToUpload != null){
+
+      this._uploadService.makeFileRequest(
+        this.url+'trabajadorUploadImage',
+        [],
+        this.filesToUpload,
+        'token',
+        'image').then((result:any)=>{
+        this.trabajador.Imagen = result.image;
+        console.log(result.image)
+        this.createTrabajador();
+
+
+      },error =>{
+        swal(
+          'Producto',
+          'Ha ocurrido un error en la carga de la imagen, intenta nuevamente!',
+          'error'
+        )
+      });
+    } else {
+      swal(
+        'Trabajador',
+        'La imagen es requerida!',
+        'info'
+      )
+    }
+
+
+  }
+
+  public filesToUpload: Array<File>;
+  fileChangeEvent(fileInput:any){
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+  }
 
 
 }

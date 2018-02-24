@@ -266,4 +266,6 @@ h6 {
 .u-btn-agregar{
   margin-bottom: -7% !important;
   margin-right: 2% !important;
+  position:relative;
+  z-index:100;
 }

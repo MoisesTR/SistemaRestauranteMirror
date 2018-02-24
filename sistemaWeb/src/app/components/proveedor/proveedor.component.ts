@@ -3,10 +3,11 @@ import {ProveedorService} from '../../services/proveedor.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Provedor} from '../../models/Provedor';
 import {Subject} from 'rxjs/Rx';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
+import {idioma_espanol} from '../../services/global';
 
 declare var $:any;
 
@@ -32,18 +33,18 @@ export class ProveedorComponent implements OnInit {
   addForm: FormGroup;
   updateForm: FormGroup;
 
-  constructor(private _route: ActivatedRoute,
-              private _router: Router,
-              private _proveedorService: ProveedorService) {
+  constructor(private _route: ActivatedRoute
+              , private _router: Router
+              , private _proveedorService: ProveedorService
+              , private _formBuilderProveedor  : FormBuilder
+
+  ) {
 
     this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
   }
 
 
   ngOnInit() {
-
-
-
     $(document).ready(function() {
 
       $(".letras").keypress(function (key) {
@@ -70,19 +71,20 @@ export class ProveedorComponent implements OnInit {
 
     });
 
-    this.dtOptions = {
-      autoWidth : false
+    this.dtOptions = <DataTables.Settings>{
+      autoWidth: false
       , pagingType: 'full_numbers'
       , pageLength: 10
-      , "lengthChange": false
+      , 'lengthChange': false
       , searching: true
-      , ordering:  true
-
-
-      /*select: true*/
+      , ordering: true
+      , language: idioma_espanol
     };
     $('.telefono').mask('0000-0000');
-    this.listarProveedores();
+
+    this.getProveedores();
+    this.initFormAdd();
+    this.initFormUpdate()
 
   }
 
@@ -99,8 +101,7 @@ export class ProveedorComponent implements OnInit {
     });
   }
 
-  listarProveedores() {
-
+  getProveedores() {
     this._proveedorService.getProveedores().subscribe(
       response => {
         if (response.proveedores) {
@@ -108,37 +109,8 @@ export class ProveedorComponent implements OnInit {
           this.rerender();
         }
       }, error => {
-
       }
     );
-
-    this.addForm = new FormGroup({
-      'nombreProveedor': new FormControl()
-      , 'descripcionProveedor': new FormControl()
-      , 'correoProveedor': new FormControl('',[Validators.required])
-      , 'direccionProveedor': new FormControl()
-      , 'nombreRepresentante': new FormControl('',
-                              [
-                                Validators.required,
-                                Validators.minLength(5),
-                                Validators.maxLength(10),
-                                CustomValidators.espaciosVacios
-                              ])
-      , 'telefonoProveedor': new FormControl('',[Validators.required])
-
-    });
-
-    this.updateForm = new FormGroup({
-      'nombreProveedor': new FormControl()
-      , 'descripcionProveedor': new FormControl()
-      , 'correoProveedor': new FormControl()
-      , 'direccionProveedor': new FormControl()
-      , 'nombreRepresentante': new FormControl()
-      , 'telefonoProveedor': new FormControl()
-
-    });
-
-
 
   }
 
@@ -154,12 +126,11 @@ export class ProveedorComponent implements OnInit {
             'Proveedor',
             'El proveedor ha sido creado exitosamente!',
             'success'
-          ).then(function () {
+          ).then(() => {
             $('#modalingresarproveedor').modal('toggle');
-
             this.addForm.reset();
+            this.getProveedores();
           })
-
 
         } else {
           swal(
@@ -170,7 +141,6 @@ export class ProveedorComponent implements OnInit {
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
 
         }
-        this.listarProveedores();
       }, error => {
         if (error.status == 500) {
           swal(
@@ -202,28 +172,23 @@ export class ProveedorComponent implements OnInit {
     this.proveedor.Direccion = this.updateForm.value.direccionProveedor;
     this.proveedor.Telefono = this.updateForm.value.telefonoProveedor;
     this.proveedor.Email = this.updateForm.value.correoProveedor;
+
+    console.log(this.proveedor)
   }
-
-  getProveedorById(IdProveedor) {
-
-  }
-
 
   showModalUpdateProveedor(proveedor){
 
     $('#modalUpdateProveedor').modal('show');
-    let Proveedor : Provedor;
-    Proveedor = proveedor;
-
     this.proveedor.IdProveedor = proveedor.IdProveedor;
 
     this.updateForm.reset();
+
     this.updateForm.setValue({
-      nombreProveedor: Proveedor.NombreProveedor
-      , descripcionProveedor: Proveedor.Descripcion
-      , correoProveedor: Proveedor.Email
-      , direccionProveedor: Proveedor.Direccion
-      , nombreRepresentante: Proveedor.NombreRepresentante
+      nombreProveedor: proveedor.NombreProveedor
+      , descripcionProveedor: proveedor.Descripcion
+      , correoProveedor: proveedor.Email
+      , direccionProveedor: proveedor.Direccion
+      , nombreRepresentante: proveedor.NombreRepresentante
       , telefonoProveedor: '87792956'
     })
 
@@ -238,13 +203,11 @@ export class ProveedorComponent implements OnInit {
             'Proveedor',
             'El proveedor ha sido actualizado exitosamente!',
             'success'
-          ).then(function () {
+          ).then( () => {
             $('#modalUpdateProveedor').modal('toggle');
-
-            this.addForm.reset();
+            this.updateForm.reset();
+            this.getProveedores();
           })
-
-
         } else {
           swal(
             'Error inesperado',
@@ -253,6 +216,7 @@ export class ProveedorComponent implements OnInit {
           )
         }
       }, error =>{
+        console.log(error)
         if (error.status == 500) {
           swal(
             'Error inesperado',
@@ -276,7 +240,7 @@ export class ProveedorComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminalo!'
-    }).then((eliminar) => {
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._proveedorService.deleteProveedor(IdProveedor).subscribe(
           response =>{
@@ -285,9 +249,9 @@ export class ProveedorComponent implements OnInit {
                 'Eliminado!',
                 'El proveedor ha sido eliminado exitosamente',
                 'success'
-              ).then(function () {
-                /*this.addForm.reset();
-                this.listarProveedores();*/
+              ).then( () => {
+                this.addForm.reset();
+                this.getProveedores();
               })
             } else {
               console.log('Ha ocurrido un error, intenta nuevamente')
@@ -303,4 +267,83 @@ export class ProveedorComponent implements OnInit {
     });
   }
 
+  private initFormUpdate() {
+    this.updateForm = this._formBuilderProveedor.group({
+      'nombreProveedor': new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(100),
+        CustomValidators.espaciosVacios
+      ])
+      , 'descripcionProveedor': new FormControl('',
+        [
+          Validators.maxLength(400)
+        ])
+      , 'correoProveedor': new FormControl('',[
+        Validators.minLength(5),
+        Validators.maxLength(200),
+        CustomValidators.espaciosVacios
+      ])
+      , 'direccionProveedor': new FormControl('',[
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(400),
+        CustomValidators.espaciosVacios
+      ])
+      , 'nombreRepresentante': new FormControl('',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(200),
+          CustomValidators.espaciosVacios
+        ])
+      , 'telefonoProveedor': new FormControl('',[
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(10),
+        CustomValidators.espaciosVacios
+      ])
+
+    });
+  }
+
+  initFormAdd(){
+    this.addForm = this._formBuilderProveedor.group({
+      'nombreProveedor': new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(100),
+        CustomValidators.espaciosVacios
+      ])
+      , 'descripcionProveedor': new FormControl('',
+        [
+          Validators.maxLength(400)
+        ])
+      , 'correoProveedor': new FormControl('',[
+        Validators.minLength(5),
+        Validators.maxLength(200),
+        CustomValidators.espaciosVacios
+      ])
+      , 'direccionProveedor': new FormControl('',[
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(400),
+        CustomValidators.espaciosVacios
+      ])
+      , 'nombreRepresentante': new FormControl('',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(200),
+          CustomValidators.espaciosVacios
+        ])
+      , 'telefonoProveedor': new FormControl('',[
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(10),
+        CustomValidators.espaciosVacios
+      ])
+
+    });
+  }
 }

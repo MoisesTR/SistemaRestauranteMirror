@@ -92,10 +92,7 @@
                           <input type="text" id="nombreProveedor"
                                  class="form-control letras"
                                  name = "nombreProveedor"
-                                 formControlName="nombreProveedor"
-                                 required
-                          >
-
+                                 formControlName="nombreProveedor">
                           <show-errors [control]="addForm.controls['nombreProveedor']"></show-errors>
                           <label for="nombreProveedor" class="">Nombre</label>
                         </div>
@@ -103,10 +100,9 @@
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-                          <input type="email" id="correoProveedor" class="form-control "
+                          <input type="email" id="correoProveedor" class="form-control"
                                  name = "correoProveedor"
                                  formControlName="correoProveedor"
-                                 required
                                  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                           >
                           <show-errors [control]="addForm.controls['correoProveedor']"></show-errors>
@@ -119,7 +115,6 @@
                           <textarea type="text" id="direccionProveedor" class="md-textarea"
                                     name = "direccionProveedor"
                                     formControlName="direccionProveedor"
-                                    required
 
                           ></textarea>
                           <label for="direccionProveedor">Dirección</label>
@@ -132,7 +127,6 @@
                                  class="form-control letras"
                                  name = "nombreRepresentante"
                                  formControlName="nombreRepresentante"
-                                 required
                                  noNumeros
 
                           >
@@ -147,9 +141,9 @@
                           <input type="text" id="telefonoProveedor" name="telefonoProveedor"
                                  formControlName="telefonoProveedor"
                                  class="form-control telefono"
-                                 required
                           >
                           <label for="telefonoProveedor" class="">Telefóno</label>
+                          <show-errors [control]="addForm.controls['telefonoProveedor']"></show-errors>
                         </div>
                       </div>
 
@@ -159,10 +153,9 @@
                         <div class="md-form">
                           <textarea type="text" id="descripcionProveedor" class="md-textarea"
                                     name = "descripcionProveedor"
-                                    formControlName="descripcionProveedor"
-                                    required
-
-                          ></textarea>
+                                    formControlName="descripcionProveedor">
+                          <show-errors [control]="addForm.controls['descripcionProveedor']"></show-errors>
+                          </textarea>
                           <label for="descripcionProveedor">Descripción</label>
                         </div>
                       </div>
@@ -170,6 +163,7 @@
                     <br>
                     <div class="text-center mt-1-half">
                       <button class="btn orange-chang mb-1" value="Submit Form" [disabled]="!addForm.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+                      <p class = "alert alert-danger" *ngIf="!addForm.valid">Por favor complete todos los campos obligatorios</p>
                     </div>
                     <br>
                   </div>
@@ -213,15 +207,13 @@
                     <div class="row">
                       <div class="col-md-6">
                         <br>
-                        <label for="nombreProveedor" class="">Nombre</label>
+                        <label for="upnombreProveedor" class="">Nombre</label>
                         <div class="md-form ">
-                          <input type="text" id="upnombreProveedor" class="form-control "
+                          <input type="text" id="upnombreProveedor" class="form-control"
                                  name = "nombreProveedor"
                                  formControlName="nombreProveedor"
-                                 required
-
                           >
-
+                          <show-errors [control]="updateForm.controls['nombreProveedor']"></show-errors>
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -230,10 +222,9 @@
                           <input type="email" id="upcorreoProveedor" class="form-control "
                                  name = "correoProveedor"
                                  formControlName="correoProveedor"
-                                 required
-
-                          >
-                          <label for="correoProveedor" class="">Correo Electrónico</label>
+                                 >
+                          <label for="upcorreoProveedor" class="">Correo Electrónico</label>
+                          <show-errors [control]="updateForm.controls['correoProveedor']"></show-errors>
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -242,10 +233,9 @@
                           <textarea type="text" id="updireccionProveedor" class="md-textarea"
                                     name = "direccionProveedor"
                                     formControlName="direccionProveedor"
-                                    required
-
                           ></textarea>
-                          <label for="direccionProveedor">Dirección</label>
+                          <label for="updireccionProveedor">Dirección</label>
+                          <show-errors [control]="updateForm.controls['direccionProveedor']"></show-errors>
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -254,29 +244,22 @@
                           <input type="text" id="upnombreRepresentante" class="form-control "
                                  name = "nombreRepresentante"
                                  formControlName="nombreRepresentante"
-                                 required
-
                           >
-                          <label for="nombreRepresentante" class="">Nombre Representante</label>
+                          <label for="upnombreRepresentante" class="">Nombre Representante</label>
+                          <show-errors [control]="updateForm.controls['nombreRepresentante']"></show-errors>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <br>
                         <div class="md-form ">
-
-                          <input type="number" id="uptelefonoProveedor" name="telefonoProveedor"
-                                 minlength="7"
-                                 maxlength="2"
+                          <input type="text " id="uptelefonoProveedor" name="telefonoProveedor"
                                  formControlName="telefonoProveedor"
-                                 class="form-control"
-                                 required
-                                 birthYear
+                                 class="form-control telefono"
                           >
-
-                          <label for="telefonoProveedor" class="">Telefóno</label>
+                          <label for="uptelefonoProveedor" class="">Telefóno</label>
+                          <show-errors [control]="updateForm.controls['telefonoProveedor']"></show-errors>
                         </div>
                       </div>
-
 
                       <div class="col-md-12">
                         <br>
@@ -284,16 +267,15 @@
                           <textarea type="text" id="updescripcionProveedor" class="md-textarea"
                                     name = "descripcionProveedor"
                                     formControlName="descripcionProveedor"
-                                    required
-
                           ></textarea>
-                          <label for="descripcionProveedor">Descripción</label>
+                          <label for="updescripcionProveedor">Descripción</label>
+                          <show-errors [control]="updateForm.controls['descripcionProveedor']"></show-errors>
                         </div>
                       </div>
                     </div>
                     <br>
                     <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1">Actualizar <i class="fa fa-check ml-1"></i></button>
+                      <button class="btn orange-chang mb-1" [disabled]="!updateForm.valid" >Actualizar <i class="fa fa-check ml-1"></i></button>
                     </div>
                     <br>
                   </div>

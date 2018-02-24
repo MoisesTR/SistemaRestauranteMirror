@@ -20,17 +20,17 @@ export class ProductoProveedorService{
     let params = JSON.stringify(ProductoProveedor);
     let headers = new Headers({'Content-Type':''});
 
-    return this._http.post(this.url+'createProductoProveedor',params,{headers:headers})
-      .map(res => res.json());
+    return this._http.post(this.url+'producto/proveedor',params,{headers:headers}).map(res => res.json());
   }
- 
-  getProductoProveedor(IdProductoProveedor){
-    return this._http.get(this.url + 'productoproveedor/'+IdProductoProveedor).map(res => res.json());
+
+  getProductosProveedor(IdProductoProveedor){
+    return this._http.get(this.url + 'producto/'+IdProductoProveedor).map(res => res.json());
   }
 
   getProductoProveedores(){
     return this._http.get(this.url + 'productoproveedores').map(res => res.json());
   }
+
 
   updateProductoProveedor(ProductoProveedor){
 
@@ -44,5 +44,5 @@ export class ProductoProveedorService{
      .map(res => res.json());
   }
 
-  
+
 }

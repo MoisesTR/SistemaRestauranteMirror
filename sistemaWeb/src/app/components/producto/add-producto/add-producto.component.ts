@@ -40,8 +40,7 @@ export class AddProductoComponent implements OnInit {
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
-  public optionsSelect2: Select2Options;
-  public todoValidado = 0;
+
   constructor(
     private _route: ActivatedRoute
     , private _router: Router

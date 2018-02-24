@@ -7,6 +7,8 @@ import {AddProductoProveedorComponent} from './add-producto-proveedor/add-produc
 import {ListProductoProveedorComponent} from './list-producto-proveedor/list-producto-proveedor.component';
 import {UpdateProductoProveedorComponent} from './update-producto-proveedor/update-producto-proveedor.component';
 import {ProductoProveedorRoutingModule} from './producto-proveedor.routing.module';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {UnidadMedidaService} from '../../services/unidad-medida.service';
 
 @NgModule({
   imports: [
@@ -16,12 +18,16 @@ import {ProductoProveedorRoutingModule} from './producto-proveedor.routing.modul
     , DataTablesModule
     , ReactiveFormsModule
     , SharedModuleModule
+    , NgSelectModule
 
   ],
   declarations: [
     AddProductoProveedorComponent
     , ListProductoProveedorComponent
     , UpdateProductoProveedorComponent
+  ],
+  providers: [
+    UnidadMedidaService
   ]
 })
 export class ProductoProveedorModule { }

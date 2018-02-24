@@ -256,8 +256,14 @@ h6 {
   overflow-y: scroll;
   height: 100% !important; }
 
-/* Estilos search input data table */
+/* Datatable search*/
 .ubicacion {
   bottom: 55px !important; 
   margin-bottom: -50px !important;
+}
+
+/* Ubicacion boton agregar datatable */
+.u-btn-agregar{
+  margin-bottom: -7% !important;
+  margin-right: 2% !important;
 }

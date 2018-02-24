@@ -30,6 +30,7 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input type="text" id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required class="form-control validate letras" >
+                    <show-errors [control]="formAddTrabajador.controls['nombreTrabajador']"></show-errors>
                     <label for="nombreTrabajador">Nombres</label>
                   </div>
                 </div>
@@ -37,6 +38,7 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input type="text" id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control validate letras" >
+                    <show-errors [control]="formAddTrabajador.controls['apellido']"></show-errors>
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
@@ -54,6 +56,7 @@
                   <div class="md-form">
                     <input type="text" id="FechaIngreso" name="FechaIngreso" formControlName="fechaIngreso" required class="form-control datepicker">
                     <label for="FechaIngreso">Fecha Ingreso</label>
+                    <!--<show-errors [control]="formAddTrabajador.controls['cedula']"></show-errors>-->
                   </div>
                 </div>
 
@@ -62,6 +65,7 @@
                   <div class="md-form">
                     <input type="text" id="NumeroCedula" name="NumeroCedula" formControlName="cedula" required class="cedula form-control validate">
                     <label for="NumeroCedula">Número de Cedula</label>
+                    <show-errors [control]="formAddTrabajador.controls['cedula']"></show-errors>
                   </div>
                 </div>
 
@@ -73,10 +77,10 @@
                            maxlength="50"
                            class="form-control"
                            name="TelefonoPrincipalTrabajador"
-                           required
-                           formControlName="telefonoPrincipal"
+                           formControlName="telefonoPrincipal telefono"
 
                     >
+                    <show-errors [control]="formAddTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
                 </div>
@@ -91,6 +95,7 @@
                            name="TelefonoSecundarioTrabajador"
                            formControlName="telefonoSecundario"
                     >
+                    <show-errors [control]="formAddTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>
@@ -99,6 +104,7 @@
                   <div class="md-form">
                     <textarea type="text" id="Direccion"name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
                     <label for="Direccion">Dirección</label>
+                    <show-errors [control]="formAddTrabajador.controls['direccion']"></show-errors>
                   </div>
                 </div>
 

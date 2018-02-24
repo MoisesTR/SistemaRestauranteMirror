@@ -90,22 +90,15 @@ export class AddTrabajadorComponent implements OnInit {
     })
   }
 
-  createTrabajador(){
-
+  getValueFormAddTrabajador(){
     this.trabajador.Nombres = this.formAddTrabajador.value.nombreTrabajador;
     this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
     this.trabajador.NumeroCedula = this.formAddTrabajador.value.cedula;
     this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
+  }
+  createTrabajador(){
 
-    if($( ".selectsucursales" ).val()[0] != null){
-      this.trabajador.IdSucursal = parseInt($( ".selectsucursales" ).val()[0]);
-    }
-    this.trabajador.FechaNacimiento = $( "#FechaNacimiento" ).val();
-    this.trabajador.FechaIngreso =  $( "#FechaIngreso" ).val();
-    if($( ".selectcargo" ).val()[0] != null){
-      this.trabajador.IdCargo = parseInt($( ".selectcargo" ).val()[0]);
-    }
-
+    this.getValueFormAddTrabajador();
     this._TrabajadorServicio.createTrabajador(this.trabajador).subscribe(
       response =>{
         if(response.IdTrabajador){

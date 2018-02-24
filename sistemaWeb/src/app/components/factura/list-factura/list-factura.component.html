@@ -1,84 +1,52 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="card card-cascade narrower">
-      <!--Titulo-->
-      <div class="view gradient-card-header orange-chang" >
-        <h2 class="h2-responsive">Facturas</h2>
-      </div>
-      <!--/Titulo-->
-      <div class="card-body" >
-        <div class="container-fluid">
+<section>
 
-            <div class="col-md-12 mx-auto white mb-r">
+  <div class="row">
 
-              <div class="row">
-                <div class="col-sm-6 col-md-8">
-                  <br>
-                  <div class="in input-group md-form form-inline form-sm form-2 pl-0">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <div class="text-right" style="margin-top:3%;">
-                    <button type="button" class="btn orange-chang" [routerLink]="'../add'">Nueva Factura de Productos</button>
+    <div class="col-md-12">
+
+      <div class="card card-cascade narrower">
+        <!--Titulo-->
+        <div class="view gradient-card-header orange-chang" >
+          <h2 class="h2-responsive">Facturas</h2>
+        </div>
+        <!--/Titulo-->
+        <div class="card-body" >
+          <div class="container-fluid">
+            <div class="row">
+
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-right">
+                        <button type="button"  class="btn btn-lg orange-chang" [routerLink]="'../add'"  style="margin-bottom: -12%;margin-right: 2%;">Nueva Factura</button>
+                    </div>
                   </div>
                 </div>
               </div>
-              <br>
-              <div class="row">
-                  <div class="col-md-12 pb-3">
 
-                      <div class="table-responsive">
-                          <table class="table">
-                              <thead>
-                                  <tr>
-                                      <th>#</th>
-                                      <th>Proveedor</th>
-                                      <th>Descripción</th>
-                                      <th>Hora y Fecha</th>
-                                      <th></th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                    <th>01</th>
-                                    <td><img src="assets/img/productos/cainsa.png" alt="" class="img-factura"> Cainsa</td>
-                                    <td>Lorep ipsum Atomic developers</td>
-                                    <td>
-                                      <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
-                                      <br>
-                                      <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
-                                    </td>
-                                    <td>
-                                      <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th>02</th>
-                                    <td><img src="assets/img/productos/tiptop.png" alt="" class="img-factura"> Tip Top</td>
-                                    <td>Lorep ipsum Atomic developers</td>
-                                     <td>
-                                      <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
-                                      <br>
-                                      <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                                    </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-
-                  </div>
-              </div>
-
+            </div>
           </div>
+          <br>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+              <th class="header-negrita">Numero de factura</th>
+              <th class="header-negrita">Proveedor</th>
+              <th class="header-negrita">Fecha</th>
+              <th class="header-negrita">Descripción</th>
+            </tr>
+            </thead>
+            <tbody >
 
+
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
+    </div>
+
+  </div>
+
+</section>
+  

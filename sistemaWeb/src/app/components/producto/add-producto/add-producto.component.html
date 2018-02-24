@@ -44,8 +44,9 @@
                            bindValue="IdClasificacion"
                            placeholder="Selecciona una clasificacion"
                            class="form-control" formControlName="clasificacion" id="clasificacion" (add)="onAddSelectClasificacion($event)"
-                           [(ngModel)] = "formAddProducto.value.clasificacion"
+                           
                 >
+
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>
               </div>
@@ -53,11 +54,12 @@
                 <label for="subclasificacion">Subclasificación</label>
                 <ng-select [items]="subclasificaciones"
                            bindLabel="NombreSubClasificacion"
-                           bindValue="IdSubclasificacion"
+                           bindValue="IdSubClasificacion"
                            placeholder="Selecciona una subclasificacion"
                            class="form-control" formControlName="subclasificacion" id="subclasificacion"
-                           [(ngModel)] = "formAddProducto.value.subclasificacion"
+                           (add)="onAddSelectSubClasificacion($event)"
                 >
+
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>
               </div>
@@ -69,7 +71,7 @@
                            bindValue="IdCategoria"
                            placeholder="Selecciona una categoria"
                            class="form-control" formControlName="categoria" id="categoria"
-                           [(ngModel)] = "formAddProducto.value.categoria"
+                           (add)="onAddCategoria($event)"
                 >
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['categoria']"></show-errors>
@@ -85,7 +87,7 @@
             </div>
             <br>
             <div class="text-center mt-1-half">
-              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid || todoValidado == 0">Ingresar <i class="fa fa-check ml-1"></i></button>
+              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
             </div>
 
           </div>

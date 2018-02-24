@@ -30,35 +30,58 @@
                 <div class="md-form">
                   <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off">
                   <show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>
-                  <label for="nombreproducto" class="input-char-counter">Nombre</label>
+                  <label [class.active] = "producto.NombreProducto && producto.NombreProducto.length > 0" for="nombreproducto" class="input-char-counter">Nombre</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="upClasifSelect">Clasificación</label>
-                <select2 class="form-control" id="upClasifSelect" [value]="valorInicialClasificacion | async" [options]="optionsSelect2" (valueChanged)="changedSelectClasificacion($event)">
-                  <option class = "chip" *ngFor="let clasificacion of clasificaciones"  [value]="clasificacion.IdClasificacion">{{clasificacion.NombreClasificacion}}</option>
-                </select2>
+                <ng-select [items]="clasificaciones"
+                           bindLabel="NombreClasificacion"
+                           bindValue="IdClasificacion"
+                           placeholder="Selecciona una clasificacion"
+                           class="form-control" formControlName="clasificacion" id="upClasifSelect" (add)="onUpSelectClasificacion($event)"
+                           [(ngModel)] = "producto.IdClasificacion"
+
+                >
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['clasificacion']"></show-errors>
 
               </div>
               <div class="col-md-6">
                 <label for="selectSubClasificacion">Subclasificación</label>
-                <select2 id="selectSubClasificacion" (select)="update($event)" [value]="valorInicialSubClasificacion | async" class="form-control selectsubclasificacion" [options]="optionsSelect2"  >
-                  <option class = "chip" *ngFor="let subclasificacion of subclasificaciones" [value]="subclasificacion.IdSubClasificacion">{{subclasificacion.NombreSubClasificacion}}</option>
-                </select2>
+                <ng-select [items]="subclasificaciones"
+                           bindLabel="NombreSubClasificacion"
+                           bindValue="IdSubClasificacion"
+                           placeholder="Selecciona una subclasificacion"
+                           class="form-control" formControlName="subclasificacion" id="selectSubClasificacion"
+                           (add)="onUpSelectSubClasificacion($event)"
+                           [(ngModel)] = "producto.IdSubclasificacion"
+                >
+
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['subclasificacion']"></show-errors>
               </div>
               <div class="col-md-6">
                 <br>
                 <label for="selectCategoria">Categoria</label>
-                <select2 class="selectcategoria" id="selectCategoria" (onSelect)="update($event)" [value]="valorInicialCategoria | async" [options]="optionsSelect2" (valueChanged)="changedSelectCategoria($event)">
-                  <option class="chip" *ngFor="let categoria of categorias" [value] = "categoria.IdCategoria">{{categoria.NombreCategoria}}</option>
-                </select2>
+                <ng-select [items]="categorias"
+                           bindLabel="NombreCategoria"
+                           bindValue="IdCategoria"
+                           placeholder="Selecciona una categoria"
+                           class="form-control" formControlName="categoria" id="selectCategoria"
+                           (add)="onUpCategoria($event)"
+                           [(ngModel)] = "producto.IdCategoria"
+                >
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['categoria']"></show-errors>
+
               </div>
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
                   <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
                   <show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>
-                  <label for="descripcionproducto">Descripción</label>
+                  <label [class.active] = "producto.Descripcion && producto.Descripcion.length > 0" for="descripcionproducto">Descripción</label>
                 </div>
               </div>
             </div>

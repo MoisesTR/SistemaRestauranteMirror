@@ -17,7 +17,6 @@ import {CategoriaProductoService} from '../../../services/categoria-producto.ser
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Observable} from 'rxjs/Observable';
-import { AfterViewInit, AfterContentChecked, AfterContentInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 declare var $:any;
 @Component({
@@ -36,12 +35,9 @@ export class UpdateProductoComponent implements OnInit {
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
-  public optionsSelect2: Select2Options;
   public valorInicialClasificacion: Observable<string>;
   public valorInicialSubClasificacion: Observable<string>;
   public valorInicialCategoria: Observable<string>;
-  public todoValidado = 0;
-  public banderaEntrada = 0;
 
   constructor(
     private _route: ActivatedRoute
@@ -56,28 +52,19 @@ export class UpdateProductoComponent implements OnInit {
     this.url = Global.url;
     this.producto = new Producto(null,null,null,null,null,null,null,null,null,null);
 
-
-    this.optionsSelect2 = {
-      multiple: true
-      , maximumSelectionLength: 1
-      , width: '100%'
-    }
-
   }
 
   ngOnInit() {
 
-    this.initValidatorsFormProducto();
+    this.initFormUpdateProducto();
     this.getProducto();
     this.getClasificaciones();
     this.getSubClasificaciones();
     this.getCategorias();
 
-
   }
 
-  initValidatorsFormProducto(){
-
+  private initFormUpdateProducto() {
     this.formUpdateProducto =  this.formBuilderUProducto.group({
       'nombreProducto': new FormControl('',[
           Validators.required
@@ -93,32 +80,63 @@ export class UpdateProductoComponent implements OnInit {
         , Validators.maxLength(300)
         , CustomValidators.espaciosVacios
       ]),
+      'clasificacion': new FormControl('',[
+        Validators.required
+      ]),
+      'subclasificacion': new FormControl('',[
+        Validators.required
+      ]),
+
+      'categoria': new FormControl('',[
+        Validators.required
+      ]),
 
     })
+  }
+
+  onUpSelectClasificacion(event){
+
+    this.producto.IdClasificacion = event.IdClasificacion;
+
+    this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
+      response =>{
+        if(response.subclasificaciones){
+          this.subclasificaciones = response.subclasificaciones;
+        }
+      }, error=>{
+
+      }
+    )
 
   }
 
-  update(event){
-      console.log(event)
+  onUpSelectSubClasificacion(event){
+    this.producto.IdSubclasificacion = event.IdSubClasificacion;
   }
+
+  onUpCategoria(event){
+    this.producto.IdCategoria = event.IdCategoria;
+  }
+
+
   inicializarValoresFormularioProducto(){
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
 
-    this.valorInicialClasificacion = Observable.create(obs => {
-      obs.next(this.producto.IdClasificacion);
-      obs.complete();
-    }).delay(100);
-
-    this.valorInicialSubClasificacion = Observable.create(obs => {
-      obs.next(this.producto.IdSubclasificacion);
-      obs.complete();
-    }).delay(100);
-
-    this.valorInicialCategoria = Observable.create(obs => {
-      obs.next(this.producto.IdCategoria);
-      obs.complete();
-    }).delay(100);
+    // this.valorInicialClasificacion = Observable.create(obs => {
+    //   obs.next(this.producto.IdClasificacion);
+    //   obs.complete();
+    // }).delay(100);
+    //
+    // this.valorInicialSubClasificacion = Observable.create(obs => {
+    //   obs.next(this.producto.IdSubclasificacion);
+    //   obs.complete();
+    // }).delay(100);
+    //
+    // this.valorInicialCategoria = Observable.create(obs => {
+    //   obs.next(this.producto.IdCategoria);
+    //   obs.complete();
+    // }).delay(100);
 
   }
 
@@ -126,43 +144,6 @@ export class UpdateProductoComponent implements OnInit {
 
     this.obtenerDatosFormularioProducto();
     this.cargarImagen();
-  }
-
-  onSelect(event){
-    console.log(event);
-  }
-
-  changedSelectCategoria(event){
-    let idCategoria = event.value[0];
-
-    if(idCategoria != null) {
-      this.producto.IdCategoria = idCategoria;
-    }
-  }
-
-  changedSelectSubClasificacion(event){
-    let idSubClasificacion = event[0];
-
-    if(idSubClasificacion) {
-      this.producto.IdSubclasificacion = idSubClasificacion;
-    }
-  }
-
-  changedSelectClasificacion(event){
-    let idClasificacion = event.value[0];
-
-    if(idClasificacion != null) {
-      this.producto.IdClasificacion = idClasificacion;
-      this._subclasificacionService.getSubClasificacionesByIdClasificacion(idClasificacion).subscribe(
-        response =>{
-          if(response.subclasificaciones){
-            this.subclasificaciones = response.subclasificaciones;
-          }
-        }, error=>{
-
-        }
-      )
-    }
   }
 
   getProducto(){
@@ -252,6 +233,7 @@ export class UpdateProductoComponent implements OnInit {
           })
         }
       }, error =>{
+        console.log(error)
         swal(
           'Producto',
           'Ha ocurrido un error interno en el servidor, intente nuevamente',
@@ -303,15 +285,5 @@ export class UpdateProductoComponent implements OnInit {
 
   }
 
-
-  validarSelect2Campos(){
-    if( this.producto.IdClasificacion == null || this.producto.IdSubclasificacion == null || this.producto.IdCategoria == null){
-      this.todoValidado = 0;
-    } else {
-      this.todoValidado = 1;
-    }
-
-
-  }
 
 }

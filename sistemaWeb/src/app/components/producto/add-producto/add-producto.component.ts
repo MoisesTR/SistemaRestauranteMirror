@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import swal from 'sweetalert2';
 import {Provedor} from '../../../models/Provedor';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -17,7 +17,6 @@ import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto
 import {ProductoService} from '../../../services/producto.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utilidades} from '../../Utilidades';
-import {Observable} from 'rxjs/Observable';
 
 
 declare var $:any;
@@ -26,6 +25,7 @@ declare var $:any;
   selector: 'app-add-producto',
   templateUrl: './add-producto.component.html',
   styleUrls: ['./add-producto.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 
@@ -54,13 +54,6 @@ export class AddProductoComponent implements OnInit {
   ) {
     this.url = Global.url;
     this.producto = new Producto(null,null,null,null,null,null,null,null,null,null);
-
-    //Opciones o configuraciones generales de los select2
-    this.optionsSelect2 = {
-      multiple: true
-      , maximumSelectionLength : 1
-      , width: '100%'
-    }
 
   }
 
@@ -94,18 +87,9 @@ export class AddProductoComponent implements OnInit {
     this.getCategorias();
     this.getClasificaciones();
     this.initFormAddProducto();
-    this.onChanges();
 
   }
 
-  onChanges(): void{
-    this.formAddProducto.valueChanges.subscribe(valor => {
-     this.producto.IdClasificacion = valor.clasificacion;
-     this.producto.IdCategoria = valor.categoria;
-     this.producto.NombreProducto = valor.nombreProducto;
-     this.producto.Descripcion = valor.descripcionProducto;
-    });
-  }
   getCategorias(){
 
     this._categoriaService.getCategoriasProductos().subscribe(
@@ -123,6 +107,8 @@ export class AddProductoComponent implements OnInit {
   }
   onAddSelectClasificacion(event){
 
+    this.producto.IdClasificacion = event.IdClasificacion;
+
     this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
       response =>{
         if(response.subclasificaciones){
@@ -134,12 +120,24 @@ export class AddProductoComponent implements OnInit {
     )
 
   }
+
+  onAddSelectSubClasificacion(event){
+    // console.log(event.IdSubClasificacion)
+    this.producto.IdSubclasificacion = event.IdSubClasificacion;
+  }
+
+  onAddCategoria(event){
+    this.producto.IdCategoria = event.IdCategoria;
+  }
+
   getClasificaciones(){
 
     this._clasificaionService.getClasificaciones().subscribe(
 
       response =>{
         if(response.clasificaciones){
+          this.clasificaciones = [];
+          this.clasificaciones.push(response.clasificaciones)
           this.clasificaciones = response.clasificaciones;;
 
         }
@@ -174,7 +172,14 @@ export class AddProductoComponent implements OnInit {
     }
 
   }
+
+  getValueForm(){
+    this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
+    this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
+    this.producto.IdEstado = 1;
+  }
   crearProducto(){
+    this.getValueForm();
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
         if(response.IdProducto){
@@ -223,33 +228,16 @@ export class AddProductoComponent implements OnInit {
       ]),
       'clasificacion': new FormControl('',[
         Validators.required
-        , Validators.minLength(5)
-        , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
       ]),
       'subclasificacion': new FormControl('',[
         Validators.required
-        , Validators.minLength(5)
-        , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
       ]),
 
       'categoria': new FormControl('',[
         Validators.required
-        , Validators.minLength(5)
-        , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
       ]),
 
     })
   }
 
-  validarSelect2Campos(){
-
-    if( this.producto.IdClasificacion == null || this.producto.IdSubclasificacion == null || this.producto.IdCategoria == null){
-      this.todoValidado = 0;
-    } else {
-      this.todoValidado = 1;
-    }
-  }
 }

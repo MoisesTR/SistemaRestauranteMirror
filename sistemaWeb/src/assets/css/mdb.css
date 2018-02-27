@@ -6149,6 +6149,7 @@ button:focus {
 .badge-pill {
   padding-right: 0.6em;
   padding-left: 0.6em;
+  padding-top: 0.6em;
   border-radius: 10rem; }
 
 .badge-warning {

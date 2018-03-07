@@ -186,7 +186,7 @@ export class AddTrabajadorComponent implements OnInit {
         console.log(error)
         swal(
           'Trabajador',
-          'Esta cedula ya esta registrada, intenta con otra!',
+          error,
           'error'
         )
       }, () =>{

@@ -43,10 +43,7 @@ export class ListTrabajadorComponent implements OnInit {
 
     this.getTrabajadores();
   }
-
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
+  
 
   getTrabajadores(){
 
@@ -54,6 +51,7 @@ export class ListTrabajadorComponent implements OnInit {
       response =>{
         if(response.trabajadores){
           this.trabajadores = response.trabajadores;
+          this.dtTrigger.next();
         } else {
 
         }

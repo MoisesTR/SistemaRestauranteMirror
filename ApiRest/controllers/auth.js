@@ -16,7 +16,6 @@ function signUp(req,res){
         console.log('password hasseada')
         db.pushAOJParam(aoj,'Username', sql.NVarChar(20),userData.Username);
         db.pushAOJParam(aoj,'Email', sql.NVarChar(100),userData.Email);
-        db.pushAOJParam(aoj,'Imagen', sql.NVarChar(100), userData.Imagen);
         console.log('entrando a stored proce')
         return db.storedProcExecute('USP_GET_USUARIO_BY_USERNAME_OR_EMAIL',aoj)
     }).then((usersfind) => {
@@ -34,6 +33,7 @@ function signUp(req,res){
                 throw {status:401,code:"EEXIST",message:'No se registro el usuario email:'+userData.email+', ya se encuentra registrado!'};
         }else{
             console.log('Creando Usuario');
+            db.pushAOJParam(aoj,'Imagen', sql.NVarChar(100), userData.Imagen);
             db.pushAOJParam(aoj,'Password',sql.NVarChar(100),userData.Password);
             db.pushAOJParam(aoj,'IdRol',sql.Int,userData.IdRol);
             db.pushAOJParam(aoj,'IdTrabajador',sql.Int,userData.IdTrabajador)

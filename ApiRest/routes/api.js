@@ -57,9 +57,8 @@ Router
     .post('/proveedor', ProveedorController.createProveedor)
     .put('/proveedor', ProveedorController.updateProveedor)
     .delete('/proveedor/:IdProveedor(\\d+)', ProveedorController.changeStateProveedor)
-
 //Rutas subclasificacion Controller
-.get('/subclasificacion/:IdSubclasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
+    .get('/subclasificacion/:IdSubclasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones', SubclasificacionController.getSubclasificaciones)
     .get('/subclasificaciones/:IdClasificacion(\\d+)', SubclasificacionController.getSubclasificacionesByIdClasificacion)
     .post('/subclasificacion', SubclasificacionController.createSubclasificacion)
@@ -78,7 +77,7 @@ Router
     .delete('/producto/:IdProducto(\\d+)', ProductoController.changeStateProducto)
 
 //Rutas sucursal Controller
-.get('/sucursales', SucursalController.getSucursales)
+    .get('/sucursales', SucursalController.getSucursales)
     .get('/sucursal/:IdSucursal(\\d+)', SucursalController.getSucursalById)
     .post('/sucursal', SucursalController.createSucursal)
     .post('/sucursal/:IdSucursal(\\d+)/telefono', SucursalController.createTelefonoSucursal)
@@ -118,16 +117,14 @@ Router
     .delete('/trabajador/:IdTrabajador(\\d+)', validations.deleteTrabajador, validations.validsParams, TrabajadorController.changeStateTrabajador)
     .post('/trabajadorUploadImage', [md_upload_trabajador], TrabajadorController.uploadImage)
     .get('/trabajadorGetImage/:imageFile', TrabajadorController.getImageFile)
-
 //Rutas Para Cargo Controller
-.get('/cargos', CargoController.getCargos)
+    .get('/cargos', CargoController.getCargos)
     .post('/cargo', validations.createCargo, validations.validsParams, CargoController.createCargo)
     .get('/cargo/:IdCargo(\\d+)', CargoController.getCargoById)
     .put('/cargo', CargoController.updateCargo)
     .delete('/cargo/:IdCargo(\\d+)', CargoController.changeStateCargo)
-
 //Rutas para Bodega Area Produccion
-.post('/entradabodegaap', validations.createEntradaBodegaAP, validations.validsParams, bodegaApController.createEntradaBodegaAp)
+    .post('/entradabodegaap', validations.createEntradaBodegaAP, validations.validsParams, bodegaApController.createEntradaBodegaAp)
     .post('/detalleentradabodegaap', validations.detalleEntradaBodega, validations.validsParams, bodegaApController.createDetalleEntrada)
     .get('/detallebodegaap', bodegaApController.getDetalleBodegaAp)
     .put('/generarfactura/:IdEntradaBodegaAP(\\d+)', validations.crearFactura, validations.validsParams, bodegaApController.generarFactura)

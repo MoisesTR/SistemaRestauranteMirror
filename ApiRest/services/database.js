@@ -9,7 +9,7 @@ function pushAOJParam(aoj, name, type, value) {
 }
 function pushOutParam(aoj, name, type) {
 	aoj[aoj.length] = {
-        pClasf: 1,
+        pClasf: 2,
 		pName: name,
 		pType: type
 	}

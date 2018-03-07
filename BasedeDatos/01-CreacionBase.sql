@@ -1,4 +1,4 @@
-CREATE DATABASE CHANG_RES;
+CREATE DATABASE pruebas_node;
 GO
 USE CHANG_RES;
 GO
@@ -542,8 +542,8 @@ create table DETALLE_BODEGA_AP(
     FechaHoraProduccion SMALLDATETIME null,
     Habilitado Bit default 1 not null,
     constraint pk_IdDetalleBodega primary key(IdDetalle,IdBodegaAreaP),	
-    constraint fk_BodegaDelleAP foreign key(IdBodegaAreaP) references BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
-	constraint fk_DetalleEntradaBodegaAP foreign key(IdDetalleEntradaAP,IdEntradaBodegaAP) references DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdDetalleEntradaAP,IdEntradaBodegaAP),
-    constraint fk_IdProducto foreign key(IdProductoProveedor) references PRODUCTO_PROVEEDOR(IdProductoProveedor),
-	constraint fk_EstadoEmpaqueProductoBodega FOREIGN KEY(IdEstadoEmpaque) REFERENCES ESTADO_EMPAQUE(IdEstadoEmpaque)
+    constraint FK_BodegaDelleAP foreign key(IdBodegaAreaP) references BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
+	constraint FK_DetalleEntradaBodegaAP foreign key(IdDetalleEntradaAP,IdEntradaBodegaAP) references DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdDetalleEntradaAP,IdEntradaBodegaAP),
+    constraint FK_IdProducto foreign key(IdProductoProveedor) references PRODUCTO_PROVEEDOR(IdProductoProveedor),
+	constraint FK_EstadoEmpaqueProductoBodega FOREIGN KEY(IdEstadoEmpaque) REFERENCES ESTADO_EMPAQUE(IdEstadoEmpaque)
 )

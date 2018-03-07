@@ -18,7 +18,7 @@ function createCategoria(req,res){
 function getCategorias(req,res){
     let Habilitado = req.query.Habilitado;
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int, Habilitado)
     db.storedProcExecute('USP_GET_CATEGORIAS', aoj)
     .then((results) => {
         res.status(200).json({

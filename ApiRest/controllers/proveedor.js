@@ -92,7 +92,21 @@ function updateProveedor(req, res) {
 }
 
 function changeStateProveedor(req, res) {
-
+    let IdProveedor = req.params.IdProveedor;
+    let Habilitado = req.body.Habilitado;
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdCargo', sql.Int, IdProveedor);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habiltado);
+    db.storedProcExecute('USP_DISP_PROVEEDOR', aoj).then((results) => {
+        console.log(results)
+        let afectadas = results.rowsAffected[0]
+        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+        res.status(200).json((afectadas > 0) ? { success: 'Proveedor ' + accion + ' con exito!' } : { failed: 'No se encontro el producto solicitado!' })
+        console.log('Proveedor cambiado de estado con exito!')
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+        console.log('Error:', err)
+    });
 }
 module.exports = {
     createProveedor,

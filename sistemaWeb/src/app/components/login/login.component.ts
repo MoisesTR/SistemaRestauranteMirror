@@ -35,13 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.initFormLogin();
-   /* document.querySelector('.loginIncorrectoSweetAlert').onclick = function(){
-      toastr.error('Los datos ingresados no están correctos!');
-      toastr.warning('Los datos ingresados no están correctos!');
-    };*/
-
   }
 
   initFormLogin(){
@@ -94,7 +88,7 @@ export class LoginComponent implements OnInit {
               }
             },
             error => {
-              console.log(<any>error);
+              this.toastr.error(Utilidades.mensajeErrorSql(error),'Error' );
 
             }
           );

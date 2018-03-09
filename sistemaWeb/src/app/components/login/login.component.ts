@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from '../../validadores/CustomValidators';
 import {ToastrService} from 'ngx-toastr';
+import {Utilidades} from '../Utilidades';
 
 @Component({
   selector: 'app-login',
@@ -71,7 +72,7 @@ export class LoginComponent implements OnInit {
       response =>{
         this.identity = response;
         if(!this.identity || !this.identity.IdUsuario){
-          this.toastr.error('Error', 'Te equivocaste!');
+          this.toastr.error('Error', 'El nombre de usuario o la contraseña son erroneos!');
         } else {
 
           this.identity.Password = '';
@@ -103,9 +104,8 @@ export class LoginComponent implements OnInit {
         var errorMensaje = <any>error;
 
         if(errorMensaje!=null){
-          // var body = JSON.parse(error._body);
           this.status = 'error';
-          console.log(error)
+          this.toastr.error(Utilidades.mensajeErrorSql(error),'Error' );
         } else {
 
         }

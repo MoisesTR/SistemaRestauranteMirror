@@ -193,7 +193,7 @@ export class AddProductoComponent implements OnInit {
       }, error =>{
         swal(
           'Producto',
-          Utilidades.mensajeError(error),
+          Utilidades.mensajeError2(error),
           'error'
         )
       }

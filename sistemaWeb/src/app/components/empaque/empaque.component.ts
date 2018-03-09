@@ -215,15 +215,16 @@ export class EmpaqueComponent implements OnInit {
   showModalUpdateEmpaque(empaque){
 
     $('#modalUpdateEmpaque').modal('show');
-    let Empaque : Empaque;
-    Empaque = empaque;
 
-    this.empaque.IdEmpaque  = Empaque.IdEmpaque;
+
+    this.empaque.IdEmpaque  = empaque.IdEmpaque;
+    this.empaque.NombreEmpaque = empaque.NombreEmpaque;
+    this.empaque.Descripcion = empaque.Descripcion;
 
     this.formUpdateEmpaque.reset();
     this.formUpdateEmpaque.setValue({
-      nombreEmpaque: Empaque.NombreEmpaque
-      , descripcionEmpaque: Empaque.Descripcion
+      nombreEmpaque: empaque.NombreEmpaque
+      , descripcionEmpaque: empaque.Descripcion
     });
 
   }

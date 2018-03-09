@@ -69,43 +69,6 @@ export class EnvaseComponent implements OnInit {
           return false;
       });
 
-      $('.dropify').dropify();
-
-      $(".selectcategoria").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectsubclasificacion").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectproveedor").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectenvase").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectempaque").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectclasificacion").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectestado").select2({
-        maximumSelectionLength: 1
-      });
-
-      $(".selectvalorunidadmedida").select2({
-        maximumSelectionLength: 1
-      });
 
     });
 

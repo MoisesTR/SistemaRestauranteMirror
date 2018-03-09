@@ -164,12 +164,10 @@
                         <div class="md-form">
                           <input type="text" id="upnombreClase" class="form-control"
                                  name="nombre"
-                                 required
                                  formControlName="nombreClasificacion"
-
                           >
                           <show-errors [control]="formUpdateClasificacion.controls['nombreClasificacion']"></show-errors>
-                          <label for="nombre" class="">Nombre</label>
+                          <label [class.active] = "clasificacion.NombreClasificacion && clasificacion.NombreClasificacion.length > 0" for="nombre" class="">Nombre</label>
                         </div>
                       </div>
 
@@ -184,7 +182,7 @@
 
                             </textarea>
                           <show-errors [control]="formUpdateClasificacion.controls['descripcionClasificacion']"></show-errors>
-                          <label for="descripcion">Descripción</label>
+                          <label [class.active] = "clasificacion.DescripcionClasificacion && clasificacion.DescripcionClasificacion.length > 0" for="descripcion">Descripción</label>
                         </div>
 
                       </div>

@@ -162,10 +162,9 @@
                                  maxlength="50"
                                  class="form-control letras"
                                  name="nombreempaque"
-                                 formControlName = "nombreEmpaque"
-                                 required >
+                                 formControlName = "nombreEmpaque">
                           <show-errors [control]="formUpdateEmpaque.controls['nombreEmpaque']"></show-errors>
-                          <label for="addnombreEmpaque" class="">Nombre</label>
+                          <label [class.active] = "empaque.NombreEmpaque && empaque.NombreEmpaque.length > 0" for="addnombreEmpaque" class="">Nombre</label>
                         </div>
 
                       </div>
@@ -180,7 +179,7 @@
                                     class="md-textarea" name="descripcionempaque"
                                     required ></textarea>
                           <show-errors [control]="formUpdateEmpaque.controls['descripcionEmpaque']"></show-errors>
-                          <label for="adddescripcionempaque">Descripción</label>
+                          <label [class.active] = "empaque.Descripcion && empaque.Descripcion.length > 0" for="adddescripcionempaque">Descripción</label>
                         </div>
 
                       </div>

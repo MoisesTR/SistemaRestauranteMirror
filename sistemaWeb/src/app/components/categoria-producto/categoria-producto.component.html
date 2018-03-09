@@ -159,10 +159,10 @@
                           <input type="text" id="upnombrecategoria" class="form-control"
                                  name="nombrecategoria"
                                  formControlName="nombreCategoria"
-                                 required
+
                           >
                           <show-errors [control]="formUpdateCategoria.controls['nombreCategoria']"></show-errors>
-                          <label for="upnombrecategoria" class="active">Nombre</label>
+                          <label [class.active] = "categoriaProducto.NombreCategoria && categoriaProducto.NombreCategoria.length > 0" for="upnombrecategoria" class="active">Nombre</label>
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -174,7 +174,7 @@
                                     required
                           ></textarea>
                           <show-errors [control]="formUpdateCategoria.controls['descripcionCategoria']"></show-errors>
-                          <label for="updescripcioncategoria">Descripción</label>
+                          <label [class.active] = "categoriaProducto.DescripcionCategoria && categoriaProducto.DescripcionCategoria.length > 0" for="updescripcioncategoria">Descripción</label>
                         </div>
                       </div>
                     </div>

@@ -174,7 +174,7 @@
                                  formControlName="nombreSubClasificacion"
                                  required >
                           <show-errors [control]="formUpdateSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
-                          <label for="addnombresubclasificacion" class="">Nombre</label>
+                          <label [class.active] = "subclasificacion.NombreSubClasificacion && subclasificacion.NombreSubClasificacion.length > 0" for="addnombresubclasificacion" class="">Nombre</label>
                         </div>
 
                       </div>
@@ -187,7 +187,7 @@
                                     required>
                           </textarea>
                           <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
-                          <label for="updescripcionsubclasificacion">Descripción</label>
+                          <label [class.active] = "subclasificacion.DescripcionSubClasificacion && subclasificacion.DescripcionSubClasificacion.length > 0" for="updescripcionsubclasificacion">Descripción</label>
                         </div>
 
                       </div>

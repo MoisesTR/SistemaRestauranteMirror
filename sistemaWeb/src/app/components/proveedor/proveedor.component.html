@@ -180,7 +180,7 @@
   </div>
 </div>
 
-<!-- Modal proveedores -->
+<!-- Modal update  proveedores -->
 <div class="modal fade" id="modalUpdateProveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
@@ -206,9 +206,8 @@
                     <br>
                     <div class="row">
                       <div class="col-md-6">
-                        <br>
-                        <label for="upnombreProveedor" class="">Nombre</label>
-                        <div class="md-form ">
+                        <label [class.active] = "proveedor.NombreProveedor && proveedor.NombreProveedor.length > 0" for="upnombreProveedor" class="">Nombre</label>
+                        <div class="md-form">
                           <input type="text" id="upnombreProveedor" class="form-control"
                                  name = "nombreProveedor"
                                  formControlName="nombreProveedor"
@@ -223,7 +222,7 @@
                                  name = "correoProveedor"
                                  formControlName="correoProveedor"
                                  >
-                          <label for="upcorreoProveedor" class="">Correo Electrónico</label>
+                          <label [class.active] = "proveedor.Email && proveedor.Email.length > 0" for="upcorreoProveedor" class="">Correo Electrónico</label>
                           <show-errors [control]="updateForm.controls['correoProveedor']"></show-errors>
                         </div>
                       </div>
@@ -234,7 +233,7 @@
                                     name = "direccionProveedor"
                                     formControlName="direccionProveedor"
                           ></textarea>
-                          <label for="updireccionProveedor">Dirección</label>
+                          <label [class.active] = "proveedor.Direccion && proveedor.Direccion.length > 0" for="updireccionProveedor">Dirección</label>
                           <show-errors [control]="updateForm.controls['direccionProveedor']"></show-errors>
                         </div>
                       </div>
@@ -245,7 +244,7 @@
                                  name = "nombreRepresentante"
                                  formControlName="nombreRepresentante"
                           >
-                          <label for="upnombreRepresentante" class="">Nombre Representante</label>
+                          <label [class.active] = "proveedor.NombreRepresentante && proveedor.NombreRepresentante.length > 0" for="upnombreRepresentante" class="">Nombre Representante</label>
                           <show-errors [control]="updateForm.controls['nombreRepresentante']"></show-errors>
                         </div>
                       </div>
@@ -256,8 +255,9 @@
                                  formControlName="telefonoProveedor"
                                  class="form-control telefono"
                           >
-                          <label for="uptelefonoProveedor" class="">Telefóno</label>
+
                           <show-errors [control]="updateForm.controls['telefonoProveedor']"></show-errors>
+                          <label [class.active] = "proveedor.Telefono && proveedor.Telefono.length > 0" for="uptelefonoProveedor" class="">Telefóno</label>
                         </div>
                       </div>
 
@@ -268,7 +268,7 @@
                                     name = "descripcionProveedor"
                                     formControlName="descripcionProveedor"
                           ></textarea>
-                          <label for="updescripcionProveedor">Descripción</label>
+                          <label [class.active] = "proveedor.Descripcion && proveedor.Descripcion.length > 0" for="updescripcionProveedor">Descripción</label>
                           <show-errors [control]="updateForm.controls['descripcionProveedor']"></show-errors>
                         </div>
                       </div>

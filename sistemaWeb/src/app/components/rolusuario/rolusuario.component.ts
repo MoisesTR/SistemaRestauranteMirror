@@ -161,17 +161,19 @@ export class RolusuarioComponent implements OnInit {
     this.rol.DescripcionRol = this.formUpdateRolUsuario.value.descripcionRol;
   }
 
-  showModalUpdateRol(rolUpdate){
+  showModalUpdateRol(rol){
 
     $('#modalUpdateRol').modal('show');
-    // let RolUsuario : RolUsuario;
-    //  RolUsuario = rol;
 
-    this.rol.IdRol  = rolUpdate.IdRol;
+
+    this.rol.IdRol  = rol.IdRol;
+    this.rol.NombreRol = rol.NombreRol;
+    this.rol.DescripcionRol = rol.DescripcionRol;
+
     this.formUpdateRolUsuario.reset();
     this.formUpdateRolUsuario.setValue({
-      nombreRol: rolUpdate.NombreRol
-      , descripcionRol: rolUpdate.DescripcionRol
+      nombreRol: rol.NombreRol
+      , descripcionRol: rol.DescripcionRol
     });
 
   }

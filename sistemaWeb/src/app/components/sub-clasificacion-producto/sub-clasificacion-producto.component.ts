@@ -218,15 +218,15 @@ export class SubClasificacionProductoComponent implements OnInit {
   showModalUpdateSubClasificacion(subclasificacion){
 
     $('#modalUpdateSubClasificacion').modal('show');
-    let SubClasificacion : SubClasificacionProducto;
-    SubClasificacion = subclasificacion;
 
-    this.subclasificacion.IdSubClasificacion = SubClasificacion.IdSubClasificacion;
+    this.subclasificacion.IdSubClasificacion = subclasificacion.IdSubClasificacion;
+    this.subclasificacion.NombreSubClasificacion = subclasificacion.NombreSubClasificacion;
+    this.subclasificacion.DescripcionSubClasificacion = subclasificacion.DescripcionSubClasificacion;
 
     this.formUpdateSubClasificacion.reset();
     this.formUpdateSubClasificacion.setValue({
-      nombreSubClasificacion: SubClasificacion.NombreSubClasificacion
-      , descripcionSubClasificacion: SubClasificacion.DescripcionSubClasificacion
+      nombreSubClasificacion: subclasificacion.NombreSubClasificacion
+      , descripcionSubClasificacion: subclasificacion.DescripcionSubClasificacion
     })
 
   }

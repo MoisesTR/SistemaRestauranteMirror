@@ -179,9 +179,15 @@ export class ProveedorComponent implements OnInit {
   showModalUpdateProveedor(proveedor){
 
     $('#modalUpdateProveedor').modal('show');
-    this.proveedor.IdProveedor = proveedor.IdProveedor;
-
     this.updateForm.reset();
+
+    this.proveedor.IdProveedor = proveedor.IdProveedor;
+    this.proveedor.NombreProveedor = proveedor.NombreProveedor;
+    this.proveedor.Descripcion = proveedor.Descripcion;
+    this.proveedor.Direccion = proveedor.Direccion;
+    this.proveedor.NombreRepresentante = proveedor.NombreRepresentante;
+    this.proveedor.Telefono = proveedor.Telefono;
+    this.proveedor.Email = proveedor.Email;
 
     this.updateForm.setValue({
       nombreProveedor: proveedor.NombreProveedor
@@ -189,7 +195,8 @@ export class ProveedorComponent implements OnInit {
       , correoProveedor: proveedor.Email
       , direccionProveedor: proveedor.Direccion
       , nombreRepresentante: proveedor.NombreRepresentante
-      , telefonoProveedor: '87792956'
+      , telefonoProveedor: proveedor.Telefono == null ? '' : proveedor.Telefono
+      , email : proveedor.Email
     })
 
   }
@@ -301,6 +308,12 @@ export class ProveedorComponent implements OnInit {
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(10),
+        CustomValidators.espaciosVacios
+      ])
+      , 'email': new FormControl('',[
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(20),
         CustomValidators.espaciosVacios
       ])
 

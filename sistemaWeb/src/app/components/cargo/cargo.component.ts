@@ -154,17 +154,19 @@ export class CargoComponent implements OnInit {
     this.cargo.DescripcionCargo = this.formUpdateCargo.value.descripcionCargo;
   }
 
-  showModalUpdateCargo(cargoUpdate){
+  showModalUpdateCargo(cargo){
 
     $('#modalUpdateCargo').modal('show');
 
-    this.cargo.IdCargo  = cargoUpdate.IdCargo;
+    this.cargo.IdCargo  = cargo.IdCargo;
+    this.cargo.NombreCargo = cargo.NombreCargo;
+    this.cargo.DescripcionCargo = cargo.DescripcionCargo;
 
-    console.log(cargoUpdate)
+
     this.formUpdateCargo.reset();
     this.formUpdateCargo.setValue({
-      nombreCargo: cargoUpdate.NombreCargo
-      , descripcionCargo:cargoUpdate.DescripcionCargo
+      nombreCargo: cargo.NombreCargo
+      , descripcionCargo:cargo.DescripcionCargo
     });
 
 

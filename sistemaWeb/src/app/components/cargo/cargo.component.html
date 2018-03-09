@@ -162,7 +162,7 @@
                                  formControlName="nombreCargo"
                           >
                           <show-errors [control]="formUpdateCargo.controls['nombreCargo']"></show-errors>
-                          <label for="nombrecargo">Nombre</label>
+                          <label [class.active] = "cargo.NombreCargo && cargo.NombreCargo.length > 0" for="nombrecargo">Nombre</label>
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -176,7 +176,7 @@
                                     formControlName="descripcionCargo"
                           ></textarea>
                           <show-errors [control]="formUpdateCargo.controls['descripcionCargo']"></show-errors>
-                          <label for="descripcioncargo"  >Descripción</label>
+                          <label [class.active] = "cargo.DescripcionCargo && cargo.DescripcionCargo.length > 0" for="descripcioncargo"  >Descripción</label>
                         </div>
                       </div>
                     </div>

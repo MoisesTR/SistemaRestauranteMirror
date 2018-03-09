@@ -60,6 +60,7 @@ export class CategoriaProductoComponent implements OnInit {
      console.log('Mensaje');
     });
   }
+
   settingsDatatable(){
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
@@ -169,6 +170,8 @@ export class CategoriaProductoComponent implements OnInit {
     Categoria = categoria;
 
     this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
+    this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
+    this.categoriaProducto.DescripcionCategoria = Categoria.DescripcionCategoria;
 
     this.formUpdateCategoria.reset();
     this.formUpdateCategoria.setValue({

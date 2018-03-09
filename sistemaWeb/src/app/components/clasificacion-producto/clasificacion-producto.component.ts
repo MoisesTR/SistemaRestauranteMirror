@@ -192,15 +192,15 @@ export class ClasificacionProductoComponent implements OnInit {
   showModalUpdateClasificacion(clasificacion){
 
     $('#modalUpdateClasificacion').modal('show');
-    let Clasificacion : ClasificacionProducto;
-    Clasificacion = clasificacion;
 
-    this.clasificacion.IdClasificacion = Clasificacion.IdClasificacion;
+    this.clasificacion.IdClasificacion = clasificacion.IdClasificacion;
+    this.clasificacion.NombreClasificacion = clasificacion.NombreClasificacion;
+    this.clasificacion.DescripcionClasificacion = clasificacion.DescripcionClasificacion;
 
     this.formUpdateClasificacion.reset();
     this.formUpdateClasificacion.setValue({
-      nombreClasificacion: Clasificacion.NombreClasificacion
-      , descripcionClasificacion: Clasificacion.DescripcionClasificacion
+      nombreClasificacion: clasificacion.NombreClasificacion
+      , descripcionClasificacion: clasificacion.DescripcionClasificacion
     });
 
 

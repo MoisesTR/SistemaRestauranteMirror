@@ -35,7 +35,7 @@ export class AddUsuarioComponent implements OnInit {
     , private formBuilderUsuario : FormBuilder
 
   ) {
-    this.usuario = new Usuario(null,null,null,null,null,null,null,null,null)
+    this.usuario = new Usuario(null,null,null,null,null,null,null,null,null,null)
 
     this.select2Options = {
       multiple : true
@@ -90,6 +90,8 @@ export class AddUsuarioComponent implements OnInit {
     this.usuario.Username = this.formularioAddUsuario.value.nombre;
     this.usuario.Password = this.formularioAddUsuario.value.contrasenia;
     this.usuario.Email = this.formularioAddUsuario.value.correo;
+    this.usuario.Imagen = "nodisponible.png";
+
 
     this._usuarioService.createUsuario(this.usuario).subscribe(
       response =>{

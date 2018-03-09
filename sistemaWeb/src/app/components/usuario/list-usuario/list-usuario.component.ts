@@ -33,7 +33,7 @@ export class ListUsuarioComponent implements OnInit {
     , private formBuilderUsuario : FormBuilder
 
   ) {
-    this.usuario = new Usuario(null,null,null,null,null,null,null,null,null);
+    this.usuario = new Usuario(null,null,null,null,null,null,null,null,null,null);
 
     this.initForm();
     this.getUsuario();

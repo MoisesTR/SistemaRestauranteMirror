@@ -47,16 +47,13 @@ export class ListUsuariosComponent implements OnInit {
     this.getUsuarios();
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
-
 
   getUsuarios(){
     this._usuarioService.getUsuarios().subscribe(
       response =>{
         if(response.usuarios){
           this.usuarios = response.usuarios;
+          this.dtTrigger.next();
         }
       },error =>{
 

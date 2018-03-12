@@ -55,16 +55,30 @@
 
                 <div class="col-md-6">
                   <label for="trabajador">Nombre trabajador</label>
-                  <select2 name="trabajador" id="trabajador" (valueChanged)="changedSelectTrabador($event)" [options]="select2Options">
-                    <option class="chip" [value]="trabajador.IdTrabajador" *ngFor="let trabajador of trabajadores">{{trabajador.Nombres}}</option>
-                  </select2>
+                  <ng-select [items]="trabajadores"
+                             bindLabel="Nombres"
+                             bindValue="IdTrabajador"
+                             placeholder="Selecciona un trabajador"
+                             formControlName="trabajador" id="trabajador" (add)="onAddTrabajador($event)"
+
+                  >
+
+                  </ng-select>
+                  <show-errors [control]="formularioAddUsuario.controls['trabajador']"></show-errors>
                 </div>
 
                 <div class="col-md-6">
-                  <label for="selectrol">Rol</label>
-                  <select2 name="RolUsuario" class="selectrol" id="selectrol" [options]="select2Options" (valueChanged)="changedSelectRol($event)">
-                    <option class="chip" [value]="rol.IdRol" *ngFor="let rol of roles">{{rol.NombreRol}}</option>
-                  </select2>
+                  <label for="rol">Rol</label>
+                  <ng-select [items]="roles"
+                             bindLabel="NombreRol"
+                             bindValue="IdRol"
+                             placeholder="Selecciona un rol"
+                             formControlName="rol" id="rol" (add)="onAddRol($event)"
+
+                  >
+
+                  </ng-select>
+                  <show-errors [control]="formularioAddUsuario.controls['rol']"></show-errors>
                 </div>
 
               </div><div class="margin-paneladministrativo"></div>

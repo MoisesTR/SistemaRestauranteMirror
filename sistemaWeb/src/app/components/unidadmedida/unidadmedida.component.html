@@ -97,10 +97,15 @@
                           </div>
 
                           <div class="col-md-6">
-                            <label for="clasificacionunidadmedida">Clasificación</label>
-                            <select2 (valueChanged)="changedSelectClasificacion($event)" class="form-control" name="clasi" id="clasificacionunidadmedida" [options]="optionsSelect2">
-                              <option *ngFor="let uni of clasificacionesUnidad" [value]="uni.IdClasificacionUnidadMedida" >{{uni.NombreClasificacion}}</option>
-                            </select2>
+                            <label for="clasificacionesUnidad">Clasificación</label>
+                            <ng-select [items]="clasificacionesUnidad"
+                                       bindLabel="NombreClasificacion"
+                                       bindValue="IdClasificacionUnidadMedida"
+                                       placeholder="Selecciona una clasificacion"
+                                       formControlName="clasificacionesUnidad" id="clasificacionesUnidad" (add)="onAddSelectClasificacionesUnidad($event)"
+                            >
+                            </ng-select>
+                            <show-errors [control]="formAddUnidadMedida.controls['clasificacionesUnidad']"></show-errors>
                           </div>
 
                           <div class="col-md-6">

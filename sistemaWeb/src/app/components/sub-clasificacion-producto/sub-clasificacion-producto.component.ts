@@ -10,6 +10,7 @@ import {CustomValidators} from '../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ClasificacionProducto} from '../../models/ClasificacionProducto';
+
 declare var $:any;
 
 @Component({
@@ -24,8 +25,6 @@ export class SubClasificacionProductoComponent implements OnInit {
   public subclasificaciones: SubClasificacionProducto[];
   public clasificaciones: ClasificacionProducto;
 
-  public mensaje : string;
-
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -36,7 +35,6 @@ export class SubClasificacionProductoComponent implements OnInit {
 
   formAddSubClasificacion : FormGroup;
   formUpdateSubClasificacion: FormGroup;
-  public optionsSelect2 : Select2Options;
 
   constructor(
     private _route: ActivatedRoute
@@ -46,19 +44,10 @@ export class SubClasificacionProductoComponent implements OnInit {
     , private formBuilderSubClasificacion : FormBuilder
 
   ) {
-    this.initConstructorSubClasificacion();
-    this.initCustomValidatorsFormSubClasificacion();
-
-    this.optionsSelect2 = {
-      multiple : true
-      , maximumSelectionLength : 1
-      , width : '100%'
-    }
-  }
-
-  private initConstructorSubClasificacion(){
     this.subclasificacion = new SubClasificacionProducto(null,null,null,null,null);
+    this.initCustomValidatorsFormSubClasificacion();
   }
+
 
   private initCustomValidatorsFormSubClasificacion(){
 
@@ -75,6 +64,9 @@ export class SubClasificacionProductoComponent implements OnInit {
         , Validators.maxLength(300)
         , CustomValidators.espaciosVacios
       ])
+      ,'clasificacion' : new FormControl('',[
+      Validators.required
+    ])
     })
 
     this.formUpdateSubClasificacion = this.formBuilderSubClasificacion.group({
@@ -89,6 +81,9 @@ export class SubClasificacionProductoComponent implements OnInit {
         , Validators.minLength(5)
         , Validators.maxLength(300)
         , CustomValidators.espaciosVacios
+      ])
+      ,'clasificacion' : new FormControl('',[
+        Validators.required
       ])
     })
   }
@@ -128,6 +123,7 @@ export class SubClasificacionProductoComponent implements OnInit {
           return false;
       });
     });
+
     this.getSubClasificaciones();
     this.getClasificaciones();
   }
@@ -164,57 +160,8 @@ export class SubClasificacionProductoComponent implements OnInit {
       }
     )
 
-    this.formAddSubClasificacion  = new FormGroup({
-        'nombreSubClasificacion' : new FormControl('',
-          [
-            Validators.required
-            , Validators.minLength(5)
-            , Validators.maxLength(1000)
-            , CustomValidators.espaciosVacios
-          ]
-        ),
-
-      'descripcionSubClasificacion' : new FormControl('',
-        [
-          Validators.required
-          , Validators.min(5)
-          , Validators.maxLength(300)
-          , CustomValidators.espaciosVacios
-        ]
-        )
-    })
-
-    this.formUpdateSubClasificacion = new FormGroup({
-      'nombreSubClasificacion' : new FormControl('',
-        [
-          Validators.required
-          , Validators.minLength(5)
-          , Validators.maxLength(1000)
-          , CustomValidators.espaciosVacios
-        ]
-      ),
-
-      'descripcionSubClasificacion' : new FormControl('',
-        [
-          Validators.required
-          , Validators.min(5)
-          , Validators.maxLength(300)
-          , CustomValidators.espaciosVacios
-        ]
-      )
-    })
   }
 
-  changedClasificacion(event){
-
-    let idClasificacion = event.value[0];
-
-    if(idClasificacion != null){
-      this.subclasificacion.IdClasificacion = idClasificacion;
-      console.log(this.subclasificacion.IdClasificacion)
-    }
-
-  }
   showModalUpdateSubClasificacion(subclasificacion){
 
     $('#modalUpdateSubClasificacion').modal('show');
@@ -227,10 +174,17 @@ export class SubClasificacionProductoComponent implements OnInit {
     this.formUpdateSubClasificacion.setValue({
       nombreSubClasificacion: subclasificacion.NombreSubClasificacion
       , descripcionSubClasificacion: subclasificacion.DescripcionSubClasificacion
+      , clasificacion : subclasificacion.IdClasificacion
     })
 
   }
 
+  capturarDatosIngresados(){
+
+    this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
+    this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
+
+  }
 
   createSubCasificacion(){
 
@@ -273,11 +227,9 @@ export class SubClasificacionProductoComponent implements OnInit {
 
   }
 
-  capturarDatosIngresados(){
-
-    this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
-    this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
-
+  capturarDatosActualizados(){
+    this.subclasificacion.NombreSubClasificacion = this.formUpdateSubClasificacion.value.nombreSubClasificacion;
+    this.subclasificacion.DescripcionSubClasificacion = this.formUpdateSubClasificacion.value.descripcionSubClasificacion;
   }
 
   updateSubClasificacion(){
@@ -319,20 +271,7 @@ export class SubClasificacionProductoComponent implements OnInit {
 
   }
 
-  capturarDatosActualizados(){
-    this.subclasificacion.NombreSubClasificacion = this.formUpdateSubClasificacion.value.nombreSubClasificacion;
-    this.subclasificacion.DescripcionSubClasificacion = this.formUpdateSubClasificacion.value.descripcionSubClasificacion;
 
-    let IdClasificacion:string = null;
-    IdClasificacion = $(".selectclasificacion").val()[0];
-
-    // if(IdClasificacion != null) {
-    //   this.subclasificacion.IdClasificacion = parseInt(IdClasificacion);
-    // } else {
-    //   console.log('esta vacio')
-    // }
-      // console.log(this.subclasificacion);
-  }
 
   deleteSubClasificacion(IdSubClasificacion){
    /* swal({
@@ -386,4 +325,10 @@ export class SubClasificacionProductoComponent implements OnInit {
     )
   }
 
+  onAddSelectClasificacion(event){
+    this.subclasificacion.IdClasificacion = event.IdClasificacion;
+  }
+  onUpdateSelectClasificacion(event){
+    this.subclasificacion.IdClasificacion = event.IdClasificacion;
+  }
 }

@@ -9,8 +9,6 @@ import {ListProductosComponent} from './list-productos/list-productos.component'
 import {UpdateProductoComponent} from './update-producto/update-producto.component';
 import {ProductoRoutingModule} from './producto.routing.module';
 import {SharedModuleModule} from '../shared-module/shared-module.module';
-import {Select2Module} from 'ng2-select2';
-import {NG_SELECT_DEFAULT_CONFIG, NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -22,20 +20,13 @@ import {NG_SELECT_DEFAULT_CONFIG, NgSelectModule} from '@ng-select/ng-select';
     , ProductoRoutingModule
     , ReactiveFormsModule
     , SharedModuleModule
-    , Select2Module
-    , NgSelectModule
   ],
   declarations: [
   AddProductoComponent
     , ListProductosComponent
     , UpdateProductoComponent
-  ]
-  ,providers: [ProductoService,  {
-    provide: NG_SELECT_DEFAULT_CONFIG,
-    useValue: {
-      notFoundText: 'No se encontraron resultados'
-    }
-  }]
+]
+  ,providers: [ProductoService ]
   ,exports: []
 })
 export class ProductoModule {

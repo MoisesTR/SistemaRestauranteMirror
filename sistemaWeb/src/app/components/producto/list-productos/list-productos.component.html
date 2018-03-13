@@ -14,19 +14,17 @@
           <div class="container-fluid">
             <div class="row">
 
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="left-right" style="margin-top:3%;">
                     <button type="button" class="btn btn-outline-warning waves-effect btn-sm " data-toggle="tooltip" data-placement="bottom" title="Visualizar productos en cuadrícula" [routerLink]="'../busqueda-productos'"><i class="fa"><img src="./assets/img/icon/gridvieworange.png"></i></button>
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="text-right">
-                          <button type="button"  class="btn btn-lg orange-chang" data-toggle="modal" [routerLink]="'add'" style="margin-bottom: -30%;margin-right: 2%;">Nuevo Producto</button>
-                      </div>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-right">
+                      <button type="button" class="btn orange-chang u-btn-agregar" [routerLink]="'add'">Nuevo Producto</button>
                     </div>
                   </div>
                 </div>

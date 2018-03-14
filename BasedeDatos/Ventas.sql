@@ -37,7 +37,7 @@ CREATE TABLE CLIENTE(
 ) ;
 GO
 CREATE TABLE ESTADO_VENTA(
-	IdEstadoVenta INT AUTO_INCREMENT,
+	IdEstadoVenta INT IDENTITY(1, 1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(200) NULL,
     CONSTRAINT PK_IdEstadoVenta PRIMARY KEY(EstadoVenta)
@@ -69,7 +69,7 @@ CREATE TABLE FACTURA_VENTA(
 
 GO
 CREATE TABLE DetalleFactura(
-	IdDetalle INT AUTO_INCREMENT,
+	IdDetalle INT IDENTITY(1, 1),
 	IdFactura INT NOT NULL,
     IdProductoF INT NOT NULL,
     Precio NUMERIC(7, 3) NOT NULL,
@@ -80,10 +80,10 @@ CREATE TABLE DetalleFactura(
 	Habilitado Bit default 1 not null,
     CONSTRAINT PK_IdDetalleFactura PRIMARY KEY(IdDetalle),
     CONSTRAINT FK_FacturaDetalle FOREIGN KEY(IdFactura) REFERENCES Factura(IdFactura)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+);
 
-CREATE TABLE IF NOT EXISTS Factura(
-	IdFactura INT AUTO_INCREMENT,
+CREATE TABLE FACTURA(
+	IdFactura INT IDENTITY(1, 1),
     IdVenta INT NOT NULL,
     IdMetodoPago INT NOT NULL,
     FechaHora DATETIME NOT NULL,
@@ -93,18 +93,18 @@ CREATE TABLE IF NOT EXISTS Factura(
 	CONSTRAINT Pk_Factura PRIMARY KEY(IdFactura),
     CONSTRAINT FK_VentaFactura FOREIGN KEY(IdVenta) REFERENCES Venta(IdVenta),
     CONSTRAINT FK_MetodoPago FOREIGN KEY(IdMetodoPago) REFERENCES MetodoPago(IdMetodoPago)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+);
 
 CREATE TABLE IF NOT EXISTS TipoProductoFina(
-	IdTipo INT AUTO_INCREMENT,
+	IdTipo INT IDENTITY(1, 1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(200) NULL,
     Habilitado Bit default 1 not null,
     CONSTRAINT Pk_TipoProductoF PRIMARY KEY(IdTipo)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+);
 
 CREATE TABLE IF NOT EXISTS ProductoFinal(
-	IdProductoF INT AUTO_INCREMENT,
+	IdProductoF INT IDENTITY(1, 1),
 	IdTipo INT NOT NULL,
     Nombre NVARCHAR(100) NOT NULL,
     Imagen NVARCHAR(250) NOT NULL,
@@ -113,45 +113,45 @@ CREATE TABLE IF NOT EXISTS ProductoFinal(
 	Habilitado Bit default 1 not null,
     CONSTRAINT Pk_ProductoFinal PRIMARY KEY(IdProductoF),
     CONSTRAINT FK_TipoProductoF FOREIGN KEY(IdTipo) REFERENCES TipoProductoFinal(IdTipo)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+);
 
 CREATE TABLE IF NOT EXISTS Ingredientes(
-	IdIngrediente INT AUTO_INCREMENT,
+	IdIngrediente INT IDENTITY(1, 1),
     Nombre VARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(200) NULL,
     CONSTRAINT Pk_IngredienteProductoF PRIMARY KEY(IdIngrediente)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+);
 
-CREATE TABLE IF NOT EXISTS IngredientesProductos(
+CREATE TABLE INGREDIENTES_PLATILLO(
 	IdProductoF INT NOT NULL,
     IdIngrediente INT NOT NULL,
     CONSTRAINT Fk_ProductoIngredienteF FOREIGN KEY(IdProductoF) REFERENCES ProductoFinal(IdProductoF),
     CONSTRAINT Fk_IngredienteProductoF FOREIGN KEY(IdIngrediente) REFERENCES Ingredientes(IdIngrediente),
     CONSTRAINT Pk_IngredientesProductos PRIMARY KEY(IdProductoF,IdIngrediente)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
-CREATE TABLE IF NOT EXISTS EstadoComanda(
-	IdEstadoComanda INT AUTO_INCREMENT,
-    Nombre VARCHAR(100) NOT NULL,
+);
+GO
+CREATE TABLE VENTA_ESTADO_COMANDA(
+	IdEstadoCom INT IDENTITY(1, 1),
+    NombreCom VARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(200)  NULL,
     CONSTRAINT Pk_EstadoComanda PRIMARY KEY(EstadoComanda)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
-INSERT INTO EstadoComanda(Nombre,Descripcion) VALUES('Generada',NULL),('Enviada',NULL)
+);
+GO
+INSERT INTO VETNTA_ESTADO_COMANDA(Nombre,Descripcion) VALUES('Generada',NULL),('Enviada',NULL)
 ,('En Proceso',NULL),('Finalizada',NULL),('Cancelada',NULL);
 
 CREATE TABLE IF NOT EXISTS Comanda(
-	IdComanda INT AUTO_INCREMENT,
+	IdComanda INT IDENTITY(1, 1),
     IdTrabajador INT NOT NULL,
     IdEstadoComanda INT NOT NULL,
     FechaHora DATETIME NOT NULL,
     CONSTRAINT Pk_Comanda PRIMARY KEY(IdComanda),
     CONSTRAINT Fk_TrabajadorComanda FOREIGN KEY(IdTrabajador) REFERENCES Trabajador(IdTrabajador),
 	CONSTRAINT Fk_EstadoComanda FOREIGN KEY(IdEstadoComanda) REFERENCES EstadoComanda(EstadoComanda)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
-CREATE TABLE IF NOT EXISTS DetalleComanda(
-	IdDetalle  INT AUTO_INCREMENT,
+);
+GO
+CREATE TABLE COMANDA(
+	IdDetalle  INT IDENTITY(1, 1),
     IdComanda INT NOT NULL,
     IdProductoF INT NOT NULL,
 	Comentarios NVARCHAR(100) NULL,
@@ -159,10 +159,19 @@ CREATE TABLE IF NOT EXISTS DetalleComanda(
     CONSTRAINT Pk_DetalleComanda PRIMARY KEY(IdDetalle),
     CONSTRAINT Fk_ComandaDetalleC FOREIGN KEY(IdComanda) REFERENCES Comanda(IdComanda),
     CONSTRAINT FK_ProductoFComanda FOREIGN KEY(IdProductoF) REFERENCES ProductoFinal(IdProductoF)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
+);
+GO
+CREATE TABLE ESTADO_COCCION (
+	IdEstadoC		INT IDENTITY(1,1),
+	NombreEC		NVARCHAR(50) NOT NULL,
+	DescripcionEC	NVARCHAR(50) NULL,
+	Habilitado		BIT NOT NULL DEFAULT 1,
+	CreatedAt		SMALLDATETIME NOT NULL DEFAULT GETDATE(),
+	CONSTRAINT PK_ESTADO_COCCION PRIMARY KEY(IdEstadoC)
+)
+GO
 -- CREATE TABLE IF NOT EXISTS PersonalizacionIngredientes(
--- 	IdPersonalizacion INT AUTO_INCREMENT,
+-- 	IdPersonalizacion INT IDENTITY(1, 1),
 --     IdDetalle INT NOT NULL,
 --     IdProductof INT NOT NULL,
 --     IdIngrediente INT NOT NULL,
@@ -170,19 +179,19 @@ CREATE TABLE IF NOT EXISTS DetalleComanda(
 --     CONSTRAINT Fk_ FOREIGN KEY() REFERENCES (),
 --     CONSTRAINT Fk_ FOREIGN KEY() REFERENCES (),
 --     CONSTRAINT Fk_ FOREIGN KEY() REFERENCES ()
--- ) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+-- );
 
-CREATE TABLE IF NOT EXISTS EstadoMesa(
-	IdEstado INT AUTO_INCREMENT,
+CREATE TABLE ESTADO_ATENCION(
+	IdEstado INT IDENTITY(1, 1),
     Nombre VARCHAR(100) NOT NULL,
     CONSTRAINT Pk_EstadoMesa PRIMARY KEY(IdEstado)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+);
 
-CREATE TABLE IF NOT EXISTS Mesa(
-	IdMesa INT AUTO_INCREMENT,
+CREATE TABLE MESA(
+	IdMesa INT IDENTITY(1,1),
     IdEstado INT NOT NULL,
     Nombre NVARCHAR(100) NOT NULL,
     Capacidad INT NOT NULL CHECK(Capacidad > 0),
     CONSTRAINT Pk_Mesa PRIMARY KEY(IdMesa),
     CONSTRAINT Fk_EstadoMesa FOREIGN KEY(IdEstado) REFERENCES EstadoMesa(IdEstado)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8;
+);

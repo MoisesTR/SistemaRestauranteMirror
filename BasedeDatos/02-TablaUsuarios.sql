@@ -21,7 +21,6 @@ CREATE PROCEDURE USP_CREATE_ROL_USUARIO(
 AS BEGIN
 	INSERT INTO ROL_USUARIO(NombreRol,DescripcionRol)
 	VALUES(@NombreRol,@DescripcionRol)
-
 	SELECT @@IDENTITY AS IdRol
 END
 GO
@@ -89,7 +88,6 @@ GO
 	AS BEGIN 
 		INSERT INTO USUARIO(IdRol,IdTrabajador,Username,Email,Imagen,Password)
 		VALUES(@IdRol,@IdTrabajador,@Username,@Email,@Imagen,@Password)
-
 		SELECT U.IdUsuario,U.IdTrabajador,T.Nombres,U.IdRol,R.NombreRol,C.NombreCargo,Username,Email,Password,U.Habilitado,U.CreateAt,U.UpdateAt
 		FROM USUARIO U
 		INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador

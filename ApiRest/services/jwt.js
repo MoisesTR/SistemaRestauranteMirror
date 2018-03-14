@@ -14,7 +14,7 @@ function createToken(user){
         role:user.IdRol,
         IdTrabajador:user.IdTrabajador,
         iar:moment().unix(), /* Fecha de creacion */
-        exp:moment().add(1,"days").unix() /* Token expira en un dia */
+        exp:moment().add(5,"minutes").unix() /* Token expira en un dia */
     };
     //jsonwebtoken agrega el campo iat por defecto
     //Generated jwts will include an iat (issued at) claim by default unless noTimestamp is specified. 

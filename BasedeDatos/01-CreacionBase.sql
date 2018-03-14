@@ -1,6 +1,6 @@
 CREATE DATABASE pruebas_node;
 GO
-USE CHANG_RES;
+USE pruebas_node;
 GO
 CREATE TABLE PROCEDENCIA_PRODUCTO(
 	IdProcedencia int IDENTITY(1,1),
@@ -169,7 +169,7 @@ CREATE TABLE UNIDAD_MEDIDA_FUNCIONAL(
 	IdUnidadMedida INT NOT NULL,
 	Nombre		NVARCHAR(50) NOT NULL,
 	Descripcion NVARCHAR(50)  NULL,
-	ValorUdm	NUMERIC(7,3) NOT NULL CHECK( ValorUdm > 0),
+	ValorUdm	NUMERIC(10,5) NOT NULL CHECK( ValorUdm > 0),
 	CreatedAt	DATE NOT NULL DEFAULT GETDATE(),
 	UpdateAt	DATE NULL,
 	CONSTRAINT Pk_UnidadMedidaFuncional PRIMARY KEY(IdUdmFuncional),
@@ -185,7 +185,7 @@ CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
 	@IdUnidadMedida INT,
 	@Nombre		NVARCHAR(50),
 	@Descripcion NVARCHAR(50)  NULL,
-	@ValorUdm	NUMERIC(7,3)
+	@ValorUdm	NUMERIC(10,5)
 ) AS BEGIN
 	INSERT INTO UNIDAD_MEDIDA_FUNCIONAL(IdUnidadMedida, Nombre, Descripcion, ValorUdm)
 	VALUES(@IdUnidadMedida, @Nombre, @Descripcion, @ValorUdm)
@@ -326,8 +326,9 @@ CREATE TABLE PRODUCTO_PROVEEDOR(
 	IdEnvase INT NULL, --id del envase si es que tiene
     IdEmpaque INT NULL, --id del empaque si es que tiene
 	IdUnidadMedida INT not null,
-    ValorUnidadMedida FLOAT NOT NULL,
+    ValorUnidadMedida NUMERIC(10,5) NOT NULL,
 	CantidadEmpaque INT NULL, --si tiene empaque 
+	DiasCaducidad	INT NOT NULL,
 	Costo Money NOT NULL,
 	Habilitado Bit default 0 not null,
     CreatedAt SMALLDATETIME NOT NULL DEFAULT GETDATE(),
@@ -364,27 +365,15 @@ VALUES	('Cerrado/Completo')
 		,('Abierto/Incompleto')
 		,('Sin EMPAQUE/No viene empacado');
 GO
-CREATE TABLE BODEGA_SUCURSAL (
-    IdBodegaS INT IDENTITY(1,1),
-    Nombre NVARCHAR(100) NOT NULL,
-    DescripcionLocal NVARCHAR(200) null,
-    Habilitado Bit default 1 not null,
-    CreatedAt SMALLDATETIME NOT NULL DEFAULT GETDATE(),
-    UpdateAt SMALLDATETIME NULL,
-    CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodegaS)
-);
-GO
 CREATE TABLE SUCURSAL (
     IdSucursal INT IDENTITY(1,1),
-    IdBodegaS int null,--antes era not null
     Principal Bit not null default 0,
     NombreSucursal NVARCHAR(100) NOT NULL,
     Direccion NVARCHAR(250) NOT NULL,
     Habilitado Bit default 1 not null,
     CreatedAt SMALLDATETIME NOT NULL DEFAULT GETDATE(),
     UpdateAt SMALLDATETIME NULL,
-    CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal),
-    CONSTRAINT fk_BodegaSucursal foreign key(IdBodegaS) References BODEGA_SUCURSAL(IdBodegaS)
+    CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal)
 )
 INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
@@ -399,6 +388,18 @@ CREATE TABLE TELEFONO_SUCURSAL(
 	CONSTRAINT PK_TELEFONO_SUCURSAL PRIMARY KEY(IdTelefonoSucursal),
 	CONSTRAINT FK_TELEFONO_SUCURSAL FOREIGN KEY(IdSucursal) REFERENCES SUCURSAL(IdSucursal)
 )
+GO
+CREATE TABLE BODEGA_SUCURSAL (
+    IdBodegaS		INT IDENTITY(1,1),
+	IdSucursal		INT NOT NULL,
+    Nombre			NVARCHAR(100) NOT NULL,
+    DescripcionLocal NVARCHAR(200) null,
+    Habilitado		Bit default 1 not null,
+    CreatedAt		SMALLDATETIME NOT NULL DEFAULT GETDATE(),
+    UpdateAt		SMALLDATETIME NULL,
+    CONSTRAINT PK_IDINVENT PRIMARY KEY (IdBodegaS),
+	CONSTRAINT FK_SUCURSAL_BODEGA FOREIGN KEY(IdBodegaS) REFERENCES SUCURSAL(IdSucursal)
+);
 GO
 CREATE TABLE TIPO_DOCUMENTO(
 	IdTipoDocumento		INT IDENTITY(1,1),
@@ -495,11 +496,11 @@ CREATE TABLE ENTRADA_BODEGA_AREA_PRODUCCION (
 	NFactura NVARCHAR(20) NOT NULL,
 	RepresentanteProveedor NVARCHAR(50) NOT NULL,
 	SubTotalFactura MONEY NULL CHECK(SubTotalFactura > 0),
-	PorcRetencion NUMERIC(3,2) NULL,
+	PorcRetencion NUMERIC(10,5) NULL,
 	Retencion MONEY NULL,
-	PorcIva NUMERIC(3,2) NULL,
+	PorcIva NUMERIC(10,5) NULL,
 	IvaTotal MONEY NULL,
-	PorcDescuento NUMERIC(3,2) NULL,
+	PorcDescuento NUMERIC(10,5) NULL,
 	DescuentoTotal MONEY NULL CHECK(DescuentoTotal >= 0),
 	TotalFactura MONEY NULL,
 	FechaHora SMALLDATETIME NOT NULL,

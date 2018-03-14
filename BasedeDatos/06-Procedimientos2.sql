@@ -270,13 +270,13 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO_PROVEEDOR(
 	@IdEnvase INT NULL, --id del envase si es que tiene
     @IdEmpaque INT NULL, --id del empaque si es que tiene
 	@IdUnidadMedida INT,
-    @ValorUnidadMedida FLOAT,
+    @ValorUnidadMedida NUMERIC(10,5),
 	@CantidadEmpaque INT NULL, --si tiene empaque 
 	@Costo Money,
 	@DiasCaducidad INT
 ) AS BEGIN
-	INSERT INTO PRODUCTO_PROVEEDOR(IdProducto,IdProveedor,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,Costo)
-	VALUES(@IdProducto,@IdProveedor,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque,@Costo)
+	INSERT INTO PRODUCTO_PROVEEDOR(IdProducto,IdProveedor,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,Costo, DiasCaducidad)
+	VALUES(@IdProducto,@IdProveedor,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque,@Costo,  @DiasCaducidad)
 	SELECT @@IDENTITY AS IdProductoProveedor
 END 
 GO
@@ -288,11 +288,13 @@ CREATE PROCEDURE USP_UPDATE_PRODUCTO_PROVEEDOR(
 	@IdEnvase INT NULL, --id del envase si es que tiene
     @IdEmpaque INT NULL, --id del empaque si es que tiene
 	@IdUnidadMedida INT,
-    @ValorUnidadMedida FLOAT,
+    @ValorUnidadMedida NUMERIC(10,5),
 	@CantidadEmpaque INT NULL, --si tiene empaque 
-	@Costo Money
+	@Costo Money,
+	@DiasCaducidad	INT
 ) AS BEGIN 
-	UPDATE PRODUCTO_PROVEEDOR SET IdEnvase=@IdEnvase,IdEmpaque=@IdEmpaque,IdUnidadMedida=@IdUnidadMedida,ValorUnidadMedida=@ValorUnidadMedida,cantidadEmpaque=@CantidadEmpaque,Costo=@Costo,UpdateAt=GETDATE()
+	UPDATE PRODUCTO_PROVEEDOR SET IdEnvase= ISNULL(@IdEnvase, IdEnvase),IdEmpaque=@IdEmpaque,IdUnidadMedida=@IdUnidadMedida,ValorUnidadMedida=@ValorUnidadMedida,cantidadEmpaque=@CantidadEmpaque,
+	Costo=ISNULL(@Costo, Costo), DiasCaducidad =  ISNULL(@DiasCaducidad, DiasCaducidad), UpdateAt=GETDATE()
     where IdProductoProveedor = @IdProductoProveedor;
 END
 GO

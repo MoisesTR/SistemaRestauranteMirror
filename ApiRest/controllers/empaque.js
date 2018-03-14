@@ -1,6 +1,6 @@
 var sql = require('mssql');
 var db = require('../services/database');
-const mssqlErrors = require('../Utils/util');
+const { mssqlErrors }= require('../Utils/util');
 
 function getEmpaqueById(req,res){
     const data = req.params;
@@ -21,6 +21,7 @@ function getEmpaques(req,res){
     .then((results) => {
        res.status(200).json({empaques:results.recordset}) 
     }).catch((err) => {
+        console.log(err)
         res.status(500).json( mssqlErrors(err) );
     });
 }

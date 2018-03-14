@@ -1,5 +1,5 @@
-const {matchedData} = require('express-validator/filter')
-const {mssqlErrors} = require('../Utils/util');
+const { matchedData } = require('express-validator/filter')
+const { mssqlErrors } = require('../Utils/util');
 const sql  = require('mssql');
 const db    = require('../services/database');
 
@@ -13,6 +13,7 @@ function createCategoria(req,res){
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
+        // res.status(500).json( err );
     })
 }
 function getCategorias(req,res){

@@ -3,31 +3,27 @@ const { matchedData, sanitize } = require('express-validator/filter');
 
 function validsParams(req, res, next) {
     let errors = validationResult(req);
-    (!errors.isEmpty()) ? res.status(402).json(errors.array()): next();
+    (!errors.isEmpty()) ? res.status(400).json(errors.array()): next();
 }
 const userSignUpValidation = [
         check('IdRol', 'IdRol es requerido y debe ser un entero').isInt(),
         check('IdTrabajador', 'IdTrabajador es requerido y debe ser un entero').isInt(),
-        check('Username', 'username es requerido!').exists(),
-        check('Username', 'username debe tener un minimo de 5 caracteres').isLength({ min: 5, max: 50 }),
+        check('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 }),
         check('Email', 'Campo email debe ser un Email').isEmail().optional({nullable: true}),
         check('Imagen', 'Imagen debe ser un archivo').optional({nullable: true}),
-        check('Password', 'password es requerido!').exists(),
-        check('Password', 'El password debe tener una longitud minima de 8 y maxima de 20').isLength({ min: 4, max: 20 }),
+        check('Password', 'El password debe tener una longitud minima de 5 y maxima de 20').isLength({ min: 5, max: 20 }),
         sanitize('IdRol').toInt(),
         sanitize('IdTrabajador').toInt()
     ],
     userFindUsername = [
-        check('Username', 'username es requerido!').exists(),
-        check('Username', 'username debe tener un minimo de 5 caracteres').isLength({ min: 5, max: 50 })
+        check('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 })
     ],
     userFindEmail = [
-        check('Email', 'El campo email es requerido!').exists(),
-        check('Email', 'Campo email debe ser un Email').isEmail()
+        check('Email', 'Campo Email no es una direccion de correo electronico valida!').isEmail()
     ],
     userSignInValidation = [
-        check('Username', 'username debe tener un minimo de 5 caracteres').isLength({ min: 5, max: 50 }),
-        check('Password', 'El password debe tener una longitud minima de 8 y maxima de 20').isLength({ min: 4, max: 20 }),
+        check('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 }),
+        check('Password', 'El password debe tener una longitud minima de 5 y maxima de 20').isLength({ min: 5, max: 20 }),
         check('gettoken', 'gettoken debe ser un boleano').isBoolean().optional({ nullable: true }),
         sanitize('gettoken').toBoolean(),
         sanitize('Username').toString(),

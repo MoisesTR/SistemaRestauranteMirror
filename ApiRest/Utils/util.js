@@ -11,6 +11,7 @@ function postValidator(req, res, next) {
 
 function mssqlErrors(err) {
     return {
+        "showMessage" : (err.number == 50000) ? true : false,
         "code": err.code,
         "name": err.name,
         "number": err.number,

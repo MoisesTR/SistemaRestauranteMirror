@@ -34,7 +34,7 @@ Router
     //Rutas categoria controller
     .get('/categoria/:IdCategoria(\\d+)', CategoriaController.getCategoriaById)
     .get('/categorias', CategoriaController.getCategorias)
-    .post('/categoria', CategoriaController.createCategoria)
+    .post('/categoria',validations.categoriaCreate, validations.validsParams, CategoriaController.createCategoria)
     .put('/categoria', CategoriaController.updateCategoria)
     .delete('/categoria/:IdCategoria(\\d+)', CategoriaController.changeStateCategoria)
     //Rutas clasificacion controller

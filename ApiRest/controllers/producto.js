@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var sql = require('mssql');
 var db = require('../services/database');
+const { mssqlErrors } =  require('../Utils/util');
 
 function getProductoById(req, res) {
     var data = req.params;

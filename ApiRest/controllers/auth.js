@@ -14,18 +14,19 @@ function signUp(req,res){
     bcrypt.hash(userData.Password,saltRounds).then((hashPassw) => {
         userData.Password=hashPassw;
         console.log('password hasseada')
-        db.pushAOJParam(aoj,'Username', sql.NVarChar(20),userData.Username);
+        db.pushAOJParam(aoj,'Username', sql.NVarChar(50),userData.Username);
         db.pushAOJParam(aoj,'Email', sql.NVarChar(100),userData.Email);
         console.log('entrando a stored proce')
         return db.storedProcExecute('USP_GET_USUARIO_BY_USERNAME_OR_EMAIL',aoj)
     }).then((usersfind) => {
         var users=usersfind.recordset;
         console.log(users)
+        //Si se encontro mas de un usuario
         if(users.length  > 1){
             // console.log(usersfind.recordset[0])
             throw {status:401,code:"UEEXIST",message:"No se registro el email y username ya se encuentran registrados!"};
             //res.status(401).json({code:"UEXIST",message:"No se registro el usuario, email o username ya registrados!"})
-        }else if(users.length ==1){
+        }else if(users.length == 1){
             // if(usersfind[0].username == userData.username || usersfind[1].username== userData.username)
             if(users[0].Username == userData.Username)
                 throw {status:401,code:"UEXIST",message:'No se registro el usuario username:'+userData.username+', ya se encuentra registrado!'};
@@ -54,7 +55,7 @@ function signUp(req,res){
 function singIn(req, res){
     var userData= matchedData(req);
     var aoj=[];
-    db.pushAOJParam(aoj,'Username',sql.NVarChar(20), userData.Username);
+    db.pushAOJParam(aoj,'Username',sql.NVarChar(50), userData.Username);
     console.log('no hay')
     db.storedProcExecute('USP_GET_USUARIO_BY_USERNAME',aoj)
     .then((userResult) => {

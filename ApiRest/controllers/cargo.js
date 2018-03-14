@@ -1,5 +1,5 @@
-const {matchedData} = require('express-validator/filter')
-const {mssqlErrors} = require('../Utils/util');
+const { matchedData } = require('express-validator/filter')
+const { mssqlErrors } = require('../Utils/util');
 const db = require('../services/database');
 const sql = require('mssql');
 

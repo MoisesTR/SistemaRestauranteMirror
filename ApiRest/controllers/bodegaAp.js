@@ -1,6 +1,7 @@
 var config = require('../config/mssqlConfig')
 var db = require('../services/database')
 var sql = require('mssql')
+const { mssqlErrors } = require('../Utils/util');
 const { matchedData, sanitize } = require('express-validator/filter');
 
 function createEntradaBodegaAp(req,res){ 

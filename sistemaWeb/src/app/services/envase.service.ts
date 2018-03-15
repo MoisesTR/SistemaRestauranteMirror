@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Global } from './global';
-import { Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Global} from './global';
+import {Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class EnvaseService {
@@ -10,50 +11,46 @@ export class EnvaseService {
   public url: string;
 
   constructor(
-    private _http: Http
+    private _http: HttpClient
   ) {
     this.url = Global.url;
   }
 
-  createEnvase(Envase){
+  createEnvase(Envase) : Observable<any> {
 
     let params = JSON.stringify(Envase);
-    let headers = new Headers({'Content-Type':'application/json'});
+    let headers = new HttpHeaders({'Content-Type':'application/json'});
 
     return this._http.post(this.url+'envase',params,{headers:headers})
-      .map(res => res.json());
   }
 
-  getEnvase(IdEnvase){
-    return this._http.get(this.url + 'envase/'+IdEnvase).map(res => res.json());
+  getEnvase(IdEnvase) : Observable<any> {
+    return this._http.get(this.url + 'envase/'+IdEnvase);
   }
 
-  getEnvases(Habilitado = 1){
-    return this._http.get(this.url + 'envases?Habilitado='+Habilitado).map(res => res.json());
+  getEnvases(Habilitado = 1) : Observable<any> {
+    return this._http.get(this.url + 'envases?Habilitado='+Habilitado)
   }
 
-  updateEnvase(IdEnvase,Envase){
+  updateEnvase(IdEnvase,Envase) : Observable<any>{
 
     let params = JSON.stringify(Envase);
-    let headers = new Headers({
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     })
 
     return this._http.put(this.url+'envase/'+IdEnvase,params,{headers:headers})
-      .map(res => res.json());
   }
 
-  deleteEnvase(IdEnvase){
+  deleteEnvase(IdEnvase) : Observable<any> {
 
-    let headers = new Headers({
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
 
-    let options = new RequestOptions({headers:headers});
-    return this._http.delete(this.url+'envase/'+IdEnvase,options)
-      .map(res => res.json());
+    return this._http.request('delete',this.url+'envase/'+IdEnvase,{headers:headers})
   }
 
 }

@@ -1,11 +1,11 @@
 ///Modulos
-import {InjectionToken, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuRoutingModule} from './menu.routing.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpModule} from '@angular/http';
 //Componentes
 import {ClasificacionProductoComponent} from '../clasificacion-producto/clasificacion-producto.component';
 import {ProveedorComponent} from '../proveedor/proveedor.component';
@@ -53,6 +53,8 @@ import {AuthGuardService} from '../../services/auth/auth-guard.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {JwtHelper} from 'angular2-jwt';
 import {ProductoProveedorModule} from '../producto-proveedor/producto-proveedor.module';
+import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
+import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
 
 
 @NgModule({
@@ -77,6 +79,8 @@ import {ProductoProveedorModule} from '../producto-proveedor/producto-proveedor.
     , UnidadmedidaComponent
     , DashBoardComponent
     , SalidaProductoComponent
+    , InformacionFacturaComponent
+    , BuscarGeneralFacturaComponent
     , BuscarPipe
   ],
   imports: [

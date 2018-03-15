@@ -37,7 +37,6 @@ const routes: Routes = [
     , BrowserAnimationsModule
     , MenuModule
     , ReactiveFormsModule
-    ,DropdownModule
     ,  ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',

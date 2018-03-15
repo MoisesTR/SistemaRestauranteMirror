@@ -14,6 +14,7 @@ import {SharedModuleModule} from './components/shared-module/shared-module.modul
 import {DropdownModule} from 'ngx-dropdown';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -29,7 +30,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule
-    , HttpModule
+    , HttpClientModule
     , FormsModule
     , RouterModule.forRoot(routes)
     , SharedModuleModule

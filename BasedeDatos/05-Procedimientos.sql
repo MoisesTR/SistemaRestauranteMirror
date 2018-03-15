@@ -220,10 +220,11 @@ CREATE PROCEDURE USP_CREATE_PROVEEDOR(
     @Direccion NVARCHAR(200),-- NOT NULL,
     @Email NVARCHAR(100),-- NULL
     @Descripcion NVARCHAR(200),-- NULL,
-    @NombreRepresentante NVARCHAR(100) -- NOT NULL,
+    @NombreRepresentante NVARCHAR(100), -- NOT NULL,
+	@Retencion2		BIT NULL
 ) AS BEGIN
-	INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante)
-    VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante);
+	INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2)
+    VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante, @Retencion2);
 	SELECT @@IDENTITY AS IdProveedor
 END 
 GO
@@ -231,15 +232,16 @@ IF OBJECT_ID('USP_UPDATE_PROVEEDOR','P') IS NOT NULL
 	DROP PROCEDURE USP_UPDATE_PROVEEDOR
 GO
 CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
-	@IdProveedor INT,
+	@IdProveedor	INT,
     @NombreProveedor NVARCHAR(50), -- NOT NULL,
-    @Direccion NVARCHAR(200),-- NOT NULL,
-    @Email NVARCHAR(100),-- NULL
-    @Descripcion NVARCHAR(200),-- NULL,
-    @NombreRepresentante NVARCHAR(100) -- NOT NULL,
+    @Direccion		NVARCHAR(200),-- NOT NULL,
+    @Email			NVARCHAR(100),-- NULL
+    @Descripcion	NVARCHAR(200),-- NULL,
+    @NombreRepresentante NVARCHAR(100) NULL, -- NOT NULL,
+	@Retencion2		BIT NULL
 ) AS BEGIN
 	UPDATE PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
-    NombreRepresentante=@NombreRepresentante,UpdateAt=GETDATE() WHERE IdProveedor = @IdProveedor;
+    NombreRepresentante=COALES@NombreRepresentante,Retencion2 = ISNULL(@Retencion2, Retencion2), UpdateAt=GETDATE() WHERE IdProveedor = @IdProveedor;
 END 
 GO
 IF OBJECT_ID('USP_CREATE_NUMEROPROVEEDOR','P') IS NOT NULL
@@ -286,9 +288,9 @@ CREATE PROCEDURE USP_GET_PROVEEDORES
 	@Habilitado BIT null
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR;
+		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2 FROM PROVEEDOR;
 	ELSE
-		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR
+		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2 FROM PROVEEDOR
 		WHERE Habilitado = @Habilitado;
 END
 GO
@@ -298,7 +300,7 @@ GO
 CREATE PROCEDURE USP_GET_PROVEEDOR(
 	@IdProveedor INT
 ) AS BEGIN 
-	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante FROM PROVEEDOR where IdProveedor = @IdProveedor;
+	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion FROM PROVEEDOR where IdProveedor = @IdProveedor;
 END
 GO
 IF OBJECT_ID('USP_GET_NUMEROS_PROVEEDOR','P') IS NOT NULL

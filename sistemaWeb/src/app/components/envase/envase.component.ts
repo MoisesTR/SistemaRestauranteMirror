@@ -100,13 +100,6 @@ export class EnvaseComponent implements OnInit {
 
     }
 
-
-
-private initConstructorEnvase() {
-    this.envase = new Envase(null,null,null,null);
-  }
-
-
   getEnvase(){
     this._envaseService.getEnvases().subscribe(
       response => {

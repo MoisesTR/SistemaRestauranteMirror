@@ -132,6 +132,9 @@ export class UnidadmedidaComponent implements OnInit {
         , Validators.minLength(2)
         , Validators.maxLength(3)
         , CustomValidators.espaciosVacios
+      ]),
+      'clasificacionesUnidad': new FormControl('',[
+        Validators.required
       ])
     })
   }
@@ -281,20 +284,14 @@ export class UnidadmedidaComponent implements OnInit {
     showModalUpdate(unidadmedida){
 
       this.formUpdateUnidadMedida.reset();
-
       $('#modalUpdateUnidadMedida').modal('show');
-      $('.selectclasificacionunidadmedida').val(this.unidadMedida.IdClasificacionUnidadMedida).trigger('change.select2');
 
 
-      let Unidad : UnidadMedida;
-      Unidad = unidadmedida;
-
-      this.unidadMedida.IdUnidadMedida = Unidad.IdUnidadMedida;
-
+      this.unidadMedida.IdUnidadMedida = unidadmedida.IdUnidadMedida;
       this.formUpdateUnidadMedida.reset();
       this.formUpdateUnidadMedida.setValue({
-        nombreUnidadMedida: Unidad.NombreUnidad
-        , simboloUnidadMedida: Unidad.Simbolo
+        nombreUnidadMedida: unidadmedida.NombreUnidad
+        , simboloUnidadMedida: unidadmedida.Simbolo
       });
 
     }
@@ -346,9 +343,9 @@ export class UnidadmedidaComponent implements OnInit {
 
   cleanFormAdd(){
     this.formAddUnidadMedida.reset();
-    $('#clasificacionunidadmedida').val(null)
-      .trigger('change');
   }
 
-
+  onAddSelectClasificacionesUnidad(event){
+    this.unidadMedida.IdClasificacionUnidadMedida = event.IdClasificacionUnidadMedida;
+  }
 }

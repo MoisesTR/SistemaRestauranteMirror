@@ -99,10 +99,15 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label for="selectclasificacion">Clasificación</label>
-                        <select2 name="selectclasificacion"  (valueChanged)="changedClasificacion($event)" [options]="optionsSelect2" class="selectclasificacion"  id="selectclasificacion" >
-                          <option class="chip" [value]="clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.NombreClasificacion}}</option>
-                        </select2>
+                        <label for="clasificacion">Clasificación</label>
+                        <ng-select [items]="clasificaciones"
+                                   bindLabel="NombreClasificacion"
+                                   bindValue="IdClasificacion"
+                                   placeholder="Selecciona una clasificacion"
+                                   formControlName="clasificacion" id="clasificacion" (add)="onAddSelectClasificacion($event)"
+                        >
+                        </ng-select>
+                        <show-errors [control]="formAddSubClasificacion.controls['clasificacion']"></show-errors>
                       </div>
 
                       <div class="col-md-12">
@@ -164,9 +169,9 @@
                   <div class="container-fluid">
                     <br>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <br>
-                        <div class="md-form ">
+                        <div class="md-form">
                           <input type="text" id="upnombresubclasificacion"
                                  minlength="5"
                                  class="form-control letras"
@@ -178,6 +183,19 @@
                         </div>
 
                       </div>
+
+                      <div class="col-md-6">
+                        <label for="upclasificacion">Clasificación</label>
+                        <ng-select [items]="clasificaciones"
+                                   bindLabel="NombreClasificacion"
+                                   bindValue="IdClasificacion"
+                                   placeholder="Selecciona una clasificacion"
+                                   formControlName="clasificacion" id="upclasificacion" (add)="onUpdateSelectClasificacion($event)"
+                        >
+                        </ng-select>
+                        <show-errors [control]="formUpdateSubClasificacion.controls['clasificacion']"></show-errors>
+                      </div>
+
                       <div class="col-md-12">
                         <br>
                         <div class="md-form">

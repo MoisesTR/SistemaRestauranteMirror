@@ -78,6 +78,14 @@ export class AddUsuarioComponent implements OnInit {
           , Validators.minLength(8)
           , CustomValidators.espaciosVacios
         ])
+      ,'trabajador': new FormControl('',
+        [
+          Validators.required
+        ])
+      ,'rol': new FormControl('',
+        [
+          Validators.required
+        ])
     })
     this.onChanges();
   }
@@ -134,37 +142,13 @@ export class AddUsuarioComponent implements OnInit {
     )
   }
 
-  changedSelectRol(event){
-    let IdRol = event.value[0];
 
-    if(IdRol != null) {
-      this.usuario.IdRol = IdRol;
-    } else {
-      this.usuario.IdRol = null
-    }
-    this.validarCamposSelect2();
+  onAddTrabajador(event){
+    this.usuario.IdTrabajador = event.IdTrabajador;
   }
 
-  changedSelectTrabador(event) {
-
-    let idTrabajador = event.value[0];
-
-    if(idTrabajador != null) {
-      this.usuario.IdTrabajador = idTrabajador;
-    } else {
-      this.usuario.IdTrabajador = null;
-    }
-
-    this.validarCamposSelect2();
-  }
-
-  validarCamposSelect2(){
-
-    if(this.usuario.IdRol == null || this.usuario.IdTrabajador == null) {
-      this.todoValidado = 0;
-    } else {
-      this.todoValidado = 1;
-    }
+  onAddRol(event){
+    this.usuario.IdRol = event.IdRol;
   }
 
 }

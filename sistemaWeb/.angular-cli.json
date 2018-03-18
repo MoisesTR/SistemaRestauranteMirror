@@ -1,4 +1,4 @@
-  {
+{
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "name": "sistema-web"
@@ -19,20 +19,20 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "../node_modules/font-awesome/scss/font-awesome.scss",
+        "assets/mdbangular-pro/mdb-angular-pro/scss/bootstrap/bootstrap.scss",
+        "assets/mdbangular-pro/mdb-angular-pro/scss/mdb.scss",
+        "./styles.scss"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.js"
-        ,"../node_modules/collapsible.js/jquery.collapsible.js"
-        ,"../node_modules/jquery-mask-plugin/dist/jquery.mask.js"
-        ,"assets/js/datatables.min.js"
-        ,"assets/js/jquery.dataTables.min.js"
-        ,"assets/js/select2.min.js"
-        ,"../node_modules/sidenavjs/dist/sidenav.min.js"
-        ,"assets/js/popper.min.js"
-        ,"assets/js/bootstrap.min.js"
-
-      ],
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/jquery-mask-plugin/dist/jquery.mask.js",
+        "assets/js/datatables.min.js",
+        "assets/js/jquery.dataTables.min.js",
+        "../node_modules/chart.js/dist/Chart.js",
+        "../node_modules/hammerjs/hammer.min.js"
+      ]
+    ,
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -62,7 +62,8 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
   }
 }

@@ -1,0 +1,271 @@
+.active-submenu {
+  background: rgba(192, 57, 43,0.6) !important;
+}
+
+.nopadding {
+  margin-top: 0 !important;
+}
+
+.nomargin {
+  margin-left: -2% !important;
+}
+
+.navbar {
+  background-color: transparent;
+}
+
+.top-nav-collapse {
+  background-color: rgba(192, 57, 43, 0.7);
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+    background-color: rgba(192, 57, 43, 0.7);
+  }
+}
+
+footer.page-footer {
+  background-color: rgba(192, 57, 43, 1);
+  margin-top: 2rem;
+}
+
+.pattern-4 {
+  background-attachment: fixed;
+}
+
+.view-full {
+  background: url("../img/landingpage/background-3.jpg")no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+}
+
+.full-bg-img {
+  color: #fff;
+}
+
+.navbar .btn-group .dropdown-menu a:hover {
+  color: #000 !important;
+}
+.navbar .btn-group .dropdown-menu a:active {
+  color: #fff !important;
+}
+.background{
+  background: url("../img/landingpage/background-historia.jpg")no-repeat center center;
+  background-size: cover;
+}
+
+/* Paleta de colores */
+.red-chang-dregadate{
+  background-color: rgba(192, 57, 43, 0.7) !important;
+}
+.red-chang{
+  background-color: #C0392B !important;
+}
+.orange-chang{
+  background-color: #E67E22 !important;
+}
+.orange-header{
+  background-color: rgba(230, 126, 34, 0.7) !important;
+}
+.orange-chang-text {
+  color: #E67E22 !important;
+}
+
+.padding-0{
+  padding-right:0;
+  padding-left:0;
+}
+.background-collapsible{
+  background: url("../img/landingpage/background-3.jpg")no-repeat center center;
+}
+
+/* Color de labels */
+.md-form input[type=text]:focus:not([readonly]),
+.md-form input[type=password]:focus:not([readonly]),
+.md-form input[type=number]:focus:not([readonly]),
+.md-form input[type=email]:focus:not([readonly]),
+.md-form input[type=search]:focus:not([readonly]),
+.md-form textarea[type=text]:focus:not([readonly]),
+.md-form textarea[type=password]:focus:not([readonly]),
+.md-form textarea[type=number]:focus:not([readonly]),
+.md-form textarea[type=email]:focus:not([readonly]),
+.md-form textarea[type=search]:focus:not([readonly]) {
+  border-bottom: 1px solid rgba(230, 126, 34, 0.8);
+  box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8);
+}
+.md-form input[type=text]:focus:not([readonly])+label,
+.md-form input[type=password]:focus:not([readonly])+label,
+.md-form input[type=number]:focus:not([readonly])+label,
+.md-form input[type=email]:focus:not([readonly])+label,
+.md-form input[type=search]:focus:not([readonly])+label,
+.md-form textarea[type=text]:focus:not([readonly])+label,
+.md-form textarea[type=password]:focus:not([readonly])+label,
+.md-form textarea[type=number]:focus:not([readonly])+label,
+.md-form textarea[type=email]:focus:not([readonly])+label,
+.md-form textarea[type=search]:focus:not([readonly])+label {
+  color: rgba(230, 126, 34, 0.8);
+}
+
+/*Login*/
+.intro-2 {
+  background: url("../img/landingpage/background-2.jpg")no-repeat center center;
+  background-size: cover;
+}
+
+.card-login {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.md-form .prefix {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+h6 {
+  line-height: 1.7;
+}
+@media (max-width: 740px) {
+  .full-height,
+  .full-height body,
+  .full-height header,
+  .full-height header .view {
+    height: 750px;
+  }
+}
+@media (min-width: 741px) and (max-height: 638px) {
+  .full-height,
+  .full-height body,
+  .full-height header,
+  .full-height header .view {
+    height: 750px;
+  }
+}
+
+.card {
+  margin-top: 30px;
+  /*margin-bottom: -45px;*/
+
+}
+
+.login:input[type="text"]:focus:not([readonly]) {
+  border-color: rgba(230, 126, 34, 0.8);
+  box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8);
+  color: #fff;
+}
+
+.login:input[type="text"]:not([readonly])+label {
+  color: rgba(255, 255, 255, .65);
+}
+
+.login:input[type="text"]:focus:not([readonly])+label {
+  color: #fff;
+}
+
+.login .md-form .form-control {
+  color: #fff;
+}
+
+.login .md-form label {
+  color: #ffffff;
+}
+
+/* Estilos panel administrativo */
+.background-gray{
+  background-image: url(../img/landingpage/background-historia.jpg);
+  min-height: 100%;
+  min-width: 100%;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+.color-primary{
+  background-color: #E67E22;
+}
+.color-secundary{
+  background-color: #C0392B;
+}
+.header-negrita{
+  font-weight: 900;
+}
+.body-negrita{
+  font-weight:400;
+}
+.margin-paneladministrativo{
+  margin-bottom: 5%;
+}
+/* Colores datepicker */
+.picker__day-display {
+  background-color: #C0392B !important;
+}
+.picker__weekday-display {
+  background-color: #80261C !important;
+}
+.picker__date-display {
+  background-color: #C0392B !important;
+  color: #000 !important;
+}
+.picker__year-display {
+  background-color: #C0392B;
+  color: #000;
+}
+.picker__select--month, .picker__select--year {
+  padding: 0 !important;
+}
+.img-factura {
+  display: inline-block;
+  width: 80px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+/* Agenda */
+.agenda-card .avatar {
+    max-width: 150px;
+    max-height: 150px;
+    margin: -70px auto 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.centrar-texto {
+  text-align: center;
+}
+
+/* Scroll bar */
+.scrollbar-ripe-malinka::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #F5F5F5;
+  border-radius: 10px; }
+
+.scrollbar-ripe-malinka::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5; }
+
+.scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-image: -webkit-linear-gradient(330deg, #E67E22 0%, #E67E22 100%);
+  background-image: linear-gradient(120deg, #E67E22 0%, #E67E22 100%); }
+
+.scrollbar-card {
+  position: relative;
+  overflow-y: scroll;
+  height: 100% !important; }
+
+/* Datatable search*/
+.ubicacion {
+  bottom: 55px !important; 
+  margin-bottom: -50px !important;
+}
+
+/* Ubicacion boton agregar datatable */
+.u-btn-agregar{
+  margin-bottom: -7% !important;
+  margin-right: 2% !important;
+  position:relative;
+  z-index:20;
+}

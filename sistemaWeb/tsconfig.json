@@ -1,5 +1,7 @@
 {
   "compileOnSave": false,
+  "include": ["src/assets/mdbangular-pro/mdb-angular-pro/src/app/typescripts/pro/index.ts",  "src/**/*.ts"],
+
   "compilerOptions": {
     "paths": {
       "@angular/*": [

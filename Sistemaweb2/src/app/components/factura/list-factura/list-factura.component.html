@@ -1,0 +1,52 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-cascade narrower">
+        <!--Titulo-->
+        <div class="view gradient-card-header orange-chang" >
+          <h2 class="h2-responsive">Facturas</h2>
+        </div>
+        <!--/Titulo-->
+        <div class="card-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="text-right" >
+                  <button type="button" class="btn orange-chang u-btn-agregar" [routerLink]="'/factura/add'">Nueva Factura</button>                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+              <th class="header-negrita">Numero de factura</th>
+              <th class="header-negrita">Proveedor</th>
+              <th class="header-negrita">Fecha</th>
+              <th class="header-negrita">Descripción</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let factura of facturas">
+              <td class="body-negrita">{{ factura.IdFactura }}</td>
+              <td class="body-negrita">{{ factura.CodFactura }}</td>
+              <td class="body-negrita">{{ factura.Descripcion}}</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button"  class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateFactura" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                  <button type="button"  class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteFactura" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

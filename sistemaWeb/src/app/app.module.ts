@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
@@ -7,9 +7,9 @@ import {NotFound404Component} from './components/not-found-404/not-found-404.com
 import {MenuModule} from './components/menu/menu.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModuleModule} from './components/shared-module/shared-module.module';
-import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
+import {MDBBootstrapModulePro} from './typescripts/pro/index';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,20 +24,16 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule
+    , BrowserAnimationsModule
+    , MDBBootstrapModulePro.forRoot()
     , HttpClientModule
     , FormsModule
     , RouterModule.forRoot(routes)
     , SharedModuleModule
-    , BrowserAnimationsModule
     , MenuModule
     , ReactiveFormsModule
-    ,  ToastrModule.forRoot({
-      timeOut: 1000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-    })
-    ,
   ],
+  schemas: [ NO_ERRORS_SCHEMA ],
   providers: [],
   bootstrap: [AppComponent]
 })

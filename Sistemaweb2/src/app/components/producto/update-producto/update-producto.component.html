@@ -1,0 +1,102 @@
+<section>
+  <form [formGroup]="formUpdateProducto" (ngSubmit)="validarCampos()" novalidate>
+    <div class="row">
+
+      <!--Imagen-->
+      <div class="col-lg-4">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Imagen</h4>
+          </div>
+          <div class="card-body text-center">
+            <input type="file" id="imageProducto"  class="dropify" (change)="fileChangeEvent($event)" data-height="300"  />
+          </div>
+        </div>
+      </div>
+      <!-- /.Imagen -->
+
+      <!--Datos del producto-->
+      <div class="col-lg-8  ">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Actualizar Datos del Producto</h4>
+          </div>
+          <!-- Contenido -->
+          <div class="card-body ">
+
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+                <div class="md-form">
+                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off">
+                  <show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>
+                  <label [class.active] = "producto.NombreProducto && producto.NombreProducto.length > 0" for="nombreproducto" class="input-char-counter">Nombre</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="upClasifSelect">Clasificación</label>
+                <ng-select [items]="clasificaciones"
+                           bindLabel="NombreClasificacion"
+                           bindValue="IdClasificacion"
+                           placeholder="Selecciona una clasificacion"
+                           formControlName="clasificacion" id="upClasifSelect" (add)="onUpSelectClasificacion($event)"
+                           [(ngModel)] = "producto.IdClasificacion"
+
+                >
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['clasificacion']"></show-errors>
+
+              </div>
+              <div class="col-md-6">
+                <label for="selectSubClasificacion">Subclasificación</label>
+                <ng-select [items]="subclasificaciones"
+                           bindLabel="NombreSubClasificacion"
+                           bindValue="IdSubClasificacion"
+                           placeholder="Selecciona una subclasificacion"
+                           formControlName="subclasificacion" id="selectSubClasificacion"
+                           (add)="onUpSelectSubClasificacion($event)"
+                           [(ngModel)] = "producto.IdSubclasificacion"
+                >
+
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['subclasificacion']"></show-errors>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <label for="selectCategoria">Categoria</label>
+                <ng-select [items]="categorias"
+                           bindLabel="NombreCategoria"
+                           bindValue="IdCategoria"
+                           placeholder="Selecciona una categoria"
+                           formControlName="categoria" id="selectCategoria"
+                           (add)="onUpCategoria($event)"
+                           [(ngModel)] = "producto.IdCategoria"
+                >
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['categoria']"></show-errors>
+
+              </div>
+              <div class="col-md-12">
+                <br>
+                <div class="md-form">
+                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
+                  <show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>
+                  <label [class.active] = "producto.Descripcion && producto.Descripcion.length > 0" for="descripcionproducto">Descripción</label>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="text-center mt-1-half">
+              <button class="btn orange-chang mb-1" [disabled]="!formUpdateProducto.valid">Actualizar <i class="fa fa-check ml-1"></i></button>
+            </div>
+
+          </div>
+          <!-- Contenido -->
+        </div>
+      </div>
+      <!-- /.Datos del usuario-->
+
+    </div>
+  </form>
+
+</section>

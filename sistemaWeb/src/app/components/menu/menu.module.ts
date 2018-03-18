@@ -1,5 +1,5 @@
 ///Modulos
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuRoutingModule} from './menu.routing.module';
@@ -55,6 +55,7 @@ import {JwtHelper} from 'angular2-jwt';
 import {ProductoProveedorModule} from '../producto-proveedor/producto-proveedor.module';
 import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
 import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
+import {MDBBootstrapModulePro} from '../../typescripts/pro';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-ge
     , Select2Module
     , ProductoProveedorModule
     , HttpClientModule
+    , MDBBootstrapModulePro.forRoot()
 
   ],
   exports: [
@@ -125,7 +127,8 @@ import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-ge
     , AuthService
     , JwtHelper
 
-  ]
+  ],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 
 export class MenuModule {

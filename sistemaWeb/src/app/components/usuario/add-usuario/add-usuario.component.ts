@@ -9,6 +9,7 @@ import {RolUsuario} from '../../../models/RolUsuario';
 import {Trabajador} from '../../../models/Trabajador';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
+
 declare var $:any;
 
 @Component({
@@ -23,8 +24,6 @@ export class AddUsuarioComponent implements OnInit {
   public roles: RolUsuario[];
   public trabajadores: Trabajador[];
   formularioAddUsuario : FormGroup
-  public select2Options : Select2Options;
-  public todoValidado = 0;
 
   constructor(
     private _route: ActivatedRoute
@@ -36,12 +35,6 @@ export class AddUsuarioComponent implements OnInit {
 
   ) {
     this.usuario = new Usuario(null,null,null,null,null,null,null,null,null,null)
-
-    this.select2Options = {
-      multiple : true
-      , maximumSelectionLength : 1
-      , width : '100%'
-    }
   }
 
   ngOnInit() {

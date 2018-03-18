@@ -1,18 +1,17 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {SucursalService} from "../../services/sucursal.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Sucursal} from "../../models/Sucursal";
-import { Subject } from 'rxjs/Rx';
+import {SucursalService} from '../../services/sucursal.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Sucursal} from '../../models/Sucursal';
+import {Subject} from 'rxjs/Rx';
 import swal from 'sweetalert2';
-import {idioma_espanol} from "../../services/global";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {DataTableDirective} from "angular-datatables";
-import {CustomValidators} from "../../validadores/CustomValidators";
-import {TelefonosucursalService} from "../../services/telefonosucursal.service";
-import {TelefonoSucursal} from "../../models/TelefonoSucursal";
-import {forEach} from '@angular/router/src/utils/collection';
+import {idioma_espanol} from '../../services/global';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DataTableDirective} from 'angular-datatables';
+import {CustomValidators} from '../../validadores/CustomValidators';
+import {TelefonosucursalService} from '../../services/telefonosucursal.service';
+import {TelefonoSucursal} from '../../models/TelefonoSucursal';
 import {isNull} from 'util';
-import {Observable} from 'rxjs/Observable';
+
 declare var $:any;
 
 @Component({
@@ -32,7 +31,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
   public telefonosSucursales : TelefonoSucursal [];
   public telefonoPrincipal: TelefonoSucursal;
   public telefonoSecundario: TelefonoSucursal;
-  public mensaje : string;
+
   public formAddSucursal: FormGroup;
   public formUpdateSucursal: FormGroup;
 
@@ -40,9 +39,8 @@ export class SucursalComponent implements OnInit , AfterViewInit{
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
@@ -58,33 +56,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
 
   ngOnInit() {
 
-    $(document).ready(function() {
-
-      $(".letras").keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-          && (key.charCode != 45) //retroceso
-          && (key.charCode != 241) //ñ
-          && (key.charCode != 209) //Ñ
-          && (key.charCode != 32) //espacio
-          && (key.charCode != 225) //á
-          && (key.charCode != 233) //é
-          && (key.charCode != 237) //í
-          && (key.charCode != 243) //ó
-          && (key.charCode != 250) //ú
-          && (key.charCode != 193) //Á
-          && (key.charCode != 201) //É
-          && (key.charCode != 205) //Í
-          && (key.charCode != 211) //Ó
-          && (key.charCode != 218) //Ú
-
-        )
-          return false;
-      });
-
-      $('.telefono').mask('0000-0000');
-
-    });
+    $('.telefono').mask('0000-0000');
 
     this.settingsDatatable();
     this.getSucursal();
@@ -141,9 +113,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
 
@@ -154,7 +124,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
       response => {
 
         if(!response.sucursales){
-          console.log('Ha ocurrido un error');
+
         } else {
           this.sucursales = response.sucursales;
         }
@@ -231,6 +201,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
   }
 
   getValuesFormAddSucursal(){
+
     this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formAddSucursal.value.direccion;
     this.telefonoPrincipal.NumeroTelefono = this.formAddSucursal.value.telefonoPrincipal;
@@ -259,6 +230,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
     this.sucursal.IdSucursal  = sucursal.IdSucursal;
 
     this.formUpdateSucursal.reset();
+
     this.formUpdateSucursal.setValue({
       nombreSucursal: sucursal.NombreSucursal
       , direccion: sucursal.Direccion
@@ -275,7 +247,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
       response => {
 
         if (response.IdSucursal) {
-          this.creaarTelefonosSucursal(response.IdSucursal);
+          this.crearTelefonoSucursal(response.IdSucursal);
         } else {
           swal(
             'Error inesperado',
@@ -300,7 +272,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
   }
 
 
-  creaarTelefonosSucursal(IdSucursal){
+  crearTelefonoSucursal(IdSucursal){
     let resultado;
       this.Telefonos.forEach((telefono, index) => {
         resultado = false;

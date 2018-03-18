@@ -19,18 +19,16 @@ declare var $:any;
   styleUrls: ['./sub-clasificacion-producto.component.css'],
   providers: [SubClasificacionProductoService]
 })
+
 export class SubClasificacionProductoComponent implements OnInit {
 
-  public subclasificacion : SubClasificacionProducto;
+  public subclasificacion: SubClasificacionProducto;
   public subclasificaciones: SubClasificacionProducto[];
   public clasificaciones: ClasificacionProducto;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
   formAddSubClasificacion : FormGroup;
@@ -44,29 +42,34 @@ export class SubClasificacionProductoComponent implements OnInit {
     , private formBuilderSubClasificacion : FormBuilder
 
   ) {
-    this.subclasificacion = new SubClasificacionProducto(null,null,null,null,null);
+    this.subclasificacion = new SubClasificacionProducto(
+      null
+      ,null
+      ,null
+      ,null
+      ,null);
+
     this.initCustomValidatorsFormSubClasificacion();
   }
-
 
   private initCustomValidatorsFormSubClasificacion(){
 
     this.formAddSubClasificacion = this.formBuilderSubClasificacion.group({
-      'nombreSubClasificacion' : new FormControl('',[
+        'nombreSubClasificacion' : new FormControl('',[
+          Validators.required
+          , Validators.minLength(5)
+          , Validators.maxLength(100)
+          , CustomValidators.espaciosVacios
+        ])
+        , 'descripcionSubClasificacion' : new FormControl('',[
+          Validators.required
+          , Validators.minLength(5)
+          , Validators.maxLength(300)
+          , CustomValidators.espaciosVacios
+        ])
+        ,'clasificacion' : new FormControl('',[
         Validators.required
-        , Validators.minLength(5)
-        , Validators.maxLength(100)
-        , CustomValidators.espaciosVacios
       ])
-      , 'descripcionSubClasificacion' : new FormControl('',[
-        Validators.required
-        , Validators.minLength(5)
-        , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
-      ])
-      ,'clasificacion' : new FormControl('',[
-      Validators.required
-    ])
     })
 
     this.formUpdateSubClasificacion = this.formBuilderSubClasificacion.group({
@@ -88,8 +91,7 @@ export class SubClasificacionProductoComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-
+  settingsDatatables(){
     this.dtOptions = <DataTables.Settings>{
       autoWidth: false
       , pagingType: 'full_numbers'
@@ -100,43 +102,24 @@ export class SubClasificacionProductoComponent implements OnInit {
       , language: idioma_espanol
     };
 
-    $(document).ready(function(){
-      $(".letras").keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-          && (key.charCode != 45) //retroceso
-          && (key.charCode != 241) //ñ
-          && (key.charCode != 209) //Ñ
-          && (key.charCode != 32) //espacio
-          && (key.charCode != 225) //á
-          && (key.charCode != 233) //é
-          && (key.charCode != 237) //í
-          && (key.charCode != 243) //ó
-          && (key.charCode != 250) //ú
-          && (key.charCode != 193) //Á
-          && (key.charCode != 201) //É
-          && (key.charCode != 205) //Í
-          && (key.charCode != 211) //Ó
-          && (key.charCode != 218) //Ú
+  }
+  ngOnInit() {
 
-        )
-          return false;
-      });
+    this.settingsDatatables();
+
+    //Investigar que la longitud sea extensa en la mascara
+    $('.letras').mask('Aaaaaa ',{'translation': {
+        A: {pattern: /[A-Za-z]/}
+      }
     });
 
     this.getSubClasificaciones();
     this.getClasificaciones();
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
-
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
   }
@@ -154,12 +137,10 @@ export class SubClasificacionProductoComponent implements OnInit {
         }
       }, error => {
 
-        if(error.status == 500){
+      }, ()=> {
 
-        }
       }
     )
-
   }
 
   showModalUpdateSubClasificacion(subclasificacion){
@@ -180,7 +161,6 @@ export class SubClasificacionProductoComponent implements OnInit {
   }
 
   capturarDatosIngresados(){
-
     this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
 
@@ -207,8 +187,6 @@ export class SubClasificacionProductoComponent implements OnInit {
             'Ha ocurrido un error al insertar el producto, intenta nuevamente!',
             'error'
           )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
         }
         this.getSubClasificaciones();
       }, error => {

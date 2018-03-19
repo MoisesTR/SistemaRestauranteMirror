@@ -1,0 +1,42 @@
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Usuario} from '../../models/Usuario';
+import {UsuarioService} from '../../services/usuario.service';
+import {ActivatedRoute, Router} from '@angular/router';
+declare var $: any;
+
+
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss']
+})
+export class MenuComponent implements OnInit, AfterViewInit{
+  ngAfterViewInit(): void {
+
+  }
+
+  public rol: string = 'admin';
+  public Usuario: Usuario;
+
+  constructor(private _route: ActivatedRoute,
+              private _router: Router,
+              private _usuarioService: UsuarioService) {
+  }
+
+  ngOnInit() {
+
+    this.Usuario = this._usuarioService.getIdentity();
+
+
+  }
+
+  logout() {
+    localStorage.clear();
+    this._usuarioService.identity = null;
+    this._router.navigate(['/login']);
+  }
+
+  verInformacionUsuario(){
+    this._router.navigate(['/usuario/view']);
+  }
+}

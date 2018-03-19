@@ -1,0 +1,99 @@
+<div class="container-fluid mt-5">
+  <section>
+    <div class="row">
+      <!--Imagen-->
+      <div class="col-lg-4">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Imagen</h4>
+          </div>
+          <div class="card-body text-center">
+            <input name="imagen" type="file" class="dropify" data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
+          </div>
+        </div>
+      </div>
+      <!-- /.Imagen -->
+
+      <!--Datos del usuario-->
+      <div class="col-lg-8  ">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Datos del Usuario</h4>
+          </div>
+          <!-- Contenido -->
+          <div class="card-body ">
+            <!-- Formulario -->
+            <form [formGroup] = "formularioAddUsuario" (ngSubmit)="createUsuario()" novalidate>
+              <!-- Campos a ingresar -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="md-form">
+                    <input type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control validate " formControlName="nombre"
+                           autocomplete="off" [(ngModel)]="formularioAddUsuario.value.nombre">
+                    <label for="UsuarioNombre">Nombre de usuario</label>
+                    <show-errors [control]="formularioAddUsuario.controls['nombre']"></show-errors>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input mdbActive type="email" id="Correo" name="Correo" class="form-control validate" formControlName="correo" autocomplete="off"
+                           [(ngModel)]="formularioAddUsuario.value.correo">
+                    <label for="Correo">Correo Electrónico</label>
+                    <show-errors [control]="formularioAddUsuario.controls['correo']"></show-errors>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input mdbActive type="password" id="Contrasenia" name="Contrasenia" class="form-control validate" formControlName="contrasenia" autocomplete="off"
+                           [(ngModel)]="formularioAddUsuario.value.contrasenia">
+                    <label for="Contrasenia">Contraseña</label>
+                    <show-errors [control]="formularioAddUsuario.controls['contrasenia']"></show-errors>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="trabajador">Nombre trabajador</label>
+                  <ng-select [items]="trabajadores"
+                             bindLabel="Nombres"
+                             bindValue="IdTrabajador"
+                             placeholder="Selecciona un trabajador"
+                             formControlName="trabajador" id="trabajador" (add)="onAddTrabajador($event)"
+
+                  >
+
+                  </ng-select>
+                  <show-errors [control]="formularioAddUsuario.controls['trabajador']"></show-errors>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="rol">Rol</label>
+                  <ng-select [items]="roles"
+                             bindLabel="NombreRol"
+                             bindValue="IdRol"
+                             placeholder="Selecciona un rol"
+                             formControlName="rol" id="rol" (add)="onAddRol($event)"
+
+                  >
+
+                  </ng-select>
+                  <show-errors [control]="formularioAddUsuario.controls['rol']"></show-errors>
+                </div>
+
+              </div><div class="margin-paneladministrativo"></div>
+
+              <!-- Boton ingresa -->
+              <div class="text-center mt-1-half">
+                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formularioAddUsuario.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+              </div>
+
+            </form>
+          </div>
+          <!-- Contenido -->
+        </div>
+      </div>
+      <!-- /.Datos del usuario-->
+    </div>
+  </section>
+</div>

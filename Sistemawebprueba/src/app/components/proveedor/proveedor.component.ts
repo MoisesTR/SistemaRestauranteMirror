@@ -40,7 +40,7 @@ export class ProveedorComponent implements OnInit {
 
   ) {
 
-    this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
+    this.proveedor = new Provedor();
   }
 
 
@@ -154,7 +154,7 @@ export class ProveedorComponent implements OnInit {
 
       }
     )
-    this.proveedor = new Provedor(null,null, null, null, null, null, null, null);
+    this.proveedor = new Provedor();
   }
 
   capturarDadosProveedor() {
@@ -235,7 +235,7 @@ export class ProveedorComponent implements OnInit {
       }
     )
 
-    this.proveedor = new Provedor(null, null, null, null, null, null, null, null);
+    this.proveedor = new Provedor();
 
   }
 

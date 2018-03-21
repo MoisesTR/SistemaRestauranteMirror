@@ -64,7 +64,7 @@ export class AddTrabajadorComponent implements OnInit {
     , private _uploadService : UploadService
   ) {
     this.url = Global.url;
-    this.trabajador  = new Trabajador(null,null,null,null,null,null,null,null,null,null,null,null,null)
+    this.trabajador  = new Trabajador();
 
     this.getTrabajadores()
     this.getCargos();

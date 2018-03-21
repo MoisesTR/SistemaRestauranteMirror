@@ -42,12 +42,7 @@ export class SubClasificacionProductoComponent implements OnInit {
     , private formBuilderSubClasificacion : FormBuilder
 
   ) {
-    this.subclasificacion = new SubClasificacionProducto(
-      null
-      ,null
-      ,null
-      ,null
-      ,null);
+    this.subclasificacion = new SubClasificacionProducto();
 
     this.initCustomValidatorsFormSubClasificacion();
   }
@@ -202,7 +197,7 @@ export class SubClasificacionProductoComponent implements OnInit {
 
       }
     )
-    this.subclasificacion = new SubClasificacionProducto(null,null,null,null,null);
+    this.subclasificacion = new SubClasificacionProducto();
 
   }
 
@@ -246,7 +241,7 @@ export class SubClasificacionProductoComponent implements OnInit {
       }
     )
 
-    this.subclasificacion = new SubClasificacionProducto(null,null,null,null,null);
+    this.subclasificacion = new SubClasificacionProducto();
 
   }
 

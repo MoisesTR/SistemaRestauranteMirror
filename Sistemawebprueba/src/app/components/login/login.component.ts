@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     , private toastr: ToastService
   ) {
 
-    this.usuario = new Usuario(null,null,null,null,null,null,null,null,null,null);
+    this.usuario = new Usuario();
   }
 
   ngOnInit() {

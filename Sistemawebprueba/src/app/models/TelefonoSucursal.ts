@@ -1,13 +1,12 @@
 export class TelefonoSucursal{
-  constructor(
 
-    public IdTelefonoSucursal
-    , public IdSucursal
-    , public IdOperadora
-    , public NumeroTelefono
-    , public Habilitado
-    , public CreatedAt
-    , public UpdateAt
-  ){
-  }
+  public IdTelefonoSucursal : number;
+  public IdSucursal : number;
+  public IdOperadora : number;
+  public NumeroTelefono : number;
+  public Habilitado : number;
+  public CreatedAt : string;
+  public UpdateAt : string;
+
+  constructor(){}
 }

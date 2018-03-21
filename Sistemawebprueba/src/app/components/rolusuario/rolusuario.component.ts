@@ -39,7 +39,7 @@ export class RolusuarioComponent implements OnInit {
     , private formBuilderRol : FormBuilder
 
     ) {
-    this.rol = new RolUsuario(null,null,null,null,null,null);
+    this.rol = new RolUsuario();
   }
 
   ngOnInit() {
@@ -193,7 +193,7 @@ export class RolusuarioComponent implements OnInit {
           ).then(() => {
             $('#modalAddRol').modal('toggle');
             this.formAddRolUsuario.reset();
-            this.rol = new RolUsuario(null,null,null,null,null,null);
+            this.rol = new RolUsuario();
             this.getRolesRender();
           })
 

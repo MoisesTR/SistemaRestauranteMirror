@@ -49,9 +49,9 @@ export class SucursalComponent implements OnInit , AfterViewInit{
     , private _formBuilderSucursal : FormBuilder
   ) {
 
-    this.sucursal = new Sucursal(null,null,null,null,null,null,null,null);
-    this.telefonoPrincipal = new TelefonoSucursal(null,null,null,null,null,null,null)
-    this.telefonoSecundario = new TelefonoSucursal(null,null,null,null,null,null,null);
+    this.sucursal = new Sucursal();
+    this.telefonoPrincipal = new TelefonoSucursal();
+    this.telefonoSecundario = new TelefonoSucursal();
   }
 
   ngOnInit() {
@@ -294,7 +294,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
                 ).then(() => {
                   $('#modalAddSucursal').modal('toggle');
                   this.formAddSucursal.reset();
-                  this.sucursal = new Sucursal(null,null,null,null,null,null,null,null);
+                  this.sucursal = new Sucursal();
                   this.getSucursales();
                   this.rerender();
                 })
@@ -341,7 +341,7 @@ export class SucursalComponent implements OnInit , AfterViewInit{
     //   }
     // )
 
-    this.sucursal = new Sucursal(null,null,null, null, null, null,null,null);
+    this.sucursal = new Sucursal();
 
   }
 

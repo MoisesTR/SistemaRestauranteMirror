@@ -47,7 +47,7 @@ export class AddProductoProveedorComponent implements OnInit {
     , private _fAddProveedor: FormBuilder
   ) {
     this.url = Global.url;
-    this.productoProveedor = new ProductoProveedor(null,null,null,null,null,null,null,null,null,null,null)
+    this.productoProveedor = new ProductoProveedor();
   }
 
   ngOnInit() {

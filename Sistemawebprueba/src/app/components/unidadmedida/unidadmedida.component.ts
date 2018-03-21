@@ -54,7 +54,7 @@ export class UnidadmedidaComponent implements OnInit {
     , private fBuilderUnidadMedida: FormBuilder
     ) {
 
-    this.unidadMedida = new UnidadMedida(null,null,null,null,null);
+    this.unidadMedida = new UnidadMedida();
 
   }
 
@@ -175,7 +175,7 @@ export class UnidadmedidaComponent implements OnInit {
     }
 
   private initConstructorUnidadMedida() {
-    this.unidadMedida = new UnidadMedida(null,null,null,null,null);
+    this.unidadMedida = new UnidadMedida();
   }
 
   createUnidadMedida(){
@@ -194,7 +194,7 @@ export class UnidadmedidaComponent implements OnInit {
           ).then(() => {
             $('#modalAddUnidadMedida').modal('toggle');
             this.formAddUnidadMedida.reset();
-            this.unidadMedida = new UnidadMedida(null,null,null,null,null);
+            this.unidadMedida = new UnidadMedida();
             this.getUnidadesMedidaRender();
           })
         } else {

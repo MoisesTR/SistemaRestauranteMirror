@@ -1,5 +1,5 @@
 .active-submenu {
-  background: rgba(192, 57, 43,0.6) !important;
+  background: rgba(192, 57, 43,0.5) !important;
 }
 
 .nopadding {
@@ -268,4 +268,8 @@ h6 {
   margin-right: 2% !important;
   position:relative;
   z-index:20;
+}
+
+.navbar-container .fa-bars{
+  margin-top: 35%;
 }

@@ -144,11 +144,11 @@ h6 {
   }
 }
 
-.card {
+/* .card {
   margin-top: 30px;
-  /*margin-bottom: -45px;*/
+  margin-bottom: -45px;
 
-}
+}*/
 
 .login:input[type="text"]:focus:not([readonly]) {
   border-color: rgba(230, 126, 34, 0.8);

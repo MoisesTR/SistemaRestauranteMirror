@@ -1,3 +1,5 @@
+import {Pantalla} from './Pantalla';
+
 export class Usuario {
 
   public IdUsuario: number;
@@ -13,6 +15,7 @@ export class Usuario {
   public IdTrabajador?:number;
   public Nombres ? : string;
   public DescripcionRol ? : string;
+  public Pantallas : Pantalla[];
 
   constructor() {}
 

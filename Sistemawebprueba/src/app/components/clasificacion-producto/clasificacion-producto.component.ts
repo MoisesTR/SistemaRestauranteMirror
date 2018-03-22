@@ -8,6 +8,7 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {idioma_espanol} from '../../services/global';
 import {CustomValidators} from '../../validadores/CustomValidators';
+import {Utilidades} from '../Utilidades';
 
 declare var $:any;
 
@@ -17,7 +18,7 @@ declare var $:any;
   styleUrls: ['./clasificacion-producto.component.css'],
   providers: [ClasificacionProductoService]
 })
-export class ClasificacionProductoComponent implements OnInit {
+export class ClasificacionProductoComponent implements OnInit, InvocarFormulario {
 
   public clasificacion : ClasificacionProducto;
   public clasificaciones: ClasificacionProducto[];
@@ -379,9 +380,16 @@ export class ClasificacionProductoComponent implements OnInit {
 
   }
 
-
-  cleanAddForm(){
+  //Metodo para desplegar el formulario de clasificacion
+  openFormAdd(modalFormAdd){
+    modalFormAdd.show();
     this.formAddClasificacion.reset();
+
   }
+
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
+  }
+
 
 }

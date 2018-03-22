@@ -1,4 +1,4 @@
-export class EstadoProducto1 {
+export class EstadoProducto {
 
   public IdEstado: number;
   public Nombre: string;

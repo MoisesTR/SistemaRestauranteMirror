@@ -1,4 +1,4 @@
-export class Provedor {
+export class Proveedor {
 
     public IdProveedor: number;
     public NombreProveedor: string;

@@ -15,4 +15,11 @@ export class Utilidades{
     }
   }
 
+  //Invocacion de metodo para invocar modal y limpieza del formulario invocado
+  static invocacionModal(Modal,Formulario){
+
+    Modal.show();
+    Formulario.reset();
+  }
+
 }

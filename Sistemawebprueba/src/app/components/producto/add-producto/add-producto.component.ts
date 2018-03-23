@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import swal from 'sweetalert2';
-import {Provedor} from '../../../models/Provedor';
+import {Proveedor} from '../../../models/Proveedor';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoriaProductoService} from '../../../services/categoria-producto.service';
 import {CategoriaProducto} from '../../../models/CategoriaProducto';
@@ -33,7 +33,7 @@ export class AddProductoComponent implements OnInit {
 
   public producto : Producto;
   formAddProducto: FormGroup;
-  public proveedores: Provedor [];
+  public proveedores: Proveedor [];
   public categorias: CategoriaProducto[];
   public envases: Envase[];
   public unidadesMedida : UnidadMedida[];

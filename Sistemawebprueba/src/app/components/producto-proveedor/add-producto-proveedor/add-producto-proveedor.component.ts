@@ -10,7 +10,7 @@ import {ProductoProveedor} from '../../../models/ProductoProveedor';
 import {Envase} from '../../../models/Envase';
 import {Empaque} from '../../../models/Empaque';
 import {Producto} from '../../../models/Producto';
-import {Provedor} from '../../../models/Provedor';
+import {Proveedor} from '../../../models/Proveedor';
 import {ProveedorService} from '../../../services/proveedor.service';
 import {UnidadMedidaService} from '../../../services/unidad-medida.service';
 import {UnidadMedida} from '../../../models/UnidadMedida';
@@ -31,7 +31,7 @@ export class AddProductoProveedorComponent implements OnInit {
   public envases : Envase[];
   public empaques: Empaque[];
   public productos: Producto [];
-  public proveedores: Provedor[];
+  public proveedores: Proveedor[];
   public unidadesMedida: UnidadMedida[];
 
   constructor(

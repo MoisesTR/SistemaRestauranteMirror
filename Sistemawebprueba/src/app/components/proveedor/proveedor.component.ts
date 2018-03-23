@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProveedorService} from '../../services/proveedor.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Provedor} from '../../models/Provedor';
+import {Proveedor} from '../../models/Proveedor';
 import {Subject} from 'rxjs/Rx';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
@@ -19,8 +19,8 @@ declare var $:any;
 })
 export class ProveedorComponent implements OnInit {
 
-  public proveedor: Provedor;
-  public proveedores: Provedor[];
+  public proveedor: Proveedor;
+  public proveedores: Proveedor[];
   public mensaje: string;
 
   @ViewChild(DataTableDirective)
@@ -40,7 +40,7 @@ export class ProveedorComponent implements OnInit {
 
   ) {
 
-    this.proveedor = new Provedor();
+    this.proveedor = new Proveedor();
   }
 
 
@@ -154,7 +154,7 @@ export class ProveedorComponent implements OnInit {
 
       }
     )
-    this.proveedor = new Provedor();
+    this.proveedor = new Proveedor();
   }
 
   capturarDadosProveedor() {
@@ -235,7 +235,7 @@ export class ProveedorComponent implements OnInit {
       }
     )
 
-    this.proveedor = new Provedor();
+    this.proveedor = new Proveedor();
 
   }
 

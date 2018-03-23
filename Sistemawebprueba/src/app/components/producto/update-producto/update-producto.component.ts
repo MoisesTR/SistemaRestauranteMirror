@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Provedor} from '../../../models/Provedor';
+import {Proveedor} from '../../../models/Proveedor';
 import {Producto} from '../../../models/Producto';
 import {CategoriaProducto} from '../../../models/CategoriaProducto';
 import {Envase} from '../../../models/Envase';
@@ -28,7 +28,7 @@ export class UpdateProductoComponent implements OnInit {
 
   public producto : Producto;
   formUpdateProducto: FormGroup;
-  public proveedores: Provedor [];
+  public proveedores: Proveedor [];
   public categorias: CategoriaProducto[];
   public envases: Envase[];
   public unidadesMedida : UnidadMedida[];

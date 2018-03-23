@@ -1,2 +1,2 @@
 //Efecto Login
-new WOW().init();
+// new WOW().init();

@@ -16,13 +16,6 @@ export class UsuarioService {
     this.url = Global.url;
   }
 
-  registrar(usuario) : Observable<any> {
-    let params = JSON.stringify(usuario);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
-
-    return this._http.post(this.url+'addUsuario', params, {headers:headers})
-  }
-
   login(usuarioLogin,gettoken=null) : Observable<any> {
 
     if(gettoken != null){
@@ -83,5 +76,12 @@ export class UsuarioService {
   getUsuarios() : Observable<any> {
     return this._http.get(this.url + 'users');
   }
+
+  getPantallasUsuario(IdUsuario) : Observable<any> {
+
+      return this._http.get(this.url + 'pantallas/'+IdUsuario);
+  }
+
+
 
 }

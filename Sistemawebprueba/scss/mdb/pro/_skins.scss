@@ -8,7 +8,11 @@
 }
 
 .sn-bg-3 {
-  background-image: url(https://mdbootstrap.com/img/Photos/Others/sidenav3.jpg);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(https://mdbootstrap.com/img/Photos/Others/sidenav3.jpg) no-repeat center center;
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(https://mdbootstrap.com/img/Photos/Others/sidenav3.jpg) no-repeat center center;
+  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(https://mdbootstrap.com/img/Photos/Others/sidenav3.jpg) no-repeat center center;
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(https://mdbootstrap.com/img/Photos/Others/sidenav3.jpg) no-repeat center center;
+  background-size: cover;
 }
 
 .sn-bg-4 {

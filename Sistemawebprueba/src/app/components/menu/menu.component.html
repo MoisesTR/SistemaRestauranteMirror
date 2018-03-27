@@ -147,13 +147,13 @@
 
 <div class="chang-skin">
   <!-- Sidebar navigation -->
-  <mdb-sidenav #sidenav class="sn-bg-3 fixed" [fixed]="true">
+  <mdb-sidenav #sidenav class="sn-bg-7 fixed" [fixed]="true">
 
     <logo>
       <!-- Logo -->
       <li>
         <div class="logo-wrapper sn-ad-avatar-wrapper">
-          <img src="./assets/img/usuarios/bowser.png" class="img-fluid ">
+          <img src="./assets/img/usuarios/chang.jpg" class="img-fluid ">
           <div class="rgba-stylish-strong">
             <p class="user white-text" *ngIf="Usuario">{{Usuario.Username}}
               <br>{{Usuario.NombreCargo}}</p>
@@ -301,29 +301,36 @@
         </ul>
       </li>
     </links>
-    <div class="sidenav-bg mask-strong"></div>
+    <div class="sidenav-bg mask-light"></div>
   </mdb-sidenav>
   <!--/. Sidebar navigation -->
 
   <!-- Navbar -->
   <mdb-navbar SideClass="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav" [containerInside]="false">
 
-    <navlinks class="navbar-container">
-      <!-- SideNav slide-out button -->
-      <div class="float-left">
-        <a (click)="sidenav.show()" class="button-collapse">
-          <i class="fa fa-bars"></i>
-        </a>
-      </div>
-      <!--/. SideNav slide-out button -->
-    </navlinks>
 
     <logo>
+      <navlinks class="navbar-container">
+        <!-- SideNav slide-out button -->
+        <div class="float-left">
+          <a (click)="sidenav.show()" class="button-collapse">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+        <!--/. SideNav slide-out button -->
+      </navlinks>
+      <a class="navbar-brand" href="#!">
+        <img src="assets/img/paneladministrativo/logo.png" height="30" alt="logo">
+      </a>
       <!-- Breadcrumb-->
-      <div class="breadcrumbs breadcrumb-dn mr-auto">
-        <p>Sistema Restaurante</p>
+      <div class="mr-auto">
+        <ol class="breadcrumb d-inline-flex pl-0 pt-0">
+          <li class="breadcrumb-item">
+            <a class="white-text" href="#!">Panel Administrativo</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
       </div>
-      <!--/. Breadcrumb-->
     </logo>
 
     <navlinks>
@@ -343,8 +350,8 @@
             {{Usuario.Username}}
           </a>
           <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
-            <a class="dropdown-item" (click)="verInformacionUsuario()">Mis datos</a>
-            <a class="dropdown-item" (click)="logout()">Salir</a>
+            <a class="dropdown-item " (click)="verInformacionUsuario()">Mis datos</a>
+            <a class="dropdown-item " (click)="logout()">Salir</a>
           </div>
         </li>
       </ul>

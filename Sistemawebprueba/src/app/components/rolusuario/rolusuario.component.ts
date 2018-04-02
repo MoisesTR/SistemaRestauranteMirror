@@ -8,6 +8,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
+import {Utilidades} from '../Utilidades';
 
 declare var $:any;
 
@@ -17,7 +18,7 @@ declare var $:any;
   styleUrls: ['./rolusuario.component.css'],
   providers: [RolusuarioService]
 })
-export class RolusuarioComponent implements OnInit {
+export class RolusuarioComponent implements OnInit, InvocarFormulario{
 
   public rol: RolUsuario;
   public roles: RolUsuario[];
@@ -322,9 +323,7 @@ export class RolusuarioComponent implements OnInit {
   //   });
   //
   // }
-
-  cleanFormAdd(){
-
-    this.formAddRolUsuario.reset;
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
   }
 }

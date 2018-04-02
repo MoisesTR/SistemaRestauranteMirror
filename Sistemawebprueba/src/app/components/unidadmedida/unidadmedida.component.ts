@@ -12,6 +12,7 @@ import {ClasificacionProducto} from '../../models/ClasificacionProducto';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ClasificacionUnidadMedidaService} from '../../services/clasificacion-unidad-medida.service';
 import {ClasificacionUnidadDeMedida} from '../../models/ClasificacionUnidadDeMedida';
+import {Utilidades} from '../Utilidades';
 declare var $:any;
 
 @Component({
@@ -21,7 +22,8 @@ declare var $:any;
   providers:[UnidadMedidaService]
 })
 
-export class UnidadmedidaComponent implements OnInit {
+export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
+
 
   public unidadMedida : UnidadMedida;
   public unidadesMedida : UnidadMedida[];
@@ -59,19 +61,6 @@ export class UnidadmedidaComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.dtOptions = <DataTables.Settings>{
-      autoWidth: false
-      , pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , searching: true
-      , ordering: true
-      , language: idioma_espanol
-      , responsive : true
-    };
-
-
     $(document).ready(function(){
       $(".letras").keypress(function (key) {
         if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
@@ -96,6 +85,7 @@ export class UnidadmedidaComponent implements OnInit {
       });
     });
 
+    this.settingsDatatable();
     this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
       response => {
         if(response.unidadesmedida){
@@ -107,11 +97,25 @@ export class UnidadmedidaComponent implements OnInit {
       }
     );
 
+
     this.initFormAdd();
     this.initFormUpdate();
     this.getClasificaciones();
     this.getClasificacionUnidades();
 
+  }
+
+  settingsDatatable(){
+      this.dtOptions = <DataTables.Settings>{
+          autoWidth: false
+          , pagingType: 'full_numbers'
+          , pageLength: 10
+          , 'lengthChange': false
+          , searching: true
+          , ordering: true
+          , language: idioma_espanol
+          , responsive : true
+      };
   }
 
   initFormAdd(){
@@ -337,8 +341,8 @@ export class UnidadmedidaComponent implements OnInit {
 
   }
 
-  cleanFormAdd(){
-    this.formAddUnidadMedida.reset();
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
   }
 
   onAddSelectClasificacionesUnidad(event){

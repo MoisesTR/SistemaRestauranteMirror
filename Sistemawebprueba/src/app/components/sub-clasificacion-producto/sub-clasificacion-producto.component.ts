@@ -10,6 +10,7 @@ import {CustomValidators} from '../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ClasificacionProducto} from '../../models/ClasificacionProducto';
+import {Utilidades} from '../Utilidades';
 
 declare var $:any;
 
@@ -20,7 +21,8 @@ declare var $:any;
   providers: [SubClasificacionProductoService]
 })
 
-export class SubClasificacionProductoComponent implements OnInit {
+export class SubClasificacionProductoComponent implements OnInit, InvocarFormulario {
+
 
   public subclasificacion: SubClasificacionProducto;
   public subclasificaciones: SubClasificacionProducto[];
@@ -304,5 +306,9 @@ export class SubClasificacionProductoComponent implements OnInit {
   }
   onUpdateSelectClasificacion(event){
     this.subclasificacion.IdClasificacion = event.IdClasificacion;
+  }
+
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
   }
 }

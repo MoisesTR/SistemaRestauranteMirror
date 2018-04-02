@@ -8,6 +8,8 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {idioma_espanol} from '../../services/global';
 import {CustomValidators} from '../../validadores/CustomValidators';
+  import {UtilService} from '../../typescripts/pro/date-picker';
+  import {Utilidades} from '../Utilidades';
 
 declare var $:any;
 
@@ -17,7 +19,9 @@ declare var $:any;
   styleUrls: ['./empaque.component.css'],
   providers: [EmpaqueService]
 })
-export class EmpaqueComponent implements OnInit {
+export class EmpaqueComponent implements OnInit, InvocarFormulario{
+
+
 
   public empaque: Empaque;
   public empaques: Empaque[];
@@ -368,9 +372,8 @@ export class EmpaqueComponent implements OnInit {
 
   }
 
-  cleanAddForm(){
-    this.formAddEmpaque.reset();
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
   }
-
 
 }

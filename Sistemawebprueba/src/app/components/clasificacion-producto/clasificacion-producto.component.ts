@@ -380,13 +380,6 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
 
   }
 
-  //Metodo para desplegar el formulario de clasificacion
-  openFormAdd(modalFormAdd){
-    modalFormAdd.show();
-    this.formAddClasificacion.reset();
-
-  }
-
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
   }

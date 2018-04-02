@@ -8,6 +8,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
+import {Utilidades} from '../Utilidades';
 declare var $:any;
 
 @Component({
@@ -16,7 +17,7 @@ declare var $:any;
   styleUrls: ['./envase.component.css'],
   providers: [EnvaseService]
 })
-export class EnvaseComponent implements OnInit {
+export class EnvaseComponent implements OnInit, InvocarFormulario {
 
   public envase : Envase;
   public envases: Envase[];
@@ -341,7 +342,7 @@ export class EnvaseComponent implements OnInit {
 
   }
 
-  clearAddForm(){
-    this.formAddEnvase.reset();
+  InvocarModal(Modal, Formulario) {
+      Utilidades.invocacionModal(Modal,Formulario);
   }
 }

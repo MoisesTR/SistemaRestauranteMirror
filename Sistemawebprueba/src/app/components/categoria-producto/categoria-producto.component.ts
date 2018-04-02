@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {ModalDirective} from '../../typescripts/free/modals';
+import {Utilidades} from '../Utilidades';
 
 declare var $:any;
 
@@ -18,7 +19,11 @@ declare var $:any;
   styleUrls: ['./categoria-producto.component.css'],
   providers: [CategoriaProductoService]
 })
-export class CategoriaProductoComponent implements OnInit {
+export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
+
+    InvocarModal(Modal, Formulario) {
+      Utilidades.invocacionModal(Modal,Formulario);
+    }
 
   public categoriaProducto: CategoriaProducto;
   public categoriasProductos: CategoriaProducto[];

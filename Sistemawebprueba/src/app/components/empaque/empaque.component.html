@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right">
-                  <button type="button" class="btn orange-chang u-btn-agregar" (click)="cleanAddForm()" data-toggle="modal" data-target="#modalAddEmpaque">Nuevo Empaque</button>
+                  <button type="button" class="btn orange-chang u-btn-agregar" (click)="InvocarModal(modalAddEmpaque,formAddEmpaque)" data-toggle="modal" data-target="#modalAddEmpaque">Nuevo Empaque</button>
                 </div>
               </div>
             </div>
@@ -55,7 +55,7 @@
 </section>
 
 <!-- Modal crear Empaque -->
-<div class="modal fade" id="modalAddEmpaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalAddEmpaque="mdb-modal" class="modal fade" id="modalAddEmpaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">

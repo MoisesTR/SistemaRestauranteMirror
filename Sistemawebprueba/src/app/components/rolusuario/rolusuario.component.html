@@ -13,7 +13,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="text-right">
-                <button type="button" class="btn orange-chang u-btn-agregar" data-toggle="modal" (click)="cleanFormAdd()" data-target="#modalAddRol">Nuevo Rol</button>
+                <button type="button" class="btn orange-chang u-btn-agregar" data-toggle="modal" (click)="InvocarModal(modalAddRol,formAddRolUsuario)" data-target="#modalAddRol">Nuevo Rol</button>
               </div>
             </div>
           </div>
@@ -52,7 +52,7 @@
 
 
 <!-- Modal crear rol -->
-<div class="modal fade" id="modalAddRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalAddRol="mdb-modal" class="modal fade" id="modalAddRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">

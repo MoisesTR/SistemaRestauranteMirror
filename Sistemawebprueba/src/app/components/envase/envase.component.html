@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right">
-                  <button type="button" class="btn orange-chang u-btn-agregar" (click)="clearAddForm()" data-toggle="modal" data-target="#modalAddEnvase">Nuevo Envase</button>
+                  <button type="button" class="btn orange-chang u-btn-agregar" (click)="InvocarModal(modalAddEnvase,formAddEnvase)" data-toggle="modal" data-target="#modalAddEnvase">Nuevo Envase</button>
                 </div>
               </div>
             </div>
@@ -55,7 +55,7 @@
 </section>
 
 <!-- Modal Envase -->
-<div class="modal fade" id="modalAddEnvase" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalAddEnvase="mdb-modal" class="modal fade" id="modalAddEnvase" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">

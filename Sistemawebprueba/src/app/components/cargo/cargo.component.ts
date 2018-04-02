@@ -8,6 +8,7 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {idioma_espanol} from '../../services/global';
+import {Utilidades} from '../Utilidades';
 declare var $:any;
 
 @Component({
@@ -16,7 +17,7 @@ declare var $:any;
   styleUrls: ['./cargo.component.css'],
   providers:[CargoService]
 })
-export class CargoComponent implements OnInit {
+export class CargoComponent implements OnInit, InvocarFormulario {
 
   public cargo : Cargo;
   public cargos: Cargo[];
@@ -311,7 +312,8 @@ export class CargoComponent implements OnInit {
     });
 
   }
-  cleanForm(){
-    this.formAddCargo.reset;
+
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
   }
 }

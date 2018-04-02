@@ -192,24 +192,6 @@
                     <a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Productos</a>
                   </li>
                   <li routerLinkActive="active-submenu">
-                    <a class="waves-effect" [routerLink]="['/categorias']" mdbRippleRadius>Categoria</a>
-                  </li>
-                  <li routerLinkActive="active-submenu">
-                    <a class="waves-effect" [routerLink]="['/clasificacion-productos']" mdbRippleRadius>Clasificación</a>
-                  </li>
-                  <li routerLinkActive="active-submenu">
-                    <a class="waves-effect" [routerLink]="['/subclasificacion-productos']" mdbRippleRadius>Subclasificación</a>
-                  </li>
-                  <li routerLinkActive="active-submenu">
-                    <a class="waves-effect" [routerLink]="['/empaques']" mdbRippleRadius>Empaques</a>
-                  </li>
-                  <li routerLinkActive="active-submenu">
-                    <a class="waves-effect" [routerLink]="['/envases']" mdbRippleRadius>Envases</a>
-                  </li>
-                  <li routerLinkActive="active-submenu">
-                    <a class="waves-effect" [routerLink]="['/unidadmedida']" mdbRippleRadius>Unidad de Medida</a>
-                  </li>
-                  <li routerLinkActive="active-submenu">
                     <a class="waves-effect" [routerLink]="['/salida-producto']" mdbRippleRadius>Salidas</a>
                   </li>
                 </ul>
@@ -289,12 +271,33 @@
             </mdb-item>
 
             <!-- Catálogo -->
-            <mdb-item class="no-collase">
+            <mdb-item>
               <mdb-item-head mdbRippleRadius>
                 <i class="fa">
                   <img src="./assets/img/icon/catalogo.png" height="18">
-                </i> Catálogo</mdb-item-head>
-              <mdb-item-body></mdb-item-body>
+                </i> Catálogos</mdb-item-head>
+              <mdb-item-body>
+                <ul>
+                  <li routerLinkActive="active-submenu">
+                    <a class="waves-effect" [routerLink]="['/categorias']" mdbRippleRadius>Categoria</a>
+                  </li>
+                  <li routerLinkActive="active-submenu">
+                    <a class="waves-effect" [routerLink]="['/clasificacion-productos']" mdbRippleRadius>Clasificación</a>
+                  </li>
+                  <li routerLinkActive="active-submenu">
+                    <a class="waves-effect" [routerLink]="['/subclasificacion-productos']" mdbRippleRadius>Subclasificación</a>
+                  </li>
+                  <li routerLinkActive="active-submenu">
+                    <a class="waves-effect" [routerLink]="['/empaques']" mdbRippleRadius>Empaques</a>
+                  </li>
+                  <li routerLinkActive="active-submenu">
+                    <a class="waves-effect" [routerLink]="['/envases']" mdbRippleRadius>Envases</a>
+                  </li>
+                  <li routerLinkActive="active-submenu">
+                    <a class="waves-effect" [routerLink]="['/unidadmedida']" mdbRippleRadius>Unidad de Medida</a>
+                  </li>
+                </ul>
+              </mdb-item-body>
             </mdb-item>
 
           </mdb-squeezebox>

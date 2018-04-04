@@ -1,69 +1,80 @@
 <div class="view gradient-card-header z-depth-2 orange-chang" style="height: 70px;padding: 22px;z-index: 10;">
-  <h4 class="mb-0 text-center white-text" >Datos del Producto</h4>
+  <h4 class="mb-0 text-center white-text">Datos del Producto</h4>
 </div>
 
 <div class="white">
   <div class="container-fluid">
     <div class="row-eq-height py-5">
-      <div class="col-md-12 text-center" >
-    <section class="section">
+      <div class="col-md-12 text-center">
+        <section class="section">
 
-      <div class="row" *ngIf="productos">
+          <div class="row" *ngIf="productos">
 
-        <div class="col-md-12 mt-4">
-          <div class="in input-group md-form form-inline form-sm form-2 pl-0">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
-          </div>
+            <div class="col-md-12 mt-4">
+              <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
+              </div>
 
-          <div class="col-lg-12" *ngIf="buscando">
-            Buscando:  <strong> {{buscando}} </strong>
-          </div>
+              <div class="col-lg-12" *ngIf="buscando">
+                Buscando:
+                <strong> {{buscando}} </strong>
+              </div>
 
-        </div>
-
-
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-x-4" *ngFor="let producto of productos | buscar: buscando ">
-          <div class="card card-cascade narrower ovf-hidden" >
-
-            <div class="white">
-              <img src="{{url + 'productoGetImage/' + producto.Imagen}}" class="img-fluid" alt="" style=" height:250px;">
             </div>
-            <div class="card-body text-center no-padding" style="background: url('assets/img/landingpage/background-historia.jpg')no-repeat center center;">
-              <span class="btn-action activator" style="background-color: transparent !important;"><a class="btn-floating btn-action"><i class="fa fa-eye"></i></a></span>
-              <h5 class="card-title"><a href="">{{producto.NombreProducto}}</a></h5>
-              <div class="card-footer">
-                <span class="center">C$ Precio</span>
+
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-x-4" *ngFor="let producto of productos | buscar: buscando ">
+              <div class="card card-cascade narrower ovf-hidden">
+
+                <div class="white">
+                  <img src="{{url + 'productoGetImage/' + producto.Imagen}}" class="img-fluid" alt="" style=" height:250px;">
+                </div>
+                <div class="card-body text-center no-padding" style="background: url('assets/img/landingpage/background-historia.jpg')no-repeat center center;">
+                  <span class="btn-action activator" style="background-color: transparent !important;">
+                    <a class="btn-floating btn-action">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                  </span>
+                  <h5 class="card-title">
+                    <a href="">{{producto.NombreProducto}}</a>
+                  </h5>
+                  <div class="card-footer">
+                    <span class="center">C$ Precio</span>
+                  </div>
+                </div>
+                <div class="card-reveal">
+                  <div class="content">
+                    <!--Content-->
+                    <h6 class="card-title">
+                      <a>{{producto.NombreProducto}}
+                        <i class="fa fa-close"></i>
+                      </a>
+                    </h6>
+                    <hr>
+                    <p>{{producto.NombreProducto}}</p>
+                    <p>{{producto.Descripcion}}</p>
+                    <p>Descripción: Lorep-ipsum test atomic developers</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+
+          <div class="row" *ngIf="productos==null">
+            <div class="jumbotron jumbotron-fluid">
+              <div class="container">
+                <h1>PRODUCTOS</h1>
+                <p>No se encontraron productos registrados</p>
               </div>
             </div>
-            <div class="card-reveal">
-              <div class="content">
-                <!--Content-->
-                <h6 class="card-title"><a>{{producto.NombreProducto}}<i class="fa fa-close"></i></a></h6>
-                <hr>
-                <p>{{producto.NombreProducto}}</p>
-                <p>{{producto.Descripcion}}</p>
-                <p>Descripción: Lorep-ipsum test atomic developers</p>
-              </div>
-            </div>
           </div>
 
-        </div>
-
-
+        </section>
       </div>
-
-      <div class="row" *ngIf="productos==null">
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <h1>PRODUCTOS</h1>
-            <p>No se encontraron productos registrados</p>
-          </div>
-        </div>
-      </div>
-
-    </section>
-  </div>
-      </div>
+    </div>
   </div>
 </div>

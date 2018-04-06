@@ -8,7 +8,8 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300"  data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
+            <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
+              data-height="300" />
           </div>
         </div>
       </div>
@@ -29,7 +30,7 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input mdbActive type="text" id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required class="form-control validate letras" >
+                    <input mdbActive type="text" id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required class="form-control validate letras">
                     <show-errors [control]="formAddTrabajador.controls['nombreTrabajador']"></show-errors>
                     <label for="nombreTrabajador">Nombres</label>
                   </div>
@@ -37,7 +38,7 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input mdbActive  type="text" id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control validate letras" >
+                    <input mdbActive type="text" id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control validate letras">
                     <show-errors [control]="formAddTrabajador.controls['apellido']"></show-errors>
                     <label for="Apellidos">Apellidos</label>
                   </div>
@@ -46,39 +47,17 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input mdbActive ="text" id="NumeroCedula" name="NumeroCedula" formControlName="cedula" class="cedula form-control validate">
-                    <label for="NumeroCedula">Número de Cedula</label>
-                    <show-errors [control]="formAddTrabajador.controls['cedula']"></show-errors>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <br>
-                  <div class="md-form">
-                    <input mdbActive id="FechaNacimiento" name="FechaNacimiento" formControlName="fechaNacimiento" class="form-control validate">
-                    <label for="FechaNacimiento">Fecha de Nacimiento</label>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <br>
-                  <div class="md-form">
-                    <mdb-date-picker mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso" [options]="myDatePickerOptions" ></mdb-date-picker>
+                    <mdb-date-picker [placeholder]="'Fecha de Ingreso'" mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso"
+                      [options]="myDatePickerOptions" required></mdb-date-picker>
                     <show-errors [control]="formAddTrabajador.controls['fechaIngreso']"></show-errors>
-                    <label for="fechaIngreso">Fecha de Ingreso</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <br>
                   <div class="md-form ">
-                    <input mdbActive type="text" id="TelefonoPrincipalTrabajador"
-                           minlength="4"
-                           maxlength="50"
-                           class="form-control telefono"
-                           name="TelefonoPrincipalTrabajador"
-                           formControlName="telefonoPrincipal"
-                    >
+                    <input mdbActive type="text" id="TelefonoPrincipalTrabajador" minlength="4" maxlength="50" class="form-control telefono"
+                      name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal">
                     <show-errors [control]="formAddTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
@@ -87,13 +66,8 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form ">
-                    <input mdbActive type="text" id="TelefonoSecundarioTrabajador"
-                           minlength="4"
-                           maxlength="50"
-                           class="form-control telefono"
-                           name="TelefonoSecundarioTrabajador"
-                           formControlName="telefonoSecundario"
-                    >
+                    <input mdbActive type="text" id="TelefonoSecundarioTrabajador" minlength="4" maxlength="50" class="form-control telefono"
+                      name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario">
                     <show-errors [control]="formAddTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
@@ -101,7 +75,7 @@
 
                 <div class="col-md-12">
                   <div class="md-form">
-                    <textarea mdbActive type="text" id="Direccion"name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
+                    <textarea mdbActive type="text" id="Direccion" name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
                     <label for="Direccion">Dirección</label>
                     <show-errors [control]="formAddTrabajador.controls['direccion']"></show-errors>
                   </div>
@@ -109,13 +83,8 @@
 
                 <div class="col-md-12">
                   <label for="sucursal">Sucursal</label>
-                  <ng-select [items]="sucursales"
-                             bindLabel="NombreSucursal"
-                             bindValue="IdSucursal"
-                             placeholder="Selecciona una sucursal"
-                             id="sucursal"
-                             (add)="onAddSucursal($event)" formControlName="sucursal"
-                  >
+                  <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
+                    (add)="onAddSucursal($event)" formControlName="sucursal">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['sucursal']"></show-errors>
                 </div>
@@ -123,18 +92,14 @@
                 <div class="col-md-12">
                   <br>
                   <label for="cargo">Cargo</label>
-                  <ng-select [items]="cargos"
-                             bindLabel="NombreCargo"
-                             bindValue="IdCargo"
-                             placeholder="Selecciona un cargo"
-                             id="cargo"
-                             (add)="onAddCargo($event)" formControlName="cargo"
-                  >
+                  <ng-select [items]="cargos" bindLabel="NombreCargo" bindValue="IdCargo" placeholder="Selecciona un cargo" id="cargo" (add)="onAddCargo($event)"
+                    formControlName="cargo">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['cargo']"></show-errors>
                 </div>
 
-              </div><div class="margin-paneladministrativo"></div>
+              </div>
+              <div class="margin-paneladministrativo"></div>
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">

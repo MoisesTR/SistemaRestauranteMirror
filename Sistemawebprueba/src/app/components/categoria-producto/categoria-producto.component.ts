@@ -289,10 +289,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
 
   invocarModalUpdate(Modal,Categoria){
-
-      let Categoria : CategoriaProducto;
-      Categoria = Categoria;
-
+      
       this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
       this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
       this.categoriaProducto.DescripcionCategoria = Categoria.DescripcionCategoria;

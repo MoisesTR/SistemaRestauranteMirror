@@ -23,6 +23,16 @@ export class MenuComponent implements OnInit{
   ngOnInit() {
     this.Usuario = this._usuarioService.getIdentity();
     // this.obtenerPantallasUsuario();
+
+    window.onscroll = function () {
+      if (pageYOffset >= 200) {
+          document.getElementById('backToTop').style.visibility = "visible";
+      } else {
+          document.getElementById('backToTop').style.visibility = "hidden";
+      }
+    };
+
+
   }
 
   obtenerPantallasUsuario(){

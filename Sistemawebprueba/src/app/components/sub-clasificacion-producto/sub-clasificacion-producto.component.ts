@@ -141,22 +141,6 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     )
   }
 
-  showModalUpdateSubClasificacion(subclasificacion){
-
-    $('#modalUpdateSubClasificacion').modal('show');
-
-    this.subclasificacion.IdSubClasificacion = subclasificacion.IdSubClasificacion;
-    this.subclasificacion.NombreSubClasificacion = subclasificacion.NombreSubClasificacion;
-    this.subclasificacion.DescripcionSubClasificacion = subclasificacion.DescripcionSubClasificacion;
-
-    this.formUpdateSubClasificacion.reset();
-    this.formUpdateSubClasificacion.setValue({
-      nombreSubClasificacion: subclasificacion.NombreSubClasificacion
-      , descripcionSubClasificacion: subclasificacion.DescripcionSubClasificacion
-      , clasificacion : subclasificacion.IdClasificacion
-    })
-
-  }
 
   capturarDatosIngresados(){
     this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
@@ -208,7 +192,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     this.subclasificacion.DescripcionSubClasificacion = this.formUpdateSubClasificacion.value.descripcionSubClasificacion;
   }
 
-  updateSubClasificacion(){
+  updateSubClasificacion(Modal){
 
     this.capturarDatosActualizados();
     this._subClasificacionService.updateSubClasificacionProducto(this.subclasificacion).subscribe(
@@ -218,12 +202,10 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
             'Subclasificación',
             'La Subclasificación ha sido actualizado exitosamente!',
             'success'
-          ).then(function () {
-            $('#modalupdatesubclasificacion').modal('toggle');
-
+          ).catch(swal.noop).then( () => {
+            Modal.hide();
             this.formUpdateSubClasificacion.reset();
           })
-
 
         } else {
           swal(
@@ -310,5 +292,22 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
+  }
+
+  invocarModalUpdateSubClasificacion(Modal,Subclasificacion){
+
+      this.subclasificacion.IdSubClasificacion = Subclasificacion.IdSubClasificacion;
+      this.subclasificacion.NombreSubClasificacion = Subclasificacion.NombreSubClasificacion;
+      this.subclasificacion.DescripcionSubClasificacion = Subclasificacion.DescripcionSubClasificacion;
+
+      this.formUpdateSubClasificacion.reset();
+      this.formUpdateSubClasificacion.setValue({
+          nombreSubClasificacion: Subclasificacion.NombreSubClasificacion
+          , descripcionSubClasificacion: Subclasificacion.DescripcionSubClasificacion
+          , clasificacion : Subclasificacion.IdClasificacion
+      })
+
+      Modal.show();
+
   }
 }

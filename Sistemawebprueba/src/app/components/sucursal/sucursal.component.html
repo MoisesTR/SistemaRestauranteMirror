@@ -12,7 +12,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="text-right">
-                  <button type="button" class="btn orange-chang u-btn-agregar" (click)="cleanFormAdd()" data-toggle="modal" data-target="#modalAddSucursal">Nueva Sucursal</button>
+                  <button type="button" class="btn orange-chang u-btn-agregar" (click)="InvocarModal(modalAddSucursal,formAddSucursal)" data-toggle="modal" data-target="#modalAddSucursal">Nueva Sucursal</button>
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@
 </section>
 
 <!-- Modal Sucursal -->
-<div class="modal fade" id="modalAddSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalAddSucursal="mdb-modal" class="modal fade" id="modalAddSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">
@@ -146,7 +146,7 @@
 
 
 <!-- Modal Sucursal -->
-<div class="modal fade" id="modalUpdateSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalUpdateSucursal="mdb-modal" class="modal fade" id="modalUpdateSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">

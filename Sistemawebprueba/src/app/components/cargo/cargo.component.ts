@@ -155,24 +155,6 @@ export class CargoComponent implements OnInit, InvocarFormulario {
     this.cargo.DescripcionCargo = this.formUpdateCargo.value.descripcionCargo;
   }
 
-  showModalUpdateCargo(cargo){
-
-    $('#modalUpdateCargo').modal('show');
-
-    this.cargo.IdCargo  = cargo.IdCargo;
-    this.cargo.NombreCargo = cargo.NombreCargo;
-    this.cargo.DescripcionCargo = cargo.DescripcionCargo;
-
-
-    this.formUpdateCargo.reset();
-    this.formUpdateCargo.setValue({
-      nombreCargo: cargo.NombreCargo
-      , descripcionCargo:cargo.DescripcionCargo
-    });
-
-
-  }
-
   createCargoUsuario(){
     this.getValuesFormAddCargo();
 
@@ -212,22 +194,6 @@ export class CargoComponent implements OnInit, InvocarFormulario {
         }
 
       }
-    )
-  }
-
-
-  getCargos(){
-    this._cargoServicio.getCargos().subscribe(
-      response => {
-
-        if(!response.cargos){
-          console.log('Ha ocurrido un error');
-        } else {
-          this.cargos = response.cargos;
-        }
-      },error => {
-        console.log(<any>error);
-    }
     )
   }
 
@@ -315,5 +281,21 @@ export class CargoComponent implements OnInit, InvocarFormulario {
 
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
+  }
+
+  invocarModalUpdate(Modal, Cargo) {
+
+      this.cargo.IdCargo  = Cargo.IdCargo;
+      this.cargo.NombreCargo = Cargo.NombreCargo;
+      this.cargo.DescripcionCargo = Cargo.DescripcionCargo;
+
+      this.formUpdateCargo.reset();
+      this.formUpdateCargo.setValue({
+          nombreCargo: Cargo.NombreCargo
+          , descripcionCargo:Cargo.DescripcionCargo
+      });
+
+
+    Modal.show();
   }
 }

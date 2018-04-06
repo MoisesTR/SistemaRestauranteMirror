@@ -8,6 +8,7 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {idioma_espanol} from '../../services/global';
+import {Utilidades} from '../Utilidades';
 
 declare var $:any;
 
@@ -17,7 +18,8 @@ declare var $:any;
   styleUrls: ['./proveedor.component.css'],
   providers: [ProveedorService]
 })
-export class ProveedorComponent implements OnInit {
+export class ProveedorComponent implements OnInit ,InvocarFormulario{
+
 
   public proveedor: Proveedor;
   public proveedores: Proveedor[];
@@ -174,34 +176,8 @@ export class ProveedorComponent implements OnInit {
     this.proveedor.Telefono = this.updateForm.value.telefonoProveedor;
     this.proveedor.Email = this.updateForm.value.correoProveedor;
 
-    console.log(this.proveedor)
   }
-
-  showModalUpdateProveedor(proveedor){
-
-    $('#modalUpdateProveedor').modal('show');
-    this.updateForm.reset();
-
-    this.proveedor.IdProveedor = proveedor.IdProveedor;
-    this.proveedor.NombreProveedor = proveedor.NombreProveedor;
-    this.proveedor.Descripcion = proveedor.Descripcion;
-    this.proveedor.Direccion = proveedor.Direccion;
-    this.proveedor.NombreRepresentante = proveedor.NombreRepresentante;
-    this.proveedor.Telefono = proveedor.Telefono;
-    this.proveedor.Email = proveedor.Email;
-
-    this.updateForm.setValue({
-      nombreProveedor: proveedor.NombreProveedor
-      , descripcionProveedor: proveedor.Descripcion
-      , correoProveedor: proveedor.Email
-      , direccionProveedor: proveedor.Direccion
-      , nombreRepresentante: proveedor.NombreRepresentante
-      , telefonoProveedor: proveedor.Telefono == null ? '' : proveedor.Telefono
-      , email : proveedor.Email
-    })
-
-  }
-  updateProveedor() {
+  updateProveedor(Modal) {
 
     this.capturarDatosActualizados();
     this._proveedorService.updateProveedor(this.proveedor).subscribe(
@@ -212,7 +188,7 @@ export class ProveedorComponent implements OnInit {
             'El proveedor ha sido actualizado exitosamente!',
             'success'
           ).then( () => {
-            $('#modalUpdateProveedor').modal('toggle');
+            Modal.hide();
             this.updateForm.reset();
             this.getProveedores();
           })
@@ -360,4 +336,35 @@ export class ProveedorComponent implements OnInit {
 
     });
   }
+
+
+  invocarModalUpdate(Modal,Proveedor){
+
+      this.updateForm.reset();
+
+      this.proveedor.IdProveedor = Proveedor.IdProveedor;
+      this.proveedor.NombreProveedor = Proveedor.NombreProveedor;
+      this.proveedor.Descripcion = Proveedor.Descripcion;
+      this.proveedor.Direccion = Proveedor.Direccion;
+      this.proveedor.NombreRepresentante = Proveedor.NombreRepresentante;
+      this.proveedor.Telefono = Proveedor.Telefono;
+      this.proveedor.Email = Proveedor.Email;
+
+      this.updateForm.setValue({
+          nombreProveedor: Proveedor.NombreProveedor
+          , descripcionProveedor: Proveedor.Descripcion
+          , correoProveedor: Proveedor.Email
+          , direccionProveedor: Proveedor.Direccion
+          , nombreRepresentante: Proveedor.NombreRepresentante
+          , telefonoProveedor: Proveedor.Telefono == null ? '' : Proveedor.Telefono
+          , email : Proveedor.Email
+      })
+
+      Modal.show();
+  }
+
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
+  }
+
 }

@@ -162,24 +162,8 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
     this.rol.DescripcionRol = this.formUpdateRolUsuario.value.descripcionRol;
   }
 
-  showModalUpdateRol(rol){
 
-    $('#modalUpdateRol').modal('show');
-
-
-    this.rol.IdRol  = rol.IdRol;
-    this.rol.NombreRol = rol.NombreRol;
-    this.rol.DescripcionRol = rol.DescripcionRol;
-
-    this.formUpdateRolUsuario.reset();
-    this.formUpdateRolUsuario.setValue({
-      nombreRol: rol.NombreRol
-      , descripcionRol: rol.DescripcionRol
-    });
-
-  }
-
-  createRolUsuario(){
+  createRolUsuario(Modal){
     this.getValuesFormAddRolUsuario();
 
     console.log(this.rol)
@@ -192,7 +176,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
             'El Rol ha sido creado exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddRol').modal('toggle');
+            Modal.hide();
             this.formAddRolUsuario.reset();
             this.rol = new RolUsuario();
             this.getRolesRender();
@@ -217,22 +201,6 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
           console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
         }
 
-      }
-    )
-  }
-
-  getRolUsuario(IdRol){
-
-    this._RolusuarioService.getRolUsuario(IdRol).subscribe(
-      response => {
-
-        if(!response.rol){
-
-        } else {
-          this.rol = response.rol;
-        }
-      },error => {
-        console.log(<any>error);
       }
     )
   }
@@ -325,5 +293,20 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
   // }
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
+  }
+
+  invocarModalUpdate(Modal,Rol) {
+
+      this.rol.IdRol  = Rol.IdRol;
+      this.rol.NombreRol = Rol.NombreRol;
+      this.rol.DescripcionRol = Rol.DescripcionRol;
+
+      this.formUpdateRolUsuario.reset();
+      this.formUpdateRolUsuario.setValue({
+          nombreRol: Rol.NombreRol
+          , descripcionRol: Rol.DescripcionRol
+      });
+
+    Modal.show();
   }
 }

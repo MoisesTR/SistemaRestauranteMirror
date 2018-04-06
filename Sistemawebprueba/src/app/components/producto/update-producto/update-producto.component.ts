@@ -156,7 +156,6 @@ export class UpdateProductoComponent implements OnInit {
           response =>{
             if(response.producto){
               this.producto = response.producto;
-              console.log(this.producto)
 
               //Inicializar componentes de la vista
               $(document).ready(()=>{

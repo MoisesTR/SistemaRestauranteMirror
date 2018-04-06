@@ -67,7 +67,6 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
   }
   onChanges(): void {
     this.formAddCategoria.valueChanges.subscribe(val => {
-     console.log('Mensaje');
     });
   }
 
@@ -174,24 +173,6 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
     this.categoriaProducto.DescripcionCategoria = this.formUpdateCategoria.value.descripcionCategoria;
   }
 
-  showModalUpdateCategoria(categoria){
-
-    $('#modalUpdateCategoria').modal('show');
-    let Categoria : CategoriaProducto;
-    Categoria = categoria;
-
-    this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
-    this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
-    this.categoriaProducto.DescripcionCategoria = Categoria.DescripcionCategoria;
-
-    this.formUpdateCategoria.reset();
-    this.formUpdateCategoria.setValue({
-      nombreCategoria: Categoria.NombreCategoria
-      , descripcionCategoria: Categoria.DescripcionCategoria
-    });
-
-
-  }
 
   createCategoriaProducto(){
     this.getValuesFormAddCategoria();
@@ -267,7 +248,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
     )
   }
 
-  updateCategoria(){
+  updateCategoria(Modal){
 
     this.getValuesFormUpdateCategoria();
 
@@ -279,7 +260,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
             'La categoría ha sido actualizada exitosamente!',
             'success'
           ).then(() => {
-            $('#modalUpdateCategoria').modal('toggle');
+            Modal.hide();
             this.formUpdateCategoria.reset();
             this.getCategoriasRender();
           })
@@ -304,6 +285,25 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
     this.categoriaProducto = new CategoriaProducto();
 
+  }
+
+
+  invocarModalUpdate(Modal,Categoria){
+
+      let Categoria : CategoriaProducto;
+      Categoria = Categoria;
+
+      this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
+      this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
+      this.categoriaProducto.DescripcionCategoria = Categoria.DescripcionCategoria;
+
+      this.formUpdateCategoria.reset();
+      this.formUpdateCategoria.setValue({
+          nombreCategoria: Categoria.NombreCategoria
+          , descripcionCategoria: Categoria.DescripcionCategoria
+      });
+
+    Modal.show();
   }
 
   deleteCategoria(IdCategoria){

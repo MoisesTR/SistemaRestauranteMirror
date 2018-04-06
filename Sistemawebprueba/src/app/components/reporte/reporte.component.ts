@@ -33,16 +33,6 @@ export class ReporteComponent implements OnInit {
     this.getProductos();
   }
 
-  prueba(){
-
-  }
-
-
-  carga(){
-    console.log('hola');
-  }
-
-
   getProductos(){
     this._productoService.getProductos().subscribe(
       response =>{
@@ -50,7 +40,6 @@ export class ReporteComponent implements OnInit {
           this.productos = response.productos;
           if(this.productos.length == 0)
             this.productos = null
-          console.log(this.productos)
         }
       }, error =>{
 

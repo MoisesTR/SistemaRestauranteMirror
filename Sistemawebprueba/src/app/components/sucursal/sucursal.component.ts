@@ -11,6 +11,7 @@ import {CustomValidators} from '../../validadores/CustomValidators';
 import {TelefonosucursalService} from '../../services/telefonosucursal.service';
 import {TelefonoSucursal} from '../../models/TelefonoSucursal';
 import {isNull} from 'util';
+import {Utilidades} from '../Utilidades';
 
 declare var $:any;
 
@@ -20,7 +21,7 @@ declare var $:any;
   styleUrls: ['./sucursal.component.css'],
   providers: [SucursalService]
 })
-export class SucursalComponent implements OnInit , AfterViewInit{
+export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormulario{
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -390,8 +391,9 @@ export class SucursalComponent implements OnInit , AfterViewInit{
 
   }
 
-  cleanFormAdd(){
-    this.formAddSucursal.reset();
-  }
+    InvocarModal(Modal, Formulario) {
+      Utilidades.invocacionModal(Modal,Formulario);
+    }
+
 
 }

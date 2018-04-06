@@ -36,7 +36,7 @@
             <td width="25%" class="body-negrita">
               <div class="text-center">
                 <!--<button type="button" (click)="getCargo()" class="btn btn-sm orange-chang" id="btnGetCargo" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                <button type="button" (click)="showModalUpdateCargo(cargo)" class="btn btn-sm orange-chang" id="btnUpdateCargo" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
+                <button type="button" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="btn btn-sm orange-chang" id="btnUpdateCargo" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
                 <button type="button" (click)="deleteCargo(cargo.IdCargo)" class="btn btn-sm orange-chang"  id="btnDeleteCargo" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
               </div>
             </td>
@@ -60,7 +60,7 @@
       <!--Titulo-->
       <div class="modal-header orange-chang white-text">
         <h4 class="title">Nuevo cargo</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddCargo.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -127,7 +127,7 @@
 <!-- /.Modal Cargos -->
 
 <!-- Modal actualizar Cargos -->
-<div class="modal fade" id="modalUpdateCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div  mdbModal #modalUpdateCargo="mdb-modal" class="modal fade" id="modalUpdateCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray">
@@ -135,7 +135,7 @@
       <!--Titulo-->
       <div class="modal-header orange-chang white-text">
         <h4 class="title">Nuevo cargo</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateCargo.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

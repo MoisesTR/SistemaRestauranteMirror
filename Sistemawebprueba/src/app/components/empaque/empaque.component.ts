@@ -178,23 +178,6 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
     });
   }
 
-  showModalUpdateEmpaque(empaque){
-
-    $('#modalUpdateEmpaque').modal('show');
-
-
-    this.empaque.IdEmpaque  = empaque.IdEmpaque;
-    this.empaque.NombreEmpaque = empaque.NombreEmpaque;
-    this.empaque.Descripcion = empaque.Descripcion;
-
-    this.formUpdateEmpaque.reset();
-    this.formUpdateEmpaque.setValue({
-      nombreEmpaque: empaque.NombreEmpaque
-      , descripcionEmpaque: empaque.Descripcion
-    });
-
-  }
-
 
   createEmpaque(){
     this.getValuesFormAddEmpaque();
@@ -252,22 +235,6 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
 
   }
-  getEmpaque(IdEmpaque){
-
-    this._EmpaqueServicio.getEmpaque(IdEmpaque).subscribe(
-      response => {
-
-        if(!response.empaque){
-
-        } else {
-          this.empaque = response.empaque;
-        }
-      },error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
   getEmpaquesProductos(){
     this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
@@ -283,11 +250,12 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
     )
   }
 
-  updateEmpaque(){
+  updateEmpaque(Modal){
 
     this.getValuesFormUpdateEmpaque();
     //Codigo temporal
-    $('#modalUpdateEmpaque').modal('toggle');
+    Modal.hide();
+
     this.formUpdateEmpaque.reset();
     //
 
@@ -376,4 +344,20 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
     Utilidades.invocacionModal(Modal,Formulario);
   }
 
+  invocarModalUpdate(Modal,Empaque){
+
+
+      this.empaque.IdEmpaque  = Empaque.IdEmpaque;
+      this.empaque.NombreEmpaque = Empaque.NombreEmpaque;
+      this.empaque.Descripcion = Empaque.Descripcion;
+
+      this.formUpdateEmpaque.reset();
+      this.formUpdateEmpaque.setValue({
+          nombreEmpaque: Empaque.NombreEmpaque
+          , descripcionEmpaque: Empaque.Descripcion
+      });
+
+      Modal.show();
+
+  }
 }

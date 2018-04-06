@@ -281,21 +281,6 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
       )
     }
 
-    showModalUpdate(unidadmedida){
-
-      this.formUpdateUnidadMedida.reset();
-      $('#modalUpdateUnidadMedida').modal('show');
-
-
-      this.unidadMedida.IdUnidadMedida = unidadmedida.IdUnidadMedida;
-      this.formUpdateUnidadMedida.reset();
-      this.formUpdateUnidadMedida.setValue({
-        nombreUnidadMedida: unidadmedida.NombreUnidad
-        , simboloUnidadMedida: unidadmedida.Simbolo
-      });
-
-    }
-
   deleteUnidadMedida(IdUnidad){
 
     swal({
@@ -341,8 +326,26 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
   }
 
+  updateUnidadMedida(Modal){
+
+    Modal.hide();
+  }
+
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
+  }
+
+  invocarModalUpdate(Modal,Unidad){
+
+      this.unidadMedida.IdUnidadMedida = Unidad.IdUnidadMedida;
+
+      this.formUpdateUnidadMedida.reset();
+      this.formUpdateUnidadMedida.setValue({
+          nombreUnidadMedida: Unidad.NombreUnidad
+          , simboloUnidadMedida: Unidad.Simbolo
+      });
+
+    Modal.show();
   }
 
   onAddSelectClasificacionesUnidad(event){

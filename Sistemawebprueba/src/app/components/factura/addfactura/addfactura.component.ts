@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProductoService} from '../../../services/producto.service';
+import {Producto} from '../../../models/Producto';
 declare var $:any;
 
 @Component({
@@ -8,39 +11,39 @@ declare var $:any;
 })
 export class AddfacturaComponent implements OnInit {
 
-  constructor() { }
+  public productos : Producto[];
+  public producto : Producto;
+
+  constructor(
+      private _route: ActivatedRoute
+      , private _router: Router
+      , private _productoService : ProductoService) { }
 
   ngOnInit() {
 
-    $(document).ready(()=>{      
+    $(document).ready(()=>{
       $('.dropify').dropify();
     });
 
-    var IdProducto = [
-      "Producto 1"      
-      , "Producto 2"
-    ];
+    this.getProductos();
 
-    var IProveedor = [
-      "Cainsa"
-      , "Tiptop"
 
-    ];
 
-    $(document).ready(function(){
-      
-      $('.autocomplete-producto').mdb_autocomplete({
-          data: IdProducto
-      });  
-      
-      $('.autocomplete-proveedor').mdb_autocomplete({
-        data: IProveedor
-      });    
+  }
 
-      $(".selectunidadmedidad").select2({
-        maximumSelectionLength: 1
-      });
-    });
+  getProductos(){
+    this._productoService.getProductos().subscribe(
+        response =>{
+
+          if(response.productos){
+            this.productos = response.productos;
+          }
+        }, error =>{
+
+        }, () =>{
+
+        }
+    )
   }
 
 }

@@ -71,13 +71,13 @@ CREATE PROCEDURE USP_CREATE_CLASIFICACION(
 	@NombreClasificacion NVARCHAR(50),
     @DescripcionClasificacion NVARCHAR(150)
 ) AS BEGIN
-	IF EXISTS(SELECT * from CLASIFICACION_PRODUCTO where NombreClasificacion = @NombreClasificacion) 
+	IF EXISTS(SELECT * from dbo.CLASIFICACION_PRODUCTO where NombreClasificacion = @NombreClasificacion) 
 		BEGIN
  		RAISERROR('Clasificacion Duplicada, No se inserto.',16,1)
  		END
 	ELSE
 	BEGIN
-		INSERT INTO CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion)
+		INSERT INTO dbo.CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion)
 		VALUES(@NombreClasificacion,@DescripcionClasificacion);		
 		SELECT @@IDENTITY AS IdClasificacion
      END
@@ -90,9 +90,9 @@ CREATE PROCEDURE USP_GET_CLASIFICACIONES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM CLASIFICACION_PRODUCTO;
+		SELECT IdCategoria,IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM dbo.CLASIFICACION_PRODUCTO;
 	ELSE
-		SELECT IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM CLASIFICACION_PRODUCTO
+		SELECT IdCategoria,IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM dbo.CLASIFICACION_PRODUCTO
 		WHERE Habilitado= @Habilitado
 END
 GO
@@ -100,14 +100,18 @@ IF OBJECT_ID('USP_UPDATE_CLASIFICACION','P') IS NOT NULL
 	DROP PROCEDURE USP_UPDATE_CLASIFICACION
 GO
 CREATE PROCEDURE USP_UPDATE_CLASIFICACION(
-	@IdClasificacion int,
+	@IdCategoria	  BIT,
+	@IdClasificacion  INT,
 	@NombreClasificacion NVARCHAR(50),
     @DescripcionClasificacion NVARCHAR(150)
-	--,@Habilitado BIT
 ) 
 AS BEGIN
-	UPDATE CLASIFICACION_PRODUCTO
-    SET NombreClasificacion = @NombreClasificacion,DescripcionClasificacion  = @DescripcionClasificacion,UpdateAt=GETDATE() where IdClasificacion = @IdClasificacion;
+	IF COALESCE(@IdCategoria, @NombreClasificacion, @DescripcionClasificacion) IS NOT NULL
+		BEGIN
+			UPDATE dbo.CLASIFICACION_PRODUCTO
+			SET IdCategoria = ISNULL(@IdCategoria,IdCategoria),NombreClasificacion = ISNULL(@NombreClasificacion,NombreClasificacion),DescripcionClasificacion  = @DescripcionClasificacion,
+				UpdateAt=GETDATE() where IdClasificacion = @IdClasificacion;
+		END
 END
 GO
 IF OBJECT_ID('USP_DISP_CLASIFICACION','P') IS NOT NULL
@@ -118,7 +122,7 @@ CREATE PROCEDURE USP_DISP_CLASIFICACION(
 	@IdClasificacion INT,
 	@Habilitado BIT
 ) AS BEGIN 
-	UPDATE CLASIFICACION_PRODUCTO SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdClasificacion = @IdClasificacion;
+	UPDATE dbo.CLASIFICACION_PRODUCTO SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdClasificacion = @IdClasificacion;
 END 
 GO
 IF OBJECT_ID('USP_GET_CLASIFICACION','P') IS NOT NULL
@@ -128,7 +132,7 @@ GO
 CREATE PROCEDURE USP_GET_CLASIFICACION(
 	@IdClasificacion INT
 ) AS BEGIN 
-	SELECT IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM CLASIFICACION_PRODUCTO WHERE IdClasificacion = @IdClasificacion;
+	SELECT IdCategoria,IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM dbo.CLASIFICACION_PRODUCTO WHERE IdClasificacion = @IdClasificacion;
 END
 GO
 IF OBJECT_ID('USP_CREATE_SUBCLASIFICACION','P') IS NOT NULL
@@ -139,7 +143,7 @@ CREATE PROCEDURE USP_CREATE_SUBCLASIFICACION(
     @NombreSubClasificacion NVARCHAR(50),
     @DescripcionSubClasificacion NVARCHAR(150)
 ) AS BEGIN
-	IF NOT EXISTS(SELECT * FROM CLASIFICACION_PRODUCTO where IdClasificacion = @IdClasificacion)
+	IF NOT EXISTS(SELECT * FROM dbo.CLASIFICACION_PRODUCTO where IdClasificacion = @IdClasificacion)
 		RAISERROR('La Clasificacion Insertada no se encontro, por lo tanto no se inserto la Subclasificacion.',16,1);
     ELSE
 		BEGIN
@@ -154,13 +158,17 @@ IF OBJECT_ID('USP_UPDATE_SUBCLASIFICACION','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_UPDATE_SUBCLASIFICACION(
 	@IdSubClasificacion INT,
-    @IdClasificacion INT,
-	@Nombre NVARCHAR(50),
-    @Descripcion NVARCHAR(150)
-    --@Habilitado BIT
+    @IdClasificacion INT NULL,
+	@Nombre NVARCHAR(50)  NULL,
+    @Descripcion NVARCHAR(150) NULL
 ) AS BEGIN
-	UPDATE SUBCLASIFICACION_PRODUCTO
-    SET IdClasificacion= @IdClasificacion,NombreSubClasificacion = @Nombre,DescripcionSubClasificacion  = @Descripcion,UpdateAt=GETDATE() where IdSubClasificacion = @IdSubClasificacion;
+	IF COALESCE(@IdSubClasificacion, @Nombre, @Descripcion) IS NOT NULL
+		BEGIN
+			UPDATE SUBCLASIFICACION_PRODUCTO
+			SET IdClasificacion= ISNULL(@IdClasificacion,IdClasificacion)
+			,NombreSubClasificacion = ISNULL(@Nombre, NombreSubClasificacion),DescripcionSubClasificacion  = ISNULL(@Descripcion,,UpdateAt=GETDATE() 
+			WHERE IdSubClasificacion = @IdSubClasificacion;
+		END
 END 
 GO
 IF OBJECT_ID('USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION','P') IS NOT NULL
@@ -171,7 +179,7 @@ CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION(
 )
 AS BEGIN
 	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,S.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
-    INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion where s.IdClasificacion=@IdClasificacion;
+    INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion where s.IdClasificacion=@IdClasificacion;
 END
 GO
 IF OBJECT_ID('USP_GET_SUBCLASIFICACIONES','P') IS NOT NULL
@@ -183,10 +191,10 @@ CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES
 AS BEGIN
 	IF @Habilitado IS NULL
 		SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
-		INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion
+		INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion
 	ELSE
 		SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
-			INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion WHERE c.Habilitado = @Habilitado
+			INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion WHERE c.Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_DISP_SUBCLASIFICACION','P') IS NOT NULL
@@ -208,7 +216,7 @@ CREATE PROCEDURE USP_GET_SUBCLASIFICACION(
 	@IdSubClasificacion INT
 ) AS BEGIN 
 	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt 
-	FROM SUBCLASIFICACION_PRODUCTO s INNER JOIN CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion 
+	FROM SUBCLASIFICACION_PRODUCTO s INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion 
 	WHERE IdSubClasificacion=@IdSubClasificacion;
 END
 GO
@@ -251,7 +259,7 @@ GO
 CREATE PROCEDURE USP_CREATE_NUMEROPROVEEDOR(
     @IdProveedor INT,
     @Prefijo NVARCHAR(3),
-    @NumeroTelefono NVARCHAR(50) --not null
+    @NumeroTelefono NVARCHAR(50) --NOT NULL
 ) AS BEGIN
 	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,Prefijo,NumeroTelefono)
     VALUES(@IdProveedor,@Prefijo,@NumeroTelefono);
@@ -275,7 +283,7 @@ CREATE PROCEDURE USP_UPDATE_NUMERO_PROVEEDOR(
 	@IdProveedor INT,
     @IdNumero INT,
 	@Prefijo NVARCHAR(3),
-    @NumeroTelefono NVARCHAR(50) --not null
+    @NumeroTelefono NVARCHAR(50) --NOT NULL
 ) AS BEGIN
 		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END 
@@ -285,7 +293,7 @@ IF OBJECT_ID('USP_GET_PROVEEDORES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_PROVEEDORES
 GO
 CREATE PROCEDURE USP_GET_PROVEEDORES
-	@Habilitado BIT null
+	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado IS NULL
 		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2 FROM PROVEEDOR;
@@ -317,8 +325,8 @@ IF OBJECT_ID('USP_GET_NUMEROESPECIFICO','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_NUMEROESPECIFICO
 GO
 CREATE PROCEDURE USP_GET_NUMEROESPECIFICO(
-	@IdProveedor INT,
-    @IdNumero INT
+	@IdProveedor	INT,
+    @IdNumero		INT
 ) AS BEGIN
 	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
 END
@@ -337,23 +345,10 @@ BEGIN
 	DECLARE @RETORNO INT;
 	SELECT @CANTIDAD_ESPERADA =CantidadEmpaque FROM PRODUCTO_PROVEEDOR WHERE IdProductoProveedor = @IdProductoProveedor;
 	IF @CANTIDAD_ESPERADA = NULL
-		SET @RETORNO= 3;
+		SET @RETORNO	= 3;
 	ELSE IF @CANTIDAD_ESPERADA = @Cantidad
-		SET @RETORNO = 1;
+		SET @RETORNO	= 1;
 	ELSE
-		SET @RETORNO= 2;
+		SET @RETORNO	= 2;
 	RETURN @RETORNO;
 END
-GO
-IF OBJECT_ID('USP_UPDATE_EMPAQUE','P') IS NOT NULL
-	DROP PROCEDURE USP_UPDATE_EMPAQUE
-GO
-CREATE PROCEDURE USP_UPDATE_EMPAQUE(
-	@IdEmpaque INT,
-	@NombreEmpaque NVARCHAR(50), 
-	@Descripcion NVARCHAR(150)
-)
-AS BEGIN
-	UPDATE EMPAQUE SET NombreEmpaque = @NombreEmpaque, Descripcion = @Descripcion WHERE IdEmpaque = @IdEmpaque
-END
-SELECT * FROM EMPAQUE

@@ -39,8 +39,8 @@ function getProductosProveedores(req, res) {
     });
 }
 
-var data = matchedData(req, { locations: 'body' });
 function createProductoProveedor(req, res) {
+    var data = matchedData(req);
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto)
     db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor)

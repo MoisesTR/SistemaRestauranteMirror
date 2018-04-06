@@ -4,10 +4,10 @@ GO
 /* NOMBRE ANTERIOR NUMERO_TELEFONO_TRABAJADOR */
 CREATE TABLE NUMERO_TELEFONO_TRABAJADOR(
     IdNumero INT IDENTITY(1,1),
-    IdTrabajador int not null,
-    IdOperadora int not null,
-    NumeroTelefono NVARCHAR(8) not null,
-    Habilitado Bit default 1 not null,
+    IdTrabajador int NOT NULL,
+    IdOperadora int NOT NULL,
+    NumeroTelefono NVARCHAR(8) NOT NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     CONSTRAINT PK_TELFTRAB PRIMARY KEY (IdNumero),
     CONSTRAINT FK_TrabajadorNTelefono FOREIGN KEY (IdTrabajador) REFERENCES TRABAJADOR(IdTrabajador),
     constraint fk_OperadoraTelefono foreign key(IdOperadora) references OPERADORA_TELEFONICA(IdOperadora)
@@ -18,21 +18,21 @@ create table BODEGA_CENTRAL(
 	IdUbicacion INT NULL, --Es el id de la sucursal en que se encuentra
     Nombre NVARCHAR(50) NOT NULL,
     Descripcion NVARCHAR(50),
-    Habilitado Bit default 1 NOT NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_IdBodegaAPCentral primary key(IdBodegaC),
 	CONSTRAINT FK_UBICACION_BODEGA_CENTRAL FOREIGN KEY(IdUbicacion) REFERENCES SUCURSAL(IdSucursal) 
 )
 GO
 create table DETALLE_BODEGA_CENTRAL(
 	IdDetalle int IDENTITY(1,1),
-    IdBodegaC int not null,
-	IdProducto int not null,
-    IdEstadoEm int not null,
-    IdDetalleAP int null,
-    IdBodegaAP int null,
-	Cantidad int not null CHECK(Cantidad >= 0),
-    Fecha date not null,
-	Habilitado Bit default 1 not null,
+    IdBodegaC int NOT NULL,
+	IdProducto int NOT NULL,
+    IdEstadoEm int NOT NULL,
+    IdDetalleAP int NULL,
+    IdBodegaAP int NULL,
+	Cantidad int NOT NULL CHECK(Cantidad >= 0),
+    Fecha date NOT NULL,
+	Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_IdDetalleBC primary key(IdDetalle,IdBodegaC),
     constraint fk_BodegaDetalleBC foreign key(IdBodegaC) references BODEGA_CENTRAL(IdBodegaC),
     constraint fk_ProductoBC foreign key(IdProducto) references PRODUCTO(IdProducto),
@@ -42,13 +42,13 @@ create table DETALLE_BODEGA_CENTRAL(
 GO
 CREATE TABLE DETALLE_BODEGA_SUCURSAL (
 	IdDetalle INT IDENTITY(1,1),
-    IdBodegaAP INT not null,
-    IdDetalleBc INT not null,
-    IdBodegaAPBc INT not null,
+    IdBodegaAP INT NOT NULL,
+    IdDetalleBc INT NOT NULL,
+    IdBodegaAPBc INT NOT NULL,
     IdEstado INT NULL, --estado del empaque
 	Cantidad INT NOT NULL,
     FechaIngreso SMALLDATETIME NOT NULL,
-	Habilitado Bit default 1 not null,
+	Habilitado Bit DEFAULT 1 NOT NULL,
     CONSTRAINT PK_DETA_INVENT PRIMARY KEY (IdDetalle,IdBodegaAP),
     CONSTRAINT U_DETA_INVENT UNIQUE(IdDetalle,IdBodegaAP),
     --CONSTRAINT FK_PRO_EN_INVENT FOREIGN KEY (IdProducto)REFERENCES Producto (IdProducto),
@@ -62,7 +62,7 @@ create table ESTADO_SOLICITUD(
 	IdEstadoS int IDENTITY(1,1),
     NombreEstado NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(200) NULL,
-    Habilitado Bit default 1 not null,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_IdEstado Primary key(IdEstadoS)
 )
 go
@@ -70,11 +70,11 @@ INSERT INTO ESTADO_SOLICITUD(NombreEstado,Descripcion) VALUES('En Espera',NULL),
 GO
 create table SOLICITUD_PRODUCTOS(
 	IdSolicitud int IDENTITY(1,1),
-    IdSucursal int not null,
-    IdSolicitante int not null,
-    IdEstado int not null,
-    FechaHora SMALLDATETIME not null,
-    Habilitado Bit default 1 not null,
+    IdSucursal int NOT NULL,
+    IdSolicitante int NOT NULL,
+    IdEstado int NOT NULL,
+    FechaHora SMALLDATETIME NOT NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_IdSolicitud primary key(IdSolicitud),
     constraint pk_SucursalSolic foreign key(IdSucursal) references Sucursal(IdSucursal),
     constraint fk_TrabSolici foreign key(IdSolicitante) References Trabajador(IdTrabajador),
@@ -83,10 +83,10 @@ create table SOLICITUD_PRODUCTOS(
 GO
 create table DETALLE_SOLICITUD(
 	IdDetalleSo int IDENTITY(1,1),
-    IdSolicitud int not null,
-    IdProducto  int not null,
-    Cantidad int not null,
-    Habilitado Bit default 1 not null,
+    IdSolicitud int NOT NULL,
+    IdProducto  int NOT NULL,
+    Cantidad int NOT NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_IdDetalle primary key(IdDetalleSo),
     constraint fk_SolicitudDetalle foreign key(IdSolicitud) references SOLICITUD_PRODUCTOS(IdSolicitud),
     constraint fk_ProductoDetalle foreign key(IdProducto) references Producto(IdProducto),
@@ -95,9 +95,9 @@ create table DETALLE_SOLICITUD(
 GO
 create table ESTADO_TRASLADO(
 	IdEstadoT int IDENTITY(1,1),
-    Nombre NVARCHAR(50) not null,
-    Descripcion NVARCHAR(200) null,
-    Habilitado Bit default 1 not null,
+    Nombre NVARCHAR(50) NOT NULL,
+    Descripcion NVARCHAR(200) NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_ESTADO_TRASLADO primary key(IdEstadoT)
 )
 GO
@@ -108,7 +108,7 @@ CREATE TABLE TIPO_TRASLADO(
 	IdTipo INT IDENTITY(1,1),
     NombreTipo NVARCHAR(100) NOT NULL,
     DescripcionTipo NVARCHAR(200) NULL,
-    Habilitado Bit default 1 not null,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     CONSTRAINT PK_TIPO_TRASLADO PRIMARY KEY(IdTipo)
 );
 GO
@@ -117,15 +117,15 @@ INSERT INTO TIPO_TRASLADO(NombreTipo,DescripcionTipo) VALUES('Interno','Traslado
 GO
 create table TRASLADO(
 	IdTraslado int IDENTITY(1,1),
-    IdSucursal int not null,
-    IdTrabIngreso int not null,
-    IdSolicitante int not null,
-    IdChofer int not null,
-    IdReceptor int not null,
-    IdTipo int not null,
-    IdEstado int not null,
-    FechaHora SMALLDATETIME not null,
-    Habilitado Bit default 1 not null,
+    IdSucursal int NOT NULL,
+    IdTrabIngreso int NOT NULL,
+    IdSolicitante int NOT NULL,
+    IdChofer int NOT NULL,
+    IdReceptor int NOT NULL,
+    IdTipo int NOT NULL,
+    IdEstado int NOT NULL,
+    FechaHora SMALLDATETIME NOT NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_IdTraslado primary key(IdTraslado),
     constraint fk_SucursalTraslado foreign key(IdSucursal) references SUCURSAL(IdSucursal),
     constraint fk_TrabIngresoTraslado foreign key(IdTrabIngreso) references TRABAJADOR(IdTrabajador),
@@ -138,13 +138,13 @@ create table TRASLADO(
 GO
 create table DETALLE_TRASLADO(
 	IdDetalle int IDENTITY(1,1),
-    IdTraslado int not null,
-    IdDetalleBc int not null,
-    IdBodegaAPC int not null,
-    --IdProducto int not null,
-    CantidadEnviada int not null,
-    CantidadRecibida int null,
-    Habilitado Bit default 1 not null,
+    IdTraslado int NOT NULL,
+    IdDetalleBc int NOT NULL,
+    IdBodegaAPC int NOT NULL,
+    --IdProducto int NOT NULL,
+    CantidadEnviada int NOT NULL,
+    CantidadRecibida int NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_IdDetalleTraslado primary key(IdDetalle,IdTraslado),
     constraint fk_TrasladoDetalle foreign key(IdTraslado) references TRASLADO(IdTraslado),
     --constraint fk_ProductoTrasladado foreign key(IdProducto) references DETALLE_BODEGA_CENTRAL(IdProducto)
@@ -153,13 +153,13 @@ create table DETALLE_TRASLADO(
 GO
 create table PERDIDA_TRASLADO(
 	IdPerdida int IDENTITY(1,1),
-	IdTraslado int not null,
-    IdEstado int not null,
-    IdResponsable int not null,
-    IdMotivo int not null,
-	IdDetalleTra int not null,
-    Cantidad int not null,
-    Habilitado Bit default 1 not null,
+	IdTraslado int NOT NULL,
+    IdEstado int NOT NULL,
+    IdResponsable int NOT NULL,
+    IdMotivo int NOT NULL,
+	IdDetalleTra int NOT NULL,
+    Cantidad int NOT NULL,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     constraint pk_PerdidaTraslado primary key(IdPerdida),
     constraint fk_TrasladoPerdida foreign key(IdTraslado) references TRASLADO(IdTraslado),
     constraint fk_ResponsablePerdida foreign key(IdResponsable) references TRABAJADOR(IdTrabajador),
@@ -172,10 +172,10 @@ GO
 /* por si acaso
 create table DetallePerdida(
 	IdDetalle int IDENTITY(1,1),
-    IdTraslado int not null,
-    #IdProducto int not null,
-    IdDetalleTra int not null,
-    Cantidad int not null,
+    IdTraslado int NOT NULL,
+    #IdProducto int NOT NULL,
+    IdDetalleTra int NOT NULL,
+    Cantidad int NOT NULL,
     constraint pk_IdDetallePerdida primary key(IdDetalle,IdTraslado),
     constraint fk_DetallePerdidaTraslado foreign key(IdTraslado) references PerdidaTraslado(IdTraslado),
     constraint fk_ProductoPerdido foreign key(IdDetalleTra,IdTraslado) references DetalleTraslado(IdDetalle,IdTraslado),

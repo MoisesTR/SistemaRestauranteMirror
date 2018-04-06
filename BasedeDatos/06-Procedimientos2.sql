@@ -56,9 +56,9 @@ IF OBJECT_ID('USP_GET_PRODUCTOS','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_PRODUCTOS
 GO
 CREATE PROCEDURE USP_GET_PRODUCTOS
-	@Habilitado BIT null
+	@Habilitado BIT NULL
 AS BEGIN
-	IF @Habilitado is null
+	IF @Habilitado is NULL
 		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		FROM PRODUCTO P
 		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
@@ -86,7 +86,7 @@ IF OBJECT_ID('USP_GET_PRODUCTOS_PROVEEDORES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_PRODUCTOS_PROVEEDORES
 GO
 CREATE PROCEDURE USP_GET_PRODUCTOS_PROVEEDORES
-	@Habilitado BIT null
+	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado is NULL
 		SELECT * FROM V_ProductosDetallados;
@@ -137,6 +137,18 @@ AS BEGIN
 		SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE Habilitado = @Habilitado;
 END
 GO
+IF OBJECT_ID(N'USP_UPDATE_EMPAQUE','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_UPDATE_EMPAQUE
+GO
+CREATE PROCEDURE dbo.USP_UPDATE_EMPAQUE(
+	@IdEmpaque		INT,	
+	@NombreEmpaque	NVARCHAR(50),
+	@Descripcion	NVARCHAR(150)
+)
+AS BEGIN
+	UPDATE dbo.EMPAQUE SET NombreEmpaque = @NombreEmpaque, Descripcion = @Descripcion WHERE IdEmpaque = @IdEmpaque;
+END
+GO
 IF OBJECT_ID('USP_CREATE_ENVASE','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_ENVASE
 GO
@@ -165,13 +177,25 @@ GO
 IF OBJECT_ID('USP_DISP_ENVASES','P') IS NOT NULL
 	DROP PROCEDURE USP_DISP_ENVASES
 GO
-CREATE PROCEDURE USP_DISP_ENVASES(
-	@IdTelefonoSucursal INT, 
-	@IdSucursal INT,
+CREATE PROCEDURE dbo.USP_DISP_ENVASES(
+	@IdEnvase	INT,
 	@Habilitado BIT
 )
 AS BEGIN 
-	UPDATE ENVASE SET Habilitado=@Habilitado
+	UPDATE dbo.ENVASE SET Habilitado=@Habilitado, UpdateAt = GETDATE() WHERE IdEnvase = @IdEnvase
+END
+GO
+IF OBJECT_ID(N'dbo.USP_UPDATE_ENVASE', 'P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_UPDATE_ENVASE
+GO
+CREATE PROCEDURE dbo.USP_UPDATE_ENVASE ( 
+	@IdEnvase		INT,
+	@NombreEnvase	NVARCHAR(50),
+	@Descripcion	NVARCHAR(150)
+)
+AS BEGIN
+	UPDATE dbo.ENVASE SET NombreEnvase = @NombreEnvase, Descripcion = @Descripcion, UpdateAt = GETDATE()
+		WHERE IdEnvase = @IdEnvase
 END
 GO
 IF OBJECT_ID('USP_GET_ESTADOSPRODUCTO','P') IS NOT NULL
@@ -181,9 +205,9 @@ CREATE PROCEDURE USP_GET_ESTADOSPRODUCTO
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO
+		SELECT IdEstado,Nombre,Descripcion,Habilitado FROM dbo.ESTADO_PRODUCTO
 	ELSE
-		SELECT IdEstado,Nombre,Descripcion,Habilitado FROM ESTADO_PRODUCTO WHERE Habilitado = @Habilitado
+		SELECT IdEstado,Nombre,Descripcion,Habilitado FROM dbo.ESTADO_PRODUCTO WHERE Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_GET_ESTADOPRODUCTO_BY_ID','P') IS NOT NULL
@@ -358,7 +382,7 @@ CREATE PROCEDURE USP_CREATE_TELEFONO_TRABAJADOR(
 AS BEGIN
 	INSERT INTO TELEFONO_TRABAJADOR(IdTrabajador,NumeroTelefono)
 	VALUES(@IdTrabajador,@NumeroTelefono)
-	SELECT @@IDENTITY AS IdTelefonoTrabajador
+	SELECT @@IDENTITY AS IdTelefoNOTrabajador
 END
 GO
 IF OBJECT_ID('USP_CREATE_TELEFONO_SUCURSAL','P') IS NOT NULL
@@ -392,13 +416,13 @@ IF OBJECT_ID('USP_UPDATE_TELEFONO_TRABAJADOR','P') IS NOT NULL
 	DROP PROCEDURE USP_UPDATE_TELEFONO_TRABAJADOR
 GO
 CREATE PROCEDURE USP_UPDATE_TELEFONO_TRABAJADOR(
-	@IdTelefonoTrabajador INT,
+	@IdTelefoNOTrabajador INT,
 	@IdTrabajador INT,
 	@NumeroTelefono NVARCHAR(20)
 )
 AS BEGIN
 	UPDATE TELEFONO_TRABAJADOR SET NumeroTelefono=@NumeroTelefono
-	WHERE IdTelefonoTrabajador=@IdTelefonoTrabajador AND IdTrabajador=@IdTrabajador
+	WHERE IdTelefoNOTrabajador=@IdTelefoNOTrabajador AND IdTrabajador=@IdTrabajador
 END
 GO
 IF OBJECT_ID('USP_DISP_TELEFONO_SUCURSAL','P') IS NOT NULL
@@ -417,12 +441,12 @@ IF OBJECT_ID('USP_DISP_TELEFONO_TRABAJADOR','P') IS NOT NULL
 	DROP PROCEDURE USP_DISP_TELEFONO_TRABAJADOR
 GO
 CREATE PROCEDURE USP_DISP_TELEFONO_TRABAJADOR(
-	@IdTelefonoTrabajador INT,
+	@IdTelefoNOTrabajador INT,
 	@IdTrabajador INT,
 	@Habilitado BIT
 )
 AS BEGIN
-	UPDATE TELEFONO_TRABAJADOR SET Habilitado=@Habilitado WHERE IdTelefonoTrabajador=@IdTelefonoTrabajador AND @IdTrabajador=@IdTrabajador
+	UPDATE TELEFONO_TRABAJADOR SET Habilitado=@Habilitado WHERE IdTelefoNOTrabajador=@IdTelefoNOTrabajador AND @IdTrabajador=@IdTrabajador
 END
 GO
 IF OBJECT_ID('USP_GET_PRODUCTO_PROVEEDOR','P') IS NOT NULL

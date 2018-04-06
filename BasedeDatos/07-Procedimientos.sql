@@ -118,11 +118,11 @@ GO
 --	@Habilitado BIT
 --) AS BEGIN
 --	IF @Habilitado IS NULL
---		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+--		SELECT IdTelefoNOTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
 --		FROM TELEFONO_TRABAJADOR TT
 --		WHERE TT.IdTrabajador= @IdTrabajador
 --	ELSE
---		SELECT IdTelefonoTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+--		SELECT IdTelefoNOTrabajador,IdTrabajador,NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
 --		FROM TELEFONO_TRABAJADOR TT
 --		WHERE TT.IdTrabajador= @IdTrabajador AND TT.Habilitado= @Habilitado
 --END
@@ -160,12 +160,12 @@ GO
 --	DROP PROCEDURE USP_GET_TELEFONO_TRABAJADOR
 --GO
 --CREATE PROCEDURE USP_GET_TELEFONO_TRABAJADOR(
---	@IdTelefonoTrabajador INT,
+--	@IdTelefoNOTrabajador INT,
 --	@IdTrabajador INT
 --) AS BEGIN
---		SELECT IdTelefonoTrabajador,IdTrabajador, NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
+--		SELECT IdTelefoNOTrabajador,IdTrabajador, NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
 --		FROM TELEFONO_TRABAJADOR TT
---		WHERE TT.IdTrabajador= @IdTrabajador AND IdTelefonoTrabajador = @IdTelefonoTrabajador
+--		WHERE TT.IdTrabajador= @IdTrabajador AND IdTelefoNOTrabajador = @IdTelefoNOTrabajador
 --END
 GO
 IF OBJECT_ID('USP_GET_DETALLE_BODEGA_AP','P') IS NOT NULL
@@ -194,11 +194,11 @@ CREATE PROCEDURE USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION(
 	@NFactura NVARCHAR(20),
 	@RepresentanteProveedor NVARCHAR(50),
 	--SubTotalFactura MONEY NULL CHECK(SubTotalFactura > 0),
-	@PorcRetencion NUMERIC(3,2) NULL,
+	@PorcRetencion NUMERIC(10,5) NULL,
 	--Retencion MONEY NULL,
-	@PorcIva NUMERIC(3,2) NULL,
+	@PorcIva NUMERIC(10,5) NULL,
 	--IvaTotal MONEY NULL,
-	@PorcDescuento NUMERIC(3,2) NULL,
+	@PorcDescuento NUMERIC(10,5) NULL,
 	--DescuentoTotal MONEY NULL CHECK(DescuentoTotal >= 0),
 	--TotalFactura MONEY NULL,
 	@FechaHora DATETIME

@@ -63,7 +63,7 @@ function storedProcExecute(spName, parametersJsonArray) {
     })
 }
 function queryExecute(query, parametersJsonArray) {
-    console.log('queryExecure');
+    console.log('queryExecure' + query);
     return conSql.getConnectionPoolGlobal()
     .then(function(pool) {	
         console.log('Conecto');

@@ -4,7 +4,7 @@ CREATE TABLE CLASIFICACION_VENTA(
 	IdClasificacionVenta INT IDENTITY(1,1),
     Nombre				NVARCHAR(100) NOT NULL,
     Descripcion			NVARCHAR(200) NOT NULL,
-    Habilitado			Bit default 1 not null,
+    Habilitado			Bit DEFAULT 1 NOT NULL,
 	CreatedAt			SMALLDATETIME DEFAULT GETDATE() NOT NULL,
     CONSTRAINT PK_IdClasifVenta PRIMARY KEY(IdClasificacionVenta)
 );
@@ -16,12 +16,12 @@ CREATE TABLE TIPO_CLIENTE(
 	IdTipoCliente INT IDENTITY(1,1),
 	Nombre		NVARCHAR(100) NOT NULL,
 	Descripcion NVARCHAR(200) NULL,
-	Habilitado	Bit default 1 not null,
+	Habilitado	Bit DEFAULT 1 NOT NULL,
 	CreatedAt	SMALLDATETIME DEFAULT GETDATE() NOT NULL,
     CONSTRAINT Pk_TipoCliente PRIMARY KEY(IdTipoCliente)
 );
 GO
-INSERT INTO TIPO_CLIENTE VALUES('Persona Natural',NULL),('Organizacion',null);
+INSERT INTO TIPO_CLIENTE VALUES('Persona Natural',NULL),('Organizacion',NULL);
 GO
 CREATE TABLE CLIENTE(
 	IdCliente		INT IDENTITY(1,1),
@@ -31,7 +31,7 @@ CREATE TABLE CLIENTE(
 	Documento		NVARCHAR(50) NOT NULL,
     Telefono		Nvarchar(20) NULL,
     Direccion		NVARCHAR(250),
-	Habilitado		Bit default 1 not null,
+	Habilitado		Bit DEFAULT 1 NOT NULL,
 	CreatedAt		SMALLDATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT PK_IdCliente PRIMARY KEY(IdCliente),
 ) ;
@@ -53,7 +53,7 @@ CREATE TABLE VENTA(
     IdCliente INT NULL,
     IdEstadoVenta INT NOT NULL,
     NombreCliente NVARCHAR(100) NULL,
-    Habilitado Bit default 1 not null,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     CONSTRAINT PK_IdVenta PRIMARY KEY(IdVenta),
     CONSTRAINT FK_TrabajadorVenta FOREIGN KEY(IdTrabajador) REFERENCES Trabajador(IdTrabajador),
     CONSTRAINT FK_ClasificacionVenta FOREIGN KEY(IdClasificacionVenta) REFERENCES ClasificacionVenta(IdClasificacionVenta),
@@ -77,7 +77,7 @@ CREATE TABLE DetalleFactura(
     Iva NUMERIC(7, 3) NOT NULL,
     Descuento NUMERIC(7, 3) NOT NULL check(Descuento >=0),
 	Subtotal NUMERIC(7, 3) AS ((Precio*Cantidad)+Iva-Descuento),
-	Habilitado Bit default 1 not null,
+	Habilitado Bit DEFAULT 1 NOT NULL,
     CONSTRAINT PK_IdDetalleFactura PRIMARY KEY(IdDetalle),
     CONSTRAINT FK_FacturaDetalle FOREIGN KEY(IdFactura) REFERENCES Factura(IdFactura)
 );
@@ -89,7 +89,7 @@ CREATE TABLE FACTURA(
     FechaHora DATETIME NOT NULL,
     Total NUMERIC(7, 3) NOT NULL,
     Abono NUMERIC(7, 3) NOT NULL,
-	Habilitado Bit default 1 not null,
+	Habilitado Bit DEFAULT 1 NOT NULL,
 	CONSTRAINT Pk_Factura PRIMARY KEY(IdFactura),
     CONSTRAINT FK_VentaFactura FOREIGN KEY(IdVenta) REFERENCES Venta(IdVenta),
     CONSTRAINT FK_MetodoPago FOREIGN KEY(IdMetodoPago) REFERENCES MetodoPago(IdMetodoPago)
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS TipoProductoFina(
 	IdTipo INT IDENTITY(1, 1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(200) NULL,
-    Habilitado Bit default 1 not null,
+    Habilitado Bit DEFAULT 1 NOT NULL,
     CONSTRAINT Pk_TipoProductoF PRIMARY KEY(IdTipo)
 );
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS ProductoFinal(
     Imagen NVARCHAR(250) NOT NULL,
     Descripcion NVARCHAR(200) NULL,
     Precio NUMERIC(7, 3) NOT NULL CHECK(Precio >= 0),
-	Habilitado Bit default 1 not null,
+	Habilitado Bit DEFAULT 1 NOT NULL,
     CONSTRAINT Pk_ProductoFinal PRIMARY KEY(IdProductoF),
     CONSTRAINT FK_TipoProductoF FOREIGN KEY(IdTipo) REFERENCES TipoProductoFinal(IdTipo)
 );

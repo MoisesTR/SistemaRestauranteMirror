@@ -15,6 +15,7 @@ const TrabajadorController = require('../controllers/trabajador');
 const CargoController = require('../controllers/cargo')
 const clasificacionUnidadMedidaController = require('../controllers/clasificacionudm')
 const bodegaApController = require('../controllers/bodegaAp')
+const menuController    = require('../controllers/menu');
 
 const validations = require('../Utils/validations');
 const jwt = require('../services/jwt')
@@ -47,10 +48,12 @@ Router
     .get('/empaque/:IdEmpaque(\\d+)', EmpaqueController.getEmpaqueById)
     .get('/empaques', EmpaqueController.getEmpaques)
     .post('/empaque', EmpaqueController.createEmpaque)
+    .put('/empaque/:IdEmpaque(\\d+)', validations.updateEmpaque, validations.validsParams, EmpaqueController.updateEmpaque)
     //Rutas envase controler
     .get('/envase/:IdEnvase(\\d+)', EnvaseController.getEnvaseById)
     .get('/envases', EnvaseController.getEnvases)
     .post('/envase', EnvaseController.createEnvase)
+    .put('/envase/:IdEnvase(\\d+)', validations.updateEnvase, validations.validsParams, EnvaseController.updateEnvase)
     //Rutas proveedor Controller
     .get('/proveedor/:IdProveedor(\\d+)', ProveedorController.getProveedorById)
     .get('/proveedores', ProveedorController.getProveedores)
@@ -135,6 +138,6 @@ Router
     .get('/users', AuthController.getUsers)
     .put('/update-user/:IdUsuario(\\d+)', validations.userSignInValidation, validations.userUpdate, validations.validsParams, AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)', AuthController.changeStateUser)
-
+    .get('/menu',menuController.getMenus)
 
 module.exports = Router

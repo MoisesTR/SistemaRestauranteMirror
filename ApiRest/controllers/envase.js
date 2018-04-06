@@ -1,6 +1,7 @@
 const db    = require('../services/database');
 const sql   = require('mssql');
-const {mssqlErrors} = require('../Utils/util');
+const { mssqlErrors } = require('../Utils/util')
+const { matchedData, sanitize } = require('express-validator/filter');
 
 function getEnvaseById(req,res){
     var data = req.params;
@@ -40,9 +41,23 @@ function createEnvase(req,res){
         res.status(500).json( mssqlErrors(err) );
     });
 }
+function updateEnvase( req, res ) {
+    var data    =  matchedData(req);
+    var aoj     = [];
+    db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase);
+    db.pushAOJParam(aoj, 'NombreEnvase', sql.NVarChar(50), data.NombreEnvase);
+    db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(150), data.Descripcion);
+    db.storedProcExecute('dbo.UPD_UPDATE_ENVASE', aoj)
+    .then((result) => {
+        success: 'Envase actualizado con exito!'
+    }).catch((err) => {
+        res.status(500).json( mssqlErrors(err) );
+    })
+}
 
 module.exports={
     getEnvaseById,
     getEnvases,
-    createEnvase
+    createEnvase,
+    updateEnvase
 }

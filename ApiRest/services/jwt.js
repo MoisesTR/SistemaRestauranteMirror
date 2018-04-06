@@ -10,16 +10,16 @@ function createToken(user){
     const payload={
         sub:user.IdUsuario,
         username:user.Username,
-        email:user.Email,
-        role:user.IdRol,
-        IdTrabajador:user.IdTrabajador,
-        iar:moment().unix(), /* Fecha de creacion */
-        exp:moment().add(5,"minutes").unix() /* Token expira en un dia */
-    };
-    //jsonwebtoken agrega el campo iat por defecto
-    //Generated jwts will include an iat (issued at) claim by default unless noTimestamp is specified. 
-    //If iat is inserted in the payload, it will be used instead of the real timestamp for calculating other things like exp given a timespan in options.expiresIn.
-    //En este caso la fecha de expiracion la calculamos con moment
+            email:user.Email,
+            role:user.IdRol,
+            IdTrabajador:user.IdTrabajador,
+            iar:moment().unix(), /* Fecha de creacion */
+            exp:moment().add(5,"minutes").unix() /* Token expira en un dia */
+        };
+        //jsonwebtoken agrega el campo iat por defecto
+        //Generated jwts will include an iat (issued at) claim by default unless noTimestamp is specified. 
+        //If iat is inserted in the payload, it will be used instead of the real timestamp for calculating other things like exp given a timespan in options.expiresIn.
+        //En este caso la fecha de expiracion la calculamos con moment
     console.log('Creando payload')
     return jwt.sign(payload,secret);
 }

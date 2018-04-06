@@ -265,7 +265,7 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
     )
   }
 
-  updateClasificacion(){
+  updateClasificacion(Modal){
 
     this.getValuesFormUpdateClasificacion();
 
@@ -277,7 +277,7 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
             'La clasificación ha sido actualizada exitosamente!',
             'success'
           ).then(() => {
-            $('#modalUpdateClasificacion').modal('toggle');
+            Modal.hide();
             this.formUpdateClasificacion.reset();
             this.getClasificacionesRender();
           })
@@ -368,7 +368,6 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
   }
 
   InvocarModalUpdate(Modal,Clasificacion){
-
 
     this.clasificacion.IdClasificacion = Clasificacion.IdClasificacion;
     this.clasificacion.NombreClasificacion = Clasificacion.NombreClasificacion;

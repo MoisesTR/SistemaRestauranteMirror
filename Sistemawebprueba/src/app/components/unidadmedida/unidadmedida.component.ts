@@ -178,11 +178,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
     }
 
-  private initConstructorUnidadMedida() {
-    this.unidadMedida = new UnidadMedida();
-  }
-
-  createUnidadMedida(){
+  createUnidadMedida(Modal){
 
     this.unidadMedida.NombreUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
     this.unidadMedida.Simbolo = this.formAddUnidadMedida.value.simboloUnidadMedida;
@@ -196,7 +192,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
             'La unidad ha sido creada exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddUnidadMedida').modal('toggle');
+            Modal.hide();
             this.formAddUnidadMedida.reset();
             this.unidadMedida = new UnidadMedida();
             this.getUnidadesMedidaRender();

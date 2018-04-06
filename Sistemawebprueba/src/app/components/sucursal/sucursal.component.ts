@@ -224,31 +224,15 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
     this.telefonoSecundario.NumeroTelefono = this.formUpdateSucursal.value.telefonoSecundario;
   }
 
-  showModalUpdateSucursal(sucursal){
 
-    $('#modalUpdateSucursal').modal('show');
-
-    this.sucursal.IdSucursal  = sucursal.IdSucursal;
-
-    this.formUpdateSucursal.reset();
-
-    this.formUpdateSucursal.setValue({
-      nombreSucursal: sucursal.NombreSucursal
-      , direccion: sucursal.Direccion
-      , telefonoPrincipal: sucursal.Telefono[0].NumeroTelefono
-      , telefonoSecundario : sucursal.Telefono.length > 1 ? sucursal.Telefono[1].NumeroTelefono : ''
-    });
-
-  }
-
-  createSucursal(){
+  createSucursal(Modal){
     this.getValuesFormAddSucursal();
 
     this._sucursalService.createSucursal(this.sucursal).subscribe(
       response => {
 
         if (response.IdSucursal) {
-          this.crearTelefonoSucursal(response.IdSucursal);
+          this.crearTelefonoSucursal(response.IdSucursal,Modal);
         } else {
           swal(
             'Error inesperado',
@@ -273,7 +257,7 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
   }
 
 
-  crearTelefonoSucursal(IdSucursal){
+  crearTelefonoSucursal(IdSucursal,Modal){
     let resultado;
       this.Telefonos.forEach((telefono, index) => {
         resultado = false;
@@ -293,7 +277,7 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
                   'El sucursal ha sido creado exitosamente!',
                   'success'
                 ).then(() => {
-                  $('#modalAddSucursal').modal('toggle');
+                  Modal.hide();
                   this.formAddSucursal.reset();
                   this.sucursal = new Sucursal();
                   this.getSucursales();
@@ -305,7 +289,9 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
         )
       });
   }
-  updateSucursal(){
+  updateSucursal(Modal){
+
+    Modal.hide();
 
     // this.getValuesFormUpdateSucursal();
     //
@@ -391,9 +377,24 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
 
   }
 
-    InvocarModal(Modal, Formulario) {
-      Utilidades.invocacionModal(Modal,Formulario);
-    }
+  InvocarModal(Modal, Formulario) {
+    Utilidades.invocacionModal(Modal,Formulario);
+  }
 
+  invocarModalUpdate(Modal,Sucursal){
+
+    this.sucursal.IdSucursal  = Sucursal.IdSucursal;
+
+    this.formUpdateSucursal.reset();
+
+    this.formUpdateSucursal.setValue({
+        nombreSucursal: Sucursal.NombreSucursal
+        , direccion: Sucursal.Direccion
+        , telefonoPrincipal: ''
+        , telefonoSecundario : ''
+    });
+
+    Modal.show();
+  }
 
 }

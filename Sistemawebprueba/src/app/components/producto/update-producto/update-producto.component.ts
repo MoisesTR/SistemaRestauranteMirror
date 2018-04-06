@@ -111,7 +111,7 @@ export class UpdateProductoComponent implements OnInit {
   }
 
   onUpSelectSubClasificacion(event){
-    this.producto.IdSubclasificacion = event.IdSubClasificacion;
+    this.producto.IdSubclasificacion = event.IdSubclasificacion;
   }
 
   onUpCategoria(event){

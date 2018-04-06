@@ -36,18 +36,13 @@
                 <td class="body-negrita">{{ categoria.DescripcionCategoria }}</td>
                 <td width="25%" class="body-negrita">
                   <div class="text-center">
-                    <!--<button type="button" (click)="getCategoriaProducto()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetCategoria" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
                     <button type="button" (click)="invocarModalUpdate(modalUpdateCategoria,categoria)" class="btn btn-sm" style="background-color:#E67E22;"
-                      id="btnUpdateCategoria" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                      id="btnUpdateCategoria" data-toggle="tooltip" data-placement="bottom" title="Editar" mdbRippleRadius>
                       <i class="fa fa-pencil"></i>
                     </button>
                     <button type="button" (click)="deleteCategoria(categoria.IdCategoria)" class="btn btn-sm" style="background-color:#E67E22;"
                       id="btnDeleteCategoria" data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                       <i class="fa fa-times"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm orange-chang-dregadate" id="btnAgregar" data-toggle="tooltip" data-placement="bottom"
-                      title="Agregar">
-                      <i class="fa fa-plus"></i>
                     </button>
                   </div>
                 </td>
@@ -56,20 +51,16 @@
           </table>
         </div>
       </div>
-
     </div>
-
   </div>
-
 </section>
-
 
 <!-- Modal categorias crear -->
 <div mdbModal #modalAddCategoria="mdb-modal" class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
-    <!--Content-->
-    <div class="modal-content background-gray">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
 
       <!--Header-->
       <div class="modal-header white-text orange-chang">
@@ -79,22 +70,20 @@
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <!--Body-->
+      <!--Cuerpo Modal-->
       <div class="modal-body mb-0">
 
         <form [formGroup]="formAddCategoria" (ngSubmit)="createCategoriaProducto()" novalidate>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="addnombrecategoria" class="input-modal-sm" name="nombrecategoria" formControlName="nombreCategoria"
-              mdbActive>
+            <input type="text" id="addnombrecategoria" class="input-modal-sm" name="nombrecategoria" formControlName="nombreCategoria">
             <show-errors [control]="formAddCategoria.controls['nombreCategoria']"></show-errors>
           </div>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="adddescripcioncategoria" class="text-area-modal" name="descripcioncategoria" formControlName="descripcionCategoria"
-              mdbActive></textarea>
+            <textarea type="text" id="adddescripcioncategoria" class="text-area-modal" name="descripcioncategoria" formControlName="descripcionCategoria"></textarea>
             <show-errors [control]="formAddCategoria.controls['descripcionCategoria']"></show-errors>
           </div>
 
@@ -107,72 +96,52 @@
         </form>
       </div>
     </div>
-    <!--/.Content-->
+    <!--/.Contenido-->
   </div>
 </div>
 <!-- /.Modal crear categoria -->
 
 <!-- Modal categorias actualizar -->
-<div mdbModal #modalUpdateCategoria="mdb-modal" class="modal fade" id="modalUpdateCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-  [config]="{backdrop: false, ignoreBackdropClick: true}">
-  <div class="modal-dialog modal-lg cascading-modal " role="document">
+<div mdbModal #modalUpdateCategoria="mdb-modal" class="modal fade" id="modalUpdateCategoria" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
     <!--Contenido-->
-    <div class="modal-content background-gray">
+    <div class="modal-content background-gray mdl">
 
       <!--Titulo-->
-      <div class="modal-header orange-chang white-text">
-        <h4 class="title">Actualizar categoría</h4>
+      <div class="modal-header white-text orange-chang ">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Actualizar categoría</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateCategoria.hide()">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true">×</span>
         </button>
       </div>
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
-        <div class="container-fluid">
-          <!-- Inicio form-->
-          <form [formGroup]="formUpdateCategoria" (ngSubmit)="updateCategoria(modalUpdateCategoria)" novalidate>
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="card">
-                  <div class="card-header white-text orange-header">
-                    <i class="fa fa-file-text-o" aria-hidden="true"></i> Datos de la categoría</div>
-                  <div class="container-fluid">
-                    <br>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <br>
-                        <div class="md-form">
-                          <input type="text" id="upnombrecategoria" class="form-control" name="nombrecategoria" formControlName="nombreCategoria">
-                          <show-errors [control]="formUpdateCategoria.controls['nombreCategoria']"></show-errors>
-                          <label [class.active]="categoriaProducto.NombreCategoria && categoriaProducto.NombreCategoria.length > 0" for="upnombrecategoria"
-                            class="active">Nombre</label>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <br>
-                        <div class="md-form">
-                          <textarea type="text" id="updescripcioncategoria" class="md-textarea" name="descripcioncategoria" formControlName="descripcionCategoria"
-                            required></textarea>
-                          <show-errors [control]="formUpdateCategoria.controls['descripcionCategoria']"></show-errors>
-                          <label [class.active]="categoriaProducto.DescripcionCategoria && categoriaProducto.DescripcionCategoria.length > 0" for="updescripcioncategoria">Descripción</label>
-                        </div>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1" [disabled]="!formUpdateCategoria.valid">Ingresar
-                        <i class="fa fa-check ml-1"></i>
-                      </button>
-                    </div>
-                    <br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <!-- Final form -->
-          <br>
-        </div>
+
+        <!-- Inicio form-->
+        <form [formGroup]="formUpdateCategoria" (ngSubmit)="updateCategoria(modalUpdateCategoria)" novalidate>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Nombre</h6>
+            <input type="text" id="upnombrecategoria" class="input-modal-sm" name="nombrecategoria" formControlName="nombreCategoria">
+            <show-errors [control]="formUpdateCategoria.controls['nombreCategoria']"></show-errors>
+          </div>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Descripción</h6>
+            <textarea type="text" id="updescripcioncategoria" class="text-area-modal" name="descripcioncategoria" formControlName="descripcionCategoria"></textarea>
+            <show-errors [control]="formUpdateCategoria.controls['descripcionCategoria']"></show-errors>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button class="btn orange-chang mb-1" [disabled]="!formUpdateCategoria.valid">Ingresar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+        <!-- Final form -->
       </div>
     </div>
     <!--/.Contenido-->

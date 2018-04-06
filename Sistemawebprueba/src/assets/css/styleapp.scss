@@ -180,12 +180,16 @@ h6 {
 /* Estilos panel administrativo */
 .background-gray {
   background-image: url(../img/landingpage/background-historia.jpg);
-  min-height: auto;
+  min-height: 100%;
   min-width: auto;
   width: auto;
   height: auto;
   margin: 0;
   padding: 0;
+}
+
+.background-gray .mdl {
+  min-height: auto;
 }
 
 .color-primary {

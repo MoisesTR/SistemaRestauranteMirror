@@ -327,7 +327,7 @@ h6 {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   min-height: 70px;
-  max-height: 200px;
+  max-height: 130px;
 }
 
 .md-form .text-area-modal:focus {
@@ -336,4 +336,8 @@ h6 {
   border-color: #e67e22;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.modal-scroll{
+  overflow: auto !important;
 }

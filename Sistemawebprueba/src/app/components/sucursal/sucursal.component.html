@@ -78,7 +78,7 @@
 
         <form [formGroup]="formAddSucursal " (ngSubmit)="createSucursal(modalAddSucursal)">
 
-          <div class="md-form ">
+          <div class="md-form">
             <h6 class="orange-chang-text">Nombre Sucursal</h6>
             <input mdbActive type="text" id="NombreSucursal" class="input-modal-sm " name="NombreSucursal" formControlName="nombreSucursal">
             <show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>

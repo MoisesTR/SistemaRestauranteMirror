@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductoService} from '../../../services/producto.service';
 import {Producto} from '../../../models/Producto';
-<<<<<<< HEAD
 import {ProveedorService} from '../../../services/proveedor.service';
 import {Proveedor} from '../../../models/Proveedor';
-=======
 import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
->>>>>>> ca8c820772af6cfb3536c8360d071882b18e9733
 declare var $:any;
 
 @Component({
@@ -19,10 +16,9 @@ export class AddfacturaComponent implements OnInit {
 
   public productos : Producto[];
   public producto : Producto;
-<<<<<<< HEAD
   public proveedores : Proveedor[];
   public proveedor : Proveedor;
-=======
+
   public myDatePickerOptions: IMyOptions = {
     // Strings and translations
     dayLabels: {su: 'Do', mo: 'Lu', tu: 'Mar', we: 'Mier', th: 'Jue', fr: 'Vier', sa: 'Sab'},
@@ -51,7 +47,7 @@ export class AddfacturaComponent implements OnInit {
     //Show Clear date button
     showClearDateBtn: true,
 };
->>>>>>> ca8c820772af6cfb3536c8360d071882b18e9733
+
 
   constructor(
       private _route: ActivatedRoute

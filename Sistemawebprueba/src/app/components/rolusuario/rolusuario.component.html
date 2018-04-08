@@ -4,43 +4,52 @@
 
     <div class="card card-cascade narrower">
       <!--Titulo-->
-      <div class="view gradient-card-header orange-chang" >
+      <div class="view gradient-card-header orange-chang">
         <h2 class="h2-responsive">Roles</h2>
       </div>
       <!--/Titulo-->
-      <div class="card-body" >
+      <div class="card-body">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="text-right">
-                <button type="button" class="btn orange-chang u-btn-agregar" data-toggle="modal" (click)="InvocarModal(modalAddRol,formAddRolUsuario)" data-target="#modalAddRol">Nuevo Rol</button>
+                <button type="button" class="btn orange-chang u-btn-agregar" data-toggle="modal" (click)="InvocarModal(modalAddRol,formAddRolUsuario)"
+                  data-target="#modalAddRol">Nuevo Rol</button>
               </div>
             </div>
           </div>
         </div>
         <br>
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0"
+          width="100%">
           <thead>
-          <tr>
-            <th class="header-negrita">ID</th>
-            <th class="header-negrita">Nombre</th>
-            <th class="header-negrita">Descripcion</th>
-            <th class="header-negrita">Acciones</th>
-          </tr>
+            <tr>
+              <th class="header-negrita">ID</th>
+              <th class="header-negrita">Nombre</th>
+              <th class="header-negrita">Descripcion</th>
+              <th class="header-negrita">Acciones</th>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let rol of roles; let i = index">
-            <td class="body-negrita">{{ i + 1}}</td>
-            <td class="body-negrita">{{ rol.NombreRol }}</td>
-            <td class="body-negrita">{{ rol.DescripcionRol }}</td>
-            <td width="25%" class="body-negrita">
-              <div class="text-center">
-                <button type="button"  class="btn btn-sm orange-chang" id="btnGetRol" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>
-                <button type="button" (click)="invocarModalUpdate(modalUpdateRol,rol)" class="btn btn-sm orange-chang" id="btnUpdateRol" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                <button type="button" class="btn btn-sm orange-chang"  id="btnDeleteRol" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
-              </div>
-            </td>
-          </tr>
+            <tr *ngFor="let rol of roles; let i = index">
+              <td class="body-negrita">{{ i + 1}}</td>
+              <td class="body-negrita">{{ rol.NombreRol }}</td>
+              <td class="body-negrita">{{ rol.DescripcionRol }}</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm orange-chang" id="btnGetRol" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <button type="button" (click)="invocarModalUpdate(modalUpdateRol,rol)" class="btn btn-sm orange-chang" id="btnUpdateRol"
+                    data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  <button type="button" class="btn btn-sm orange-chang" id="btnDeleteRol" data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -52,72 +61,50 @@
 
 
 <!-- Modal crear rol -->
-<div mdbModal #modalAddRol="mdb-modal" class="modal fade" id="modalAddRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg cascading-modal " role="document">
+<div mdbModal #modalAddRol="mdb-modal" class="modal fade" id="modalAddRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal " role="document">
     <!--Contenido-->
-    <div class="modal-content background-gray">
+    <div class="modal-content background-gray mdl">
 
       <!--Titulo-->
-      <div class="modal-header orange-chang white-text">
-        <h4 class="title">Nuevo Rol</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Nuevo Rol</h4>
+
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddRol.hide()">
+          <span aria-hidden="true">×</span>
         </button>
       </div>
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
-        <div class="container-fluid">
-          <!-- Inicio form-->
-          <form [formGroup]="formAddRolUsuario" (ngSubmit)="createRolUsuario(modalAddRol)" novalidate>
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="card">
-                  <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos del Cargo</div>
-                  <div class="container-fluid">
-                    <br>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <br>
-                        <div class="md-form ">
-                          <input mdbActive type="text" id="nombreRol" class="form-control"
-                                 name="nombreRol"
-                                 minlength="3"
-                                 maxlength="40"
-                                 formControlName="nombreRol"
-                                 [(ngModel)] = formAddRolUsuario.value.nombreRol
-                          >
-                          <label for="nombreRol" class="">Nombre</label>
-                          <show-errors [control]="formAddRolUsuario.controls['nombreRol']"></show-errors>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <br>
-                        <div class="md-form">
-                          <textarea mdbActive type="text" id="createdescripcionRol" class="md-textarea"
-                                    name="createdescriopcionRol"
-                                    minlength="5"
-                                    maxlength="150"
-                                    formControlName="descripcionRol"
-                                    [(ngModel)] = formAddRolUsuario.value.descripcionRol
-                          ></textarea>
-                          <label for="createdescripcionRol">Descripción</label>
-                          <show-errors [control]="formAddRolUsuario.controls['descripcionRol']"></show-errors>
-                        </div>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1" [disabled]="!formAddRolUsuario.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
-                    </div>
-                    <br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <!-- Final form -->
-          <br>
-        </div>
+
+        <!-- Inicio form-->
+        <form [formGroup]="formAddRolUsuario" (ngSubmit)="createRolUsuario(modalAddRol)" novalidate>
+
+
+          <div class="md-form ">
+            <h6 class="orange-chang-text">Nombre</h6>
+            <input mdbActive type="text" id="nombreRol" class="input-modal-sm" name="nombreRol" minlength="3" maxlength="40" formControlName="nombreRol"
+              [(ngModel)]=f ormAddRolUsuario.value.nombreRol>
+            <show-errors [control]="formAddRolUsuario.controls['nombreRol']"></show-errors>
+          </div>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Descripción</h6>
+            <textarea mdbActive type="text" id="createdescripcionRol" class="text-area-modal" name="createdescriopcionRol" minlength="5"
+              maxlength="150" formControlName="descripcionRol" [(ngModel)]=f ormAddRolUsuario.value.descripcionRol></textarea>
+            <show-errors [control]="formAddRolUsuario.controls['descripcionRol']"></show-errors>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button class="btn orange-chang mb-1" [disabled]="!formAddRolUsuario.valid">Ingresar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+        <!-- Final form -->
       </div>
     </div>
     <!--/.Contenido-->
@@ -126,76 +113,52 @@
 <!-- /.Modal crear rol -->
 
 <!-- Modal actualizar rol -->
-<div mdbModal #modalUpdateRol="mdb-modal" class="modal fade" id="modalUpdateRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg cascading-modal " role="document">
+<div mdbModal #modalUpdateRol="mdb-modal" class="modal fade" id="modalUpdateRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal " role="document">
     <!--Contenido-->
-    <div class="modal-content background-gray">
+    <div class="modal-content background-gray mdl">
 
       <!--Titulo-->
       <div class="modal-header orange-chang white-text">
-        <h4 class="title">Actualizar Rol</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateRol.hide() ">
-          <span aria-hidden="true">&times;</span>
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Actualizar Rol</h4>
+
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateRol.hide()">
+          <span aria-hidden="true">×</span>
         </button>
       </div>
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
-        <div class="container-fluid">
-          <!-- Inicio form-->
-          <form [formGroup]="formUpdateRolUsuario" (ngSubmit)="updateRolUsuario()">
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="card">
-                  <div class="card-header white-text orange-header"><i class="fa fa-file-text-o" aria-hidden="true"></i> Datos del Cargo</div>
-                  <div class="container-fluid">
-                    <br>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <br>
-                        <div class="md-form ">
-                          <input type="text" id="upNombreRol" class="form-control"
-                                 name="upNombreRol"
-                                 minlength="3"
-                                 maxlength="40"
-                                 formControlName="nombreRol"
-                                 [(ngModel)] = formUpdateRolUsuario.value.nombreRol
-                          >
-                          <show-errors [control]="formUpdateRolUsuario.controls['nombreRol']"></show-errors>
-                          <label [class.active] = "rol.NombreRol && rol.NombreRol.length > 0" for="upNombreRol" class="">Nombre</label>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <br>
-                        <div class="md-form">
-                          <textarea type="text" id="upDescriopcionRol" class="md-textarea"
-                                    name="upDescripcionRol"
-                                    minlength="5"
-                                    maxlength="150"
-                                    formControlName="descripcionRol"
-                                    [(ngModel)] = formUpdateRolUsuario.value.descripcionRol
-                          ></textarea>
-                          <show-errors [control]="formUpdateRolUsuario.controls['descripcionRol']"></show-errors>
-                          <label [class.active] = "rol.DescripcionRol && rol.DescripcionRol.length > 0" for="upDescriopcionRol">Descripción</label>
-                        </div>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="text-center mt-1-half">
-                      <button class="btn orange-chang mb-1" [disabled]="!formUpdateRolUsuario.valid">Actualizar <i class="fa fa-check ml-1"></i></button>
-                    </div>
-                    <br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <!-- Final form -->
-          <br>
-        </div>
+
+        <!-- Inicio form-->
+        <form [formGroup]="formUpdateRolUsuario" (ngSubmit)="updateRolUsuario()">
+
+          <div class="md-form ">
+            <h6 class="orange-chang-text">Nombre</h6>
+            <input type="text" id="upNombreRol" class="input-modal-sm" name="upNombreRol" minlength="3" maxlength="40" formControlName="nombreRol"
+              [(ngModel)]=f ormUpdateRolUsuario.value.nombreRol>
+            <show-errors [control]="formUpdateRolUsuario.controls['nombreRol']"></show-errors>
+          </div>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Descripción</h6>
+            <textarea type="text" id="upDescriopcionRol" class="text-area-modal" name="upDescripcionRol" minlength="5" maxlength="150"
+              formControlName="descripcionRol" [(ngModel)]=f ormUpdateRolUsuario.value.descripcionRol></textarea>
+            <show-errors [control]="formUpdateRolUsuario.controls['descripcionRol']"></show-errors>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button class="btn orange-chang mb-1" [disabled]="!formUpdateRolUsuario.valid">Actualizar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+        <!-- Final form -->
       </div>
     </div>
     <!--/.Contenido-->
   </div>
 </div>
 <!-- /.Modal actualizar rol -->
-

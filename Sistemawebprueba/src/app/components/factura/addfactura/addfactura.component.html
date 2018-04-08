@@ -3,7 +3,7 @@
 
         <div class="col-md-6">
             <div class="card card-cascade narrower" style="height: 500px !important; ">
-                <div class="view gradient-card-header orange-chang" >
+                <div class="view gradient-card-header orange-chang">
                     <h2 class="h2-responsive">Informacion Facturas</h2>
                 </div>
                 <div class="card-body">
@@ -16,7 +16,7 @@
                                 <div class="col-md-12">
                                     <div class="md-form">
                                         <div class="text-center mt-1-half">
-                                            <input type="text" id="nombrerepresentanteproveedor"  class="form-control" autocomplete="off">
+                                            <input mdbActive type="text" id="nombrerepresentanteproveedor" class="form-control" autocomplete="off">
                                             <label for="nombrerepresentanteproveedor">Nombre de Proveedor</label>
                                         </div>
                                     </div>
@@ -25,7 +25,8 @@
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <input type="search" id="nombreproveedor" placeholder="#123ejemplo" class="form-control autocomplete-proveedor" autocomplete="off">
+                                        <input mdbActive type="search" id="nombreproveedor" placeholder="#123ejemplo" class="form-control autocomplete-proveedor"
+                                            autocomplete="off">
                                         <button class="mdb-autocomplete-clear">
                                             <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
                                                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
@@ -38,14 +39,14 @@
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <input type="text" class="form-control datepicker" name="FechaFactura" id="FechaFactura">
-                                        <label for="FechaFactura">Fecha</label>
+                                        <mdb-date-picker [placeholder]="'Fecha'" mdbActive name="FechaFactura" id="FechaFactura" formControlName="FechaFactura" [options]="myDatePickerOptions"
+                                            required></mdb-date-picker>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <input type="text" class="form-control timepicker" name="HoraFactura" id="HoraFactura">
+                                        <input mdbActive type="text" class="form-control timepicker" name="HoraFactura" id="HoraFactura">
                                         <label for="HoraFactura">Hora</label>
                                     </div>
                                 </div>
@@ -65,11 +66,11 @@
         <div class="col-md-6 mb-r">
 
             <div class="card card-cascade narrower" style="height: 500px !important; ">
-                <div class="view gradient-card-header orange-chang" >
+                <div class="view gradient-card-header orange-chang">
                     <h2 class="h2-responsive">Productos</h2>
                 </div>
                 <div class="scrollbar-card scrollbar-ripe-malinka">
-                    <div class="card-body" >
+                    <div class="card-body">
 
                         <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                             <i class="fa fa-search" aria-hidden="true"></i>
@@ -89,32 +90,48 @@
                                     <th scope="row">1</th>
                                     <td>PolloPolloPolloPolloPolloPollo</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalAgregarDetalleProducto" ><i class="fa fa-check" aria-hidden="true"></i></button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalVerProducto" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalAgregarDetalleProducto">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalVerProducto">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Bacon</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Cerdo</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">4</th>
                                     <td>Test</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
                                     </td>
                                 </tr>
 
@@ -155,13 +172,21 @@
                                         <td>1</td>
                                         <td>lb</td>
                                         <td>$319</td>
-                                        <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                        <td width="10%" class="body-negrita">
+                                            <strong>----</strong>
+                                        </td>
                                         <td width="10%" class="body-negrita">$319</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button"  class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                <button type="button"  class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Editar">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Eliminar">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -170,13 +195,21 @@
                                         <td>2</td>
                                         <td>lb</td>
                                         <td>$69</td>
-                                        <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                        <td width="10%" class="body-negrita">
+                                            <strong>----</strong>
+                                        </td>
                                         <td width="10%" class="body-negrita">$138</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button"  class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                <button type="button"  class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Editar">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Eliminar">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -185,13 +218,21 @@
                                         <td>1</td>
                                         <td>lb</td>
                                         <td>$49</td>
-                                        <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                        <td width="10%" class="body-negrita">
+                                            <strong>----</strong>
+                                        </td>
                                         <td width="10%" class="body-negrita">$49</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                <button type="button" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Editar">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Eliminar">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -200,19 +241,27 @@
                                         <td>1</td>
                                         <td>lb</td>
                                         <td>$249</td>
-                                        <td width="10%" class="body-negrita"><strong>----</strong></td>
+                                        <td width="10%" class="body-negrita">
+                                            <strong>----</strong>
+                                        </td>
                                         <td width="10%" class="body-negrita">$249</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                <button type="button" class="btn btn-sm orange-chang"  id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Editar">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                    title="Eliminar">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                        <!-- /.Item list -->
+                            <!-- /.Item list -->
                         </div>
 
                         <br>
@@ -221,31 +270,42 @@
 
                     <div class="row">
                         <div class="col-10">
-                            <form >
+                            <form>
                                 <div class="col-lg-12" style="padding-left: 30em">
 
-                                    <div class="col-lg-6" >
+                                    <div class="col-lg-6">
                                         <input type="checkbox" value="validando_checkbox2" name="seleccionadocheck" id="segundo1">
-                                        <label for="segundo1" data-toggle="modal" data-target="#modalAddDescuento"><strong>Descuento</strong> </label>
+                                        <label for="segundo1" data-toggle="modal" data-target="#modalAddDescuento">
+                                            <strong>Descuento</strong>
+                                        </label>
                                     </div>
 
                                     <div class="col-lg-6" style="">
                                         <input type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2">
-                                        <label for="segundo2"><strong>Retencion</strong></label>
+                                        <label for="segundo2">
+                                            <strong>Retencion</strong>
+                                        </label>
                                     </div>
 
                                 </div>
-                                <label for="SubTotal" style="padding-left: 34em"><strong>SubTotal</strong> </label>
+                                <label for="SubTotal" style="padding-left: 34em">
+                                    <strong>SubTotal</strong>
+                                </label>
                                 <br>
-                                <label for="porcentajeiva" style="padding-left: 34em"><strong>IVA(15%)</strong></label>
+                                <label for="porcentajeiva" style="padding-left: 34em">
+                                    <strong>IVA(15%)</strong>
+                                </label>
                                 <br>
-                                <label for="Total" style="padding-left: 34em"><strong>Total</strong></label>
+                                <label for="Total" style="padding-left: 34em">
+                                    <strong>Total</strong>
+                                </label>
                                 <br>
                             </form>
-                        </div> <!-- 25% -->
+                        </div>
+                        <!-- 25% -->
 
                         <div class="col-2">
-                            <form >
+                            <form>
                                 <div class="">
                                     <label>25%</label>
                                 </div>
@@ -262,7 +322,8 @@
                                     <label>C$ 49949.1</label>
                                 </div>
                             </form>
-                        </div> <!-- 75% -->
+                        </div>
+                        <!-- 75% -->
 
                     </div>
                     <br>
@@ -300,22 +361,23 @@
             <div class="modal-header orange-chang white-text">
                 <h4 class="title"> Información del producto</h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
                 <div class="container-fluid">
                     <!-- Inicio form-->
-                    <form >
+                    <form>
                         <div class="row">
 
                             <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                                <div class="card peach-gradient">                                    
-                                    <div class="container-fluid">                                        
+                                <div class="card peach-gradient">
+                                    <div class="container-fluid">
                                         <div class="row">
                                             <div class="card-body text-center">
-                                                <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" data-default-file="assets/img/productos/pollo preparado.jpg"/>
+                                                <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" data-default-file="assets/img/productos/pollo preparado.jpg"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -333,7 +395,7 @@
                                             </div>
                                         </div>
 
-                                       <!-- <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label for="selectclasificacion">Clasificación</label>
                                             <select2 class="selectclasificacion" id="selectclasificacion">
                                                 <option class="chip">TEST </option>
@@ -358,7 +420,7 @@
                                         <div class="col-md-12">
                                             <br>
                                             <div class="md-form">
-                                                <textarea type="text" id="descripcionproducto"  class="md-textarea" autocomplete="off" ></textarea>
+                                                <textarea type="text" id="descripcionproducto" class="md-textarea" autocomplete="off"></textarea>
                                                 <label for="descripcionproducto">Descripción</label>
                                             </div>
                                         </div>
@@ -393,9 +455,9 @@
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
                 <div class="container-fluid">
-                    
+
                     <!-- Inicio form-->
-                    <form >
+                    <form>
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="container-fluid">
@@ -421,16 +483,20 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <br><br>
+                                            <br>
+                                            <br>
                                             <div class="form-group">
                                                 <input type="checkbox" class="filled-in" checked="checked" id="checkboxIva">
                                                 <label for="checkboxIva">Gravado de Iva</label>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </div>
-                                    <br><br>
-                                    <div class="mt-1-half">                                        
-                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                    <br>
+                                    <br>
+                                    <div class="mt-1-half">
+                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar
+                                            <i class="fa fa-check ml-1"></i>
+                                        </button>
                                         <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
                                     </div>
                                 </div>
@@ -462,7 +528,7 @@
             <div class="modal-body mb-0">
                 <div class="container-fluid">
                     <!-- Inicio form-->
-                    <form >
+                    <form>
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="container-fluid">
@@ -474,8 +540,10 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="mt-1-half">                                        
-                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar <i class="fa fa-check ml-1"></i></button>
+                                    <div class="mt-1-half">
+                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar
+                                            <i class="fa fa-check ml-1"></i>
+                                        </button>
                                         <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
                                     </div>
                                 </div>

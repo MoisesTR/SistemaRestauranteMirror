@@ -121,8 +121,8 @@ export class AddProductoComponent implements OnInit {
   }
 
   onAddSelectSubClasificacion(event){
-    // console.log(event.IdSubclasificacion)
-    this.producto.IdSubclasificacion = event.IdSubclasificacion;
+    // console.log(event.IdSubClasificacion)
+    this.producto.IdSubclasificacion = event.IdSubClasificacion;
   }
 
   onAddCategoria(event){

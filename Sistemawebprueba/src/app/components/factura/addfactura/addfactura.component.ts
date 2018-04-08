@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductoService} from '../../../services/producto.service';
 import {Producto} from '../../../models/Producto';
+import {ProveedorService} from '../../../services/proveedor.service';
+import {Proveedor} from '../../../models/Proveedor';
 declare var $:any;
 
 @Component({
@@ -13,11 +15,18 @@ export class AddfacturaComponent implements OnInit {
 
   public productos : Producto[];
   public producto : Producto;
+  public proveedores : Proveedor[];
+  public proveedor : Proveedor;
 
   constructor(
       private _route: ActivatedRoute
       , private _router: Router
-      , private _productoService : ProductoService) { }
+      , private _productoService : ProductoService
+      , private _proveedorService : ProveedorService
+  ) {
+      this.proveedor = new Proveedor();
+
+  }
 
   ngOnInit() {
 
@@ -26,8 +35,7 @@ export class AddfacturaComponent implements OnInit {
     });
 
     this.getProductos();
-
-
+    this.getProveedores();
 
   }
 
@@ -44,6 +52,25 @@ export class AddfacturaComponent implements OnInit {
 
         }
     )
+  }
+
+  getProveedores(){
+      this._proveedorService.getProveedores().subscribe(
+          response =>{
+              if(response.proveedores) {
+                  this.proveedores = response.proveedores;
+              }
+          }, error =>{
+
+          }, ()=>{
+
+          }
+      )
+  }
+
+  onAddSelectProveedor(event){
+
+    this.proveedor.IdProveedor = event.IdProveedor;
   }
 
 }

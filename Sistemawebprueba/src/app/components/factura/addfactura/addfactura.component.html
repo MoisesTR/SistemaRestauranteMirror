@@ -16,8 +16,14 @@
                                 <div class="col-md-12">
                                     <div class="md-form">
                                         <div class="text-center mt-1-half">
-                                            <input type="text" id="nombrerepresentanteproveedor"  class="form-control" autocomplete="off">
-                                            <label for="nombrerepresentanteproveedor">Nombre de Proveedor</label>
+                                            <ng-select [items]="proveedores"
+                                                       bindLabel="NombreProveedor"
+                                                       bindValue="IdProveedor"
+                                                       placeholder="Selecciona una proveedor"
+                                                       (add)="onAddSelectProveedor($event)"
+                                            >
+
+                                            </ng-select>
                                         </div>
                                     </div>
                                     <br>
@@ -43,12 +49,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="md-form">
-                                        <input type="text" class="form-control timepicker" name="HoraFactura" id="HoraFactura">
-                                        <label for="HoraFactura">Hora</label>
-                                    </div>
-                                </div>
+                                <mdb-time-picker [buttonLabel]="'Done'" [twelvehour]="true" [darktheme]="false" [placeholder]="'Selected time'" [label]="'Lightversion, 12hours'" [showClock]="true" ></mdb-time-picker>
 
                             </div>
                             <!-- <div class="text-center mt-1-half">

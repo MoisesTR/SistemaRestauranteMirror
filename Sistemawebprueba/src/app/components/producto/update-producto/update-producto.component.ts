@@ -111,7 +111,7 @@ export class UpdateProductoComponent implements OnInit {
   }
 
   onUpSelectSubClasificacion(event){
-    this.producto.IdSubclasificacion = event.IdSubclasificacion;
+    this.producto.IdSubclasificacion = event.IdSubClasificacion;
   }
 
   onUpCategoria(event){
@@ -129,7 +129,7 @@ export class UpdateProductoComponent implements OnInit {
     // }).delay(100);
     //
     // this.valorInicialSubClasificacion = Observable.create(obs => {
-    //   obs.next(this.producto.IdSubclasificacion);
+    //   obs.next(this.producto.IdSubClasificacion);
     //   obs.complete();
     // }).delay(100);
     //

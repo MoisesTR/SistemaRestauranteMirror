@@ -1,6 +1,6 @@
 export class SubClasificacionProducto{
 
-  public IdSubclasificacion: number;
+  public IdSubClasificacion: number;
   public IdClasificacion: number;
   public NombreSubClasificacion: string;
   public DescripcionSubClasificacion: string;

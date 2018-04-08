@@ -172,7 +172,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
     this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
       response => {
-        if (response.IdSubclasificacion) {
+        if (response.IdSubClasificacion) {
           swal(
             'Subclasificación',
             'la Subclasificación ha sido creado exitosamente!',
@@ -308,6 +308,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
   }
   onUpdateSelectClasificacion(event){
     this.subclasificacion.IdClasificacion = event.IdClasificacion;
+    console.log(this.subclasificacion);
   }
 
   InvocarModal(Modal, Formulario) {
@@ -316,17 +317,17 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
   invocarModalUpdateSubClasificacion(Modal,Subclasificacion){
 
-    this.subclasificacion.IdSubclasificacion = Subclasificacion.IdSubclasificacion;
+    this.subclasificacion.IdSubClasificacion = Subclasificacion.IdSubClasificacion;
     this.subclasificacion.NombreSubClasificacion = Subclasificacion.NombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = Subclasificacion.DescripcionSubClasificacion;
 
+    console.log(this.subclasificacion);
     this.formUpdateSubClasificacion.reset();
     this.formUpdateSubClasificacion.setValue({
         nombreSubClasificacion: Subclasificacion.NombreSubClasificacion
         , descripcionSubClasificacion: Subclasificacion.DescripcionSubClasificacion
         , clasificacion : Subclasificacion.IdClasificacion
     })
-
     Modal.show();
 
   }

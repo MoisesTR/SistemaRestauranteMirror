@@ -9,8 +9,8 @@ const userSignUpValidation = [
         check('IdRol', 'IdRol es requerido y debe ser un entero').isInt(),
         check('IdTrabajador', 'IdTrabajador es requerido y debe ser un entero').isInt(),
         check('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 }),
-        check('Email', 'Campo email debe ser un Email').isEmail().optional({nullable: true}),
-        check('Imagen', 'Imagen debe ser un archivo').optional({nullable: true}),
+        check('Email', 'Campo email debe ser un Email').isEmail().optional({ nullable: true }),
+        check('Imagen', 'Imagen debe ser un archivo').optional({ nullable: true }),
         check('Password', 'El password debe tener una longitud minima de 5 y maxima de 20').isLength({ min: 5, max: 20 }),
         sanitize('IdRol').toInt(),
         sanitize('IdTrabajador').toInt()
@@ -118,24 +118,18 @@ const createProductoProveedor = [
     check('ValorUnidadMedida').isFloat(),
     check('DiasCaducidad').optional({ nullable: true })
 ]
+
 const updateEnvase = [
     check('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
-    check('NombreEnvase').isLength({min:3, max:50}),
-    check('Descripcion').isLength({max:150}).optional({nullable:true}),
-    sanitize('NombreEnvase').toString(),
-    sanitize('Descripcion').toString()
-]
-const updateEnvase = [
-    check('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
-    check('NombreEnvase').isLength({min:3, max:50}),
-    check('Descripcion').isLength({max:150}).optional({nullable:true}),
+    check('NombreEnvase').isLength({ min: 3, max: 50 }),
+    check('Descripcion').isLength({ max: 150 }).optional({ nullable: true }),
     sanitize('NombreEnvase').toString(),
     sanitize('Descripcion').toString()
 ]
 const updateEmpaque = [
     check('IdEmpaque', 'IdEnvase debe ser Entero').isInt(),
-    check('NombreEmpaque').isLength({min:3, max:50}),
-    check('Descripcion').isLength({max:150}).optional({nullable:true}),
+    check('NombreEmpaque').isLength({ min: 3, max: 50 }),
+    check('Descripcion').isLength({ max: 150 }).optional({ nullable: true }),
     sanitize('NombreEmpaque').toString(),
     sanitize('Descripcion').toString()
 ]

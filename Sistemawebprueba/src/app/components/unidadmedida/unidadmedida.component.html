@@ -97,8 +97,6 @@
             placeholder="Selecciona una clasificacion" formControlName="clasificacionesUnidad" id="clasificacionesUnidad" (add)="onAddSelectClasificacionesUnidad($event)">
           </ng-select>
           <show-errors [control]="formAddUnidadMedida.controls['clasificacionesUnidad']"></show-errors>
-
-
           <div class="md-form">
             <br>
             <h6 class="orange-chang-text">Simbolo</h6>
@@ -108,7 +106,7 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddUnidadMedida.valid || todoValidado == 0">Ingresar
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddUnidadMedida.valid">Ingresar
               <i class="fa fa-check ml-1"></i>
             </button>
           </div>
@@ -150,10 +148,10 @@
             <show-errors [control]="formUpdateUnidadMedida.controls['nombreUnidadMedida']"></show-errors>
           </div>
 
-          <label for="upclasificacionunidadmedida">Clasificación</label>
-          <select2 class="form-control selectclasificacionunidadmedida" id="upclasificacionunidadmedida" [options]="optionsSelect2">
-            <option class="chip" [value]="clasificacion.IdClasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.NombreClasificacion}}</option>
-          </select2>
+          <h6 class="orange-chang-text">Clasificación</h6>
+          <ng-select class="select-mdl" [items]="clasificacionesUnidad" bindLabel="NombreClasificacion" bindValue="IdClasificacionUnidadMedida" [(ngModel)] = "unidadMedida.IdClasificacionUnidadMedida"
+                     placeholder="Selecciona una clasificacion"  formControlName="clasificacionesUnidad" id="upclasificacionunidadmedida" (add)="onAddUpdateUnidadMedida($event)">
+          </ng-select>
 
           <div class="md-form ">
             <h6 class="orange-chang-text">Simbolo</h6>

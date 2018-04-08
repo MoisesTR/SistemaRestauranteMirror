@@ -204,7 +204,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
   }
 
-  createEnvaseProducto(){
+  createEnvaseProducto(Modal){
     this.getValuesFormAddEnvase();
     this._envaseService.createEnvase(this.envase).subscribe(
       response => {
@@ -215,8 +215,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
             'El envase ha sido creado exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddEnvase').modal('toggle');
-
+            Modal.hide();
             this.envase = new Envase();
             this.formAddEnvase.reset();
             this.getEnvasesRender();

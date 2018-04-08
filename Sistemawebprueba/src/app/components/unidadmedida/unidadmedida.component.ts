@@ -30,7 +30,6 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
   public clasificaciones: ClasificacionProducto[];
   public mensaje : string;
   public formUpdateUnidadMedida: FormGroup;
-  public todoValidado = 0;
   public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
 
   tOptions: DataTables.Settings = {};
@@ -153,6 +152,9 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
         , Validators.minLength(2)
         , Validators.maxLength(3)
         , CustomValidators.espaciosVacios
+      ]) ,
+      'clasificacionesUnidad': new FormControl('',[
+          Validators.required
       ])
     })
   }
@@ -216,20 +218,6 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
         }
       }
     )
-
-  }
-
-  changedSelectClasificacion(event){
-
-    let idClasificacionUnidad = event.value[0];
-
-    if(idClasificacionUnidad != null){
-      this.unidadMedida.IdClasificacionUnidadMedida  = idClasificacionUnidad;
-      this.todoValidado = 1;
-    } else {
-      this.unidadMedida.IdClasificacionUnidadMedida = null;
-      this.todoValidado = 0;
-    }
 
   }
 
@@ -334,11 +322,13 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
   invocarModalUpdate(Modal,Unidad){
 
       this.unidadMedida.IdUnidadMedida = Unidad.IdUnidadMedida;
+      this.unidadMedida.IdClasificacionUnidadMedida = Unidad.IdClasificacionUnidadMedida;
 
       this.formUpdateUnidadMedida.reset();
       this.formUpdateUnidadMedida.setValue({
           nombreUnidadMedida: Unidad.NombreUnidad
           , simboloUnidadMedida: Unidad.Simbolo
+          , clasificacionesUnidad : Unidad.IdClasificacionUnidadMedida
       });
 
     Modal.show();
@@ -347,4 +337,9 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
   onAddSelectClasificacionesUnidad(event){
     this.unidadMedida.IdClasificacionUnidadMedida = event.IdClasificacionUnidadMedida;
   }
+
+  onAddUpdateUnidadMedida(event){
+    this.unidadMedida.IdClasificacionUnidadMedida = event.IdClasificacionUnidadMedida;
+  }
+
 }

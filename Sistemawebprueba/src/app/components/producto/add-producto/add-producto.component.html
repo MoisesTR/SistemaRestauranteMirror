@@ -10,12 +10,10 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg png jpeg"/>
+            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg png jpeg"
+            />
           </div>
         </div>
-       <!-- <div *ngIf="producto.Imagen">
-          <img src="{{url + 'productoGetImage/' + producto.Imagen}}" style="width: 500px;height:300px;" />
-        </div>-->
 
       </div>
       <!-- /.Imagen -->
@@ -33,33 +31,24 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto"  mdbActive [(ngModel)] = "formAddProducto.value.nombreProducto" class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
+                  <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formAddProducto.value.nombreProducto"
+                    class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
                   <show-errors [control]="formAddProducto.controls['nombreProducto']"></show-errors>
                   <label for="nombreproducto">Nombre</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="clasificacion">Clasificación</label>
-                <ng-select [items]="clasificaciones"
-                           bindLabel="NombreClasificacion"
-                           bindValue="IdClasificacion"
-                           placeholder="Selecciona una clasificacion"
-                           formControlName="clasificacion" id="clasificacion" (add)="onAddSelectClasificacion($event)"
-
-                >
+                <ng-select [items]="clasificaciones" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
+                  formControlName="clasificacion" id="clasificacion" (add)="onAddSelectClasificacion($event)">
 
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>
               </div>
               <div class="col-md-6">
                 <label for="subclasificacion">Subclasificación</label>
-                <ng-select [items]="subclasificaciones"
-                           bindLabel="NombreSubClasificacion"
-                           bindValue="IdSubClasificacion"
-                           placeholder="Selecciona una subclasificacion"
-                           formControlName="subclasificacion" id="subclasificacion"
-                           (add)="onAddSelectSubClasificacion($event)"
-                >
+                <ng-select [items]="subclasificaciones" bindLabel="NombreSubClasificacion" bindValue="IdSubClasificacion" placeholder="Selecciona una subclasificacion"
+                  formControlName="subclasificacion" id="subclasificacion" (add)="onAddSelectSubClasificacion($event)">
 
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>
@@ -67,20 +56,16 @@
               <div class="col-md-6">
                 <br>
                 <label for="categoria">Categoria</label>
-                <ng-select [items]="categorias"
-                           bindLabel="NombreCategoria"
-                           bindValue="IdCategoria"
-                           placeholder="Selecciona una categoria"
-                           formControlName="categoria" id="categoria"
-                           (add)="onAddCategoria($event)"
-                >
+                <ng-select [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria"
+                  formControlName="categoria" id="categoria" (add)="onAddCategoria($event)">
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['categoria']"></show-errors>
               </div>
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea mdbActive type="text" id="descripcionproducto" formControlName="descripcionProducto"   [(ngModel)] = "formAddProducto.value.descripcionProducto" class="md-textarea" autocomplete="off" required></textarea>
+                  <textarea mdbActive type="text" id="descripcionproducto" formControlName="descripcionProducto" [(ngModel)]="formAddProducto.value.descripcionProducto"
+                    class="md-textarea" autocomplete="off" required></textarea>
                   <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
                 </div>
@@ -88,7 +73,9 @@
             </div>
             <br>
             <div class="text-center mt-1-half">
-              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid">Ingresar
+                <i class="fa fa-check ml-1"></i>
+              </button>
             </div>
 
           </div>

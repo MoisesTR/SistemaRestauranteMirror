@@ -72,15 +72,7 @@
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>
-
-                <div class="col-md-12">
-                  <div class="md-form">
-                    <textarea mdbActive type="text" id="Direccion" name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
-                    <label for="Direccion">Dirección</label>
-                    <show-errors [control]="formAddTrabajador.controls['direccion']"></show-errors>
-                  </div>
-                </div>
-
+                
                 <div class="col-md-12">
                   <label for="sucursal">Sucursal</label>
                   <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
@@ -96,6 +88,15 @@
                     formControlName="cargo">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['cargo']"></show-errors>
+                </div>
+
+                <div class="col-md-12">
+                  <br>
+                  <div class="md-form">
+                    <textarea mdbActive type="text" id="Direccion" name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
+                    <label for="Direccion">Dirección</label>
+                    <show-errors [control]="formAddTrabajador.controls['direccion']"></show-errors>
+                  </div>
                 </div>
 
               </div>

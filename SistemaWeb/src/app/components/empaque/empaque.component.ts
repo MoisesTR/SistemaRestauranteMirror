@@ -120,7 +120,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
       );
     }
 
-  getEmpaquesRender(){
+    getEmpaquesRender(){
     this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
         if(response.empaques){
@@ -179,7 +179,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
   }
 
 
-  createEmpaque(){
+  createEmpaque(Modal){
     this.getValuesFormAddEmpaque();
 
     this._EmpaqueServicio.createEmpaque(this.empaque).subscribe(
@@ -191,7 +191,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
             'El Empaque ha sido creado exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddEmpaque').modal('toggle');
+            Modal.hide();
             this.formAddEmpaque.reset();
             this.empaque = new Empaque();
             this.getEmpaquesRender();
@@ -225,15 +225,11 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
     this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
     this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
-    console.log(this.empaque);
   }
 
   getValuesFormUpdateEmpaque(){
-
     this.empaque.NombreEmpaque= this.formUpdateEmpaque.value.nombreEmpaque;
     this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
-
-
   }
   getEmpaquesProductos(){
     this._EmpaqueServicio.getEmpaques().subscribe(
@@ -253,25 +249,18 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
   updateEmpaque(Modal){
 
     this.getValuesFormUpdateEmpaque();
-    //Codigo temporal
-    Modal.hide();
-
-    this.formUpdateEmpaque.reset();
-    //
-
-    /*this._EmpaqueServicio.updateEmpaque(this.empaque,Empaque).subscribe(
+    this._EmpaqueServicio.updateEmpaque(this.empaque).subscribe(
       response =>{
         if(response.success){
           swal(
             'Empaque',
             'El empaque ha sido actualizado exitosamente!',
             'success'
-          ).then(() => {
-            $('#modalUpdateEmpaque').modal('toggle');
+          ).catch(swal.noop).then(() => {
+            Modal.hide();
             this.formUpdateEmpaque.reset();
             this.getEmpaquesRender();
           })
-
 
         } else {
           swal(
@@ -289,8 +278,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
           )
         }
       }
-    )*/
-
+    )
     this.empaque = new Empaque();
 
   }

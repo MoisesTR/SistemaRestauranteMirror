@@ -5,6 +5,7 @@ import {Producto} from '../../../models/Producto';
 import {ProveedorService} from '../../../services/proveedor.service';
 import {Proveedor} from '../../../models/Proveedor';
 import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
+import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 declare var $:any;
 
 @Component({
@@ -54,6 +55,7 @@ export class AddfacturaComponent implements OnInit {
       , private _router: Router
       , private _productoService : ProductoService
       , private _proveedorService : ProveedorService
+      , private _productoProveedorService : ProductoProveedorService
   ) {
       this.proveedor = new Proveedor();
 
@@ -65,24 +67,13 @@ export class AddfacturaComponent implements OnInit {
       $('.dropify').dropify();
     });
 
-    this.getProductos();
     this.getProveedores();
 
   }
 
-  getProductos(){
-    this._productoService.getProductos().subscribe(
-        response =>{
+  getProductosByProveedor(){
 
-          if(response.productos){
-            this.productos = response.productos;
-          }
-        }, error =>{
 
-        }, () =>{
-
-        }
-    )
   }
 
   getProveedores(){
@@ -102,6 +93,7 @@ export class AddfacturaComponent implements OnInit {
   onAddSelectProveedor(event){
 
     this.proveedor.IdProveedor = event.IdProveedor;
+
   }
 
 }

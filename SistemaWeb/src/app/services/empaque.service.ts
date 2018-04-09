@@ -29,15 +29,16 @@ export class EmpaqueService {
     return this._http.get(this.url + 'empaques?Habilitado='+Habilitado)
   }
 
-  updateEmpaque(IdEmpaque,Empaque) : Observable<any> {
+  updateEmpaque(Empaque) : Observable<any> {
 
+    console.log(Empaque)
     let params = JSON.stringify(Empaque);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'empaque/'+IdEmpaque,params,{headers:headers})
+    return this._http.put(this.url+'empaque/'+Empaque.IdEmpaque,params,{headers:headers})
   }
 
   deleteEmpaque(IdEmpaque) : Observable<any> {

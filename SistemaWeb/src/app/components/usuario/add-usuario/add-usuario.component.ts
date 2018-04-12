@@ -9,6 +9,8 @@ import {RolUsuario} from '../../../models/RolUsuario';
 import {Trabajador} from '../../../models/Trabajador';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
+import {UtilService} from '../../../typescripts/pro/date-picker';
+import {Utilidades} from '../../Utilidades';
 
 declare var $:any;
 
@@ -106,7 +108,13 @@ export class AddUsuarioComponent implements OnInit {
           })
         }
       }, error=>{
-        console.log(error)
+            // swal(
+            //     'Error',
+            //     Utilidades.mensajeErrorSql(error),
+            //     'error'
+            // )
+
+            console.log(error);
       },
     )
   }

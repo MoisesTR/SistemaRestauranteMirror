@@ -7,12 +7,14 @@ export class Utilidades{
   }
 
   static mensajeErrorSql(error){
-    
-    if(error.status == 500) {
-      return 'Error interno en el servidor';
-    } else {
-      return JSON.parse(error._body)['message'];
-    }
+
+      return error.error[0].msg;
+    //
+    // if(error.status == 500) {
+    //   return 'Error interno en el servidor';
+    // } else {
+    //   return JSON.parse(error._body)['message'];
+    // }
   }
 
   //Invocacion de metodo para invocar modal y limpieza del formulario invocado

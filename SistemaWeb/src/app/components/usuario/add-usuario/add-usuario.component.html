@@ -28,7 +28,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form">
-                    <input type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control validate " formControlName="nombre"
+                    <input mdbActive type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control validate " formControlName="nombre"
                            autocomplete="off" [(ngModel)]="formularioAddUsuario.value.nombre">
                     <label for="UsuarioNombre">Nombre de usuario</label>
                     <show-errors [control]="formularioAddUsuario.controls['nombre']"></show-errors>

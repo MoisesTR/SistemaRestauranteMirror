@@ -42,6 +42,19 @@ export class ListProductosComponent implements OnInit {
       , language: idioma_espanol
       , 'lengthChange': false
       , responsive : true
+        // Declare the use of the extension in the dom parameter
+        //
+        , dom: 'Bfrtip',
+        // Configure the buttons
+        buttons: [
+            {
+                text: 'Some button',
+                key: '1',
+                action: function (e, dt, node, config) {
+                    alert('Button activated');
+                }
+            }
+        ]
     };
 
     this.getProductos();

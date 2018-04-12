@@ -1,7 +1,7 @@
 //CLASE UTILIZADA PARA DECLARACION DE CONSTANTES DEL PROYECTO
 
 export const Global  = {
-    url: 'http://25.9.122.84:3000/api/'
+    url: 'http://localhost:3000/api/'
 }
 
 //Idioma datatable

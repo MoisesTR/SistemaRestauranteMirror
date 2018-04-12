@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
 
         if(errorMensaje!=null){
           this.status = 'error';
-          this.toastr.error(Utilidades.mensajeErrorSql(error),'Error' );
+          //this.toastr.error(Utilidades.mensajeErrorSql(error),'Error' );
         } else {
 
         }

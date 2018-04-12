@@ -82,7 +82,7 @@ export class AddTrabajadorComponent implements OnInit {
       $('.dropify').dropify();
 
     });
-
+4
     $('.telefono').mask('0000-0000');
     this.initFormTrabajador();
     this.getSucursales();
@@ -128,18 +128,17 @@ export class AddTrabajadorComponent implements OnInit {
         , Validators.maxLength(300)
 
       ])
-      ,'cedula' : new FormControl('', [
-        Validators.required,
-        CustomValidators.espaciosVacios
-        , Validators.maxLength(20)
-      ])
+      // ,'cedula' : new FormControl('', [
+      //   Validators.required,
+      //   CustomValidators.espaciosVacios
+      //   , Validators.maxLength(20)
+      // ])
       ,'direccion' : new FormControl('', [
         Validators.required,
         CustomValidators.espaciosVacios
         , Validators.minLength(10)
         , Validators.maxLength(300)
       ])
-      ,'fechaNacimiento' : new FormControl('')
       ,'fechaIngreso' : new FormControl('',Validators.required)
       ,'telefonoPrincipal' : new FormControl('', [
         Validators.required,
@@ -161,10 +160,10 @@ export class AddTrabajadorComponent implements OnInit {
   getValueFormAddTrabajador(){
     this.trabajador.Nombres = this.formAddTrabajador.value.nombreTrabajador;
     this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
-    this.trabajador.NumeroCedula = this.formAddTrabajador.value.cedula;
+    this.trabajador.NumeroCedula = '0010311960028E';
     this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
-    this.trabajador.FechaIngreso = $('#FechaIngreso').val();
-    this.trabajador.FechaNacimiento = $('#FechaNacimiento').val();
+    this.trabajador.FechaIngreso = '2017-02-02';
+    this.trabajador.FechaNacimiento =  '2017-02-02';
     this.trabajador.Telefono1 = (this.formAddTrabajador.value.telefonoPrincipal).replace("-","");
     this.trabajador.Telefono2 = (this.formAddTrabajador.value.telefonoSecundario).replace("-","");;
 
@@ -192,11 +191,11 @@ export class AddTrabajadorComponent implements OnInit {
         }
       }, error =>{
         console.log(error)
-        swal(
-          'Trabajador',
-          error,
-          'error'
-        )
+        // swal(
+        //   'Trabajador',
+        //   error,
+        //   'error'
+        // )
       }, () =>{
         this.formAddTrabajador.reset;
       }

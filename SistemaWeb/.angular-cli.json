@@ -33,7 +33,8 @@
         "../node_modules/jquery-mask-plugin/dist/jquery.mask.js",
         "assets/js/datatables.min.js",
         "assets/js/jquery.dataTables.min.js",
-        "../node_modules/datatables.net-responsive/js/dataTables.responsive.js"
+        "../node_modules/datatables.net-responsive/js/dataTables.responsive.js",
+        "../node_modules/datatables.net-buttons/js/dataTables.buttons.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

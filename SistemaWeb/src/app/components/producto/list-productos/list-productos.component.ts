@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Rx';
 import swal from 'sweetalert2';
 import {idioma_espanol} from "../../../services/global";
 import {DataTableDirective} from "angular-datatables";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-list-productos',
@@ -22,16 +23,13 @@ export class ListProductosComponent implements OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
-
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _ProductoServicio : ProductoService
+    private _ProductoServicio : ProductoService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -57,33 +55,11 @@ export class ListProductosComponent implements OnInit {
         ]
     };
 
+    this.spinner.show();
     this.getProductos();
 
   }
 
-  cambio(){
-
-    if ($('#che').is(":checked"))
-    {
-      this.habilita = 1;
-      console.log('esta checked');
-    } else {
-      this.habilita = 0;
-    }
-
-    this._ProductoServicio.getProductos().subscribe(
-      response => {
-        if(response.productos){
-          this.productos = response.productos;
-          this.rerender();
-        }
-      }, error =>{
-
-      }
-    );
-
-
-  }
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -94,20 +70,6 @@ export class ListProductosComponent implements OnInit {
     });
   }
 
-  /*CRUD*/
-  /**************************************************************************************************************/
-
-  createProducto(){
-
-  }
-
-  updateProducto(IdProducto){
-
-  }
-
-  getProducto(IdProducto){
-
-  }
 
   getProductos(){
 
@@ -116,6 +78,7 @@ export class ListProductosComponent implements OnInit {
         if(response.productos){
           this.productos = response.productos;
           this.dtTrigger.next();
+          this.spinner.hide();
         }
       }, error =>{
 

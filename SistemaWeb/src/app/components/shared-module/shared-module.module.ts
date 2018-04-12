@@ -9,6 +9,7 @@ import {MDBBootstrapModule} from '../../typescripts/free';
 import {ToastModule} from '../../typescripts/pro/alerts/toast/toast.module';
 import {HttpModule} from '@angular/http';
 import {DataTablesModule} from 'angular-datatables';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {DataTablesModule} from 'angular-datatables';
       , HttpClientModule
       , FormsModule
       , DataTablesModule
+      , NgxSpinnerModule
   ],
   exports: [
       CommonModule
@@ -35,6 +37,7 @@ import {DataTablesModule} from 'angular-datatables';
       , HttpClientModule
       , FormsModule
       , DataTablesModule
+      , NgxSpinnerModule
   ],
     declarations: [ShowErrorsComponent]
   , providers  : [{

@@ -4877,6 +4877,10 @@ ngx-dropdown@^0.0.22:
   version "0.0.22"
   resolved "https://registry.yarnpkg.com/ngx-dropdown/-/ngx-dropdown-0.0.22.tgz#618871b016899c5c700bf7085c6cfe3ddbf71d25"
 
+ngx-spinner@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-spinner/-/ngx-spinner-1.1.0.tgz#20920f4b09710b447e7f74b341edd82cec8ea0ad"
+
 ngx-toastr@^8.2.1:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-8.3.0.tgz#4f79df590484de1caa2e29f9bee4cbf2c5aff097"

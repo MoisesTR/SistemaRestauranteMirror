@@ -110,7 +110,7 @@ export class AddUsuarioComponent implements OnInit {
       }, error=>{
             // swal(
             //     'Error',
-            //     Utilidades.mensajeErrorSql(error),
+            //     Utilidades.mensajeError(error),
             //     'error'
             // )
 

@@ -1,3 +1,6 @@
+import {isArray} from 'util';
+import {ServiceRestError} from '../models/ServiceRestError';
+
 export class Utilidades{
 
   //Metodo para retornar el mensje de error que genera la excepcion en sql
@@ -6,15 +9,19 @@ export class Utilidades{
 
   }
 
-  static mensajeErrorSql(error){
+  static mensajeError(mensaje){
 
-      return error.error[0].msg;
-    //
-    // if(error.status == 500) {
-    //   return 'Error interno en el servidor';
-    // } else {
-    //   return JSON.parse(error._body)['message'];
-    // }
+    if(isArray(mensaje.error)){
+        return mensaje.error[0].msg;
+    } else {
+        return mensaje.error.message;
+      // if(mensaje.error.showMessage){
+      //     return mensaje.error.message;
+      // } else {
+      //
+      // }
+    }
+
   }
 
   //Invocacion de metodo para invocar modal y limpieza del formulario invocado

@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utilidades} from '../Utilidades';
 import {ToastService} from '../../typescripts/pro/alerts';
+import {isArray} from 'util';
 
 @Component({
   selector: 'app-login',
@@ -87,22 +88,15 @@ export class LoginComponent implements OnInit {
               }
             },
             error => {
-              this.toastr.error(Utilidades.mensajeErrorSql(error),'Error' );
+                this.toastr.error(Utilidades.mensajeError(<any>error),'Error')
 
             }
           );
         }
       },
       error => {
-        var errorMensaje = <any>error;
-
-        if(errorMensaje!=null){
-          this.status = 'error';
-          //this.toastr.error(Utilidades.mensajeErrorSql(error),'Error' );
-        } else {
-
-        }
-
+        console.log(error)
+        this.toastr.error(Utilidades.mensajeError(<any>error),'Error')
       }
     );
   }

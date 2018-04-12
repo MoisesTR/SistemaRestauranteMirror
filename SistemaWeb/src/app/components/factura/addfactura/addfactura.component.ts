@@ -6,6 +6,7 @@ import {ProveedorService} from '../../../services/proveedor.service';
 import {Proveedor} from '../../../models/Proveedor';
 import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
 import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
+
 declare var $:any;
 
 @Component({
@@ -48,7 +49,6 @@ export class AddfacturaComponent implements OnInit {
     //Show Clear date button
     showClearDateBtn: true,
 };
-
 
   constructor(
       private _route: ActivatedRoute

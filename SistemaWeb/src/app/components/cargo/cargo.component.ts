@@ -57,10 +57,14 @@ export class CargoComponent implements OnInit, InvocarFormulario {
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
     this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , language: idioma_espanol
-      , 'lengthChange': false
+        autoWidth: false
+        , pagingType: 'full_numbers'
+        , pageLength: 10
+        , 'lengthChange': false
+        , searching: true
+        , ordering: true
+        , language: idioma_espanol
+        , responsive : true
     };
   }
 

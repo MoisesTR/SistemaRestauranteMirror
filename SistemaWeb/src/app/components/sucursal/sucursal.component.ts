@@ -74,23 +74,23 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
         if(response.sucursales){
           this.sucursales = response.sucursales;
 
-          this._telefonoService.getTelefonosSucursales().subscribe(
-            response =>{
-              if(response.telefonos) {
-                this.telefonosSucursales = response.telefonos;
-
-                this.sucursales.forEach((sucursal,index) =>{
-                    this.sucursal.Telefono = this.telefonosSucursales.filter(
-                      telefono => telefono.IdSucursal === sucursal.IdSucursal
-                    )
-                  this.sucursales[index].Telefono = this.sucursal.Telefono;
-                })
-              }
-            }, error =>{
-
-            }, () => {
-            }
-          )
+          // this._telefonoService.getTelefonosSucursales().subscribe(
+          //   response =>{
+          //     if(response.telefonos) {
+          //       this.telefonosSucursales = response.telefonos;
+          //
+          //       this.sucursales.forEach((sucursal,index) =>{
+          //           this.sucursal.Telefono = this.telefonosSucursales.filter(
+          //             telefono => telefono.IdSucursal === sucursal.IdSucursal
+          //           )
+          //         this.sucursales[index].Telefono = this.sucursal.Telefono;
+          //       })
+          //     }
+          //   }, error =>{
+          //
+          //   }, () => {
+          //   }
+          // )
         }
       }, error =>{
 
@@ -104,11 +104,14 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
     this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , language: idioma_espanol
-      , responsive : true
+        autoWidth: false
+        , pagingType: 'full_numbers'
+        , pageLength: 10
+        , 'lengthChange': false
+        , searching: true
+        , ordering: true
+        , language: idioma_espanol
+        , responsive : true
     };
   }
 

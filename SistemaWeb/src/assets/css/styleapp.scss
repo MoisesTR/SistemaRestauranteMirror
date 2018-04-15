@@ -8,6 +8,14 @@
 
 .nomargin {
   margin-left: -2% !important;
+  margin-right: 2% !important;
+}
+// 540px
+@media (max-width: 540px) {
+  .nomargin {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }
 
 .navbar {
@@ -345,4 +353,25 @@ h6 {
 .select-mdl {
   margin-left: -10px;
   margin-right: -15px;
+}
+
+.select-no-margin {
+  margin-right: -4% !important;
+}
+@media (max-width: 540px) {
+  .select-no-margin {
+    margin-right: 0 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .margin-space {
+    margin-bottom: 2% !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .margin-space {
+    margin-bottom: -1%;
+  }
 }

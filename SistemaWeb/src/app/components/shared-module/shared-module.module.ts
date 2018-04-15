@@ -12,7 +12,6 @@ import {DataTablesModule} from 'angular-datatables';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MyHttpInterceptor} from '../../services/MyHttpInterceptor';
 import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
-import {ClickOutsideModule} from 'ng4-click-outside';
 import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-clasificacion.component';
 import {ModalEnvaseComponent} from '../modales/modal-envase/modal-envase.component';
 import {ModalUnidadMedidaComponent} from '../modales/modal-unidad-medida/modal-unidad-medida.component';

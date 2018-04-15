@@ -138,6 +138,8 @@ Router
     .get('/users', AuthController.getUsers)
     .put('/update-user/:IdUsuario(\\d+)', validations.userSignInValidation, validations.userUpdate, validations.validsParams, AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)', AuthController.changeStateUser)
+    //Rutas para los menues
+    .post('/menu',menuController.createMenu)
     .get('/menu',menuController.getMenus)
 
 module.exports = Router

@@ -159,7 +159,7 @@ export class UpdateProductoComponent implements OnInit {
 
               //Inicializar componentes de la vista
               $(document).ready(()=>{
-                var imagenProducto =  this.url + 'productoGetImage/' + this.producto.Imagen;
+                var imagenProducto =  this.url + 'getImage/'+ 'productos' + '/' + this.producto.Imagen;
 
                 $('.dropify').dropify({
                   defaultFile: imagenProducto

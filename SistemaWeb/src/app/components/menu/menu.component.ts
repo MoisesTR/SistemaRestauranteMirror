@@ -3,6 +3,7 @@ import {Usuario} from '../../models/Usuario';
 import {UsuarioService} from '../../services/usuario.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Pantalla} from '../../models/Pantalla';
+import {Global} from '../../services/global';
 
 @Component({
   selector: 'app-menu',
@@ -14,6 +15,7 @@ export class MenuComponent implements OnInit{
   public rol: string = 'admin';
   public Usuario: Usuario;
   public pantallas : Pantalla[];
+  public url : string;
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
@@ -22,6 +24,7 @@ export class MenuComponent implements OnInit{
 
   ngOnInit() {
     this.Usuario = this._usuarioService.getIdentity();
+    this.url = Global.url;
     // this.obtenerPantallasUsuario();
 
     window.onscroll = function () {

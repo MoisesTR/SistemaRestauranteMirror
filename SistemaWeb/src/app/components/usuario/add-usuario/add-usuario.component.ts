@@ -9,8 +9,7 @@ import {RolUsuario} from '../../../models/RolUsuario';
 import {Trabajador} from '../../../models/Trabajador';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {UtilService} from '../../../typescripts/pro/date-picker';
-import {Utilidades} from '../../Utilidades';
+import {Global} from '../../../services/global';
 
 declare var $:any;
 
@@ -24,8 +23,11 @@ export class AddUsuarioComponent implements OnInit {
   public usuario : Usuario;
   public usuarios : Usuario[];
   public roles: RolUsuario[];
+  public trabajador : Trabajador;
   public trabajadores: Trabajador[];
-  formularioAddUsuario : FormGroup
+  formularioAddUsuario : FormGroup;
+  public imagenProducto : string;
+  public url : string;
 
   constructor(
     private _route: ActivatedRoute
@@ -36,13 +38,17 @@ export class AddUsuarioComponent implements OnInit {
     , private formBuilderUsuario : FormBuilder
 
   ) {
-    this.usuario = new Usuario()
+    this.usuario = new Usuario();
+    this.url = Global.url;
+    this.trabajador = new Trabajador();
   }
 
   ngOnInit() {
-
-    $(document).ready(function(){
-      $('.dropify').dropify();
+      this.imagenProducto =  this.url + 'getImage/'+ 'trabajadores' + '/' + 'sF-MP74UyC1sYOA0hBrb-fB3.jpg';
+    $(document).ready(() => {
+        $('.dropify').dropify({
+            defaultFile: this.imagenProducto
+        });
     });
 
     this.initForm();
@@ -146,6 +152,11 @@ export class AddUsuarioComponent implements OnInit {
 
   onAddTrabajador(event){
     this.usuario.IdTrabajador = event.IdTrabajador;
+      this.trabajador =this.trabajadores.find( value => (value.IdTrabajador == event.IdTrabajador));
+      this.imagenProducto =  this.url + 'getImage/'+ 'trabajadores' + '/' + 'sF-Km4sADI_PxxJl-FpgFHdVB2t.jpg';
+      $(".dropify-clear").click();
+
+
   }
 
   onAddRol(event){

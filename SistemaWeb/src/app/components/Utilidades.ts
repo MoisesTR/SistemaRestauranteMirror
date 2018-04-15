@@ -11,7 +11,7 @@ export class Utilidades{
 
   static mensajeError(mensaje){
     if(isUndefined(mensaje)){
-
+        return 'El error esta indefinido';
     } else {
         if(isArray(mensaje.error)){
             return mensaje.error[0].msg;

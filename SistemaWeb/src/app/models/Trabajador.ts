@@ -5,7 +5,8 @@ export class Trabajador{
 	public IdCargo: number;
 	public Nombres: string;
 	public Apellidos: string;
-	public NumeroCedula: string;
+	public IdTipoDocumento: number;
+	public Documento : string;
 	public FechaNacimiento: string;
 	public Direccion: string;
 	public FechaIngreso: string;

@@ -85,8 +85,6 @@ export class UpdateUsuarioComponent implements OnInit {
 
   getUsuario(){
 
-    console.log(this._usuarioService.getIdentity())
-
   }
 
 }

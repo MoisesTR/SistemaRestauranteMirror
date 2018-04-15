@@ -11,9 +11,7 @@ import {idioma_espanol} from '../../../services/global';
   templateUrl: './list-producto-proveedor.component.html',
   styleUrls: ['./list-producto-proveedor.component.css']
 })
-export class ListProductoProveedorComponent implements OnInit, OnDestroy {
-
-
+export class ListProductoProveedorComponent implements OnInit {
 
   public productos : Producto[];
 
@@ -21,6 +19,7 @@ export class ListProductoProveedorComponent implements OnInit, OnDestroy {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+  public mostrarModal : boolean = false;
 
   constructor(
     private _route: ActivatedRoute
@@ -36,9 +35,6 @@ export class ListProductoProveedorComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    console.log('La pagina se va a cerrar')
-  }
 
   settingsDatatable(){
 
@@ -64,4 +60,12 @@ export class ListProductoProveedorComponent implements OnInit, OnDestroy {
       }
     )
   }
+
+  // valorModal(event: boolean){
+  //   this.mostrarModal = false;
+  // }
+  //
+  // clicks(){
+  //   this.mostrarModal = true;
+  // }
 }

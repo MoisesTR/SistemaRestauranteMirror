@@ -21,9 +21,7 @@ declare var $:any;
 })
 export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
-    InvocarModal(Modal, Formulario) {
-      Utilidades.invocacionModal(Modal,Formulario);
-    }
+
 
   public categoriaProducto: CategoriaProducto;
   public categoriasProductos: CategoriaProducto[];
@@ -344,6 +342,10 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
       }
     });*/
 
+  }
+
+  InvocarModal(Modal, Formulario) {
+      Utilidades.invocacionModal(Modal,Formulario);
   }
 
 }

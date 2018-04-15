@@ -13,6 +13,7 @@ import {UploadService} from '../../../services/upload.service';
 import {Global} from '../../../services/global';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
+import {Utilidades} from '../../Utilidades';
 @Component({
   selector: 'app-add-trabajador',
   templateUrl: './add-trabajador.component.html',
@@ -160,20 +161,19 @@ export class AddTrabajadorComponent implements OnInit {
   getValueFormAddTrabajador(){
     this.trabajador.Nombres = this.formAddTrabajador.value.nombreTrabajador;
     this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
-    this.trabajador.NumeroCedula = '0010311960028E';
+    this.trabajador.IdTipoDocumento = 1;
+    this.trabajador.Documento = '0020311960028E';
     this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
     this.trabajador.FechaIngreso = '2017-02-02';
     this.trabajador.FechaNacimiento =  '2017-02-02';
     this.trabajador.Telefono1 = (this.formAddTrabajador.value.telefonoPrincipal).replace("-","");
     this.trabajador.Telefono2 = (this.formAddTrabajador.value.telefonoSecundario).replace("-","");;
 
-    console.log(this.trabajador)
-
   }
 
   createTrabajador(){
-
     this.getValueFormAddTrabajador();
+
     this._TrabajadorServicio.createTrabajador(this.trabajador).subscribe(
       response =>{
         if(response.IdTrabajador){
@@ -190,12 +190,13 @@ export class AddTrabajadorComponent implements OnInit {
           console.log('Todo mal')
         }
       }, error =>{
-        console.log(error)
-        // swal(
-        //   'Trabajador',
-        //   error,
-        //   'error'
-        // )
+        console.log('asdsadsa');
+        console.log(error);
+        swal(
+          'Trabajador',
+            Utilidades.mensajeError(error),
+          'error'
+        )
       }, () =>{
         this.formAddTrabajador.reset;
       }

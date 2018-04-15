@@ -1,0 +1,46 @@
+
+<!-- Modal categorias crear -->
+<div mdbModal (click)="eventoClick()" #modalAddCategoria="mdb-modal" class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Header-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Datos de la Categoría</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Cuerpo Modal-->
+      <div class="modal-body mb-0">
+
+        <form [formGroup]="formAddCategoria" (ngSubmit)="createCategoriaProducto()" novalidate>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Nombre</h6>
+            <input type="text" id="addnombrecategoria" class="input-modal-sm" name="nombrecategoria" formControlName="nombreCategoria">
+            <show-errors [control]="formAddCategoria.controls['nombreCategoria']"></show-errors>
+          </div>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Descripción</h6>
+            <textarea type="text" id="adddescripcioncategoria" class="text-area-modal" name="descripcioncategoria" formControlName="descripcionCategoria"></textarea>
+            <show-errors [control]="formAddCategoria.controls['descripcionCategoria']"></show-errors>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button class="btn orange-chang mb-1" [disabled]="!formAddCategoria.valid">Ingresar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>
+<!-- /.Modal crear categoria -->

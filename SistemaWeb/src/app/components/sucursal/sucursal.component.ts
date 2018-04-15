@@ -21,11 +21,7 @@ declare var $:any;
   styleUrls: ['./sucursal.component.css'],
   providers: [SucursalService]
 })
-export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormulario{
-
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
+export class SucursalComponent implements OnInit , InvocarFormulario{
 
   public sucursal : Sucursal;
   public sucursales : Sucursal[];
@@ -73,7 +69,7 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
       response =>{
         if(response.sucursales){
           this.sucursales = response.sucursales;
-
+          this.dtTrigger.next();
           // this._telefonoService.getTelefonosSucursales().subscribe(
           //   response =>{
           //     if(response.telefonos) {
@@ -283,7 +279,6 @@ export class SucursalComponent implements OnInit , AfterViewInit, InvocarFormula
                   Modal.hide();
                   this.formAddSucursal.reset();
                   this.sucursal = new Sucursal();
-                  this.getSucursales();
                   this.rerender();
                 })
               }

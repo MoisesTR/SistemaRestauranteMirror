@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TrabajadorService} from "../../../services/trabajador.service";
 import {idioma_espanol} from "../../../services/global";
 import {Trabajador} from "../../../models/Trabajador";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-list-trabajador',

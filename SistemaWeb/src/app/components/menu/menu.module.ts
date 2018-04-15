@@ -52,7 +52,7 @@ import {JwtHelper} from 'angular2-jwt';
 import {TelephoneNumberFormatValidatorDirective} from '../../validadores/telephoneNumber';
 import {BirthYearValidatorDirective} from '../../validadores/birthYear';
 import {BuscarPipe} from '../../pipe/buscar.pipe';
-import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -118,6 +118,7 @@ import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
     , AuthGuardService
     , AuthService
     , JwtHelper
+      , DatePipe
 
   ],
   schemas: [ NO_ERRORS_SCHEMA ]

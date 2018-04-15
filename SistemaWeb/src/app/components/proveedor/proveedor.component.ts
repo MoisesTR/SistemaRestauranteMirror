@@ -117,7 +117,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
 
   }
 
-  createProveedor() {
+  createProveedor(Modal) {
 
     this.capturarDadosProveedor();
     this._proveedorService.createProveedor(this.proveedor).subscribe(
@@ -130,7 +130,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
             'El proveedor ha sido creado exitosamente!',
             'success'
           ).then(() => {
-            $('#modalingresarproveedor').modal('toggle');
+            Modal.hide();
             this.addForm.reset();
             this.getProveedores();
           })

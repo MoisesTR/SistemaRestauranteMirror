@@ -321,7 +321,6 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     this.subclasificacion.NombreSubClasificacion = Subclasificacion.NombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = Subclasificacion.DescripcionSubClasificacion;
 
-    console.log(this.subclasificacion);
     this.formUpdateSubClasificacion.reset();
     this.formUpdateSubClasificacion.setValue({
         nombreSubClasificacion: Subclasificacion.NombreSubClasificacion

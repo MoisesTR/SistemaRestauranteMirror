@@ -11,7 +11,6 @@ import {MenuModule} from './components/menu/menu.module';
 import {SharedModuleModule} from './components/shared-module/shared-module.module';
 import {LoginComponent} from './components/login/login.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 //Rutas principales
 const routes: Routes = [

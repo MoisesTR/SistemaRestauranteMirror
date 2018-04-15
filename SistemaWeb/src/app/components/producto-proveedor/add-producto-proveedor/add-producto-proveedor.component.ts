@@ -205,7 +205,6 @@ export class AddProductoProveedorComponent implements OnInit {
   guardarProductoProveedor(){
     this.getValuesForm();
 
-    console.log(this.productoProveedor)
     this._ProductoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
       response => {
         if (response){

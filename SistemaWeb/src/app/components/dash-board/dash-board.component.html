@@ -17,20 +17,9 @@
                 <div class="card-body text-center">
 
                     <div class="list-group list-panel">
-                        <a class="list-group-item d-flex justify-content-between dark-grey-text">Cainsa
+                        <a *ngFor="let proveedor of proveedores" class="list-group-item d-flex justify-content-between dark-grey-text">
+                            {{proveedor.NombreProveedor}}
                             <span class="badge badge-pill red-chang">6:00 AM</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between dark-grey-text">Tip-Top
-                            <span class="badge badge-pill red-chang">12:00 PM</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between dark-grey-text">Pollo Estrella
-                            <span class="badge badge-pill red-chang">2:00 PM</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between dark-grey-text">Marisco
-                            <span class="badge badge-pill red-chang">2:39 PM</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between dark-grey-text">Atomic Developers
-                            <span class="badge badge-pill red-chang">5:41 PM</span>
                         </a>
                     </div>
 
@@ -38,7 +27,7 @@
                 <!--/.Card content-->
                 <div class="card-footer text-muted">
                     <p class="mb-0">
-                        <strong>Fecha:</strong> 21/11/2017</p>
+                        <strong>Fecha:</strong> {{fechaActual}}</p>
                 </div>
 
             </div>
@@ -82,7 +71,7 @@
                 <!--/.Card content-->
                 <div class="card-footer text-muted">
                     <p class="mb-0">
-                        <strong>Fecha:</strong> 21/11/2017</p>
+                        <strong>Fecha:</strong> {{fechaActual}}</p>
                 </div>
 
             </div>
@@ -126,7 +115,7 @@
                 <!--/.Card content-->
                 <div class="card-footer text-muted">
                     <p class="mb-0">
-                        <strong>Fecha:</strong> 21/11/2017</p>
+                        <strong>Fecha:</strong> {{fechaActual}}</p>
                 </div>
 
             </div>
@@ -170,33 +159,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Roger Monge</td>
-                                            <td>+50571349567</td>
-                                            <td>Cainsa</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Jose Lopez</td>
-                                            <td>12345678</td>
-                                            <td>Cainsa</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Jose Lopez</td>
-                                            <td>12345678</td>
-                                            <td>Cainsa</td>
+                                        <tr *ngFor="let proveedor of proveedores ; let i = index">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{proveedor.NombreProveedor}}</td>
+                                            <td>{{proveedor.Telefono}}</td>
+                                            <td>{{proveedor.Email}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
                                                     <i class="fa fa-eye"></i>

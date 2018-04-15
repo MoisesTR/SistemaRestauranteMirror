@@ -166,7 +166,6 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
   createRolUsuario(Modal){
     this.getValuesFormAddRolUsuario();
 
-    console.log(this.rol)
     this._RolusuarioService.createRolUsuario(this.rol).subscribe(
       response => {
 

@@ -13,7 +13,6 @@ export class BuscarPipe implements PipeTransform{
 		}
 
 		return valor.filter( function(item){
-		  console.log(item.NombreProducto)
 			return item.NombreProducto.toLowerCase().includes(term.toLowerCase());
 		});
 	}

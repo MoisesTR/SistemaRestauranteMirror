@@ -47,10 +47,8 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="md-form">
-                                        <input mdbActive type="text" class="form-control timepicker" name="HoraFactura" id="HoraFactura">
-                                        <label for="HoraFactura">Hora</label>
-                                    </div>
+                                    <mdb-time-picker buttonLabel="'Done'" [twelvehour]="false" [darktheme]="true"
+                                                     [placeholder]="'Selected time'" [label]="'Dark version, 24hours'" [ngModel]="darkClock"></mdb-time-picker>
                                 </div>
                             </div>
                             <!-- <div class="text-center mt-1-half">

@@ -16,13 +16,8 @@
                                 <div class="col-md-12">
                                     <div class="md-form">
                                         <div class="text-center mt-1-half">
-                                            <ng-select [items]="proveedores"
-                                                       bindLabel="NombreProveedor"
-                                                       bindValue="IdProveedor"
-                                                       placeholder="Selecciona una proveedor"
-                                                       (add)="onAddSelectProveedor($event)"
-
-                                            >
+                                            <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"
+                                                (add)="onAddSelectProveedor($event)">
 
                                             </ng-select>
                                         </div>
@@ -100,6 +95,30 @@
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
                                         <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalVerProducto">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Bacon</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Bacon</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>

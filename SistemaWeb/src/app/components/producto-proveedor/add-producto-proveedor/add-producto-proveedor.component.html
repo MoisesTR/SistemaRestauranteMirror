@@ -90,7 +90,7 @@
                 <div class="col-sm-9 col-md-5">
                   <br>
                   <label>Unidad de Medida</label>
-                  <ng-select [items]="unidadesMedida" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
+                  <ng-select [items]="unidadesMedida" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
                     formControlName="unidadmedida" id="unidadmedida" (add)="onAddSelectUnidadMedida($event)" class="select-no-margin">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['unidadmedida']"></show-errors>

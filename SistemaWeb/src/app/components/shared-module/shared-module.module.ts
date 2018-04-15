@@ -34,7 +34,6 @@ import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/
       , FormsModule
       , DataTablesModule
       , NgxSpinnerModule
-      , ClickOutsideModule
   ],
   exports: [
       CommonModule
@@ -57,7 +56,6 @@ import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/
       , FormsModule
       , DataTablesModule
       , NgxSpinnerModule
-      , ClickOutsideModule
   ],
     declarations: [ShowErrorsComponent
         , BreadcrumbComponent

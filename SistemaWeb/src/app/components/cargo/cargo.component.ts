@@ -148,10 +148,6 @@ export class CargoComponent implements OnInit, InvocarFormulario {
     this.cargo.NombreCargo = this.formAddCargo.value.nombreCargo;
     this.cargo.DescripcionCargo = this.formAddCargo.value.descripcionCargo;
 
-    console.log('Probando metodo')
-    console.log(this.cargo);
-
-
   }
 
   getValuesFormUpdateCargo(){

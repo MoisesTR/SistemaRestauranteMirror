@@ -99,7 +99,7 @@ export class AddProductoComponent implements OnInit {
 
         }
       }, error =>{
-
+          console.log(error);
       }
     )
 

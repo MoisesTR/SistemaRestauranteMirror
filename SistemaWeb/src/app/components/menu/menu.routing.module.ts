@@ -46,51 +46,51 @@ const menuRoutes: Routes = [
     component: MenuComponent,
     canActivate: [AuthGuardService],
     children: [
-        {path:'',redirectTo:'/dashboard',pathMatch:'full' }
+        {path:'',redirectTo:'/dashboard',pathMatch:'full', data : { titulo : 'Dashboard'} }
         //MODULO PRODUCTO
-        , {path:'producto',component: ListProductosComponent}
-        , {path:'producto/add',component: AddProductoComponent}
-        , {path:'producto/update/:id',component: UpdateProductoComponent}
+        , {path:'producto',component: ListProductosComponent, data : { titulo : 'Productos'}}
+        , {path:'producto/add',component: AddProductoComponent, data : { titulo : 'Producto'}}
+        , {path:'producto/update/:id',component: UpdateProductoComponent, data : { titulo : 'Producto'}}
 
         /*MODULO USUARIO*/
-        , {path:'usuario/add',component:AddUsuarioComponent }
-        , {path:'usuario',component:ListUsuariosComponent }
-        , {path:'usuario/update/:id',component:UpdateUsuarioComponent }
-        , {path:'usuario/view',component:ListUsuarioComponent }
+        , {path:'usuario/add',component:AddUsuarioComponent , data : { titulo : 'Usuario'}}
+        , {path:'usuario',component:ListUsuariosComponent, data : { titulo : 'Usuarios'} }
+        , {path:'usuario/update/:id',component:UpdateUsuarioComponent, data : { titulo : 'Usuario'} }
+        , {path:'usuario/view',component:ListUsuarioComponent, data : { titulo : 'Usuario'} }
 
-        , {path:'categorias',component: CategoriaProductoComponent}
-        , {path:'clasificacion-productos',component: ClasificacionProductoComponent}
-        , {path:'proveedores',component: ProveedorComponent}
-        , {path:'subclasificacion-productos',component: SubClasificacionProductoComponent}
-        , {path:'sucursales',component: SucursalComponent}
-        , {path:'empaques',component: EmpaqueComponent}
-        , {path:'envases',component: EnvaseComponent}
-        , {path:'cargo',component: CargoComponent}
-        , {path:'bodega',component: BodegaSucursalComponent}
-        , {path:'traslados',component: TrasladoProductoComponent}
-        , {path:'busqueda-productos',component: ReporteComponent}
-        , {path:'rol',component: RolusuarioComponent}
-        , {path:'habilitados',component: HabilitadosComponent}
-        , {path:'unidadmedida',component: UnidadmedidaComponent}
+        , {path:'categorias',component: CategoriaProductoComponent, data : { titulo : 'Categorias'}}
+        , {path:'clasificacion-productos',component: ClasificacionProductoComponent, data : { titulo : 'Clasificaciones Produtos'}}
+        , {path:'proveedores',component: ProveedorComponent, data : { titulo : 'Proveedores'}}
+        , {path:'subclasificacion-productos',component: SubClasificacionProductoComponent, data : { titulo : 'Subclasificaciones Productos'}}
+        , {path:'sucursales',component: SucursalComponent, data : { titulo : 'Sucursales'}}
+        , {path:'empaques',component: EmpaqueComponent, data : { titulo : 'Empaques'} }
+        , {path:'envases',component: EnvaseComponent, data : { titulo : 'Envases'} }
+        , {path:'cargo',component: CargoComponent, data : { titulo : 'Cargos'}}
+        , {path:'bodega',component: BodegaSucursalComponent, data : { titulo : 'Bodega'}}
+        , {path:'traslados',component: TrasladoProductoComponent , data : { titulo : 'Traslados'}}
+        , {path:'busqueda-productos',component: ReporteComponent, data : { titulo : 'Busqueda Productos'}}
+        , {path:'rol',component: RolusuarioComponent, data : { titulo : 'Roles'}}
+        , {path:'habilitados',component: HabilitadosComponent, data : { titulo : 'Habilitados'}}
+        , {path:'unidadmedida',component: UnidadmedidaComponent , data : { titulo : 'Unidad Medida'}}
         /*FACTURA MODULO*/
-        , {path:'factura/add',component: AddfacturaComponent}
-        , {path:'factura/list',component: ListFacturaComponent}
-        , {path:'factura/delete',component: DeleteFacturaComponent}
-        , {path:'factura/informacion',component: InformacionFacturaComponent}
-        , {path:'factura/busqueda',component: BuscarGeneralFacturaComponent}
+        , {path:'factura/add',component: AddfacturaComponent, data : { titulo : 'Factura'}}
+        , {path:'factura/list',component: ListFacturaComponent, data : { titulo : 'Facturas'}}
+        , {path:'factura/delete',component: DeleteFacturaComponent, data : { titulo : 'Factura'} }
+        , {path:'factura/informacion',component: InformacionFacturaComponent, data : { titulo : 'Factura'}}
+        , {path:'factura/busqueda',component: BuscarGeneralFacturaComponent, data : { titulo : 'Factura'}}
 
         /*TRABAJADOR MODULO*/
-        , {path:'trabajador/add',component: AddTrabajadorComponent}
-        , {path:'trabajador',component: ListTrabajadorComponent}
-        , {path:'trabajador/update',component: UpdateTrabajadorComponent}
-        , {path:'dashboard',component: DashBoardComponent}
-        , {path:'salida-producto',component: SalidaProductoComponent}
+        , {path:'trabajador/add',component: AddTrabajadorComponent, data : { titulo : 'Trabajador'}}
+        , {path:'trabajador',component: ListTrabajadorComponent, data : { titulo : 'Trabajadores'}}
+        , {path:'trabajador/update',component: UpdateTrabajadorComponent, data : { titulo : 'Trabajador'}}
+        , {path:'dashboard',component: DashBoardComponent, data : { titulo : 'Dashboard'}}
+        , {path:'salida-producto',component: SalidaProductoComponent, data : { titulo : 'Salida Producto'}}
 
         //Producto proveedor
-      , {path:'producto-proveedor/add',component: AddProductoProveedorComponent}
-      , {path:'producto-proveedor/update/:id',component: UpdateProductoProveedorComponent}
-      , {path:'producto-proveedor/list',component: ListProductoProveedorComponent}
-      , {path:'producto-proveedor',component: ListProductoProveedorComponent}
+      , {path:'producto-proveedor/add',component: AddProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
+      , {path:'producto-proveedor/update/:id',component: UpdateProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
+      , {path:'producto-proveedor/list',component: ListProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
+      , {path:'producto-proveedor',component: ListProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
 
     ]
   },

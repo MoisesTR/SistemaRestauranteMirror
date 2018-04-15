@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ProductoService} from "../../../services/producto.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Producto} from "../../../models/Producto";
@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 import {idioma_espanol} from "../../../services/global";
 import {DataTableDirective} from "angular-datatables";
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-list-productos',
@@ -14,8 +15,15 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./list-productos.component.css'],
   providers: [ProductoService]
 })
-export class ListProductosComponent implements OnInit {
+export class ListProductosComponent implements OnInit, OnDestroy {
 
+
+  ngOnDestroy() {
+    console.log('La pagina se va a cerrar')
+      this.subscription.unsubscribe();
+  }
+
+  subscription : Subscription;
   public producto : Producto;
   public productos: Producto[];
   public habilita: number = 1;
@@ -73,7 +81,7 @@ export class ListProductosComponent implements OnInit {
 
   getProductos(){
 
-    this._ProductoServicio.getProductos().subscribe(
+    this.subscription = this._ProductoServicio.getProductos().subscribe(
       response => {
         if(response.productos){
           this.productos = response.productos;

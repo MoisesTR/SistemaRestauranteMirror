@@ -52,6 +52,7 @@ import {JwtHelper} from 'angular2-jwt';
 import {TelephoneNumberFormatValidatorDirective} from '../../validadores/telephoneNumber';
 import {BirthYearValidatorDirective} from '../../validadores/birthYear';
 import {BuscarPipe} from '../../pipe/buscar.pipe';
+import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import {BuscarPipe} from '../../pipe/buscar.pipe';
     , InformacionFacturaComponent
     , BuscarGeneralFacturaComponent
     , BuscarPipe
+
   ],
   imports: [
       SharedModuleModule

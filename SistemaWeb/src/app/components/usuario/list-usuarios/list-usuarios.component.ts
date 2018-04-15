@@ -34,15 +34,16 @@ export class ListUsuariosComponent implements OnInit {
   ngOnInit() {
 
     this.dtOptions = <DataTables.Settings>{
-      autoWidth: false
-      , pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , searching: true
-      , ordering: true
-      , language: idioma_espanol
-      , responsive : true
+        autoWidth: false
+        , pagingType: 'full_numbers'
+        , pageLength: 10
+        , 'lengthChange': false
+        , searching: true
+        , ordering: true
+        , language: idioma_espanol
+        , responsive : true
     };
+    
     this.getUsuarios();
   }
 

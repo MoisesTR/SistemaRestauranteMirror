@@ -49,9 +49,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
     this.categoriaProducto = new CategoriaProducto();
   }
 
-  evento(){
-    console.log('hola')
-  }
+
   ngOnInit() {
 
     this.settingsDatatable();

@@ -1,4 +1,4 @@
-import {isArray} from 'util';
+import {isArray, isUndefined} from 'util';
 
 
 export class Utilidades{
@@ -10,16 +10,19 @@ export class Utilidades{
   }
 
   static mensajeError(mensaje){
+    if(isUndefined(mensaje)){
 
-    if(isArray(mensaje.error)){
-        return mensaje.error[0].msg;
     } else {
-        return mensaje.error.message;
-      // if(mensaje.error.showMessage){
-      //     return mensaje.error.message;
-      // } else {
-      //    return 'Ha ocurrido un error'
-      // }
+        if(isArray(mensaje.error)){
+            return mensaje.error[0].msg;
+        } else {
+            return mensaje.error.message;
+            // if(mensaje.error.showMessage){
+            //     return mensaje.error.message;
+            // } else {
+            //    return 'Ha ocurrido un error'
+            // }
+        }
     }
 
   }

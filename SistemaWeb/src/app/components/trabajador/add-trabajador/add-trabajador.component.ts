@@ -240,9 +240,7 @@ export class AddTrabajadorComponent implements OnInit {
         'token',
         'image').then((result:any)=>{
         this.trabajador.Imagen = result.image;
-        console.log(result.image)
         this.createTrabajador();
-
 
       },error =>{
         swal(

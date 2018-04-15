@@ -308,7 +308,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
   }
   onUpdateSelectClasificacion(event){
     this.subclasificacion.IdClasificacion = event.IdClasificacion;
-    console.log(this.subclasificacion);
+
   }
 
   InvocarModal(Modal, Formulario) {

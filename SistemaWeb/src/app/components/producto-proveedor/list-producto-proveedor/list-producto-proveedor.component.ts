@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs/Rx';
 import {DataTableDirective} from 'angular-datatables';
 import {ProductoService} from '../../../services/producto.service';
@@ -11,7 +11,9 @@ import {idioma_espanol} from '../../../services/global';
   templateUrl: './list-producto-proveedor.component.html',
   styleUrls: ['./list-producto-proveedor.component.css']
 })
-export class ListProductoProveedorComponent implements OnInit {
+export class ListProductoProveedorComponent implements OnInit, OnDestroy {
+
+
 
   public productos : Producto[];
 
@@ -34,6 +36,9 @@ export class ListProductoProveedorComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    console.log('La pagina se va a cerrar')
+  }
 
   settingsDatatable(){
 

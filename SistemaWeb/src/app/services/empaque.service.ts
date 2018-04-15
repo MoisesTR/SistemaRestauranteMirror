@@ -31,7 +31,6 @@ export class EmpaqueService {
 
   updateEmpaque(Empaque) : Observable<any> {
 
-    console.log(Empaque)
     let params = JSON.stringify(Empaque);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

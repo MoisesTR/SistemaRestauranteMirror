@@ -122,7 +122,6 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
       }
     )
     this.formAddClasificacion.reset;
-    console.log(this.clasificacion.DescripcionClasificacion + this.clasificacion.NombreClasificacion);
 
   }
 

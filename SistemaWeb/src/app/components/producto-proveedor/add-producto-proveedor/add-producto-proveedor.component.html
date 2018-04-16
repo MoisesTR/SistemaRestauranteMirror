@@ -13,8 +13,8 @@
                 <div class="col-sm-12 col-md-6">
                   <br>
                   <label>Nombre del Producto</label>
-                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" placeholder="Selecciona un producto"
-                    id="productosProveedor" (add)="onAddSelectProducto($event)">
+                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" placeholder="Selecciona un producto" id="productosProveedor"
+                    (add)="onAddSelectProducto($event)">
 
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['productosProveedor']"></show-errors>
@@ -130,9 +130,9 @@
 </section>
 
 
-<div mdbModal #modalEncontrarProveedor="mdb-modal" class="modal fade" id="modalEncontrarProveedor" tabindex="-1" role="dialog"
+<div mdbModal #modalEncontrarProveedor="mdb-modal" class="modal modal-scroll fade" id="modalEncontrarProveedor" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal modal-lg" role="document">
+  <div class="modal-dialog cascading-modal" role="document">
     <!--Contenido-->
     <div class="modal-content background-gray mdl">
 
@@ -144,80 +144,220 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-        <!-- Inicio Tabla-->
 
-        <table class="table table-hover">
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0 white">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0"
+          width="100%">
           <thead>
             <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th class="header-negrita">Nombre del Proveedor</th>
+              <th class="header-negrita">Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="body-negrita"> Cainsa</td>
+              <td width="25%" class="body-negrita">
+                <div class="text-center">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
+                    title="Editar">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
 
-
-        <!-- Final Tabla -->
       </div>
-      
-      <nav>
-        <ul class="pagination pg-amber justify-content-center">
-          <!--Arrow left-->
-          <li class="page-item">
-            <a class="page-link" mdbRippleRadius aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-
-          <!--Numbers-->
-          <li class="page-item active">
-            <a class="page-link" mdbRippleRadius>1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" mdbRippleRadius>2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" mdbRippleRadius>3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" mdbRippleRadius>4</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" mdbRippleRadius>5</a>
-          </li>
-
-          <!--Arrow right-->
-          <li class="page-item">
-            <a class="page-link" mdbRippleRadius aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
     </div>
     <!--/.Contenido-->
   </div>

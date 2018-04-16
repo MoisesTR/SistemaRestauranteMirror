@@ -130,11 +130,11 @@
 </section>
 
 
-<div mdbModal #modalEncontrarProveedor="mdb-modal" class="modal modal-scroll fade" id="modalEncontrarProveedor" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalEncontrarProveedor="mdb-modal" class="modal modal-scroll fade" id="modalEncontrarProveedor" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
     <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+    <div class="modal-content background-gray-w mdl">
 
       <!--Titulo-->
       <div class="modal-header orange-chang white-text">
@@ -146,214 +146,27 @@
       </div>
 
       <!--Cuerpo modal-->
-      <div class="modal-body mb-0 white">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0"
+      <div class="modal-body mb-0">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="mdl-data-table table-striped dt-responsive" cellspacing="0"
           width="100%">
           <thead>
             <tr>
-              <th class="header-negrita">Nombre del Proveedor</th>
-              <th class="header-negrita">Acciones</th>
+              <th class="header-negrita" width="90%">Nombre del Proveedor</th>
+              <th class="header-negrita" width="10%">Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let proveedor of proveedores; let i = index">
               <td class="body-negrita">{{proveedor.NombreProveedor}}</td>
-              <td width="25%" class="body-negrita">
+              <td class="body-negrita">
                 <div class="text-center">
-                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"
-                    title="Editar">
+                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="" data-toggle="tooltip" data-placement="bottom"
+                    title="Agregar">
                     <i class="fa fa-check"></i>
                   </button>
                 </div>
               </td>
             </tr>
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="body-negrita"> Cainsa</td>-->
-              <!--<td width="25%" class="body-negrita">-->
-                <!--<div class="text-center">-->
-                  <!--<button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom"-->
-                    <!--title="Editar">-->
-                    <!--<i class="fa fa-check"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</td>-->
-            <!--</tr>-->
           </tbody>
         </table>
 

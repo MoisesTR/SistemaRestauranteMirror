@@ -19,6 +19,7 @@ import {ModalCategoriaComponent} from '../modales/modal-categoria/modal-categori
 import {ModalSucursalComponent} from '../modales/modal-sucursal/modal-sucursal.component';
 import {ModalProveedorComponent} from '../modales/modal-proveedor/modal-proveedor.component';
 import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/modal-subclasificacion.component';
+import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/
       , ModalSubclasificacionComponent
       , ModalSucursalComponent
       , ModalCategoriaComponent
+      , ModalEmpaqueComponent
       , NgSelectModule
       , MDBBootstrapModule
       , MDBBootstrapModulePro
@@ -66,6 +68,7 @@ import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/
         , ModalSubclasificacionComponent
         , ModalSucursalComponent
         , ModalCategoriaComponent
+        , ModalEmpaqueComponent
     ]
   , providers  : [{
     provide: NG_SELECT_DEFAULT_CONFIG,

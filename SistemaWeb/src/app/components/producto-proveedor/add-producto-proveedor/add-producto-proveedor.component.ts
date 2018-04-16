@@ -86,7 +86,7 @@ export class AddProductoProveedorComponent implements OnInit {
 
     this.dtOptions = <DataTables.Settings>{
         autoWidth: false
-        , scrollY: '38%'
+        , scrollY: '40%'
         , pagingType: 'full_numbers'
         , pageLength: 5
         , 'lengthChange': false

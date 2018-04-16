@@ -200,6 +200,23 @@ h6 {
   min-height: auto;
 }
 
+.background-gray-w {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  background: -moz-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  background: -o-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  min-height: 100%;
+  min-width: auto;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.background-gray-w .mdl {
+  min-height: auto;
+}
+
 .color-primary {
   background-color: #e67e22;
 }

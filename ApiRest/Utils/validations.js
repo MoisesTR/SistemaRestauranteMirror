@@ -131,13 +131,14 @@ const updateEmpaque = [
     check('Descripcion').isLength({max:150}).optional({nullable:true}),
     sanitize('NombreEmpaque').toString(),
     sanitize('Descripcion').toString()
-];
+];  
 const createTrabajador = [
         check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),
         check('IdCargo', 'IdCargo debe ser entero').isInt(),
         check('Nombres', 'Nombres debe tener un minimo de 4 y un maximo de 50').isLength({ min: 4, max: 50 }),
         check('Apellidos', 'Apellidos debe tener un minimo de 4 y un maximo de 50').isLength({ min: 4, max: 50 }),
-        check('NumeroCedula', 'NumeroCedula es requerido').exists(),
+        check('IdDocumento', 'IdDocumento es requerido y debe ser entero').isInt(),
+        check('Documento', 'Documento es necesario').isLength({min:4, max:50}),
         check('Imagen', 'Imagen es requerida').exists(),
         check('FechaNacimiento', 'FechaNacimiento debe ser una fecha').exists(),
         check('Direccion', 'Direccion debe tener un minimo de 10 y un maximo de 300').isLength({ min: 10, max: 300 }),

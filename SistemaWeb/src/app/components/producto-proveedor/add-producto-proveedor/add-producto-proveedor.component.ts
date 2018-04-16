@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProductoService} from '../../../services/producto.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SubClasificacionProductoService} from '../../../services/sub-clasificacion-producto.service';
 import {EnvaseService} from '../../../services/envase.service';
 import {EmpaqueService} from '../../../services/empaque.service';
-import {Global} from '../../../services/global';
+import {Global, idioma_espanol} from '../../../services/global';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
 import {Envase} from '../../../models/Envase';
 import {Empaque} from '../../../models/Empaque';
@@ -17,6 +17,8 @@ import {UnidadMedida} from '../../../models/UnidadMedida';
 import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 import swal from 'sweetalert2';
 import {Utilidades} from '../../Utilidades';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs/Rx';
 
 declare var $:any;
 @Component({
@@ -34,6 +36,11 @@ export class AddProductoProveedorComponent implements OnInit {
   public productos: Producto [];
   public proveedores: Proveedor[];
   public unidadesMedida: UnidadMedida[];
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private _route: ActivatedRoute
@@ -77,12 +84,32 @@ export class AddProductoProveedorComponent implements OnInit {
 
     });
 
+    this.dtOptions = <DataTables.Settings>{
+        autoWidth: false
+        , pagingType: 'full_numbers'
+        , pageLength: 10
+        , 'lengthChange': false
+        , searching: true
+        , ordering: true
+        , language: idioma_espanol
+        , responsive : true
+    };
+
     this.initFormProveedor();
     this.getEmpaques();
     this.getEnvases();
     this.getProveedores();
     this.getUnidadesMedida();
     this.getProductos();
+  }
+
+  rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          // Destroy the table first
+          dtInstance.destroy();
+          // Call the dtTrigger to rerender again
+          this.dtTrigger.next();
+      });
   }
 
   initFormProveedor(){
@@ -191,6 +218,7 @@ export class AddProductoProveedorComponent implements OnInit {
 
         if(response.proveedores) {
           this.proveedores = response.proveedores;
+          this.dtTrigger.next();
         }
       }
     )

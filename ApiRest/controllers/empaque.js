@@ -43,38 +43,17 @@ function createEmpaque(req, res) {
 
 function updateEmpaque(req, res) {
     var data = req.body;
-    var aoj = []; <<
-    <<
-    << < HEAD
     var data = matchedData(req);
     var aoj = [];
-    console.log(data); ===
-    ===
-    =
-    var data = matchedData(req);
-    var aoj = []; >>>
-    >>>
-    > ramaMenuApiBase
     db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque);
     db.pushAOJParam(aoj, 'NombreEmpaque', sql.NVarChar(50), data.NombreEmpaque);
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(150), data.Descripcion);
-    db.storedProcExecute('dbo.USP_UPDATE_EMPAQUE', aoj) <<
-        <<
-        << < HEAD
+    db.storedProcExecute('dbo.USP_UPDATE_EMPAQUE', aoj)
         .then((result) => {
             res.status(200).json({ success: 'Empaque actualizado con exito!!' })
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));
-        }) ===
-        ===
-        =
-        .then((result) => {
-            success: 'Empaque actualizado con exito!'
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        }) >>>
-        >>>
-        > ramaMenuApiBase
+        })
 }
 module.exports = {
     createEmpaque,

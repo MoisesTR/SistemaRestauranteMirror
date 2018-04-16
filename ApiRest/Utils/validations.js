@@ -117,22 +117,21 @@ const createProductoProveedor = [
     check('IdUnidadMedida').isInt(),
     check('ValorUnidadMedida').isFloat(),
     check('DiasCaducidad').optional({ nullable: true })
-]
-
+];
 const updateEnvase = [
     check('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
     check('NombreEnvase').isLength({ min: 3, max: 50 }),
     check('Descripcion').isLength({ max: 150 }).optional({ nullable: true }),
     sanitize('NombreEnvase').toString(),
     sanitize('Descripcion').toString()
-]
+];
 const updateEmpaque = [
     check('IdEmpaque', 'IdEnvase debe ser Entero').isInt(),
     check('NombreEmpaque').isLength({ min: 3, max: 50 }),
     check('Descripcion').isLength({ max: 150 }).optional({ nullable: true }),
     sanitize('NombreEmpaque').toString(),
     sanitize('Descripcion').toString()
-]
+];
 const createTrabajador = [
         check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),
         check('IdCargo', 'IdCargo debe ser entero').isInt(),

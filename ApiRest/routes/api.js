@@ -17,7 +17,6 @@ const CargoController = require('../controllers/cargo')
 const clasificacionUnidadMedidaController = require('../controllers/clasificacionudm')
 const bodegaApController = require('../controllers/bodegaAp')
 const menuController = require('../controllers/menu');
-
 const validations = require('../Utils/validations');
 const jwt = require('../services/jwt')
 const AuthController = require('../controllers/auth')
@@ -140,6 +139,9 @@ Router
     .get('/users', AuthController.getUsers)
     .put('/update-user/:IdUsuario(\\d+)', validations.userSignInValidation, validations.userUpdate, validations.validsParams, AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)', AuthController.changeStateUser)
+    .get('/menu', menuController.getMenus)
+    //Rutas para los menues
+    .post('/menu', menuController.createMenu)
     .get('/menu', menuController.getMenus)
 
 module.exports = Router

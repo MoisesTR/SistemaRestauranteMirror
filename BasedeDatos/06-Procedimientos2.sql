@@ -336,19 +336,22 @@ IF OBJECT_ID('USP_CREATE_TRABAJADOR','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_TRABAJADOR
 GO
 CREATE PROCEDURE USP_CREATE_TRABAJADOR(
-	@IdSucursal INT NULL,
-    @IdCargo INT,
-    @Nombres NVARCHAR(50),
-    @Apellidos NVARCHAR(50),
-	@Imagen		NVARCHAR(50),
-    @NumeroCedula NVARCHAR(50),
+	@IdSucursal		INT NULL,
+    @IdCargo		INT,
+    @Nombres		NVARCHAR(50),
+    @Apellidos		NVARCHAR(50),
+	@Imagen			NVARCHAR(50),
+	@IdTipoDocumento	INT NULL,
+    @Documento	NVARCHAR(50),
     @FechaNacimiento DATE,
-    @Direccion NVARCHAR(300),
+    @Direccion		NVARCHAR(300),
+	@Telefono1		NVARCHAR(20),
+	@Telefono2		NVARCHAR(20),
     @FechaIngreso DATE 
 )
 AS BEGIN 
-	INSERT INTO TRABAJADOR(IdSucursal,IdCargo,Nombres,Apellidos, NumeroCedula, Imagen, FechaNacimiento,Direccion,FechaIngreso)
-	VALUES(@IdSucursal,@IdCargo,@Nombres,@Apellidos,@NumeroCedula, @Imagen, @FechaNacimiento,@Direccion,@FechaIngreso)
+	INSERT INTO TRABAJADOR(IdSucursal,IdCargo,Nombres,Apellidos,IdTipoDocumento, Documento, Imagen, FechaNacimiento,Direccion, Telefono1,Telefono2,FechaIngreso)
+	VALUES(@IdSucursal,@IdCargo,@Nombres,@Apellidos,ISNULL(@IdTipoDocumento,1),@Documento, @Imagen, @FechaNacimiento,@Direccion,@Telefono1, @Telefono2,@FechaIngreso)
 	SELECT @@IDENTITY AS IdTrabajador
 END
 GO

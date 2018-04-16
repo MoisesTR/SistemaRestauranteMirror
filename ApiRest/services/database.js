@@ -70,10 +70,17 @@ function queryExecute(query, parametersJsonArray) {
         let request  = pool.request();
         for (var i = 0; i < parametersJsonArray.length; i++) {
             console.log(parametersJsonArray[i]);
-            request.input(
-                parametersJsonArray[i]['pName'],
-                eval(parametersJsonArray[i]['pType']),
-                parametersJsonArray[i]['pData']);
+            for (var i = 0; i < tam; i++) {
+                if(parametersJsonArray[i].pClasf == 1)
+                    request.input(
+                        parametersJsonArray[i]['pName'],
+                        eval(parametersJsonArray[i]['pType']),
+                        parametersJsonArray[i]['pData']);
+                else
+                    request.output(
+                        parametersJsonArray[i]['pName'],
+                        eval(parametersJsonArray[i]['pType']));
+            }
         }
         return request.query(query);			
     }).catch(function(err) {

@@ -359,20 +359,21 @@ IF OBJECT_ID('USP_UPDATE_TRABAJADOR','P') IS NOT NULL
 	DROP PROCEDURE USP_UPDATE_TRABAJADOR
 GO
 CREATE PROCEDURE USP_UPDATE_TRABAJADOR(	
-	@IdTrabajador INT,
-	@IdSucursal INT NULL,
-    @IdCargo INT,
-    @Nombres NVARCHAR(50),
-    @Apellidos NVARCHAR(50),
-    @NumeroCedula NVARCHAR(50),
-	@Imagen	NVARCHAR(50), 
-    @FechaNacimiento DATE,
-    @Direccion NVARCHAR(300),
-    @FechaIngreso DATE 
+	@IdTrabajador	INT,
+	@IdSucursal		INT NULL,
+    @IdCargo		INT,
+    @Nombres		NVARCHAR(50),
+    @Apellidos		NVARCHAR(50),
+	@IdTipoDocumento	INT,
+    @Documento			NVARCHAR(50),
+	@Imagen				NVARCHAR(50), 
+    @FechaNacimiento	DATE,
+    @Direccion			NVARCHAR(300),
+    @FechaIngreso		DATE 
 )
 AS BEGIN 
 	UPDATE TRABAJADOR SET IdSucursal=@IdSucursal,IdCargo=@IdCargo,nombres=@Nombres,Apellidos=@Apellidos, Imagen = @Imagen,
-	NumeroCedula=@NumeroCedula,FechaNacimiento=@FechaNacimiento,UpdateAt=GETDATE()
+	Documento=@Documento,FechaNacimiento=@FechaNacimiento,UpdateAt=GETDATE()
 END
 GO
 IF	 OBJECT_ID('USP_CREATE_TELEFONO_TRABAJADOR','P') IS NOT NULL

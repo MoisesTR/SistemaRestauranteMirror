@@ -166,7 +166,7 @@ CREATE PROCEDURE USP_UPDATE_SUBCLASIFICACION(
 		BEGIN
 			UPDATE SUBCLASIFICACION_PRODUCTO
 			SET IdClasificacion= ISNULL(@IdClasificacion,IdClasificacion)
-			,NombreSubClasificacion = ISNULL(@Nombre, NombreSubClasificacion),DescripcionSubClasificacion  = ISNULL(@Descripcion,,UpdateAt=GETDATE() 
+			,NombreSubClasificacion = ISNULL(@Nombre, NombreSubClasificacion),DescripcionSubClasificacion  = ISNULL(@Descripcion,DescripcionSubclasificacion),UpdateAt=GETDATE() 
 			WHERE IdSubClasificacion = @IdSubClasificacion;
 		END
 END 
@@ -249,7 +249,7 @@ CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
 	@Retencion2		BIT NULL
 ) AS BEGIN
 	UPDATE PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
-    NombreRepresentante=COALES@NombreRepresentante,Retencion2 = ISNULL(@Retencion2, Retencion2), UpdateAt=GETDATE() WHERE IdProveedor = @IdProveedor;
+    NombreRepresentante=ISNULL(@NombreRepresentante, NombreRepresentante),Retencion2 = ISNULL(@Retencion2, Retencion2), UpdateAt=GETDATE() WHERE IdProveedor = @IdProveedor;
 END 
 GO
 IF OBJECT_ID('USP_CREATE_NUMEROPROVEEDOR','P') IS NOT NULL
@@ -308,7 +308,7 @@ GO
 CREATE PROCEDURE USP_GET_PROVEEDOR(
 	@IdProveedor INT
 ) AS BEGIN 
-	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion FROM PROVEEDOR where IdProveedor = @IdProveedor;
+	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2 FROM PROVEEDOR where IdProveedor = @IdProveedor;
 END
 GO
 IF OBJECT_ID('USP_GET_NUMEROS_PROVEEDOR','P') IS NOT NULL

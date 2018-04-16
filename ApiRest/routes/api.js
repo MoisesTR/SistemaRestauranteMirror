@@ -7,6 +7,7 @@ const ProveedorController = require('../controllers/proveedor')
 const SubclasificacionController = require('../controllers/subclasificacion')
 const EstadoProductoController = require('../controllers/estadoproducto')
 const ProductoController = require('../controllers/producto')
+const ImagenController = require('../controllers/imagenes');
 const SucursalController = require('../controllers/sucursal')
 const UnidadMedidaController = require('../controllers/unidadmedida');
 const RoleController = require('../controllers/rol');
@@ -15,7 +16,7 @@ const TrabajadorController = require('../controllers/trabajador');
 const CargoController = require('../controllers/cargo')
 const clasificacionUnidadMedidaController = require('../controllers/clasificacionudm')
 const bodegaApController = require('../controllers/bodegaAp')
-const menuController    = require('../controllers/menu');
+const menuController = require('../controllers/menu');
 
 const validations = require('../Utils/validations');
 const jwt = require('../services/jwt')
@@ -35,7 +36,7 @@ Router
     //Rutas categoria controller
     .get('/categoria/:IdCategoria(\\d+)', CategoriaController.getCategoriaById)
     .get('/categorias', CategoriaController.getCategorias)
-    .post('/categoria',validations.categoriaCreate, validations.validsParams, CategoriaController.createCategoria)
+    .post('/categoria', validations.categoriaCreate, validations.validsParams, CategoriaController.createCategoria)
     .put('/categoria', CategoriaController.updateCategoria)
     .delete('/categoria/:IdCategoria(\\d+)', CategoriaController.changeStateCategoria)
     //Rutas clasificacion controller
@@ -60,7 +61,7 @@ Router
     .post('/proveedor', ProveedorController.createProveedor)
     .put('/proveedor', ProveedorController.updateProveedor)
     .delete('/proveedor/:IdProveedor(\\d+)', ProveedorController.changeStateProveedor)
-//Rutas subclasificacion Controller
+    //Rutas subclasificacion Controller
     .get('/subclasificacion/:IdSubclasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones', SubclasificacionController.getSubclasificaciones)
     .get('/subclasificaciones/:IdClasificacion(\\d+)', SubclasificacionController.getSubclasificacionesByIdClasificacion)
@@ -79,7 +80,8 @@ Router
     .put('/producto', ProductoController.updateProducto)
     .delete('/producto/:IdProducto(\\d+)', ProductoController.changeStateProducto)
 
-//Rutas sucursal Controller
+.get('/getImage/:path/:ImageFile', ImagenController.getImageFile)
+    //Rutas sucursal Controller
     .get('/sucursales', SucursalController.getSucursales)
     .get('/sucursal/:IdSucursal(\\d+)', SucursalController.getSucursalById)
     .post('/sucursal', SucursalController.createSucursal)
@@ -120,13 +122,13 @@ Router
     .delete('/trabajador/:IdTrabajador(\\d+)', validations.deleteTrabajador, validations.validsParams, TrabajadorController.changeStateTrabajador)
     .post('/trabajadorUploadImage', [md_upload_trabajador], TrabajadorController.uploadImage)
     .get('/trabajadorGetImage/:imageFile', TrabajadorController.getImageFile)
-//Rutas Para Cargo Controller
+    //Rutas Para Cargo Controller
     .get('/cargos', CargoController.getCargos)
     .post('/cargo', validations.createCargo, validations.validsParams, CargoController.createCargo)
     .get('/cargo/:IdCargo(\\d+)', CargoController.getCargoById)
     .put('/cargo', CargoController.updateCargo)
     .delete('/cargo/:IdCargo(\\d+)', CargoController.changeStateCargo)
-//Rutas para Bodega Area Produccion
+    //Rutas para Bodega Area Produccion
     .post('/entradabodegaap', validations.createEntradaBodegaAP, validations.validsParams, bodegaApController.createEntradaBodegaAp)
     .post('/detalleentradabodegaap', validations.detalleEntradaBodega, validations.validsParams, bodegaApController.createDetalleEntrada)
     .get('/detallebodegaap', bodegaApController.getDetalleBodegaAp)
@@ -138,6 +140,6 @@ Router
     .get('/users', AuthController.getUsers)
     .put('/update-user/:IdUsuario(\\d+)', validations.userSignInValidation, validations.userUpdate, validations.validsParams, AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)', AuthController.changeStateUser)
-    .get('/menu',menuController.getMenus)
+    .get('/menu', menuController.getMenus)
 
 module.exports = Router

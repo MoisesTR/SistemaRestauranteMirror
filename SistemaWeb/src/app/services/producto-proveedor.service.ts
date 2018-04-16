@@ -15,7 +15,10 @@ export class ProductoProveedorService{
 
   createProductoProveedor(ProductoProveedor) : Observable<any> {
     let params = JSON.stringify(ProductoProveedor);
-    let headers = new HttpHeaders({'Content-Type':''});
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'token'
+    });
 
     return this._http.post(this.url+'producto/proveedor',params,{headers:headers})
   }
@@ -25,7 +28,7 @@ export class ProductoProveedorService{
   }
 
   getProductoProveedores() : Observable<any> {
-    return this._http.get(this.url + 'productoproveedores')
+    return this._http.get(this.url + 'productos/proveedores')
   }
 
   updateProductoProveedor(ProductoProveedor) : Observable<any> {

@@ -13,7 +13,7 @@
                 <div class="col-sm-12 col-md-6">
                   <br>
                   <label>Nombre del Producto</label>
-                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" placeholder="Selecciona un producto" formControlName="productosProveedor"
+                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" placeholder="Selecciona un producto"
                     id="productosProveedor" (add)="onAddSelectProducto($event)">
 
                   </ng-select>
@@ -26,7 +26,7 @@
                   <br>
                   <div class="md-form" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top" popoverTitle="Selecciona al Proveedor"
                     triggers="mouseenter:mouseleave">
-                    <input mdbActive type="text" id="proveedor" formControlName="proveedor" class="form-control" autocomplete="off" (click)="modalEncontrarProveedor.show()">
+                    <input mdbActive type="text" id="proveedor" class="form-control" autocomplete="off" (click)="modalEncontrarProveedor.show()">
                     <label for="proveedor">Nombre del Proveedor</label>
                   </div>
                   <!-- <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"
@@ -116,7 +116,7 @@
 
               <br>
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" [disabled]="!formProveedor.valid">Ingresar
+                <button class="btn orange-chang mb-1">Ingresar
                   <i class="fa fa-check ml-1"></i>
                 </button>
               </div>

@@ -1,5 +1,6 @@
 import {isArray, isUndefined} from 'util';
-
+declare var $:any;
+import swal from 'sweetalert2';
 
 export class Utilidades{
 
@@ -34,4 +35,27 @@ export class Utilidades{
     Formulario.reset();
   }
 
+  static showMsgInfo(mensaje: string){
+      swal(
+          'Informacion',
+          mensaje,
+          'info'
+      )
+  }
+
+  static showMsgError(mensaje : string){
+     swal(
+         'Error',
+         mensaje,
+         'error'
+     )
+  }
+
+  static showMsgSucces(mensaje : string) {
+      swal(
+          'Exitoso',
+          mensaje,
+          'success'
+      )
+  }
 }

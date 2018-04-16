@@ -1,10 +1,12 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs/Rx';
 import {DataTableDirective} from 'angular-datatables';
 import {ProductoService} from '../../../services/producto.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Producto} from '../../../models/Producto';
 import {idioma_espanol} from '../../../services/global';
+import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
+import {ProductoProveedor} from '../../../models/ProductoProveedor';
 
 @Component({
   selector: 'app-list-producto-proveedor',
@@ -14,7 +16,7 @@ import {idioma_espanol} from '../../../services/global';
 export class ListProductoProveedorComponent implements OnInit {
 
   public productos : Producto[];
-
+  public productosProveedores : ProductoProveedor[];
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -25,13 +27,14 @@ export class ListProductoProveedorComponent implements OnInit {
     private _route: ActivatedRoute
     , private _router: Router
     , private _productoService  : ProductoService
+    , private _productoProveedorService : ProductoProveedorService
 
   ) { }
 
   ngOnInit() {
 
     this.settingsDatatable();
-    this.getProductos();
+    this.getProductosProveedor();
 
   }
 
@@ -49,14 +52,19 @@ export class ListProductoProveedorComponent implements OnInit {
       , responsive : true
     };
   }
-  getProductos(){
 
-    this._productoService.getProductos().subscribe(
-      response =>{
-        if(response.productos){
-          this.productos = response.productos;
-          this.dtTrigger.next();
-        }
+  getProductosProveedor(){
+    this._productoProveedorService.getProductoProveedores().subscribe(
+        response =>{
+
+          if(response.productos){
+            this.productosProveedores = response.productos;
+            this.dtTrigger.next();
+          }
+        }, error =>{
+
+        }, () =>{
+
       }
     )
   }

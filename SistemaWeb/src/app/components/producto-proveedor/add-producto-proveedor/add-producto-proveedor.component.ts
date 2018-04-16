@@ -16,6 +16,7 @@ import {UnidadMedidaService} from '../../../services/unidad-medida.service';
 import {UnidadMedida} from '../../../models/UnidadMedida';
 import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 import swal from 'sweetalert2';
+import {Utilidades} from '../../Utilidades';
 
 declare var $:any;
 @Component({
@@ -91,13 +92,12 @@ export class AddProductoProveedorComponent implements OnInit {
           Validators.required
         ]
       ),
-        'productosProveedor': new FormControl('',[
-        Validators.required
-      ]),
-        'envase': new FormControl(''),
-        'empaque': new FormControl(''),
-
-        'cantidadempaque': new FormControl(''),
+      //   'productosProveedor': new FormControl('',[
+      //   Validators.required
+      // ]),
+      'envase': new FormControl(''),
+      'empaque': new FormControl(''),
+      'cantidadenvase': new FormControl(''),
       'costo': new FormControl('',[
         Validators.required
       ]),
@@ -107,9 +107,9 @@ export class AddProductoProveedorComponent implements OnInit {
       'valorunidadmedida': new FormControl('',[
         Validators.required
       ]),
-      'caducidad': new FormControl('',[
-        Validators.required
-      ]),
+      // 'caducidad': new FormControl('',[
+      //   Validators.required
+      // ]),
 
     })
 
@@ -137,14 +137,31 @@ export class AddProductoProveedorComponent implements OnInit {
   }
 
   getValuesForm(){
-    this.productoProveedor.CantidadEmpaque = this.formProveedor.value.cantidadempaque;
+    this.productoProveedor.CantidadEmpaque = this.formProveedor.value.cantidadenvase;
     this.productoProveedor.Costo = this.formProveedor.value.costo;
     this.productoProveedor.ValorUnidadMedida = this.formProveedor.value.valorunidadmedida;
     this.productoProveedor.Caducidad = this.formProveedor.value.caducidad;
+    this.productoProveedor.IdProveedor = 1;
   }
 
-  createProductoProveedor(){
+  createProductoProveedor(Modal){
     this.getValuesForm();
+
+    this._ProductoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
+        response => {
+
+          if(response.IdProductoProveedor){
+            Utilidades.showMsgSucces("La relacion del producto proveedor ha sido exitosa");
+          } else {
+            Utilidades.showMsgInfo("Ha ocurrido un error");
+          }
+        }, error =>{
+          Utilidades.showMsgError(Utilidades.mensajeError(error));
+
+        } , () =>{
+
+        }
+    )
   }
 
   getEnvases(){
@@ -217,7 +234,7 @@ export class AddProductoProveedorComponent implements OnInit {
           })
         }
       }, error => {
-        console.log(error)
+        Utilidades.showMsgError(Utilidades.mensajeError(error));
       }
     )
   }

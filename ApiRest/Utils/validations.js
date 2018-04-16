@@ -137,7 +137,7 @@ const createTrabajador = [
         check('IdCargo', 'IdCargo debe ser entero').isInt(),
         check('Nombres', 'Nombres debe tener un minimo de 4 y un maximo de 50').isLength({ min: 4, max: 50 }),
         check('Apellidos', 'Apellidos debe tener un minimo de 4 y un maximo de 50').isLength({ min: 4, max: 50 }),
-        check('IdDocumento', 'IdDocumento es requerido y debe ser entero').isInt(),
+        check('IdTipoDocumento', 'IdDocumento es requerido y debe ser entero').isInt(),
         check('Documento', 'Documento es necesario').isLength({ min: 4, max: 50 }),
         check('Imagen', 'Imagen es requerida').exists(),
         check('FechaNacimiento', 'FechaNacimiento debe ser una fecha').exists(),

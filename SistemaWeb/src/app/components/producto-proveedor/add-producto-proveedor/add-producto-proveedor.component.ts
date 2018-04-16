@@ -140,8 +140,9 @@ export class AddProductoProveedorComponent implements OnInit {
     this.productoProveedor.CantidadEmpaque = this.formProveedor.value.cantidadenvase;
     this.productoProveedor.Costo = this.formProveedor.value.costo;
     this.productoProveedor.ValorUnidadMedida = this.formProveedor.value.valorunidadmedida;
-    this.productoProveedor.Caducidad = this.formProveedor.value.caducidad;
+    this.productoProveedor.DiasCaducidad = this.formProveedor.value.caducidad;
     this.productoProveedor.IdProveedor = 1;
+    this.productoProveedor.DiasCaducidad = 30;
   }
 
   createProductoProveedor(Modal){

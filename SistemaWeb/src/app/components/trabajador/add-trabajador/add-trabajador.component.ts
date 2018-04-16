@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import {Trabajador} from "../../../models/Trabajador";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TrabajadorService} from "../../../services/trabajador.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {SucursalService} from "../../../services/sucursal.service";
-import {Sucursal} from "../../../models/Sucursal";
-import {CargoService} from "../../../services/cargo.service";
-import {Cargo} from "../../../models/Cargo";
-declare var $:any
+import {Component, OnInit} from '@angular/core';
+import {Trabajador} from '../../../models/Trabajador';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TrabajadorService} from '../../../services/trabajador.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {SucursalService} from '../../../services/sucursal.service';
+import {Sucursal} from '../../../models/Sucursal';
+import {CargoService} from '../../../services/cargo.service';
+import {Cargo} from '../../../models/Cargo';
 import swal from 'sweetalert2';
 import {UploadService} from '../../../services/upload.service';
-import {Global} from '../../../services/global';
+import {Global, opcionesDatePicker} from '../../../services/global';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
 import {Utilidades} from '../../Utilidades';
+
+declare var $:any
+
 @Component({
   selector: 'app-add-trabajador',
   templateUrl: './add-trabajador.component.html',
@@ -27,34 +29,8 @@ export class AddTrabajadorComponent implements OnInit {
   public sucursales : Sucursal[];
   public cargos: Cargo[];
   public url: string;
-  public myDatePickerOptions: IMyOptions = {
-      // Strings and translations
-      dayLabels: {su: 'Do', mo: 'Lu', tu: 'Mar', we: 'Mier', th: 'Jue', fr: 'Vier', sa: 'Sab'},
-      dayLabelsFull: {su: "Domingo", mo: "Lunes", tu: "Martes", we: "Miercoles", th: "Jueves", fr: "Viernes", sa: "Sabado"},
-      monthLabels: { 1: 'Ene', 2: 'Feb', 3: 'Mar', 4: 'Abr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Ago', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dic' },
-      monthLabelsFull: { 1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto", 9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre" },
+  public myDatePickerOptions: IMyOptions = opcionesDatePicker;
 
-      // Buttons
-      todayBtnTxt: "Hoy",
-      clearBtnTxt: "Limpiar",
-      closeBtnTxt: "Cerrar",
-
-      // Format
-      dateFormat: 'dd.mm.yyyy',
-
-      // First day of the week
-      firstDayOfWeek: 'mo',
-
-      // Year limits
-      minYear: 1000,
-      maxYear: 9999,
-
-      // Show Today button
-      showTodayBtn: true,
-
-      //Show Clear date button
-      showClearDateBtn: true,
-  };
     constructor(
     private _route: ActivatedRoute
     ,private _router: Router

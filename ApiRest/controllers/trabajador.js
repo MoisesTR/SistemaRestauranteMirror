@@ -37,7 +37,7 @@ function createTrabajador(req, res) {
     db.pushAOJParam(aoj, 'IdCargo', sql.Int, trabajadorData.IdCargo);
     db.pushAOJParam(aoj, 'Nombres', sql.NVarChar(50), trabajadorData.Nombres);
     db.pushAOJParam(aoj, 'Apellidos', sql.NVarChar(50), trabajadorData.Apellidos);
-    db.pushAOJParam(aoj, 'IdDocumento', sql.Int, trabajadorData.IdDocumento);
+    db.pushAOJParam(aoj, 'IdTipoDocumento', sql.Int, trabajadorData.IdTipoDocumento);
     db.pushAOJParam(aoj, 'Documento', sql.NVarChar(50), trabajadorData.Documento);
     db.pushAOJParam(aoj, 'Imagen', sql.NVarChar(50), trabajadorData.Imagen);
     db.pushAOJParam(aoj, 'FechaNacimiento', sql.Date, trabajadorData.FechaNacimiento);
@@ -61,7 +61,7 @@ function updateTrabajador(req, res) {
     db.pushAOJParam(aoj, 'IdCargo', sql.Int, trabajadorData.IdCargo);
     db.pushAOJParam(aoj, 'Nombres', sql.NVarChar(50), trabajadorData.Nombres);
     db.pushAOJParam(aoj, 'Apellidos', sql.NVarChar(50), trabajadorData.Apellidos);
-    db.pushAOJParam(aoj, 'IdDocumento', sql.Int, trabajadorData.IdDocumento);
+    db.pushAOJParam(aoj, 'IdTipoDocumento', sql.Int, trabajadorData.IdTipoDocumento);
     db.pushAOJParam(aoj, 'Documento', sql.NVarChar(50), trabajadorData.Documento);
     db.pushAOJParam(aoj, 'Imagen', sql.NVarChar(50), trabajadorData.Imagen);
     db.pushAOJParam(aoj, 'FechaNacimiento', sql.Date, trabajadorData.FechaNacimiento);

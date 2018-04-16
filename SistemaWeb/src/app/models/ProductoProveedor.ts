@@ -9,7 +9,7 @@ export class ProductoProveedor{
 	public CantidadEmpaque:number;
 	public CantidadEnvas : number;
 	public ValorUnidadMedida:number;
-	public Caducidad : number;
+	public DiasCaducidad : number;
 	public Costo:number;
 	public Habilitado:number;
 

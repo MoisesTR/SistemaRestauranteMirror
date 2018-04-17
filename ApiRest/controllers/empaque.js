@@ -5,20 +5,22 @@ const { matchedData, sanitize } = require('express-validator/filter');
 
 function getEmpaqueById(req, res) {
     const data = req.params;
+
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, IdEmpaque);
+    db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque);
     db.queryExecute('SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE IdEmpaque = @IdEmpaque', aoj)
-        .then((results) => {
-            res.status(200).json({ empaque: results.recordset[0] })
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        });
+    .then((results) => {
+        res.status(200).json({ empaque: results.recordset[0] })
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+    });
 }
 
 function getEmpaques(req, res) {
     let Habilitado = req.query.Habilitado;
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    console.log(Habilitado)
+    db.pushAOJParam(aoj, 'Habilitado',sql.Bit, Habilitado);
     db.storedProcExecute('USP_GET_EMPAQUES', aoj)
         .then((results) => {
             res.status(200).json({ empaques: results.recordset })

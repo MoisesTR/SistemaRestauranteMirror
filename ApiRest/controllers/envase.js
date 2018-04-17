@@ -6,7 +6,7 @@ const { matchedData, sanitize } = require('express-validator/filter');
 function getEnvaseById(req,res){
     var data = req.params;
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdEnvase',sql.Int,data.IdEnvase);
+    db.pushAOJParam(aoj, 'IdEnvase',sql.Int, data.IdEnvase);
     db.queryExecute('SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE where IdEnvase = @IdEnvase', aoj)
     .then((results) => {
         res.status(200).json({envase:results.recordset[0]}) 
@@ -29,7 +29,7 @@ function getEnvases(req,res){
     });
 }
 function createEnvase(req,res){
-    var data = req.body;
+    var data = matchedData(req, {locations:'body'});
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreEnvase',sql.NVarChar(50),data.NombreEnvase)
     db.pushAOJParam(aoj, 'Descripcion',sql.NVarChar(150),data.Descripcion)

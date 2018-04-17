@@ -72,8 +72,8 @@ function getProductosByProveedorId(req, res) {
         })
 }
 
-function updateProducto(req, res) {
-    var data = req.body;
+function updateProductoProveedor(req, res) {
+    var data = matchedData(req);
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int, data.IdProductoProveedor);
     db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase);
@@ -83,7 +83,7 @@ function updateProducto(req, res) {
     db.pushAOJParam(aoj, 'CantidadEmpaque', sql.Int, data.CantidadEmpaque);
     db.pushAOJParam(aoj, 'Costo', sql.Money, data.Costo);
     db.pushAOJParam(aoj, 'DiasCaducidad', sql.Int, data.DiasCaducidad);
-    db.storedProcExecute('USP_UPDATE_PRODUCTO', aoj)
+    db.storedProcExecute('USP_UPDATE_PRODUCTO_PROVEEDOR', aoj)
         .then((results) => {
             let afectadas = results.rowsAffected[0];
             res.status(200).json(
@@ -116,5 +116,6 @@ module.exports = {
     getProductosProveedores,
     getProductoProveedorById,
     getProveedoresOfProducto,
-    getProductosByProveedorId
+    getProductosByProveedorId,
+    updateProductoProveedor
 }

@@ -46,15 +46,17 @@ function storedProcExecute(spName, parametersJsonArray) {
         let request  = pool.request()
         const tam = parametersJsonArray.length;
         for (var i = 0; i < tam; i++) {
-            if(parametersJsonArray[i].pClasf == 1)
+            if(parametersJsonArray[i].pClasf == 1) {
+                console.log('Input '+(1+i))
                 request.input(
                     parametersJsonArray[i]['pName'],
                     eval(parametersJsonArray[i]['pType']),
                     parametersJsonArray[i]['pData']);
-            else
+            } else {
                 request.output(
                     parametersJsonArray[i]['pName'],
                     eval(parametersJsonArray[i]['pType']));
+            }
         }
         return request.execute(spName);			
     }).catch(function(err) {
@@ -63,24 +65,22 @@ function storedProcExecute(spName, parametersJsonArray) {
     })
 }
 function queryExecute(query, parametersJsonArray) {
-    console.log('queryExecure' + query);
     return conSql.getConnectionPoolGlobal()
     .then(function(pool) {	
         console.log('Conecto');
         let request  = pool.request();
-        for (var i = 0; i < parametersJsonArray.length; i++) {
-            console.log(parametersJsonArray[i]);
-            for (var i = 0; i < tam; i++) {
-                if(parametersJsonArray[i].pClasf == 1)
-                    request.input(
-                        parametersJsonArray[i]['pName'],
-                        eval(parametersJsonArray[i]['pType']),
-                        parametersJsonArray[i]['pData']);
-                else
-                    request.output(
-                        parametersJsonArray[i]['pName'],
-                        eval(parametersJsonArray[i]['pType']));
-            }
+        const tam = parametersJsonArray.length;
+        for (var i = 0; i < tam; i++) {
+            if(parametersJsonArray[i].pClasf == 1) {
+                request.input(
+                    parametersJsonArray[i]['pName'],
+                    eval(parametersJsonArray[i]['pType']),
+                    parametersJsonArray[i]['pData']);
+            } else {
+                request.output(
+                    parametersJsonArray[i]['pName'],
+                    eval(parametersJsonArray[i]['pType']));
+                }
         }
         return request.query(query);			
     }).catch(function(err) {

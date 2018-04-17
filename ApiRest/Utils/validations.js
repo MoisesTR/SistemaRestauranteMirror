@@ -110,19 +110,26 @@ const createEntradaBodegaAP = [
 const createProductoProveedor = [
     check('IdProducto').isInt(),
     check('IdProveedor').isInt(),
-    check('IdEnvase').isInt(),
-    check('IdEmpaque').isInt(),
+    check('IdEnvase').isInt().optional({nullable:true}),
+    check('IdEmpaque').isInt().optional({nullable:true}),
     check('Costo').isFloat(),
     check('CantidadEmpaque').isInt(),
     check('IdUnidadMedida').isInt(),
-    check('ValorUnidadMedida').isFloat(),
-    check('DiasCaducidad').optional({ nullable: true })
+    check('ValorUnidadMedida').isNumeric(),
+    check('DiasCaducidad').optional({ nullable: true }),
+    sanitize('ValorUnidadMedida').toFloat()
+];
+const createEnvase = [
+    check('NombreEnvase', 'El nombre de envase es requerido!').isAscii(),
+    check('Descripcion', 'La descripcion debe tener una longitud maxima de 150 caracteres.').isAscii(),
+    sanitize('NombreEnvase').toString(),
+    sanitize('Descripcion').toString()
 ];
 const updateEnvase = [
     check('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
     check('NombreEnvase').isLength({ min: 3, max: 50 }),
     check('Descripcion').isLength({ max: 150 }).optional({ nullable: true }),
-    sanitize('NombreEnvase').toString(),
+    sanitize('NombreEnvase').toString().trim(),
     sanitize('Descripcion').toString()
 ];
 const updateEmpaque = [
@@ -190,5 +197,6 @@ module.exports = {
     detalleEntradaBodega,
     createProductoProveedor,
     updateEmpaque,
+    createEnvase,
     updateEnvase
 }

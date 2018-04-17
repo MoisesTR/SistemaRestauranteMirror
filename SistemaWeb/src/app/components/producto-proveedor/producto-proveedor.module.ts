@@ -9,6 +9,7 @@ import {UpdateProductoProveedorComponent} from './update-producto-proveedor/upda
 import {ProductoProveedorRoutingModule} from './producto-proveedor.routing.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {UnidadMedidaService} from '../../services/unidad-medida.service';
+import {EmpaqueComponent} from '../empaque/empaque.component';
 
 @NgModule({
   imports: [

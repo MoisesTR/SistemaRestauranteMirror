@@ -1,3 +1,48 @@
-<p>
-  modal-empaque works!
-</p>
+!-- Modal crear Empaque -->
+<div (click)="eventoClick()" mdbModal #modalAddEmpaque="mdb-modal" class="modal fade" id="modalAddEmpaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Titulo-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Empaque</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddEmpaque.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+
+        <!-- Inicio form-->
+        <form [formGroup]="formAddEmpaque" (ngSubmit)="createEmpaque(modalAddEmpaque)" novalidate>
+
+          <div class="md-form ">
+            <h6 class="orange-chang-text">Nombre</h6>
+            <input type="text" id="addnombreEmpaque" minlength="4" maxlength="50" class="input-modal-sm" name="nombreempaque" formControlName="nombreEmpaque"
+                   required>
+            <show-errors [control]="formAddEmpaque.controls['nombreEmpaque']"></show-errors>
+          </div>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Descripción</h6>
+            <textarea type="text" minlength="3" maxlength="150" id="adddescripcionempaque" formControlName="descripcionEmpaque" class="text-area-modal"
+                      name="descripcionempaque" required></textarea>
+            <show-errors [control]="formAddEmpaque.controls['descripcionEmpaque']"></show-errors>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddEmpaque.valid">Ingresar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+        <!-- Final form -->
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

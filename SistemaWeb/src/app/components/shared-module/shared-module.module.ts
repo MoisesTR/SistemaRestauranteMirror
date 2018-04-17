@@ -11,7 +11,6 @@ import {HttpModule} from '@angular/http';
 import {DataTablesModule} from 'angular-datatables';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
-import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-clasificacion.component';
 import {ModalEnvaseComponent} from '../modales/modal-envase/modal-envase.component';
 import {ModalUnidadMedidaComponent} from '../modales/modal-unidad-medida/modal-unidad-medida.component';
 import {ModalCategoriaComponent} from '../modales/modal-categoria/modal-categoria.component';
@@ -42,7 +41,6 @@ import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.comp
       , ModalEnvaseComponent
       , ModalUnidadMedidaComponent
       , ModalProveedorComponent
-      , ModalClasificacionComponent
       , ModalSubclasificacionComponent
       , ModalSucursalComponent
       , ModalCategoriaComponent
@@ -63,7 +61,6 @@ import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.comp
         , ModalEnvaseComponent
         , ModalUnidadMedidaComponent
         , ModalProveedorComponent
-        , ModalClasificacionComponent
         , ModalSubclasificacionComponent
         , ModalSucursalComponent
         , ModalCategoriaComponent

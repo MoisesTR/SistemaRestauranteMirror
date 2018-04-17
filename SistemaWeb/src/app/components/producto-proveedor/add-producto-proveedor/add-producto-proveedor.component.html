@@ -13,12 +13,11 @@
                 <div class="col-sm-12 col-md-6">
                   <br>
                   <label>Nombre del Producto</label>
-                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" placeholder="Selecciona un producto" id="productosProveedor"
+                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" formControlName="nombreProducto" placeholder="Selecciona un producto" id="productosProveedor"
                     (add)="onAddSelectProducto($event)">
 
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['productosProveedor']"></show-errors>
-                  <!--<label for="nombreproveedor">Nombre del producto</label>-->
                 </div>
 
                 <div class="col-sm-12 col-md-6">
@@ -26,29 +25,23 @@
                   <br>
                   <div class="md-form" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top" popoverTitle="Selecciona al Proveedor"
                     triggers="mouseenter:mouseleave">
-                    <input mdbActive type="text" id="proveedor" class="form-control" autocomplete="off" (click)="modalEncontrarProveedor.show()">
+                    <input mdbActive type="text" id="proveedor" class="form-control" formControlName="nombreProveedor" autocomplete="off" (click)="modalEncontrarProveedor.show()">
                     <label for="proveedor">Nombre del Proveedor</label>
                   </div>
-                  <!-- <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"
-                    formControlName="nombreproveedor" id="nombreproveedor" (add)="onAddSelectProveedor($event)">
-                  </ng-select> -->
-                  <show-errors [control]="formProveedor.controls['nombreproveedor']"></show-errors>
-                  <!--<label for="nombreproveedor">Nombre del proveedor</label>-->
+                  <show-errors [control]="formProveedor.controls['nombreProveedor']"></show-errors>
                 </div>
-
                 <div class="col-sm-9 col-md-5">
                   <br>
                   <label>Empaque</label>
                   <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque" formControlName="empaque"
-                    id="empaque" (add)="onAddSelectEmpaque($event)" class="select-no-margin">
+                    id="empaque" (remove)="onChangeEmpaque($event)" (add)="onAddSelectEmpaque($event)" class="select-no-margin">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['empaque']"></show-errors>
                 </div>
-
                 <div class="col-sm-3 col-md-1 align-self-end" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top"
                   popoverTitle="Agregar Nuevo Empaque" triggers="mouseenter:mouseleave">
                   <a class="btn-floating btn-sm orange-chang">
-                    <i class="fa fa-plus"></i>
+                    <i class="fa fa-plus" (click)="addEmpaque()"></i>
                   </a>
                 </div>
 
@@ -56,25 +49,23 @@
                   <br>
                   <label>Envase</label>
                   <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase" formControlName="envase"
-                    id="envase" (add)="onAddSelectEnvase($event)" class="select-no-margin">
+                    id="envase" (change)="onChangeEnvase($event)" (add)="onAddSelectEnvase($event)" class="select-no-margin">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['envase']"></show-errors>
-                  <!--<label for="envase">Envase</label>-->
                 </div>
-
                 <div class="col-sm-3 col-md-1 align-self-end" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top"
                   popoverTitle="Agregar Nuevo Envase" triggers="mouseenter:mouseleave">
                   <a class="btn-floating btn-sm orange-chang">
                     <i class="fa fa-plus"></i>
                   </a>
                 </div>
-
                 <div class="col-md-6">
                   <br>
                   <br>
                   <div class="md-form">
-                    <input mdbActive type="number" id="cantidadenvase" formControlName="cantidadenvase" class="form-control" autocomplete="off">
-                    <label for="cantidadenvase">Cantidad de Envase</label>
+                    <input mdbActive type="number" id="cantidadenvase" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                    <label for="cantidadenvase">Cantidad de Empaque</label>
+                    <show-errors [control]="formProveedor.controls['cantidadEmpaque']"></show-errors>
                   </div>
                 </div>
 
@@ -84,6 +75,7 @@
                   <div class="md-form">
                     <input mdbActive type="number" id="costo" formControlName="costo" class="form-control" autocomplete="off">
                     <label for="costo">Costo del producto</label>
+                    <show-errors [control]="formProveedor.controls['costo']"></show-errors>
                   </div>
                 </div>
 
@@ -109,6 +101,7 @@
                   <div class="md-form">
                     <input mdbActive type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                     <label for="valorunidadmedida">Valor unidad de medida</label>
+                    <show-errors [control]="formProveedor.controls['valorunidadmedida']"></show-errors>
                   </div>
                 </div>
 
@@ -116,12 +109,12 @@
 
               <br>
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1">Ingresar
+                <button class="btn orange-chang mb-1" [disabled]="!formProveedor.valid">Ingresar
                   <i class="fa fa-check ml-1"></i>
                 </button>
               </div>
 
-            </form>
+            </form >
           </div>
         </div>
       </div>
@@ -147,11 +140,11 @@
 
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="mdl-data-table table-striped dt-responsive" cellspacing="0"
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="mdl-data-table table-striped dt-responsive row-border hover" cellspacing="0"
           width="100%">
           <thead>
             <tr>
-              <th class="header-negrita" width="90%">Nombre del Proveedor</th>
+              <th class="header-negrita" width="90%">Nombre</th>
               <th class="header-negrita" width="10%">Acciones</th>
             </tr>
           </thead>
@@ -160,7 +153,7 @@
               <td class="body-negrita">{{proveedor.NombreProveedor}}</td>
               <td class="body-negrita">
                 <div class="text-center">
-                  <button type="button" class="btn btn-sm" style="background-color:#E67E22;" id="" data-toggle="tooltip" data-placement="bottom"
+                  <button type="button" (click)="seleccionarProveedor(proveedor,modalEncontrarProveedor)" class="btn btn-sm" style="background-color:#E67E22;" id="" data-toggle="tooltip" data-placement="bottom"
                     title="Agregar">
                     <i class="fa fa-check"></i>
                   </button>
@@ -175,3 +168,7 @@
     <!--/.Contenido-->
   </div>
 </div>
+
+  <!--<modal-empaque *ngIf="mostrarModal" (resultadoModal)="valorModal($even)" )>-->
+
+  <!--</modal-empaque>-->

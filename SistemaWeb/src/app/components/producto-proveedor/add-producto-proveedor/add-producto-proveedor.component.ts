@@ -19,6 +19,8 @@ import swal from 'sweetalert2';
 import {Utilidades} from '../../Utilidades';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs/Rx';
+import {isNull, isUndefined} from 'util';
+import {isEmpty} from 'rxjs/operators';
 
 declare var $:any;
 @Component({
@@ -36,6 +38,7 @@ export class AddProductoProveedorComponent implements OnInit {
   public productos: Producto [];
   public proveedores: Proveedor[];
   public unidadesMedida: UnidadMedida[];
+  public mostrarModal : boolean = false;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -93,7 +96,8 @@ export class AddProductoProveedorComponent implements OnInit {
         , searching: true
         , ordering: true
         , language: idioma_espanol
-        , responsive : true
+        , "bAutoWidth": false
+        , select: true
     };
 
     this.initFormProveedor();
@@ -116,29 +120,24 @@ export class AddProductoProveedorComponent implements OnInit {
   initFormProveedor(){
 
     this.formProveedor = this._fAddProveedor.group({
-      'nombreproveedor': new FormControl('',[
+        'nombreProducto': new FormControl('',[
+            Validators.required
+        ]),
+        'nombreProveedor': new FormControl('',[
           Validators.required
-        ]
-      ),
-      //   'productosProveedor': new FormControl('',[
-      //   Validators.required
-      // ]),
-      'envase': new FormControl(''),
-      'empaque': new FormControl(''),
-      'cantidadenvase': new FormControl(''),
-      'costo': new FormControl('',[
-        Validators.required
-      ]),
-      'unidadmedida': new FormControl('',[
-        Validators.required
-      ]),
-      'valorunidadmedida': new FormControl('',[
-        Validators.required
-      ]),
-      // 'caducidad': new FormControl('',[
-      //   Validators.required
-      // ]),
-
+        ]),
+        'envase': new FormControl(''),
+        'empaque': new FormControl(''),
+        'cantidadEmpaque': new FormControl(''),
+        'costo': new FormControl('',[
+            Validators.required
+        ]),
+        'unidadmedida': new FormControl('',[
+            Validators.required
+        ]),
+        'valorunidadmedida': new FormControl('',[
+            Validators.required
+        ]),
     })
 
   }
@@ -160,17 +159,16 @@ export class AddProductoProveedorComponent implements OnInit {
 
   }
 
-  onAddSelectProveedor(event){
-    this.productoProveedor.IdProveedor = event.IdProveedor;
-  }
 
   getValuesForm(){
-    this.productoProveedor.CantidadEmpaque = this.formProveedor.value.cantidadenvase;
+    this.productoProveedor.CantidadEmpaque = this.formProveedor.value.cantidadEmpaque;
     this.productoProveedor.Costo = this.formProveedor.value.costo;
     this.productoProveedor.ValorUnidadMedida = this.formProveedor.value.valorunidadmedida;
-    this.productoProveedor.DiasCaducidad = this.formProveedor.value.caducidad;
-    this.productoProveedor.IdProveedor = 1;
+    // this.productoProveedor.DiasCaducidad = this.formProveedor.value.DiasCaducidad;
     this.productoProveedor.DiasCaducidad = 30;
+
+    
+
   }
 
   createProductoProveedor(Modal){
@@ -203,6 +201,8 @@ export class AddProductoProveedorComponent implements OnInit {
       }
     )
   }
+
+
   getEmpaques(){
     this._EmpaqueService.getEmpaques().subscribe(
       response => {
@@ -213,6 +213,7 @@ export class AddProductoProveedorComponent implements OnInit {
       }
     )
   }
+
   getProveedores(){
     this._ProveedorService.getProveedores().subscribe(
       response => {
@@ -260,7 +261,7 @@ export class AddProductoProveedorComponent implements OnInit {
             'Se ha relacion exitosamente el producto ccn el proveedor!',
             'success'
           ).then(() => {
-            this._router.navigate(['/producto']);
+            this._router.navigate(['/producto-proveedor']);
           })
         }
       }, error => {
@@ -269,4 +270,35 @@ export class AddProductoProveedorComponent implements OnInit {
     )
   }
 
+  seleccionarProveedor(proveedor : Proveedor, Modal){
+    Modal.hide();
+    this.productoProveedor.IdProveedor = proveedor.IdProveedor;
+    this.formProveedor.controls['nombreProveedor'].setValue(proveedor.NombreProveedor);
+  }
+
+  onChangeEnvase(event : ProductoProveedor){
+
+      if(isNull(event)) {
+          this.productoProveedor.IdEnvase = null;
+      } else {
+          this.productoProveedor.IdEnvase = event.IdEnvase;
+      }
+
+  }
+
+  onChangeEmpaque(event){
+      if(isNull(event)) {
+          this.productoProveedor.IdEmpaque = null;
+      } else {
+          this.productoProveedor.IdEmpaque = event.IdEmpaque;
+      }
+  }
+
+  addEmpaque(){
+      this.mostrarModal  = true;
+  }
+
+  valorModal(event){
+      this.mostrarModal  = false;
+  }
 }

@@ -6,6 +6,7 @@ import {ModalDirective} from '../../../typescripts/free/modals';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {isNull} from 'util';
+import {Utilidades} from '../../Utilidades';
 
 @Component({
   selector: 'modal-categoria',
@@ -16,7 +17,7 @@ export class ModalCategoriaComponent implements OnInit {
   public categoriaProducto: CategoriaProducto;
   @ViewChild('modalAddCategoria') modalAddCategoria : ModalDirective;
   @Input() mostrarModal : boolean;
-  @Output() resultadoModal : EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() resultadoModal : EventEmitter<boolean> = new EventEmitter<boolean>()
   public isModalShown:boolean = false;
   public formAddCategoria: FormGroup;
 
@@ -105,12 +106,7 @@ export class ModalCategoriaComponent implements OnInit {
               /* this.getCategoriasProductos();*/
           }, error => {
               if (error.status == 500) {
-                  swal(
-                      'Error inesperado',
-                      'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                      'error'
-                  )
-                  console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+                  Utilidades.showMsgError(Utilidades.mensajeError(error));
               }
 
           }

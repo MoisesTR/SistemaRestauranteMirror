@@ -22,6 +22,7 @@
         "../scss/bootstrap/bootstrap.scss",
         "../scss/mdb.scss",
         "../node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
+        "../node_modules/datatables.net-select/js/dataTables.select.js",
         "./styles.scss"
       ],
       "scripts": [
@@ -34,7 +35,8 @@
         "assets/js/datatables.min.js",
         "assets/js/jquery.dataTables.min.js",
         "../node_modules/datatables.net-responsive/js/dataTables.responsive.js",
-        "../node_modules/datatables.net-buttons/js/dataTables.buttons.js"
+        "../node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+        "../node_modules/datatables.net-select/js/dataTables.select.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -34,7 +34,7 @@
                   <br>
                   <label>Empaque</label>
                   <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque" formControlName="empaque"
-                    id="empaque" (remove)="onChangeEmpaque($event)" (add)="onAddSelectEmpaque($event)" class="select-no-margin">
+                    id="empaque" (change)="onChangeEmpaque($event)" class="select-no-margin">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['empaque']"></show-errors>
                 </div>
@@ -49,7 +49,7 @@
                   <br>
                   <label>Envase</label>
                   <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase" formControlName="envase"
-                    id="envase" (change)="onChangeEnvase($event)" (add)="onAddSelectEnvase($event)" class="select-no-margin">
+                    id="envase" (change)="onChangeEnvase($event)" class="select-no-margin">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['envase']"></show-errors>
                 </div>
@@ -73,7 +73,7 @@
                   <br>
                   <br>
                   <div class="md-form">
-                    <input mdbActive type="number" id="costo" formControlName="costo" class="form-control" autocomplete="off">
+                    <input mdbActive type="number" min="1" id="costo" formControlName="costo" class="form-control" autocomplete="off">
                     <label for="costo">Costo del producto</label>
                     <show-errors [control]="formProveedor.controls['costo']"></show-errors>
                   </div>

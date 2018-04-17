@@ -113,7 +113,7 @@ const createProductoProveedor = [
     check('IdEnvase').isInt().optional({nullable:true}),
     check('IdEmpaque').isInt().optional({nullable:true}),
     check('Costo').isFloat(),
-    check('CantidadEmpaque').isInt(),
+    check('CantidadEmpaque').isInt().optional({nullable:true}),
     check('IdUnidadMedida').isInt(),
     check('ValorUnidadMedida').isNumeric(),
     check('DiasCaducidad').optional({ nullable: true }),

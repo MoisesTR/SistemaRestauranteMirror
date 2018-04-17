@@ -111,14 +111,19 @@ const createProductoProveedor = [
     check('IdProducto').isInt(),
     check('IdProveedor').isInt(),
     check('IdEnvase').isInt().optional({nullable:true}),
-    check('IdEmpaque').isInt().optional({nullable:true}),
-    check('Costo').isFloat(),
+    check('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
+    check('Costo','El costo es necesario!').isFloat(),
     check('CantidadEmpaque').isInt().optional({nullable:true}),
-    check('IdUnidadMedida').isInt(),
+    check('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
     check('ValorUnidadMedida').isNumeric(),
     check('DiasCaducidad').optional({ nullable: true }),
     sanitize('ValorUnidadMedida').toFloat()
 ];
+var updateProductoProv = createProductoProveedor.slice(2,createProductoProveedor.length);
+updateProductoProv = updateProductoProv.concat([
+    check('IdProductoProveedor', 'El id de la relacion producto proveedor es requerido!').isInt(),
+    sanitize('IdProductoProveedor').toInt()    
+]);
 const createEnvase = [
     check('NombreEnvase', 'El nombre de envase es requerido!').isAscii(),
     check('Descripcion', 'La descripcion debe tener una longitud maxima de 150 caracteres.').isAscii(),
@@ -196,6 +201,7 @@ module.exports = {
     crearFactura,
     detalleEntradaBodega,
     createProductoProveedor,
+    updateProductoProv,
     updateEmpaque,
     createEnvase,
     updateEnvase

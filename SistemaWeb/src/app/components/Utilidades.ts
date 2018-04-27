@@ -35,9 +35,9 @@ export class Utilidades{
     Formulario.reset();
   }
 
-  static showMsgInfo(titulo : string,mensaje: string){
+  static showMsgInfo(mensaje: string){
       swal(
-          titulo,
+          'Informacion',
           mensaje,
           'info'
       )
@@ -51,20 +51,11 @@ export class Utilidades{
      )
   }
 
-  static showMsgSuccess(mensaje : string) {
+  static showMsgSucces(mensaje : string) {
       swal(
           'Exitoso',
           mensaje,
           'success'
-      )
-  }
-
-  static showMsgAlert(titulo : string, mensaje : string) {
-
-      swal(
-          titulo,
-          mensaje,
-          'warning'
       )
   }
 }

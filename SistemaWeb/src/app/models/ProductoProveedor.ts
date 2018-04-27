@@ -7,6 +7,7 @@ export class ProductoProveedor{
 	public IdEmpaque:number;
 	public IdUnidadMedida : number;
 	public CantidadEmpaque:number;
+	public CantidadEnvas : number;
 	public ValorUnidadMedida:number;
 	public DiasCaducidad : number;
 	public Costo:number;

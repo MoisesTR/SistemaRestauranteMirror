@@ -92,18 +92,6 @@
             <show-errors [control]="formAddSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
           </div>
 
-          <h6 class="orange-chang-text">Clasificación</h6>
-          <label for="upClasifSelect">Clasificación</label>
-          <ng-select [items]="clasificaciones"
-                     bindLabel="NombreClasificacion"
-                     bindValue="IdClasificacion"
-                     placeholder="Selecciona una clasificacion"
-                     formControlName="clasificacion" id="addClasiSelect" (change)="onChangeClasificacion($event)"
-
-          >
-          </ng-select>
-          <show-errors [control]="formUpdateSubClasificacion.controls['clasificacion']"></show-errors>
-
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddSubClasificacion.valid">Ingresar
               <i class="fa fa-check ml-1"></i>
@@ -156,19 +144,6 @@
                   </textarea>
             <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
           </div>
-
-          <h6 class="orange-chang-text">Clasificación</h6>
-            <ng-select [items]="clasificaciones"
-                       bindLabel="NombreClasificacion"
-                       bindValue="IdClasificacion"
-                       placeholder="Selecciona una clasificacion"
-                       formControlName="clasificacion" id="upClasifSelect" (change)="onChangeClasificacion($event)"
-                       [(ngModel)] = "subclasificacion.IdClasificacion"
-
-            >
-            </ng-select>
-            <show-errors [control]="formUpdateSubClasificacion.controls['clasificacion']"></show-errors>
-
 
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSubClasificacion.valid">Actualizar

@@ -11,6 +11,7 @@ import swal from 'sweetalert2';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ClasificacionProducto} from '../../models/ClasificacionProducto';
 import {Utilidades} from '../Utilidades';
+import {isNull} from 'util';
 
 declare var $:any;
 
@@ -65,7 +66,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
           , CustomValidators.espaciosVacios
         ])
         ,'clasificacion' : new FormControl('',[
-        Validators.required
+            Validators.required
       ])
     })
 
@@ -172,7 +173,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
     this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
       response => {
-        if (response.IdSubClasificacion) {
+        if (response.IdSubclasificacion) {
           swal(
             'Subclasificación',
             'la Subclasificación ha sido creado exitosamente!',
@@ -190,16 +191,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
         }
         this.getSubClasificacionesRender();
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
-        }
-
+            Utilidades.showMsgError(Utilidades.mensajeError(error));
       }
     )
     this.subclasificacion = new SubClasificacionProducto();
@@ -311,6 +303,14 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
   }
 
+  onChangeClasificacion(event) {
+
+    if(isNull(event)) {
+      this.subclasificacion.IdClasificacion = null;
+    } else {
+      this.subclasificacion.IdClasificacion = event.IdClasificacion;
+    }
+  }
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
   }
@@ -320,6 +320,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     this.subclasificacion.IdSubClasificacion = Subclasificacion.IdSubClasificacion;
     this.subclasificacion.NombreSubClasificacion = Subclasificacion.NombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = Subclasificacion.DescripcionSubClasificacion;
+    this.subclasificacion.IdClasificacion = Subclasificacion.IdSubClasificacion;
 
     this.formUpdateSubClasificacion.reset();
     this.formUpdateSubClasificacion.setValue({
@@ -327,6 +328,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
         , descripcionSubClasificacion: Subclasificacion.DescripcionSubClasificacion
         , clasificacion : Subclasificacion.IdClasificacion
     })
+
     Modal.show();
 
   }

@@ -20,7 +20,6 @@ export class ProductoProveedorService{
         'Authorization': 'token'
     });
 
-    console.log(ProductoProveedor)
     return this._http.post(this.url+'producto/proveedor',params,{headers:headers})
   }
 
@@ -32,6 +31,17 @@ export class ProductoProveedorService{
     return this._http.get(this.url + 'productos/proveedores')
   }
 
+  deleteProductoProveedor(Id) : Observable <any> {
+
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'token'
+      });
+
+      let body = JSON.stringify({"Habilitado": 0});
+
+          return this._http.request('delete',this.url+'producto/'+Id,{headers:headers,body:body})
+  }
   updateProductoProveedor(ProductoProveedor) : Observable<any> {
 
     let params = JSON.stringify(ProductoProveedor);

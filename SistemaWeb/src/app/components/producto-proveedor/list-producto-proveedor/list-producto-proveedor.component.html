@@ -30,7 +30,7 @@
                 <th class="header-negrita">Producto</th>
                 <th class="header-negrita">Proveedor</th>
                 <th class="header-negrita">Empaque</th>
-                <th class="header-negrita"></th>
+                <th class="header-negrita">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -38,7 +38,18 @@
                 <th >{{i + 1}}</th>
                 <th >{{productosproveedor.NombreProveedor}}</th>
                 <th >{{productosproveedor.IdEnvase}}</th>
-                <th >{{productosproveedor.IdEmpaque}}</th>
+                <th width="25%" class="body-negrita"><div class="text-center">
+                    <!--<button type="button" (click)="getProveedorById()" class="btn btn-sm" style="background-color:#E67E22;" id="btnShowProducto" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
+                    <button type="button" class="btn btn-sm"  style="background-color:#E67E22;"
+                            id="btnUpdateProductoProveedor" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                      <i class="fa fa-pencil"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" style="background-color:#E67E22;"
+                            id="btnDeleteProductoProveedor" (click)="deleteProductoProveedor(productosproveedor.IdProductoProvedor)" data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </th>
               </tr>
             </tbody>
           </table>

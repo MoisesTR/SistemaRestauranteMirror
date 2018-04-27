@@ -167,29 +167,11 @@ export class AddProductoProveedorComponent implements OnInit {
     // this.productoProveedor.DiasCaducidad = this.formProveedor.value.DiasCaducidad;
     this.productoProveedor.DiasCaducidad = 30;
 
-    
+
+
 
   }
 
-  createProductoProveedor(Modal){
-    this.getValuesForm();
-
-    this._ProductoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
-        response => {
-
-          if(response.IdProductoProveedor){
-            Utilidades.showMsgSucces("La relacion del producto proveedor ha sido exitosa");
-          } else {
-            Utilidades.showMsgInfo("Ha ocurrido un error");
-          }
-        }, error =>{
-          Utilidades.showMsgError(Utilidades.mensajeError(error));
-
-        } , () =>{
-
-        }
-    )
-  }
 
   getEnvases(){
     this._envaseService.getEnvases().subscribe(

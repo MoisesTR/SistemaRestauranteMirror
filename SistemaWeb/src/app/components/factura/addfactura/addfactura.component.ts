@@ -6,6 +6,7 @@ import {ProveedorService} from '../../../services/proveedor.service';
 import {Proveedor} from '../../../models/Proveedor';
 import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
 import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
+import {opcionesDatePicker} from '../../../services/global';
 
 declare var $:any;
 
@@ -21,34 +22,7 @@ export class AddfacturaComponent implements OnInit {
   public proveedores : Proveedor[];
   public proveedor : Proveedor;
 
-  public myDatePickerOptions: IMyOptions = {
-    // Strings and translations
-    dayLabels: {su: 'Do', mo: 'Lu', tu: 'Mar', we: 'Mier', th: 'Jue', fr: 'Vier', sa: 'Sab'},
-    dayLabelsFull: {su: "Domingo", mo: "Lunes", tu: "Martes", we: "Miercoles", th: "Jueves", fr: "Viernes", sa: "Sabado"},
-    monthLabels: { 1: 'Ene', 2: 'Feb', 3: 'Mar', 4: 'Abr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Ago', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dic' },
-    monthLabelsFull: { 1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto", 9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre" },
-
-    // Buttons
-    todayBtnTxt: "Hoy",
-    clearBtnTxt: "Limpiar",
-    closeBtnTxt: "Cerrar",
-
-    // Format
-    dateFormat: 'dd.mm.yyyy',
-
-    // First day of the week
-    firstDayOfWeek: 'mo',
-
-    // Year limits
-    minYear: 1000,
-    maxYear: 9999,
-
-    // Show Today button
-    showTodayBtn: true,
-
-    //Show Clear date button
-    showClearDateBtn: true,
-};
+  public myDatePickerOptions: IMyOptions = opcionesDatePicker;
 
   constructor(
       private _route: ActivatedRoute

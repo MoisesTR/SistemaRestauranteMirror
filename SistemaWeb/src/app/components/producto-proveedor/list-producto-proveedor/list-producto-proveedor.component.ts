@@ -7,6 +7,7 @@ import {Producto} from '../../../models/Producto';
 import {idioma_espanol} from '../../../services/global';
 import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
+import swal from "sweetalert2";
 
 @Component({
   selector: 'app-list-producto-proveedor',
@@ -69,11 +70,41 @@ export class ListProductoProveedorComponent implements OnInit {
     )
   }
 
-  // valorModal(event: boolean){
-  //   this.mostrarModal = false;
-  // }
-  //
-  // clicks(){
-  //   this.mostrarModal = true;
-  // }
+
+  deleteProductoProveedor(Id){
+
+      // swal({
+      //     title: "Estas seguro(a)?",
+      //     text: "El proveedor sera eliminado permanentemente!",
+      //     type: 'warning',
+      //     showCancelButton: true,
+      //     confirmButtonColor: '#3085d6',
+      //     cancelButtonColor: '#d33',
+      //     confirmButtonText: 'Si, Eliminalo!'
+      // }).catch(swal.noop).then((eliminar) => {
+      //     if (eliminar) {
+      //         this._productoProveedorService.deleteProveedor(IdProveedor).subscribe(
+      //             response =>{
+      //                 if(response.success){
+      //                     swal(
+      //                         'Eliminado!',
+      //                         'El proveedor ha sido eliminado exitosamente',
+      //                         'success'
+      //                     ).then( () => {
+      //                         this.addForm.reset();
+      //                         this.getProveedores();
+      //                     })
+      //                 } else {
+      //                     console.log('Ha ocurrido un error, intenta nuevamente')
+      //                 }
+      //             }, error =>{
+      //                 if(error.status = 500){
+      //                     console.log('Ha ocurrido un error en el servidor')
+      //                 }
+      //             }
+      //         )
+      //
+      //     }
+      // });
+  }
 }

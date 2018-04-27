@@ -63,7 +63,7 @@
                   <br>
                   <br>
                   <div class="md-form">
-                    <input mdbActive type="number" id="cantidadenvase" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                    <input mdbActive type="number" min="1" id="cantidadenvase" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
                     <label for="cantidadenvase">Cantidad de Empaque</label>
                     <show-errors [control]="formProveedor.controls['cantidadEmpaque']"></show-errors>
                   </div>
@@ -99,7 +99,7 @@
                   <br>
                   <br>
                   <div class="md-form">
-                    <input mdbActive type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
+                    <input mdbActive type="number"  min="1" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                     <label for="valorunidadmedida">Valor unidad de medida</label>
                     <show-errors [control]="formProveedor.controls['valorunidadmedida']"></show-errors>
                   </div>

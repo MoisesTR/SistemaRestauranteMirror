@@ -49,8 +49,8 @@ function updateSubclasificacion(req, res) {
 
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, data.IdClasificacion)
-    db.pushAOJParam(aoj, 'NombreClasificacion', sql.NVarChar(50), data.NombreClasificacion)
-    db.pushAOJParam(aoj, 'DescripcionClasificacion', sql.NVarChar(150), data.DescripcionClasificacion)
+    db.pushAOJParam(aoj, 'NombreSubClasificacion', sql.NVarChar(50), data.NombreSubClasificacion)
+    db.pushAOJParam(aoj, 'DescripcionSubClasificacion', sql.NVarChar(150), data.DescripcionSubClasificacion)
     db.storedProcExecute('USP_UPDATE_SUBCLASIFICACION', aoj)
         .then((results) => {
             res.status(200).json({

@@ -1,12 +1,15 @@
-<div class="view gradient-card-header z-depth-2 orange-chang" style="height: 70px;padding: 22px;z-index: 10;">
-  <h4 class="mb-0 text-center white-text">Datos del Producto</h4>
-</div>
+<section>
+  <div class="row">
 
-<div class="white">
-  <div class="container-fluid">
-    <div class="row-eq-height py-5">
-      <div class="col-md-12 text-center">
-        <section class="section">
+    <div class="col-md-12">
+
+      <div class="card card-cascade narrower">
+        <!--Titulo-->
+        <div class="view gradient-card-header orange-chang">
+          <h2 class="h2-responsive">Productos</h2>
+        </div>
+        <!--/Titulo-->
+        <div class="card-body">
 
           <div class="row" *ngIf="productos">
 
@@ -16,52 +19,63 @@
                 <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
               </div>
 
-              <div class="col-lg-12" *ngIf="buscando">
+              <div class="col-lg-12 text-center" *ngIf="buscando">
                 Buscando:
                 <strong> {{buscando}} </strong>
               </div>
+              <br>
 
             </div>
 
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-x-4" *ngFor="let producto of productos | buscar: buscando ">
-              <div class="card card-cascade narrower ovf-hidden">
 
-                <div class="white">
-                  <img src="{{url + 'productoGetImage/' + producto.Imagen}}" class="img-fluid" alt="" style=" height:250px;">
-                </div>
-                <div class="card-body text-center no-padding" style="background: url('assets/img/landingpage/background-historia.jpg')no-repeat center center;">
-                  <span class="btn-action activator" style="background-color: transparent !important;">
-                    <a class="btn-floating btn-action">
-                      <i class="fa fa-eye"></i>
+              <!--Rotating card-->
+              <mdb-card-rotating #card>
+                <!--Front Side-->
+                <div class="face front card tp-box_side tp-box_front" style="height: 90% !important;">
+                  <!-- Image-->
+                  <div class="card-up card-image">
+                    <div class="overlay hm-white-slight waves-light" mdbWavesEffect>
+                      <img src="{{url + 'productoGetImage/' + producto.Imagen}}" class="img-fluid" alt="" style="height:100%;min-width: 100% !important;">
+                    </div>
+                  </div>
+                  <!--/.Image-->
+
+                  <!--Content-->
+                  <div class="content" style="background: url('assets/img/landingpage/background-historia.jpg')no-repeat center center; height: 50% !important;">
+                    <a class="btn-floating orange-chang waves-light rotate-btn" mdbWavesEffect (click)="card.toggle()" style="margin-right: 0px;">
+                      <i class="fa fa-eye" style="margin-left: -15px;margin-top: -15px;"></i>
                     </a>
-                  </span>
-                  <h5 class="card-title">
-                    <a href="">{{producto.NombreProducto}}</a>
-                  </h5>
-                  <div class="card-footer">
-                    <span class="center">C$ Precio</span>
-                  </div>
-                </div>
-                <div class="card-reveal">
-                  <div class="content">
-                    <!--Content-->
-                    <h6 class="card-title">
-                      <a>{{producto.NombreProducto}}
-                        <i class="fa fa-close"></i>
-                      </a>
-                    </h6>
-                    <hr>
-                    <p>{{producto.NombreProducto}}</p>
+
+                    <h4 class="card-title">
+                      {{producto.NombreProducto}}
+                    </h4>
+
                     <p>{{producto.Descripcion}}</p>
-                    <p>Descripción: Lorep-ipsum test atomic developers</p>
+                    <hr>
+                    <h5>C$ Precio</h5>
                   </div>
+                  <!--/.Content-->
+
                 </div>
-              </div>
+                <!--/.Front Side-->
 
+                <!--Back Side-->
+                <div class="face back tp-box_side tp-box_back">
+                  <!--Title-->
+                  <h4 class="card-title">{{producto.NombreProducto}}
+                    <i class="fa fa-close rotate-btn" (click)="card.toggle()"></i>
+                  </h4>
+                  <hr>
+                  <p>{{producto.NombreProducto}}</p>
+                  <p>{{producto.Descripcion}}</p>
+
+                </div>
+                <!--/.Back Side-->
+              </mdb-card-rotating>
+              <!--/.Rotating card-->
             </div>
-
-
           </div>
 
           <div class="row" *ngIf="productos==null">
@@ -73,8 +87,14 @@
             </div>
           </div>
 
-        </section>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <button type="button" class="btn btn-floating btn-large orange-chang waves-light" mdbWavesEffect [routerLink]="'../producto'"
+    style="right:78%; bottom:35px;">
+    <i class="fa fa-th-list"></i>
+  </button>
+
+</section>

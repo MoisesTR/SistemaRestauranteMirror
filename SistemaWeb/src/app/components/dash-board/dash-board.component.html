@@ -18,7 +18,7 @@
                     <div class="card-body text-center">
 
                         <div class="list-group">
-                            <a *ngFor="let proveedor of proveedores" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <a *ngFor="let proveedor of proveedores" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">{{proveedor.NombreProveedor}}</h5>
                                     <small>6:00 AM</small>
@@ -144,111 +144,95 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs nav-justified orange-chang">
+                    <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 orange-chang'" [contentClass]="'card'">
+
+                        <mdb-tab heading="Proveedores">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                    <th>Telefono</th>
+                                                    <th>Compañia</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let proveedor of proveedores ; let i = index">
+                                                    <th scope="row">{{i+1}}</th>
+                                                    <td>{{proveedor.NombreProveedor}}</td>
+                                                    <td>{{proveedor.Telefono}}</td>
+                                                    <td>{{proveedor.Email}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
+                                                            <i class="fa fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </mdb-tab>
+
+                        <mdb-tab heading="Trabajadores">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nombre</th>
+                                                        <th>Telefono</th>
+                                                        <th>Compañia</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let proveedor of proveedores ; let i = index">
+                                                        <th scope="row">{{i+1}}</th>
+                                                        <td>{{proveedor.NombreProveedor}}</td>
+                                                        <td>{{proveedor.Telefono}}</td>
+                                                        <td>{{proveedor.Email}}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
+                                                                <i class="fa fa-eye"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mdb-tab>
+
+
+                    </mdb-tabset>
+
+
+                    <!-- <ul class="nav nav-tabs nav-justified orange-chang">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#proveedores" role="tab">Proveedores</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#trabajadores" role="tab">Trabajadores</a>
                         </li>
-                    </ul>
-                    <!-- Tab panels -->
-                    <div class="tab-content card">
-                        <!--Panel Proveedores-->
-                        <div class="tab-pane fade in show active" id="proveedores" role="tabpanel">
-                            <br>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nombre</th>
-                                            <th>Telefono</th>
-                                            <th>Compañia</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let proveedor of proveedores ; let i = index">
-                                            <th scope="row">{{i+1}}</th>
-                                            <td>{{proveedor.NombreProveedor}}</td>
-                                            <td>{{proveedor.Telefono}}</td>
-                                            <td>{{proveedor.Email}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </ul>-->
 
-                        </div>
-                        <!--/.Panel Proveedores-->
-
-                        <!--Panel Trabajadores-->
-                        <div class="tab-pane fade" id="trabajadores" role="tabpanel">
-                            <br>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nombre</th>
-                                            <th>Telefono</th>
-                                            <th>Sucursal</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Jake Ruiz</td>
-                                            <td>12345678</td>
-                                            <td>Rubenia</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Genaro Tinoco</td>
-                                            <td>12345678</td>
-                                            <td>Bello Horizonte</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Moises Trigueros</td>
-                                            <td>12345678</td>
-                                            <td>Buffet Chang</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!--/.Panel Trabajadores-->
-
-                    </div>
                 </div>
             </div>
             <br>
             <br>
             <br>
         </div>
-        <!-- /.Tab Tablas -->
 
         <!-- Contenedor de imagen y detalles -->
         <div class="col-md-4 mb-1">

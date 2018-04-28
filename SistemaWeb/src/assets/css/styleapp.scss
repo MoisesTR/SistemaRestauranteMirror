@@ -200,6 +200,10 @@ h6 {
   min-height: auto;
 }
 
+.modal .mdl{
+  width: 520px !important; 
+}
+
 .background-gray-w {
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
   background: -moz-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
@@ -394,5 +398,5 @@ h6 {
 }
 
 .height-card{
-  height: 68% !important;
+  height: 78% !important;
 }

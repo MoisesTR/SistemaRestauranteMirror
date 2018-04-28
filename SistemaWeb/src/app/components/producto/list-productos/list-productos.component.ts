@@ -54,8 +54,9 @@ export class ListProductosComponent implements OnInit, OnDestroy {
         // Configure the buttons
         buttons: [
             {
-                text: 'Some button',
+                text: 'Agregar Producto',
                 key: '1',
+                className: 'btn orange-chang float-right-dt',
                 action: function (e, dt, node, config) {
                     alert('Button activated');
                 }

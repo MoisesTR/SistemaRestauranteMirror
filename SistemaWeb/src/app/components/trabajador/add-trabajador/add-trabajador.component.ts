@@ -212,6 +212,7 @@ export class AddTrabajadorComponent implements OnInit {
 
       this._uploadService.makeFileRequest(
         this.url+'trabajadorUploadImage',
+        null,null,null,
         [],
         this.filesToUpload,
         'token',

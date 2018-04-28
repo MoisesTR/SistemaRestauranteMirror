@@ -6,6 +6,10 @@ export const Global  = {
     url: 'http://localhost:3000/api/'
 }
 
+export const CARPETA_PRODUCTOS = 'productos';
+export const CARPETA_USUARIOS = 'usuarios';
+export const CARPETA_TRABAJADORES = 'trabajadores';
+
 //Idioma datatable
 export const idioma_espanol = {
   "sProcessing":     "Procesando...",

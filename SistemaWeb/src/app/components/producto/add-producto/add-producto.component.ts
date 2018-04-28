@@ -148,28 +148,25 @@ export class AddProductoComponent implements OnInit {
   guardarImagenProducto(){
 
     if(this.filesToUpload != null){
-
       this._uploadService.makeFileRequest(
-        this.url+'productoUploadImage',
+        this.url+'uploadImage/',
+        'productos',
+          '',
+        false,
         [],
         this.filesToUpload,
         'token',
-        'image').then((result:any)=>{
+        'image').then((result:any ) => {
         this.producto.Imagen = result.image;
         this.crearProducto();
-
       },error =>{
-        swal(
-          'Producto',
-          'Ha ocurrido un error en la carga de la imagen, intenta nuevamente!',
-          'error'
-        )
+          //Utilidades.showMsgError(Utilidades.msgErrorImage(error));
+          console.log(error);
       });
     } else {
-      this.producto.Imagen = 'nodisponible.png';
+      this.producto.Imagen = '';
       this.crearProducto();
     }
-
   }
 
   getValueForm(){
@@ -177,6 +174,7 @@ export class AddProductoComponent implements OnInit {
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
   }
+
   crearProducto(){
     this.getValueForm();
     this._productoService.createProducto(this.producto).subscribe(
@@ -191,11 +189,8 @@ export class AddProductoComponent implements OnInit {
           })
         }
       }, error =>{
-        swal(
-          'Producto',
-          Utilidades.mensajeError2(error),
-          'error'
-        )
+        console.log(error);
+        //Utilidades.showMsgError(Utilidades.mensajeError(error));
       }
     )
   }

@@ -11,12 +11,14 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {UploadService} from '../../../services/upload.service';
 import {ClasificacionProductoService} from '../../../services/clasificacion-producto.service';
 import {ProductoService} from '../../../services/producto.service';
-import {Global} from '../../../services/global';
+import {CARPETA_PRODUCTOS, Global} from '../../../services/global';
 import {SubClasificacionProductoService} from '../../../services/sub-clasificacion-producto.service';
 import {CategoriaProductoService} from '../../../services/categoria-producto.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Observable} from 'rxjs/Observable';
+import {Utilidades} from '../../Utilidades';
+import {isNull, isUndefined} from 'util';
 
 declare var $:any;
 @Component({
@@ -35,9 +37,7 @@ export class UpdateProductoComponent implements OnInit {
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
-  public valorInicialClasificacion: Observable<string>;
-  public valorInicialSubClasificacion: Observable<string>;
-  public valorInicialCategoria: Observable<string>;
+  public removioImagen : boolean = false;
 
   constructor(
     private _route: ActivatedRoute
@@ -123,21 +123,6 @@ export class UpdateProductoComponent implements OnInit {
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
 
-    // this.valorInicialClasificacion = Observable.create(obs => {
-    //   obs.next(this.producto.IdClasificacion);
-    //   obs.complete();
-    // }).delay(100);
-    //
-    // this.valorInicialSubClasificacion = Observable.create(obs => {
-    //   obs.next(this.producto.IdSubClasificacion);
-    //   obs.complete();
-    // }).delay(100);
-    //
-    // this.valorInicialCategoria = Observable.create(obs => {
-    //   obs.next(this.producto.IdCategoria);
-    //   obs.complete();
-    // }).delay(100);
-
   }
 
   validarCampos(){
@@ -159,12 +144,22 @@ export class UpdateProductoComponent implements OnInit {
 
               //Inicializar componentes de la vista
               $(document).ready(()=>{
+
                 var imagenProducto =  this.url + 'getImage/'+ 'productos' + '/' + this.producto.Imagen;
+                var drEvent;
 
-                $('.dropify').dropify({
-                  defaultFile: imagenProducto
-                });
+                if(this.producto.Imagen.length > 0) {
+                    drEvent = $('.dropify').dropify({
+                        defaultFile: imagenProducto
+                    });
+                }  else {
+                    drEvent = $('.dropify').dropify();
+                }
 
+                  drEvent.on('dropify.afterClear', (event, element) => {
+                      this.removioImagen = true;
+                      this.filesToUpload = null;
+                  });
 
               });
               this.inicializarValoresFormularioProducto();
@@ -193,27 +188,29 @@ export class UpdateProductoComponent implements OnInit {
   }
 
   cargarImagen(){
-    if(this.filesToUpload != null){
 
-      this._uploadService.makeFileRequest(
-        this.url+'productoUploadImage',
-        [],
-        this.filesToUpload,
-        'token',
-        'image').then((result:any)=>{
-        this.producto.Imagen = result.image;
+    if(!isUndefined(this.filesToUpload) && !isNull(this.filesToUpload)) {
+      this.removioImagen = false;
+    }
+
+    if( !this.removioImagen && this.producto.Imagen) {
         this.actualizarProducto();
-
-      },error =>{
-        swal(
-          'Producto',
-          'Ha ocurrido un error en la carga de la imagen, intenta nuevamente!',
-          'error'
-        )
-      });
     } else {
-      this.producto.Imagen = 'nodisponible.png'
-      this.actualizarProducto();
+        this._uploadService.makeFileRequest(
+            this.url+'uploadImage'
+            , CARPETA_PRODUCTOS
+            , this.producto.Imagen
+            , this.removioImagen
+            , []
+            , this.filesToUpload
+            , 'token'
+            , 'image').then((result:any)=>{
+            this.producto.Imagen = result.image;
+            this.actualizarProducto();
+
+        },error =>{
+            Utilidades.msgErrorImage(error);
+        });
     }
 
   }
@@ -232,13 +229,7 @@ export class UpdateProductoComponent implements OnInit {
           })
         }
       }, error =>{
-        console.log(error)
-        swal(
-          'Producto',
-          'Ha ocurrido un error interno en el servidor, intente nuevamente',
-          'error'
-        )
-
+        Utilidades.showMsgError(Utilidades.mensajeError(error),'Producto');
       }
     )
   }
@@ -283,6 +274,5 @@ export class UpdateProductoComponent implements OnInit {
     this.producto.IdEstado = 1;
 
   }
-
 
 }

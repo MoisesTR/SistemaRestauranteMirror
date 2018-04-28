@@ -1,8 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var sql = require('mssql');
-var db = require('../services/database');
-const { mssqlErrors } = require('../Utils/util');
 
 function getImageFile(req, res) {
     var imageFile = req.params.ImageFile;

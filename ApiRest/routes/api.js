@@ -8,6 +8,7 @@ const SubclasificacionController = require('../controllers/subclasificacion')
 const EstadoProductoController = require('../controllers/estadoproducto')
 const ProductoController = require('../controllers/producto')
 const ImagenController = require('../controllers/imagenes');
+const UploadController = require('../controllers/upload');
 const SucursalController = require('../controllers/sucursal')
 const UnidadMedidaController = require('../controllers/unidadmedida');
 const RoleController = require('../controllers/rol');
@@ -20,7 +21,6 @@ const menuController = require('../controllers/menu');
 const validations = require('../Utils/validations');
 const jwt = require('../services/jwt')
 const AuthController = require('../controllers/auth')
-
 var Router = express.Router()
 var multipart = require('connect-multiparty');
 var md_upload_producto = multipart({ uploadDir: './uploads/productos' });
@@ -52,7 +52,7 @@ Router
     //Rutas envase controler
     .get('/envase/:IdEnvase(\\d+)', EnvaseController.getEnvaseById)
     .get('/envases', EnvaseController.getEnvases)
-    .post('/envase', validations.createEnvase, validations.validsParams,EnvaseController.createEnvase)
+    .post('/envase', validations.createEnvase, validations.validsParams, EnvaseController.createEnvase)
     .put('/envase/:IdEnvase(\\d+)', validations.updateEnvase, validations.validsParams, EnvaseController.updateEnvase)
     //Rutas proveedor Controller
     .get('/proveedor/:IdProveedor(\\d+)', ProveedorController.getProveedorById)
@@ -80,6 +80,7 @@ Router
     .delete('/producto/:IdProducto(\\d+)', ProductoController.changeStateProducto)
 
 .get('/getImage/:path/:ImageFile', ImagenController.getImageFile)
+    .post('/uploadImage', UploadController.uploadImage)
     //Rutas sucursal Controller
     .get('/sucursales', SucursalController.getSucursales)
     .get('/sucursal/:IdSucursal(\\d+)', SucursalController.getSucursalById)

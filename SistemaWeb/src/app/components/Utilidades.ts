@@ -4,12 +4,6 @@ import swal from 'sweetalert2';
 
 export class Utilidades{
 
-  //Metodo para retornar el mensje de error que genera la excepcion en sql
-  static mensajeError2(error){
-    return error['error'].message ;
-
-  }
-
   static mensajeError(mensaje){
     if(isUndefined(mensaje)){
         return 'El error esta indefinido';
@@ -28,34 +22,50 @@ export class Utilidades{
 
   }
 
+  static msgErrorImage(mensaje) {
+
+      try {
+          if(isUndefined(mensaje)) {
+              this.showMsgError('El error esta indefinido');
+          } else {
+              this.showMsgError(JSON.parse(mensaje).error.message);
+          }
+      }
+      catch(e) {
+          console.log(e);
+          console.log(mensaje);
+          this.showMsgError("Ha ocurrido un error al decodificar el mensaje")
+      }
+
+  }
+
   //Invocacion de metodo para invocar modal y limpieza del formulario invocado
   static invocacionModal(Modal,Formulario){
-
     Modal.show();
     Formulario.reset();
   }
 
-  static showMsgInfo(mensaje: string){
+  static showMsgInfo(mensaje: string,titulo = 'Informacion'){
       swal(
-          'Informacion',
+          titulo,
           mensaje,
           'info'
-      )
+      ).catch(swal.noop)
   }
 
-  static showMsgError(mensaje : string){
+  static showMsgError(mensaje : string,titulo = 'Error'){
      swal(
-         'Error',
+         titulo,
          mensaje,
          'error'
-     )
+     ).catch(swal.noop)
   }
 
-  static showMsgSucces(mensaje : string) {
+  static showMsgSucces(mensaje : string, titulo = 'Exitoso') {
       swal(
-          'Exitoso',
+          titulo,
           mensaje,
           'success'
-      )
+      ).catch(swal.noop)
   }
 }

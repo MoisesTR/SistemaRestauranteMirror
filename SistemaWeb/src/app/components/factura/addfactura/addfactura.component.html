@@ -298,7 +298,7 @@
 
                                     <div class="col-lg-6">
                                         <input type="checkbox" value="validando_checkbox2" name="seleccionadocheck" id="segundo1">
-                                        <label for="segundo1" data-toggle="modal" data-target="#modalAddDescuento">
+                                        <label for="segundo1" (click)="modalAddDescuento.show()">
                                             <strong>Descuento</strong>
                                         </label>
                                     </div>
@@ -375,16 +375,15 @@
 </section>
 
 <!-- Modal Mostrar Info de producto -->
-<div mdbModal #modalVerProducto="mdb-modal" class="modal fade" id="modalVerProducto" tabindex="-1" >
-<!-- <div class="modal fade" id="modalVerProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div> -->
-    <div class="modal-dialog modal-lg cascading-modal " role="document" >
+<div mdbModal #modalVerProducto="mdb-modal" class="modal fade" id="modalVerProducto" tabindex="-1">
+    <div class="modal-dialog modal-lg cascading-modal " role="document">
         <!--Contenido-->
         <div class="modal-content">
 
             <!--Titulo-->
             <div class="modal-header orange-chang white-text">
                 <h4 class="title"> Información del producto</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalVerProducto.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -525,46 +524,55 @@
 </div>
 
 <!-- Modal para agregar descuento de factura  -->
-<div class="modal fade" id="modalAddDescuento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalAddDescuento="mdb-modal" class="modal fade" id="modalAddDescuento" tabindex="-1" role="dialog" aria-labelledby="modalAddDescuento"
+    aria-hidden="true">
     <div class="modal-dialog cascading-modal" role="document">
         <!--Contenido-->
-        <div class="modal-content">
+        <div class="modal-content background-gray mdl">
 
-            <div class="modal-header orange-chang white-text">
-                <h4 class="title"> Ingresar Descuento Total</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <i class="fa fa-file-text-o"></i> Ingresar Descuento Total</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddDescuento.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
-                <div class="container-fluid">
-                    <!-- Inicio form-->
-                    <form>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="container-fluid">
-                                    <br>
-                                    <div class="col-md-12">
-                                        <div class="md-form">
-                                            <input placeholder="Ej: 50" type="number" id="descuentoFactura" class="form-control">
-                                            <label for="descuentoFactura" class="font-weight-bold">Descuento</label>
-                                        </div>
+                <!-- Inicio form-->
+                <form>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Descuento</h6>
+                        <input type="text" id="descuentoFactura" minlength="4" maxlength="50" class="input-modal-sm" name="descuentoFactura" formControlName="descuentoFactura"
+                            required>
+                    </div>
+                    <div class="text-center mt-1-half">
+                        <button class="btn orange-chang mb-1" type="submit">Ingresar
+                            <i class="fa fa-check ml-1"></i>
+                        </button>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="container-fluid">
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="md-form">
+                                        <input placeholder="Ej: 50" type="number" id="descuentoFactura" class="form-control">
+                                        <label for="descuentoFactura" class="font-weight-bold">Descuento</label>
                                     </div>
-                                    <br>
-                                    <div class="mt-1-half">
-                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar
-                                            <i class="fa fa-check ml-1"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
-                                    </div>
+                                </div>
+                                <br>
+                                <div class="mt-1-half">
+                                    <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar
+                                        <i class="fa fa-check ml-1"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <!-- Final form -->
-                    <br>
-                </div>
+                    </div> -->
+                </form>
+                <!-- Final form -->
             </div>
         </div>
         <!--/.Contenido-->

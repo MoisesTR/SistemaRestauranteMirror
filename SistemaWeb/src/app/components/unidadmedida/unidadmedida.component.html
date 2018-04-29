@@ -41,15 +41,14 @@
                 <td class="body-negrita">{{ unidadmedida.Simbolo}}</td>
                 <td width="25%" class="body-negrita">
                   <div class="text-center">
-                    <button type="button" (click)="getUnidaMedida()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEmpaque"
-                      data-toggle="tooltip" data-placement="bottom" title="Visualizar">
-                      <i class="fa fa-eye"></i>
-                    </button>
-                    <button type="button" (click)="invocarModalUpdate(modalUpdateUnidadMedida,unidadmedida)" class="btn btn-sm" style="background-color:#E67E22;"
-                      id="btnUpdateEmpaque" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <button type="button" (click)="invocarModalUpdate(modalUpdateUnidadMedida,unidadmedida)" class="btn btn-sm orange-chang"
+                      id="btnEditUnidadMedida" mdbTooltip="Editar" placement="bottom">
                       <i class="fa fa-pencil"></i>
                     </button>
-                    <!-- <button type="button" (click)="deleteUnidadMedida()" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteEmpaque" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>-->
+                    <button type="button" (click)="deleteUnidadMedida()" class="btn btn-sm orange-chang"
+                      id="btnDeleteUnidadMedida" mdbTooltip="Eliminar" placement="bottom">
+                      <i class="fa fa-times"></i>
+                    </button>                    
                   </div>
                 </td>
               </tr>
@@ -149,8 +148,9 @@
           </div>
 
           <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select class="select-mdl" [items]="clasificacionesUnidad" bindLabel="NombreClasificacion" bindValue="IdClasificacionUnidadMedida" [(ngModel)] = "unidadMedida.IdClasificacionUnidadMedida"
-                     placeholder="Selecciona una clasificacion"  formControlName="clasificacionesUnidad" id="upclasificacionunidadmedida" (add)="onAddUpdateUnidadMedida($event)">
+          <ng-select class="select-mdl" [items]="clasificacionesUnidad" bindLabel="NombreClasificacion" bindValue="IdClasificacionUnidadMedida"
+            [(ngModel)]="unidadMedida.IdClasificacionUnidadMedida" placeholder="Selecciona una clasificacion" formControlName="clasificacionesUnidad"
+            id="upclasificacionunidadmedida" (add)="onAddUpdateUnidadMedida($event)">
           </ng-select>
 
           <div class="md-form ">

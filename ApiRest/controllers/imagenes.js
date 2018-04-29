@@ -1,4 +1,4 @@
-var fs = require('fs');
+const fs = require('fs');
 var path = require('path');
 
 function getImageFile(req, res) {
@@ -16,6 +16,24 @@ function getImageFile(req, res) {
 
 }
 
+function getImage(req, res) {
+    var tipo = req.params.tipo;
+    var img = req.params.img;
+
+    console.log(req.params);
+
+    var pathImagen = path.resolve(__dirname, `../uploads/${tipo}/${img}`);
+
+    if (fs.existsSync(pathImagen)) {
+        res.sendFile(pathImagen);
+    } else {
+        var pathNoImagen = path.resolve(__dirname, '../uploads/temp/no-img.jpg')
+        res.sendFile(pathNoImagen);
+    }
+
+}
+
 module.exports = {
-    getImageFile
+    getImageFile,
+    getImage
 }

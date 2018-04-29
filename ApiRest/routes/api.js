@@ -80,6 +80,7 @@ Router
     .delete('/producto/:IdProducto(\\d+)', ProductoController.changeStateProducto)
 
 .get('/getImage/:path/:ImageFile', ImagenController.getImageFile)
+    .get('/getImagen/:tipo/:img', ImagenController.getImage)
     .post('/uploadImage', UploadController.uploadImage)
     //Rutas sucursal Controller
     .get('/sucursales', SucursalController.getSucursales)

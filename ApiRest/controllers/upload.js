@@ -42,7 +42,7 @@ function uploadImage(req, res) {
         //Obtener nombre archivo
         var archivo = req.files.image;
         var nombreCortado = archivo.name.split('.');
-        var extArchivo = nombreCortado[nombreCortado.length - 1];
+        var extArchivo = nombreCortado[nombreCortado.length - 1].toLowerCase();
 
         //Extensiones de archivos permitidas
         var extensionesPermitidas = ['png', 'jpg', 'jpeg'];

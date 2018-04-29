@@ -439,12 +439,12 @@ table.dataTable td {
   }
 }
 
-/* Height input search */
-.height-input-dt {
-  width: 79% !important;
+/* Width input search */
+.width-input-dt {
+  width: 85% !important;
 }
 
-.modal-body .height-input-dt {
+.modal-body .width-input-dt {
   width: 100% !important;
 }
 

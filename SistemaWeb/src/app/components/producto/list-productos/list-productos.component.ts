@@ -51,7 +51,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
         , dom: 'Bfrtip',
         buttons: [
             {
-                text: 'Agregar Producto',
+                text: 'Agregar',
                 key: '1',
                 className: 'btn orange-chang float-right-dt',
                 action:  (e, dt, node, config) => {

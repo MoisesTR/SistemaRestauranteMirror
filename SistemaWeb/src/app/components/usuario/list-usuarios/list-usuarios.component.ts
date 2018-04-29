@@ -21,7 +21,6 @@ export class ListUsuariosComponent implements OnInit {
   public tituloPantalla : string = 'Usuario';
 
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  @ViewChild(DataTableDirective) dtOptions: DataTables.Settings = {};
 
   constructor(
     private _route: ActivatedRoute

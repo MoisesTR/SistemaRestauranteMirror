@@ -42,8 +42,6 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  @ViewChild(DataTableDirective)
-  dtOptions: DataTables.Settings = {};
 
   constructor(
     private _route: ActivatedRoute

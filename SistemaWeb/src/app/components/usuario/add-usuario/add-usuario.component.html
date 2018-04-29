@@ -1,8 +1,23 @@
 <div class="container-fluid mt-5">
   <section>
     <div class="row">
-      <!--Imagen-->
+
+      <!-- Card para cargar imagenes dinamicas -->
       <div class="col-lg-4">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Imagen</h4>
+          </div>
+          <div class="card-body text-center">
+            <!-- <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
+              data-height="300" /> -->
+              <img src="assets/img/utils/not-found.jpg" alt="..." class="img-thumbnail" height=300>
+          </div>
+        </div>
+      </div>
+
+      <!--Imagen-->
+      <!-- <div class="col-lg-4">
         <div class="card card-cascade narrower">
           <div class="view gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
@@ -11,7 +26,7 @@
             <input name="imagen" id="imagen" type="file" class="dropify" data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- /.Imagen -->
 
       <!--Datos del usuario-->

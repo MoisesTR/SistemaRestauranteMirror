@@ -48,11 +48,11 @@
 
                                 <div class="col-md-12">
                                     <mdb-time-picker buttonLabel="'Seleccionar'" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'"
-                                    [ngModel]="lightClock" required></mdb-time-picker>
+                                        [ngModel]="lightClock" required></mdb-time-picker>
                                 </div>
                             </div>
                             <!-- <div class="text-center mt-1-half">
-                                <button type="button" class="btn orange-chang waves-effect" data-toggle="modal" (click)="cleanAddForm()" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i>  Buscar Producto</button>
+                                <button type="button" class="btn orange-chang waves-effect" data-toggle="modal" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i>  Buscar Producto</button>
                             </div> -->
                         </form>
                         <!-- Final form -->
@@ -89,10 +89,10 @@
                                     <th scope="row">1</th>
                                     <td>PolloPolloPolloPolloPolloPollo</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" data-target="#modalAgregarDetalleProducto">
+                                        <button type="button" class="btn btn-sm orange-chang" (click)="modalAgregarDetalleProducto.show()" mdbWavesEffect>
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" data-target="#modalVerProducto">
+                                        <button type="button" class="btn btn-sm orange-chang" (click)="modalVerProducto.show()" mdbWavesEffect>
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -104,7 +104,7 @@
                                         <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -116,7 +116,7 @@
                                         <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -128,7 +128,7 @@
                                         <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -140,7 +140,7 @@
                                         <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -152,7 +152,7 @@
                                         <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal" (click)="cleanAddForm()" data-target="">
+                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -375,10 +375,11 @@
 </section>
 
 <!-- Modal Mostrar Info de producto -->
-<div class="modal fade" id="modalVerProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg cascading-modal " role="document">
+<div mdbModal #modalVerProducto="mdb-modal" class="modal fade" id="modalVerProducto" tabindex="-1" >
+<!-- <div class="modal fade" id="modalVerProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div> -->
+    <div class="modal-dialog modal-lg cascading-modal " role="document" >
         <!--Contenido-->
-        <div class="modal-content ">
+        <div class="modal-content">
 
             <!--Titulo-->
             <div class="modal-header orange-chang white-text">
@@ -464,71 +465,59 @@
 </div>
 
 <!-- Modal para agregar detalles de producto -->
-<div class="modal fade" id="modalAgregarDetalleProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #modalAgregarDetalleProducto="mdb-modal" class="modal fade" id="modalAgregarDetalleProducto" tabindex="-1"
+    role="dialog" aria-labelledby="modalAgregarDetalleProducto" aria-hidden="true">
     <div class="modal-dialog cascading-modal" role="document">
         <!--Contenido-->
-        <div class="modal-content">
+        <div class="modal-content background-gray mdl">
 
-            <div class="modal-header orange-chang white-text">
-                <h4 class="title"> Agregar Producto</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <i class="fa fa-file-text-o"></i> Agregar Producto</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAgregarDetalleProducto.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
-                <div class="container-fluid">
 
-                    <!-- Inicio form-->
-                    <form>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="container-fluid">
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="md-form">
-                                                <input type="number" id="cantidadProducto" class="form-control">
-                                                <label for="cantidadProducto">Cantidad</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="md-form">
-                                                <input type="number" id="precioProducto" class="form-control">
-                                                <label for="precioProducto">Precio</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <br>
-                                            <div class="md-form">
-                                                <input type="number" id="descuentoTotalProducto" class="form-control">
-                                                <label for="descuentoTotalProducto">Descuento Total</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <br>
-                                            <br>
-                                            <div class="form-group">
-                                                <input type="checkbox" class="filled-in" checked="checked" id="checkboxIva">
-                                                <label for="checkboxIva">Gravado de Iva</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <div class="mt-1-half">
-                                        <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar
-                                            <i class="fa fa-check ml-1"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
-                                    </div>
-                                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <h6 class="orange-chang-text">Cantidad</h6>
+                                <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto" formControlName="cantidadProducto"
+                                    required>
                             </div>
                         </div>
-                    </form>
-                    <!-- Final form -->
-                    <br>
-                </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <h6 class="orange-chang-text">Precio</h6>
+                                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto" formControlName="precioProducto"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <h6 class="orange-chang-text">Descuento</h6>
+                                <input type="number" id="descuentoTotalProducto" minlength="4" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <br>
+                                <input class="form-check-input" type="checkbox" id="checkbox33" checked="checked">
+                                <label class="form-check-label" for="checkbox33">Gravado de Iva</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-1-half">
+                        <button class="btn orange-chang mb-1" type="submit">Ingresar
+                            <i class="fa fa-check ml-1"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
         <!--/.Contenido-->

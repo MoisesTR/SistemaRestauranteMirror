@@ -47,10 +47,36 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
+                    <mdb-date-picker [placeholder]="'Fecha de Nacimiento'" mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
+                      [options]="myDatePickerOptions" required></mdb-date-picker>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
                     <mdb-date-picker [placeholder]="'Fecha de Ingreso'" mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso"
                       [options]="myDatePickerOptions" required></mdb-date-picker>
                     <show-errors [control]="formAddTrabajador.controls['fechaIngreso']"></show-errors>
                   </div>
+                </div>
+
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form ">
+                    <input mdbActive type="text" id="DocumentoTrabajador" minlength="4" maxlength="50" class="form-control"
+                      name="DocumentoTrabajador" formControlName="DocumentoTrabajador">
+                    <!-- <show-errors [control]="formAddTrabajador.controls['DocumentoTrabajador']"></show-errors> -->
+                    <label for="DocumentoTrabajador" class="">Documento</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="sucursal">Tipo de Documento</label>
+                  <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
+                    (add)="onAddSucursal($event)" formControlName="sucursal">
+                  </ng-select>
+                  <show-errors [control]="formAddTrabajador.controls['sucursal']"></show-errors>
                 </div>
 
                 <div class="col-md-6">
@@ -113,22 +139,6 @@
         </div>
       </div>
       <!-- /.Datos del Trabajador-->
-
-      <!-- Card para cargar imagenes dinamicas -->
-      <div class="col-lg-4">
-          <div class="card card-cascade narrower">
-            <div class="view gradient-card-header orange-chang">
-              <h4 class="mb-0">Imagen</h4>
-            </div>
-            <div class="card-body text-center">
-              <!-- <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
-                data-height="300" /> -->
-                <img src="assets/img/usuarios/boo.png" alt="..." class="img-thumbnail" height=300>
-            </div>
-          </div>
-        </div>
-
-
 
     </div>
   </section>

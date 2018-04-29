@@ -10,6 +10,8 @@ import {Trabajador} from '../../../models/Trabajador';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Global} from '../../../services/global';
+import {Utilidades} from '../../Utilidades';
+import {isNull} from "util";
 
 declare var $:any;
 
@@ -28,6 +30,9 @@ export class AddUsuarioComponent implements OnInit {
   formularioAddUsuario : FormGroup;
   public imagenProducto : string;
   public url : string;
+  public imagenTrabajador : string = 'no-img.png';
+  public tituloPantalla : string =  'Usuario';
+  public carpetaImagen : string = 'temp';
 
   constructor(
     private _route: ActivatedRoute
@@ -99,8 +104,7 @@ export class AddUsuarioComponent implements OnInit {
     this.usuario.Username = this.formularioAddUsuario.value.nombre;
     this.usuario.Password = this.formularioAddUsuario.value.contrasenia;
     this.usuario.Email = this.formularioAddUsuario.value.correo;
-    this.usuario.Imagen = "nodisponible.png";
-
+    this.usuario.Imagen = this.imagenTrabajador;
 
     this._usuarioService.createUsuario(this.usuario).subscribe(
       response =>{
@@ -114,13 +118,7 @@ export class AddUsuarioComponent implements OnInit {
           })
         }
       }, error=>{
-            // swal(
-            //     'Error',
-            //     Utilidades.mensajeError(error),
-            //     'error'
-            // )
-
-            console.log(error);
+          Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       },
     )
   }
@@ -138,6 +136,7 @@ export class AddUsuarioComponent implements OnInit {
   }
 
   getTrabajadores(){
+
     this._trabajadorService.getTrabajadores().subscribe(
       response =>{
         if(response.trabajadores){
@@ -150,13 +149,17 @@ export class AddUsuarioComponent implements OnInit {
   }
 
 
-  onAddTrabajador(event){
-    this.usuario.IdTrabajador = event.IdTrabajador;
-      this.trabajador =this.trabajadores.find( value => (value.IdTrabajador == event.IdTrabajador));
-      this.imagenProducto =  this.url + 'getImage/'+ 'trabajadores' + '/' + 'sF-Km4sADI_PxxJl-FpgFHdVB2t.jpg';
-      $(".dropify-clear").click();
+  onChangeTrabajador(event : Trabajador){
 
-
+      if(isNull(event)) {
+          this.usuario.IdTrabajador = null;
+          this.imagenTrabajador = 'no-img.png';
+          this.carpetaImagen = 'temp';
+      } else {
+          this.usuario.IdTrabajador = event.IdTrabajador;
+          this.imagenTrabajador = event.Imagen;
+          this.carpetaImagen = 'trabajadores';
+      }
   }
 
   onAddRol(event){

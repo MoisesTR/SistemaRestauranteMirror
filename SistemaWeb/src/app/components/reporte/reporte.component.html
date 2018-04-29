@@ -33,17 +33,17 @@
               <!--Rotating card-->
               <mdb-card-rotating #card>
                 <!--Front Side-->
-                <div class="face front card tp-box_side tp-box_front" style="height: 90% !important;">
+                <div class="face front card tp-box_side tp-box_front card-height-productos">
                   <!-- Image-->
                   <div class="card-up card-image">
                     <div class="overlay hm-white-slight waves-light" mdbWavesEffect>
-                      <img src="{{url + 'productoGetImage/' + producto.Imagen}}" class="img-fluid" alt="" style="height:100%;min-width: 100% !important;">
+                      <img src="{{url + 'productoGetImage/' + producto.Imagen}}" class="img-fluid card-size-img" alt="">
                     </div>
                   </div>
                   <!--/.Image-->
 
                   <!--Content-->
-                  <div class="content" style="background: url('assets/img/landingpage/background-historia.jpg')no-repeat center center; height: 50% !important;">
+                  <div class="content card-background-img">
                     <a class="btn-floating orange-chang waves-light rotate-btn" mdbWavesEffect (click)="card.toggle()" style="margin-right: 0px;">
                       <i class="fa fa-eye" style="margin-left: -15px;margin-top: -15px;"></i>
                     </a>
@@ -62,7 +62,7 @@
                 <!--/.Front Side-->
 
                 <!--Back Side-->
-                <div class="face back tp-box_side tp-box_back">
+                <div class="face back tp-box_side tp-box_back card-height-productos">
                   <!--Title-->
                   <h4 class="card-title">{{producto.NombreProducto}}
                     <i class="fa fa-close rotate-btn" (click)="card.toggle()"></i>
@@ -78,15 +78,13 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="productos==null">
-            <div class="jumbotron jumbotron-fluid">
-              <div class="container">
-                <h1>PRODUCTOS</h1>
-                <p>No se encontraron productos registrados</p>
-              </div>
-            </div>
+          <div class="row" *ngIf="productos==null">            
+            <div class="container text-center">
+              <br>
+              <h1>PRODUCTOS</h1>
+              <p>No se encontraron productos registrados</p>
+            </div>        
           </div>
-
         </div>
       </div>
     </div>

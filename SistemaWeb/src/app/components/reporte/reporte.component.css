@@ -1,0 +1,13 @@
+.card-height-productos {
+  height: 90% !important;
+}
+
+.card-size-img {
+  height: 100%;
+  min-width: 100% !important;
+}
+
+.card-background-img {
+    background: url('../../../assets/img/landingpage/background-historia.jpg')no-repeat center center; 
+    height: 50% !important;
+}

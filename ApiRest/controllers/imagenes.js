@@ -20,8 +20,6 @@ function getImage(req, res) {
     var tipo = req.params.tipo;
     var img = req.params.img;
 
-    console.log(req.params);
-
     var pathImagen = path.resolve(__dirname, `../uploads/${tipo}/${img}`);
 
     if (fs.existsSync(pathImagen)) {

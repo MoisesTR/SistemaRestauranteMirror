@@ -37,7 +37,7 @@
                   <!-- Image-->
                   <div class="card-up card-image">
                     <div class="overlay hm-white-slight waves-light" mdbWavesEffect>
-                      <img src="{{url + 'productoGetImage/' + producto.Imagen}}" class="img-fluid card-size-img" alt="">
+                      <img src="{{url + 'getImagen/productos/' + (producto.Imagen == '' ? 'default.png' : producto.Imagen)}}" class="img-fluid card-size-img" alt="">
                     </div>
                   </div>
                   <!--/.Image-->

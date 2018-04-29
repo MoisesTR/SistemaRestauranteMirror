@@ -159,6 +159,7 @@ export class UpdateProductoComponent implements OnInit {
                   drEvent.on('dropify.afterClear', (event, element) => {
                       this.removioImagen = true;
                       this.filesToUpload = null;
+                      console.log('asdsadsa');
                   });
 
               });
@@ -189,11 +190,11 @@ export class UpdateProductoComponent implements OnInit {
 
   cargarImagen(){
 
-    if(!isUndefined(this.filesToUpload) && !isNull(this.filesToUpload)) {
+    if(!isNull(this.filesToUpload)) {
       this.removioImagen = false;
     }
 
-    if( !this.removioImagen && this.producto.Imagen) {
+    if( (!this.removioImagen && this.producto.Imagen) || isNull(this.filesToUpload)) {
         this.actualizarProducto();
     } else {
         this._uploadService.makeFileRequest(
@@ -234,7 +235,7 @@ export class UpdateProductoComponent implements OnInit {
     )
   }
 
-  public filesToUpload: Array<File>;
+  public filesToUpload: Array<File> = null;
   fileChangeEvent(fileInput:any){
     this.filesToUpload = <Array<File>>fileInput.target.files;
 

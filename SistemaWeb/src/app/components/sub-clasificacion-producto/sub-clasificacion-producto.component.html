@@ -92,6 +92,14 @@
             <show-errors [control]="formAddSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
           </div>
 
+          <div class="col-md-6">
+            <label for="clasificacion">Clasificación</label>
+            <ng-select [items]="clasificaciones" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
+                       formControlName="clasificacion" id="clasificacion" (add)="onAddSelectClasificacion($event)">
+
+            </ng-select>
+          </div>
+
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddSubClasificacion.valid">Ingresar
               <i class="fa fa-check ml-1"></i>
@@ -128,7 +136,6 @@
         <!-- Inicio form-->
         <form [formGroup]="formUpdateSubClasificacion" (ngSubmit)="updateSubClasificacion(modalUpdateSubClasificacion)">
 
-
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
             <input mdbActive type="text" id="upnombresubclasificacion" minlength="5" class="input-modal-sm" name="nombresubclasificacion"
@@ -143,6 +150,14 @@
               formControlName="descripcionSubClasificacion" required>
                   </textarea>
             <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
+          </div>
+
+          <div class="col-md-6">
+            <label for="clasificacion">Clasificación</label>
+            <ng-select [items]="clasificaciones" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
+                       formControlName="clasificacion" (add)="onAddSelectClasificacion($event)">
+
+            </ng-select>
           </div>
 
           <div class="text-center mt-1-half">

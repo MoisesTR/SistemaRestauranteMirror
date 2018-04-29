@@ -96,7 +96,6 @@ export class AddProductoProveedorComponent implements OnInit {
         , ordering: true
         , language: idioma_espanol
         , "bAutoWidth": false
-        , select: true
     };
 
     this.initFormProveedor();

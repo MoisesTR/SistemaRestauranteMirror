@@ -189,8 +189,7 @@ export class AddProductoComponent implements OnInit {
           })
         }
       }, error =>{
-        console.log(error);
-        //Utilidades.showMsgError(Utilidades.mensajeError(error));
+        Utilidades.showMsgError(Utilidades.mensajeError(error));
       }
     )
   }

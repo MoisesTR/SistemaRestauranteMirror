@@ -57,8 +57,8 @@ export class ListProductosComponent implements OnInit, OnDestroy {
                 text: 'Agregar Producto',
                 key: '1',
                 className: 'btn orange-chang float-right-dt',
-                action: function (e, dt, node, config) {
-                    alert('Button activated');
+                action:  (e, dt, node, config) => {
+                    this._router.navigate(['producto/add']);
                 }
             }
         ]

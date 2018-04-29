@@ -25,7 +25,7 @@
                   <br>
                   <div class="md-form" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top" popoverTitle="Selecciona al Proveedor"
                     triggers="mouseenter:mouseleave">
-                    <input mdbActive type="text" id="proveedor" class="form-control" formControlName="nombreProveedor" autocomplete="off" (click)="modalEncontrarProveedor.show()">
+                    <input mdbActive type="text" readonly id="proveedor" class="form-control" formControlName="nombreProveedor" autocomplete="off" (click)="modalEncontrarProveedor.show()">
                     <label for="proveedor">Nombre del Proveedor</label>
                   </div>
                   <show-errors [control]="formProveedor.controls['nombreProveedor']"></show-errors>

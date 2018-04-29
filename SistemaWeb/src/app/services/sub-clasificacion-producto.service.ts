@@ -3,6 +3,7 @@ import {Global} from './global';
 import 'rxjs/add/operator/map';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {SubClasificacionProducto} from '../models/SubClasificacionProducto';
 
 @Injectable()
 export class SubClasificacionProductoService {
@@ -34,7 +35,7 @@ export class SubClasificacionProductoService {
 
   }
 
-  updateSubClasificacionProducto(SubClasificacion) : Observable<any> {
+  updateSubClasificacionProducto(SubClasificacion : SubClasificacionProducto) : Observable<any> {
 
     let params = JSON.stringify(SubClasificacion);
     let headers = new HttpHeaders({

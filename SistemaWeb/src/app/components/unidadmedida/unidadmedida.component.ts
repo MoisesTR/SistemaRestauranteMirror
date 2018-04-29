@@ -13,6 +13,9 @@ import {ClasificacionProductoService} from '../../services/clasificacion-product
 import {ClasificacionUnidadMedidaService} from '../../services/clasificacion-unidad-medida.service';
 import {ClasificacionUnidadDeMedida} from '../../models/ClasificacionUnidadDeMedida';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
+import {isNull} from "util";
+
 declare var $:any;
 
 @Component({
@@ -24,22 +27,18 @@ declare var $:any;
 
 export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
-
   public unidadMedida : UnidadMedida;
   public unidadesMedida : UnidadMedida[];
   public clasificaciones: ClasificacionProducto[];
-  public mensaje : string;
   public formUpdateUnidadMedida: FormGroup;
   public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
-
-  tOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
+  public tituloPantalla : string = 'Unidad de Medida';
+  dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
   formAddUnidadMedida : FormGroup
 
-  public optionsSelect2 : Select2Options;
+  @ViewChild('modalAddUnidadMedida') modalAddUnidadMedida  : ModalDirective;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -105,15 +104,25 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
   }
 
   settingsDatatable(){
+
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
       this.dtOptions = <DataTables.Settings>{
-          autoWidth: false
-          , pagingType: 'full_numbers'
+          pagingType: 'full_numbers'
           , pageLength: 10
-          , 'lengthChange': false
-          , searching: true
-          , ordering: true
           , language: idioma_espanol
+          , 'lengthChange': false
           , responsive : true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action:  (e, dt, node, config) => {
+                      this.InvocarModal(this.modalAddUnidadMedida,this.formAddUnidadMedida);
+                  }
+              }
+          ]
       };
   }
 
@@ -200,118 +209,90 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
             this.getUnidadesMedidaRender();
           })
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar la categoria, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgInfo('Ha ocurrido un error al insertar la unidad, intentalo nuevamente',this.tituloPantalla);
         }
       },
       error=>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-
-        }
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
 
   }
 
-  getUnidaMedida(){
+  getUnidadesMedidaRender(){
 
-      this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
-        response => {
-          if(response.unidadesMedida){
-            this.unidadesMedida= response.unidadesMedida;
-            this.dtTrigger.next();
-          }
-        }, error =>{
+    this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
+      response=>{
+        if(response.unidadesmedida){
+          this.unidadesMedida = response.unidadesmedida;
+          this.rerender();
 
-        }
-      );
-    }
-
-
-    getUnidadesMedidaRender(){
-
-      this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
-        response =>{
-          if(response.unidadesmedida){
-            this.unidadesMedida = response.unidadesmedida;
-            this.rerender();
-
-          } else {
-
-          }
-        }, error =>{
+        } else {
 
         }
-      )
-    }
+      }, error =>{
 
-    getClasificaciones(){
-      this._clasificacionService.getClasificaciones().subscribe(
-        response =>{
-          if(response.clasificaciones){
-            this.clasificaciones = response.clasificaciones;
-          } else {
+      }
+    )
+  }
 
-          }
+  getClasificaciones(){
+    this._clasificacionService.getClasificaciones().subscribe(
+      response =>{
+        if(response.clasificaciones){
+          this.clasificaciones = response.clasificaciones;
+        } else {
+
         }
-      )
-    }
+      }
+    )
+  }
 
   deleteUnidadMedida(IdUnidad){
 
-    swal({
-      title: "Estas seguro(a)?",
-      text: "La categoria sera eliminada permanentemente!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
-    }).then((eliminar) => {
-      if (eliminar) {
-        this._UnidadMedidaServicio.deleteUnidadMedida(IdUnidad).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                'Eliminada!',
-                'La unidad de medida ha sido eliminada exitosamente',
-                'success'
-              ).then(() => {
-                this.getUnidadesMedidaRender();
-              })
-            } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
-            }
-          }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
-          }
-        )
-
-      }
-    });
-
+    // swal({
+    //   title: "Estas seguro(a)?",
+    //   text: "La categoria sera eliminada permanentemente!",
+    //   type: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Si, Eliminala!'
+    // }).then((eliminar) => {
+    //   if (eliminar) {
+    //     this._UnidadMedidaServicio.deleteUnidadMedida(IdUnidad).subscribe(
+    //       response =>{
+    //         if(response.success){
+    //           swal(
+    //             'Eliminada!',
+    //             'La unidad de medida ha sido eliminada exitosamente',
+    //             'success'
+    //           ).then(() => {
+    //             this.getUnidadesMedidaRender();
+    //           })
+    //         } else {
+    //           swal(
+    //             'Error inesperado',
+    //             'Ha ocurrido un error en la eliminación, intenta nuevamente!',
+    //             'error'
+    //           )
+    //         }
+    //       }, error =>{
+    //         if(error.status = 500){
+    //           swal(
+    //             'Error inesperado',
+    //             'Ha ocurrido un error en el servidor, intenta nuevamente!',
+    //             'error'
+    //           )
+    //         }
+    //       }
+    //     )
+    //
+    //   }
+    // });
   }
 
   updateUnidadMedida(Modal){
-
     Modal.hide();
   }
 
@@ -334,12 +315,13 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
     Modal.show();
   }
 
-  onAddSelectClasificacionesUnidad(event){
-    this.unidadMedida.IdClasificacionUnidadMedida = event.IdClasificacionUnidadMedida;
-  }
+  changeClasificacionUnidad(event) {
 
-  onAddUpdateUnidadMedida(event){
-    this.unidadMedida.IdClasificacionUnidadMedida = event.IdClasificacionUnidadMedida;
+      if(isNull(event)) {
+          this.unidadMedida.IdClasificacionUnidadMedida  = null;
+      } else {
+          this.unidadMedida.IdClasificacionUnidadMedida = event.IdClasificacionUnidadMedida;
+      }
   }
 
 }

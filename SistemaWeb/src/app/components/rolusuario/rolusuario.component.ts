@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
 
 declare var $:any;
 
@@ -24,14 +25,15 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
   public roles: RolUsuario[];
   public formAddRolUsuario: FormGroup;
   public formUpdateRolUsuario: FormGroup;
+  public tituloPantalla : string = 'Rol';
 
   dtOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  @ViewChild(DataTableDirective)
-    dtElement: DataTableDirective;
+  @ViewChild('modalAddRol') modalAddRol : ModalDirective;
+  @ViewChild('modalUpdateRol') modalUpdateRol : ModalDirective;
+
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
   constructor(
     private _route: ActivatedRoute
@@ -45,18 +47,34 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
 
   ngOnInit() {
 
-    this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , language: idioma_espanol
-      , responsive : true
-    };
-
+    this.settingsDatatable();
     this.getRoles();
     this.initFormAddRolUsuario();
     this.initFormUpdateRolUsuario();
 
+  }
+
+  settingsDatatable() {
+
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive: true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action: (e, dt, node, config) => {
+                      this.InvocarModal(this.modalAddRol,this.formAddRolUsuario);
+                  }
+              }
+          ]
+      };
   }
 
   getRoles(){
@@ -79,20 +97,6 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-  }
-
-  getRol(){
-
-    this._RolusuarioService.getRoles().subscribe(
-      response => {
-        if(response.roles){
-          this.roles= response.roles;
-          this.dtTrigger.next();
-        }
-      }, error =>{
-
-      }
-    );
   }
 
   getRolesRender(){
@@ -150,14 +154,11 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
   }
 
   getValuesFormAddRolUsuario(){
-
     this.rol.NombreRol = this.formAddRolUsuario.value.nombreRol;
     this.rol.DescripcionRol = this.formAddRolUsuario.value.descripcionRol;
-
   }
 
   getValuesFormUpdateRolUsuario(){
-
     this.rol.NombreRol= this.formUpdateRolUsuario.value.nombreRol;
     this.rol.DescripcionRol = this.formUpdateRolUsuario.value.descripcionRol;
   }
@@ -182,67 +183,41 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar rol, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+         Utilidades.showMsgInfo('Ha ocurrido un error al insertar el rol, intentalo nuevamente',this.tituloPantalla);
 
         }
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-        }
-
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
   }
 
   updateRolUsuario(){
 
-    //Descomentar cuando el metodo para actualizar en la api este listo
+    this.getValuesFormUpdateRolUsuario();
 
-    // this.getValuesFormUpdateRolUsuario();
-    // this._RolusuarioService.updateRol(RolUsuario).subscribe(
-    //   response =>{
-    //     if(response){
-    //       console.log(response)
-    //       swal(
-    //         'Rol',
-    //         'El rol ha sido actualizado exitosamente!',
-    //         'success'
-    //       ).then(() => {
-    //         $('#modalUpdateRol').modal('toggle');
-    //         this.formUpdateRolUsuario.reset();
-    //         this.getRolesRender();
-    //       })
-    //
-    //
-    //     } else {
-    //       swal(
-    //         'Error inesperado',
-    //         'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-    //         'error'
-    //       )
-    //     }
-    //   }, error =>{
-    //     if (error.status == 500) {
-    //       swal(
-    //         'Error inesperado',
-    //         'Ha ocurrido un error en el servidor, intenta nuevamente!',
-    //         'error'
-    //       )
-    //     }
-    //   }
-    // )
-    //
-    // this.rol = new RolUsuario(null,null,null,null,null,null);
+    this._RolusuarioService.updateRol(this.rol).subscribe(
+      response =>{
+        if(response.success){
+          swal(
+            'Rol',
+            'El rol ha sido actualizado exitosamente!',
+            'success'
+          ).then(() => {
+            this.modalUpdateRol.hide();
+            this.formUpdateRolUsuario.reset();
+            this.getRolesRender();
+          })
+
+        } else {
+          Utilidades.showMsgInfo('Ha ocurrido un error inesperado al actualizar, intentalo nuevamente',this.tituloPantalla);
+        }
+      }, error =>{
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }
+    )
+
+    this.rol = new RolUsuario();
 
   }
 
@@ -294,7 +269,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
     Utilidades.invocacionModal(Modal,Formulario);
   }
 
-  invocarModalUpdate(Modal,Rol) {
+  invocarModalUpdate(Modal,Rol : RolUsuario) {
 
       this.rol.IdRol  = Rol.IdRol;
       this.rol.NombreRol = Rol.NombreRol;

@@ -21,22 +21,19 @@ declare var $:any;
 })
 export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
-
-
   public categoriaProducto: CategoriaProducto;
   public categoriasProductos: CategoriaProducto[];
   @ViewChild('autoShownModal') public autoShownModal:ModalDirective;
-  public isModalShown:boolean = true;
+  @ViewChild('modalAddCategoria') modalAddCategoria : ModalDirective;
 
   dtOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   public formAddCategoria: FormGroup;
   public formUpdateCategoria:FormGroup;
+  public tituloPantalla = 'Categoria';
 
   constructor(
     private _route: ActivatedRoute
@@ -49,33 +46,35 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
 
   ngOnInit() {
-
     this.settingsDatatable();
     this.getCategorias();
     this.initFormAddCategoria();
     this.initFormUpdateCategoria();
 
-    this.onChanges();
-  }
-
-  cleanForm(){
-    this.formAddCategoria.reset();
-  }
-  onChanges(): void {
-    this.formAddCategoria.valueChanges.subscribe(val => {
-    });
   }
 
   settingsDatatable(){
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
-    this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , language: idioma_espanol
-      , 'lengthChange': false
-      , responsive : true
-    };
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive : true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action:  (e, dt, node, config) => {
+                      // this._router.navigate(['producto/add']);
+                      this.InvocarModal(this.modalAddCategoria,this.formAddCategoria);
+                  }
+              }
+          ]
+      };
   }
 
   rerender(): void {
@@ -157,14 +156,11 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
   }
 
   getValuesFormAddCategoria(){
-
     this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
     this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
-
   }
 
   getValuesFormUpdateCategoria(){
-
     this.categoriaProducto.NombreCategoria = this.formUpdateCategoria.value.nombreCategoria;
     this.categoriaProducto.DescripcionCategoria = this.formUpdateCategoria.value.descripcionCategoria;
   }
@@ -177,70 +173,23 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
       response => {
 
         if (response.IdCategoria) {
-
           swal(
             'Categoría',
             'La categoría ha sido creada exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddCategoria').modal('toggle');
+            this.modalAddCategoria.hide();
             this.formAddCategoria.reset();
             this.categoriaProducto = new CategoriaProducto();
             this.getCategoriasRender();
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar la categoria, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
+            Utilidades.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
         }
-       /* this.getCategoriasProductos();*/
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-        }
-
+          Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla)
       }
-    )
-  }
-
-  getCategoriaProducto(IdCategoria){
-
-    this._categoriaProductoServicio.getCategoriaProducto(IdCategoria).subscribe(
-      response => {
-
-        if(!response.categoria){
-
-        } else {
-          this.categoriaProducto = response.categoria;
-        }
-      },error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  getCategoriasProductos(){
-    this._categoriaProductoServicio.getCategoriasProductos().subscribe(
-      response => {
-
-        if(!response.Categorias){
-          console.log('Ha ocurrido un error');
-        } else {
-          this.categoriasProductos = response.categorias;
-        }
-      },error => {
-        console.log(<any>error);
-    }
     )
   }
 
@@ -262,20 +211,10 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgError('Ha ocurrido un error inesperado en la actualización , intenta nuevamente');
         }
       }, error =>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
+          Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
 

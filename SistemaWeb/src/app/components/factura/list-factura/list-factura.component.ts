@@ -17,6 +17,7 @@ export class ListFacturaComponent implements OnInit {
 
   public facturas: Factura[];
   public productos: Producto[];
+  public tituloPantalla : string = 'Factura';
 
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
@@ -37,24 +38,35 @@ export class ListFacturaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.settingsDatatables();
+    this.settingsDatatable();
     // this.getFacturas();
     this.getProductos();
 
   }
 
-  settingsDatatables(){
+  settingsDatatable() {
 
-    /*PROPIEDADES GENERALES DE LA DATATABLE*/
-    this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , language: idioma_espanol
-      , responsive : true
-    };
-
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive: true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action: (e, dt, node, config) => {
+                      this._router.navigate(['factura/add'])
+                  }
+              }
+          ]
+      };
   }
+
   getFacturas(){
 
     this._facturaService.getFacturas().subscribe(

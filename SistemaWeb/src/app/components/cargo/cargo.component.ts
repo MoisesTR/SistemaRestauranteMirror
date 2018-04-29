@@ -9,6 +9,8 @@ import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {idioma_espanol} from '../../services/global';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
+
 declare var $:any;
 
 @Component({
@@ -21,17 +23,17 @@ export class CargoComponent implements OnInit, InvocarFormulario {
 
   public cargo : Cargo;
   public cargos: Cargo[];
-  public mensaje : string;
   public formAddCargo: FormGroup;
   public formUpdateCargo: FormGroup;
+  public tituloPantalla : string = 'Cargo';
 
   dtOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+  @ViewChild('modalAddCargo') modalAddCargo  : ModalDirective;
+  @ViewChild('modalUpdateCargo') modalUpdateCargo  : ModalDirective;
+
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
   constructor(
     private _route: ActivatedRoute,
@@ -53,18 +55,26 @@ export class CargoComponent implements OnInit, InvocarFormulario {
 
   }
 
-  settingsDatatable(){
+  settingsDatatable() {
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
     this.dtOptions = <DataTables.Settings>{
-        autoWidth: false
-        , pagingType: 'full_numbers'
+        pagingType: 'full_numbers'
         , pageLength: 10
-        , 'lengthChange': false
-        , searching: true
-        , ordering: true
         , language: idioma_espanol
-        , responsive : true
+        , 'lengthChange': false
+        , responsive: true
+        , dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Agregar',
+                key: '1',
+                className: 'btn orange-chang float-right-dt',
+                action: (e, dt, node, config) => {
+                    this.InvocarModal(this.modalAddCargo,this.formAddCargo);
+                }
+            }
+        ]
     };
   }
 
@@ -144,10 +154,8 @@ export class CargoComponent implements OnInit, InvocarFormulario {
   }
 
   getValuesFormAddCargo(){
-
     this.cargo.NombreCargo = this.formAddCargo.value.nombreCargo;
     this.cargo.DescripcionCargo = this.formAddCargo.value.descripcionCargo;
-
   }
 
   getValuesFormUpdateCargo(){
@@ -168,31 +176,17 @@ export class CargoComponent implements OnInit, InvocarFormulario {
             'El Cargo ha sido creado exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddCargo').modal('toggle');
+            this.modalAddCargo.hide();
             this.formAddCargo.reset();
             this.cargo = new Cargo();
             this.getCargosRender();
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar Cargo, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+          Utilidades.showMsgInfo('Ha ocurrido un error al insertar el cargo, intentalo nuevamente',this.tituloPantalla);
         }
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-          console.log(error);
-        }
-
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
   }
@@ -209,25 +203,15 @@ export class CargoComponent implements OnInit, InvocarFormulario {
             'El cargo ha sido actualizado exitosamente!',
             'success'
           ).then(() => {
-            $('#modalUpdateCargo').modal('toggle');
+            this.modalUpdateCargo.hide();
             this.formUpdateCargo.reset();
             this.getCargosRender();
           })
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgInfo('Ha ocurrido un error inesperado en la actualización',this.tituloPantalla);
         }
       }, error =>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
+       Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
     this.cargo = new Cargo();
@@ -283,7 +267,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
     Utilidades.invocacionModal(Modal,Formulario);
   }
 
-  invocarModalUpdate(Modal, Cargo) {
+  invocarModalUpdate(Modal, Cargo : Cargo) {
 
       this.cargo.IdCargo  = Cargo.IdCargo;
       this.cargo.NombreCargo = Cargo.NombreCargo;

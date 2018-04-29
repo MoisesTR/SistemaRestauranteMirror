@@ -12,6 +12,7 @@ import {TelefonosucursalService} from '../../services/telefonosucursal.service';
 import {TelefonoSucursal} from '../../models/TelefonoSucursal';
 import {isNull} from 'util';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
 
 declare var $:any;
 
@@ -31,8 +32,11 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
 
   public formAddSucursal: FormGroup;
   public formUpdateSucursal: FormGroup;
-
+  public tituloPantalla : string = 'Sucursal';
   public Telefonos  : TelefonoSucursal [] = [];
+
+  @ViewChild('modalAddSucursal') modalAddSucursal : ModalDirective;
+
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -96,19 +100,27 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
 
   }
 
-  settingsDatatable(){
+  settingsDatatable() {
 
-    /*PROPIEDADES GENERALES DE LA DATATABLE*/
-    this.dtOptions = <DataTables.Settings>{
-        autoWidth: false
-        , pagingType: 'full_numbers'
-        , pageLength: 10
-        , 'lengthChange': false
-        , searching: true
-        , ordering: true
-        , language: idioma_espanol
-        , responsive : true
-    };
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive: true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action: (e, dt, node, config) => {
+                      this.InvocarModal(this.modalAddSucursal, this.formAddSucursal);
+                  }
+              }
+          ]
+      };
   }
 
   rerender(): void {
@@ -123,13 +135,13 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
     this._sucursalService.getSucursales().subscribe(
       response => {
 
-        if(!response.sucursales){
-
-        } else {
+        if(response.sucursales) {
           this.sucursales = response.sucursales;
+        } else {
+          Utilidades.showMsgInfo('Ha ocurrido un error al obtener las sucursales',this.tituloPantalla);
         }
       },error => {
-        console.log(<any>error);
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
   }

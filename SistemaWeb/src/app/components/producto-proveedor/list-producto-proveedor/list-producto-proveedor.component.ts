@@ -21,7 +21,6 @@ export class ListProductoProveedorComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
-  public mostrarModal : boolean = false;
 
   constructor(
     private _route: ActivatedRoute
@@ -38,19 +37,27 @@ export class ListProductoProveedorComponent implements OnInit {
 
   }
 
+  settingsDatatable() {
 
-  settingsDatatable(){
-
-    this.dtOptions = <DataTables.Settings>{
-      autoWidth: false
-      , pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , searching: true
-      , ordering: true
-      , language: idioma_espanol
-      , responsive : true
-    };
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive: true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action: (e, dt, node, config) => {
+                      this._router.navigate(['producto-proveedor/add']);
+                  }
+              }
+          ]
+      };
   }
 
   getProductosProveedor(){
@@ -68,12 +75,4 @@ export class ListProductoProveedorComponent implements OnInit {
       }
     )
   }
-
-  // valorModal(event: boolean){
-  //   this.mostrarModal = false;
-  // }
-  //
-  // clicks(){
-  //   this.mostrarModal = true;
-  // }
 }

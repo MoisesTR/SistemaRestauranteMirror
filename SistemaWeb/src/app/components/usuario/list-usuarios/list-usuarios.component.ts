@@ -15,14 +15,13 @@ import {idioma_espanol} from "../../../services/global";
 export class ListUsuariosComponent implements OnInit {
 
   public usuarios : Usuario[];
-  tOptions: DataTables.Settings = {};
+  dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
+  public tituloPantalla : string = 'Usuario';
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-  @ViewChild(DataTableDirective)
-  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective) dtOptions: DataTables.Settings = {};
 
   constructor(
     private _route: ActivatedRoute
@@ -32,20 +31,33 @@ export class ListUsuariosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+   this.settingsDatatable();
+   this.getUsuarios();
 
-    this.dtOptions = <DataTables.Settings>{
-        autoWidth: false
-        , pagingType: 'full_numbers'
-        , pageLength: 10
-        , 'lengthChange': false
-        , searching: true
-        , ordering: true
-        , language: idioma_espanol
-        , responsive : true
-    };
-    
-    this.getUsuarios();
   }
+
+ settingsDatatable() {
+
+    /*PROPIEDADES GENERALES DE LA DATATABLE*/
+    this.dtOptions = <DataTables.Settings>{
+        pagingType: 'full_numbers'
+        , pageLength: 10
+        , language: idioma_espanol
+        , 'lengthChange': false
+        , responsive: true
+        , dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Agregar',
+                key: '1',
+                className: 'btn orange-chang float-right-dt',
+                action: (e, dt, node, config) => {
+                    this._router.navigate(['usuario/add']);
+                }
+            }
+        ]
+    };
+ }
 
 
   getUsuarios(){

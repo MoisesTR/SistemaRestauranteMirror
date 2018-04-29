@@ -1,4 +1,4 @@
-  import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {EmpaqueService} from '../../services/empaque.service';
 import {Empaque} from '../../models/Empaque';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,8 +8,8 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {idioma_espanol} from '../../services/global';
 import {CustomValidators} from '../../validadores/CustomValidators';
-  import {UtilService} from '../../typescripts/pro/date-picker';
-  import {Utilidades} from '../Utilidades';
+import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
 
 declare var $:any;
 
@@ -21,21 +21,18 @@ declare var $:any;
 })
 export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
-
-
   public empaque: Empaque;
   public empaques: Empaque[];
-  public mensaje : string;
+  public tituloPantalla : string = 'Empaque';
 
   public formAddEmpaque: FormGroup;
   public formUpdateEmpaque: FormGroup;
 
-  dtOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject<any>();
+  @ViewChild('modalAddEmpaque') modalAddEmpaque : ModalDirective;
 
-   @ViewChild(DataTableDirective)
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   constructor(
@@ -87,14 +84,25 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
   settingsDatatable(){
 
-    /*PROPIEDADES GENERALES DE LA DATATABLE*/
-    this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , language: idioma_espanol
-      , responsive : true
-    };
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive : true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action:  (e, dt, node, config) => {
+                      this.InvocarModal(this.modalAddEmpaque,this.formAddEmpaque);
+                  }
+              }
+          ]
+      };
   }
 
   rerender(): void {
@@ -132,9 +140,6 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
       }
     );
   }
-
-
-
 
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddEmpaque(){
@@ -198,31 +203,16 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar Empaque, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
+          Utilidades.showMsgInfo('Ha ocurrido un error el insertar el empaque, intenta nuevamnete!!',this.tituloPantalla);
         }
         this.getEmpaquesProductos();
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-        }
-
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
   }
 
   getValuesFormAddEmpaque(){
-
     this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
     this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
   }
@@ -236,12 +226,12 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
       response => {
 
         if(!response.empaques){
-          console.log('Ha ocurrido un error');
+          Utilidades.showMsgInfo('Ha ocurrido un error al obtener los empaques',this.tituloPantalla);
         } else {
           this.empaques = response.empaques;
         }
       },error => {
-        console.log(<any>error);
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
     }
     )
   }
@@ -263,20 +253,10 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgInfo('Ha ocurrido un error en la actualización',this.tituloPantalla);
         }
       }, error =>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
     this.empaque = new Empaque();
@@ -332,8 +312,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
     Utilidades.invocacionModal(Modal,Formulario);
   }
 
-  invocarModalUpdate(Modal,Empaque){
-
+  invocarModalUpdate(Modal,Empaque : Empaque){
 
       this.empaque.IdEmpaque  = Empaque.IdEmpaque;
       this.empaque.NombreEmpaque = Empaque.NombreEmpaque;

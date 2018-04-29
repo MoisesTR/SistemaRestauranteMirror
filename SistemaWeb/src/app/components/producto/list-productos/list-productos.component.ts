@@ -48,10 +48,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
       , language: idioma_espanol
       , 'lengthChange': false
       , responsive : true
-        // Declare the use of the extension in the dom parameter
-        //
         , dom: 'Bfrtip',
-        // Configure the buttons
         buttons: [
             {
                 text: 'Agregar Producto',

@@ -9,6 +9,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {idioma_espanol} from '../../services/global';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
 
 declare var $:any;
 
@@ -20,10 +21,11 @@ declare var $:any;
 })
 export class ProveedorComponent implements OnInit ,InvocarFormulario{
 
-
   public proveedor: Proveedor;
   public proveedores: Proveedor[];
-  public mensaje: string;
+  public tituloPantalla : string = 'Proveedor';
+
+  @ViewChild('modalAddProveedor') modalAddProveedor : ModalDirective;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -32,7 +34,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  addForm: FormGroup;
+  formAddProveedor: FormGroup;
   updateForm: FormGroup;
 
   constructor(private _route: ActivatedRoute
@@ -73,22 +75,35 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
 
     });
 
-    this.dtOptions = <DataTables.Settings>{
-      autoWidth: false
-      , pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , searching: true
-      , ordering: true
-      , language: idioma_espanol
-      , responsive : true
-    };
-    $('.telefono').mask('0000-0000');
-
+    this.settingsDatatable();
     this.getProveedores();
     this.initFormAdd();
     this.initFormUpdate()
 
+    $('.telefono').mask('0000-0000');
+  }
+
+  settingsDatatable() {
+
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive: true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action: (e, dt, node, config) => {
+                      this.InvocarModal(this.modalAddProveedor, this.formAddProveedor);
+                  }
+              }
+          ]
+      };
   }
 
   ngAfterViewInit(): void {
@@ -124,35 +139,21 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
       response => {
 
         if (response.IdProveedor) {
-
           swal(
             'Proveedor',
             'El proveedor ha sido creado exitosamente!',
             'success'
           ).then(() => {
             Modal.hide();
-            this.addForm.reset();
+            this.formAddProveedor.reset();
             this.getProveedores();
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar el producto, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
+          Utilidades.showMsgInfo('Ha ocurrido un error al insertar el proveedor, intentalo nuevamente',this.tituloPantalla);
         }
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-        }
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
 
       }
     )
@@ -160,12 +161,12 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
   }
 
   capturarDadosProveedor() {
-    this.proveedor.NombreProveedor = this.addForm.value.nombreProveedor;
-    this.proveedor.NombreRepresentante = this.addForm.value.nombreRepresentante;
-    this.proveedor.Descripcion = this.addForm.value.descripcionProveedor;
-    this.proveedor.Direccion = this.addForm.value.direccionProveedor;
-    this.proveedor.Telefono = this.addForm.value.telefonoProveedor;
-    this.proveedor.Email = this.addForm.value.correoProveedor;
+    this.proveedor.NombreProveedor = this.formAddProveedor.value.nombreProveedor;
+    this.proveedor.NombreRepresentante = this.formAddProveedor.value.nombreRepresentante;
+    this.proveedor.Descripcion = this.formAddProveedor.value.descripcionProveedor;
+    this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
+    this.proveedor.Telefono = this.formAddProveedor.value.telefonoProveedor;
+    this.proveedor.Email = this.formAddProveedor.value.correoProveedor;
   }
 
   capturarDatosActualizados(){
@@ -193,21 +194,11 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
             this.getProveedores();
           })
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgInfo('Ha ocurrido un error al actualizar',this.tituloPantalla);
         }
       }, error =>{
-        console.log(error)
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
+       Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+
       }
     )
 
@@ -234,16 +225,14 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
                 'El proveedor ha sido eliminado exitosamente',
                 'success'
               ).then( () => {
-                this.addForm.reset();
+                this.formAddProveedor.reset();
                 this.getProveedores();
               })
             } else {
               console.log('Ha ocurrido un error, intenta nuevamente')
             }
           }, error =>{
-              if(error.status = 500){
-                console.log('Ha ocurrido un error en el servidor')
-              }
+              Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }
         )
 
@@ -298,7 +287,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
   }
 
   initFormAdd(){
-    this.addForm = this._formBuilderProveedor.group({
+    this.formAddProveedor = this._formBuilderProveedor.group({
       'nombreProveedor': new FormControl('', [
         Validators.required,
         Validators.minLength(5),
@@ -338,7 +327,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
   }
 
 
-  invocarModalUpdate(Modal,Proveedor){
+  invocarModalUpdate(Modal,Proveedor : Proveedor){
 
       this.updateForm.reset();
 

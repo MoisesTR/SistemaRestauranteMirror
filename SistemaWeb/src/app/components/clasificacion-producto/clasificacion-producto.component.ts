@@ -9,6 +9,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {idioma_espanol} from '../../services/global';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
 
 declare var $:any;
 
@@ -27,12 +28,13 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
   public formUpdateClasificacion: FormGroup;
 
   dtOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
+  @ViewChild('modalAddClasificacion') modalAddClasificacion : ModalDirective;
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
+
+  public tituloPantalla : string = 'Clasificación';
 
   constructor(
     private _route: ActivatedRoute
@@ -40,19 +42,12 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
     , private _clasificacionService : ClasificacionProductoService
     , private formBuilderClasificacion : FormBuilder
   ) {
-    this.initConstructorClasificacion();
-
+      this.clasificacion = new ClasificacionProducto();
   }
 
   ngOnInit() {
 
-    this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , language: idioma_espanol
-      , 'lengthChange': false
-      , responsive : true
-    };
+    this.settingsDatatable();
 
     this._clasificacionService.getClasificaciones().subscribe(
       response => {
@@ -70,6 +65,29 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
 
   }
 
+  settingsDatatable(){
+
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive : true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action:  (e, dt, node, config) => {
+                      this.InvocarModal(this.modalAddClasificacion,this.formAddClasificacion);
+                  }
+              }
+          ]
+      };
+  }
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -77,10 +95,6 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-  }
-
-  private initConstructorClasificacion() {
-    this.clasificacion = new ClasificacionProducto();
   }
 
   createClasificacion(){
@@ -97,32 +111,20 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
             'La clasificación ha sido creada exitosamente!',
             'success'
           ).then(() => {
-            $('#modalAddClasificacion').modal('toggle');
+            this.modalAddClasificacion.hide();
             this.formAddClasificacion.reset();
             this.clasificacion = new ClasificacionProducto();
             this.getClasificacionesRender();
           })
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar la categoria, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
         }
       },
       error=>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-        }
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
     this.formAddClasificacion.reset;
-
   }
 
   getClasificacion(){
@@ -137,7 +139,7 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
 
         }
       );
-    }
+  }
 
   getClasificacionesRender(){
     this._clasificacionService.getClasificaciones().subscribe(
@@ -190,80 +192,6 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
     });
   }
 
-  createClasificacionProducto(){
-    this.getValuesFormAddClasificacion();
-
-    this._clasificacionService.createClasificacionProducto(this.clasificacion).subscribe(
-      response => {
-
-        if (response.IdClasficcacion) {
-
-          swal(
-            'Clasificacion',
-            'La clasificación ha sido creada exitosamente!',
-            'success'
-          ).then(() => {
-            $('#modalAddClasificacion').modal('toggle');
-            this.formAddClasificacion.reset();
-            this.clasificacion = new ClasificacionProducto();
-            this.getClasificacionesRender();
-          })
-
-        } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar la clasificacion, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
-        }
-        this.getClasificacion();
-      }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-        }
-
-      }
-    )
-  }
-
-  getClasificacionProducto(IdClasificacion){
-
-    this._clasificacionService.getClasificacionProducto(IdClasificacion).subscribe(
-      response => {
-
-        if(!response.clasificacion){
-
-        } else {
-          this.clasificacion = response.clasificacion;
-        }
-      },error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  getClasificaciones(){
-    this._clasificacionService.getClasificaciones().subscribe(
-      response => {
-
-        if(!response.clasificaciones){
-          console.log('Ha ocurrido un error');
-        } else {
-          this.clasificaciones = response.clasificaciones;
-        }
-      },error => {
-        console.log(<any>error);
-    }
-    )
-  }
-
   updateClasificacion(Modal){
 
     this.getValuesFormUpdateClasificacion();
@@ -283,20 +211,10 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
 
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualización, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgError('Ha ocurrido un error inesperado al actualizar la categoria, intenta nuevamnte!!',this.tituloPantalla);
         }
       }, error =>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
 

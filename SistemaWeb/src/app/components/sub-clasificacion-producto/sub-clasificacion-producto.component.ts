@@ -11,6 +11,8 @@ import swal from 'sweetalert2';
 import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
 import {ClasificacionProducto} from '../../models/ClasificacionProducto';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
+import {isNull} from "util";
 
 declare var $:any;
 
@@ -28,6 +30,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
   public subclasificaciones: SubClasificacionProducto[];
   public clasificaciones: ClasificacionProducto;
 
+  @ViewChild('modalAddSubclasificacion') modalAddSubclasificacion : ModalDirective;
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -35,6 +38,8 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
   formAddSubClasificacion : FormGroup;
   formUpdateSubClasificacion: FormGroup;
+
+  public tituloPantalla  : string  = 'Subclasificación';
 
   constructor(
     private _route: ActivatedRoute
@@ -88,22 +93,32 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     })
   }
 
-  settingsDatatables(){
-    this.dtOptions = <DataTables.Settings>{
-      autoWidth: false
-      , pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , searching: true
-      , ordering: true
-      , language: idioma_espanol
-      , responsive : true
-    };
+  settingsDatatable(){
 
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive : true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action:  (e, dt, node, config) => {
+                      this.InvocarModal(this.modalAddSubclasificacion,this.formAddSubClasificacion);
+                  }
+              }
+          ]
+      };
   }
+
   ngOnInit() {
 
-    this.settingsDatatables();
+    this.settingsDatatable();
 
     //Investigar que la longitud sea extensa en la mascara
     $('.letras').mask('Aaaaaa ',{'translation': {
@@ -162,7 +177,6 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
   capturarDatosIngresados(){
     this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
-
   }
 
   createSubCasificacion(Modal){
@@ -171,7 +185,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
     this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
       response => {
-        if (response.IdSubClasificacion) {
+        if (response.IdSubclasificacion) {
           swal(
             'Subclasificación',
             'la Subclasificación ha sido creado exitosamente!',
@@ -181,28 +195,15 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
             this.formAddSubClasificacion.reset();
           })
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar el producto, intenta nuevamente!',
-            'error'
-          )
+            Utilidades.showMsgError('Ha ocurrido un error al insertar la subclasificación, intenta nuevamente!',this.tituloPantalla);
         }
         this.getSubClasificacionesRender();
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-
-        }
-
+          console.log(error);
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
     this.subclasificacion = new SubClasificacionProducto();
-
   }
 
   capturarDatosActualizados(){
@@ -223,32 +224,18 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
           ).catch(swal.noop).then( () => {
             Modal.hide();
             this.formUpdateSubClasificacion.reset();
+            this.getSubClasificacionesRender();
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-            'error'
-          )
+          Utilidades.showMsgError('Ha ocurrido un error en la actualización, intentalo nuevamente',this.tituloPantalla);
         }
       }, error =>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-            console.log(error);
-        }
+       Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
-
     this.subclasificacion = new SubClasificacionProducto();
-
   }
-
-
 
   deleteSubClasificacion(IdSubClasificacion){
    /* swal({
@@ -293,32 +280,27 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
         if(response.clasificaciones){
           this.clasificaciones = response.clasificaciones;
         } else {
-          console.log('Ha ocurrido un error obteniendo las clasificaciones');
+          Utilidades.showMsgInfo('Ha ocurrido un error obteniendo las clasificaciones',this.tituloPantalla);
         }
 
       }, error => {
-        console.log(<any>error);
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
   }
 
-  onAddSelectClasificacion(event){
-    this.subclasificacion.IdClasificacion = event.IdClasificacion;
-  }
-  onUpdateSelectClasificacion(event){
-    this.subclasificacion.IdClasificacion = event.IdClasificacion;
 
-  }
 
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
   }
 
-  invocarModalUpdateSubClasificacion(Modal,Subclasificacion){
+  invocarModalUpdateSubClasificacion(Modal,Subclasificacion : SubClasificacionProducto){
 
     this.subclasificacion.IdSubClasificacion = Subclasificacion.IdSubClasificacion;
     this.subclasificacion.NombreSubClasificacion = Subclasificacion.NombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = Subclasificacion.DescripcionSubClasificacion;
+    this.subclasificacion.IdClasificacion = Subclasificacion.IdClasificacion;
 
     this.formUpdateSubClasificacion.reset();
     this.formUpdateSubClasificacion.setValue({
@@ -326,7 +308,16 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
         , descripcionSubClasificacion: Subclasificacion.DescripcionSubClasificacion
         , clasificacion : Subclasificacion.IdClasificacion
     })
+
     Modal.show();
 
+  }
+
+  onChangeClasificacion(event){
+      if(isNull(event)) {
+          this.subclasificacion.IdClasificacion  = null;
+      } else {
+          this.subclasificacion.IdClasificacion = event.IdClasificacion;
+      }
   }
 }

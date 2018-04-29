@@ -21,8 +21,6 @@ export class ListTrabajadorComponent implements OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
@@ -32,16 +30,7 @@ export class ListTrabajadorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this.dtOptions = <DataTables.Settings>{
-      pagingType: 'full_numbers'
-      , pageLength: 10
-      , 'lengthChange': false
-      , language: idioma_espanol
-      , responsive : true
-    };
-
-
+    this.settingsDatatable();
     this.getTrabajadores();
   }
   
@@ -62,15 +51,27 @@ export class ListTrabajadorComponent implements OnInit {
     )
   }
 
-  getTrabajador(){
+  settingsDatatable() {
 
+      /*PROPIEDADES GENERALES DE LA DATATABLE*/
+      this.dtOptions = <DataTables.Settings>{
+          pagingType: 'full_numbers'
+          , pageLength: 10
+          , language: idioma_espanol
+          , 'lengthChange': false
+          , responsive: true
+          , dom: 'Bfrtip',
+          buttons: [
+              {
+                  text: 'Agregar',
+                  key: '1',
+                  className: 'btn orange-chang float-right-dt',
+                  action: (e, dt, node, config) => {
+                      this._router.navigate(['trabajador/add']);
+                  }
+              }
+          ]
+      };
   }
-
-  deleteTrabajador(IdTrabajador){
-
-  }
-
-
-
 
 }

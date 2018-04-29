@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utilidades} from '../Utilidades';
+import {ModalDirective} from '../../typescripts/free/modals';
 declare var $:any;
 
 @Component({
@@ -21,7 +22,6 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
   public envase : Envase;
   public envases: Envase[];
-  public mensaje : string;
 
   public formAddEnvase: FormGroup;
   public formUpdateEnvase: FormGroup;
@@ -30,6 +30,8 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+
+  @ViewChild('modalAddEnvase') modalAddEnvase : ModalDirective;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -82,14 +84,25 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
     settingsDatatable(){
 
-      /*PROPIEDADES GENERALES DE LA DATATABLE*/
-      this.dtOptions = <DataTables.Settings>{
-        pagingType: 'full_numbers'
-        , pageLength: 10
-        , 'lengthChange': false
-        , language: idioma_espanol
-        , responsive : true
-      };
+        /*PROPIEDADES GENERALES DE LA DATATABLE*/
+        this.dtOptions = <DataTables.Settings>{
+            pagingType: 'full_numbers'
+            , pageLength: 10
+            , language: idioma_espanol
+            , 'lengthChange': false
+            , responsive : true
+            , dom: 'Bfrtip',
+            buttons: [
+                {
+                    text: 'Agregar',
+                    key: '1',
+                    className: 'btn orange-chang float-right-dt',
+                    action:  (e, dt, node, config) => {
+                        this.InvocarModal(this.modalAddEnvase,this.formAddEnvase);
+                    }
+                }
+            ]
+        };
     }
 
  rerender(): void {
@@ -175,30 +188,24 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
   }
 
   getValuesFormAddEnvase(){
-
     this.envase.NombreEnvase = this.formAddEnvase.value.nombreEnvase;
     this.envase.Descripcion = this.formAddEnvase.value.descripcionEnvase;
 
   }
 
   getValuesFormUpdateEnvase(){
-
     this.envase.NombreEnvase= this.formUpdateEnvase.value.nombreEnvase;
     this.envase.Descripcion = this.formUpdateEnvase.value.descripcionEnvase;
   }
 
-  showModalUpdateEnvase(envase){
+  showModalUpdateEnvase(envase : Envase){
 
-    $('#modalUpdateEnvase').modal('show');
-    let Envase : Envase;
-    Envase = envase;
-
-    this.envase.IdEnvase  = Envase.IdEnvase;
+    this.envase.IdEnvase  = envase.IdEnvase;
 
     this.formUpdateEnvase.reset();
     this.formUpdateEnvase.setValue({
-      nombreEnvase: Envase.NombreEnvase
-      , descripcionEnvase: Envase.Descripcion
+      nombreEnvase: envase.NombreEnvase
+      , descripcionEnvase: envase.Descripcion
     });
 
 

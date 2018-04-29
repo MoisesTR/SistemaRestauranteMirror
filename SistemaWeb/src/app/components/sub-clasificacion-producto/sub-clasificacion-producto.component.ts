@@ -159,11 +159,6 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
       )
   }
 
-  onAddSelectClasificacion() {
-
-  }
-
-
   capturarDatosIngresados(){
     this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
     this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;

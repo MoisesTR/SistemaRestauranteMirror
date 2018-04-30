@@ -21,10 +21,7 @@ const menuController = require('../controllers/menu');
 const validations = require('../Utils/validations');
 const jwt = require('../services/jwt')
 const AuthController = require('../controllers/auth')
-var Router = express.Router()
-var multipart = require('connect-multiparty');
-var md_upload_producto = multipart({ uploadDir: './uploads/productos' });
-var md_upload_trabajador = multipart({ uploadDir: './uploads/trabajadores' });
+var Router = express.Router();
 
 Router
     .get('/', (req, res) => {
@@ -53,7 +50,7 @@ Router
     .get('/envase/:IdEnvase(\\d+)', EnvaseController.getEnvaseById)
     .get('/envases', EnvaseController.getEnvases)
     .post('/envase', validations.createEnvase, validations.validsParams, EnvaseController.createEnvase)
-    .put('/envase/:IdEnvase(\\d+)', validations.updateEnvase, validations.validsParams, EnvaseController.updateEnvase)
+    .put('/envase', validations.updateEnvase, validations.validsParams, EnvaseController.updateEnvase)
     //Rutas proveedor Controller
     .get('/proveedor/:IdProveedor(\\d+)', ProveedorController.getProveedorById)
     .get('/proveedores', ProveedorController.getProveedores)
@@ -73,8 +70,6 @@ Router
     //Rutas producto controller
     .get('/productos', ProductoController.getProductos)
     .get('/producto/:IdProducto(\\d+)', ProductoController.getProductoById)
-    .post('/productoUploadImage', [md_upload_producto], ProductoController.uploadImage)
-    .get('/productoGetImage/:imageFile', ProductoController.getImageFile)
     .post('/producto', ProductoController.createProducto)
     .put('/producto', ProductoController.updateProducto)
     .delete('/producto/:IdProducto(\\d+)', ProductoController.changeStateProducto)
@@ -101,7 +96,8 @@ Router
     //Rutas para Producto Proveedor
     .get('/productos/proveedores', ProductoProveedorController.getProductosProveedores)
     .get('/producto/proveedor/:IdProductoProveedor(\\d+)', ProductoProveedorController.getProductoProveedorById)
-    .get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductoProveedorById)
+    //.get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductoProveedorById)
+    .get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductosByProveedorId)
     .get('/producto/proveedores/:IdProducto(\\d+)', ProductoProveedorController.getProveedoresOfProducto)
     .post('/producto/proveedor', validations.createProductoProveedor, validations.validsParams, ProductoProveedorController.createProductoProveedor)
     .put('/producto/proveedor', ProductoProveedorController.changeStateProductoProveedor)
@@ -121,8 +117,8 @@ Router
     .get('/trabajador/:IdTrabajador(\\d+)', TrabajadorController.getTrabajadorById)
     .put('/trabajador', validations.createTrabajador.concat(validations.updateTrabajador), validations.validsParams, TrabajadorController.updateTrabajador)
     .delete('/trabajador/:IdTrabajador(\\d+)', validations.deleteTrabajador, validations.validsParams, TrabajadorController.changeStateTrabajador)
-    .post('/trabajadorUploadImage', [md_upload_trabajador], TrabajadorController.uploadImage)
-    .get('/trabajadorGetImage/:imageFile', TrabajadorController.getImageFile)
+    //Obtener tipos de documento
+    .get('/tiposDocumento', TrabajadorController.getTiposDocumento)
     //Rutas Para Cargo Controller
     .get('/cargos', CargoController.getCargos)
     .post('/cargo', validations.createCargo, validations.validsParams, CargoController.createCargo)

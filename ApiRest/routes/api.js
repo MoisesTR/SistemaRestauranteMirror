@@ -100,7 +100,8 @@ Router
     .get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductosByProveedorId)
     .get('/producto/proveedores/:IdProducto(\\d+)', ProductoProveedorController.getProveedoresOfProducto)
     .post('/producto/proveedor', validations.createProductoProveedor, validations.validsParams, ProductoProveedorController.createProductoProveedor)
-    .put('/producto/proveedor', ProductoProveedorController.changeStateProductoProveedor)
+    .put('/producto/proveedor', validations.updateProductoProv, validations.validsParams, ProductoProveedorController.updateProductoProveedor)
+    .delete('/producto/proveedor', ProductoProveedorController.changeStateProductoProveedor)
     //.delete('/producto/proveedor')
     //Rutas para Rol Controller
     .post('/rol', RoleController.createRol)

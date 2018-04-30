@@ -49,6 +49,8 @@ export class ProveedorService {
       'Authorization': 'token'
     });
 
-    return this._http.request('delete',this.url+'proveedor/'+IdProveedor,{headers:headers})
+    let body = JSON.stringify({"Habilitado": 0});
+
+    return this._http.request('delete',this.url+'proveedor/'+IdProveedor,{headers:headers,body:body})
   }
 }

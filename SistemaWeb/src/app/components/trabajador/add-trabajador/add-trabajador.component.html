@@ -16,7 +16,7 @@
       <!-- /.Imagen -->
 
       <!--Datos del Trabajador-->
-      <div class="col-lg-8  ">
+      <div class="col-lg-8 ">
         <div class="card card-cascade narrower">
           <div class="view gradient-card-header orange-chang">
             <h4 class="mb-0">Datos del Trabajador</h4>
@@ -47,8 +47,9 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <mdb-date-picker [placeholder]="'Fecha de Nacimiento'" mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
+                    <mdb-date-picker  [placeholder]="'Fecha de Nacimiento'"  mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
                       [options]="myDatePickerOptions" required></mdb-date-picker>
+                    <show-errors [control]="formAddTrabajador.controls['fechaNacimiento']"></show-errors>
                   </div>
                 </div>
 
@@ -65,25 +66,25 @@
                   <br>
                   <div class="md-form ">
                     <input mdbActive type="text" id="DocumentoTrabajador" minlength="4" maxlength="50" class="form-control"
-                      name="DocumentoTrabajador" formControlName="DocumentoTrabajador">
-                    <!-- <show-errors [control]="formAddTrabajador.controls['DocumentoTrabajador']"></show-errors> -->
+                      name="DocumentoTrabajador" class="cedula" formControlName="documentoTrabajador">
+                     <show-errors [control]="formAddTrabajador.controls['documentoTrabajador']"></show-errors>
                     <label for="DocumentoTrabajador" class="">Documento</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <label for="sucursal">Tipo de Documento</label>
-                  <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
-                    (add)="onAddSucursal($event)" formControlName="sucursal">
+                  <ng-select [items]="tiposDocumento" bindLabel="NombreTD" bindValue="IdTipoDocumento" placeholder="Selecciona un tipo de documento" id="tipoDocumento"
+                    (change)="onChangeTipoDocumento($event)" formControlName="tipoDocumento">
                   </ng-select>
-                  <show-errors [control]="formAddTrabajador.controls['sucursal']"></show-errors>
+                  <show-errors [control]="formAddTrabajador.controls['tipoDocumento']"></show-errors>
                 </div>
 
                 <div class="col-md-6">
                   <br>
                   <div class="md-form ">
                     <input mdbActive type="text" id="TelefonoPrincipalTrabajador" minlength="4" maxlength="50" class="form-control telefono"
-                      name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal">
+                           name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal">
                     <show-errors [control]="formAddTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
@@ -93,16 +94,16 @@
                   <br>
                   <div class="md-form ">
                     <input mdbActive type="text" id="TelefonoSecundarioTrabajador" minlength="4" maxlength="50" class="form-control telefono"
-                      name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario">
+                           name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario">
                     <show-errors [control]="formAddTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>
-                
+
                 <div class="col-md-12">
                   <label for="sucursal">Sucursal</label>
                   <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
-                    (add)="onAddSucursal($event)" formControlName="sucursal">
+                             (change)="onChangeSucursal($event)" formControlName="sucursal">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['sucursal']"></show-errors>
                 </div>
@@ -110,7 +111,7 @@
                 <div class="col-md-12">
                   <br>
                   <label for="cargo">Cargo</label>
-                  <ng-select [items]="cargos" bindLabel="NombreCargo" bindValue="IdCargo" placeholder="Selecciona un cargo" id="cargo" (add)="onAddCargo($event)"
+                  <ng-select [items]="cargos" bindLabel="NombreCargo" bindValue="IdCargo" placeholder="Selecciona un cargo" id="cargo" (change)="onChangeCargo($event)"
                     formControlName="cargo">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['cargo']"></show-errors>
@@ -142,4 +143,27 @@
 
     </div>
   </section>
+</div>
+
+<div mdbModal #modalUsuario="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Crear usuario</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
+          <p>Desea crear un usuario a partir de este trabajador?</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary waves-light" (click)="relacionarTrabajador()" mdbWavesEffect>SI</a>
+        <a type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="listaTrabajadores()" mdbWavesEffect>NO</a>
+      </div>
+    </div>
+  </div>
 </div>

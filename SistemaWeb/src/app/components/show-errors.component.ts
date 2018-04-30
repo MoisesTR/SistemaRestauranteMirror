@@ -22,7 +22,11 @@ export class ShowErrorsComponent {
     'telephoneNumbers': (params) => params.message,
     'telephoneNumber': (params) => params.message,
     'noNumeros': (params) => params.message,
-    'espaciosVacios': (params) => params.message
+    'espaciosVacios': (params) => params.message,
+    'mayorFechaActual': (params) => params.message,
+    'fechaNacimientoTrabajador' : (params) => params.message,
+    'telefonos' : (params) => params.message,
+    'range' : (params) => params.message
   };
 
   @Input()

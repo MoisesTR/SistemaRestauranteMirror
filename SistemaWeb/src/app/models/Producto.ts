@@ -11,7 +11,8 @@ export class Producto{
   public NombreClasificacion?:string
   public NombreSubclasificacion?:string
   public IdClasificacion?: number
-  public DiasCaducidad?: number
+  public DiasCaducidad?: number;
+  public Visualizar : boolean = true;
 
   constructor(){}
 

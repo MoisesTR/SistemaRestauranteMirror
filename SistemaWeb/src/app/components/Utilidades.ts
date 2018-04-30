@@ -1,22 +1,28 @@
 import {isArray, isUndefined} from 'util';
-declare var $:any;
 import swal from 'sweetalert2';
+import moment = require('moment');
+
+declare var $:any;
 
 export class Utilidades{
 
   static mensajeError(mensaje){
-    if(isUndefined(mensaje)){
+      console.log(mensaje)
+      if(isUndefined(mensaje)){
         return 'El error esta indefinido';
     } else {
         if(isArray(mensaje.error)){
             return mensaje.error[0].msg;
         } else {
-            return mensaje.error.message;
-            // if(mensaje.error.showMessage){
-            //     return mensaje.error.message;
-            // } else {
-            //    return 'Ha ocurrido un error'
-            // }
+            if(isUndefined(mensaje.error.message))
+                return 'Error en la API';
+            else {
+                if(mensaje.error.showMessage){
+                    return mensaje.error.message;
+                } else {
+                    return 'Ha ocurrido un error'
+                }
+            }
         }
     }
 
@@ -59,6 +65,7 @@ export class Utilidades{
          mensaje,
          'error'
      ).catch(swal.noop)
+
   }
 
   static showMsgSucces(mensaje : string, titulo = 'Exitoso') {
@@ -68,4 +75,18 @@ export class Utilidades{
           'success'
       ).catch(swal.noop)
   }
+
+  static convertDate(d) {
+      var parts = d.split('-');
+      return new Date(parts[1], parts[0]);
+  }
+
+  static formatDateYYYYMMDD(myDate) {
+    return moment(myDate).format('YYYY-MM-DD');
+  }
+
+  static getYearDate(myDate) {
+      return moment(myDate,"YYYY-MM-DD").year();
+  }
+
 }

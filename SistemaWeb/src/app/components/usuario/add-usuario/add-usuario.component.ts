@@ -156,9 +156,14 @@ export class AddUsuarioComponent implements OnInit {
           this.imagenTrabajador = 'no-img.png';
           this.carpetaImagen = 'temp';
       } else {
+
+          if(event.Imagen == '')
+              this.carpetaImagen = 'temp';
+          else {
+              this.carpetaImagen = 'trabajadores';
+          }
           this.usuario.IdTrabajador = event.IdTrabajador;
           this.imagenTrabajador = event.Imagen;
-          this.carpetaImagen = 'trabajadores';
       }
   }
 

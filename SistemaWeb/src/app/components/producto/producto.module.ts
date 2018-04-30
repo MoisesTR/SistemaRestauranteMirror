@@ -9,9 +9,6 @@ import {ListProductosComponent} from './list-productos/list-productos.component'
 import {UpdateProductoComponent} from './update-producto/update-producto.component';
 import {ProductoRoutingModule} from './producto.routing.module';
 import {SharedModuleModule} from '../shared-module/shared-module.module';
-import {MDBBootstrapModulePro} from '../../typescripts/pro';
-import {ModalModule} from '../../typescripts/free/modals';
-import {MDBBootstrapModule} from '../../typescripts/free';
 
 
 @NgModule({

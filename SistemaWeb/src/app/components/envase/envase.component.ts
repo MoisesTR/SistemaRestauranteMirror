@@ -22,6 +22,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
   public envase : Envase;
   public envases: Envase[];
+  public tituloPantalla : string = 'Envase';
 
   public formAddEnvase: FormGroup;
   public formUpdateEnvase: FormGroup;
@@ -32,6 +33,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
   dtTrigger: Subject<any> = new Subject<any>();
 
   @ViewChild('modalAddEnvase') modalAddEnvase : ModalDirective;
+  @ViewChild('modalUpdateEnvase') modalUpdateEnvase : ModalDirective;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -209,6 +211,9 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
     });
 
 
+
+    this.modalUpdateEnvase.show();
+
   }
 
   createEnvaseProducto(Modal){
@@ -247,55 +252,28 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
     )
   }
 
-  getEnvaseProducto(IdEnvase){
-
-    this._envaseService.getEnvase(IdEnvase).subscribe(
-      response => {
-
-        if(!response.envase){
-
-        } else {
-          this.envase = response.envase;
-        }
-      },error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
   updateEnvase(){
 
     this.getValuesFormUpdateEnvase();
 
-    this._envaseService.updateEnvase(this.envase,Envase).subscribe(
+    this._envaseService.updateEnvase(this.envase).subscribe(
       response =>{
         if(response.success){
           swal(
-            'Envase',
+            this.tituloPantalla,
             'El envase ha sido actualizado exitosamente!',
             'success'
           ).then(() => {
-            $('#modalUpdateEnvase').modal('toggle');
+            this.modalUpdateEnvase.hide();
             this.formUpdateEnvase.reset();
             this.getEnvasesRender();
           })
 
-
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-            'error'
-          )
+         Utilidades.showMsgInfo('Ha ocurrido un error al actualizar',this.tituloPantalla);
         }
       }, error =>{
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
 
@@ -307,39 +285,29 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
     swal({
       title: "Estas seguro(a)?",
-      text: "La envase sera eliminada permanentemente!",
+      text: "El envase sera eliminado permanentemente!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
+      confirmButtonText: 'Si, Eliminalo!'
     }).then((eliminar) => {
       if (eliminar) {
         this._envaseService.deleteEnvase(IdEnvase).subscribe(
           response =>{
             if(response.success){
               swal(
-                'Eliminada!',
-                'La envase ha sido eliminada exitosamente',
+                this.tituloPantalla,
+                'El envase ha sido eliminado exitosamente',
                 'success'
               ).then(() => {
                this.getEnvasesRender();
               })
             } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
+             Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
             }
           }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }
         )
 

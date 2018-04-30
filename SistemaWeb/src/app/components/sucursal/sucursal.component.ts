@@ -273,19 +273,19 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
       this.Telefonos.forEach((telefono, index) => {
         resultado = false;
         telefono.IdSucursal = IdSucursal;
-        this._telefonoService.createTelefonoSucursal(telefono).subscribe(
+        this._sucursalService.createTelefonoSucursal(telefono).subscribe(
           response => {
             if(response.IdTelefonoSucursal) {
               resultado = true;
             }
           }, error =>{
-
+              Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }, () => {
             if(index == (this.Telefonos.length - 1)) {
               if(resultado) {
                 swal(
                   'Sucursal',
-                  'El sucursal ha sido creado exitosamente!',
+                  'La sucursal ha sido creado exitosamente!',
                   'success'
                 ).then(() => {
                   Modal.hide();

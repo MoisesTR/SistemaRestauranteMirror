@@ -7,7 +7,7 @@ import {CategoriaProducto} from '../../../models/CategoriaProducto';
 import {Envase} from '../../../models/Envase';
 import {UnidadMedida} from '../../../models/UnidadMedida';
 import {UploadService} from '../../../services/upload.service';
-import {Global} from '../../../services/global';
+import {CARPETA_PRODUCTOS, Global} from '../../../services/global';
 import {Producto} from '../../../models/Producto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
@@ -40,13 +40,14 @@ export class AddProductoComponent implements OnInit {
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
+  public tituloPantalla : string = 'Productos';
 
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
     , private _categoriaService: CategoriaProductoService
     , private _uploadService : UploadService
-    , private _clasificaionService: ClasificacionProductoService
+    , private clasificacionService: ClasificacionProductoService
     , private _subclasificacionService: SubClasificacionProductoService
     , private _productoService : ProductoService
     , private _fAddProducto: FormBuilder
@@ -131,7 +132,7 @@ export class AddProductoComponent implements OnInit {
 
   getClasificaciones(){
 
-    this._clasificaionService.getClasificaciones().subscribe(
+    this.clasificacionService.getClasificaciones().subscribe(
 
       response =>{
         if(response.clasificaciones){
@@ -150,7 +151,7 @@ export class AddProductoComponent implements OnInit {
     if(this.filesToUpload != null){
       this._uploadService.makeFileRequest(
         this.url+'uploadImage/',
-        'productos',
+        CARPETA_PRODUCTOS,
           '',
         false,
         [],
@@ -160,8 +161,7 @@ export class AddProductoComponent implements OnInit {
         this.producto.Imagen = result.image;
         this.crearProducto();
       },error =>{
-          //Utilidades.showMsgError(Utilidades.msgErrorImage(error));
-          console.log(error);
+         Utilidades.msgErrorImage(error);
       });
     } else {
       this.producto.Imagen = '';
@@ -189,7 +189,7 @@ export class AddProductoComponent implements OnInit {
           })
         }
       }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error));
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
   }

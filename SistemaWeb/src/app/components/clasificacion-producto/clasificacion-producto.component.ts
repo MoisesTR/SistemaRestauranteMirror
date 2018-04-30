@@ -258,20 +258,10 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
                this.getClasificacionesRender();
               })
             } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
+              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar, intentalo nuevamente',this.tituloPantalla);
             }
           }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }
         )
 

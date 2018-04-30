@@ -1,22 +1,29 @@
-import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import {isNumber, isString} from "util";
+import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {isString} from 'util';
+import {Utilidades} from '../components/Utilidades';
 
 export class CustomValidators {
 
-  static birthYear(c: FormControl): ValidationErrors {
-    const numValue = Number(c.value);
-    const currentYear = new Date().getFullYear();
-    const minYear = currentYear - 85;
-    const maxYear = currentYear - 18;
-    const isValid = !isNaN(numValue) && numValue >= minYear && numValue <= maxYear;
-    const message = {
-      'years': {
-        'message': 'The year must be a valid number between ' + minYear + ' and ' + maxYear
-      }
-    };
-    return isValid ? null : message;
-  }
+  static fechaNacimientoTrabajador(c: FormControl) {
+    var año = Utilidades.getYearDate(c.value);
+    var añoActual = Utilidades.getYearDate(new Date());
+    var error = '';
 
+    if( (añoActual - año) <= 18)
+      error = 'El trabajador no puede tener menos de 18 años';
+    else {
+      error = '';
+    }
+
+    const message = {
+        'fechaNacimientoTrabajador': {
+            'message': error
+        }
+    };
+
+  return error ? message : null;
+
+  }
   static noNumeros(c: FormControl): ValidationErrors {
 
     const isNumero = isString(String(c.value))
@@ -41,7 +48,45 @@ export class CustomValidators {
     return cadena.length == 0 ? message : null;
   }
 
+   static mayorFechaActual (c : FormControl) : ValidationErrors {
+      var fecha = c.value;
+      var error = '';
 
+       if(Utilidades.formatDateYYYYMMDD(fecha) > Utilidades.formatDateYYYYMMDD(new Date()))
+           error ='No puede ser mayor a la fecha Actual'
+       else {
+           error =''
+      }
+
+       const message = {
+           'mayorFechaActual':{
+               'message': error
+           }
+       };
+
+       return error ? message : null;
+  }
+
+
+  static telefonos(form : FormGroup) : ValidationErrors {
+      const telefono1 = form.get('telefonos.telefonoPrincipal').value.toString().replace("-","");
+      const telefono2 = form.get('telefonos.telefonoSecundario').value.toString().replace("-","")
+      var error = '';
+
+      if(telefono1 === telefono2) {
+        error = 'Los telefonos no pueden ser iguales';
+      } else {
+        error = '';
+      }
+
+      const message = {
+          'telefonos':{
+              'message': error
+          }
+      };
+
+    return message;
+  }
   static countryCity(form: FormGroup): ValidationErrors {
     const countryControl = form.get('location.country');
     const cityControl = form.get('location.city');
@@ -80,13 +125,18 @@ export class CustomValidators {
   }
 
   static telephoneNumber(c: FormControl): ValidationErrors {
-    const isValidPhoneNumber = /^\d{3,3}-\d{3,3}-\d{3,3}$/.test(c.value);
+    const isValidPhoneNumber = /^\d{3,3}-\d{3,3}/.test(c.value);
     const message = {
       'telephoneNumber': {
         'message': 'The phone number must be valid (XXX-XXX-XXX, where X is a digit)'
       }
     };
     return isValidPhoneNumber ? null : message;
+  }
+
+  static maximoNumeroPermitido(c: FormControl,numeroMax : number) : ValidationErrors {
+
+      return null;
   }
 
   static telephoneNumbers(form: FormGroup): ValidationErrors {
@@ -102,4 +152,27 @@ export class CustomValidators {
 
     return hasPhoneNumbers ? null : message;
   }
+
+
+  static rangeNumber(min: number, max: number): ValidatorFn {
+
+      var error = '';
+        return (control: AbstractControl): { [key: string]: boolean } | null => {
+            if (control.value !== undefined && (isNaN(control.value) || control.value < min || control.value > max)) {
+
+                error = 'Fuera de rango, el rango de numeros permitidos es ['+min+' - ' + max + ']';
+            } else {
+                error = '';
+            }
+
+            const message = {
+                'range': {
+                    'message': error
+                }
+            };
+
+            return error == '' ? null : message;
+        };
+    }
+
 }

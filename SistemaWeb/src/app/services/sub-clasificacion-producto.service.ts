@@ -47,14 +47,16 @@ export class SubClasificacionProductoService {
 
   }
 
-  deleteSubClasificacionProducto(IdSubclasificacion) : Observable<any> {
-
+  deleteSubclasificacion(IdSubclasificacion): Observable<any>{
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'token'
+        'Content-Type': 'application/json',
+        'Authorization': 'token'
     });
 
-    return this._http.request('delete',this.url+'subclasificacion/'+IdSubclasificacion,{headers:headers});
+    let body = JSON.stringify({"Habilitado": 0});
+
+    return this._http.request('delete',this.url+'subclasificacion/'+IdSubclasificacion,{headers:headers,body:body})
+
   }
 
 }

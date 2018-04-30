@@ -6,6 +6,8 @@ import {TrabajadorService} from "../../../services/trabajador.service";
 import {idioma_espanol} from "../../../services/global";
 import {Trabajador} from "../../../models/Trabajador";
 import {DatePipe} from '@angular/common';
+import swal from "sweetalert2";
+import {Utilidades} from '../../Utilidades';
 
 @Component({
   selector: 'app-list-trabajador',
@@ -17,11 +19,12 @@ export class ListTrabajadorComponent implements OnInit {
 
   public trabajador : Trabajador;
   public trabajadores: Trabajador[];
-
+  public tituloPantalla : string = 'Trabajador';
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+
 
   constructor(
     private _route: ActivatedRoute,
@@ -33,7 +36,6 @@ export class ListTrabajadorComponent implements OnInit {
     this.settingsDatatable();
     this.getTrabajadores();
   }
-  
 
   getTrabajadores(){
 
@@ -49,6 +51,22 @@ export class ListTrabajadorComponent implements OnInit {
 
       }
     )
+  }
+
+  getTrabajadoresRender() {
+
+      this._trabajadorService.getTrabajadores().subscribe(
+          response =>{
+              if(response.trabajadores){
+                  this.trabajadores = response.trabajadores;
+                  this.rerender();
+              } else {
+
+              }
+          }, error => {
+
+          }
+      )
   }
 
   settingsDatatable() {
@@ -72,6 +90,50 @@ export class ListTrabajadorComponent implements OnInit {
               }
           ]
       };
+  }
+
+  rerender(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            // Destroy the table first
+            dtInstance.destroy();
+            // Call the dtTrigger to rerender again
+            this.dtTrigger.next();
+        });
+  }
+
+
+  deleteTrabajador(IdTrabajador) {
+
+      swal({
+          title: "Estas seguro(a)?",
+          text: "El trabajador sera eliminado!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Eliminalo!'
+      }).catch(swal.noop).then((eliminar) => {
+          if (eliminar) {
+              this._trabajadorService.deleteTrabajador(IdTrabajador).subscribe(
+                  response =>{
+                      if(response.success){
+                          swal(
+                              'Eliminado!',
+                              'El trabajador ha sido eliminado exitosamente',
+                              'success'
+                          ).then(() => {
+                              this.getTrabajadoresRender();
+                          })
+                      } else {
+                         Utilidades.showMsgInfo('Ha ocurrido un error en la eliminación, intentalo nuevamente',this.tituloPantalla);
+                      }
+                  }, error =>{
+                      Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+                  }
+              )
+
+          }
+      });
   }
 
 }

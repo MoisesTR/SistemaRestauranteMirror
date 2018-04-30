@@ -19,8 +19,8 @@ import swal from 'sweetalert2';
 import {Utilidades} from '../../Utilidades';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs/Rx';
-import {isNull, isUndefined} from 'util';
-import {isEmpty} from 'rxjs/operators';
+import {isNull} from 'util';
+import {CustomValidators} from '../../../validadores/CustomValidators';
 
 declare var $:any;
 @Component({
@@ -123,18 +123,25 @@ export class AddProductoProveedorComponent implements OnInit {
         ]),
         'nombreProveedor': new FormControl('',[
           Validators.required
+            , Validators.minLength(5)
         ]),
         'envase': new FormControl(''),
         'empaque': new FormControl(''),
-        'cantidadEmpaque': new FormControl(''),
+        'cantidadEmpaque': new FormControl('',[
+            Validators.required,
+            CustomValidators.rangeNumber(1,200)
+        ]),
         'costo': new FormControl('',[
             Validators.required
+            ,   CustomValidators.rangeNumber(1,20000)
         ]),
         'unidadmedida': new FormControl('',[
             Validators.required
+
         ]),
         'valorunidadmedida': new FormControl('',[
             Validators.required
+            ,   CustomValidators.rangeNumber(1,1000)
         ]),
     })
 

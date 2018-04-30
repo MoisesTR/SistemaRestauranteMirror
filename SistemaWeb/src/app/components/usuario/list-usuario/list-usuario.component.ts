@@ -5,6 +5,7 @@ import {RolusuarioService} from '../../../services/rolusuario.service';
 import {UsuarioService} from '../../../services/usuario.service';
 import {Usuario} from '../../../models/Usuario';
 import {TrabajadorService} from '../../../services/trabajador.service';
+import {CARPETA_PRODUCTOS, CARPETA_TRABAJADORES, Global} from '../../../services/global';
 
 declare var $:any;
 
@@ -15,14 +16,9 @@ declare var $:any;
 })
 export class ListUsuarioComponent implements OnInit {
 
-  ngOnInit() {
-    $(document).ready(function(){
-      $('.dropify').dropify();
-    });
-  }
-
   public usuario : Usuario;
   formViewUser : FormGroup
+  public url : string;
 
   constructor(
     private _route: ActivatedRoute
@@ -34,10 +30,14 @@ export class ListUsuarioComponent implements OnInit {
 
   ) {
     this.usuario = new Usuario();
-
+    this.url = Global.url;
     this.initForm();
     this.getUsuario();
     this.setDatosFormulario();
+
+  }
+
+  ngOnInit() {
 
   }
 
@@ -53,6 +53,18 @@ export class ListUsuarioComponent implements OnInit {
 
   getUsuario(){
     this.usuario = this._usuarioService.getIdentity();
+
+      $(document).ready(()=>{
+
+          var imagenUsuario =  this.url + 'getImagen/'+ CARPETA_TRABAJADORES + '/' + this.usuario.Imagen;
+
+          $('.dropify').dropify({
+                defaultFile: imagenUsuario
+          });
+
+
+
+      });
   }
 
   private setDatosFormulario() {

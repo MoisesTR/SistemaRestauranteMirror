@@ -148,8 +148,8 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Nombre</th>
-                                                    <th>Telefono</th>
-                                                    <th>Compañia</th>
+                                                    <th>Representante</th>
+                                                    <th>Email</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </thead>
@@ -157,10 +157,10 @@
                                                 <tr *ngFor="let proveedor of proveedores ; let i = index">
                                                     <th scope="row">{{i+1}}</th>
                                                     <td>{{proveedor.NombreProveedor}}</td>
-                                                    <td>{{proveedor.Telefono}}</td>
+                                                    <td>{{proveedor.NombreRepresentante}}</td>
                                                     <td>{{proveedor.Email}}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
+                                                        <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
                                                             <i class="fa fa-eye"></i>
                                                         </button>
                                                     </td>
@@ -182,19 +182,19 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Nombre</th>
+                                                        <th>Apellidos</th>
                                                         <th>Telefono</th>
-                                                        <th>Compañia</th>
                                                         <th>Acción</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let proveedor of proveedores ; let i = index">
+                                                    <tr *ngFor="let trabajador of trabajadores ; let i = index">
                                                         <th scope="row">{{i+1}}</th>
-                                                        <td>{{proveedor.NombreProveedor}}</td>
-                                                        <td>{{proveedor.Telefono}}</td>
-                                                        <td>{{proveedor.Email}}</td>
+                                                        <td>{{trabajador.Nombres}}</td>
+                                                        <td>{{trabajador.Apellidos}}</td>
+                                                        <td>{{trabajador.Telefono1}}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
+                                                            <button type="button" class="btn btn-sm orange-chang" (click)="visualizarTrabajador(trabajador)" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
                                                                 <i class="fa fa-eye"></i>
                                                             </button>
                                                         </td>
@@ -237,7 +237,7 @@
 
                 <!--Avatar-->
                 <div class="avatar z-depth-1-half mb-4 white">
-                    <img src="./assets/img/proveedor/proveedor.png" class="rounded-circle" alt="Proveedor">
+                    <img src="{{urlImagen}}" class="rounded-circle" alt="Proveedor">
                 </div>
 
                 <div class="card-body pt-0 mt-0">
@@ -245,21 +245,21 @@
                     <div class="text-center">
                         <!-- Aca va el nombre de la persona -->
                         <h3 class="mb-3 font-bold">
-                            <strong>Roger Monge</strong>
+                            <strong>{{tabSeleccionado == 'trabajador' ? trabajador.Nombres : proveedor.NombreProveedor}}</strong>
                         </h3>
                         <!-- Si es proveedore aqui va la compañia a la que pertenece en caso que sea empleado aca va la sucursal -->
-                        <h6 class="font-bold blue-text mb-4">Cainsa</h6>
+                        <h6 class="font-bold blue-text mb-4">{{trabajador.IdSucursal}}</h6>
                     </div>
 
                     <ul class="striped list-unstyled text-center">
                         <li>
-                            <strong>Email:</strong> rogermonge@cainsa.com</li>
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Documento : ' : 'Nombre representante : ' }} </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Documento : proveedor.NombreRepresentante}}</li>
                         <hr>
                         <li>
-                            <strong>Telefono:</strong> +50571349567</li>
+                            <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 : proveedor.Telefono}}</li>
                         <hr>
                         <li>
-                            <strong>Desde:</strong> 12/12/2017</li>
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde :' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador' ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
 
                     </ul>
 

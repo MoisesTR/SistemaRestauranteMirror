@@ -56,7 +56,7 @@ export const opcionesDatePicker: IMyOptions = {
     firstDayOfWeek: 'mo',
 
     // Year limits
-    minYear: 1000,
+    minYear: 1900,
     maxYear: 9999,
 
     // Show Today button

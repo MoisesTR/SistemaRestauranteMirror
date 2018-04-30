@@ -29,6 +29,21 @@ export class SucursalService {
     return this._http.get(this.url + 'sucursales?Habilitado='+Habilitado)
   }
 
+  createTelefonoSucursal(TelefonoSucursal) : Observable<any> {
+
+      //let params = JSON.stringify(Telefono);
+      let headers = new HttpHeaders({'Content-Type':'application/json'});
+
+      let body = JSON.stringify(
+          {
+              "NumeroTelefono": TelefonoSucursal.NumeroTelefono
+          }
+      );
+
+      return this._http.post(this.url+'sucursal/'+TelefonoSucursal.IdSucursal + '/' + 'telefono',{headers:headers,body:body})
+
+  }
+
   updateSucursal(Sucursal) : Observable<any> {
 
     let params = JSON.stringify(Sucursal);

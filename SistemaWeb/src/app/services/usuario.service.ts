@@ -73,13 +73,25 @@ export class UsuarioService {
     return this._http.post(this.url+'signup',params,{headers:headers});
   }
 
-  getUsuarios() : Observable<any> {
-    return this._http.get(this.url + 'users');
+  getUsuarios(Habilitado = 1) : Observable<any> {
+    return this._http.get(this.url + 'users?Habilitado='+Habilitado);
   }
 
   getPantallasUsuario(IdUsuario) : Observable<any> {
 
-      return this._http.get(this.url + 'pantallas/'+IdUsuario);
+    return this._http.get(this.url + 'pantallas/'+IdUsuario);
+  }
+
+  deleteUsuario(IdUsuario) : Observable<any> {
+
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'token'
+      });
+
+      let body = JSON.stringify({"Habilitado": 0});
+
+      return this._http.request('delete',this.url+'user/'+IdUsuario,{headers:headers,body:body})
   }
 
 

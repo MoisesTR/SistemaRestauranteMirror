@@ -29,6 +29,10 @@ export class TrabajadorService{
     return this._http.get(this.url + 'trabajadores?Habilitado='+Habilitado);
   }
 
+  getTiposDocumento(Habilitado = 1) : Observable<any> {
+    return this._http.get(this.url + 'tiposDocumento?Habilitado='+Habilitado);
+  }
+
   updateTrabajador(Trabajador) : Observable<any> {
 
     let params = JSON.stringify(Trabajador);
@@ -40,14 +44,17 @@ export class TrabajadorService{
     return this._http.put(this.url+'trabajador/'+Trabajador.IdTrabajador,params,{headers:headers})
   }
 
-  deleteTrabajador(IdTrabajador){
 
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'token'
-    });
+  deleteTrabajador(IdTrabajador): Observable<any>{
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'token'
+      });
 
-    return this._http.request('delete',this.url+'trabajador/'+IdTrabajador,{headers:headers});
+      let body = JSON.stringify({"Habilitado": 0});
+
+      return this._http.request('delete',this.url+'trabajador/'+IdTrabajador,{headers:headers,body:body})
+
   }
 
 }

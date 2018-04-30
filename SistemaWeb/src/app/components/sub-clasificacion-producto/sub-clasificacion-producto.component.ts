@@ -238,7 +238,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
   }
 
   deleteSubClasificacion(IdSubClasificacion){
-   /* swal({
+    swal({
       title: "Estas seguro(a)?",
       text: "La Subclasificación sera eliminada permanentemente!",
       type: 'warning',
@@ -248,29 +248,27 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
       confirmButtonText: 'Si, Eliminala!'
     }).then((eliminar) => {
       if (eliminar) {
-        this._subClasificacionService.deleteSubClasificacionProducto(IdSubClasificacion).subscribe(
+        this._subClasificacionService.deleteSubclasificacion(IdSubClasificacion).subscribe(
           response =>{
             if(response.success){
               swal(
-                'Eliminado!',
+                this.tituloPantalla,
                 'La Subclasificación ha sido eliminada exitosamente',
                 'success'
               ).then(() => {
 
-                this.getSubClasificaciones();
+                this.getSubClasificacionesRender();
               })
             } else {
-              console.log('Ha ocurrido un error, intenta nuevamente')
+              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar, intentalo nuevamente',this.tituloPantalla);
             }
           }, error =>{
-            if(error.status = 500){
-              console.log('Ha ocurrido un error en el servidor')
-            }
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }
         )
 
       }
-    });*/
+    });
   }
 
   getClasificaciones(){

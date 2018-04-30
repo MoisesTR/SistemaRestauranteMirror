@@ -16,9 +16,8 @@ import {SubClasificacionProductoService} from '../../../services/sub-clasificaci
 import {CategoriaProductoService} from '../../../services/categoria-producto.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {Observable} from 'rxjs/Observable';
 import {Utilidades} from '../../Utilidades';
-import {isNull, isUndefined} from 'util';
+import {isNull} from 'util';
 
 declare var $:any;
 @Component({
@@ -145,7 +144,7 @@ export class UpdateProductoComponent implements OnInit {
               //Inicializar componentes de la vista
               $(document).ready(()=>{
 
-                var imagenProducto =  this.url + 'getImage/'+ 'productos' + '/' + this.producto.Imagen;
+                var imagenProducto =  this.url + 'getImagen/'+ CARPETA_PRODUCTOS + '/' + this.producto.Imagen;
                 var drEvent;
 
                 if(this.producto.Imagen.length > 0) {
@@ -159,7 +158,6 @@ export class UpdateProductoComponent implements OnInit {
                   drEvent.on('dropify.afterClear', (event, element) => {
                       this.removioImagen = true;
                       this.filesToUpload = null;
-                      console.log('asdsadsa');
                   });
 
               });

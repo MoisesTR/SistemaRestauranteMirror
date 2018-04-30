@@ -15,9 +15,9 @@
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <div class="text-center mt-1-half">
+                                        <div class="mt-1-half">
                                             <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"
-                                                (add)="onAddSelectProveedor($event)">
+                                                (change)="onChangeProveedor($event)">
 
                                             </ng-select>
                                         </div>
@@ -47,12 +47,11 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <mdb-time-picker buttonLabel="'Seleccionar'" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'"
-                                        [ngModel]="lightClock" required></mdb-time-picker>
+                                    <mdb-time-picker buttonLabel="'Seleccionar'" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'" required></mdb-time-picker>
                                 </div>
                             </div>
                             <!-- <div class="text-center mt-1-half">
-                                <button type="button" class="btn orange-chang waves-effect" data-toggle="modal" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i>  Buscar Producto</button>
+                                <button type="button" class="btn orange-chang owaves-effect" data-toggle="modal" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i>  Buscar Producto</button>
                             </div> -->
                         </form>
                         <!-- Final form -->
@@ -85,74 +84,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>PolloPolloPolloPolloPolloPollo</td>
+                                <tr *ngFor="let producto of productos; let i = index">
+                                    <th scope="row">{{i + 1}}</th>
+                                    <td>{{producto.NombreProducto}}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" (click)="modalAgregarDetalleProducto.show()" mdbWavesEffect>
+                                        <button type="button" class="btn btn-sm orange-chang" (click)="seleccionarProducto(producto)" mdbWavesEffect>
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm orange-chang" (click)="modalVerProducto.show()" mdbWavesEffect>
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Bacon</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
-                                            <i class="fa fa-check" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Bacon</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
-                                            <i class="fa fa-check" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Bacon</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
-                                            <i class="fa fa-check" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Cerdo</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
-                                            <i class="fa fa-check" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Test</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="tooltip" title="añadir" data-placement="bottom">
-                                            <i class="fa fa-check" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm orange-chang" data-toggle="modal">
+                                        <button type="button" class="btn btn-sm orange-chang" (click)="mostrarProducto(producto)" mdbWavesEffect>
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -190,8 +129,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>MDBootstrap Corporate License</td>
+                                    <tr *ngFor="let productoFactura of productosFactura">
+                                        <td>{{productoFactura.NombreProducto}}</td>
                                         <td>1</td>
                                         <td>lb</td>
                                         <td>$319</td>
@@ -199,75 +138,6 @@
                                             <strong>----</strong>
                                         </td>
                                         <td width="10%" class="body-negrita">$319</td>
-                                        <td width="25%" class="body-negrita">
-                                            <div class="text-center">
-                                                <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Editar">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Eliminar">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Material Design for Wordpress</td>
-                                        <td>2</td>
-                                        <td>lb</td>
-                                        <td>$69</td>
-                                        <td width="10%" class="body-negrita">
-                                            <strong>----</strong>
-                                        </td>
-                                        <td width="10%" class="body-negrita">$138</td>
-                                        <td width="25%" class="body-negrita">
-                                            <div class="text-center">
-                                                <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Editar">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Eliminar">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>MDBootstrap Portfolio Template Personal Licence</td>
-                                        <td>1</td>
-                                        <td>lb</td>
-                                        <td>$49</td>
-                                        <td width="10%" class="body-negrita">
-                                            <strong>----</strong>
-                                        </td>
-                                        <td width="10%" class="body-negrita">$49</td>
-                                        <td width="25%" class="body-negrita">
-                                            <div class="text-center">
-                                                <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Editar">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Eliminar">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>MDBootstrap Magazine Corporate Licence</td>
-                                        <td>1</td>
-                                        <td>lb</td>
-                                        <td>$249</td>
-                                        <td width="10%" class="body-negrita">
-                                            <strong>----</strong>
-                                        </td>
-                                        <td width="10%" class="body-negrita">$249</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
@@ -414,7 +284,7 @@
                                         <div class="col-md-12">
                                             <div class="md-form">
                                                 <input type="text" id="nombreProducto" class="form-control">
-                                                <label for="nombreProducto" class="">Nombre</label>
+                                                <label for="nombreProducto" class="">{{productoSeleccionado.NombreProducto}}</label>
                                             </div>
                                         </div>
 
@@ -444,7 +314,7 @@
                                             <br>
                                             <div class="md-form">
                                                 <textarea type="text" id="descripcionproducto" class="md-textarea" autocomplete="off"></textarea>
-                                                <label for="descripcionproducto">Descripción</label>
+                                                <label for="descripcionproducto">{{productoSeleccionado.Descripcion}}</label>
                                             </div>
                                         </div>
 
@@ -480,7 +350,7 @@
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
 
-                <form>
+                <form [formGroup]="formAddFactura" (ngSubmit)="crearFactura()" novalidate>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="md-form">
@@ -543,7 +413,7 @@
                 <form>
                     <div class="md-form">
                         <h6 class="orange-chang-text">Descuento</h6>
-                        <input type="text" id="descuentoFactura" minlength="4" maxlength="50" class="input-modal-sm" name="descuentoFactura" formControlName="descuentoFactura"
+                        <input type="text" id="descuentoFactura" minlength="4" maxlength="50" class="input-modal-sm" name="descuentoFactura"
                             required>
                     </div>
                     <div class="text-center mt-1-half">

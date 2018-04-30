@@ -6,6 +6,8 @@ import {Usuario} from "../../../models/Usuario";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs/Subject";
 import {idioma_espanol} from "../../../services/global";
+import {Utilidades} from '../../Utilidades';
+import swal from "sweetalert2";
 
 @Component({
   selector: 'app-list-usuarios',
@@ -58,6 +60,15 @@ export class ListUsuariosComponent implements OnInit {
     };
  }
 
+ rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.dtTrigger.next();
+    });
+  }
+
 
   getUsuarios(){
     this._usuarioService.getUsuarios().subscribe(
@@ -70,5 +81,52 @@ export class ListUsuariosComponent implements OnInit {
 
       }
     )
+  }
+
+  getUsuariosRender(){
+    this._usuarioService.getUsuarios().subscribe(
+        response =>{
+            if(response.usuarios){
+                this.usuarios = response.usuarios;
+                this.rerender();
+            }
+        },error =>{
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        }
+    )
+  }
+
+
+  deleteUser(IdUsuario){
+      swal({
+          title: "Estas seguro(a)?",
+          text: "El usuario sera eliminado!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Eliminalo!'
+      }).catch(swal.noop).then((eliminar) => {
+          if (eliminar) {
+              this._usuarioService.deleteUsuario(IdUsuario).subscribe(
+                  response =>{
+                      if(response.success){
+                          swal(
+                              'Eliminado!',
+                              'El usuario ha sido eliminado exitosamente',
+                              'success'
+                          ).then(() => {
+                              this.getUsuariosRender();
+                          })
+                      } else {
+                          Utilidades.showMsgInfo('Ha ocurrido un error en la eliminación, intentalo nuevamente',this.tituloPantalla);
+                      }
+                  }, error =>{
+                      Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+                  }
+              )
+
+          }
+      });
   }
 }

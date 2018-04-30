@@ -222,7 +222,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
 
     swal({
       title: "Estas seguro(a)?",
-      text: "El cargo sera eliminada permanentemente!",
+      text: "El cargo sera eliminado permanentemente!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -234,27 +234,17 @@ export class CargoComponent implements OnInit, InvocarFormulario {
           response =>{
             if(response.success){
               swal(
-                'Eliminado!',
-                'El cargo ha sido eliminada exitosamente',
+                this.tituloPantalla,
+                'El cargo ha sido eliminado exitosamente',
                 'success'
               ).then(() => {
                this.getCargosRender();
               })
             } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
+              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
             }
           }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }
         )
 

@@ -11,7 +11,7 @@
           <div class="card-body text-center">
             <!-- <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
               data-height="300" /> -->
-              <img src="{{url + 'getImagen/'+ this.carpetaImagen + '/' + this.imagenTrabajador}}" alt="..." class="img-thumbnail height-card-usuario">
+              <img src="{{url + 'getImagen/'+ this.carpetaImagen + '/' + (this.imagenTrabajador == '' ? 'no-img.png' : this.imagenTrabajador) }}" alt="..." class="img-thumbnail height-card-usuario">
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input mdbActive type="password" id="Contrasenia" name="Contrasenia" class="form-control validate" formControlName="contrasenia" autocomplete="off"
+                    <input mdbActive type="text" id="Contrasenia" name="Contrasenia" class="form-control validate" formControlName="contrasenia" autocomplete="off"
                            [(ngModel)]="formularioAddUsuario.value.contrasenia">
                     <label for="Contrasenia">Contraseña</label>
                     <show-errors [control]="formularioAddUsuario.controls['contrasenia']"></show-errors>

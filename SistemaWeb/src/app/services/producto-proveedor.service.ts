@@ -32,6 +32,9 @@ export class ProductoProveedorService{
     return this._http.get(this.url + 'productos/proveedores')
   }
 
+  getProductosOfProveedor(IdProveedor) : Observable<any> {
+    return this._http.get(this.url + 'productos/proveedor/'+IdProveedor);
+  }
   updateProductoProveedor(ProductoProveedor) : Observable<any> {
 
     let params = JSON.stringify(ProductoProveedor);

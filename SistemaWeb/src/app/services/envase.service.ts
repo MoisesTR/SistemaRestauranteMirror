@@ -29,7 +29,7 @@ export class EnvaseService {
     return this._http.get(this.url + 'envases?Habilitado='+Habilitado)
   }
 
-  updateEnvase(IdEnvase,Envase) : Observable<any>{
+  updateEnvase(Envase) : Observable<any>{
 
     let params = JSON.stringify(Envase);
     let headers = new HttpHeaders({
@@ -37,7 +37,7 @@ export class EnvaseService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'envase/'+IdEnvase,params,{headers:headers})
+    return this._http.put(this.url+'envase',params,{headers:headers})
   }
 
   deleteEnvase(IdEnvase) : Observable<any> {

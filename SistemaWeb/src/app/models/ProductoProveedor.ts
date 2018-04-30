@@ -12,6 +12,7 @@ export class ProductoProveedor{
 	public DiasCaducidad : number;
 	public Costo:number;
 	public Habilitado:number;
+	public Visualizar : boolean;
 
 	constructor(){
 

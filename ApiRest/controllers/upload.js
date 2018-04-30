@@ -63,7 +63,7 @@ function uploadImage(req, res) {
         archivo.mv(path, err => {
 
             if (err) {
-                console.log(err);
+
                 return res.status(500).json({
                     mensaje: 'Error el mover el archivo',
                     error: err

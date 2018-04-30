@@ -95,8 +95,8 @@ function changeStateProveedor(req, res) {
     let IdProveedor = req.params.IdProveedor;
     let Habilitado = req.body.Habilitado;
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdCargo', sql.Int, IdProveedor);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habiltado);
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, IdProveedor);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
     db.storedProcExecute('USP_DISP_PROVEEDOR', aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]

@@ -26,7 +26,7 @@ export class ShowErrorsComponent {
     'mayorFechaActual': (params) => params.message,
     'fechaNacimientoTrabajador' : (params) => params.message,
     'telefonos' : (params) => params.message,
-    'range' : (params) => params.message
+    'rango' : (params) => params.message
   };
 
   @Input()

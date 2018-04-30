@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var sql = require('mssql');
 var db = require('../services/database');
-const { mssqlErrors } =  require('../Utils/util');
+const { mssqlErrors } = require('../Utils/util');
 
 function getProductoById(req, res) {
     var data = req.params;
@@ -46,10 +46,7 @@ function createProducto(req, res) {
         .then((results) => {
             res.status(200).json(results.recordset[0])
         }).catch((err) => {
-            res.status(500).json({
-                mensaje: err.originalError.info.message,
-                codigo: 'PRUEBA'
-            })
+            res.status(500).json(mssqlErrors(err));
         });
 }
 
@@ -95,58 +92,10 @@ function changeStateProducto(req, res) {
         });
 }
 
-function uploadImage(req, res) {
-    var IdProducto = req.params.IdProducto;
-    var file_name = 'No Subido...';
-
-    if (req.files) {
-
-        var file_path = req.files.image.path;
-        var file_split = file_path.split('\\');
-        var file_name = file_split[2];
-
-        var ext_split = file_name.split('\.');
-        var file_ext = ext_split[1];
-
-        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif') {
-            res.status(200).send({ image: file_name });
-        } else {
-            fs.unlink(file_path, (err) => {
-                if (err) {
-                    res.status(200).send({ message: 'Extension no valida, el fichero no se pudo borrar' });
-                } else {
-                    res.status(200).send({ message: 'Extension no valida' });
-                }
-            });
-            res.status(200).send({ message: 'Extension no valida' });
-        }
-
-    } else {
-        res.status(200).send({ message: 'No se han subido archivos' });
-    }
-
-
-}
-
-function getImageFile(req, res) {
-    var imageFile = req.params.imageFile;
-    var path_file = './uploads/productos/' + imageFile;
-
-    fs.exists(path_file, function(exists) {
-        if (exists) {
-            res.sendFile(path.resolve(path_file));
-        } else {
-            res.status(404).send({ message: 'La imagen no existe' });
-        }
-    });
-
-}
 module.exports = {
     createProducto,
     getProductoById,
     getProductos,
     updateProducto,
-    changeStateProducto,
-    uploadImage,
-    getImageFile
+    changeStateProducto
 }

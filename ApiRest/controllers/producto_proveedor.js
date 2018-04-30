@@ -61,9 +61,10 @@ function createProductoProveedor(req, res) {
 }
 
 function getProductosByProveedorId(req, res) {
-    var IdProductoProveedor = req.body.IdProductoProveedor;
+    var data = req.params;
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, IdProductoProveedor);
+
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor);
     db.storedProcExecute('USP_GET_PRODUCTOS_PROVEEDOR', aoj)
         .then((results) => {
             res.status(200).json({ productos: results.recordset })

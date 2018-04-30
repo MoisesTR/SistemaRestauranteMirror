@@ -64,9 +64,9 @@ function changeStateCargo(req, res) {
     let Habilitado = req.body.Habilitado;
     console.log('IdCargo:' + IdCargo, 'Habilitado:' + Habilitado);
     var aoj = [];
-    database.pushAOJParam(aoj, 'IdCargo', sql.Int, IdCargo);
-    database.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
-    database.storedProcExecute('USP_DISP_CARGO', aoj)
+    db.pushAOJParam(aoj, 'IdCargo', sql.Int, IdCargo);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.storedProcExecute('USP_DISP_CARGO', aoj)
         .then((results) => {
             console.log(results)
             let afectadas = results.rowsAffected[0]

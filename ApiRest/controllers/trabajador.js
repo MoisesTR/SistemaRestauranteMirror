@@ -81,10 +81,11 @@ function updateTrabajador(req, res) {
 }
 
 function changeStateTrabajador(req, res) {
-    var data = matchedData(req);
+    let IdTrabajador = req.params.IdTrabajador;
+    let Habilitado = req.body.Habilitado;
     var aoj = [];
     console.log('Changing state')
-    db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdTrabajador)
+    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, IdTrabajador)
     db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado)
     db.storedProcExecute('USP_DISP_TRABAJADOR', aoj)
         .then((results) => {
@@ -97,53 +98,19 @@ function changeStateTrabajador(req, res) {
         });
 }
 
+function getTiposDocumento(req, res) {
 
-function uploadImage(req, res) {
-    var IdProducto = req.params.IdTrabajador;
-    var file_name = 'No Subido...';
-
-    if (req.files) {
-
-        var file_path = req.files.image.path;
-        var file_split = file_path.split('\\');
-        var file_name = file_split[2];
-
-        var ext_split = file_name.split('\.');
-        var file_ext = ext_split[1];
-
-        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif') {
-            res.status(200).send({ image: file_name });
-        } else {
-            fs.unlink(file_path, (err) => {
-                if (err) {
-                    res.status(200).send({ message: 'Extension no valida, el fichero no se pudo borrar' });
-                } else {
-                    res.status(200).send({ message: 'Extension no valida' });
-                }
-            });
-            res.status(200).send({ message: 'Extension no valida' });
-        }
-
-    } else {
-        res.status(200).send({ message: 'No se han subido archivos' });
-    }
-
-
+    let Habilitado = req.query.Habilitado
+    var aoj = [];
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.storedProcExecute('USP_GET_TIPOS_DOCUMENTOS', aoj)
+        .then((results) => {
+            res.status(200).json({ documentos: results.recordset })
+        }).catch((err) => {
+            res.status(500).json(mssqlErrors(err));
+        });
 }
 
-function getImageFile(req, res) {
-    var imageFile = req.params.imageFile;
-    var path_file = './uploads/trabajadores/' + imageFile;
-
-    fs.exists(path_file, function(exists) {
-        if (exists) {
-            res.sendFile(path.resolve(path_file));
-        } else {
-            res.status(404).send({ message: 'La imagen no existe' });
-        }
-    });
-
-}
 
 module.exports = {
     createTrabajador,
@@ -151,6 +118,5 @@ module.exports = {
     getTrabajadorById,
     updateTrabajador,
     changeStateTrabajador,
-    uploadImage,
-    getImageFile
+    getTiposDocumento
 }

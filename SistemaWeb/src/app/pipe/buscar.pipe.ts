@@ -1,4 +1,5 @@
 import { Injectable, Pipe, PipeTransform} from '@angular/core';
+import {isNull, isUndefined} from 'util';
 @Pipe({
 
 	name: 'buscar'
@@ -12,8 +13,11 @@ export class BuscarPipe implements PipeTransform{
 			return valor;
 		}
 
-		return valor.filter( function(item){
-			return item.NombreProducto.toLowerCase().includes(term.toLowerCase());
-		});
+		if(!isNull(valor) && !isUndefined(valor)) {
+            return valor.filter( (item) => {
+                return item.NombreProducto.toLowerCase().includes(term.toLowerCase());
+            });
+		}
+
 	}
 }

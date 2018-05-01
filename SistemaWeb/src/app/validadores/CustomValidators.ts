@@ -154,10 +154,10 @@ export class CustomValidators {
   }
 
 
-  static rangeNumber(min: number, max: number): ValidatorFn {
+  static rangeNumber(min: number, max: number) : ValidatorFn{
 
       var error = '';
-        return (control: AbstractControl) => {
+        return (control: AbstractControl): { [key  : string ] : { [key: string]: string  }} | null => {
             if (control.value !== undefined && (isNaN(control.value) || control.value < min || control.value > max)) {
 
                 error = 'Fuera de rango, el rango de numeros permitidos es ['+min+' - ' + max + ']';
@@ -171,7 +171,7 @@ export class CustomValidators {
                 }
             };
 
-            return error ? null : message;
+            return error == '' ? null : message;
         };
     }
 

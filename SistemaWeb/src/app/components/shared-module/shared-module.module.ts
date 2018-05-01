@@ -18,6 +18,7 @@ import {ModalSucursalComponent} from '../modales/modal-sucursal/modal-sucursal.c
 import {ModalProveedorComponent} from '../modales/modal-proveedor/modal-proveedor.component';
 import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/modal-subclasificacion.component';
 import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.component';
+import {BuscarPipe} from '../../pipe/buscar.pipe';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.comp
       , ModalSucursalComponent
       , ModalCategoriaComponent
       , ModalEmpaqueComponent
+      , BuscarPipe
       , NgSelectModule
       , MDBBootstrapModule
       , MDBBootstrapModulePro
@@ -65,6 +67,7 @@ import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.comp
         , ModalSucursalComponent
         , ModalCategoriaComponent
         , ModalEmpaqueComponent
+        , BuscarPipe
     ]
   , providers  : [{
     provide: NG_SELECT_DEFAULT_CONFIG,

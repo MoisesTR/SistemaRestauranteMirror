@@ -44,6 +44,7 @@ export class ShowErrorsComponent {
   }
 
   private getMessage(type: string, params: any) {
+      console.log(type);
     return ShowErrorsComponent.errorMessages[type](params);
   }
 

@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="container-fluid">
                         <!-- Inicio form-->
-                        <form novalidate>
+                        <form [formGroup]="formAddFactura" (ngSubmit)="createFactura()" novalidate>
 
                             <div class="row">
 
@@ -17,9 +17,10 @@
                                     <div class="md-form">
                                         <div class="mt-1-half">
                                             <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"
-                                                (change)="onChangeProveedor($event)">
+                                                (change)="onChangeProveedor($event)" formControlName="proveedor">
 
                                             </ng-select>
+                                            <show-errors [control]="formAddFactura.controls['proveedor']"></show-errors>
                                         </div>
                                     </div>
                                     <br>
@@ -27,8 +28,9 @@
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <input mdbActive type="search" id="nombreproveedor" placeholder="#123ejemplo" class="form-control autocomplete-proveedor"
-                                            autocomplete="off">
+                                        <input mdbActive type="search" id="numeroFactura" placeholder="#123ejemplo" class="form-control autocomplete-proveedor"
+                                            autocomplete="off" formControlName="numeroFactura">
+                                        <show-errors [control]="formAddFactura.controls['numeroFactura']"></show-errors>
                                         <button class="mdb-autocomplete-clear">
                                             <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
                                                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
@@ -41,13 +43,15 @@
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <mdb-date-picker [placeholder]="'Fecha'" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions"
+                                        <mdb-date-picker [placeholder]="'Fecha'" formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions"
                                             required></mdb-date-picker>
+                                        <show-errors [control]="formAddFactura.controls['fechaFactura']"></show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <mdb-time-picker buttonLabel="'Seleccionar'" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'" required></mdb-time-picker>
+                                    <mdb-time-picker buttonLabel="'Seleccionar'" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'" required></mdb-time-picker>
+                                    <show-errors [control]="formAddFactura.controls['horaLlegada']"></show-errors>
                                 </div>
                             </div>
                             <!-- <div class="text-center mt-1-half">
@@ -72,7 +76,7 @@
 
                         <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                             <i class="fa fa-search" aria-hidden="true"></i>
-                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
+                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
                         </div>
 
                         <table class="table table-sm">
@@ -84,7 +88,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let producto of productos; let i = index">
+                                <tr *ngFor="let producto of productos | buscar: buscando; let i = index">
                                     <th scope="row">{{i + 1}}</th>
                                     <td>{{producto.NombreProducto}}</td>
                                     <td class="text-center">
@@ -130,22 +134,22 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let productoFactura of productosFactura">
-                                        <td>{{productoFactura.NombreProducto}}</td>
-                                        <td>1</td>
-                                        <td>lb</td>
-                                        <td>$319</td>
+                                        <td class="body-negrita">{{productoFactura.NombreProducto}}</td>
+                                        <td class="body-negrita">{{productoFactura.Cantidad}}</td>
+                                        <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
+                                        <td class="body-negrita">{{productoFactura.Costo}} C$</td>
                                         <td width="10%" class="body-negrita">
-                                            <strong>----</strong>
+                                            <strong>{{productoFactura.Descuento}}%</strong>
                                         </td>
-                                        <td width="10%" class="body-negrita">$319</td>
+                                        <td width="10%" class="body-negrita">{{productoFactura.Cantidad * productoFactura.Costo}} C$</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip" data-placement="bottom"
                                                     title="Editar">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom"
+                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" (click)="deleteProductoOfFactura(productoFactura)" data-toggle="tooltip" data-placement="bottom"
                                                     title="Eliminar">
                                                     <i class="fa fa-times"></i>
                                                 </button>
@@ -350,7 +354,7 @@
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
 
-                <form [formGroup]="formAddFactura" (ngSubmit)="crearFactura()" novalidate>
+                <form [formGroup]="formEditarDetalleProducto" (ngSubmit)="editarDatosProducto()" novalidate>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="md-form">
@@ -371,13 +375,16 @@
                                 <h6 class="orange-chang-text">Descuento</h6>
                                 <input type="number" id="descuentoTotalProducto" minlength="4" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto"
                                     required>
+
                             </div>
+                            <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']"></show-errors>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <br>
-                                <input class="form-check-input" type="checkbox" id="checkbox33" checked="checked">
+                                <input class="form-check-input" type="checkbox" id="checkbox33" checked="checked" formControlName="gravadoIva">
                                 <label class="form-check-label" for="checkbox33">Gravado de Iva</label>
+                                <show-errors [control]="formEditarDetalleProducto.controls['gravadoIva']"></show-errors>
                             </div>
                         </div>
                     </div>

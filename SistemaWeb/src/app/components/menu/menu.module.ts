@@ -79,7 +79,6 @@ import {DatePipe} from '@angular/common';
     , SalidaProductoComponent
     , InformacionFacturaComponent
     , BuscarGeneralFacturaComponent
-    , BuscarPipe
 
   ],
   imports: [

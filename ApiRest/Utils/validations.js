@@ -94,16 +94,16 @@ exports.changeStateProveedor = [
     ];
 
 exports.createEntradaBodegaAP = [
-    check('IdBodegaAreaP').isInt(),
-    check('IdTrabajador').isInt(),
-    check('IdProveedor').isInt(),
+    body('IdBodegaAreaP', 'Selecciona una Bodega de Area de Produccion').isInt(),
+    body('IdTrabajador').isInt(),
+    body('IdProveedor').isInt(),
     //check('IdEstadoEdicion').isInt(),
-    check('NFactura').exists(),
-    check('RepresentanteProveedor').exists(),
-    check('PorcRetencion').isInt(),
-    check('PorcIva').isInt(),
-    check('PorcDescuento').isInt(),
-    check('FechaHora').exists()
+    body('NFactura').exists(),
+    body('RepresentanteProveedor').exists(),
+    body('PorcRetencion').isInt(),
+    body('PorcIva').isInt(),
+    body('PorcDescuento').isInt(),
+    body('FechaHora').exists()
 ];
 
 exports.editEntradaBodegaAP = [
@@ -205,8 +205,8 @@ exports.updateEmpaque = [
 ];
 
 var createClasificacion =  [
-    body('NombreClasificacion').isAscii().isLength({max:50}),
-    body('DescripcionClasificacion').isAscii().optional({nullable:true}),
+    body('NombreClasificacion','El nombre de la clasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
+    body('DescripcionClasificacion', 'La Descripcion no debe tener mas de 150 caracteres.').isAscii().optional({nullable:true}),
     sanitize('NombreClasificacion').toString()
 ];
 exports.createClasificacion = createClasificacion;

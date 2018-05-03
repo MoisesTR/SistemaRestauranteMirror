@@ -84,28 +84,27 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
   }
 
-    settingsDatatable(){
-
-        /*PROPIEDADES GENERALES DE LA DATATABLE*/
-        this.dtOptions = <DataTables.Settings>{
-            pagingType: 'full_numbers'
-            , pageLength: 10
-            , language: idioma_espanol
-            , 'lengthChange': false
-            , responsive : true
-            , dom: 'Bfrtip',
-            buttons: [
-                {
-                    text: 'Agregar',
-                    key: '1',
-                    className: 'btn orange-chang float-right-dt',
-                    action:  (e, dt, node, config) => {
-                        this.InvocarModal(this.modalAddEnvase,this.formAddEnvase);
-                    }
+  settingsDatatable(){
+    /*PROPIEDADES GENERALES DE LA DATATABLE*/
+    this.dtOptions = <DataTables.Settings>{
+        pagingType: 'full_numbers'
+        , pageLength: 10
+        , language: idioma_espanol
+        , 'lengthChange': false
+        , responsive : true
+        , dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Agregar',
+                key: '1',
+                className: 'btn orange-chang float-right-dt',
+                action:  (e, dt, node, config) => {
+                    this.InvocarModal(this.modalAddEnvase,this.formAddEnvase);
                 }
-            ]
-        };
-    }
+            }
+        ]
+    };
+  }
 
  rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -234,20 +233,10 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
           })
 
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar Envase, intenta nuevamente!',
-            'error'
-          )
+         Utilidades.showMsgInfo('Ha ocurrido un error al crear el envase, intentalo nuevamente');
         }
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-        }
+       Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla)
       }
     )
   }

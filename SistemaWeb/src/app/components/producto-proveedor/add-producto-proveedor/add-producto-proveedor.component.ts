@@ -38,10 +38,11 @@ export class AddProductoProveedorComponent implements OnInit {
   public productos: Producto [];
   public proveedores: Proveedor[];
   public unidadesMedida: UnidadMedida[];
-  public mostrarModal : boolean = false;
+  public showModalEmpaque : boolean = false;
+  public showModalEnvase : boolean = false;
+  public showModalUnidadMedida : boolean = false;
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -147,22 +148,41 @@ export class AddProductoProveedorComponent implements OnInit {
 
   }
 
-  onAddSelectUnidadMedida(event){
-    this.productoProveedor.IdUnidadMedida = event.IdUnidadMedida;
+  onChangeUnidadMedida(event){
+      if(isNull(event)) {
+          this.productoProveedor.IdUnidadMedida = null;
+      } else {
+          this.productoProveedor.IdUnidadMedida = event.IdUnidadMedida;
+      }
   }
 
-  onAddSelectEmpaque(event){
-    this.productoProveedor.IdEmpaque = event.IdEmpaque;
-  }
+  onChangeProducto(event){
 
-  onAddSelectEnvase(event){
-    this.productoProveedor.IdEnvase = event.IdEnvase;
-  }
-
-  onAddSelectProducto(event){
-    this.productoProveedor.IdProducto = event.IdProducto;
+      if(isNull(event)) {
+          this.productoProveedor.IdProducto = null
+      } else {
+          this.productoProveedor.IdProducto = event.IdProducto;
+      }
 
   }
+
+  onChangeEnvase(event : ProductoProveedor){
+
+        if(isNull(event)) {
+            this.productoProveedor.IdEnvase = null;
+        } else {
+            this.productoProveedor.IdEnvase = event.IdEnvase;
+        }
+  }
+
+  onChangeEmpaque(event){
+
+        if(isNull(event)) {
+            this.productoProveedor.IdEmpaque = null;
+        } else {
+            this.productoProveedor.IdEmpaque = event.IdEmpaque;
+        }
+    }
 
 
   getValuesForm(){
@@ -281,29 +301,42 @@ export class AddProductoProveedorComponent implements OnInit {
     this.formProveedor.controls['nombreProveedor'].setValue(proveedor.NombreProveedor);
   }
 
-  onChangeEnvase(event : ProductoProveedor){
 
-      if(isNull(event)) {
-          this.productoProveedor.IdEnvase = null;
-      } else {
-          this.productoProveedor.IdEnvase = event.IdEnvase;
+
+  showModalAddEmpaque(){
+      this.showModalEmpaque  = true;
+  }
+
+  showModalAddEnvase() {
+      this.showModalEnvase = true;
+  }
+
+  showModalAddUnidadMedida() {
+      this.showModalUnidadMedida = true;
+  }
+
+  resultadoConsultaEmpaque(event) {
+      this.showModalEmpaque = false;
+
+      if(event) {
+          this.getEmpaques();
       }
+  }
+
+  resultadoConsultaEnvase(event) {
+      this.showModalEnvase = false;
+
+      if(event)
+          this.getEnvases();
+  }
+
+  resultadoConsultaUnidadMedida(event) {
+    this.showModalUnidadMedida = false;
+
+    if(event) {
+        this.getUnidadesMedida();
+    }
 
   }
 
-  onChangeEmpaque(event){
-      if(isNull(event)) {
-          this.productoProveedor.IdEmpaque = null;
-      } else {
-          this.productoProveedor.IdEmpaque = event.IdEmpaque;
-      }
-  }
-
-  addEmpaque(){
-      this.mostrarModal  = true;
-  }
-
-  valorModal(event){
-      this.mostrarModal  = false;
-  }
 }

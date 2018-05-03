@@ -82,7 +82,7 @@ const menuRoutes: Routes = [
         /*TRABAJADOR MODULO*/
         , {path:'trabajador/add',component: AddTrabajadorComponent, data : { titulo : 'Trabajador'}}
         , {path:'trabajador',component: ListTrabajadorComponent, data : { titulo : 'Trabajadores'}}
-        , {path:'trabajador/update',component: UpdateTrabajadorComponent, data : { titulo : 'Trabajador'}}
+        , {path:'trabajador/update/:id',component: UpdateTrabajadorComponent, data : { titulo : 'Trabajador'}}
         , {path:'dashboard',component: DashBoardComponent, data : { titulo : 'Dashboard'}}
         , {path:'salida-producto',component: SalidaProductoComponent, data : { titulo : 'Salida Producto'}}
 

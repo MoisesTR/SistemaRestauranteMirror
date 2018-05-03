@@ -1,5 +1,5 @@
 !-- Modal crear Empaque -->
-<div (click)="eventoClick()" mdbModal #modalAddEmpaque="mdb-modal" class="modal fade" id="modalAddEmpaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div (click)="eventoClick($event)" [config]="{ignoreBackdropClick: true}" mdbModal #modalAddEmpaque="mdb-modal" class="modal fade" id="modalAddEmpaque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
   <div class="modal-dialog cascading-modal " role="document">
     <!--Contenido-->
@@ -9,7 +9,7 @@
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
           <i class="fa fa-file-text-o"></i> Empaque</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddEmpaque.hide()">
+        <button type="button" class="close waves-effect waves-light" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

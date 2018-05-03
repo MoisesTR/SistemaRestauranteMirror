@@ -4,34 +4,35 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmpaqueService} from '../../../services/empaque.service';
 import {Empaque} from '../../../models/Empaque';
 import {CustomValidators} from '../../../validadores/CustomValidators';
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
 import {Utilidades} from '../../Utilidades';
-import {isNull} from "util";
+import {isNull, isUndefined} from 'util';
 
 @Component({
   selector: 'modal-empaque',
   templateUrl: './modal-empaque.component.html',
-  styleUrls: ['./modal-empaque.component.scss']
+  styleUrls: ['./modal-empaque.component.scss'],
+    exportAs: 'modalEmpaque'
 })
 export class ModalEmpaqueComponent implements OnInit {
 
   @ViewChild('modalAddEmpaque') modalAddEmpaque  : ModalDirective;
+
   @Input() mostrarModal : boolean;
-  @Output() resultadoModal : EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() resultadoModal : EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
+  @Output() resultadoConsulta : EventEmitter<boolean> = new EventEmitter<boolean>();
+  public isVisible: boolean = false;
 
   public empaque : Empaque;
-  public isModalShown:boolean = false;
   public formAddEmpaque: FormGroup;
 
   constructor(
       private _empaqueService : EmpaqueService
       , private formBuilderEmpaque: FormBuilder
-
   ) {
       this.empaque = new Empaque();
+
   }
-
-
     @HostListener('window:keyup', ['$event'])
     keyEvent(event: KeyboardEvent) {
         if (event.keyCode === 27) {
@@ -39,16 +40,26 @@ export class ModalEmpaqueComponent implements OnInit {
         }
     }
 
-    eventoClick(event : ModalDirective){
-        if( !isNull(event.dismissReason) )
+
+    eventoClick(event){
+        console.log(event.dismissReason)
+        if( !isNull(event.dismissReason) && !isUndefined(event.dismissReason) )
             if( (event.dismissReason).toString() == ( 'backdrop-click')) {
                 this.hideModal();
             }
     }
 
   ngOnInit() {
-
       this.initFormAddEmpaque();
+
+  }
+
+  show() {
+        this.isVisible = true;
+  }
+
+  ngAfterViewInit(){
+      this.modalAddEmpaque.show();
   }
 
     /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
@@ -73,54 +84,41 @@ export class ModalEmpaqueComponent implements OnInit {
 
   }
 
-    createEmpaque(Modal){
-        this.getValuesFormAddEmpaque();
+  createEmpaque(Modal){
+    this.getValuesFormAddEmpaque();
 
-        this._empaqueService.createEmpaque(this.empaque).subscribe(
-            response => {
+    this._empaqueService.createEmpaque(this.empaque).subscribe(
+        response => {
 
-                if (response.IdEmpaque) {
-                    swal(
-                        'Empaque',
-                        'El Empaque ha sido creado exitosamente!',
-                        'success'
-                    ).then(() => {
-                        Modal.hide();
-                        this.formAddEmpaque.reset();
-                    })
+            if (response.IdEmpaque) {
+                swal(
+                    'Empaque',
+                    'El Empaque ha sido creado exitosamente!',
+                    'success'
+                ).then(() => {
+                    Modal.hide();
+                    this.formAddEmpaque.reset();
+                    this.resultadoConsulta.emit(true);
+                })
 
-                } else {
-                    swal(
-                        'Error inesperado',
-                        'Ha ocurrido un error al insertar Empaque, intenta nuevamente!',
-                        'error'
-                    )
-                    console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+            } else {
+                Utilidades.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente','Empaque')
 
-                }
-            }, error => {
-                    Utilidades.showMsgError(Utilidades.mensajeError(error));
             }
-        )
+        }, error => {
+                Utilidades.showMsgError(Utilidades.mensajeError(error));
+        }
+    )
+  }
 
-        this.resultadoModal.emit(true);
-    }
+  getValuesFormAddEmpaque(){
+    this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
+    this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
+  }
 
-    getValuesFormAddEmpaque(){
-
-        this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
-        this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
-    }
-
-
-    public showModal():void {
-        this.isModalShown = true;
-    }
-
-    public hideModal() {
-        this.modalAddEmpaque.hide();
-        this.resultadoModal.emit(true);
-    }
-
+  public hideModal() {
+    this.modalAddEmpaque.hide();
+    this.resultadoConsulta.emit(false);
+  }
 
 }

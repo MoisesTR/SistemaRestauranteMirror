@@ -7,7 +7,7 @@ const   sql     = require('mssql')
 function getTrabajadorById(req, res) {
     var data = req.params;
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, data.IdSucursal);
+    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, data.IdTrabajador);
     db.storedProcExecute('USP_GET_TRABAJADOR', aoj)
         .then((results) => {
             res.status(200).json({ trabajador: results.recordset[0] })

@@ -24,14 +24,14 @@
           <!-- Contenido -->
           <div class="card-body ">
             <!-- Formulario -->
-            <form [formGroup]="formAddTrabajador" (ngSubmit)="guardarImagenTrabajador()" novalidate>
+            <form [formGroup]="formUpdateTrabajador" (ngSubmit)="guardarImagenTrabajador()" novalidate>
               <!-- Campos a ingresar -->
               <div class="row">
 
                 <div class="col-md-6">
                   <div class="md-form">
                     <input mdbActive type="text" id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required class="form-control validate letras">
-                    <show-errors [control]="formAddTrabajador.controls['nombreTrabajador']"></show-errors>
+                    <show-errors [control]="formUpdateTrabajador.controls['nombreTrabajador']"></show-errors>
                     <label for="nombreTrabajador">Nombres</label>
                   </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input mdbActive type="text" id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control validate letras">
-                    <show-errors [control]="formAddTrabajador.controls['apellido']"></show-errors>
+                    <show-errors [control]="formUpdateTrabajador.controls['apellido']"></show-errors>
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
@@ -49,7 +49,7 @@
                   <div class="md-form">
                     <mdb-date-picker  [placeholder]="'Fecha de Nacimiento'"  mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
                       [options]="myDatePickerOptions" required></mdb-date-picker>
-                    <show-errors [control]="formAddTrabajador.controls['fechaNacimiento']"></show-errors>
+                    <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
                   </div>
                 </div>
 
@@ -58,7 +58,7 @@
                   <div class="md-form">
                     <mdb-date-picker [placeholder]="'Fecha de Ingreso'" mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso"
                       [options]="myDatePickerOptions" required></mdb-date-picker>
-                    <show-errors [control]="formAddTrabajador.controls['fechaIngreso']"></show-errors>
+                    <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
                   </div>
                 </div>
 
@@ -67,7 +67,7 @@
                   <div class="md-form ">
                     <input mdbActive type="text" id="DocumentoTrabajador" minlength="4" maxlength="50" class="form-control"
                       name="DocumentoTrabajador" class="cedula" formControlName="documentoTrabajador">
-                     <show-errors [control]="formAddTrabajador.controls['documentoTrabajador']"></show-errors>
+                     <show-errors [control]="formUpdateTrabajador.controls['documentoTrabajador']"></show-errors>
                     <label for="DocumentoTrabajador" class="">Documento</label>
                   </div>
                 </div>
@@ -77,7 +77,7 @@
                   <ng-select [items]="tiposDocumento" bindLabel="NombreTD" bindValue="IdTipoDocumento" placeholder="Selecciona un tipo de documento" id="tipoDocumento"
                     (change)="onChangeTipoDocumento($event)" formControlName="tipoDocumento">
                   </ng-select>
-                  <show-errors [control]="formAddTrabajador.controls['tipoDocumento']"></show-errors>
+                  <show-errors [control]="formUpdateTrabajador.controls['tipoDocumento']"></show-errors>
                 </div>
 
                 <div class="col-md-6">
@@ -85,7 +85,7 @@
                   <div class="md-form ">
                     <input mdbActive type="text" id="TelefonoPrincipalTrabajador" minlength="4" maxlength="50" class="form-control telefono"
                            name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal">
-                    <show-errors [control]="formAddTrabajador.controls['telefonoPrincipal']"></show-errors>
+                    <show-errors [control]="formUpdateTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
                 </div>
@@ -95,7 +95,7 @@
                   <div class="md-form ">
                     <input mdbActive type="text" id="TelefonoSecundarioTrabajador" minlength="4" maxlength="50" class="form-control telefono"
                            name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario">
-                    <show-errors [control]="formAddTrabajador.controls['telefonoSecundario']"></show-errors>
+                    <show-errors [control]="formUpdateTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
                 </div>
@@ -105,7 +105,7 @@
                   <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
                              (change)="onChangeSucursal($event)" formControlName="sucursal">
                   </ng-select>
-                  <show-errors [control]="formAddTrabajador.controls['sucursal']"></show-errors>
+                  <show-errors [control]="formUpdateTrabajador.controls['sucursal']"></show-errors>
                 </div>
 
                 <div class="col-md-12">
@@ -114,7 +114,7 @@
                   <ng-select [items]="cargos" bindLabel="NombreCargo" bindValue="IdCargo" placeholder="Selecciona un cargo" id="cargo" (change)="onChangeCargo($event)"
                     formControlName="cargo">
                   </ng-select>
-                  <show-errors [control]="formAddTrabajador.controls['cargo']"></show-errors>
+                  <show-errors [control]="formUpdateTrabajador.controls['cargo']"></show-errors>
                 </div>
 
                 <div class="col-md-12">
@@ -122,7 +122,7 @@
                   <div class="md-form">
                     <textarea mdbActive type="text" id="Direccion" name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
                     <label for="Direccion">Dirección</label>
-                    <show-errors [control]="formAddTrabajador.controls['direccion']"></show-errors>
+                    <show-errors [control]="formUpdateTrabajador.controls['direccion']"></show-errors>
                   </div>
                 </div>
 
@@ -131,7 +131,7 @@
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" [disabled] = !formAddTrabajador.valid>Ingresar <i class="fa fa-check ml-1"></i></button>
+                <button class="btn orange-chang mb-1" type="submit" [disabled] = "!formUpdateTrabajador.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
               </div>
 
             </form>

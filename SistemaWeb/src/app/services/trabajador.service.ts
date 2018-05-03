@@ -22,7 +22,7 @@ export class TrabajadorService{
   }
 
   getTrabajador(IdTrabajador) : Observable<any> {
-    return this._http.get(this.url + 'trabajador/'+IdTrabajador);
+      return this._http.get(this.url + 'trabajador/'+IdTrabajador);
   }
 
   getTrabajadores(Habilitado = 1) : Observable<any> {

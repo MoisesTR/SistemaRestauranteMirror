@@ -57,6 +57,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
   }
 
   ngOnInit() {
+
     $(document).ready(function(){
       $(".letras").keypress(function (key) {
         if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
@@ -92,7 +93,6 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
       }
     );
-
 
     this.initFormAdd();
     this.initFormUpdate();

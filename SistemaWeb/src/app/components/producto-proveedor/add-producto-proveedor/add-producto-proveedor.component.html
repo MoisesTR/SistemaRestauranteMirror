@@ -14,7 +14,7 @@
                   <br>
                   <label>Nombre del Producto</label>
                   <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" formControlName="nombreProducto" placeholder="Selecciona un producto" id="productosProveedor"
-                    (add)="onAddSelectProducto($event)">
+                    (change)="onChangeProducto($event)">
 
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['productosProveedor']"></show-errors>
@@ -41,7 +41,7 @@
                 <div class="col-sm-3 col-md-1 align-self-end" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top"
                   popoverTitle="Agregar Nuevo Empaque" triggers="mouseenter:mouseleave">
                   <a class="btn-floating btn-sm orange-chang">
-                    <i class="fa fa-plus" (click)="addEmpaque()"></i>
+                    <i class="fa fa-plus" (click)="showModalAddEmpaque()"></i>
                   </a>
                 </div>
 
@@ -56,7 +56,7 @@
                 <div class="col-sm-3 col-md-1 align-self-end" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top"
                   popoverTitle="Agregar Nuevo Envase" triggers="mouseenter:mouseleave">
                   <a class="btn-floating btn-sm orange-chang">
-                    <i class="fa fa-plus"></i>
+                    <i class="fa fa-plus" (click)="showModalAddEnvase()"></i>
                   </a>
                 </div>
                 <div class="col-md-6">
@@ -83,7 +83,7 @@
                   <br>
                   <label>Unidad de Medida</label>
                   <ng-select [items]="unidadesMedida" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
-                    formControlName="unidadmedida" id="unidadmedida" (add)="onAddSelectUnidadMedida($event)" class="select-no-margin">
+                             formControlName="unidadmedida" id="unidadmedida" (change)="onChangeUnidadMedida($event)" class="select-no-margin">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['unidadmedida']"></show-errors>
                 </div>
@@ -91,7 +91,7 @@
                 <div class="col-sm-3 col-md-1 align-self-end margin-space" mdbPopover="Haz clíck, se mostrará una ventana y selecciona "
                   placement="top" popoverTitle="Agregar Nueva Unidad de Medida" triggers="mouseenter:mouseleave">
                   <a class="btn-floating btn-sm orange-chang">
-                    <i class="fa fa-plus"></i>
+                    <i class="fa fa-plus" (click)="showModalAddUnidadMedida()"></i>
                   </a>
                 </div>
 
@@ -169,3 +169,6 @@
   </div>
 </div>
 
+<modal-empaque *ngIf="showModalEmpaque" [mostrarModal]="showModalEmpaque" (resultadoConsulta)="resultadoConsultaEmpaque($event)" ></modal-empaque>
+<modal-envase *ngIf="showModalEnvase" [mostrarModal]="showModalEnvase" (resultadoConsulta)="resultadoConsultaEnvase($event)" ></modal-envase>
+<modal-unidad-medida *ngIf="showModalUnidadMedida" [mostrarModal]="showModalUnidadMedida" (resultadoConsulta)="resultadoConsultaUnidadMedida($event)"></modal-unidad-medida>

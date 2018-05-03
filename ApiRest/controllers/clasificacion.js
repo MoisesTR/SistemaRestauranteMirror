@@ -1,9 +1,10 @@
 const db = require('../services/database')
 const sql = require('mssql');
 const { mssqlErrors } = require('../Utils/util');
+const {matchedData} = require('express-validator/filter');
 
 function createClasificacion(req, res) {
-    var data = req.body;
+    var data = matchedData(req, {locations:'body'});
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreClasificacion', sql.NVarChar(50), data.NombreClasificacion);
     db.pushAOJParam(aoj, 'DescripcionClasificacion', sql.NVarChar(150), data.DescripcionClasificacion);
@@ -31,7 +32,7 @@ function getClasificaciones(req, res) {
 }
 
 function updateClasificacion(req, res) {
-    var data = req.body;
+    var data = matchedData(req);
     var aoj = [];
     db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, data.IdClasificacion)
     db.pushAOJParam(aoj, 'NombreClasificacion', sql.NVarChar(50), data.NombreClasificacion)

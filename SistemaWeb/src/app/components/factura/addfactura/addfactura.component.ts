@@ -11,6 +11,9 @@ import {isNull} from 'util';
 import {ModalDirective} from '../../../typescripts/free/modals';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
 import {CustomValidators} from '../../../validadores/CustomValidators';
+import {Usuario} from '../../../models/Usuario';
+import {UsuarioService} from '../../../services/usuario.service';
+import {Factura} from '../../../models/Factura';
 
 declare var $:any;
 
@@ -27,12 +30,20 @@ export class AddfacturaComponent implements OnInit {
   public proveedor : Proveedor;
   public formEditarDetalleProducto : FormGroup;
   public formAddFactura : FormGroup;
+  public formDetallesFactura : FormGroup;
+  public formDescuentoGeneral : FormGroup;
   public productosFactura : ProductoProveedor[];
   public productoEditar : ProductoProveedor;
   public buscando;
-
+  public descuentoGeneralFactura : number = 0;
+  public subtotalFactura : number = 0;
+  public usuario : Usuario;
+  public factura : Factura;
+  public valorIva : number;
+  public formatoComaDinero;
   @ViewChild('modalVerProducto') modalVerProducto : ModalDirective;
   @ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto : ModalDirective;
+  @ViewChild('modalAddDescuento') modalAddDescuento : ModalDirective;
 
   public myDatePickerOptions: IMyOptions = opcionesDatePicker;
 
@@ -43,12 +54,14 @@ export class AddfacturaComponent implements OnInit {
       , private _proveedorService : ProveedorService
       , private _productoProveedorService : ProductoProveedorService
       , private _formBuilderFactura : FormBuilder
+      , private _usuarioService : UsuarioService
   ) {
       this.proveedor = new Proveedor();
       this.productoSeleccionado = new ProductoProveedor();
       this.productosFactura = [];
       this.productoEditar = new ProductoProveedor();
-
+      this.usuario = new Usuario();
+      this.factura = new Factura();
   }
 
   ngOnInit() {
@@ -60,6 +73,11 @@ export class AddfacturaComponent implements OnInit {
     this.getProveedores();
     this.initFormDetailProductoFactura();
     this.initFormAddFactura();
+    this.initFormDetailFactura();
+    this.initFormDescuentoGeneral();
+    this.usuario = this._usuarioService.getIdentity();
+    this.factura.NombVendedor = this.usuario.Nombres;
+    this.valorIva = 0.15;
 
   }
 
@@ -85,9 +103,31 @@ export class AddfacturaComponent implements OnInit {
   initFormAddFactura() {
       this.formAddFactura = this._formBuilderFactura.group({
           'proveedor' : new FormControl('',Validators.required)
-          , 'numeroFactura' : new FormControl('',Validators.required)
-          , 'fechaFactura' : new FormControl('',Validators.required)
+          , 'codigoFactura' : new FormControl('',Validators.required)
+          , 'fechaFactura' : new FormControl('',[
+              Validators.required
+              , CustomValidators.mayorFechaActual
+          ])
           , 'horaLlegada' : new FormControl('',Validators.required)
+      })
+  }
+
+  initFormDetailFactura() {
+      this.formDetallesFactura = this._formBuilderFactura.group({
+          'checkDescuentoGeneral' : new FormControl('',[
+
+          ]),
+          'retencion' : new FormControl('',[
+
+          ])
+      })
+  }
+
+  initFormDescuentoGeneral() {
+      this.formDescuentoGeneral = this._formBuilderFactura.group({
+          'descuentoGeneral' : new FormControl('',[
+              CustomValidators.rangeNumber(0,100)
+          ])
       })
   }
 
@@ -112,6 +152,13 @@ export class AddfacturaComponent implements OnInit {
      this.productoEditar.Descuento = this.formEditarDetalleProducto.value.descuentoTotalProducto;
      this.productoEditar.GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
   }
+
+  getValueFromFormFactura() {
+      this.factura.CodFactura = this.formAddFactura.value.codigoFactura;
+      this.factura.FechaIngreso = this.formAddFactura.value.fechaFactura;
+      this.factura.IdTrabajador = this.usuario.IdTrabajador;
+      this.factura.NombVendedor = this.usuario.Nombres;
+  }
   editarDatosProducto() {
 
     this.getValueFromModalEditarDatosProducto();
@@ -125,6 +172,7 @@ export class AddfacturaComponent implements OnInit {
          }
      });
 
+     this.calcularSubtotalFactura(this.productoEditar,'SUMA');
      this.modalAgregarDetalleProducto.hide();
   }
 
@@ -132,10 +180,13 @@ export class AddfacturaComponent implements OnInit {
 
     if(isNull(event)) {
       this.proveedor.IdProveedor = null;
+      this.factura.IdProveedor = null;
       this.productos = null;
       this.productosFactura = [];
+      this.subtotalFactura = 0;
     } else {
       this.proveedor.IdProveedor = event.IdProveedor;
+      this.factura.IdProveedor = event.IdProveedor;
       this.productosFactura = [];
       this.getProductosOfProveedor(event.IdProveedor);
     }
@@ -151,6 +202,7 @@ export class AddfacturaComponent implements OnInit {
       this.productoSeleccionado = producto;
       this.productos = this.productos.filter(item => item.IdProducto != producto.IdProducto);
       this.productosFactura.push(this.productoSeleccionado);
+      this.calcularSubtotalFactura(this.productoSeleccionado,'SUMA');
   }
 
   getProductosOfProveedor(IdProveedor) {
@@ -168,17 +220,37 @@ export class AddfacturaComponent implements OnInit {
   }
 
   createFactura() {
-      console.log('Crear factura');
+      this.getValueFromFormFactura();
+  }
+
+  aplicarRetencion() {
+
+      console.log(this.formDetallesFactura.value.retencion);
+      // this.factura.aplicaRetencion = this.formDetallesFactura.value.retencion == true ? 1 ;
   }
 
   deleteProductoOfFactura(productoFactura : ProductoProveedor) {
     this.productos.push(productoFactura);
+    this.calcularSubtotalFactura(productoFactura,'RESTA');
     this.productosFactura = this.productosFactura.filter(item => item.IdProducto != productoFactura.IdProducto);
 
   }
 
+  aplicarDescuentoGeneral () {
+        this.descuentoGeneralFactura = this.formDescuentoGeneral.value.descuentoGeneral;
+        this.modalAddDescuento.hide();
+  }
+
+  descuentoGeneralSeleccion(event) {
+      if(this.formDetallesFactura.value.checkDescuentoGeneral == false) {
+          this.modalAddDescuento.show();
+      } else {
+          this.descuentoGeneralFactura = 0;
+      }
+  }
   showModalDetalleProducto(productoFactura : ProductoProveedor) {
 
+      this.formEditarDetalleProducto.reset();
       this.productoEditar = productoFactura;
       this.productoEditar.GravadoIva = productoFactura.GravadoIva;
       this.formEditarDetalleProducto.setValue({
@@ -189,6 +261,22 @@ export class AddfacturaComponent implements OnInit {
       });
 
       this.modalAgregarDetalleProducto.show();
+  }
+  calcularSubtotalFactura(productoFactura : ProductoProveedor, operacion : string) {
+
+      if (operacion == 'SUMA') {
+          if(productoFactura.GravadoIva) {
+              this.subtotalFactura+= (productoFactura.Costo * productoFactura.Cantidad) + (productoFactura.Costo * productoFactura.Cantidad * 0.15);
+          } else {
+              this.subtotalFactura+= productoFactura.Costo * productoFactura.Cantidad;
+          }
+      } else {
+          if(productoFactura.GravadoIva) {
+              this.subtotalFactura-= (productoFactura.Costo * productoFactura.Cantidad) + (productoFactura.Costo * productoFactura.Cantidad * 0.15);
+          } else {
+              this.subtotalFactura-= productoFactura.Costo * productoFactura.Cantidad;
+          }
+      }
   }
 
 }

@@ -1,3 +1,54 @@
-<p>
-  modal-unidad-medida works!
-</p>
+<!-- Modal Agregar unidad de medida -->
+<div (click)="eventoClick($event)" mdbModal [config]="{ignoreBackdropClick: true}" #modalAddUnidadMedida="mdb-modal" class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Titulo-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Unidad de Medida</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <!-- Inicio form-->
+        <form [formGroup]="formAddUnidadMedida" (ngSubmit)="createUnidadMedida(modalAddUnidadMedida)" novalidate>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Nombre</h6>
+            <input type="text" class="input-modal-sm" name="nombreunidadmedida" formControlName="nombreUnidadMedida" id="nombreUnidadMedida"
+                   required>
+            <show-errors [control]="formAddUnidadMedida.controls['nombreUnidadMedida']"></show-errors>
+          </div>
+
+          <h6 class="orange-chang-text">Clasificación</h6>
+          <ng-select dropdownPosition="'top'" class="select-mdl" [items]="clasificacionesUnidad" bindLabel="NombreClasificacion" bindValue="IdClasificacionUnidadMedida"
+                     placeholder="Selecciona una clasificacion" formControlName="clasificacionesUnidad" id="clasificacionesUnidad" (change)="changeClasificacionUnidad($event)">
+          </ng-select>
+          <show-errors [control]="formAddUnidadMedida.controls['clasificacionesUnidad']"></show-errors>
+          <div class="md-form">
+            <br>
+            <h6 class="orange-chang-text">Simbolo</h6>
+            <input type="text" id="simbolounidadmedida" class="input-modal-sm letras" name="simbolounidadmedida" formControlName="simboloUnidadMedida"
+                   required>
+            <show-errors [control]="formAddUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddUnidadMedida.valid">Ingresar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+
+
+        </form>
+        <!-- Final form -->
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

@@ -9,6 +9,7 @@ export class Factura {
   public FechaIngreso : string;
   public SubTotal : number;
   public TotalIva : number;
+  public aplicaRetencion : number;
   public CambioActual : number;
   public TotalDescuento : number;
   public TotalCordobas : number;

@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="container-fluid">
                         <!-- Inicio form-->
-                        <form [formGroup]="formAddFactura" (ngSubmit)="createFactura()" novalidate>
+                        <form [formGroup]="formAddFactura" novalidate>
 
                             <div class="row">
 
@@ -28,16 +28,16 @@
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <input mdbActive type="search" id="numeroFactura" placeholder="#123ejemplo" class="form-control autocomplete-proveedor"
-                                            autocomplete="off" formControlName="numeroFactura">
-                                        <show-errors [control]="formAddFactura.controls['numeroFactura']"></show-errors>
+                                        <input mdbActive type="search" id="numeroFactura" placeholder="BD200" class="form-control autocomplete-proveedor"
+                                            autocomplete="off" formControlName="codigoFactura">
+                                        <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
                                         <button class="mdb-autocomplete-clear">
                                             <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
                                                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                                                 <path d="M0 0h24v24H0z" fill="none" />
                                             </svg>
                                         </button>
-                                        <label for="nombreproveedor">Número de factura</label>
+                                        <label for="nombreproveedor">Código de factura</label>
                                     </div>
                                 </div>
 
@@ -50,7 +50,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <mdb-time-picker buttonLabel="'Seleccionar'" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'" required></mdb-time-picker>
+                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'" required></mdb-time-picker>
                                     <show-errors [control]="formAddFactura.controls['horaLlegada']"></show-errors>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                                         <td width="10%" class="body-negrita">
                                             <strong>{{productoFactura.Descuento}}%</strong>
                                         </td>
-                                        <td width="10%" class="body-negrita">{{productoFactura.Cantidad * productoFactura.Costo}} C$</td>
+                                        <td width="10%" class="body-negrita">{{((productoFactura.Cantidad * productoFactura.Costo) - (productoFactura.Cantidad * productoFactura.Costo * (productoFactura.Descuento / 100))) | number}} C$</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
@@ -167,18 +167,18 @@
 
                     <div class="row">
                         <div class="col-10">
-                            <form>
+                            <form [formGroup]="formDetallesFactura" novalidate>
                                 <div class="col-lg-12" style="padding-left: 30em">
 
                                     <div class="col-lg-6">
-                                        <input type="checkbox" value="validando_checkbox2" name="seleccionadocheck" id="segundo1">
-                                        <label for="segundo1" (click)="modalAddDescuento.show()">
+                                        <input type="checkbox" (click)="descuentoGeneralSeleccion()" value="validando_checkbox2" name="seleccionadocheck" id="segundo1" formControlName="checkDescuentoGeneral">
+                                        <label for="segundo1" >
                                             <strong>Descuento</strong>
                                         </label>
                                     </div>
 
                                     <div class="col-lg-6" style="">
-                                        <input type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2">
+                                        <input (click)="aplicarRetencion()" type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2" formControlName="retencion">
                                         <label for="segundo2">
                                             <strong>Retencion</strong>
                                         </label>
@@ -204,19 +204,19 @@
                         <div class="col-2">
                             <form>
                                 <div class="">
-                                    <label>25%</label>
+                                    <label>{{descuentoGeneralFactura}}%</label>
                                 </div>
                                 <div class="">
                                     <label>2% aplicado</label>
                                 </div>
                                 <div class="">
-                                    <label>C$ 43434</label>
+                                    <label>{{subtotalFactura}} C$</label>
                                 </div>
                                 <div class="">
-                                    <label>C$ 49949.1</label>
+                                    <label>{{ ((subtotalFactura * valorIva) | number ) | formatoComaDinero}}  C$</label>
                                 </div>
                                 <div class="">
-                                    <label>C$ 49949.1</label>
+                                    <label>{{subtotalFactura + (subtotalFactura * valorIva)}} C$</label>
                                 </div>
                             </form>
                         </div>
@@ -230,7 +230,7 @@
 
                         <div class="col-md-3">
                             <div class="md-form">
-                                <button type="button" class="btn orange-chang waves-effect">Guardar factura</button>
+                                <button type="button" (click)="createFactura()" class="btn orange-chang waves-effect">Guardar factura</button>
                             </div>
                         </div>
 
@@ -382,7 +382,7 @@
                         <div class="col-md-6">
                             <div class="md-form">
                                 <br>
-                                <input class="form-check-input" type="checkbox" id="checkbox33" checked="checked" formControlName="gravadoIva">
+                                <input class="form-check-input" type="checkbox" id="checkbox33" formControlName="gravadoIva">
                                 <label class="form-check-label" for="checkbox33">Gravado de Iva</label>
                                 <show-errors [control]="formEditarDetalleProducto.controls['gravadoIva']"></show-errors>
                             </div>
@@ -417,14 +417,15 @@
             <!--Cuerpo modal-->
             <div class="modal-body mb-0">
                 <!-- Inicio form-->
-                <form>
+                <form [formGroup]="formDescuentoGeneral" (ngSubmit)="aplicarDescuentoGeneral()" novalidate>
                     <div class="md-form">
                         <h6 class="orange-chang-text">Descuento</h6>
-                        <input type="text" id="descuentoFactura" minlength="4" maxlength="50" class="input-modal-sm" name="descuentoFactura"
-                            required>
+                        <input type="text" id="descuentoFactura" class="input-modal-sm" name="descuentoFactura"
+                            required formControlName="descuentoGeneral">
+                        <show-errors [control]="formDescuentoGeneral.controls['descuentoGeneral']"></show-errors>
                     </div>
                     <div class="text-center mt-1-half">
-                        <button class="btn orange-chang mb-1" type="submit">Ingresar
+                        <button class="btn orange-chang mb-1" [disabled]="!formDescuentoGeneral.valid" type="submit">Aplicar
                             <i class="fa fa-check ml-1"></i>
                         </button>
                     </div>

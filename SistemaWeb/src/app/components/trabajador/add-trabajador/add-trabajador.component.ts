@@ -28,7 +28,7 @@ export class AddTrabajadorComponent implements OnInit {
 
   public trabajador: Trabajador;
   public trabajadores: Trabajador[];
-  formAddTrabajador : FormGroup;
+  formUpdateTrabajador : FormGroup;
   public sucursales : Sucursal[];
   public cargos: Cargo[];
   public tiposDocumento : TipoDocumento [];
@@ -128,8 +128,17 @@ export class AddTrabajadorComponent implements OnInit {
 
   }
 
+  onChangeTipoDocumento(event) {
+
+      if (isNull(event)) {
+          this.trabajador.IdTipoDocumento = null;
+      } else {
+          this.trabajador.IdTipoDocumento = event.IdTipoDocumento;
+      }
+  }
+
   initFormTrabajador(){
-    this.formAddTrabajador = this.formBuilderAddTrabajador.group({
+    this.formUpdateTrabajador = this.formBuilderAddTrabajador.group({
       'nombreTrabajador' : new FormControl('', [
         Validators.required,
         CustomValidators.espaciosVacios
@@ -200,14 +209,14 @@ export class AddTrabajadorComponent implements OnInit {
   }
 
   getValueFormAddTrabajador(){
-    this.trabajador.Nombres = this.formAddTrabajador.value.nombreTrabajador;
-    this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
-    this.trabajador.FechaNacimiento =  this.formAddTrabajador.value.fechaNacimiento;
-    this.trabajador.FechaIngreso = this.formAddTrabajador.value.fechaIngreso;
-    this.trabajador.Documento = this.formAddTrabajador.value.documentoTrabajador.replace("-","");
-    this.trabajador.Telefono1 = (this.formAddTrabajador.value.telefonoPrincipal).replace("-","");
-    this.trabajador.Telefono2 = (this.formAddTrabajador.value.telefonoSecundario).replace("-","");
-    this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
+    this.trabajador.Nombres = this.formUpdateTrabajador.value.nombreTrabajador;
+    this.trabajador.Apellidos = this.formUpdateTrabajador.value.apellido;
+    this.trabajador.FechaNacimiento =  this.formUpdateTrabajador.value.fechaNacimiento;
+    this.trabajador.FechaIngreso = this.formUpdateTrabajador.value.fechaIngreso;
+    this.trabajador.Documento = this.formUpdateTrabajador.value.documentoTrabajador.replace("-","");
+    this.trabajador.Telefono1 = (this.formUpdateTrabajador.value.telefonoPrincipal).replace("-","");
+    this.trabajador.Telefono2 = (this.formUpdateTrabajador.value.telefonoSecundario).replace("-","");
+    this.trabajador.Direccion = this.formUpdateTrabajador.value.direccion;
   }
 
   createTrabajador(){
@@ -230,7 +239,7 @@ export class AddTrabajadorComponent implements OnInit {
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
 
       }, () =>{
-        this.formAddTrabajador.reset;
+        this.formUpdateTrabajador.reset;
       }
     )
   }
@@ -283,14 +292,7 @@ export class AddTrabajadorComponent implements OnInit {
     }
 
   }
-  onChangeTipoDocumento(event){
 
-      if(isNull(event)) {
-        this.trabajador.IdTipoDocumento = null;
-      } else {
-          this.trabajador.IdTipoDocumento = event.IdTipoDocumento;
-      }
-  }
   getTiposDocumentos() {
 
     this._TrabajadorService.getTiposDocumento().subscribe(

@@ -1,6 +1,6 @@
-const db = require('../services/database');
-const sql = require('mssql');
-const { mssqlErrors } = require('../Utils/util');
+const db                        = require('../services/database');
+const sql                       = require('mssql');
+const { mssqlErrors }           = require('../Utils/util');
 const { matchedData, sanitize } = require('express-validator/filter');
 
 function getSucursalById(req, res) {
@@ -96,7 +96,7 @@ function createTelefonoSucursal(req, res) {
 }
 
 function updateTelefonoSucursal(req, res) {
-    const telefoData = matchedData(req);
+    const telefoData = matchedData(req, {locations:['body','params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdTelefonoSucursal', sql.Int, telefoData.IdTelefonoSucursal)
     db.pushAOJParam(aoj, 'IdSucursal', sql.Int, telefoData.IdSucursal);

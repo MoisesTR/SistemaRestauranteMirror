@@ -1,6 +1,7 @@
-const { mssqlErrors } = require('../Utils/util')
-const db = require('../services/database');
-const sql = require('mssql');
+const { mssqlErrors }   = require('../Utils/util')
+const db                = require('../services/database');
+const sql               = require('mssql');
+const {matchedData }    = require('express-validator/filter')
 
 function getSubclasificacionById(req, res) {
     var data = req.params;
@@ -44,7 +45,7 @@ function createSubclasificacion(req, res) {
 }
 
 function updateSubclasificacion(req, res) {
-    var data = req.body;
+    var data = matchedData(req, {locations: ['body', 'params']});
     var aoj = [];
 
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)

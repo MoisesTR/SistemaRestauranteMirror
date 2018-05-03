@@ -140,6 +140,7 @@ Router
     .put('/update-user/:IdUsuario(\\d+)', validations.userSignInValidation, validations.userUpdate, validations.validsParams, AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)', AuthController.changeStateUser)
     .get('/menu', menuController.getMenus)
+    
     //Rutas para los menues
     .post('/menu', menuController.createMenu)
     .get('/menu', menuController.getMenus)

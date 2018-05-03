@@ -74,7 +74,7 @@ function getProductosByProveedorId(req, res) {
 }
 
 function updateProductoProveedor(req, res) {
-    var data = matchedData(req);
+    var data = matchedData(req, {locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int, data.IdProductoProveedor);
     db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase);

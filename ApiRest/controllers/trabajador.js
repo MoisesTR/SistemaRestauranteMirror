@@ -1,8 +1,8 @@
-const { mssqlErrors } = require('../Utils/util')
+const { mssqlErrors }           = require('../Utils/util')
 const { matchedData, sanitize } = require('express-validator/filter');
-var     path    = require('path');
-const   db      = require('../services/database');
-const   sql     = require('mssql')
+var     path                    = require('path');
+const   db                      = require('../services/database');
+const   sql                     = require('mssql')
 
 function getTrabajadorById(req, res) {
     var data = req.params;
@@ -54,7 +54,7 @@ function createTrabajador(req, res) {
 }
 
 function updateTrabajador(req, res) {
-    var trabajadorData = matchedData(req);
+    var trabajadorData = matchedData(req, {locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdSucursal', sql.Int, trabajadorData.IdSucursal);
     db.pushAOJParam(aoj, 'IdCargo', sql.Int, trabajadorData.IdCargo);

@@ -72,11 +72,11 @@ exports.changeStateCargo = [
 ];
 
 exports.createProveedor = [
-    check('NombreProveedor').exists(),
-    check('Direccion', 'Direccion del proveedor requerida!').exists(),
-    check('Email', 'El email del proveedor es requerido!').isEmail(),
-    check('Descripcion'),
-    check('NombreRepresentante').exists()
+    body('NombreProveedor').exists(),
+    body('Direccion', 'Direccion del proveedor requerida!').exists(),
+    body('Email', 'El email del proveedor es requerido!').isEmail(),
+    body('Descripcion'),
+    body('NombreRepresentante').exists()
 ];
 
 exports.updateProveedor = [
@@ -89,8 +89,8 @@ exports.updateProveedor = [
 ];
 
 exports.changeStateProveedor = [
-        check('IdProveedor').exists(),
-        check('Habilitado').isBoolean()
+        check('IdProveedor').isInt(),
+        check('Habilitado', ).isBoolean()
     ];
 
 exports.createEntradaBodegaAP = [
@@ -152,7 +152,8 @@ var createEnvase = [
 exports.createEnvase = createEnvase;
 
 exports.updateEnvase = createEnvase.concat([
-    param('IdEnvase', 'IdEnvase debe ser Entero').isInt()
+    param('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
+    sanitize('IdEnvase').toInt()
 ]); 
 
 exports.createTrabajador = [

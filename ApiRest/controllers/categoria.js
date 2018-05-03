@@ -30,7 +30,7 @@ function getCategorias(req,res){
     });
 }
 function updateCategoria(req,res){
-    var data = req.body;
+    var data = matchedData(req,{locations: ['body','params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdCategoria',sql.Int,data.IdCategoria)
     db.pushAOJParam(aoj, 'NombreCategoria',sql.NVarChar(50),data.NombreCategoria)

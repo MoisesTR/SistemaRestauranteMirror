@@ -73,7 +73,7 @@ function updateTelefonoProveedor(req, res) {
 }
 
 function updateProveedor(req, res) {
-    var data = req.body;
+    var data = matchedData(req, {locations: ['body','params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor)
     db.pushAOJParam(aoj, 'NombreProveedor', sql.NVarChar(50), data.NombreProveedor)
@@ -93,7 +93,7 @@ function updateProveedor(req, res) {
 
 function changeStateProveedor(req, res) {
     let IdProveedor = req.params.IdProveedor;
-    let Habilitado = req.body.Habilitado;
+    let Habilitado  = req.body.Habilitado;
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProveedor', sql.Int, IdProveedor);
     db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);

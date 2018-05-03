@@ -32,7 +32,7 @@ function getClasificaciones(req, res) {
 }
 
 function updateClasificacion(req, res) {
-    var data = matchedData(req);
+    var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, data.IdClasificacion)
     db.pushAOJParam(aoj, 'NombreClasificacion', sql.NVarChar(50), data.NombreClasificacion)

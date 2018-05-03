@@ -36,27 +36,28 @@ function createEnvase(req, res) {
     db.pushAOJParam(aoj, 'NombreEnvase', sql.NVarChar(50), data.NombreEnvase)
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(150), data.Descripcion)
     db.storedProcExecute('USP_CREATE_ENVASE', aoj)
-        .then((results) => {
-            res.status(200).json(results.recordset[0])
-        }).catch((err) => {
+    .then((results) => {
+        res.status(200).json(results.recordset[0])
+    }).catch((err) => {
 
-            res.status(500).json(mssqlErrors(err));
-        });
+        res.status(500).json(mssqlErrors(err));
+    });
 }
 
 function updateEnvase(req, res) {
-    var data = matchedData(req,{locations: ['body','param']});
+    var data = matchedData(req,{locations: ['body','params']});
     var aoj = [];
     console.log(data);
     db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase);
     db.pushAOJParam(aoj, 'NombreEnvase', sql.NVarChar(50), data.NombreEnvase);
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(150), data.Descripcion);
     db.storedProcExecute('dbo.USP_UPDATE_ENVASE', aoj)
-        .then((result) => {
-            success: 'Envase actualizado con exito!'
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        })
+    .then((result) => {
+        res.status(200).json({success: 'Envase actualizado con exito!'})
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+        console.log(err)
+    })
 }
 
 module.exports = {

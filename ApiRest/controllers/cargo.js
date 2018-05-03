@@ -31,7 +31,7 @@ function getCargos(req, res) {
 }
 
 function updateCargo(req, res) {
-    var data = req.body;
+    var data = matchedData(req, {locations: ['body','params']});
     var aoj = [];
     console.log(data);
     db.pushAOJParam(aoj, 'IdCargo',          sql.Int,           data.IdCargo);

@@ -1,8 +1,9 @@
-var fs = require('fs');
-var path = require('path');
-var sql = require('mssql');
-var db = require('../services/database');
-const { mssqlErrors } = require('../Utils/util');
+var fs                  = require('fs');
+var path                = require('path');
+var sql                 = require('mssql');
+var db                  = require('../services/database');
+const { mssqlErrors }   = require('../Utils/util');
+const {matchedData}     = require('express-validator/filter')
 
 function getProductoById(req, res) {
     var data = req.params;
@@ -51,7 +52,7 @@ function createProducto(req, res) {
 }
 
 function updateProducto(req, res) {
-    var data = req.body;
+    var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto)
     db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)

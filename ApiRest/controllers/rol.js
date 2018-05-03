@@ -42,7 +42,7 @@ function getRolbyId(req,res){
     res.status(500).json( mssqlErrors(err) );
 }
 function updateRol(req,res){
-    var data = matchedData(req, {locations: ['body', 'param']});
+    var data = matchedData(req, {locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdRol',       sql.Int,            data.IdRol)
     db.pushAOJParam(aoj, 'NombreRol',   sql.NVarChar(50),   data.NombreRol)

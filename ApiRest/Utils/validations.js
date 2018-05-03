@@ -1,11 +1,12 @@
-const { check, validationResult } = require('express-validator/check');
+const { body,check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
-function validsParams(req, res, next) {
+exports.validsParams = (req, res, next) => {
     let errors = validationResult(req);
     (!errors.isEmpty()) ? res.status(400).json(errors.array()): next();
 }
-const userSignUpValidation = [
+
+exports.userSignUpValidation = [
         check('IdRol', 'IdRol es requerido y debe ser un entero').isInt(),
         check('IdTrabajador', 'IdTrabajador es requerido y debe ser un entero').isInt(),
         check('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 }),
@@ -14,22 +15,26 @@ const userSignUpValidation = [
         check('Password', 'El password debe tener una longitud minima de 5 y maxima de 20').isLength({ min: 5, max: 20 }),
         sanitize('IdRol').toInt(),
         sanitize('IdTrabajador').toInt()
-    ],
-    userFindUsername = [
+    ];
+
+exports.userFindUsername = [
         check('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 })
-    ],
-    userFindEmail = [
+    ];
+
+exports.userFindEmail = [
         check('Email', 'Campo Email no es una direccion de correo electronico valida!').isEmail()
-    ],
-    userSignInValidation = [
+    ];
+    
+exports.userSignInValidation = [
         check('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 }),
         check('Password', 'El password debe tener una longitud minima de 5 y maxima de 20').isLength({ min: 5, max: 20 }),
         check('gettoken', 'gettoken debe ser un boleano').isBoolean().optional({ nullable: true }),
         sanitize('gettoken').toBoolean(),
         sanitize('Username').toString(),
         sanitize('Password').toString()
-    ],
-    userUpdate = [
+    ];
+
+exports.userUpdate = [
         check('IdUsuario', 'IdUsuario debe ser un Entero!').isInt().optional({ nullable: false }),
         check('Username', 'username debe tener un minimo de 5 caracteres').isLength({ min: 5, max: 50 }),
         check('Password', 'password es requerido!').exists(),
@@ -37,52 +42,58 @@ const userSignUpValidation = [
         check('IdRol').optional({ nullable: true })
     ];
 
-const categoriaCreate = [
+exports.categoriaCreate = [
         check('NombreCategoria', 'El nombre de la categoria es requerido').exists(),
         check('DescripcionCategoria', 'La descripcion de la categoria es requerida!').exists()
-    ],
-    updateCategoria = [
+    ];
+exports.updateCategoria = [
         check('IdCategoria').isInt(),
         check('Nombre', 'Nombre es requerido').exists(),
         check('Descripcion').exists()
-    ],
-    changeStateCategoria = [
+    ];
+
+exports.changeStateCategoria = [
         check('IdCategoria').isInt(),
         check('Habilitado', 'Habilitado debe ser un booleano.').isBoolean()
     ];
 
-const createCargo = [
+exports.createCargo = [
         check('NombreCargo', 'El nombre del cargo es requerido!').exists(),
-        check('DescripcionCargo', 'La descripcion del cargo es requerida!').exists()
-    ],
-    updateCargo = [
-        check('IdCargo').exists().isInt(),
-    ],
-    changeStateCargo = [
-        check('Habilitado').isBoolean()
-    ]
+        check('DescripcionCargo', 'La descripcion del cargo es requerida!').exists(),
+        sanitize('NombreCargo').toString()
+    ];
 
-const createProveedor = [
+exports.updateCargo = [
+        check('IdCargo').exists().isInt(),
+    ];
+
+exports.changeStateCargo = [
+        check('Habilitado').isBoolean()
+    ];
+
+exports.createProveedor = [
         check('NombreProveedor').exists(),
-        check('Direccion'),
+        check('Direccion').exists(),
         check('Email'),
         check('Descripcion'),
         check('NombreRepresentante').exists()
-    ],
-    updateProveedor = [
+    ];
+
+exports.updateProveedor = [
         check('IdProveedor').isInt(),
         check('NombreProveedor').exists(),
-        check('Direccion'),
-        check('Email'),
+        check('Direccion').isAlpha("es-ES").trim(),
+        check('Email').islen,
         check('Descripcion'),
         check('NombreRepresentante').exists()
-    ],
-    changeStateProveedor = [
+    ];
+
+exports.changeStateProveedor = [
         check('IdProveedor').exists(),
         check('Habilitado').isBoolean()
     ];
 
-const createEntradaBodegaAP = [
+exports.createEntradaBodegaAP = [
         check('IdBodegaAreaP').isInt(),
         check('IdTrabajador').isInt(),
         check('IdProveedor').isInt(),
@@ -93,58 +104,69 @@ const createEntradaBodegaAP = [
         check('PorcIva').isInt(),
         check('PorcDescuento').isInt(),
         check('FechaHora').exists()
-    ],
-    editEntradaBodegaAP = [
+    ];
+
+exports.editEntradaBodegaAP = [
         check('IdEntradaBodegaAP').isInt()
-    ],
-    crearFactura = [
+    ];
+
+exports.crearFactura = [
         check('IdEntradaBodegaAP').isInt()
-    ],
-    detalleEntradaBodega = [
+    ];
+    
+exports.detalleEntradaBodega = [
         check('IdEntradaBodegaAP').isInt(),
         check('IdProductoProveedor').isInt(),
         check('Cantidad').isInt(),
         check('PrecioUnitarioEntrada').isFloat(),
         check('DescuentoCalculado').isFloat()
     ];
-const createProductoProveedor = [
+
+var createProductoProveedor = [
     check('IdProducto').isInt(),
     check('IdProveedor').isInt(),
-    check('IdEnvase').isInt().optional({nullable:true}),
-    check('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
-    check('Costo','El costo es necesario!').isFloat(),
-    check('CantidadEmpaque').isInt().optional({nullable:true}),
-    check('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
-    check('ValorUnidadMedida').isNumeric(),
+    body('IdEnvase').isInt().optional({nullable:true}),
+    body('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
+    body('Costo','El costo es necesario!').isFloat(),
+    body('CantidadEmpaque').isInt().optional({nullable:true}),
+    body('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
+    body('ValorUnidadMedida').isNumeric(),
     check('DiasCaducidad').optional({ nullable: true }),
     sanitize('ValorUnidadMedida').toFloat()
 ];
+exports.createProductoProveedor = createProductoProveedor;
+
 var updateProductoProv = createProductoProveedor.slice(2,createProductoProveedor.length);
-updateProductoProv = updateProductoProv.concat([
+
+exports.updateProductoProv = updateProductoProv.concat([
     check('IdProductoProveedor', 'El id de la relacion producto proveedor es requerido!').isInt(),
     sanitize('IdProductoProveedor').toInt()    
 ]);
-const createEnvase = [
+
+exports.createEnvase = [
     check('NombreEnvase', 'El nombre de envase es requerido!').isAscii(),
     check('Descripcion', 'La descripcion debe tener una longitud maxima de 150 caracteres.').isAscii(),
     sanitize('NombreEnvase').toString(),
     sanitize('Descripcion').toString()
 ];
-const updateEnvase = [
+
+exports.updateEnvase = [
     check('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
     check('NombreEnvase').isLength({ min: 3, max: 50 }),
     check('Descripcion').isLength({ max: 150 }).optional({ nullable: true }),
     sanitize('NombreEnvase').toString().trim(),
     sanitize('Descripcion').toString()
 ];
-const updateEmpaque = [
+
+exports.updateEmpaque = [
     check('IdEmpaque', 'IdEnvase debe ser Entero').isInt(),
     check('NombreEmpaque').isLength({ min: 3, max: 50 }),
     check('Descripcion').isLength({ max: 150 }).optional({ nullable: true }),
     sanitize('NombreEmpaque').toString(),
     sanitize('Descripcion').toString()
 ];
-const createTrabajador = [
+
+exports.createTrabajador = [
         check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),
         check('IdCargo', 'IdCargo debe ser entero').isInt(),
         check('Nombres', 'Nombres debe tener un minimo de 4 y un maximo de 50').isLength({ min: 4, max: 50 }),
@@ -159,17 +181,19 @@ const createTrabajador = [
         check('FechaIngreso', 'FechaIngreso es requerida!').exists(),
         sanitize('IdSucursal', 'IdSucursal debe ser entero').toInt(),
         sanitize('IdCargo', 'IdCargo debe ser entero').toInt()
-    ],
-    updateTrabajador = [
+    ];
+
+exports.updateTrabajador = [
         check('IdTrabajador', 'IdTrabajador debe ser un entero!').exists().isInt(),
         sanitize('IdTrabajador').toInt()
-    ],
-    deleteTrabajador = [
+    ];
+
+exports.deleteTrabajador = [
         check('Habilitado', 'Habilitado es requerido y debe ser un boolean').isBoolean(),
         sanitize('Habilitado').toBoolean()
     ];
 
-const createSucursalTelef = [
+exports.createSucursalTelef = [
     check('IdSucursal', 'IdSucursal debe ser entero').isInt(),
     check('IdOperadora', 'IdOperadora debe ser entero').isInt(),
     check('NumeroTelefono', 'NumeroTelefono es requerido').exists(),
@@ -177,32 +201,4 @@ const createSucursalTelef = [
     sanitize('IdOperadora').toInt()
 ];
 
-module.exports = {
-    userSignUpValidation,
-    userSignInValidation,
-    userFindEmail,
-    userFindUsername,
-    validsParams,
-    userUpdate,
-    changeStateCargo,
-    changeStateCategoria,
-    changeStateProveedor,
-    createCargo,
-    createProveedor,
-    categoriaCreate,
-    updateCargo,
-    updateCategoria,
-    updateProveedor,
-    createTrabajador,
-    updateTrabajador,
-    deleteTrabajador,
-    createSucursalTelef,
-    createEntradaBodegaAP,
-    crearFactura,
-    detalleEntradaBodega,
-    createProductoProveedor,
-    updateProductoProv,
-    updateEmpaque,
-    createEnvase,
-    updateEnvase
-}
+export {createCargo,}

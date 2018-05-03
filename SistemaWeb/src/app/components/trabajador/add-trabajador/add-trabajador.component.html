@@ -46,8 +46,9 @@
 
                 <div class="col-md-6">
                   <br>
+                  <label class="margin-label-trabajador" for="fechaNacimiento">Fecha de Nacimiento</label>
                   <div class="md-form">
-                    <mdb-date-picker  [placeholder]="'Fecha de Nacimiento'"  mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
+                    <mdb-date-picker mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
                       [options]="myDatePickerOptions" required></mdb-date-picker>
                     <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
                   </div>
@@ -55,8 +56,9 @@
 
                 <div class="col-md-6">
                   <br>
+                  <label class="margin-label-trabajador" for="FechaIngreso">Fecha de Ingreso</label>
                   <div class="md-form">
-                    <mdb-date-picker [placeholder]="'Fecha de Ingreso'" mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso"
+                    <mdb-date-picker mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso"
                       [options]="myDatePickerOptions" required></mdb-date-picker>
                     <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
                   </div>

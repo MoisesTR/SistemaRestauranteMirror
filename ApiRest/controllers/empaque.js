@@ -31,7 +31,7 @@ function getEmpaques(req, res) {
 }
 
 function createEmpaque(req, res) {
-    const data = req.body;
+    const data = matchedData(req, {locations: 'body'});
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreEmpaque', sql.NVarChar(50), data.NombreEmpaque);
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(150), data.Descripcion);
@@ -44,7 +44,6 @@ function createEmpaque(req, res) {
 }
 
 function updateEmpaque(req, res) {
-    var data = req.body;
     var data = matchedData(req);
     var aoj = [];
     db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque);

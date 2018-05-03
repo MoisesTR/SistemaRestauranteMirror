@@ -39,13 +39,13 @@ Router
     //Rutas clasificacion controller
     .get('/clasificacion/:IdClasificacion(\\d+)', ClasificacionController.getClasificacionById)
     .get('/clasificaciones', ClasificacionController.getClasificaciones)
-    .post('/clasificacion', ClasificacionController.createClasificacion)
-    .put('/clasificacion', ClasificacionController.updateClasificacion)
+    .post('/clasificacion',validations.createClasificacion, validations.validsParams, ClasificacionController.createClasificacion)
+    .put('/clasificacion',validations.updateClasificacion, validations.validsParams, ClasificacionController.updateClasificacion)
     .delete('/clasificacion/:IdClasificacion(\\d+)', ClasificacionController.changeStateClasificacion)
     //Rutas empaque controller
     .get('/empaque/:IdEmpaque(\\d+)', EmpaqueController.getEmpaqueById)
     .get('/empaques', EmpaqueController.getEmpaques)
-    .post('/empaque', EmpaqueController.createEmpaque)
+    .post('/empaque', validations.createEmpaque, validations.validsParams ,EmpaqueController.createEmpaque)
     .put('/empaque/:IdEmpaque(\\d+)', validations.updateEmpaque, validations.validsParams, EmpaqueController.updateEmpaque)
     //Rutas envase controler
     .get('/envase/:IdEnvase(\\d+)', EnvaseController.getEnvaseById)

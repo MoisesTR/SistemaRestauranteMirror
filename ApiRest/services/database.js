@@ -60,7 +60,6 @@ function storedProcExecute(spName, parametersJsonArray) {
         }
         return request.execute(spName);			
     }).catch(function(err) {
-        console.log("Connection Error: " + err);
         throw err
     })
 }

@@ -28,7 +28,7 @@ function getSucursales(req, res) {
 }
 
 function createSucursal(req, res) {
-    var data = req.body;
+    var data = matchedData(req, {locations: 'body'});
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreSucursal', sql.NVarChar(100), data.NombreSucursal)
     db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(250), data.Direccion)
@@ -96,7 +96,7 @@ function createTelefonoSucursal(req, res) {
 }
 
 function updateTelefonoSucursal(req, res) {
-    const telefoData = matchedData(req, { locations: 'body' });
+    const telefoData = matchedData(req);
     var aoj = [];
     db.pushAOJParam(aoj, 'IdTelefonoSucursal', sql.Int, telefoData.IdTelefonoSucursal)
     db.pushAOJParam(aoj, 'IdSucursal', sql.Int, telefoData.IdSucursal);

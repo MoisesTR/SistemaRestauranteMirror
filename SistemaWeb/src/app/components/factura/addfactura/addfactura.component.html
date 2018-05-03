@@ -28,8 +28,8 @@
 
                                 <div class="col-md-12">
                                     <div class="md-form">
-                                        <input mdbActive type="search" id="numeroFactura" placeholder="BD200" class="form-control autocomplete-proveedor"
-                                            autocomplete="off" formControlName="codigoFactura">
+                                        <input mdbActive type="search" id="numeroFactura" placeholder="BD200" class="form-control autocomplete-proveedor" autocomplete="off"
+                                            formControlName="codigoFactura">
                                         <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
                                         <button class="mdb-autocomplete-clear">
                                             <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
@@ -42,15 +42,17 @@
                                 </div>
 
                                 <div class="col-md-12">
+                                    <label class="margin-label-factura" for="FechaIngreso">Fecha de Ingreso</label>
                                     <div class="md-form">
-                                        <mdb-date-picker [placeholder]="'Fecha'" formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions"
+                                        <mdb-date-picker formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions"
                                             required></mdb-date-picker>
                                         <show-errors [control]="formAddFactura.controls['fechaFactura']"></show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'" [label]="'Hora'" required></mdb-time-picker>
+                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'"
+                                        [label]="'Hora'" required></mdb-time-picker>
                                     <show-errors [control]="formAddFactura.controls['horaLlegada']"></show-errors>
                                 </div>
                             </div>
@@ -141,16 +143,17 @@
                                         <td width="10%" class="body-negrita">
                                             <strong>{{productoFactura.Descuento}}%</strong>
                                         </td>
-                                        <td width="10%" class="body-negrita">{{((productoFactura.Cantidad * productoFactura.Costo) - (productoFactura.Cantidad * productoFactura.Costo * (productoFactura.Descuento / 100))) | number}} C$</td>
+                                        <td width="10%" class="body-negrita">{{((productoFactura.Cantidad * productoFactura.Costo) - (productoFactura.Cantidad
+                                            * productoFactura.Costo * (productoFactura.Descuento / 100))) | number}} C$</td>
                                         <td width="25%" class="body-negrita">
                                             <div class="text-center">
                                                 <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Editar">
+                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Editar">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" (click)="deleteProductoOfFactura(productoFactura)" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Eliminar">
+                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" (click)="deleteProductoOfFactura(productoFactura)"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </div>
@@ -171,8 +174,9 @@
                                 <div class="col-lg-12" style="padding-left: 30em">
 
                                     <div class="col-lg-6">
-                                        <input type="checkbox" (click)="descuentoGeneralSeleccion()" value="validando_checkbox2" name="seleccionadocheck" id="segundo1" formControlName="checkDescuentoGeneral">
-                                        <label for="segundo1" >
+                                        <input type="checkbox" (click)="descuentoGeneralSeleccion()" value="validando_checkbox2" name="seleccionadocheck" id="segundo1"
+                                            formControlName="checkDescuentoGeneral">
+                                        <label for="segundo1">
                                             <strong>Descuento</strong>
                                         </label>
                                     </div>
@@ -213,7 +217,7 @@
                                     <label>{{subtotalFactura | formatoComaDinero}} C$</label>
                                 </div>
                                 <div class="">
-                                    <label>{{ ((subtotalFactura * valorIva) | number ) | formatoComaDinero}}  C$</label>
+                                    <label>{{ ((subtotalFactura * valorIva) | number ) | formatoComaDinero}} C$</label>
                                 </div>
                                 <div class="">
                                     <label>{{(subtotalFactura + (subtotalFactura * valorIva)) | formatoComaDinero}} C$</label>
@@ -252,7 +256,7 @@
 <div mdbModal #modalVerProducto="mdb-modal" class="modal fade" id="modalVerProducto" tabindex="-1">
     <div class="modal-dialog modal-lg cascading-modal " role="document">
         <!--Contenido-->
-        <div class="modal-content">
+        <div class="modal-content background-gray mdl">
 
             <!--Titulo-->
             <div class="modal-header orange-chang white-text">
@@ -268,15 +272,13 @@
                     <form>
                         <div class="row">
 
-                            <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                                <div class="card peach-gradient">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="card-body text-center">
-                                                <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" data-default-file="assets/img/productos/pollo preparado.jpg"
-                                                />
-                                            </div>
-                                        </div>
+                            <div class="col-lg-5">
+                                <div class="card card-cascade narrower">
+                                    <div class="view gradient-card-header orange-chang">
+                                        <h4 class="mb-0">Imagen</h4>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <img src="assets/img/utils/not-found.png" alt="..." class="img-thumbnail height-card-usuario">
                                     </div>
                                 </div>
                             </div>
@@ -287,8 +289,9 @@
 
                                         <div class="col-md-12">
                                             <div class="md-form">
-                                                <input type="text" id="nombreProducto" class="form-control">
-                                                <label for="nombreProducto" class="">{{productoSeleccionado.NombreProducto}}</label>
+                                                <h6 class="orange-chang-text">Nombre</h6>
+                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase"
+                                                    required value={{productoSeleccionado.NombreProducto}}>
                                             </div>
                                         </div>
 
@@ -317,8 +320,9 @@
                                         <div class="col-md-12">
                                             <br>
                                             <div class="md-form">
-                                                <textarea type="text" id="descripcionproducto" class="md-textarea" autocomplete="off"></textarea>
-                                                <label for="descripcionproducto">{{productoSeleccionado.Descripcion}}</label>
+                                                <h6 class="orange-chang-text">Descripción</h6>
+                                                <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" formControlName="descripcionproducto" class="text-area-modal"
+                                                    name="descripcionproducto" required value={{productoSeleccionado.Descripcion}}></textarea>
                                             </div>
                                         </div>
 
@@ -420,8 +424,7 @@
                 <form [formGroup]="formDescuentoGeneral" (ngSubmit)="aplicarDescuentoGeneral()" novalidate>
                     <div class="md-form">
                         <h6 class="orange-chang-text">Descuento</h6>
-                        <input type="text" id="descuentoFactura" class="input-modal-sm" name="descuentoFactura"
-                            required formControlName="descuentoGeneral">
+                        <input type="text" id="descuentoFactura" class="input-modal-sm" name="descuentoFactura" required formControlName="descuentoGeneral">
                         <show-errors [control]="formDescuentoGeneral.controls['descuentoGeneral']"></show-errors>
                     </div>
                     <div class="text-center mt-1-half">

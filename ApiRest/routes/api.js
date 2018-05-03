@@ -1,27 +1,28 @@
 var express = require('express')
-const CategoriaController = require('../controllers/categoria')
-const ClasificacionController = require('../controllers/clasificacion')
-const EmpaqueController = require('../controllers/empaque')
-const EnvaseController = require('../controllers/envase')
-const ProveedorController = require('../controllers/proveedor')
+const CategoriaController       = require('../controllers/categoria')
+const ClasificacionController   = require('../controllers/clasificacion')
+const EmpaqueController         = require('../controllers/empaque')
+const EnvaseController          = require('../controllers/envase')
+const ProveedorController       = require('../controllers/proveedor')
 const SubclasificacionController = require('../controllers/subclasificacion')
-const EstadoProductoController = require('../controllers/estadoproducto')
-const ProductoController = require('../controllers/producto')
-const ImagenController = require('../controllers/imagenes');
-const UploadController = require('../controllers/upload');
-const SucursalController = require('../controllers/sucursal')
-const UnidadMedidaController = require('../controllers/unidadmedida');
-const RoleController = require('../controllers/rol');
+const EstadoProductoController  = require('../controllers/estadoproducto')
+const ProductoController        = require('../controllers/producto')
+const ImagenController          = require('../controllers/imagenes');
+const UploadController          = require('../controllers/upload');
+const SucursalController        = require('../controllers/sucursal')
+const UnidadMedidaController    = require('../controllers/unidadmedida');
+const RoleController            = require('../controllers/rol');
 const ProductoProveedorController = require('../controllers/producto_proveedor')
-const TrabajadorController = require('../controllers/trabajador');
-const CargoController = require('../controllers/cargo')
+const TrabajadorController      = require('../controllers/trabajador');
+const CargoController           = require('../controllers/cargo')
 const clasificacionUnidadMedidaController = require('../controllers/clasificacionudm')
-const bodegaApController = require('../controllers/bodegaAp')
-const menuController = require('../controllers/menu');
-const validations = require('../Utils/validations');
-const jwt = require('../services/jwt')
-const AuthController = require('../controllers/auth')
+const bodegaApController        = require('../controllers/bodegaAp')
+const menuController            = require('../controllers/menu');
+const validations               = require('../Utils/validations');
+const jwt                       = require('../services/jwt')
+const AuthController            = require('../controllers/auth')
 var Router = express.Router();
+
 
 Router
     .get('/', (req, res) => {

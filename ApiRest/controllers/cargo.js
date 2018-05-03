@@ -4,9 +4,9 @@ const db = require('../services/database');
 const sql = require('mssql');
 
 function createCargo(req, res) {
-    var data = req.body;
+    var data = matchedData(req);
     var aoj = [];
-    db.pushAOJParam(aoj, 'NombreCargo', sql.NVarChar(50), data.NombreCargo);
+    db.pushAOJParam(aoj, 'NombreCargo',      sql.NVarChar(50),  data.NombreCargo);
     db.pushAOJParam(aoj, 'DescripcionCargo', sql.NVarChar(100), data.DescripcionCargo);
     db.storedProcExecute('USP_CREATE_CARGO', aoj)
         .then((results) => {
@@ -19,7 +19,7 @@ function createCargo(req, res) {
 function getCargos(req, res) {
     let Habilitado = req.query.Habilitado;
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.pushAOJParam(aoj, 'Habilitado',  sql.Int, Habilitado);
     db.storedProcExecute('USP_GET_CARGOS', aoj)
         .then((results) => {
             res.status(200).json({
@@ -34,8 +34,8 @@ function updateCargo(req, res) {
     var data = req.body;
     var aoj = [];
     console.log(data);
-    db.pushAOJParam(aoj, 'IdCargo', sql.Int, data.IdCargo);
-    db.pushAOJParam(aoj, 'NombreCargo', sql.NVarChar(50), data.NombreCargo);
+    db.pushAOJParam(aoj, 'IdCargo',          sql.Int,           data.IdCargo);
+    db.pushAOJParam(aoj, 'NombreCargo',      sql.NVarChar(50),  data.NombreCargo);
     db.pushAOJParam(aoj, 'DescripcionCargo', sql.NVarChar(100), data.DescripcionCargo);
     db.storedProcExecute('USP_UPDATE_CARGO', aoj)
         .then((results) => {
@@ -60,8 +60,8 @@ function getCargoById(req, res) {
 }
 
 function changeStateCargo(req, res) {
-    let IdCargo = req.params.IdCargo;
-    let Habilitado = req.body.Habilitado;
+    let IdCargo     = req.params.IdCargo;
+    let Habilitado  = req.body.Habilitado;
     console.log('IdCargo:' + IdCargo, 'Habilitado:' + Habilitado);
     var aoj = [];
     db.pushAOJParam(aoj, 'IdCargo', sql.Int, IdCargo);

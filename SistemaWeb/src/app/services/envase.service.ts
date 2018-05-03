@@ -37,7 +37,8 @@ export class EnvaseService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'envase',params,{headers:headers})
+      console.log(this.url+'envase/'+Envase.IdEnvase)
+    return this._http.put(this.url+'envase/'+Envase.IdEnvase,params,{headers:headers})
   }
 
   deleteEnvase(IdEnvase) : Observable<any> {

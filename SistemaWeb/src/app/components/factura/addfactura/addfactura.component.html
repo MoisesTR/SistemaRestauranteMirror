@@ -210,13 +210,13 @@
                                     <label>2% aplicado</label>
                                 </div>
                                 <div class="">
-                                    <label>{{subtotalFactura}} C$</label>
+                                    <label>{{subtotalFactura | formatoComaDinero}} C$</label>
                                 </div>
                                 <div class="">
                                     <label>{{ ((subtotalFactura * valorIva) | number ) | formatoComaDinero}}  C$</label>
                                 </div>
                                 <div class="">
-                                    <label>{{subtotalFactura + (subtotalFactura * valorIva)}} C$</label>
+                                    <label>{{(subtotalFactura + (subtotalFactura * valorIva)) | formatoComaDinero}} C$</label>
                                 </div>
                             </form>
                         </div>

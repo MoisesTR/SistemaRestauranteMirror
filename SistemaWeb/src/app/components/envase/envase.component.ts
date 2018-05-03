@@ -210,7 +210,6 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
     });
 
 
-
     this.modalUpdateEnvase.show();
 
   }
@@ -244,7 +243,6 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
   updateEnvase(){
 
     this.getValuesFormUpdateEnvase();
-
     this._envaseService.updateEnvase(this.envase).subscribe(
       response =>{
         if(response.success){
@@ -256,6 +254,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
             this.modalUpdateEnvase.hide();
             this.formUpdateEnvase.reset();
             this.getEnvasesRender();
+            this.envase = new Envase();
           })
 
         } else {
@@ -266,7 +265,6 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
       }
     )
 
-    this.envase = new Envase();
 
   }
 

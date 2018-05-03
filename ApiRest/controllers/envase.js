@@ -45,7 +45,7 @@ function createEnvase(req, res) {
 }
 
 function updateEnvase(req, res) {
-    var data = matchedData(req, { locations: ['body', 'param'] });
+    var data = matchedData(req, { locations: ['body', 'params'] });
     var aoj = [];
     console.log(data);
     db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase);

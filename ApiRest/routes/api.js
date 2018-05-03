@@ -51,7 +51,7 @@ Router
     .get('/envase/:IdEnvase(\\d+)', EnvaseController.getEnvaseById)
     .get('/envases', EnvaseController.getEnvases)
     .post('/envase', validations.createEnvase, validations.validsParams, EnvaseController.createEnvase)
-    .put('/envase', validations.updateEnvase, validations.validsParams, EnvaseController.updateEnvase)
+    .put('/envase/:IdEnvase(\\d+)', validations.updateEnvase, validations.validsParams, EnvaseController.updateEnvase)
     //Rutas proveedor Controller
     .get('/proveedor/:IdProveedor(\\d+)', ProveedorController.getProveedorById)
     .get('/proveedores', ProveedorController.getProveedores)

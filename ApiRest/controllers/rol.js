@@ -1,9 +1,10 @@
-const sql = require('mssql');
-const db = require('../services/database');
-const { mssqlErrors } = require('../Utils/util');
+const sql               = require('mssql');
+const db                = require('../services/database');
+const { mssqlErrors }   = require('../Utils/util');
+const {matchedData}     = require('express-validator/filter')
 
 function createRol(req,res){ 
-    var data = req.body;
+    var data = matchedData(req);
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreRol',sql.NVarChar(50),data.NombreRol)
     db.pushAOJParam(aoj, 'DescripcionRol',sql.NVarChar(150),data.DescripcionRol)

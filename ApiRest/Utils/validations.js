@@ -192,7 +192,7 @@ exports.createSucursalTelef = [
 
 var createEmpaque = [
     body('NombreEmpaque', 'Nombre de Empaque requerido').isAlpha("es-ES"),
-    body('Descripcion', 'La descripcion debe ser texto!').isAlpha("es-ES").optional({nullable: true}),
+    body('Descripcion'  , 'La descripcion debe ser texto!').isAlpha("es-ES").optional({nullable: true}),
     sanitize('NombreEmpaque').toString(),
     sanitize('Descripcion').toString()
 ];

@@ -1,3 +1,7 @@
 .margin-label-factura {
     margin-bottom: -2% !important;
 }
+
+.height-card-productos {
+    height: 70% !important; 
+}

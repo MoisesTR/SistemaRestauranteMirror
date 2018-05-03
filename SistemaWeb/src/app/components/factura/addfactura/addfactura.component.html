@@ -1,8 +1,8 @@
 <section>
     <div class="row">
 
-        <div class="col-md-6">
-            <div class="card card-cascade narrower" style="height: 500px !important; ">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card card-cascade narrower" id="card-info">
                 <div class="view gradient-card-header orange-chang">
                     <h2 class="h2-responsive">Informacion Facturas</h2>
                 </div>
@@ -56,9 +56,6 @@
                                     <show-errors [control]="formAddFactura.controls['horaLlegada']"></show-errors>
                                 </div>
                             </div>
-                            <!-- <div class="text-center mt-1-half">
-                                <button type="button" class="btn orange-chang owaves-effect" data-toggle="modal" data-target="#modalElegirProducto" ><i class="fa fa-search" aria-hidden="true"></i>  Buscar Producto</button>
-                            </div> -->
                         </form>
                         <!-- Final form -->
                     </div>
@@ -67,9 +64,9 @@
             <br>
         </div>
 
-        <div class="col-md-6 mb-r">
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-r">
 
-            <div class="card card-cascade narrower" style="height: 500px !important; ">
+            <div class="card card-cascade narrower height-card-productos">
                 <div class="view gradient-card-header orange-chang">
                     <h2 class="h2-responsive">Productos</h2>
                 </div>
@@ -114,98 +111,98 @@
 
 
         <br>
-        <div class="col-md-12">
-            <div class="card card-cascade narrower">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
                 <div class="container-fluid ">
                     <br>
-                    <div class="container-fluid">
 
-                        <div class="table-responsive">
-                            <!-- Item list -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="header-negrita">Producto</th>
-                                        <th class="header-negrita">Cantidad</th>
-                                        <th class="header-negrita">U. Medida</th>
-                                        <th class="header-negrita">Precio unitario</th>
-                                        <th class="header-negrita">Descuento</th>
-                                        <th class="header-negrita">Precio Total</th>
-                                        <th class="header-negrita centrar-texto">Accion</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let productoFactura of productosFactura">
-                                        <td class="body-negrita">{{productoFactura.NombreProducto}}</td>
-                                        <td class="body-negrita">{{productoFactura.Cantidad}}</td>
-                                        <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
-                                        <td class="body-negrita">{{productoFactura.Costo}} C$</td>
-                                        <td width="10%" class="body-negrita">
-                                            <strong>{{productoFactura.Descuento}}%</strong>
-                                        </td>
-                                        <td width="10%" class="body-negrita">{{((productoFactura.Cantidad * productoFactura.Costo) - (productoFactura.Cantidad
-                                            * productoFactura.Costo * (productoFactura.Descuento / 100))) | number}} C$</td>
-                                        <td width="25%" class="body-negrita">
-                                            <div class="text-center">
-                                                <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                                                <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Editar">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" (click)="deleteProductoOfFactura(productoFactura)"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- /.Item list -->
-                        </div>
-
-                        <br>
-                        <br>
+                    <div class="table-responsive">
+                        <!-- Lista de productos -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="header-negrita">Producto</th>
+                                    <th class="header-negrita">Cantidad</th>
+                                    <th class="header-negrita">U. Medida</th>
+                                    <th class="header-negrita">Precio unitario</th>
+                                    <th class="header-negrita">Descuento</th>
+                                    <th class="header-negrita">Precio Total</th>
+                                    <th class="header-negrita centrar-texto">Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let productoFactura of productosFactura">
+                                    <td class="body-negrita">{{productoFactura.NombreProducto}}</td>
+                                    <td class="body-negrita">{{productoFactura.Cantidad}}</td>
+                                    <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
+                                    <td class="body-negrita">{{productoFactura.Costo}} C$</td>
+                                    <td width="10%" class="body-negrita">
+                                        <strong>{{productoFactura.Descuento}}%</strong>
+                                    </td>
+                                    <td width="10%" class="body-negrita">{{((productoFactura.Cantidad * productoFactura.Costo) - (productoFactura.Cantidad * productoFactura.Costo
+                                        * (productoFactura.Descuento / 100))) | number}} C$</td>
+                                    <td width="25%" class="body-negrita">
+                                        <div class="text-center">
+                                            <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
+                                            <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)"
+                                                data-toggle="tooltip" data-placement="bottom" title="Editar">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" (click)="deleteProductoOfFactura(productoFactura)"
+                                                data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- /.Lista de productos -->
                     </div>
 
+                    <br>
+                    <br>
+
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-lg-10 col-md-10 col-sm-10 text-lg-right text-md-right text-sm-right">
                             <form [formGroup]="formDetallesFactura" novalidate>
-                                <div class="col-lg-12" style="padding-left: 30em">
 
-                                    <div class="col-lg-6">
-                                        <input type="checkbox" (click)="descuentoGeneralSeleccion()" value="validando_checkbox2" name="seleccionadocheck" id="segundo1"
-                                            formControlName="checkDescuentoGeneral">
-                                        <label for="segundo1">
-                                            <strong>Descuento</strong>
-                                        </label>
-                                    </div>
-
-                                    <div class="col-lg-6" style="">
-                                        <input (click)="aplicarRetencion()" type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2" formControlName="retencion">
-                                        <label for="segundo2">
-                                            <strong>Retencion</strong>
-                                        </label>
-                                    </div>
-
+                                <div class="col-lg-12 col-md-12">
+                                    <input type="checkbox" (click)="descuentoGeneralSeleccion()" value="validando_checkbox2" name="seleccionadocheck" id="segundo1"
+                                        formControlName="checkDescuentoGeneral">
+                                    <label for="segundo1">
+                                        <strong>Descuento</strong>
+                                    </label>
                                 </div>
-                                <label for="SubTotal" style="padding-left: 34em">
-                                    <strong>SubTotal</strong>
-                                </label>
-                                <br>
-                                <label for="porcentajeiva" style="padding-left: 34em">
-                                    <strong>IVA(15%)</strong>
-                                </label>
-                                <br>
-                                <label for="Total" style="padding-left: 34em">
-                                    <strong>Total</strong>
-                                </label>
-                                <br>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <input (click)="aplicarRetencion()" type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2" formControlName="retencion">
+                                    <label for="segundo2">
+                                        <strong>Retención</strong>
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="SubTotal">
+                                        <strong>SubTotal</strong>
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="porcentajeiva">
+                                        <strong>IVA(15%)</strong>
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="Total">
+                                        <strong>Total</strong>
+                                    </label>
+                                </div>
                             </form>
                         </div>
-                        <!-- 25% -->
 
-                        <div class="col-2">
+                        <div class="col-lg-2 col-md-2 col-sm-2 text-lg-right text-md-right text-sm-right">
                             <form>
                                 <div class="">
                                     <label>{{descuentoGeneralFactura}}%</label>
@@ -224,21 +221,22 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- 75% -->
 
                     </div>
                     <br>
 
                     <!-- Acciones -->
-                    <div class="row justify-content-md-center">
+                    <div class="row">
 
-                        <div class="col-md-3">
+                        <div class="col-lg-3 col-md-3 col-sm-2"></div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-4">
                             <div class="md-form">
                                 <button type="button" (click)="createFactura()" class="btn orange-chang waves-effect">Guardar factura</button>
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-lg-3 col-md-3 col-sm-4">
                             <div class="md-form">
                                 <button type="button" class="btn orange-chang waves-effect">Imprimir Factura</button>
                             </div>
@@ -432,26 +430,6 @@
                             <i class="fa fa-check ml-1"></i>
                         </button>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="container-fluid">
-                                <br>
-                                <div class="col-md-12">
-                                    <div class="md-form">
-                                        <input placeholder="Ej: 50" type="number" id="descuentoFactura" class="form-control">
-                                        <label for="descuentoFactura" class="font-weight-bold">Descuento</label>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="mt-1-half">
-                                    <button class="btn  mb-1 btn-outline-warning btn-sm" style="float:right;">Ingresar
-                                        <i class="fa fa-check ml-1"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-flat btn-sm close" data-dismiss="modal" style="float:right;">Cancelar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </form>
                 <!-- Final form -->
             </div>

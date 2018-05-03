@@ -19,9 +19,18 @@ CREATE PROCEDURE USP_CREATE_ROL_USUARIO(
 	@DescripcionRol		NVARCHAR(150)
 )
 AS BEGIN
-	INSERT INTO ROL_USUARIO(NombreRol,DescripcionRol)
-	VALUES(@NombreRol,@DescripcionRol)
-	SELECT @@IDENTITY AS IdRol
+	IF EXISTS( SELECT NombreRol FROM dbo.ROL_USUARIO WHERE NombreRol = @NombreRol)
+		BEGIN
+			DECLARE @MESSAGE NVARCHAR(100)
+			SET @MESSAGE = CONCAT('Ya existe un Rol llamado "',@NombreRol,'".')
+			RAISERROR(@MESSAGE,16,1)
+		END
+	ELSE
+		BEGIN
+			INSERT INTO ROL_USUARIO(NombreRol,DescripcionRol)
+			VALUES(@NombreRol,@DescripcionRol)
+			SELECT @@IDENTITY AS IdRol
+		END
 END
 GO
 IF OBJECT_ID('dbo.USP_UPDATE_ROL','P') IS NOT NULL

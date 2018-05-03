@@ -82,7 +82,7 @@ exports.createProveedor = [
 exports.updateProveedor = [
     check('IdProveedor').isInt(),
     check('NombreProveedor').exists(),
-    check('Direccion').isAlpha("es-ES").trim(),
+    check('Direccion').isAscii().trim(),
     check('Email').isEmail(),
     check('Descripcion'),
     check('NombreRepresentante').exists()
@@ -191,8 +191,8 @@ exports.createSucursalTelef = [
 ];
 
 var createEmpaque = [
-    body('NombreEmpaque', 'Nombre de Empaque requerido').isAlpha("es-ES"),
-    body('Descripcion'  , 'La descripcion debe ser texto!').isAlpha("es-ES").optional({nullable: true}),
+    body('NombreEmpaque', 'Nombre de Empaque requerido').isAscii(),
+    body('Descripcion'  , 'La descripcion debe ser texto!').isAscii().optional({nullable: true}),
     sanitize('NombreEmpaque').toString(),
     sanitize('Descripcion').toString()
 ];
@@ -204,8 +204,8 @@ exports.updateEmpaque = [
 ];
 
 var createClasificacion =  [
-    body('NombreClasificacion').isAlpha("es-ES").isLength({max:50}),
-    body('DescripcionClasificacion').isAlpha("es-ES").optional({nullable:true}),
+    body('NombreClasificacion').isAscii().isLength({max:50}),
+    body('DescripcionClasificacion').isAscii().optional({nullable:true}),
     sanitize('NombreClasificacion').toString()
 ];
 exports.createClasificacion = createClasificacion;
@@ -214,3 +214,16 @@ exports.updateClasificacion = createClasificacion.concat([
     param('IdClasificacion').toInt().exists(),
     sanitize('IdClasificacion').toInt()
 ]);
+
+var createRol = [
+    body('NombreRol', 'El nombre del rol es requerido').isAscii().isLength({max: 50}),
+    body('DescripcionRol','La Descripcion debe tener un maximo de 150 caracteres!').isLength({max:150}).optional({nullable: true}),
+    sanitize('NombreRol').toString(),
+    sanitize('DescripcionRol').toString()
+];
+exports.createRol = createRol;
+
+exports.updateRol = createRol.concat([
+    param('IdRol', 'Id del Rol es requerido!').isInt(),
+    sanitize('IdRol').toInt()
+])

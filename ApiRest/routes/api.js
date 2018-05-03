@@ -105,10 +105,10 @@ Router
     .delete('/producto/proveedor', ProductoProveedorController.changeStateProductoProveedor)
     //.delete('/producto/proveedor')
     //Rutas para Rol Controller
-    .post('/rol', RoleController.createRol)
+    .post('/rol', validations.createRol, validations.validsParams, RoleController.createRol)
     .get('/roles', RoleController.getRoles)
     .get('/rol/:IdRol(\\d+)', RoleController.getRolbyId)
-    .put('/rol', RoleController.updateRol)
+    .put('/rol', validations.updateRol, validations.validsParams ,RoleController.updateRol)
     //Rutas clasificacionUnidadmedida controller
     .get('/clasificacionunidadmedida/:IdClasificacionUnidadMedida(\\d+)', clasificacionUnidadMedidaController.getClasificacionUdmById)
     .get('/clasificacionesunidadmedida', clasificacionUnidadMedidaController.getClasificacionesUdm)

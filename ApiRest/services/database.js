@@ -47,7 +47,6 @@ function storedProcExecute(spName, parametersJsonArray) {
         const tam = parametersJsonArray.length;
         for (var i = 0; i < tam; i++) {
             if(parametersJsonArray[i].pClasf == 1) {
-                console.log('Input '+(1+i))
                 request.input(
                     parametersJsonArray[i]['pName'],
                     eval(parametersJsonArray[i]['pType']),

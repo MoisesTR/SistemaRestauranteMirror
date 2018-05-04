@@ -8,11 +8,11 @@ CREATE PROCEDURE USP_CREATE_CARGO(
     @DescripcionCargo NVARCHAR(150)
 )
 AS BEGIN
-	IF EXISTS (SELECT @NombreCargo FROM CARGO WHERE @NombreCargo = NombreCargo )  
-		RAISERROR('El nombre del cargo ya existe',14,1)  
+	IF EXISTS (SELECT NombreCargo FROM dbo.CARGO WHERE NombreCargo = @NombreCargo )  
+		RAISERROR('Ya existe un cargo con este Nombre',14,1)  
 	ELSE
 	BEGIN
-		INSERT INTO CARGO(NombreCargo,DescripcionCargo)
+		INSERT INTO dbo.CARGO(NombreCargo,DescripcionCargo)
 		VALUES(@NombreCargo,@DescripcionCargo)
 		SELECT @@IDENTITY AS IdCargo
 	END
@@ -60,10 +60,11 @@ IF OBJECT_ID('USP_DISP_CARGO','P') IS NOT NULL
 	DROP PROCEDURE USP_DISP_CARGO
 GO
 CREATE PROCEDURE USP_DISP_CARGO(
-	@IdCargo INT,
+	@IdCargo	INT,
 	@Habilitado BIT
 ) AS BEGIN
-	UPDATE CARGO SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdCargo=@IdCargo
+	UPDATE dbo.CARGO SET Habilitado = @Habilitado, UpdateAt = GETDATE() 
+	WHERE IdCargo=@IdCargo
 END
 GO
 IF OBJECT_ID('USP_GET_TRABAJADOR','P') IS NOT NULL
@@ -73,30 +74,37 @@ CREATE PROCEDURE USP_GET_TRABAJADOR(
 	@IdTrabajador INT
 )
 AS BEGIN
-	SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,IdTipoDocumento,Documento Imagen,FechaNacimiento,T.Direccion, T.Telefono1, T.Telefono2,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
-	FROM TRABAJADOR T 
-	INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
-	INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
-	WHERE IdTrabajador = @IdTrabajador
+	SELECT T.IdTrabajador, T.IdSucursal, S.NombreSucursal, T.IdCargo, C.NombreCargo,
+			T.Nombres, T.Apellidos, T.IdTipoDocumento, T.Documento, T.Imagen,
+			T.FechaNacimiento, T.Direccion, T.Telefono1, T.Telefono2, T.FechaIngreso,
+			T.Habilitado, T.CreatedAt,T.UpdateAt
+	FROM dbo.TRABAJADOR T 
+	INNER JOIN dbo.SUCURSAL S ON T.IdSucursal= S.IdSucursal
+	INNER JOIN dbo.CARGO C ON T.IdCargo = C.IdCargo
+	WHERE T.IdTrabajador = @IdTrabajador
 END
 go
-IF OBJECT_ID('USP_GET_TRABAJADORES','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_TRABAJADORES
+IF OBJECT_ID('dbo.USP_GET_TRABAJADORES','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_GET_TRABAJADORES
 GO
-CREATE PROCEDURE USP_GET_TRABAJADORES(
+CREATE PROCEDURE dbo.USP_GET_TRABAJADORES(
 	@Habilitado BIT NULL
 )
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,IdTipoDocumento,Documento, Imagen, FechaNacimiento,T.Direccion, T.Telefono1, T.Telefono2,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
-		FROM TRABAJADOR T 
-		INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
-		INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
+		SELECT T.IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,T.Nombres,
+				T.Apellidos,T.IdTipoDocumento,T.Documento, T.Imagen, FechaNacimiento,T.Direccion, 
+				T.Telefono1, T.Telefono2,T.FechaIngreso,T.Habilitado,T.CreatedAt
+		FROM dbo.TRABAJADOR T 
+		INNER JOIN dbo.SUCURSAL S ON T.IdSucursal= S.IdSucursal
+		INNER JOIN dbo.CARGO C ON T.IdCargo = C.IdCargo
 	ELSE
-		SELECT IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,Nombres,Apellidos,IdTipoDocumento,Documento,FechaNacimiento,T.Direccion, T.Telefono1, T.Telefono2,FechaIngreso,T.Habilitado,T.CreatedAt,T.UpdateAt
-		FROM TRABAJADOR T 
-		INNER JOIN SUCURSAL S ON T.IdSucursal= S.IdSucursal
-		INNER JOIN CARGO C ON T.IdCargo = C.IdCargo
+		SELECT T.IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,T.Nombres,
+				T.Apellidos,T.IdTipoDocumento,T.Documento, T.Imagen, FechaNacimiento,T.Direccion, 
+				T.Telefono1, T.Telefono2,T.FechaIngreso,T.Habilitado,T.CreatedAt
+		FROM dbo.TRABAJADOR T 
+		INNER JOIN dbo.SUCURSAL S ON T.IdSucursal= S.IdSucursal
+		INNER JOIN dbo.CARGO C ON T.IdCargo = C.IdCargo
 		WHERE T.Habilitado = @Habilitado
 END
 GO
@@ -104,10 +112,11 @@ IF OBJECT_ID('USP_DISP_TRABAJADOR','P') IS NOT NULL
 	DROP PROCEDURE USP_DISP_TRABAJADOR
 GO
 CREATE PROCEDURE USP_DISP_TRABAJADOR(
-	@IdTrabajador INT,
-	@Habilitado BIT
+	@IdTrabajador	INT,
+	@Habilitado		BIT
 ) AS BEGIN
-	UPDATE TRABAJADOR SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdTrabajador=@IdTrabajador
+	UPDATE dbo.TRABAJADOR SET Habilitado = @Habilitado,UpdateAt=GETDATE() 
+	WHERE IdTrabajador = @IdTrabajador
 END
 GO
 --IF OBJECT_ID('USP_GET_TELEFONOS_TRABAJADOR','P') IS NOT NULL
@@ -256,4 +265,20 @@ AS BEGIN
 	ELSE
 		SELECT IdClasificacionUnidadMedida,NombreClasificacion,Descripcion,Habilitado FROM CLASIFICACION_UNIDAD_MEDIDA
 		WHERE Habilitado= @Habilitado
+END
+GO
+IF OBJECT_ID('dbo.USP_GET_TIPOS_DOCUMENTOS',N'P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_GET_TIPOS_DOCUMENTOS;
+GO
+CREATE PROCEDURE [dbo].[USP_GET_TIPOS_DOCUMENTOS](
+	@Habilitado BIT NULL
+)
+AS BEGIN
+	IF @Habilitado IS NULL
+		SELECT	IdTipoDocumento, NombreTD, DescripcionTD, Habilitado, CreatedAt
+		FROM	dbo.TIPO_DOCUMENTO
+	ELSE
+		SELECT	IdTipoDocumento, NombreTD, DescripcionTD, Habilitado,CreatedAt
+		FROM	dbo.TIPO_DOCUMENTO T 
+		WHERE T.Habilitado = @Habilitado
 END

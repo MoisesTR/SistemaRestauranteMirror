@@ -11,8 +11,8 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
     @Descripcion NVARCHAR(200),
     @Imagen NVARCHAR(100)
 ) AS BEGIN
-	IF EXISTS (SELECT NombreProducto FROM PRODUCTO WHERE @NombreProducto = NombreProducto )
-		RAISERROR('El nombre del producto ya existe',14,1)
+	IF EXISTS (SELECT NombreProducto FROM dbo.PRODUCTO WHERE @NombreProducto = NombreProducto )
+		RAISERROR('El nombre del producto ya existe',16,1)
 	ELSE
 		BEGIN
 		INSERT INTO PRODUCTO(IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen)
@@ -33,8 +33,9 @@ CREATE PROCEDURE USP_UPDATE_PRODUCTO(
     @Descripcion NVARCHAR(200),
     @Imagen NVARCHAR(100) NULL
 ) AS BEGIN 
-	UPDATE PRODUCTO SET IdCategoria=@IdCategoria,IdSubclasificacion=@IdSubclasificacion,IdEstado=@IdEstado,NombreProducto=@NombreProducto,Descripcion=@Descripcion,Imagen=@Imagen,UpdateAt=GETDATE()
-    where IdProducto = @IdProducto;
+	UPDATE dbo.PRODUCTO SET IdCategoria=@IdCategoria,IdSubclasificacion=@IdSubclasificacion,IdEstado=@IdEstado,
+		NombreProducto=@NombreProducto,Descripcion=@Descripcion,Imagen=@Imagen,UpdateAt=GETDATE()
+    WHERE IdProducto = @IdProducto;
 END
 GO
 IF OBJECT_ID('USP_GET_PRODUCTO','P') IS NOT NULL
@@ -45,10 +46,10 @@ CREATE PROCEDURE USP_GET_PRODUCTO(
 )
 AS BEGIN
 	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
-	FROM PRODUCTO P
-	INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
-	INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
-	INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
+	FROM dbo.PRODUCTO P
+	INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
+	INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+	INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
 	 WHERE IdProducto =@IdProducto
 END
 GO
@@ -60,16 +61,16 @@ CREATE PROCEDURE USP_GET_PRODUCTOS
 AS BEGIN
 	IF @Habilitado is NULL
 		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
-		FROM PRODUCTO P
-		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
-		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
-		INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
+		FROM dbo.PRODUCTO P
+		INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
+		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+		INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
 	ELSE
 		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
-		FROM PRODUCTO P
-		INNER JOIN CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
-		INNER JOIN SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
-		INNER JOIN CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion WHERE P.Habilitado = @Habilitado
+		FROM dbo.PRODUCTO P
+		INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
+		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+		INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion WHERE P.Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_DISP_PRODUCTO','P') IS NOT NULL
@@ -79,19 +80,20 @@ CREATE PROCEDURE USP_DISP_PRODUCTO(
 	@IdProducto INT,
 	@Habilitado BIT
 ) AS BEGIN
-	UPDATE PRODUCTO SET Habilitado = @Habilitado,UpdateAt=GETDATE() WHERE IdProducto=@IdProducto
+	UPDATE dbo.PRODUCTO SET Habilitado = @Habilitado,UpdateAt=GETDATE() 
+	WHERE IdProducto=@IdProducto
 END
 go
-IF OBJECT_ID('USP_GET_PRODUCTOS_PROVEEDORES','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_PRODUCTOS_PROVEEDORES
+IF OBJECT_ID('dbo.USP_GET_PRODUCTOS_PROVEEDORES','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_GET_PRODUCTOS_PROVEEDORES
 GO
-CREATE PROCEDURE USP_GET_PRODUCTOS_PROVEEDORES
+CREATE PROCEDURE dbo.USP_GET_PRODUCTOS_PROVEEDORES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado is NULL
-		SELECT * FROM V_ProductosDetallados;
+		SELECT *, Cantidad = 1, Descuento = 0, GravadoIva = 0 FROM V_ProductosDetallados;
 	ELSE
-		SELECT * FROM V_ProductosDetallados WHERE Habilitado = @Habilitado;
+		SELECT *, Cantidad = 1, Descuento = 0, GravadoIva = 0 FROM V_ProductosDetallados WHERE Habilitado = @Habilitado;
 END 
 GO
 IF OBJECT_ID('USP_GET_PRODUCTO_PROVEEDORES','P') IS NOT NULL
@@ -109,18 +111,18 @@ GO
 CREATE PROCEDURE USP_GET_PRODUCTOS_PROVEEDOR(
 	@IdProveedor INT
 ) AS BEGIN
-	SELECT * FROM V_ProductosDetallados WHERE IdProveedor = @IdProveedor;
+	SELECT * FROM dbo.V_ProductosDetallados WHERE IdProveedor = @IdProveedor;
 END
 GO
-IF OBJECT_ID('USP_CREATE_EMPAQUE','P') IS NOT NULL
-	DROP PROCEDURE USP_CREATE_EMPAQUE
+IF OBJECT_ID('dbo.USP_CREATE_EMPAQUE','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_CREATE_EMPAQUE
 GO
-CREATE PROCEDURE USP_CREATE_EMPAQUE(
-	@NombreEmpaque NVARCHAR(50),
-	@Descripcion NVARCHAR(150)
+CREATE PROCEDURE dbo.USP_CREATE_EMPAQUE(
+	@NombreEmpaque	NVARCHAR(50),
+	@Descripcion	NVARCHAR(150)
 )
 AS BEGIN
-	INSERT INTO Empaque(NombreEmpaque,Descripcion)
+	INSERT INTO dbo.Empaque(NombreEmpaque,Descripcion)
 	VALUES(@NombreEmpaque,@Descripcion)
 	SELECT @@IDENTITY AS IdEmpaque
 END
@@ -132,9 +134,10 @@ CREATE PROCEDURE USP_GET_EMPAQUES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE
+		SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM dbo.EMPAQUE
 	ELSE
-		SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE Habilitado = @Habilitado;
+		SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM dbo.EMPAQUE 
+		WHERE Habilitado = @Habilitado;
 END
 GO
 IF OBJECT_ID(N'USP_UPDATE_EMPAQUE','P') IS NOT NULL
@@ -153,11 +156,11 @@ IF OBJECT_ID('USP_CREATE_ENVASE','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_ENVASE
 GO
 CREATE PROCEDURE USP_CREATE_ENVASE(
-	@NombreEnvase NVARCHAR(50),
-	@Descripcion NVARCHAR(150)
+	@NombreEnvase	NVARCHAR(50),
+	@Descripcion	NVARCHAR(150)
 )
 AS BEGIN
-	INSERT INTO Envase(NombreEnvase,Descripcion)
+	INSERT INTO dbo.Envase(NombreEnvase,Descripcion)
 	VALUES(@NombreEnvase,@Descripcion)
 	SELECT @@IDENTITY AS IdEnvase
 END
@@ -169,9 +172,10 @@ CREATE PROCEDURE USP_GET_ENVASES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF  @Habilitado IS NULL
-		SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE
+		SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM dbo.ENVASE
 	ELSE
-		SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM ENVASE WHERE Habilitado = @Habilitado
+		SELECT IdEnvase,NombreEnvase,Descripcion,Habilitado FROM dbo.ENVASE 
+		WHERE Habilitado = @Habilitado
 END
 GO
 IF OBJECT_ID('USP_DISP_ENVASES','P') IS NOT NULL
@@ -260,7 +264,7 @@ CREATE PROCEDURE USP_CREATE_SUCURSAL(
     @Direccion NVARCHAR(250) 
 )
 AS BEGIN 
-	INSERT INTO SUCURSAL(NombreSucursal,Direccion)
+	INSERT INTOdbo.SUCURSAL(NombreSucursal,Direccion)
 	VALUES(@NombreSucursal,@Direccion)
 	SELECT @@IDENTITY AS IdSucursal
 END
@@ -272,9 +276,9 @@ CREATE PROCEDURE USP_GET_SUCURSALES
 	@Habilitado BIT NULL
 AS 
 	IF @Habilitado IS NULL
-		SELECT IdSucursal,NombreSucursal,Direccion from SUCURSAL
+		SELECT IdSucursal,NombreSucursal,Direccion fromdbo.SUCURSAL
 	ELSE
-		SELECT IdSucursal,NombreSucursal,Direccion from SUCURSAL WHERE Habilitado = @Habilitado
+		SELECT IdSucursal,NombreSucursal,Direccion fromdbo.SUCURSAL WHERE Habilitado = @Habilitado
 GO
 IF OBJECT_ID('USP_GET_SUCURSAL','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_SUCURSAL
@@ -282,7 +286,7 @@ GO
 CREATE PROCEDURE USP_GET_SUCURSAL
 	@IdSucursal INT
 AS 
-	SELECT IdSucursal,NombreSucursal,Direccion from SUCURSAL WHERE IdSucursal = @IdSucursal
+	SELECT IdSucursal,NombreSucursal,Direccion fromdbo.SUCURSAL WHERE IdSucursal = @IdSucursal
 GO
 USE PRUEBAS_NODE
 IF OBJECT_ID('USP_CREATE_PRODUCTO_PROVEEDOR','P') IS NOT NULL

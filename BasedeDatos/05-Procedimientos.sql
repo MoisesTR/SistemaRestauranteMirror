@@ -68,17 +68,18 @@ IF OBJECT_ID('USP_CREATE_CLASIFICACION','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_CLASIFICACION
 GO
 CREATE PROCEDURE USP_CREATE_CLASIFICACION(
-	@NombreClasificacion NVARCHAR(50),
-    @DescripcionClasificacion NVARCHAR(150)
+	@IdCategoria				INT,
+	@NombreClasificacion		NVARCHAR(50),
+    @DescripcionClasificacion	NVARCHAR(150)
 ) AS BEGIN
 	IF EXISTS(SELECT * from dbo.CLASIFICACION_PRODUCTO where NombreClasificacion = @NombreClasificacion) 
 		BEGIN
- 		RAISERROR('Clasificacion Duplicada, No se inserto.',16,1)
+ 		RAISERROR('Ya existe una Clasificacion con este nombre.',16,1)
  		END
 	ELSE
 	BEGIN
-		INSERT INTO dbo.CLASIFICACION_PRODUCTO(NombreClasificacion,DescripcionClasificacion)
-		VALUES(@NombreClasificacion,@DescripcionClasificacion);		
+		INSERT INTO dbo.CLASIFICACION_PRODUCTO(IdCategoria,NombreClasificacion,DescripcionClasificacion)
+		VALUES(@IdCategoria, @NombreClasificacion, @DescripcionClasificacion);		
 		SELECT @@IDENTITY AS IdClasificacion
      END
 END 
@@ -100,17 +101,18 @@ IF OBJECT_ID('USP_UPDATE_CLASIFICACION','P') IS NOT NULL
 	DROP PROCEDURE USP_UPDATE_CLASIFICACION
 GO
 CREATE PROCEDURE USP_UPDATE_CLASIFICACION(
-	@IdCategoria	  BIT,
-	@IdClasificacion  INT,
-	@NombreClasificacion NVARCHAR(50),
+	@IdCategoria			INT,
+	@IdClasificacion		INT,
+	@NombreClasificacion	NVARCHAR(50),
     @DescripcionClasificacion NVARCHAR(150)
 ) 
 AS BEGIN
 	IF COALESCE(@IdCategoria, @NombreClasificacion, @DescripcionClasificacion) IS NOT NULL
 		BEGIN
 			UPDATE dbo.CLASIFICACION_PRODUCTO
-			SET IdCategoria = ISNULL(@IdCategoria,IdCategoria),NombreClasificacion = ISNULL(@NombreClasificacion,NombreClasificacion),DescripcionClasificacion  = @DescripcionClasificacion,
-				UpdateAt=GETDATE() where IdClasificacion = @IdClasificacion;
+			SET IdCategoria = ISNULL(@IdCategoria,IdCategoria), NombreClasificacion = ISNULL(@NombreClasificacion,NombreClasificacion),DescripcionClasificacion  = @DescripcionClasificacion,
+				UpdateAt=GETDATE() 
+				WHERE IdClasificacion = @IdClasificacion;
 		END
 END
 GO
@@ -139,17 +141,17 @@ IF OBJECT_ID('USP_CREATE_SUBCLASIFICACION','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_SUBCLASIFICACION
 GO
 CREATE PROCEDURE USP_CREATE_SUBCLASIFICACION(
-	@IdClasificacion INT,
-    @NombreSubClasificacion NVARCHAR(50),
-    @DescripcionSubClasificacion NVARCHAR(150)
+	@IdClasificacion				INT,
+    @NombreSubClasificacion			NVARCHAR(50),
+    @DescripcionSubClasificacion	NVARCHAR(150)
 ) AS BEGIN
 	IF NOT EXISTS(SELECT * FROM dbo.CLASIFICACION_PRODUCTO where IdClasificacion = @IdClasificacion)
-		RAISERROR('La Clasificacion Insertada no se encontro, por lo tanto no se inserto la Subclasificacion.',16,1);
+		RAISERROR('La Clasificacion Seleccionada no se encontro, por lo tanto no se inserto la Subclasificacion.',16,1);
     ELSE
 		BEGIN
-		INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion)
-        VALUES(@IdClasificacion,@NombreSubClasificacion,@DescripcionSubClasificacion);
-		SELECT @@IDENTITY AS IdSubclasificacion
+			INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion)
+			VALUES(@IdClasificacion,@NombreSubClasificacion,@DescripcionSubClasificacion);
+			SELECT @@IDENTITY AS IdSubclasificacion
 		END
 END
 GO

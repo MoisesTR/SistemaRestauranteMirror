@@ -34,13 +34,13 @@ Router
     .get('/categoria/:IdCategoria(\\d+)', CategoriaController.getCategoriaById)
     .get('/categorias', CategoriaController.getCategorias)
     .post('/categoria', validations.categoriaCreate, validations.validsParams, CategoriaController.createCategoria)
-    .put('/categoria', CategoriaController.updateCategoria)
+    .put('/categoria/:IdCategoria(\\d+)',validations.updateCategoria,validations.validsParams, CategoriaController.updateCategoria)
     .delete('/categoria/:IdCategoria(\\d+)', CategoriaController.changeStateCategoria)
     //Rutas clasificacion controller
     .get('/clasificacion/:IdClasificacion(\\d+)', ClasificacionController.getClasificacionById)
     .get('/clasificaciones', ClasificacionController.getClasificaciones)
     .post('/clasificacion',validations.createClasificacion, validations.validsParams, ClasificacionController.createClasificacion)
-    .put('/clasificacion',validations.updateClasificacion, validations.validsParams, ClasificacionController.updateClasificacion)
+    .put('/clasificacion/:IdClasificacion(\\d+)',validations.updateClasificacion, validations.validsParams, ClasificacionController.updateClasificacion)
     .delete('/clasificacion/:IdClasificacion(\\d+)', ClasificacionController.changeStateClasificacion)
     //Rutas empaque controller
     .get('/empaque/:IdEmpaque(\\d+)', EmpaqueController.getEmpaqueById)
@@ -108,7 +108,7 @@ Router
     .post('/rol', validations.createRol, validations.validsParams, RoleController.createRol)
     .get('/roles', RoleController.getRoles)
     .get('/rol/:IdRol(\\d+)', RoleController.getRolbyId)
-    .put('/rol', validations.updateRol, validations.validsParams ,RoleController.updateRol)
+    .put('/rol/:IdRol(\\d+)', validations.updateRol, validations.validsParams ,RoleController.updateRol)
     //Rutas clasificacionUnidadmedida controller
     .get('/clasificacionunidadmedida/:IdClasificacionUnidadMedida(\\d+)', clasificacionUnidadMedidaController.getClasificacionUdmById)
     .get('/clasificacionesunidadmedida', clasificacionUnidadMedidaController.getClasificacionesUdm)

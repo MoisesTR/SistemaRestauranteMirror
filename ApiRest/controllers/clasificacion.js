@@ -6,6 +6,8 @@ const {matchedData} = require('express-validator/filter');
 function createClasificacion(req, res) {
     var data = matchedData(req, {locations:'body'});
     var aoj = [];
+    console.log(data);
+    db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria);
     db.pushAOJParam(aoj, 'NombreClasificacion', sql.NVarChar(50), data.NombreClasificacion);
     db.pushAOJParam(aoj, 'DescripcionClasificacion', sql.NVarChar(150), data.DescripcionClasificacion);
     db.storedProcExecute('USP_CREATE_CLASIFICACION', aoj)
@@ -35,6 +37,7 @@ function updateClasificacion(req, res) {
     var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, data.IdClasificacion)
+    db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)
     db.pushAOJParam(aoj, 'NombreClasificacion', sql.NVarChar(50), data.NombreClasificacion)
     db.pushAOJParam(aoj, 'DescripcionClasificacion', sql.NVarChar(150), data.DescripcionClasificacion)
     db.storedProcExecute('USP_UPDATE_CLASIFICACION', aoj)

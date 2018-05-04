@@ -42,15 +42,17 @@ exports.userUpdate = [
         check('IdRol').optional({ nullable: true })
     ];
 
-exports.categoriaCreate = [
-        check('NombreCategoria', 'El nombre de la categoria es requerido').exists(),
-        check('DescripcionCategoria', 'La descripcion de la categoria es requerida!').exists()
+var categoriaCreate = [
+        body('NombreCategoria', 'El nombre de la categoria es requerido').exists(),
+        body('DescripcionCategoria', 'La descripcion de la categoria es requerida!').exists()
     ];
-exports.updateCategoria = [
+
+exports.categoriaCreate = categoriaCreate;
+
+exports.updateCategoria = categoriaCreate.concat([
         check('IdCategoria').isInt(),
-        check('Nombre', 'Nombre es requerido').exists(),
-        check('Descripcion').exists()
-    ];
+        sanitize('IdCategoria').toInt(),
+    ]);
 
 exports.changeStateCategoria = [
     check('IdCategoria').isInt(),
@@ -200,13 +202,16 @@ var createEmpaque = [
 
 exports.createEmpaque = createEmpaque;
 
-exports.updateEmpaque = [
-    param('IdEmpaque', 'IdEnvase debe ser Entero').isInt(),
-];
+exports.updateEmpaque = createEmpaque.concat([
+    param('IdEmpaque', 'IdEmpaque debe ser Entero').isInt(),
+    sanitize('IdEmpaque').toInt()
+]);
 
 var createClasificacion =  [
     body('NombreClasificacion','El nombre de la clasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
     body('DescripcionClasificacion', 'La Descripcion no debe tener mas de 150 caracteres.').isAscii().optional({nullable:true}),
+    body('IdCategoria', 'Id de la categoria es requerido!').isInt(),
+    sanitize('IdCategoria').toInt(),
     sanitize('NombreClasificacion').toString()
 ];
 exports.createClasificacion = createClasificacion;

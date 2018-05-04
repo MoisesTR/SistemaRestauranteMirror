@@ -125,7 +125,6 @@
                                     <th class="header-negrita">Cantidad</th>
                                     <th class="header-negrita">U. Medida</th>
                                     <th class="header-negrita">Precio unitario</th>
-                                    <th class="header-negrita">Gravado IVA</th>
                                     <th class="header-negrita">Descuento</th>
                                     <th class="header-negrita">Precio Total</th>
                                     <th class="header-negrita centrar-texto">Accion</th>
@@ -138,13 +137,10 @@
                                     <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
                                     <td class="body-negrita">{{productoFactura.Costo}} C$</td>
                                     <td width="10%" class="body-negrita">
-                                        <strong>{{productoFactura.GravadoIva == true ? 'SI' : 'NO'}}</strong>
-                                    </td>
-                                    <td width="10%" class="body-negrita">
                                         <strong>{{productoFactura.Descuento}}%</strong>
                                     </td>
-                                    <td width="10%" class="body-negrita">
-                                        {{(calculoTotalxProducto(productoFactura) | number) }} C$</td>
+                                    <td width="10%" class="body-negrita">{{((productoFactura.Cantidad * productoFactura.Costo) - (productoFactura.Cantidad * productoFactura.Costo
+                                        * (productoFactura.Descuento / 100))) | number}} C$</td>
                                     <td width="25%" class="body-negrita">
                                         <div class="text-center">
                                             <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
@@ -170,14 +166,6 @@
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-10 text-lg-right text-md-right text-sm-right">
                             <form [formGroup]="formDetallesFactura" novalidate>
-
-                                <div class="col-lg-12 col-md-12">
-                                    <input type="checkbox" (click)="descuentoGeneralSeleccion()" value="validando_checkbox2" name="seleccionadocheck" id="segundo1"
-                                        formControlName="checkDescuentoGeneral">
-                                    <label for="segundo1">
-                                        <strong>Descuento</strong>
-                                    </label>
-                                </div>
 
                                 <div class="col-lg-12 col-md-12">
                                     <input (click)="aplicarRetencion()" type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2" formControlName="retencion">
@@ -208,9 +196,6 @@
 
                         <div class="col-lg-2 col-md-2 col-sm-2 text-lg-right text-md-right text-sm-right">
                             <form>
-                                <div class="">
-                                    <label>{{descuentoGeneralFactura}}%</label>
-                                </div>
                                 <div class="">
                                     <label>2% aplicado</label>
                                 </div>
@@ -292,38 +277,16 @@
                                         <div class="col-md-12">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Nombre</h6>
-                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase"
+                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase"
                                                     required value={{productoSeleccionado.NombreProducto}}>
                                             </div>
                                         </div>
-
-                                        <!-- <div class="col-md-6">
-                                            <label for="selectclasificacion">Clasificación</label>
-                                            <select2 class="selectclasificacion" id="selectclasificacion">
-                                                <option class="chip">TEST </option>
-                                            </select2>
-                                        </div>
-
-                                         <div class="col-md-6">
-                                            <label for="subclasificacion">Subclasificación</label>
-                                            <select2 class="selectsubclasificacion"  id="subclasificacion"  >
-
-                                            </select2>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <br>
-                                            <label for="selectcategoria">Categoria</label>
-                                            <select2 class="selectcategoria"  id='selectcategoria' >
-
-                                            </select2>
-                                        </div> -->
-
+                                       
                                         <div class="col-md-12">
                                             <br>
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Descripción</h6>
-                                                <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" class="text-area-modal"
+                                                <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" formControlName="descripcionproducto" class="text-area-modal"
                                                     name="descripcionproducto" required value={{productoSeleccionado.Descripcion}}></textarea>
                                             </div>
                                         </div>
@@ -400,42 +363,6 @@
                         </button>
                     </div>
                 </form>
-            </div>
-        </div>
-        <!--/.Contenido-->
-    </div>
-</div>
-
-<!-- Modal para agregar descuento de factura  -->
-<div mdbModal #modalAddDescuento="mdb-modal" class="modal fade" id="modalAddDescuento" tabindex="-1" role="dialog" aria-labelledby="modalAddDescuento"
-    aria-hidden="true">
-    <div class="modal-dialog cascading-modal" role="document">
-        <!--Contenido-->
-        <div class="modal-content background-gray mdl">
-
-            <div class="modal-header white-text orange-chang">
-                <h4 class="title">
-                    <i class="fa fa-file-text-o"></i> Ingresar Descuento Total</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddDescuento.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <!--Cuerpo modal-->
-            <div class="modal-body mb-0">
-                <!-- Inicio form-->
-                <form [formGroup]="formDescuentoGeneral" (ngSubmit)="aplicarDescuentoGeneral()" novalidate>
-                    <div class="md-form">
-                        <h6 class="orange-chang-text">Descuento</h6>
-                        <input type="text" id="descuentoFactura" class="input-modal-sm" name="descuentoFactura" required formControlName="descuentoGeneral">
-                        <show-errors [control]="formDescuentoGeneral.controls['descuentoGeneral']"></show-errors>
-                    </div>
-                    <div class="text-center mt-1-half">
-                        <button class="btn orange-chang mb-1" [disabled]="!formDescuentoGeneral.valid" type="submit">Aplicar
-                            <i class="fa fa-check ml-1"></i>
-                        </button>
-                    </div>
-                </form>
-                <!-- Final form -->
             </div>
         </div>
         <!--/.Contenido-->

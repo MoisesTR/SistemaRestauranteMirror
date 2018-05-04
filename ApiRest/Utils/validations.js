@@ -91,14 +91,15 @@ exports.updateProveedor = [
 ];
 
 exports.changeStateProveedor = [
-        check('IdProveedor').isInt(),
-        check('Habilitado', ).isBoolean()
+        check('IdProveedor', 'Id de Proveedor requerido, debe ser entero.').isInt(),
+        check('Habilitado', 'Habilitado es requerido y debe ser Bit.').isBoolean(),
+        sanitize('Habilitado').toInt()
     ];
 
 exports.createEntradaBodegaAP = [
     body('IdBodegaAreaP', 'Selecciona una Bodega de Area de Produccion').isInt(),
-    body('IdTrabajador').isInt(),
-    body('IdProveedor').isInt(),
+    body('IdTrabajador', 'Seleccione un Trabajador para ingresar la Factura.').isInt(),
+    body('IdProveedor', 'Seleccione el Proveedor de la Factura.').isInt(),
     //check('IdEstadoEdicion').isInt(),
     body('NFactura').exists(),
     body('RepresentanteProveedor').exists(),

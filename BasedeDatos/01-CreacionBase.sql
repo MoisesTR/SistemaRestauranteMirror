@@ -140,6 +140,7 @@ CREATE TABLE UNIDAD_MEDIDA (
     IdClasificacionUnidadMedida INT,
     NombreUnidad				NVARCHAR(50)		NOT NULL,
     Simbolo						NVARCHAR(3)			NULL,
+	NImportancia				INT					NOT NULL,
     Habilitado					Bit DEFAULT 1		NOT NULL,
     CreatedAt					SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
     UpdateAt					SMALLDATETIME		NULL,
@@ -148,12 +149,12 @@ CREATE TABLE UNIDAD_MEDIDA (
         REFERENCES CLASIFICACION_UNIDAD_MEDIDA (IdClasificacionUnidadMedida)
 );
 GO
-INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo) 
-VALUES	(1,'Libra','Lb')
-		,(1,'Kilogramo','Kg')
-		,(2,'Litro','Lt')
-		,(2,'Mililitro','Ml')
-		,(1,'Miligramo','Mg');
+INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo, NImportancia) 
+VALUES	(1,'Libra','Lb', 1)
+		,(1,'Kilogramo','Kg',1)
+		,(2,'Litro','Lt', 2)
+		,(2,'Mililitro','Ml', 2)
+		,(1,'Miligramo','Mg', 3);
 GO
 CREATE TABLE CLASIFICACION_UNIDAD_MEDIDA_FUNCIONAL(
 	IdClasificacionUdmF		INT IDENTITY(1,1),

@@ -26,9 +26,9 @@
             <tbody>
               <tr *ngFor="let productosproveedor of productosProveedores; let i = index">
                 <td class="body-negrita">{{i + 1}}</td>
+                <td class="body-negrita">{{productosproveedor.NombreProducto}}</td>
                 <td class="body-negrita">{{productosproveedor.NombreProveedor}}</td>
-                <td class="body-negrita">{{productosproveedor.IdEnvase}}</td>
-                <td class="body-negrita">{{productosproveedor.IdEmpaque}}</td>
+                <td class="body-negrita">{{productosproveedor.NombreEmpaque}}</td>
                 <td width="25%" class="body-negrita">
 
                   <div class="text-center">

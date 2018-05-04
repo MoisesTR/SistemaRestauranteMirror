@@ -44,15 +44,14 @@
                                 <div class="col-md-12">
                                     <label class="margin-label-factura" for="FechaIngreso">Fecha de Ingreso</label>
                                     <div class="md-form">
-                                        <mdb-date-picker formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions"
-                                            required></mdb-date-picker>
+                                        <mdb-date-picker formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions" required></mdb-date-picker>
                                         <show-errors [control]="formAddFactura.controls['fechaFactura']"></show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" [placeholder]="'Hora de llegada'"
-                                        [label]="'Hora'" required></mdb-time-picker>
+                                    <label class="margin-label-factura" for="horaLlegada">Hora de Ingreso</label>
+                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" required></mdb-time-picker>
                                     <show-errors [control]="formAddFactura.controls['horaLlegada']"></show-errors>
                                 </div>
                             </div>

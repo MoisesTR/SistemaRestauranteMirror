@@ -36,11 +36,19 @@ export class AddfacturaComponent implements OnInit {
   public productoEditar : ProductoProveedor;
   public buscando;
   public descuentoGeneralFactura : number = 0;
-  public subtotalFactura : number = 0;
+  public subtotalFacturaConDescuento : number = 0;
+  public subTotalConIvaFactura : number = 0;
+  public subTotalFactura : number = 0;
+  public ivaCalculoFactura : number = 0;
+  public descuentoCalculoFactura : number = 0;
+  public retencionCalculoFactura : number = 0;
   public usuario : Usuario;
   public factura : Factura;
   public valorIva : number;
+  public valorRetencion : number = 0.02;
+  public totalFactura : number = 0;
   public formatoComaDinero;
+  public aplicaRetencion : boolean = false;
   @ViewChild('modalVerProducto') modalVerProducto : ModalDirective;
   @ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto : ModalDirective;
   @ViewChild('modalAddDescuento') modalAddDescuento : ModalDirective;
@@ -74,7 +82,7 @@ export class AddfacturaComponent implements OnInit {
     this.initFormDetailProductoFactura();
     this.initFormAddFactura();
     this.initFormDetailFactura();
-    this.initFormDescuentoGeneral();
+   // this.initFormDescuentoGeneral();
     this.usuario = this._usuarioService.getIdentity();
     this.factura.NombVendedor = this.usuario.Nombres;
     this.valorIva = 0.15;
@@ -147,10 +155,7 @@ export class AddfacturaComponent implements OnInit {
   }
 
   getValueFromModalEditarDatosProducto() {
-     this.productoEditar.Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
-     this.productoEditar.Costo = this.formEditarDetalleProducto.value.precioProducto;
-     this.productoEditar.Descuento = this.formEditarDetalleProducto.value.descuentoTotalProducto;
-     this.productoEditar.GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
+
   }
 
   getValueFromFormFactura() {
@@ -161,18 +166,20 @@ export class AddfacturaComponent implements OnInit {
   }
   editarDatosProducto() {
 
-    this.getValueFromModalEditarDatosProducto();
-
     this.productosFactura.forEach( (producto,index)=>{
          if(this.productosFactura[index].IdProducto == this.productoEditar.IdProducto){
-             this.productosFactura[index].Cantidad = this.productoEditar.Cantidad;
-             this.productosFactura[index].Costo = this.productoEditar.Costo;
-             this.productosFactura[index].Descuento = this.productoEditar.Descuento;
-             this.productosFactura[index].GravadoIva = this.productoEditar.GravadoIva;
+             this.calcularSubtotalFactura(producto,'RESTA');
+
+             this.productosFactura[index].Cantidad =  this.formEditarDetalleProducto.value.cantidadProducto;
+             this.productosFactura[index].Costo =  this.formEditarDetalleProducto.value.precioProducto;
+             this.productosFactura[index].Descuento =  this.formEditarDetalleProducto.value.descuentoTotalProducto;
+             this.productosFactura[index].GravadoIva =  this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;;
          }
      });
 
+
      this.calcularSubtotalFactura(this.productoEditar,'SUMA');
+
      this.modalAgregarDetalleProducto.hide();
   }
 
@@ -183,7 +190,7 @@ export class AddfacturaComponent implements OnInit {
       this.factura.IdProveedor = null;
       this.productos = null;
       this.productosFactura = [];
-      this.subtotalFactura = 0;
+      this.subtotalFacturaConDescuento = 0;
     } else {
       this.proveedor.IdProveedor = event.IdProveedor;
       this.factura.IdProveedor = event.IdProveedor;
@@ -224,9 +231,16 @@ export class AddfacturaComponent implements OnInit {
   }
 
   aplicarRetencion() {
+      var retencion = 0;
+      this.factura.aplicaRetencion = this.formDetallesFactura.value.retencion == false ? 1 : 0;
 
-      console.log(this.formDetallesFactura.value.retencion);
-      // this.factura.aplicaRetencion = this.formDetallesFactura.value.retencion == true ? 1 ;
+      if(this.factura.aplicaRetencion && this.subTotalFactura > 1000) {
+          retencion = this.subTotalFactura * this.valorRetencion;
+          this.retencionCalculoFactura = retencion;
+          this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
+      } else {
+          this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
+      }
   }
 
   deleteProductoOfFactura(productoFactura : ProductoProveedor) {
@@ -249,7 +263,6 @@ export class AddfacturaComponent implements OnInit {
       }
   }
   showModalDetalleProducto(productoFactura : ProductoProveedor) {
-
       this.formEditarDetalleProducto.reset();
       this.productoEditar = productoFactura;
       this.productoEditar.GravadoIva = productoFactura.GravadoIva;
@@ -272,20 +285,72 @@ export class AddfacturaComponent implements OnInit {
       return productoConDescuento;
 
   }
+
+  calcularPrecioTotalxProducto(producto : ProductoProveedor) {
+      var precioTotal = 0;
+      var precioProducto = producto.Cantidad * producto.Costo;
+      var ivaProducto = precioProducto * this.valorIva;
+      var descuentoProducto = precioProducto * (producto.Descuento / 100)
+
+      if(producto.GravadoIva) {
+          precioTotal = precioProducto + ivaProducto - descuentoProducto;
+      } else {
+          precioTotal = precioProducto - descuentoProducto;
+      }
+
+      return precioTotal;
+  }
+
   calcularSubtotalFactura(productoFactura : ProductoProveedor, operacion : string) {
+      var productoConIva = 0;
+      var productoConDescuento = 0;
+      var costoProducto = productoFactura.Costo * productoFactura.Cantidad;
+      var ivaDelProducto  = costoProducto * this.valorIva;
+      var descuentoProducto = costoProducto * (productoFactura.Descuento / 100);
 
       if (operacion == 'SUMA') {
+
           if(productoFactura.GravadoIva) {
-              this.subtotalFactura+= (productoFactura.Costo * productoFactura.Cantidad) + (productoFactura.Costo * productoFactura.Cantidad * 0.15);
+              productoConIva = costoProducto + costoProducto * this.valorIva;
+              productoConDescuento = productoConIva - (costoProducto  * (productoFactura.Descuento / 100));
+              this.subTotalFactura+= costoProducto;
+              this.subtotalFacturaConDescuento+= costoProducto - (costoProducto  * (productoFactura.Descuento / 100));
+              this.ivaCalculoFactura += ivaDelProducto;
+              this.descuentoCalculoFactura += descuentoProducto;
+              this.subTotalConIvaFactura += productoConDescuento;
           } else {
-              this.subtotalFactura+= productoFactura.Costo * productoFactura.Cantidad;
+              productoConDescuento = costoProducto  - (costoProducto  * (productoFactura.Descuento / 100));
+              this.descuentoCalculoFactura += descuentoProducto;
+              this.subTotalFactura+= costoProducto;
+              this.subtotalFacturaConDescuento+= productoConDescuento;
+              this.subTotalConIvaFactura += productoConDescuento;
           }
       } else {
           if(productoFactura.GravadoIva) {
-              this.subtotalFactura-= (productoFactura.Costo * productoFactura.Cantidad) + (productoFactura.Costo * productoFactura.Cantidad * 0.15);
+              productoConIva = costoProducto + costoProducto * this.valorIva;
+              productoConDescuento = productoConIva - (costoProducto  * (productoFactura.Descuento / 100));
+              this.subtotalFacturaConDescuento-= costoProducto - (costoProducto  * (productoFactura.Descuento / 100));
+              this.subTotalFactura-= costoProducto;
+              this.descuentoCalculoFactura -= descuentoProducto;
+              this.ivaCalculoFactura -= ivaDelProducto;
+              this.subTotalConIvaFactura -= productoConDescuento;
           } else {
-              this.subtotalFactura-= productoFactura.Costo * productoFactura.Cantidad;
+              productoConDescuento = costoProducto - (costoProducto  * (productoFactura.Descuento / 100))
+              this.subTotalFactura-= costoProducto;
+              this.subTotalConIvaFactura -= productoConDescuento;
+              this.descuentoCalculoFactura -= descuentoProducto;
+              this.subtotalFacturaConDescuento-= productoConDescuento;
           }
+      }
+
+      var retencion = 0;
+
+      if(this.factura.aplicaRetencion && this.subTotalFactura > 1000) {
+          retencion = this.subTotalFactura * this.valorRetencion;
+          this.retencionCalculoFactura = retencion;
+          this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
+      } else {
+          this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
       }
   }
 

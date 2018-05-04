@@ -243,7 +243,15 @@ IF OBJECT_ID('USP_GET_UNIDADES_DE_MEDIDA','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_GET_UNIDADES_DE_MEDIDA
 AS BEGIN
-	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA
+	SELECT  UNIDAD.IdUnidadMedida
+			, UNIDAD.IdClasificacionUnidadMedida
+			, CLASI_UNIDAD.NombreClasificacion
+			, UNIDAD.NombreUnidad
+			, UNIDAD.Simbolo
+			, UNIDAD.Habilitado 
+	FROM	UNIDAD_MEDIDA UNIDAD 
+			INNER JOIN CLASIFICACION_UNIDAD_MEDIDA CLASI_UNIDAD
+	ON		UNIDAD.IdClasificacionUnidadMedida = CLASI_UNIDAD.IdClasificacionUnidadMedida
 END
 GO
 IF OBJECT_ID('USP_GET_UNIDAD_DE_MEDIDA','P') IS NOT NULL
@@ -276,9 +284,9 @@ CREATE PROCEDURE USP_GET_SUCURSALES
 	@Habilitado BIT NULL
 AS 
 	IF @Habilitado IS NULL
-		SELECT IdSucursal,NombreSucursal,Direccion fromdbo.SUCURSAL
+		SELECT IdSucursal,NombreSucursal,Direccion from dbo.SUCURSAL
 	ELSE
-		SELECT IdSucursal,NombreSucursal,Direccion fromdbo.SUCURSAL WHERE Habilitado = @Habilitado
+		SELECT IdSucursal,NombreSucursal,Direccion from dbo.SUCURSAL WHERE Habilitado = @Habilitado
 GO
 IF OBJECT_ID('USP_GET_SUCURSAL','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_SUCURSAL
@@ -286,7 +294,7 @@ GO
 CREATE PROCEDURE USP_GET_SUCURSAL
 	@IdSucursal INT
 AS 
-	SELECT IdSucursal,NombreSucursal,Direccion fromdbo.SUCURSAL WHERE IdSucursal = @IdSucursal
+	SELECT IdSucursal,NombreSucursal,Direccion from dbo.SUCURSAL WHERE IdSucursal = @IdSucursal
 GO
 USE PRUEBAS_NODE
 IF OBJECT_ID('USP_CREATE_PRODUCTO_PROVEEDOR','P') IS NOT NULL

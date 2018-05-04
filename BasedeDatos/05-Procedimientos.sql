@@ -91,10 +91,26 @@ CREATE PROCEDURE USP_GET_CLASIFICACIONES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdCategoria,IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM dbo.CLASIFICACION_PRODUCTO;
+		SELECT	CLASI.IdCategoria
+				, CLASI.IdClasificacion
+				, CLASI.NombreClasificacion
+				, CLASI.DescripcionClasificacion
+				, CLASI.Habilitado 
+				, CATE.NombreCategoria
+		FROM	dbo.CLASIFICACION_PRODUCTO CLASI
+				INNER JOIN dbo.CATEGORIA_PRODUCTO CATE
+		ON		CLASI.IdCategoria = CATE.IdCategoria
 	ELSE
-		SELECT IdCategoria,IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM dbo.CLASIFICACION_PRODUCTO
-		WHERE Habilitado= @Habilitado
+		SELECT	CLASI.IdCategoria
+				, CLASI.IdClasificacion
+				, CLASI.NombreClasificacion
+				, CLASI.DescripcionClasificacion
+				, CLASI.Habilitado 
+				, CATE.NombreCategoria
+		FROM	dbo.CLASIFICACION_PRODUCTO CLASI
+				INNER JOIN dbo.CATEGORIA_PRODUCTO CATE
+		ON		CLASI.IdCategoria = CATE.IdCategoria
+		WHERE CLASI.Habilitado= @Habilitado
 END
 GO
 IF OBJECT_ID('USP_UPDATE_CLASIFICACION','P') IS NOT NULL
@@ -192,7 +208,8 @@ CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES
 	@Habilitado BIT  NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
+		SELECT s.IdSubClasificacion
+		,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
 		INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion
 	ELSE
 		SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s

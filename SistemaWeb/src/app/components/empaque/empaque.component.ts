@@ -126,9 +126,9 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
         }
       );
-    }
+  }
 
-    getEmpaquesRender(){
+  getEmpaquesRender(){
     this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
         if(response.empaques){
@@ -250,6 +250,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
             Modal.hide();
             this.formUpdateEmpaque.reset();
             this.getEmpaquesRender();
+            this.empaque = new Empaque();
           })
 
         } else {
@@ -259,7 +260,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
-    this.empaque = new Empaque();
+
 
   }
 
@@ -317,6 +318,8 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
       this.empaque.IdEmpaque  = Empaque.IdEmpaque;
       this.empaque.NombreEmpaque = Empaque.NombreEmpaque;
       this.empaque.Descripcion = Empaque.Descripcion;
+
+      console.log(this.empaque);
 
       this.formUpdateEmpaque.reset();
       this.formUpdateEmpaque.setValue({

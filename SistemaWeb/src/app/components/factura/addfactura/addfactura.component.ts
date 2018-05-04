@@ -262,6 +262,16 @@ export class AddfacturaComponent implements OnInit {
 
       this.modalAgregarDetalleProducto.show();
   }
+
+  calculoTotalxProducto(producto : ProductoProveedor) : number{
+
+      var cantidadxPrecio = producto.Cantidad * producto.Costo;
+      var productoConIva = cantidadxPrecio + (cantidadxPrecio * this.valorIva * producto.GravadoIva)
+      var productoConDescuento = productoConIva - (productoConIva * (producto.Descuento / 100));
+
+      return productoConDescuento;
+
+  }
   calcularSubtotalFactura(productoFactura : ProductoProveedor, operacion : string) {
 
       if (operacion == 'SUMA') {

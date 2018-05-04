@@ -33,7 +33,7 @@ export class RolusuarioService {
     let params = JSON.stringify(RolUsuario);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'token'});
 
-    return this._http.put(this.url + 'rol',params,{headers:headers})
+    return this._http.put(this.url + 'rol/'+RolUsuario.IdRol,params,{headers:headers})
   }
 
   deleteRol(IdRol) : Observable<any> {

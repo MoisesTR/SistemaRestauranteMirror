@@ -208,6 +208,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
             Modal.hide();
             this.formUpdateCategoria.reset();
             this.getCategoriasRender();
+            this.categoriaProducto = new CategoriaProducto();
           })
 
         } else {
@@ -217,8 +218,6 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
-
-    this.categoriaProducto = new CategoriaProducto();
 
   }
 

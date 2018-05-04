@@ -125,6 +125,7 @@
                                     <th class="header-negrita">Cantidad</th>
                                     <th class="header-negrita">U. Medida</th>
                                     <th class="header-negrita">Precio unitario</th>
+                                    <th class="header-negrita">Gravado IVA</th>
                                     <th class="header-negrita">Descuento</th>
                                     <th class="header-negrita">Precio Total</th>
                                     <th class="header-negrita centrar-texto">Accion</th>
@@ -137,10 +138,13 @@
                                     <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
                                     <td class="body-negrita">{{productoFactura.Costo}} C$</td>
                                     <td width="10%" class="body-negrita">
+                                        <strong>{{productoFactura.GravadoIva == true ? 'SI' : 'NO'}}</strong>
+                                    </td>
+                                    <td width="10%" class="body-negrita">
                                         <strong>{{productoFactura.Descuento}}%</strong>
                                     </td>
-                                    <td width="10%" class="body-negrita">{{((productoFactura.Cantidad * productoFactura.Costo) - (productoFactura.Cantidad * productoFactura.Costo
-                                        * (productoFactura.Descuento / 100))) | number}} C$</td>
+                                    <td width="10%" class="body-negrita">
+                                        {{(calculoTotalxProducto(productoFactura) | number) }} C$</td>
                                     <td width="25%" class="body-negrita">
                                         <div class="text-center">
                                             <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
@@ -288,7 +292,7 @@
                                         <div class="col-md-12">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Nombre</h6>
-                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase"
+                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase"
                                                     required value={{productoSeleccionado.NombreProducto}}>
                                             </div>
                                         </div>
@@ -319,7 +323,7 @@
                                             <br>
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Descripción</h6>
-                                                <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" formControlName="descripcionproducto" class="text-area-modal"
+                                                <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" class="text-area-modal"
                                                     name="descripcionproducto" required value={{productoSeleccionado.Descripcion}}></textarea>
                                             </div>
                                         </div>

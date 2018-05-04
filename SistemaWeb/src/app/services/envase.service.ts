@@ -37,7 +37,6 @@ export class EnvaseService {
       'Authorization': 'token'
     })
 
-      console.log(this.url+'envase/'+Envase.IdEnvase)
     return this._http.put(this.url+'envase/'+Envase.IdEnvase,params,{headers:headers})
   }
 

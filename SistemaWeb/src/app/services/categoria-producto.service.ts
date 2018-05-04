@@ -41,7 +41,7 @@ export class CategoriaProductoService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'categoria',params,{headers:headers});
+    return this._http.put(this.url+'categoria/'+Categoria.IdCategoria,params,{headers:headers});
 
   }
 

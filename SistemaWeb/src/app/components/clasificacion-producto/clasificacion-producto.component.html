@@ -87,6 +87,12 @@
             <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
           </div>
 
+          <h6 class="orange-chang-text">Categoria</h6>
+          <ng-select dropdownPosition="'top'" class="select-mdl" [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria"
+                     placeholder="Selecciona una categoria" formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
+          </ng-select>
+          <show-errors [control]="formAddClasificacion.controls['categoria']"></show-errors>
+
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddClasificacion.valid">Ingresar
               <i class="fa fa-check ml-1"></i>
@@ -137,6 +143,12 @@
             <textarea type="text" id="updescripcion" class="text-area-modal" name="descripcion" required formControlName="descripcionClasificacion"></textarea>
             <show-errors [control]="formUpdateClasificacion.controls['descripcionClasificacion']"></show-errors>           
           </div>
+
+          <h6 class="orange-chang-text">Categoria</h6>
+          <ng-select dropdownPosition="'top'" class="select-mdl" [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria"
+                     placeholder="Selecciona una categoria" [(ngModel)] = "clasificacion.IdCategoria" formControlName="categoria" id="upcategoria" (change)="onChangeCategoria($event)">
+          </ng-select>
+          <show-errors [control]="formUpdateClasificacion.controls['categoria']"></show-errors>
 
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateClasificacion.valid">Actualizar

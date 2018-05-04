@@ -39,7 +39,7 @@ export class ClasificacionProductoService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'clasificacion',params,{headers:headers})
+    return this._http.put(this.url+'clasificacion/'+Clasificacion.IdClasificacion,params,{headers:headers})
 
   }
 

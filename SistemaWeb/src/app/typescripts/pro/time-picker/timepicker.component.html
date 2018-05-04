@@ -1,7 +1,7 @@
 <div>
   <div class="md-form">
     <label class="active">{{ label }}</label>
-    <input [placeholder]="placeholder" [value]="endHours" type="text" class="form-control timepicker" (click)="openBtnClicked()" [(ngModel)]="endHours">
+    <input [placeholder]="placeholder" [value]="endHours" type="text" class="form-control timepicker" (click)="openBtnClicked()" [(ngModel)]="endHours"  readonly>
   </div>
   <div class="clockpicker picker" [hidden]="!showClock" [ngClass]="{'picker--opened': showClock, 'darktheme': darktheme}">
     <div class="picker__holder">
@@ -60,7 +60,7 @@
                 {{buttonLabel}}
               </button>
               <button type="button" *ngIf="!buttonLabel" class="btn-flat clockpicker-button" (click)="closeBtnClicked()">
-                Done
+                Hecho
               </button>
             </div>
           </div>

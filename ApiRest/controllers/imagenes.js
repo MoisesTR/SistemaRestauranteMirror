@@ -31,7 +31,44 @@ function getImage(req, res) {
 
 }
 
+function deleteImage(req,res) {
+    var tipo = req.params.tipo;
+    var img = req.params.img;
+
+     //Carpetas de imagenes validas
+     var tiposValidos = ['productos', 'trabajadores', 'usuarios','temp'];
+
+     if (tiposValidos.indexOf(tipo) < 0) {
+         return res.status(400).json({
+             ok: false,
+             message: 'Tipo de colección no valida',
+             error: { message: 'Carpeta no encontrada' }
+         });
+     }
+
+     var path = `./uploads/${ tipo }/${ img }`;
+
+    
+       if (fs.existsSync(path)) {
+            fs.unlink(path);
+
+           return res.status(200).json({
+            message: 'Peticion realizada correctamente',
+                image: ''
+            });
+       }  else {
+
+            return res.status(400).json({
+                ok: false,
+                message: 'La imagen a eliminar no existe en la carpeta',
+                error: { message: 'Ha ocurrido un error al remover la imagen' }
+            });
+       }
+
+}
+
 module.exports = {
     getImageFile,
-    getImage
+    getImage,
+    deleteImage
 }

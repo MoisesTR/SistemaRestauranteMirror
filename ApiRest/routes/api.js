@@ -78,6 +78,7 @@ Router
 .get('/getImage/:path/:ImageFile', ImagenController.getImageFile)
     .get('/getImagen/:tipo/:img', ImagenController.getImage)
     .post('/uploadImage', UploadController.uploadImage)
+    .delete('/deleteImage/:tipo/:img',ImagenController.deleteImage)
     //Rutas sucursal Controller
     .get('/sucursales', SucursalController.getSucursales)
     .get('/sucursal/:IdSucursal(\\d+)', SucursalController.getSucursalById)

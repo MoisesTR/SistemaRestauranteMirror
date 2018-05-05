@@ -7,29 +7,28 @@ function uploadImage(req, res) {
     var imagenAntigua = req.body.imagenAntigua;
     var removioImagen = req.body.removioImagen == "true";
 
-    if (!req.files && !removioImagen) {
+    if (!req.files) {
         return res.status(400).json({
             ok: false,
-            mensaje: 'No se ha seleccionado la imagen',
+            message: 'No se ha seleccionado la imagen',
             error: { message: 'Debe seleccionar una imagen' }
         });
 
     }
 
     //Carpetas de imagenes validas
-    var tiposValidos = ['productos', 'trabajadores', 'usuarios'];
+    var tiposValidos = ['productos', 'trabajadores', 'usuarios','temp'];
 
     if (tiposValidos.indexOf(tipo) < 0) {
         return res.status(400).json({
             ok: false,
-            mensaje: 'Tipo de coleccion no valida',
+            message: 'Tipo de coleccion no valida',
             error: { message: 'Carpeta no encontrada' }
         });
     }
 
     var pathViejo = `./uploads/${ tipo }/${ imagenAntigua }`;
 
-    if (!removioImagen) {
 
         if (imagenAntigua != '') {
             //Si existe , elimina la imagen anterior
@@ -49,7 +48,7 @@ function uploadImage(req, res) {
 
         if (extensionesPermitidas.indexOf(extArchivo) < 0) {
             return res.status(400).json({
-                mensaje: 'Extension no válida',
+                message: 'Extension no válida',
                 error: { message: 'Las extensiones validas son ' + extensionesPermitidas.join(' , ') }
             });
         }
@@ -63,34 +62,18 @@ function uploadImage(req, res) {
         archivo.mv(path, err => {
 
             if (err) {
-
                 return res.status(500).json({
-                    mensaje: 'Error el mover el archivo',
+                    message: 'Error al mover el archivo',
                     error: err
                 });
             } else {
-                res.status(200).json({
-                    mensaje: 'Peticion realizada correctamente',
+                return res.status(200).json({
+                    message: 'Peticion realizada correctamente',
                     image: nombreArchivo
                 })
             }
         })
 
-    } else {
-
-        if (imagenAntigua != '') {
-            //Si existe , elimina la imagen anterior
-            if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
-                res.status(200).json({
-                    mensaje: 'Peticion realizada correctamente',
-                    image: ''
-                })
-
-            }
-        }
-
-    }
 }
 
 module.exports = {

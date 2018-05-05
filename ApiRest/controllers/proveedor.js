@@ -17,7 +17,9 @@ function getProveedorById(req, res) {
 
 function getProveedores(req, res) {
     var aoj = [];
-    var Habilitado = req.params.Habilitado;
+    var Habilitado = req.query.Habilitado;
+    console.log('Proveedores');
+    console.log(Habilitado);
     db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado)
     db.storedProcExecute('USP_GET_PROVEEDORES', aoj)
         .then((results) => {

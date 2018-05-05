@@ -42,14 +42,14 @@ exports.userUpdate = [
         check('IdRol').optional({ nullable: true })
     ];
 
-var categoriaCreate = [
+var createCategoria = [
         body('NombreCategoria', 'El nombre de la categoria es requerido').exists(),
         body('DescripcionCategoria', 'La descripcion de la categoria es requerida!').exists()
     ];
 
-exports.categoriaCreate = categoriaCreate;
+exports.createCategoria = createCategoria;
 
-exports.updateCategoria = categoriaCreate.concat([
+exports.updateCategoria = createCategoria.concat([
         check('IdCategoria').isInt(),
         sanitize('IdCategoria').toInt(),
     ]);

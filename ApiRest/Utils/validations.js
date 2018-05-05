@@ -56,7 +56,8 @@ exports.updateCategoria = createCategoria.concat([
 
 exports.changeStateCategoria = [
     check('IdCategoria').isInt(),
-    check('Habilitado', 'Habilitado debe ser un booleano.').isBoolean()
+    check('Habilitado').isBoolean(),
+    sanitize('Habilitado').toInt()
 ];
 
 var createCargo = [
@@ -73,7 +74,8 @@ exports.updateCargo = createCargo.concat([
 
 exports.changeStateCargo = [
     check('IdCargo').isInt(),
-    check('Habilitado').isBoolean()
+    check('Habilitado').isBoolean(),
+    sanitize('Habilitado').toInt()
 ];
 
 var createProveedor = [
@@ -160,7 +162,8 @@ exports.updateEnvase = createEnvase.concat([
 ]); 
 exports.changeStateEnvase =[
     param('IdEnvase').isInt(),
-    check('Habilitado').isInt()
+    check('Habilitado').isBoolean(),
+    sanitize('Habilitado').toInt()
 ]
 
 exports.createTrabajador = [
@@ -214,7 +217,8 @@ exports.updateEmpaque = createEmpaque.concat([
 
 exports.changeStateEmpaque =[
     param('IdEmpaque').isInt(),
-    check('Habilitado').isInt()
+    check('Habilitado').isBoolean(),
+    sanitize('Habilitado').toInt()
 ]
 var createClasificacion =  [
     body('NombreClasificacion','El nombre de la clasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
@@ -271,5 +275,6 @@ exports.updateUnidadMedida = createUnidadMedida.concat([
 
 exports.changeStateUnidadMedida =[
     param('IdUnidadMedida').isInt(),
-    check('Habilitado').isInt()
+    check('Habilitado').isBoolean(),
+    sanitize('Habilitado').toInt()
 ]

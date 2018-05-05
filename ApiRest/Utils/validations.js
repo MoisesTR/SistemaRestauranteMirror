@@ -76,22 +76,19 @@ exports.changeStateCargo = [
     check('Habilitado').isBoolean()
 ];
 
-exports.createProveedor = [
+var createProveedor = [
     body('NombreProveedor').exists(),
-    body('Direccion', 'Direccion del proveedor requerida!').exists(),
-    body('Email', 'El email del proveedor es requerido!').isEmail(),
-    body('Descripcion'),
-    body('NombreRepresentante').exists()
+    check('NombreProveedor', 'Ingrese el Nombre del proveedor.').exists(),
+    check('Direccion', 'Ingrese la direccion del proveedor.').isAscii().trim(),
+    check('Email','Ingrese el Email del Proveedor.').isEmail(),
+    check('Descripcion').optional({nullable:true}),
+    check('NombreRepresentante','Ingrese el Nombre del representante.').exists()
 ];
+exports.createProveedor = createProveedor;
 
-exports.updateProveedor = [
-    check('IdProveedor').isInt(),
-    check('NombreProveedor').exists(),
-    check('Direccion').isAscii().trim(),
-    check('Email').isEmail(),
-    check('Descripcion'),
-    check('NombreRepresentante').exists()
-];
+exports.updateProveedor = createProveedor.concat([
+    param('IdProveedor', 'Seleccione el proveedor a actualizar.').isInt()
+]);
 
 exports.changeStateProveedor = [
         check('IdProveedor', 'Id de Proveedor requerido, debe ser entero.').isInt(),

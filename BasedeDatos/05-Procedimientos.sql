@@ -289,10 +289,11 @@ IF OBJECT_ID('USP_DISP_PROVEEDOR','P') IS NOT NULL
 	DROP PROCEDURE USP_DISP_PROVEEDOR
 GO
 CREATE PROCEDURE USP_DISP_PROVEEDOR(
-	@IdProveedor INT,
-	@Habilitado BIT
+	@IdProveedor	INT,
+	@Habilitado		BIT
 ) AS BEGIN 
-	UPDATE PROVEEDOR SET Habilitado = @Habilitado, UpdateAt=GETDATE() WHERE IdProveedor = @IdProveedor;
+	UPDATE dbo.PROVEEDOR SET Habilitado = @Habilitado, UpdateAt=GETDATE() 
+	WHERE IdProveedor = @IdProveedor;
 END
 GO
 IF OBJECT_ID('USP_UPDATE_NUMERO_PROVEEDOR','P') IS NOT NULL

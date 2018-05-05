@@ -59,17 +59,20 @@ exports.changeStateCategoria = [
     check('Habilitado', 'Habilitado debe ser un booleano.').isBoolean()
 ];
 
-exports.createCargo = [
+var createCargo = [
     check('NombreCargo', 'El nombre del cargo es requerido!').exists(),
     check('DescripcionCargo', 'La descripcion del cargo es requerida!').exists(),
     sanitize('NombreCargo').toString()
 ];
+exports.createCargo = createCargo;
 
-exports.updateCargo = [
+
+exports.updateCargo = createCargo.concat([
     check('IdCargo').exists().isInt(),
-];
+]);
 
 exports.changeStateCargo = [
+    check('IdCargo').isInt(),
     check('Habilitado').isBoolean()
 ];
 
@@ -248,3 +251,20 @@ exports.createProducto = createProducto;
 exports.updateProducto = createProducto.concat([
     param('IdProducto').isInt()
 ]);
+
+let createUnidadMedida = [
+    body('IdClasificacionUnidadMedida','Seleccione la clasificacion de la unidad de medida.').isInt().toInt(),
+    body('NombreUnidad', 'Ingrese el nombre de la unidad de medida.').isAscii().isLength({max:50}),
+    body('Simbolo','Ingrese el Simbolo de la Unidad de Medida.').isAscii().isLength({max:3}).toString(),
+    body('NImportancia','Ingrese el valor de Importancia de esta Unidad de Medida.').isInt()
+];
+exports.createUnidadMedida = createUnidadMedida;
+
+exports.updateUnidadMedida = createUnidadMedida.concat([
+    param('IdUnidadMedida').isInt()
+]);
+
+exports.changeStateUnidadMedida =[
+    param('IdUnidadMedida').isInt(),
+    check('Habilitado').isInt()
+]

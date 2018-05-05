@@ -146,7 +146,7 @@ CREATE TABLE UNIDAD_MEDIDA (
     UpdateAt					SMALLDATETIME		NULL,
     CONSTRAINT PK_ID_UDM	PRIMARY KEY (IdUnidadMedida),
     CONSTRAINT FK_CLAS_UDM	FOREIGN KEY (IdClasificacionUnidadMedida)
-        REFERENCES CLASIFICACION_UNIDAD_MEDIDA (IdClasificacionUnidadMedida)
+        REFERENCES dbo.CLASIFICACION_UNIDAD_MEDIDA (IdClasificacionUnidadMedida)
 );
 GO
 INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo, NImportancia) 
@@ -175,8 +175,8 @@ CREATE TABLE UNIDAD_MEDIDA_FUNCIONAL(
 	CreatedAt				DATE			NOT NULL	DEFAULT GETDATE(),
 	UpdateAt				DATE			NULL,
 	CONSTRAINT Pk_UnidadMedidaFuncional		PRIMARY KEY(IdUdmFuncional),
-	CONSTRAINT FK_UnidadDeMedidaFuncional	FOREIGN KEY(IdUnidadMedida) REFERENCES UNIDAD_MEDIDA(IdUnidadMedida),
-	CONSTRAINT FK_ClasificacionUdmFuncional FOREIGN KEY(IdClasificacionUdmF) REFERENCES CLASIFICACION_UNIDAD_MEDIDA_FUNCIONAL(IdClasificacionUdmF)
+	CONSTRAINT FK_UnidadDeMedidaFuncional	FOREIGN KEY(IdUnidadMedida) REFERENCES dbo.UNIDAD_MEDIDA(IdUnidadMedida),
+	CONSTRAINT FK_ClasificacionUdmFuncional FOREIGN KEY(IdClasificacionUdmF) REFERENCES dbo.CLASIFICACION_UNIDAD_MEDIDA_FUNCIONAL(IdClasificacionUdmF)
 )
 GO
 IF OBJECT_ID('USP_CREATE_UNIDAD_MEDIDA', N'P') IS NOT NULL
@@ -189,7 +189,7 @@ CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
 	@Descripcion		NVARCHAR(50)	NULL,
 	@ValorUdm			NUMERIC(10,5)
 ) AS BEGIN
-	INSERT INTO UNIDAD_MEDIDA_FUNCIONAL(IdUnidadMedida, Nombre, Descripcion, ValorUdm)
+	INSERT INTO dbo.UNIDAD_MEDIDA_FUNCIONAL(IdUnidadMedida, Nombre, Descripcion, ValorUdm)
 	VALUES(@IdUnidadMedida, @Nombre, @Descripcion, @ValorUdm)
 	
 	SELECT @IdUdmFuncional = @@IDENTITY

@@ -62,17 +62,6 @@ function updateSubclasificacion(req, res) {
         });
 }
 
-function disSubclasificaciones(pool, IdSubClasificacion) {
-    var aoj = [];
-    db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, IdSubClasificacion)
-    db.storedProcExecute('USP_DISP_SUBCLASIFICACION', aoj)
-        .then((result) => {
-            res.status(200).json(result)
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        });
-}
-
 function getSubclasificacionesByIdClasificacion(req, res) {
     var data = req.params;
     var aoj = [];

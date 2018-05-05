@@ -228,14 +228,45 @@ IF OBJECT_ID('USP_CREATE_UNIDAD_MEDIDA','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_UNIDAD_MEDIDA
 GO
 CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
-	@IdClasificacionUnidadMedida INT,
-    @NombreUnidad NVARCHAR(50),
-    @Simbolo NVARCHAR(3)
+	@IdClasificacionUnidadMedida	INT,
+    @NombreUnidad					NVARCHAR(50),
+    @Simbolo						NVARCHAR(3),
+	@NImportancia					INT
 )
 AS BEGIN
-	INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo)
-	VALUES(@IdClasificacionUnidadMedida,@NombreUnidad,@Simbolo)
+	INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo,NImportancia)
+	VALUES(@IdClasificacionUnidadMedida,@NombreUnidad,@Simbolo, NImportancia)
 	SELECT @@IDENTITY AS IdUnidadMedida
+END
+GO
+IF OBJECT_ID('dbo.USP_UPDATE_UNIDAD_MEDIDA','P') IS NOT NULL
+	DROP PROCEDURE	dbo.USP_UPDATE_UNIDAD_MEDIDA
+GO
+CREATE PROCEDURE	dbo.USP_UPDATE_UNIDAD_MEDIDA (
+	@IdUnidadMedida					INT,
+	@IdClasificacionUnidadMedida	INT		NULL,
+    @NombreUnidad					NVARCHAR(50)	NULL,
+    @Simbolo						NVARCHAR(3)		NULL,
+	@NImportancia					INT		NULL
+)
+AS BEGIN
+	IF COALESCE(@IdClasificacionUnidadMedida,@NombreUnidad, @Simbolo, @NImportancia) IS NOT NULL
+	BEGIN
+		UPDATE dbo.UNIDAD_MEDIDA
+		SET IdClasificacionUnidadMedida = ISNULL(@IdClasificacionUnidadMedida,IdClasificacionUnidadMedida), NombreUnidad = ISNULL(@NombreUnidad,NombreUnidad),
+			Simbolo = ISNULL(@Simbolo,Simbolo), NImportancia = ISNULL(@NImportancia,NImportancia)
+			WHERE IdUnidadMedida = @IdUnidadMedida
+	END
+END
+GO 
+IF OBJECT_ID('dbo.USP_DISP_UNIDAD_MEDIDA','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_DISP_UNIDAD_MEDIDA
+GO
+CREATE PROCEDURE dbo.USP_DISP_UNIDAD_MEDIDA(
+	@IdUnidadMedida			INT,
+	@Habilitado				BIT
+) AS BEGIN
+	UPDATE dbo.UNIDAD_MEDIDA set Habilitado = @Habilitado,UpdateAt=GETDATE() Where IdUnidadMedida = @IdUnidadMedida;
 END
 GO
 IF OBJECT_ID('USP_GET_UNIDADES_DE_MEDIDA','P') IS NOT NULL
@@ -248,9 +279,10 @@ AS BEGIN
 			, CLASI_UNIDAD.NombreClasificacion
 			, UNIDAD.NombreUnidad
 			, UNIDAD.Simbolo
-			, UNIDAD.Habilitado 
-	FROM	UNIDAD_MEDIDA UNIDAD 
-			INNER JOIN CLASIFICACION_UNIDAD_MEDIDA CLASI_UNIDAD
+			, UNIDAD.Habilitado
+			, UNIDAD.NImportancia 
+	FROM	dbo.UNIDAD_MEDIDA UNIDAD 
+			INNER JOIN dbo.CLASIFICACION_UNIDAD_MEDIDA CLASI_UNIDAD
 	ON		UNIDAD.IdClasificacionUnidadMedida = CLASI_UNIDAD.IdClasificacionUnidadMedida
 END
 GO
@@ -261,7 +293,9 @@ CREATE PROCEDURE USP_GET_UNIDAD_DE_MEDIDA(
 	@IdUnidadMedida INT
 )
 AS BEGIN
-	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,Habilitado FROM UNIDAD_MEDIDA WHERE IdUnidadMedida = @IdUnidadMedida
+	SELECT  IdUnidadMedida,IdClasificacionUnidadMedida,NombreUnidad,Simbolo,NImportancia, Habilitado 
+	FROM dbo.UNIDAD_MEDIDA 
+	WHERE IdUnidadMedida = @IdUnidadMedida
 END
 GO
 IF OBJECT_ID('USP_CREATE_SUCURSAL','P') IS NOT NULL

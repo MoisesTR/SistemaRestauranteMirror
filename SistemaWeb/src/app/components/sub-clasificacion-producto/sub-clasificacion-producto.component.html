@@ -24,19 +24,26 @@
               </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let subclasificacion of subclasificaciones; let i = index">
-              <td class="body-negrita">{{ i + 1 }}</td>
-              <td class="body-negrita">{{ subclasificacion.NombreSubClasificacion }}</td>
-              <td class="body-negrita">{{ subclasificacion.DescripcionSubClasificacion }}</td>
-              <td class="body-negrita">{{ subclasificacion.NombreClasificacion }}</td>
-              <td width="25%" class="body-negrita">
+              <tr *ngFor="let subclasificacion of subclasificaciones; let i = index">
+                <td class="body-negrita">{{ i + 1 }}</td>
+                <td class="body-negrita">{{ subclasificacion.NombreSubClasificacion }}</td>
+                <td class="body-negrita">{{ subclasificacion.DescripcionSubClasificacion }}</td>
+                <td class="body-negrita">{{ subclasificacion.NombreClasificacion }}</td>
+                <td width="25%" class="body-negrita">
 
-                <div class="text-center">
-                  <button type="button" (click)="invocarModalUpdateSubClasificacion(modalUpdateSubClasificacion,subclasificacion)" class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateSubClasificacion" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteSubClasificacion(subclasificacion.IdSubClasificacion)" class="btn btn-sm" style="background-color:#E67E22;" id="btnDeleteSubclasificacion" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-            </tr>
+                  <div class="text-center">
+                    <button type="button" (click)="invocarModalUpdateSubClasificacion(modalUpdateSubClasificacion,subclasificacion)" class="btn btn-sm"
+                      style="background-color:#E67E22;" id="btnUpdateSubClasificacion" data-toggle="tooltip" data-placement="bottom"
+                      title="Editar">
+                      <i class="fa fa-pencil"></i>
+                    </button>
+                    <button type="button" (click)="deleteSubClasificacion(subclasificacion.IdSubClasificacion)" class="btn btn-sm" style="background-color:#E67E22;"
+                      id="btnDeleteSubclasificacion" data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -86,12 +93,13 @@
 
           <h6 class="orange-chang-text">Clasificación</h6>
           <ng-select [items]="clasificaciones" class="select-mdl" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
-                     formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
+            formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
 
           </ng-select>
           <show-errors [control]="formAddSubClasificacion.controls['clasificacion']"></show-errors>
 
           <div class="text-center mt-1-half">
+            <br>
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddSubClasificacion.valid">Ingresar
               <i class="fa fa-check ml-1"></i>
             </button>
@@ -144,11 +152,12 @@
 
           <h6 class="orange-chang-text">Clasificación</h6>
           <ng-select [items]="clasificaciones" class="select-mdl" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
-                     formControlName="clasificacion" [(ngModel)]="subclasificacion.IdClasificacion" (change)="onChangeClasificacion($event)">
+            formControlName="clasificacion" [(ngModel)]="subclasificacion.IdClasificacion" (change)="onChangeClasificacion($event)">
           </ng-select>
           <show-errors [control]="formUpdateSubClasificacion.controls['clasificacion']"></show-errors>
 
           <div class="text-center mt-1-half">
+            <br>
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSubClasificacion.valid">Actualizar
               <i class="fa fa-check ml-1"></i>
             </button>

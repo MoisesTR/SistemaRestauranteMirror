@@ -71,8 +71,8 @@ Router
     //Rutas producto controller
     .get('/productos', ProductoController.getProductos)
     .get('/producto/:IdProducto(\\d+)', ProductoController.getProductoById)
-    .post('/producto', ProductoController.createProducto)
-    .put('/producto', ProductoController.updateProducto)
+    .post('/producto',validations.createProducto, validations.validsParams, ProductoController.createProducto)
+    .put('/producto',validations.updateProducto, validations.validsParams, ProductoController.updateProducto)
     .delete('/producto/:IdProducto(\\d+)', ProductoController.changeStateProducto)
 
 .get('/getImage/:path/:ImageFile', ImagenController.getImageFile)

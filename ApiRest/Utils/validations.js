@@ -234,3 +234,17 @@ exports.updateRol = createRol.concat([
     param('IdRol', 'Id del Rol es requerido!').isInt(),
     sanitize('IdRol').toInt()
 ])
+
+var createProducto = [
+    body('IdCategoria','Elige una Categoria para el producto.').isInt(),
+    body('IdSubClasificacion', 'Selecciona Una SubClasificacion.').isInt(),
+    body('IdEstado','Elige el estado del producto.').isInt(),
+    body('NombreProducto','Ingresa el Nombre del Producto.').isAscii(),
+    body('Descripcion','Ingresa la Descripcion del producto.').isAscii(),
+    body('Imagen','Ingresa el nombre de la Imagen.').isAscii().optional({nullable:true})
+];
+exports.createProducto = createProducto;
+
+exports.updateProducto = createProducto.concat([
+    param('IdProducto').isInt()
+]);

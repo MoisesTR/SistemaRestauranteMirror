@@ -50,8 +50,9 @@ export class CategoriaProductoService {
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
+      let body = JSON.stringify({"Habilitado": 0});
 
-      return this._http.request('delete',this.url+'categoria/'+IdCategoria,{headers:headers});
+      return this._http.request('delete',this.url+'categoria/'+IdCategoria,{headers:headers,body:body});
   }
 
 }

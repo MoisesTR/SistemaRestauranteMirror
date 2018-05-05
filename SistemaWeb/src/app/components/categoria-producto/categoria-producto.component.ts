@@ -239,7 +239,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
   deleteCategoria(IdCategoria){
 
-    /*swal({
+    swal({
       title: "Estas seguro(a)?",
       text: "La categoria sera eliminada permanentemente!",
       type: 'warning',
@@ -247,7 +247,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminala!'
-    }).then((eliminar) => {
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._categoriaProductoServicio.deleteCategoriaProducto(IdCategoria).subscribe(
           response =>{
@@ -260,25 +260,15 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
                this.getCategoriasRender();
               })
             } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
+              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
             }
           }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }
         )
 
       }
-    });*/
+    });
 
   }
 

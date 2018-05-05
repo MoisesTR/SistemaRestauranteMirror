@@ -20,7 +20,7 @@ export class Utilidades{
                 if(mensaje.error.showMessage){
                     return mensaje.error.message;
                 } else {
-                    return 'Ha ocurrido un error'
+                    return mensaje.error.message;
                 }
             }
         }

@@ -91,10 +91,10 @@ exports.updateProveedor = createProveedor.concat([
 ]);
 
 exports.changeStateProveedor = [
-        check('IdProveedor', 'Id de Proveedor requerido, debe ser entero.').isInt(),
-        check('Habilitado', 'Habilitado es requerido y debe ser Bit.').isBoolean(),
-        sanitize('Habilitado').toInt()
-    ];
+    param('IdProveedor', 'Id de Proveedor requerido, debe ser entero.').isInt(),
+    check('Habilitado', 'Habilitado es requerido y debe ser Bit.').isBoolean(),
+    sanitize('Habilitado').toInt()
+];
 
 exports.createEntradaBodegaAP = [
     body('IdBodegaAreaP', 'Selecciona una Bodega de Area de Produccion').isInt(),

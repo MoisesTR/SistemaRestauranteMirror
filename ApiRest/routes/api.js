@@ -57,7 +57,7 @@ Router
     .get('/proveedores', ProveedorController.getProveedores)
     .post('/proveedor',validations.createProveedor, validations.validsParams, ProveedorController.createProveedor)
     .put('/proveedor/:IdProveedor(\\d+)',validations.updateProveedor,validations.validsParams, ProveedorController.updateProveedor)
-    .delete('/proveedor/:IdProveedor(\\d+)', ProveedorController.changeStateProveedor)
+    .delete('/proveedor/:IdProveedor(\\d+)',validations.changeStateProveedor, validations.validsParams, ProveedorController.changeStateProveedor)
     //Rutas subclasificacion Controller
     .get('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones', SubclasificacionController.getSubclasificaciones)

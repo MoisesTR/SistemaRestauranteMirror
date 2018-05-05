@@ -36,7 +36,7 @@ export class ProductoService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'producto',params,{headers:headers})
+    return this._http.put(this.url+'producto/'+Producto.IdProducto,params,{headers:headers})
   }
 
   deleteProducto(IdProducto): Observable<any>{

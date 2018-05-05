@@ -10,6 +10,7 @@ export class Usuario {
   public Password: string;
   public Email: string;
   public Habilitado: number;
+  public NombreRol : string;
   public CreateAt: string;
   public UpdateAt: string;
   public IdTrabajador?:number;

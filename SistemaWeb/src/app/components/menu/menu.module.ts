@@ -53,6 +53,7 @@ import {TelephoneNumberFormatValidatorDirective} from '../../validadores/telepho
 import {BirthYearValidatorDirective} from '../../validadores/birthYear';
 import {BuscarPipe} from '../../pipe/buscar.pipe';
 import {DatePipe} from '@angular/common';
+import {DeleteImageService} from '../../services/delete-image-service';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import {DatePipe} from '@angular/common';
     , AuthService
     , JwtHelper
       , DatePipe
+      , DeleteImageService
 
   ],
   schemas: [ NO_ERRORS_SCHEMA ]

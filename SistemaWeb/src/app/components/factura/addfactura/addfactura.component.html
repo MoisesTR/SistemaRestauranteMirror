@@ -286,7 +286,7 @@
                                         <h4 class="mb-0">Imagen</h4>
                                     </div>
                                     <div class="card-body text-center">
-                                        <img src="assets/img/utils/not-found.png" alt="..." class="img-thumbnail height-card-usuario">
+                                        <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}" alt="..." class="img-thumbnail height-card-usuario">
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +379,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-1-half">
-                        <button class="btn orange-chang mb-1" type="submit">Ingresar
+                        <button class="btn orange-chang mb-1" type="submit" [disabled]="!formEditarDetalleProducto.valid">Ingresar
                             <i class="fa fa-check ml-1"></i>
                         </button>
                     </div>

@@ -6,7 +6,7 @@ import {Proveedor} from '../../../models/Proveedor';
 import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
 import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {opcionesDatePicker} from '../../../services/global';
+import {Global, opcionesDatePicker} from '../../../services/global';
 import {isNull} from 'util';
 import {ModalDirective} from '../../../typescripts/free/modals';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
@@ -49,6 +49,7 @@ export class AddfacturaComponent implements OnInit {
   public totalFactura : number = 0;
   public formatoComaDinero;
   public aplicaRetencion : boolean = false;
+  public url : string;
   @ViewChild('modalVerProducto') modalVerProducto : ModalDirective;
   @ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto : ModalDirective;
   @ViewChild('modalAddDescuento') modalAddDescuento : ModalDirective;
@@ -70,6 +71,7 @@ export class AddfacturaComponent implements OnInit {
       this.productoEditar = new ProductoProveedor();
       this.usuario = new Usuario();
       this.factura = new Factura();
+      this.url = Global.url;
   }
 
   ngOnInit() {
@@ -239,6 +241,7 @@ export class AddfacturaComponent implements OnInit {
           this.retencionCalculoFactura = retencion;
           this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
       } else {
+          this.retencionCalculoFactura = 0;
           this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
       }
   }
@@ -250,20 +253,9 @@ export class AddfacturaComponent implements OnInit {
 
   }
 
-  aplicarDescuentoGeneral () {
-        this.descuentoGeneralFactura = this.formDescuentoGeneral.value.descuentoGeneral;
-        this.modalAddDescuento.hide();
-  }
-
-  descuentoGeneralSeleccion(event) {
-      if(this.formDetallesFactura.value.checkDescuentoGeneral == false) {
-          this.modalAddDescuento.show();
-      } else {
-          this.descuentoGeneralFactura = 0;
-      }
-  }
   showModalDetalleProducto(productoFactura : ProductoProveedor) {
       this.formEditarDetalleProducto.reset();
+      console.log(productoFactura);
       this.productoEditar = productoFactura;
       this.productoEditar.GravadoIva = productoFactura.GravadoIva;
       this.formEditarDetalleProducto.setValue({

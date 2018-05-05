@@ -28,19 +28,20 @@ export class Utilidades{
 
   }
 
-  static msgErrorImage(mensaje) {
+  static msgErrorImage(mensaje, titulo = 'Error') {
 
+      console.log(mensaje);
       try {
           if(isUndefined(mensaje)) {
-              this.showMsgError('El error esta indefinido');
+              this.showMsgError('El error esta indefinido',titulo);
           } else {
-              this.showMsgError(JSON.parse(mensaje).error.message);
+              this.showMsgError(mensaje.error.message,titulo);
           }
       }
       catch(e) {
           console.log(e);
           console.log(mensaje);
-          this.showMsgError("Ha ocurrido un error al decodificar el mensaje")
+          this.showMsgError(JSON.parse(mensaje).message,titulo)
       }
 
   }

@@ -17,7 +17,8 @@ import {CategoriaProductoService} from '../../../services/categoria-producto.ser
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Utilidades} from '../../Utilidades';
-import {isNull} from 'util';
+import {isNull, isUndefined} from 'util';
+import {DeleteImageService} from '../../../services/delete-image-service';
 
 declare var $:any;
 @Component({
@@ -37,6 +38,7 @@ export class UpdateProductoComponent implements OnInit {
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
   public removioImagen : boolean = false;
+  public filesToUpload: Array<File> = null;
 
   constructor(
     private _route: ActivatedRoute
@@ -46,6 +48,7 @@ export class UpdateProductoComponent implements OnInit {
     , private _clasificaionService: ClasificacionProductoService
     , private _subclasificacionService: SubClasificacionProductoService
     , private _productoService : ProductoService
+    , private _deleteImageService : DeleteImageService
     , private formBuilderUProducto : FormBuilder
   ) {
     this.url = Global.url;
@@ -93,28 +96,45 @@ export class UpdateProductoComponent implements OnInit {
     })
   }
 
-  onUpSelectClasificacion(event){
+  onChangeClasificacion(event){
 
-    this.producto.IdClasificacion = event.IdClasificacion;
+      if(isNull(event)) {
+          this.producto.IdClasificacion = null;
+      } else {
+          this.producto.IdClasificacion = event.IdClasificacion;
 
-    this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
-      response =>{
-        if(response.subclasificaciones){
-          this.subclasificaciones = response.subclasificaciones;
-        }
-      }, error=>{
-
+          this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
+              response =>{
+                  if(response.subclasificaciones){
+                      this.subclasificaciones = response.subclasificaciones;
+                  }
+              }, error=>{
+                    Utilidades.showMsgError(Utilidades.mensajeError(error),'Producto');
+              }
+          )
       }
-    )
 
   }
 
-  onUpSelectSubClasificacion(event){
-    this.producto.IdSubclasificacion = event.IdSubClasificacion;
+  onChangeSubclasificacion(event){
+
+      if(isNull(event)){
+          this.producto.IdSubclasificacion = null;
+      } else{
+          this.producto.IdSubclasificacion = event.IdSubClasificacion;
+      }
   }
 
-  onUpCategoria(event){
-    this.producto.IdCategoria = event.IdCategoria;
+
+
+  onChangeCategoria(event){
+
+      if(isNull(event)) {
+          this.producto.IdCategoria = null;
+      } else {
+          this.producto.IdCategoria = event.IdCategoria;
+      }
+
   }
 
 
@@ -125,8 +145,6 @@ export class UpdateProductoComponent implements OnInit {
   }
 
   validarCampos(){
-
-    this.obtenerDatosFormularioProducto();
     this.cargarImagen();
   }
 
@@ -151,6 +169,8 @@ export class UpdateProductoComponent implements OnInit {
                     drEvent = $('.dropify').dropify({
                         defaultFile: imagenProducto
                     });
+
+                    this.filesToUpload = [];
                 }  else {
                     drEvent = $('.dropify').dropify();
                 }
@@ -180,6 +200,9 @@ export class UpdateProductoComponent implements OnInit {
         } else {
 
         }
+
+
+
       },error=>{
 
       }
@@ -187,14 +210,25 @@ export class UpdateProductoComponent implements OnInit {
   }
 
   cargarImagen(){
-
-    if(!isNull(this.filesToUpload)) {
-      this.removioImagen = false;
-    }
-
-    if( (!this.removioImagen && this.producto.Imagen) || isNull(this.filesToUpload)) {
+    //si es nulo significa que dejo la misma imagen que traia o en dado caso tambien imagen que no traia
+    if( (isNull(this.filesToUpload) && !this.removioImagen) ||  (this.producto.Imagen == '' && this.removioImagen)) {
         this.actualizarProducto();
+
+    } else if(isNull(this.filesToUpload) && this.removioImagen && this.producto.Imagen != ''){
+
+        this._deleteImageService.deleteImage(CARPETA_PRODUCTOS,this.producto.Imagen).subscribe(
+            response => {
+                if(response.success){
+                    this.producto.Imagen = '';
+                    this.actualizarProducto();
+                }
+            }, error =>{
+                Utilidades.msgErrorImage(error,'Producto');
+            }
+        )
+
     } else {
+
         this._uploadService.makeFileRequest(
             this.url+'uploadImage'
             , CARPETA_PRODUCTOS
@@ -208,13 +242,20 @@ export class UpdateProductoComponent implements OnInit {
             this.actualizarProducto();
 
         },error =>{
-            Utilidades.msgErrorImage(error);
+            Utilidades.msgErrorImage(error,'Producto');
         });
     }
+  }
 
+  getValuesFormUpdate() {
+      this.producto.NombreProducto = this.formUpdateProducto.value.nombreProducto;
+      this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
+      this.producto.IdEstado = 1;
   }
 
   actualizarProducto(){
+    this.getValuesFormUpdate();
+
     this._productoService.updateProducto(this.producto).subscribe(
       response =>{
         if(response.success){
@@ -233,9 +274,11 @@ export class UpdateProductoComponent implements OnInit {
     )
   }
 
-  public filesToUpload: Array<File> = null;
+
   fileChangeEvent(fileInput:any){
     this.filesToUpload = <Array<File>>fileInput.target.files;
+    console.log(this.filesToUpload);
+    this.removioImagen = false;
 
   }
 
@@ -264,14 +307,6 @@ export class UpdateProductoComponent implements OnInit {
 
       }
     )
-  }
-
-  obtenerDatosFormularioProducto() {
-
-    this.producto.NombreProducto = this.formUpdateProducto.value.nombreProducto;
-    this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
-    this.producto.IdEstado = 1;
-
   }
 
 }

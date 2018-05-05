@@ -39,7 +39,7 @@
                            bindLabel="NombreClasificacion"
                            bindValue="IdClasificacion"
                            placeholder="Selecciona una clasificacion"
-                           formControlName="clasificacion" id="upClasifSelect" (add)="onUpSelectClasificacion($event)"
+                           formControlName="clasificacion" id="upClasifSelect" (change)="onChangeClasificacion($event)"
                            [(ngModel)] = "producto.IdClasificacion"
 
                 >
@@ -54,7 +54,7 @@
                            bindValue="IdSubClasificacion"
                            placeholder="Selecciona una subclasificacion"
                            formControlName="subclasificacion" id="selectSubClasificacion"
-                           (add)="onUpSelectSubClasificacion($event)"
+                           (change)="onChangeSubclasificacion($event)"
                            [(ngModel)] = "producto.IdSubclasificacion"
                 >
 
@@ -69,7 +69,7 @@
                            bindValue="IdCategoria"
                            placeholder="Selecciona una categoria"
                            formControlName="categoria" id="selectCategoria"
-                           (add)="onUpCategoria($event)"
+                           (change)="onChangeCategoria($event)"
                            [(ngModel)] = "producto.IdCategoria"
                 >
                 </ng-select>

@@ -278,7 +278,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminalo!'
-    }).then((eliminar) => {
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._envaseService.deleteEnvase(IdEnvase).subscribe(
           response =>{

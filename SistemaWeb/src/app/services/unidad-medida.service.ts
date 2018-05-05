@@ -46,8 +46,9 @@ export class UnidadMedidaService {
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
+     let body = JSON.stringify({"Habilitado": 0});
 
-     return this._http.request('delete',this.url+'unidadmedida/'+IdUnidadMedida,{headers:headers});
+     return this._http.request('delete',this.url+'unidadmedida/'+IdUnidadMedida,{headers:headers,body:body});
   }
 
 }

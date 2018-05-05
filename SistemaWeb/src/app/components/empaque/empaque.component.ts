@@ -268,39 +268,29 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
     swal({
       title: "Estas seguro(a)?",
-      text: "La empaque sera eliminada permanentemente!",
+      text: "El empaque sera eliminado permanentemente!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
-    }).then((eliminar) => {
+      confirmButtonText: 'Si, Eliminalo!'
+    }).catch(swal.noop).then((eliminar) => {
       if (eliminar) {
         this._EmpaqueServicio.deleteEmpaque(IdEmpaque).subscribe(
           response =>{
             if(response.success){
               swal(
-                'Eliminada!',
-                'La empaque ha sido eliminada exitosamente',
+                'Eliminado!',
+                'El empaque ha sido eliminado exitosamente',
                 'success'
               ).then(() => {
                this.getEmpaquesRender();
               })
             } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
+                Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
             }
           }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
           }
         )
 

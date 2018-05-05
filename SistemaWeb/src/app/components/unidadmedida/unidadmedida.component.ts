@@ -248,46 +248,36 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
   deleteUnidadMedida(IdUnidad){
 
-    // swal({
-    //   title: "Estas seguro(a)?",
-    //   text: "La categoria sera eliminada permanentemente!",
-    //   type: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Si, Eliminala!'
-    // }).then((eliminar) => {
-    //   if (eliminar) {
-    //     this._UnidadMedidaServicio.deleteUnidadMedida(IdUnidad).subscribe(
-    //       response =>{
-    //         if(response.success){
-    //           swal(
-    //             'Eliminada!',
-    //             'La unidad de medida ha sido eliminada exitosamente',
-    //             'success'
-    //           ).then(() => {
-    //             this.getUnidadesMedidaRender();
-    //           })
-    //         } else {
-    //           swal(
-    //             'Error inesperado',
-    //             'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-    //             'error'
-    //           )
-    //         }
-    //       }, error =>{
-    //         if(error.status = 500){
-    //           swal(
-    //             'Error inesperado',
-    //             'Ha ocurrido un error en el servidor, intenta nuevamente!',
-    //             'error'
-    //           )
-    //         }
-    //       }
-    //     )
-    //
-    //   }
-    // });
+    swal({
+      title: "Estas seguro(a)?",
+      text: "La unidad de medida sera eliminada permanentemente!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminala!'
+    }).then((eliminar) => {
+      if (eliminar) {
+        this._UnidadMedidaServicio.deleteUnidadMedida(IdUnidad).subscribe(
+          response =>{
+            if(response.success){
+              swal(
+                'Eliminada!',
+                'La unidad de medida ha sido eliminada exitosamente',
+                'success'
+              ).then(() => {
+                this.getUnidadesMedidaRender();
+              })
+            } else {
+              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
+            }
+          }, error =>{
+            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+          }
+        )
+
+      }
+    });
   }
 
   updateUnidadMedida(Modal){

@@ -26,8 +26,8 @@ export class SubClasificacionProductoService {
     return this._http.get(this.url + 'subclasificacion/'+IdSubclasificacion)
   }
 
-  getSubClasificaciones() : Observable<any> {
-    return this._http.get(this.url + 'subclasificaciones');
+  getSubClasificaciones(Habilitado = 1) : Observable<any> {
+    return this._http.get(this.url + 'subclasificaciones?Habilitado='+Habilitado);
   }
 
   getSubClasificacionesByIdClasificacion(IdClasificacion) : Observable<any> {

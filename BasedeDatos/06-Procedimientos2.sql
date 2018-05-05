@@ -235,7 +235,7 @@ CREATE PROCEDURE USP_CREATE_UNIDAD_MEDIDA(
 )
 AS BEGIN
 	INSERT INTO UNIDAD_MEDIDA(IdClasificacionUnidadMedida,NombreUnidad,Simbolo,NImportancia)
-	VALUES(@IdClasificacionUnidadMedida,@NombreUnidad,@Simbolo, NImportancia)
+	VALUES(@IdClasificacionUnidadMedida,@NombreUnidad,@Simbolo, @NImportancia)
 	SELECT @@IDENTITY AS IdUnidadMedida
 END
 GO

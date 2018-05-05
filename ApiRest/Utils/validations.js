@@ -278,3 +278,9 @@ exports.changeStateUnidadMedida =[
     check('Habilitado').isBoolean(),
     sanitize('Habilitado').toInt()
 ]
+
+exports.changeStateSubclasificacion = [
+    param('IdSubClasificacion').isInt(),
+    check('Habilitado').isBoolean(),
+    sanitize('Habilitado').toInt()
+]

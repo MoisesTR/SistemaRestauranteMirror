@@ -63,7 +63,7 @@ function changeStateCategoria(req,res){
     db.storedProcExecute('USP_DISP_CATEGORIA', aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]
-        let accion = (Habilitado == 0) ? 'Deshabilitada' : 'Habilitada';
+        let accion = (data.Habilitado == 0) ? 'Deshabilitada' : 'Habilitada';
         res.status(200).json((afectadas > 0) ? { success: 'Categoria ' + accion + ' con exito!' } : { failed: 'No se encontro la categoria solicitado!' })
     }).catch((err) => {
         res.status(500).json(mssqlErrors(err));

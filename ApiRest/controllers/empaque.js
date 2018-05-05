@@ -65,7 +65,7 @@ function changeStateEmpaque(req,res){
     db.storedProcExecute('dbo.USP_DISP_EMPAQUE', aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]
-        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+        let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
         res.status(200).json((afectadas > 0) ? { success: 'Empaque ' + accion + ' con exito!' } : { failed: 'No se encontro el empaque solicitado!' })
     }).catch((err) => {
         res.status(500).json(mssqlErrors(err));

@@ -75,11 +75,10 @@ function getSubclasificacionesByIdClasificacion(req, res) {
 }
 
 function changeStateSubClasificacion(req, res) {
-    let IdSubClasificacion = req.params.IdSubClasificacion
+    let data = matchedData(req);
     var aoj = [];
-    let Habilitado = req.body.Habilitado
-    db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, IdSubClasificacion)
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado)
+    db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado)
     db.storedProcExecute('USP_DISP_SUBCLASIFICACION', aoj)
         .then((results) => {
             console.log(results)

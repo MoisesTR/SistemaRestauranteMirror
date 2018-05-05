@@ -66,7 +66,7 @@ Router
     .get('/subclasificaciones/:IdClasificacion(\\d+)', SubclasificacionController.getSubclasificacionesByIdClasificacion)
     .post('/subclasificacion', SubclasificacionController.createSubclasificacion)
     .put('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.updateSubclasificacion)
-    .delete('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.changeStateSubClasificacion)
+    .delete('/subclasificacion/:IdSubClasificacion(\\d+)',validations.changeStateSubclasificacion, validations.validsParams, SubclasificacionController.changeStateSubClasificacion)
     //Rutas estadoproducto controller
     .get('/estadosproductos', EstadoProductoController.getEstados)
     .get('/estadoproducto/:IdEstado(\\d+)', EstadoProductoController.getEstadoById)
@@ -77,7 +77,7 @@ Router
     .put('/producto/:IdProducto(\\d+)',validations.updateProducto, validations.validsParams, ProductoController.updateProducto)
     .delete('/producto/:IdProducto(\\d+)', ProductoController.changeStateProducto)
 
-.get('/getImage/:path/:ImageFile', ImagenController.getImageFile)
+    .get('/getImage/:path/:ImageFile', ImagenController.getImageFile)
     .get('/getImagen/:tipo/:img', ImagenController.getImage)
     .post('/uploadImage', UploadController.uploadImage)
     .delete('/deleteImage/:tipo/:img',ImagenController.deleteImage)

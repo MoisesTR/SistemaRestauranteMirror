@@ -66,7 +66,7 @@ function changeStateEnvase(req,res){
     db.storedProcExecute('dbo.USP_DISP_ENVASE', aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]
-        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+        let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
         res.status(200).json((afectadas > 0) ? { success: 'Envase ' + accion + ' con exito!' } : { failed: 'No se encontro el envase solicitado!' })
     }).catch((err) => {
         res.status(500).json(mssqlErrors(err));

@@ -62,7 +62,7 @@ function changeStateUnidadMedida(req,res){
         .then((results) => {
             console.log(results)
             let afectadas = results.rowsAffected[0]
-            let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+            let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
             res.status(200).json((afectadas > 0) ? { success: 'Unidad de Medida ' + accion + ' con exito!' } : { failed: 'No se encontro la unidad de medida solicitada!' })
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));

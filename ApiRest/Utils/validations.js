@@ -84,7 +84,9 @@ var createProveedor = [
     check('Direccion', 'Ingrese la direccion del proveedor.').isAscii().trim(),
     check('Email','Ingrese el Email del Proveedor.').isEmail(),
     check('Descripcion').optional({nullable:true}),
-    check('NombreRepresentante','Ingrese el Nombre del representante.').exists()
+    check('NombreRepresentante','Ingrese el Nombre del representante.').exists(),
+    check('Telefono','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
+    check('Retencion2','El campo de retencion es requerido.').exists(),
 ];
 exports.createProveedor = createProveedor;
 

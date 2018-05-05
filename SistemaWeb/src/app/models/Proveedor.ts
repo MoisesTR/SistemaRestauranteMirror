@@ -7,6 +7,7 @@ export class Proveedor {
     public Descripcion: string;
     public NombreRepresentante: string;
     public Telefono: string;
+    public Retencion2 : number;
     public Habilitado: number;
 
     constructor(){}

@@ -18,6 +18,7 @@
               <tr>
                 <th class="header-negrita">#</th>
                 <th class="header-negrita">Nombre</th>
+                <th class="header-negrita">Telefono</th>
                 <th class="header-negrita">Direccion</th>
                 <th class="header-negrita">Descripcion</th>
                 <th class="header-negrita">Representante</th>
@@ -28,6 +29,7 @@
               <tr *ngFor="let proveedor of proveedores">
                 <td class="body-negrita">{{ proveedor.IdProveedor }}</td>
                 <td class="body-negrita">{{ proveedor.NombreProveedor }}</td>
+                <td class="body-negrita">{{ proveedor.Telefono }}</td>
                 <td width="10%" class="body-negrita">{{ proveedor.Direccion }}</td>
                 <td width="10%" class="body-negrita">{{ proveedor.Descripcion }}</td>
                 <td width="10%" class="body-negrita">{{ proveedor.NombreRepresentante}}</td>
@@ -94,9 +96,9 @@
               <div class="col-6">
                 <div class="md-form">
                   <h6 class="orange-chang-text">Correo Electrónico</h6>
-                  <input mdbActive type="email" id="correoProveedor" class="input-modal-sm" name="correoProveedor" formControlName="correoProveedor"
+                  <input mdbActive type="email" id="email" class="input-modal-sm" name="email" formControlName="email"
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                  <show-errors [control]="formAddProveedor.controls['correoProveedor']"></show-errors>
+                  <show-errors [control]="formAddProveedor.controls['email']"></show-errors>
                 </div>
               </div>
 
@@ -172,7 +174,7 @@
 
         <div class="container-fluid">
           <!-- Inicio form-->
-          <form [formGroup]="updateForm" (ngSubmit)="updateProveedor(modalUpdateProveedor)" novalidate>
+          <form [formGroup]="formUpdateProveedor" (ngSubmit)="updateProveedor(modalUpdateProveedor)" novalidate>
 
             <div class="row">
 
@@ -180,15 +182,15 @@
                 <div class="md-form">
                   <h6 class="orange-chang-text">Nombre Empresa</h6>
                   <input type="text" id="upnombreProveedor" class="input-modal-sm" name="nombreProveedor" formControlName="nombreProveedor">
-                  <show-errors [control]="updateForm.controls['nombreProveedor']"></show-errors>
+                  <show-errors [control]="formUpdateProveedor.controls['nombreProveedor']"></show-errors>
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="md-form">
                   <h6 class="orange-chang-text">Correo Electrónico</h6>
-                  <input type="email" id="upcorreoProveedor" class="input-modal-sm " name="correoProveedor" formControlName="correoProveedor">
-                  <show-errors [control]="updateForm.controls['correoProveedor']"></show-errors>
+                  <input type="email" id="upemail" class="input-modal-sm" name="upemail" formControlName="email">
+                  <show-errors [control]="formUpdateProveedor.controls['email']"></show-errors>
                 </div>
               </div>
 
@@ -196,7 +198,7 @@
                 <div class="md-form">
                   <h6 class="orange-chang-text">Dirección</h6>
                   <textarea type="text" id="updireccionProveedor" class="text-area-modal" name="direccionProveedor" formControlName="direccionProveedor"></textarea>
-                  <show-errors [control]="updateForm.controls['direccionProveedor']"></show-errors>
+                  <show-errors [control]="formUpdateProveedor.controls['direccionProveedor']"></show-errors>
                 </div>
               </div>
 
@@ -204,7 +206,7 @@
                 <div class="md-form ">
                   <h6 class="orange-chang-text">Nombre Representante</h6>
                   <input type="text" id="upnombreRepresentante" class="input-modal-sm" name="nombreRepresentante" formControlName="nombreRepresentante">
-                  <show-errors [control]="updateForm.controls['nombreRepresentante']"></show-errors>
+                  <show-errors [control]="formUpdateProveedor.controls['nombreRepresentante']"></show-errors>
                 </div>
               </div>
 
@@ -213,7 +215,7 @@
                 <div class="md-form">
                   <h6 class="orange-chang-text">Telefóno</h6>
                   <input type="text" id="uptelefonoProveedor" class="input-modal-sm telefono" name="telefonoProveedor" formControlName="telefonoProveedor">
-                  <show-errors [control]="updateForm.controls['telefonoProveedor']"></show-errors>
+                  <show-errors [control]="formUpdateProveedor.controls['telefonoProveedor']"></show-errors>
                 </div>
               </div>
 
@@ -221,13 +223,13 @@
                 <div class="md-form">
                   <h6 class="orange-chang-text">Descripción</h6>
                   <textarea type="text" id="updescripcionProveedor" class="text-area-modal" name="descripcionProveedor" formControlName="descripcionProveedor"></textarea>
-                  <show-errors [control]="updateForm.controls['descripcionProveedor']"></show-errors>
+                  <show-errors [control]="formUpdateProveedor.controls['descripcionProveedor']"></show-errors>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="text-center mt-1-half">
-                  <button class="btn orange-chang mb-1" [disabled]="!updateForm.valid">Actualizar
+                  <button class="btn orange-chang mb-1" [disabled]="!formUpdateProveedor.valid">Actualizar
                     <i class="fa fa-check ml-1"></i>
                   </button>
                 </div>

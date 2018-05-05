@@ -89,6 +89,7 @@ CREATE TABLE PROVEEDOR(
 	Imagen				NVARCHAR(50)		NOT NULL	DEFAULT 'proveedor.png',
     Descripcion			NVARCHAR(200)		NULL,
     NombreRepresentante NVARCHAR(100)		NOT NULL,
+	Telefono			NVARCHAR(20)		NOT NULL,
     Retencion2			Bit					NOT NULL	DEFAULT 0,
 	Habilitado			Bit					NOT NULL	DEFAULT 1,
     CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
@@ -97,10 +98,10 @@ CREATE TABLE PROVEEDOR(
 	CONSTRAINT FK_PAIS_PROVEEDOR FOREIGN KEY(IdPais) REFERENCES PAIS(IdPais)
 );
 GO
-INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante) 
-VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante')
-		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante')
-		,('Insumos Chinos','asdasda sdasdsa asd','esteesun@correo.com','descripcion','Representante');
+INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Telefono) 
+VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante','87792956')
+		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante','87603420')
+		,('Insumos Chinos','asdasda sdasdsa asd','esteesun@correo.com','descripcion','Representante','87792987');
 GO
 CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
     IdNumero			INT IDENTITY(1,1),
@@ -377,13 +378,15 @@ CREATE TABLE SUCURSAL (
     Principal		BIT					NOT NULL	DEFAULT 0,
     NombreSucursal	NVARCHAR(100)		NOT NULL,
     Direccion		NVARCHAR(250)		NOT NULL,
+	Telefono1		NVARCHAR(20)		NOT NULL,
+	Telefono2		NVARCHAR(20)		NULL,
     Habilitado		Bit					NOT NULL	DEFAULT 1,
     CreatedAt		SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
     UpdateAt		SMALLDATETIME		NULL,
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal)
 )
-INSERT INTO SUCURSAL(NombreSucursal,Direccion) VALUES('Restaurante Familia Chang - Rubenia','Semforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
-#Managua'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin .....');
+INSERT INTO SUCURSAL(NombreSucursal,Direccion,Telefono1) VALUES('Restaurante Familia Chang - Rubenia','Semforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
+#Managua','22492774'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin','22492742');
 GO
 CREATE TABLE TELEFONO_SUCURSAL(
 	IdTelefonoSucursal	INT IDENTITY(1,1), 

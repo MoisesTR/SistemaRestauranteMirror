@@ -35,6 +35,8 @@ function createProveedor(req, res) {
     db.pushAOJParam(aoj, 'Email', sql.NVarChar(100), data.Email);
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(200), data.Descripcion)
     db.pushAOJParam(aoj, 'NombreRepresentante', sql.NVarChar(200), data.NombreRepresentante)
+    db.pushAOJParam(aoj, 'Telefono', sql.NVarChar(200), data.Telefono)
+    db.pushAOJParam(aoj, 'Retencion2', sql.Int, data.Retencion2)
     db.storedProcExecute('USP_CREATE_PROVEEDOR', aoj)
         .then((results) => {
             res.status(200).json(results.recordset[0])
@@ -81,6 +83,8 @@ function updateProveedor(req, res) {
     db.pushAOJParam(aoj, 'Email', sql.NVarChar(100), data.Email)
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(200), data.Descripcion)
     db.pushAOJParam(aoj, 'NombreRepresentante', sql.NVarChar(100), data.NombreRepresentante)
+    db.pushAOJParam(aoj, 'Telefono', sql.NVarChar(200), data.Telefono)
+    db.pushAOJParam(aoj, 'Retencion2', sql.Int, data.Retencion2)
     db.storedProcExecute('USP_UPDATE_PROVEEDOR', aoj)
         .then((results) => {
             res.status(200).json({

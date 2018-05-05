@@ -35,7 +35,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
   dtTrigger: Subject<any> = new Subject<any>();
 
   formAddProveedor: FormGroup;
-  updateForm: FormGroup;
+  formUpdateProveedor: FormGroup;
 
   constructor(private _route: ActivatedRoute
               , private _router: Router
@@ -147,6 +147,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
             Modal.hide();
             this.formAddProveedor.reset();
             this.getProveedores();
+            this.proveedor = new Proveedor();
           })
 
         } else {
@@ -157,7 +158,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
 
       }
     )
-    this.proveedor = new Proveedor();
+
   }
 
   capturarDadosProveedor() {
@@ -165,17 +166,19 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
     this.proveedor.NombreRepresentante = this.formAddProveedor.value.nombreRepresentante;
     this.proveedor.Descripcion = this.formAddProveedor.value.descripcionProveedor;
     this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
-    this.proveedor.Telefono = this.formAddProveedor.value.telefonoProveedor;
-    this.proveedor.Email = this.formAddProveedor.value.correoProveedor;
+    this.proveedor.Telefono = this.formAddProveedor.value.telefonoProveedor.toString().replace("-","");
+    this.proveedor.Retencion2 = 1;
+    this.proveedor.Email = this.formAddProveedor.value.email;
   }
 
   capturarDatosActualizados(){
-    this.proveedor.NombreProveedor = this.updateForm.value.nombreProveedor;
-    this.proveedor.NombreRepresentante = this.updateForm.value.nombreRepresentante;
-    this.proveedor.Descripcion = this.updateForm.value.descripcionProveedor;
-    this.proveedor.Direccion = this.updateForm.value.direccionProveedor;
-    this.proveedor.Telefono = this.updateForm.value.telefonoProveedor;
-    this.proveedor.Email = this.updateForm.value.correoProveedor;
+    this.proveedor.NombreProveedor = this.formUpdateProveedor.value.nombreProveedor;
+    this.proveedor.NombreRepresentante = this.formUpdateProveedor.value.nombreRepresentante;
+    this.proveedor.Descripcion = this.formUpdateProveedor.value.descripcionProveedor;
+    this.proveedor.Direccion = this.formUpdateProveedor.value.direccionProveedor;
+    this.proveedor.Telefono = this.formUpdateProveedor.value.telefonoProveedor.toString().replace("-","");
+    this.proveedor.Retencion2 = 1;
+    this.proveedor.Email = this.formUpdateProveedor.value.email;
 
   }
   updateProveedor(Modal) {
@@ -190,7 +193,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
             'success'
           ).then( () => {
             Modal.hide();
-            this.updateForm.reset();
+            this.formUpdateProveedor.reset();
             this.getProveedores();
           })
         } else {
@@ -241,49 +244,43 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
   }
 
   private initFormUpdate() {
-    this.updateForm = this._formBuilderProveedor.group({
-      'nombreProveedor': new FormControl('', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(100),
-        CustomValidators.espaciosVacios
-      ])
-      , 'descripcionProveedor': new FormControl('',
-        [
-          Validators.maxLength(400)
-        ])
-      , 'correoProveedor': new FormControl('',[
-        Validators.minLength(5),
-        Validators.maxLength(200),
-        CustomValidators.espaciosVacios
-      ])
-      , 'direccionProveedor': new FormControl('',[
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(400),
-        CustomValidators.espaciosVacios
-      ])
-      , 'nombreRepresentante': new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(200),
-          CustomValidators.espaciosVacios
-        ])
-      , 'telefonoProveedor': new FormControl('',[
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(10),
-        CustomValidators.espaciosVacios
-      ])
-      , 'email': new FormControl('',[
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(20),
-        CustomValidators.espaciosVacios
-      ])
+      this.formUpdateProveedor = this._formBuilderProveedor.group({
+          'nombreProveedor': new FormControl('', [
+              Validators.required,
+              Validators.minLength(5),
+              Validators.maxLength(100),
+              CustomValidators.espaciosVacios
+          ])
+          , 'descripcionProveedor': new FormControl('',
+              [
+                  Validators.maxLength(400)
+              ])
+          , 'email': new FormControl('',[
+              Validators.minLength(5),
+              Validators.maxLength(200),
+              CustomValidators.espaciosVacios
+          ])
+          , 'direccionProveedor': new FormControl('',[
+              Validators.required,
+              Validators.minLength(5),
+              Validators.maxLength(400),
+              CustomValidators.espaciosVacios
+          ])
+          , 'nombreRepresentante': new FormControl('',
+              [
+                  Validators.required,
+                  Validators.minLength(5),
+                  Validators.maxLength(200),
+                  CustomValidators.espaciosVacios
+              ])
+          , 'telefonoProveedor': new FormControl('',[
+              Validators.required,
+              Validators.minLength(5),
+              Validators.maxLength(10),
+              CustomValidators.espaciosVacios
+          ])
 
-    });
+      });
   }
 
   initFormAdd(){
@@ -298,7 +295,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
         [
           Validators.maxLength(400)
         ])
-      , 'correoProveedor': new FormControl('',[
+      , 'email': new FormControl('',[
         Validators.minLength(5),
         Validators.maxLength(200),
         CustomValidators.espaciosVacios
@@ -329,7 +326,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
 
   invocarModalUpdate(Modal,Proveedor : Proveedor){
 
-      this.updateForm.reset();
+      this.formUpdateProveedor.reset();
 
       this.proveedor.IdProveedor = Proveedor.IdProveedor;
       this.proveedor.NombreProveedor = Proveedor.NombreProveedor;
@@ -339,13 +336,13 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
       this.proveedor.Telefono = Proveedor.Telefono;
       this.proveedor.Email = Proveedor.Email;
 
-      this.updateForm.setValue({
+      this.formUpdateProveedor.setValue({
           nombreProveedor: Proveedor.NombreProveedor
           , descripcionProveedor: Proveedor.Descripcion
-          , correoProveedor: Proveedor.Email
+          , email: Proveedor.Email
           , direccionProveedor: Proveedor.Direccion
           , nombreRepresentante: Proveedor.NombreRepresentante
-          , telefonoProveedor: Proveedor.Telefono == null ? '' : Proveedor.Telefono
+          , telefonoProveedor:  Proveedor.Telefono
           , email : Proveedor.Email
       })
 

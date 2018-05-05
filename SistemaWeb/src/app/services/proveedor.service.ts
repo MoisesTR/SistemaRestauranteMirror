@@ -39,7 +39,7 @@ export class ProveedorService {
       'Authorization': 'token'
     })
 
-    return this._http.put(this.url+'proveedor',params,{headers:headers})
+    return this._http.put(this.url+'proveedor/'+Proveedor.IdProveedor,params,{headers:headers})
   }
 
   deleteProveedor(IdProveedor) : Observable<any> {

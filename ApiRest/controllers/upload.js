@@ -10,8 +10,7 @@ function uploadImage(req, res) {
     if (!req.files) {
         return res.status(400).json({
             ok: false,
-            message: 'No se ha seleccionado la imagen',
-            error: { message: 'Debe seleccionar una imagen' }
+            "message": 'Debe seleccionar una imagen'
         });
 
     }
@@ -22,8 +21,7 @@ function uploadImage(req, res) {
     if (tiposValidos.indexOf(tipo) < 0) {
         return res.status(400).json({
             ok: false,
-            message: 'Tipo de coleccion no valida',
-            error: { message: 'Carpeta no encontrada' }
+            "message": 'Carpeta no encontrada'
         });
     }
 
@@ -48,8 +46,7 @@ function uploadImage(req, res) {
 
         if (extensionesPermitidas.indexOf(extArchivo) < 0) {
             return res.status(400).json({
-                message: 'Extension no válida',
-                error: { message: 'Las extensiones validas son ' + extensionesPermitidas.join(' , ') }
+                "message": 'Las extensiones validas son ' + extensionesPermitidas.join(' , ')
             });
         }
 
@@ -63,13 +60,14 @@ function uploadImage(req, res) {
 
             if (err) {
                 return res.status(500).json({
-                    message: 'Error al mover el archivo',
-                    error: err
+                    "message": 'Error al mover el archivo',
+                    "error": err
                 });
             } else {
                 return res.status(200).json({
-                    message: 'Peticion realizada correctamente',
-                    image: nombreArchivo
+                    "message": 'Peticion realizada correctamente',
+                    "image": nombreArchivo,
+                    "success" : true
                 })
             }
         })

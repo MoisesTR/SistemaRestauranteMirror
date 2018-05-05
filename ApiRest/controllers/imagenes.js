@@ -40,9 +40,8 @@ function deleteImage(req,res) {
 
      if (tiposValidos.indexOf(tipo) < 0) {
          return res.status(400).json({
-             ok: false,
-             message: 'Tipo de colección no valida',
-             error: { message: 'Carpeta no encontrada' }
+            "ok": false,
+             "message": 'Carpeta no encontrada'
          });
      }
 
@@ -53,15 +52,14 @@ function deleteImage(req,res) {
             fs.unlink(path);
 
            return res.status(200).json({
-            message: 'Peticion realizada correctamente',
-                image: ''
+                "message": 'Peticion realizada correctamente',
+                "image": '',
+                "success" : true
             });
        }  else {
-
             return res.status(400).json({
-                ok: false,
-                message: 'La imagen a eliminar no existe en la carpeta',
-                error: { message: 'Ha ocurrido un error al remover la imagen' }
+                "ok": false,
+                "message": 'La imagen a remover no existe en la carpeta'
             });
        }
 

@@ -84,8 +84,9 @@ Router
     //Rutas sucursal Controller
     .get('/sucursales', SucursalController.getSucursales)
     .get('/sucursal/:IdSucursal(\\d+)', SucursalController.getSucursalById)
-    .post('/sucursal', SucursalController.createSucursal)
-    .post('/sucursal/:IdSucursal(\\d+)/telefono', SucursalController.createTelefonoSucursal)
+    .post('/sucursal', validations.createSucursal, validations.validsParams,SucursalController.createSucursal)
+    .put('/sucursal/:IdSucursal(\\d+)',validations.updateSucursal, validations.validsParams,SucursalController.updateSucursal)
+    .post('/sucursal/:IdSucursal(\\d+)/telefono',SucursalController.createTelefonoSucursal)
     .get('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)', SucursalController.getTelefonoSucursal)
     .get('/sucursales/telefonos', SucursalController.getTelefonosSucursales)
     .put('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)', SucursalController.updateTelefonoSucursal)

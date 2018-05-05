@@ -74,23 +74,6 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
         if(response.sucursales){
           this.sucursales = response.sucursales;
           this.dtTrigger.next();
-          // this._telefonoService.getTelefonosSucursales().subscribe(
-          //   response =>{
-          //     if(response.telefonos) {
-          //       this.telefonosSucursales = response.telefonos;
-          //
-          //       this.sucursales.forEach((sucursal,index) =>{
-          //           this.sucursal.Telefono = this.telefonosSucursales.filter(
-          //             telefono => telefono.IdSucursal === sucursal.IdSucursal
-          //           )
-          //         this.sucursales[index].Telefono = this.sucursal.Telefono;
-          //       })
-          //     }
-          //   }, error =>{
-          //
-          //   }, () => {
-          //   }
-          // )
         }
       }, error =>{
 
@@ -98,6 +81,20 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
       }
     )
 
+  }
+
+  getSucursalesRender(){
+      this._sucursalService.getSucursales().subscribe(
+          response =>{
+              if(response.sucursales){
+                  this.sucursales = response.sucursales;
+                  this.rerender();
+              }
+          }, error =>{
+
+          }, ()=>{
+          }
+      )
   }
 
   settingsDatatable() {
@@ -216,23 +213,16 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
 
     this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formAddSucursal.value.direccion;
-    this.telefonoPrincipal.NumeroTelefono = this.formAddSucursal.value.telefonoPrincipal;
-    this.telefonoSecundario.NumeroTelefono = this.formAddSucursal.value.telefonoSecundario;
-
-    this.Telefonos  = [];
-    this.Telefonos.push(this.telefonoPrincipal);
-
-    if(!isNull(this.telefonoSecundario.NumeroTelefono)){
-      this.Telefonos.push(this.telefonoSecundario);
-    }
+    this.sucursal.Telefono1= this.formAddSucursal.value.telefonoPrincipal.toString().replace("-","");
+    this.sucursal.Telefono2= this.formAddSucursal.value.telefonoSecundario != null ? this.formAddSucursal.value.telefonoSecundario.toString().replace("-","") : '';
 
   }
 
   getValuesFormUpdateSucursal(){
     this.sucursal.NombreSucursal = this.formUpdateSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formUpdateSucursal.value.direccion;
-    this.telefonoPrincipal.NumeroTelefono = this.formUpdateSucursal.value.telefonoPrincipal;
-    this.telefonoSecundario.NumeroTelefono = this.formUpdateSucursal.value.telefonoSecundario;
+    this.sucursal.Telefono1= this.formUpdateSucursal.value.telefonoPrincipal.toString().replace("-","");
+    this.sucursal.Telefono2= this.formUpdateSucursal.value.telefonoSecundario != null ? this.formUpdateSucursal.value.telefonoSecundario.toString().replace("-","") : '';
   }
 
 
@@ -243,102 +233,52 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
       response => {
 
         if (response.IdSucursal) {
-          this.crearTelefonoSucursal(response.IdSucursal,Modal);
+            swal(
+                this.tituloPantalla,
+                'la Sucursal ha sido creada exitosamente!',
+                'success'
+            ).then( () =>  {
+                Modal.hide();
+                this.formAddSucursal.reset();
+                this.getSucursalesRender();
+            })
         } else {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error al insertar Envase, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+          Utilidades.showMsgInfo('Ha ocurrido un error al crear la sucursal,intentalo nuevamente',this.tituloPantalla);
 
         }
       }, error => {
-        if (error.status == 500) {
-          swal(
-            'Error inesperado',
-            'Ha ocurrido un error en el servidor, intenta nuevamente!',
-            'error'
-          )
-          console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
-        }
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
 
       }
     )
   }
 
-
-  crearTelefonoSucursal(IdSucursal,Modal){
-    let resultado;
-      this.Telefonos.forEach((telefono, index) => {
-        resultado = false;
-        telefono.IdSucursal = IdSucursal;
-        this._sucursalService.createTelefonoSucursal(telefono).subscribe(
-          response => {
-            if(response.IdTelefonoSucursal) {
-              resultado = true;
-            }
-          }, error =>{
-              Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-          }, () => {
-            if(index == (this.Telefonos.length - 1)) {
-              if(resultado) {
-                swal(
-                  'Sucursal',
-                  'La sucursal ha sido creado exitosamente!',
-                  'success'
-                ).then(() => {
-                  Modal.hide();
-                  this.formAddSucursal.reset();
-                  this.sucursal = new Sucursal();
-                  this.rerender();
-                })
-              }
-            }
-          }
-        )
-      });
-  }
   updateSucursal(Modal){
 
-    Modal.hide();
+    this.getValuesFormUpdateSucursal();
 
-    // this.getValuesFormUpdateSucursal();
-    //
-    // this._sucursalService.updateSucursal(this.sucursal).subscribe(
-    //   response =>{
-    //     if(response.success){
-    //       swal(
-    //         'Sucursal',
-    //         'El sucursal ha sido actualizado exitosamente!',
-    //         'success'
-    //       ).then(() => {
-    //         $('#modalUpdateEnvase').modal('toggle');
-    //         this.formUpdateSucursal.reset();
-    //         this.getSucursales();
-    //         this.rerender();
-    //       })
-    //
-    //
-    //     } else {
-    //       swal(
-    //         'Error inesperado',
-    //         'Ha ocurrido un error en la actualizacion, intenta nuevamente!',
-    //         'error'
-    //       )
-    //     }
-    //   }, error =>{
-    //     if (error.status == 500) {
-    //       swal(
-    //         'Error inesperado',
-    //         'Ha ocurrido un error en el servidor, intenta nuevamente!',
-    //         'error'
-    //       )
-    //     }
-    //   }
-    // )
+    this._sucursalService.updateSucursal(this.sucursal).subscribe(
+      response =>{
+        if(response.success){
+          swal(
+            'Sucursal',
+            'La sucursal ha sido actualizada exitosamente!',
+            'success'
+          ).catch(swal.noop).then(() => {
+            Modal.hide();
+            this.formUpdateSucursal.reset();
+            this.getSucursalesRender();
+            this.sucursal = new Sucursal();
+          })
 
-    this.sucursal = new Sucursal();
+        } else {
+          Utilidades.showMsgInfo('Ha ocurrido un error al actualizar, intentalo nuevamente',this.tituloPantalla);
+        }
+      }, error =>{
+        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }
+    )
+
 
   }
 
@@ -391,7 +331,7 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
     Utilidades.invocacionModal(Modal,Formulario);
   }
 
-  invocarModalUpdate(Modal,Sucursal){
+  invocarModalUpdate(Modal,Sucursal : Sucursal){
 
     this.sucursal.IdSucursal  = Sucursal.IdSucursal;
 
@@ -400,8 +340,8 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
     this.formUpdateSucursal.setValue({
         nombreSucursal: Sucursal.NombreSucursal
         , direccion: Sucursal.Direccion
-        , telefonoPrincipal: ''
-        , telefonoSecundario : ''
+        , telefonoPrincipal: Sucursal.Telefono1
+        , telefonoSecundario : Sucursal.Telefono2
     });
 
     Modal.show();

@@ -32,12 +32,33 @@ function createSucursal(req, res) {
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreSucursal', sql.NVarChar(100), data.NombreSucursal)
     db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(250), data.Direccion)
+    db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), data.Telefono1)
+    db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), data.Telefono2)
     db.storedProcExecute('USP_CREATE_SUCURSAL', aoj)
         .then((results) => {
             res.status(200).json(results.recordset[0])
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));
         })
+}
+
+function updateSucursal(req, res) {
+    var data =  matchedData(req, {locations:['body','params']});
+    var aoj = [];
+    console.log(data);
+    db.pushAOJParam(aoj, 'IdSucursal', sql.Int, data.IdSucursal)
+    db.pushAOJParam(aoj, 'NombreSucursal', sql.NVarChar(100), data.NombreSucursal)
+    db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(250), data.Direccion)
+    db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), data.Telefono1)
+    db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), data.Telefono2)
+    db.storedProcExecute('USP_UPDATE_SUCURSAL', aoj)
+            .then((results) => {
+                res.status(200).json({
+                    success: 'Proveedor Actualizado con exito!!'
+                })
+            }).catch((err) => {
+                res.status(500).json(mssqlErrors(err));
+            });
 }
 
 function getTelefonoSucursal(req, res) {
@@ -133,6 +154,7 @@ function changeStateTelefonoSucursal(req, res) {
 }
 module.exports = {
     createSucursal,
+    updateSucursal,
     getSucursales,
     getSucursalById,
     createTelefonoSucursal,

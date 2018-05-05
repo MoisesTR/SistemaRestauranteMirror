@@ -251,6 +251,22 @@ exports.updateSubclasificacion = createSubclasificacion.concat([
     sanitize('IdSubClasificacion').toInt()
 ]);
 
+var createSucursal =  [
+    body('NombreSucursal','El nombre de la subclasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
+    body('Direccion', 'La Direccion no debe tener mas de 300 caracteres.').isAscii().optional({nullable:true}),
+    body('Telefono1','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
+    body('Telefono2','El telefono debe tener 8 digitos.').optional({nullable:true}),
+    sanitize('NombreSucursal').toString(),
+    sanitize('Direccion').toString()
+];
+
+exports.createSucursal = createSucursal;
+
+exports.updateSucursal = createSucursal.concat([
+    param('IdSucursal', 'Id de la sucursal es requerido!').isInt(),
+    sanitize('IdSucursal').toInt()
+])
+
 var createRol = [
     body('NombreRol', 'El nombre del rol es requerido').isAscii().isLength({max: 50}),
     body('DescripcionRol','La Descripcion debe tener un maximo de 150 caracteres!').isLength({max:150}).optional({nullable: true}),

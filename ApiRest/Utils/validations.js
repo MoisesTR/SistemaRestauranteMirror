@@ -158,6 +158,10 @@ exports.updateEnvase = createEnvase.concat([
     param('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
     sanitize('IdEnvase').toInt()
 ]); 
+exports.changeStateEnvase =[
+    param('IdEnvase').isInt(),
+    check('Habilitado').isInt()
+]
 
 exports.createTrabajador = [
     check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),

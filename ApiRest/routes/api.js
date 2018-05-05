@@ -55,9 +55,9 @@ Router
     //Rutas proveedor Controller
     .get('/proveedor/:IdProveedor(\\d+)', ProveedorController.getProveedorById)
     .get('/proveedores', ProveedorController.getProveedores)
-    .post('/proveedor', ProveedorController.createProveedor)
-    .put('/proveedor/:IdProveedor(\\d+)', ProveedorController.updateProveedor)
-    .delete('/proveedor/:IdProveedor(\\d+)', ProveedorController.changeStateProveedor)
+    .post('/proveedor',validations.createProveedor, validations.validsParams, ProveedorController.createProveedor)
+    .put('/proveedor/:IdProveedor(\\d+)',validations.updateProveedor,validations.validsParams, ProveedorController.updateProveedor)
+    .delete('/proveedor/:IdProveedor(\\d+)',validations.changeStateProveedor, validations.validsParams, ProveedorController.changeStateProveedor)
     //Rutas subclasificacion Controller
     .get('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones', SubclasificacionController.getSubclasificaciones)
@@ -92,9 +92,9 @@ Router
     //Rutas para unidad de Medida Controller
     .get('/unidadesmedida', UnidadMedidaController.getUnidadesMedida)
     .get('/unidadmedida/:IdUnidadMedida(\\d+)', UnidadMedidaController.getUnidadById)
-    .post('/unidadmedida', UnidadMedidaController.createUnidadMedida)
-    .put('/unidadmedida/:IdUnidadMedida(\\d+)', UnidadMedidaController.updateUDM)
-    .delete('/unidadmedida/:IdUnidadMedida(\\d+)', UnidadMedidaController.changeStateUnidadMedida)
+    .post('/unidadmedida',validations.createUnidadMedida,validations.validsParams, UnidadMedidaController.createUnidadMedida)
+    .put('/unidadmedida/:IdUnidadMedida(\\d+)', validations.updateUnidadMedida,validations.validsParams,UnidadMedidaController.updateUnidadMedida)
+    .delete('/unidadmedida/:IdUnidadMedida(\\d+)',validations.changeStateUnidadMedida,validations.validsParams, UnidadMedidaController.changeStateUnidadMedida)
     //Rutas para Producto Proveedor
     .get('/productos/proveedores', ProductoProveedorController.getProductosProveedores)
     .get('/producto/proveedor/:IdProductoProveedor(\\d+)', ProductoProveedorController.getProductoProveedorById)

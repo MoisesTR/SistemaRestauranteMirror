@@ -28,7 +28,7 @@ function getProveedores(req, res) {
 }
 
 function createProveedor(req, res) {
-    var data = req.body;
+    var data = matchedData(req);
     var aoj = [];
     db.pushAOJParam(aoj, 'NombreProveedor', sql.NVarChar(50), data.NombreProveedor);
     db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(200), data.Direccion);

@@ -59,42 +59,42 @@ exports.changeStateCategoria = [
     check('Habilitado', 'Habilitado debe ser un booleano.').isBoolean()
 ];
 
-exports.createCargo = [
+var createCargo = [
     check('NombreCargo', 'El nombre del cargo es requerido!').exists(),
     check('DescripcionCargo', 'La descripcion del cargo es requerida!').exists(),
     sanitize('NombreCargo').toString()
 ];
+exports.createCargo = createCargo;
 
-exports.updateCargo = [
+
+exports.updateCargo = createCargo.concat([
     check('IdCargo').exists().isInt(),
-];
+]);
 
 exports.changeStateCargo = [
+    check('IdCargo').isInt(),
     check('Habilitado').isBoolean()
 ];
 
-exports.createProveedor = [
+var createProveedor = [
     body('NombreProveedor').exists(),
-    body('Direccion', 'Direccion del proveedor requerida!').exists(),
-    body('Email', 'El email del proveedor es requerido!').isEmail(),
-    body('Descripcion'),
-    body('NombreRepresentante').exists()
+    check('NombreProveedor', 'Ingrese el Nombre del proveedor.').exists(),
+    check('Direccion', 'Ingrese la direccion del proveedor.').isAscii().trim(),
+    check('Email','Ingrese el Email del Proveedor.').isEmail(),
+    check('Descripcion').optional({nullable:true}),
+    check('NombreRepresentante','Ingrese el Nombre del representante.').exists()
 ];
+exports.createProveedor = createProveedor;
 
-exports.updateProveedor = [
-    check('IdProveedor').isInt(),
-    check('NombreProveedor').exists(),
-    check('Direccion').isAscii().trim(),
-    check('Email').isEmail(),
-    check('Descripcion'),
-    check('NombreRepresentante').exists()
-];
+exports.updateProveedor = createProveedor.concat([
+    param('IdProveedor', 'Seleccione el proveedor a actualizar.').isInt()
+]);
 
 exports.changeStateProveedor = [
-        check('IdProveedor', 'Id de Proveedor requerido, debe ser entero.').isInt(),
-        check('Habilitado', 'Habilitado es requerido y debe ser Bit.').isBoolean(),
-        sanitize('Habilitado').toInt()
-    ];
+    param('IdProveedor', 'Id de Proveedor requerido, debe ser entero.').isInt(),
+    check('Habilitado', 'Habilitado es requerido y debe ser Bit.').isBoolean(),
+    sanitize('Habilitado').toInt()
+];
 
 exports.createEntradaBodegaAP = [
     body('IdBodegaAreaP', 'Selecciona una Bodega de Area de Produccion').isInt(),
@@ -248,3 +248,20 @@ exports.createProducto = createProducto;
 exports.updateProducto = createProducto.concat([
     param('IdProducto').isInt()
 ]);
+
+let createUnidadMedida = [
+    body('IdClasificacionUnidadMedida','Seleccione la clasificacion de la unidad de medida.').isInt().toInt(),
+    body('NombreUnidad', 'Ingrese el nombre de la unidad de medida.').isAscii().isLength({max:50}),
+    body('Simbolo','Ingrese el Simbolo de la Unidad de Medida.').isAscii().isLength({max:3}).toString(),
+    body('NImportancia','Ingrese el valor de Importancia de esta Unidad de Medida.').isInt()
+];
+exports.createUnidadMedida = createUnidadMedida;
+
+exports.updateUnidadMedida = createUnidadMedida.concat([
+    param('IdUnidadMedida').isInt()
+]);
+
+exports.changeStateUnidadMedida =[
+    param('IdUnidadMedida').isInt(),
+    check('Habilitado').isInt()
+]

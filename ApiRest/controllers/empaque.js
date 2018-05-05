@@ -56,9 +56,26 @@ function updateEmpaque(req, res) {
             res.status(500).json(mssqlErrors(err));
         })
 }
+
+function changeStateEmpaque(req,res){
+    let data = matchedData(req);
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado);
+    db.storedProcExecute('dbo.USP_DISP_EMPAQUE', aoj).then((results) => {
+        console.log(results)
+        let afectadas = results.rowsAffected[0]
+        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+        res.status(200).json((afectadas > 0) ? { success: 'Empaque ' + accion + ' con exito!' } : { failed: 'No se encontro el empaque solicitado!' })
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+        console.log('Error:', err)
+    });
+}
 module.exports = {
     createEmpaque,
     getEmpaqueById,
     getEmpaques,
-    updateEmpaque
+    updateEmpaque,
+    changeStateEmpaque
 }

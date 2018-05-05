@@ -158,6 +158,10 @@ exports.updateEnvase = createEnvase.concat([
     param('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
     sanitize('IdEnvase').toInt()
 ]); 
+exports.changeStateEnvase =[
+    param('IdEnvase').isInt(),
+    check('Habilitado').isInt()
+]
 
 exports.createTrabajador = [
     check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),
@@ -208,6 +212,10 @@ exports.updateEmpaque = createEmpaque.concat([
     sanitize('IdEmpaque').toInt()
 ]);
 
+exports.changeStateEmpaque =[
+    param('IdEmpaque').isInt(),
+    check('Habilitado').isInt()
+]
 var createClasificacion =  [
     body('NombreClasificacion','El nombre de la clasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
     body('DescripcionClasificacion', 'La Descripcion no debe tener mas de 150 caracteres.').isAscii().optional({nullable:true}),

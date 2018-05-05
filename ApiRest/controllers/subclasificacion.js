@@ -18,6 +18,7 @@ function getSubclasificacionById(req, res) {
 function getSubclasificaciones(req, res) {
     var data = req.query;
     var aoj = [];
+    console.log(data);
     db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado)
     db.storedProcExecute('USP_GET_SUBCLASIFICACIONES', aoj)
         .then((results) => {
@@ -83,7 +84,7 @@ function changeStateSubClasificacion(req, res) {
         .then((results) => {
             console.log(results)
             let afectadas = results.rowsAffected[0]
-            let accion = (Habilitado == 0) ? 'Deshabilitada' : 'Habilitada';
+            let accion = (data.Habilitado == 0) ? 'Deshabilitada' : 'Habilitada';
             res.status(200).json((afectadas > 0) ? { success: 'SubClasificacion' + accion + ' con exito!' } : { failed: 'No se encontro la SubClasificacion solicitada!' })
             console.log('SubClasificacion cambiada de estado con exito!')
         }).catch((err) => {

@@ -92,11 +92,10 @@ function updateProveedor(req, res) {
 }
 
 function changeStateProveedor(req, res) {
-    let IdProveedor = req.params.IdProveedor;
-    let Habilitado  = req.body.Habilitado;
+    let data = matchedData(req);
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, IdProveedor);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado);
     db.storedProcExecute('USP_DISP_PROVEEDOR', aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]

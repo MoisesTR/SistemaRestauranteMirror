@@ -56,7 +56,21 @@ function getCategoriaById(req,res){
     });
 }
 function changeStateCategoria(req,res){
-
+    function changeStateProveedor(req, res) {
+        let data = matchedData(req);
+        var aoj = [];
+        db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdProveedor);
+        db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado);
+        db.storedProcExecute('USP_DISP_CATEGORIA', aoj).then((results) => {
+            console.log(results)
+            let afectadas = results.rowsAffected[0]
+            let accion = (Habilitado == 0) ? 'Deshabilitada' : 'Habilitada';
+            res.status(200).json((afectadas > 0) ? { success: 'Categoria ' + accion + ' con exito!' } : { failed: 'No se encontro la categoria solicitado!' })
+        }).catch((err) => {
+            res.status(500).json(mssqlErrors(err));
+            console.log('Error:', err)
+        });
+    }
 }
 module.exports={
     createCategoria,

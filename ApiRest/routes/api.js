@@ -33,9 +33,9 @@ Router
     //Rutas categoria controller
     .get('/categoria/:IdCategoria(\\d+)', CategoriaController.getCategoriaById)
     .get('/categorias', CategoriaController.getCategorias)
-    .post('/categoria', validations.categoriaCreate, validations.validsParams, CategoriaController.createCategoria)
+    .post('/categoria', validations.createCategoria, validations.validsParams, CategoriaController.createCategoria)
     .put('/categoria/:IdCategoria(\\d+)',validations.updateCategoria,validations.validsParams, CategoriaController.updateCategoria)
-    .delete('/categoria/:IdCategoria(\\d+)', CategoriaController.changeStateCategoria)
+    .delete('/categoria/:IdCategoria(\\d+)',validations.changeStateCategoria,validations.validsParams, CategoriaController.changeStateCategoria)
     //Rutas clasificacion controller
     .get('/clasificacion/:IdClasificacion(\\d+)', ClasificacionController.getClasificacionById)
     .get('/clasificaciones', ClasificacionController.getClasificaciones)

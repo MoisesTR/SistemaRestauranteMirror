@@ -46,6 +46,19 @@ BEGIN
 	UPDATE CATEGORIA_PRODUCTO SET NombreCategoria = @NombreCategoria,DescripcionCategoria = @DescripcionCategoria,UpdateAt=GETDATE() WHERE IdCategoria = @IdCategoria;
 END
 GO
+IF OBJECT_ID('dbo.USP_DISP_CATEGORIA','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_DISP_CATEGORIA
+GO
+CREATE PROCEDURE dbo.USP_DISP_CATEGORIA (
+	@IdCategoria	INT,
+	@Habilitado		BIT
+)
+AS BEGIN
+	UPDATE dbo.CATEGORIA_PRODUCTO
+	SET Habilitado = @Habilitado, UpdateAt = GETDATE()
+	WHERE IdCategoria = @IdCategoria
+END
+GO
 IF OBJECT_ID('USP_GET_CATEGORIA_BY_ID','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_CATEGORIA_BY_ID
 GO

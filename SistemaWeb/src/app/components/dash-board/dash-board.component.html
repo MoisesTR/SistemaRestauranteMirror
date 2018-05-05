@@ -248,7 +248,7 @@
                             <strong>{{tabSeleccionado == 'trabajador' ? trabajador.Nombres : proveedor.NombreProveedor}}</strong>
                         </h3>
                         <!-- Si es proveedore aqui va la compañia a la que pertenece en caso que sea empleado aca va la sucursal -->
-                        <h6 class="font-bold blue-text mb-4">{{trabajador.IdSucursal}}</h6>
+                        <h6 class="font-bold blue-text mb-4">{{trabajador.NombreSucursal}}</h6>
                     </div>
 
                     <ul class="striped list-unstyled text-center">
@@ -259,7 +259,7 @@
                             <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 : proveedor.Telefono}}</li>
                         <hr>
                         <li>
-                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde :' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador' ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador' ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
 
                     </ul>
 

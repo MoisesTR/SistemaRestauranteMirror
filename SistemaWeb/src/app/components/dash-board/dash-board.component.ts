@@ -65,6 +65,7 @@ export class DashBoardComponent implements OnInit {
     )
   }
 
+
   getTrabajadores() {
       this._trabajadorService.getTrabajadores().subscribe(
           response => {

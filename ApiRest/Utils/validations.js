@@ -241,7 +241,7 @@ var createProducto = [
     body('IdEstado','Elige el estado del producto.').isInt(),
     body('NombreProducto','Ingresa el Nombre del Producto.').isAscii(),
     body('Descripcion','Ingresa la Descripcion del producto.').isAscii(),
-    body('Imagen','Ingresa el nombre de la Imagen.').isAscii().optional({nullable:true})
+    body('Imagen','Ingresa el nombre de la Imagen.').optional({nullable:true}).isAscii()
 ];
 exports.createProducto = createProducto;
 

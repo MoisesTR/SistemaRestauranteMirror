@@ -56,14 +56,14 @@ Router
     .get('/proveedor/:IdProveedor(\\d+)', ProveedorController.getProveedorById)
     .get('/proveedores', ProveedorController.getProveedores)
     .post('/proveedor', ProveedorController.createProveedor)
-    .put('/proveedor', ProveedorController.updateProveedor)
+    .put('/proveedor/:IdProveedor(\\d+)', ProveedorController.updateProveedor)
     .delete('/proveedor/:IdProveedor(\\d+)', ProveedorController.changeStateProveedor)
     //Rutas subclasificacion Controller
-    .get('/subclasificacion/:IdSubclasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
+    .get('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones', SubclasificacionController.getSubclasificaciones)
     .get('/subclasificaciones/:IdClasificacion(\\d+)', SubclasificacionController.getSubclasificacionesByIdClasificacion)
     .post('/subclasificacion', SubclasificacionController.createSubclasificacion)
-    .put('/subclasificacion', SubclasificacionController.updateSubclasificacion)
+    .put('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.updateSubclasificacion)
     .delete('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.changeStateSubClasificacion)
     //Rutas estadoproducto controller
     .get('/estadosproductos', EstadoProductoController.getEstados)
@@ -87,12 +87,12 @@ Router
     .get('/sucursales/telefonos', SucursalController.getTelefonosSucursales)
     .put('/sucursal/:IdSucursal(\\d+)/telefono/:IdTelefonoSucursal(\\d+)', SucursalController.updateTelefonoSucursal)
     .get('/sucursal/:IdSucursal(\\d+)/telefonos', SucursalController.getTelefonosBySucursalId)
-    .put('/sucursal/:IdSucursal(\\d+)')
+    // .put('/sucursal/:IdSucursal(\\d+)')
     //Rutas para unidad de Medida Controller
     .get('/unidadesmedida', UnidadMedidaController.getUnidadesMedida)
     .get('/unidadmedida/:IdUnidadMedida(\\d+)', UnidadMedidaController.getUnidadById)
     .post('/unidadmedida', UnidadMedidaController.createUnidadMedida)
-    .put('/unidadmedida', UnidadMedidaController.updateUDM)
+    .put('/unidadmedida/:IdUnidadMedida(\\d+)', UnidadMedidaController.updateUDM)
     .delete('/unidadmedida/:IdUnidadMedida(\\d+)', UnidadMedidaController.changeStateUnidadMedida)
     //Rutas para Producto Proveedor
     .get('/productos/proveedores', ProductoProveedorController.getProductosProveedores)
@@ -101,7 +101,7 @@ Router
     .get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductosByProveedorId)
     .get('/producto/proveedores/:IdProducto(\\d+)', ProductoProveedorController.getProveedoresOfProducto)
     .post('/producto/proveedor', validations.createProductoProveedor, validations.validsParams, ProductoProveedorController.createProductoProveedor)
-    .put('/producto/proveedor', validations.updateProductoProv, validations.validsParams, ProductoProveedorController.updateProductoProveedor)
+    .put('/producto/proveedor/:IdProductoProveedor(\\d+)', validations.updateProductoProv, validations.validsParams, ProductoProveedorController.updateProductoProveedor)
     .delete('/producto/proveedor', ProductoProveedorController.changeStateProductoProveedor)
     //.delete('/producto/proveedor')
     //Rutas para Rol Controller
@@ -117,7 +117,7 @@ Router
     .get('/trabajadores', TrabajadorController.getTrabajadores)
     .post('/trabajador', validations.createTrabajador, validations.validsParams, TrabajadorController.createTrabajador)
     .get('/trabajador/:IdTrabajador(\\d+)', TrabajadorController.getTrabajadorById)
-    .put('/trabajador', validations.createTrabajador.concat(validations.updateTrabajador), validations.validsParams, TrabajadorController.updateTrabajador)
+    .put('/trabajador/:IdTrabajador(\\d+)', validations.createTrabajador.concat(validations.updateTrabajador), validations.validsParams, TrabajadorController.updateTrabajador)
     .delete('/trabajador/:IdTrabajador(\\d+)', validations.deleteTrabajador, validations.validsParams, TrabajadorController.changeStateTrabajador)
     //Obtener tipos de documento
     .get('/tiposDocumento', TrabajadorController.getTiposDocumento)
@@ -125,7 +125,7 @@ Router
     .get('/cargos', CargoController.getCargos)
     .post('/cargo', validations.createCargo, validations.validsParams, CargoController.createCargo)
     .get('/cargo/:IdCargo(\\d+)', CargoController.getCargoById)
-    .put('/cargo', CargoController.updateCargo)
+    .put('/cargo/:IdCargo(\\d+)', CargoController.updateCargo)
     .delete('/cargo/:IdCargo(\\d+)', CargoController.changeStateCargo)
     //Rutas para Bodega Area Produccion
     .post('/entradabodegaap', validations.createEntradaBodegaAP, validations.validsParams, bodegaApController.createEntradaBodegaAp)

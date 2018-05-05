@@ -39,6 +39,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
   formAddUnidadMedida : FormGroup
 
   @ViewChild('modalAddUnidadMedida') modalAddUnidadMedida  : ModalDirective;
+  @ViewChild('modalUpdateUnidadMedida') modalUpdateUnidadMedida  : ModalDirective;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -141,6 +142,9 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
       ]),
       'clasificacionesUnidad': new FormControl('',[
         Validators.required
+      ]),
+      'nimportancia' : new FormControl('',[
+        Validators.required
       ])
     })
   }
@@ -162,6 +166,9 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
       ]) ,
       'clasificacionesUnidad': new FormControl('',[
           Validators.required
+      ]),
+      'nimportancia' : new FormControl('',[
+        Validators.required
       ])
     })
   }
@@ -191,6 +198,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
     this.unidadMedida.NombreUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
     this.unidadMedida.Simbolo = this.formAddUnidadMedida.value.simboloUnidadMedida;
+    this.unidadMedida.NImportancia = this.formAddUnidadMedida.value.nimportancia;
 
     this._UnidadMedidaServicio.createUnidadMedida(this.unidadMedida).subscribe(
       response =>{
@@ -214,6 +222,31 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
+
+  }
+
+  updateUnidadMedida() {
+      this.unidadMedida.NombreUnidad = this.formUpdateUnidadMedida.value.nombreUnidadMedida;
+      this.unidadMedida.Simbolo = this.formUpdateUnidadMedida.value.simboloUnidadMedida;
+      this.unidadMedida.NImportancia = this.formUpdateUnidadMedida.value.nimportancia;
+
+      this._UnidadMedidaServicio.updateUnidadMedida(this.unidadMedida).subscribe(
+          response => {
+              if(response.success){
+                  swal(
+                      this.tituloPantalla,
+                      'La unidad ha sido actualizada exitosamente!',
+                      'success'
+                  ).then(() => {
+                      this.modalUpdateUnidadMedida.hide();
+                      this.formUpdateUnidadMedida.reset();
+                      this.getUnidadesMedidaRender();
+                  })
+              }
+          },error =>{
+              Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla)
+          }
+      )
 
   }
 
@@ -280,24 +313,23 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
     });
   }
 
-  updateUnidadMedida(Modal){
-    Modal.hide();
-  }
 
   InvocarModal(Modal, Formulario) {
     Utilidades.invocacionModal(Modal,Formulario);
   }
 
-  invocarModalUpdate(Modal,Unidad){
+  invocarModalUpdate(Modal,Unidad : UnidadMedida){
 
       this.unidadMedida.IdUnidadMedida = Unidad.IdUnidadMedida;
       this.unidadMedida.IdClasificacionUnidadMedida = Unidad.IdClasificacionUnidadMedida;
+      this.unidadMedida.NImportancia = Unidad.NImportancia;
 
       this.formUpdateUnidadMedida.reset();
       this.formUpdateUnidadMedida.setValue({
           nombreUnidadMedida: Unidad.NombreUnidad
           , simboloUnidadMedida: Unidad.Simbolo
           , clasificacionesUnidad : Unidad.IdClasificacionUnidadMedida
+          , nimportancia : Unidad.NImportancia
       });
 
     Modal.show();

@@ -93,6 +93,14 @@
             <show-errors [control]="formAddUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
           </div>
 
+          <div class="md-form">
+            <br>
+            <h6 class="orange-chang-text">Importancia</h6>
+            <input type="number" id="nimportancia" class="input-modal-sm" name="nimportancia" formControlName="nimportancia"
+                   required>
+            <show-errors [control]="formAddUnidadMedida.controls['nimportancia']"></show-errors>
+          </div>
+
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddUnidadMedida.valid">Ingresar
               <i class="fa fa-check ml-1"></i>
@@ -127,7 +135,7 @@
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
         <!-- Inicio form-->
-        <form [formGroup]="formUpdateUnidadMedida" (ngSubmit)="updateUnidadMedida(modalUpdateUnidadMedida)" novalidate>
+        <form [formGroup]="formUpdateUnidadMedida" (ngSubmit)="updateUnidadMedida()" novalidate>
 
           <div class="md-form ">
             <h6 class="orange-chang-text">Nombre</h6>
@@ -148,6 +156,14 @@
               required>
             <show-errors [control]="formUpdateUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
           </div>
+
+            <div class="md-form">
+                <br>
+                <h6 class="orange-chang-text">Importancia</h6>
+                <input type="number" id="upnimportancia" class="input-modal-sm" name="nimportancia" formControlName="nimportancia"
+                       required>
+                <show-errors [control]="formUpdateUnidadMedida.controls['nimportancia']"></show-errors>
+            </div>
 
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateUnidadMedida.valid">Ingresar

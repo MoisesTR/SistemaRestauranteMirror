@@ -6,6 +6,7 @@ export class UnidadMedida {
   public NombreClasificacion : string;
   public Simbolo: string;
   public Habilitado: number;
+  public NImportancia : number;
 
   constructor(){}
 }

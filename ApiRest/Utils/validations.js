@@ -236,6 +236,21 @@ exports.updateClasificacion = createClasificacion.concat([
     sanitize('IdClasificacion').toInt()
 ]);
 
+var createSubclasificacion =  [
+    body('NombreSubClasificacion','El nombre de la subclasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
+    body('DescripcionSubClasificacion', 'La Descripcion no debe tener mas de 150 caracteres.').isAscii().optional({nullable:true}),
+    body('IdClasificacion', 'Id de la clasificacion es requerido!').isInt(),
+    sanitize('IdClasificacion').toInt(),
+    sanitize('NombreSubClasificacion').toString()
+];
+
+exports.createSubclasificacion = createSubclasificacion;
+
+exports.updateSubclasificacion = createSubclasificacion.concat([
+    param('IdSubClasificacion').toInt().exists(),
+    sanitize('IdSubClasificacion').toInt()
+]);
+
 var createRol = [
     body('NombreRol', 'El nombre del rol es requerido').isAscii().isLength({max: 50}),
     body('DescripcionRol','La Descripcion debe tener un maximo de 150 caracteres!').isLength({max:150}).optional({nullable: true}),

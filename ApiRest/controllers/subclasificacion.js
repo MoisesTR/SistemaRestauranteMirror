@@ -49,6 +49,8 @@ function updateSubclasificacion(req, res) {
     var data = matchedData(req, {locations: ['body', 'params']});
     var aoj = [];
 
+    console.log(data);
+
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, data.IdClasificacion)
     db.pushAOJParam(aoj, 'NombreSubClasificacion', sql.NVarChar(50), data.NombreSubClasificacion)

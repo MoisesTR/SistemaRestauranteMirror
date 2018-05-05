@@ -43,7 +43,7 @@ export class SubClasificacionProductoService {
       'Authorization': 'token'
     });
 
-    return this._http.put(this.url+'subclasificacion',params,{headers:headers})
+    return this._http.put(this.url+'subclasificacion/'+SubClasificacion.IdSubClasificacion,params,{headers:headers})
 
   }
 

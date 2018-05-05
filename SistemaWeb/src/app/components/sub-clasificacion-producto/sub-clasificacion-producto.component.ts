@@ -225,6 +225,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
             Modal.hide();
             this.formUpdateSubClasificacion.reset();
             this.getSubClasificacionesRender();
+            this.subclasificacion = new SubClasificacionProducto();
           })
 
         } else {
@@ -234,7 +235,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
-    this.subclasificacion = new SubClasificacionProducto();
+
   }
 
   deleteSubClasificacion(IdSubClasificacion){

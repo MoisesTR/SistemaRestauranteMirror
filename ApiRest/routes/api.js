@@ -64,8 +64,8 @@ Router
     .get('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones', SubclasificacionController.getSubclasificaciones)
     .get('/subclasificaciones/:IdClasificacion(\\d+)', SubclasificacionController.getSubclasificacionesByIdClasificacion)
-    .post('/subclasificacion', SubclasificacionController.createSubclasificacion)
-    .put('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.updateSubclasificacion)
+    .post('/subclasificacion', validations.createSubclasificacion,validations.validsParams,SubclasificacionController.createSubclasificacion)
+    .put('/subclasificacion/:IdSubClasificacion(\\d+)',validations.updateSubclasificacion,validations.validsParams, SubclasificacionController.updateSubclasificacion)
     .delete('/subclasificacion/:IdSubClasificacion(\\d+)',validations.changeStateSubclasificacion, validations.validsParams, SubclasificacionController.changeStateSubClasificacion)
     //Rutas estadoproducto controller
     .get('/estadosproductos', EstadoProductoController.getEstados)

@@ -46,7 +46,8 @@ Router
     .get('/empaque/:IdEmpaque(\\d+)', EmpaqueController.getEmpaqueById)
     .get('/empaques', EmpaqueController.getEmpaques)
     .post('/empaque', validations.createEmpaque, validations.validsParams ,EmpaqueController.createEmpaque)
-    .put('/empaque/:IdEmpaque(\\d+)', validations.changeStateEnvase, validations.validsParams, EmpaqueController.updateEmpaque)
+    .put('/empaque/:IdEmpaque(\\d+)', validations.updateEmpaque, validations.validsParams, EmpaqueController.updateEmpaque)
+    .delete('/empaque/:IdEmpaque(\\d+)', validations.changeStateEmpaque, validations.validsParams, EmpaqueController.changeStateEmpaque)
     //Rutas envase controler
     .get('/envase/:IdEnvase(\\d+)', EnvaseController.getEnvaseById)
     .get('/envases', EnvaseController.getEnvases)

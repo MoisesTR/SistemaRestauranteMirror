@@ -56,6 +56,8 @@ function createTrabajador(req, res) {
 function updateTrabajador(req, res) {
     var trabajadorData = matchedData(req, {locations: ['body', 'params']});
     var aoj = [];
+    console.log(trabajadorData);
+    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, trabajadorData.IdTrabajador);
     db.pushAOJParam(aoj, 'IdSucursal', sql.Int, trabajadorData.IdSucursal);
     db.pushAOJParam(aoj, 'IdCargo', sql.Int, trabajadorData.IdCargo);
     db.pushAOJParam(aoj, 'Nombres', sql.NVarChar(50), trabajadorData.Nombres);
@@ -68,7 +70,7 @@ function updateTrabajador(req, res) {
     db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), trabajadorData.Telefono1);
     db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), trabajadorData.Telefono2);
     db.pushAOJParam(aoj, 'FechaIngreso', sql.Date, trabajadorData.FechaIngreso);
-    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, trabajadorData.IdTrabajador);
+    
     db.storedProcExecute('USP_UPDATE_TRABAJADOR', aoj)
         .then((results) => {
             res.status(200).json({

@@ -14,6 +14,7 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from "sweetalert2";
 import {TipoDocumento} from '../../../models/TipoDocumento';
 import {isNull} from "util";
+import {Utilidades} from '../../Utilidades';
 declare var $:any
 
 @Component({
@@ -32,6 +33,8 @@ export class UpdateTrabajadorComponent implements OnInit {
     public myDatePickerOptions: IMyOptions = opcionesDatePicker;
     public removioImagen : boolean = false;
     public tiposDocumento : TipoDocumento [];
+    public filesToUpload: Array<File> = null;
+
   constructor(
       private _route: ActivatedRoute
       ,private _router: Router
@@ -61,7 +64,7 @@ export class UpdateTrabajadorComponent implements OnInit {
           });
 
       });
-      4
+
       $('.telefono').mask('0000-0000');
       this.initFormTrabajador();
       this.getSucursales();
@@ -86,13 +89,11 @@ export class UpdateTrabajadorComponent implements OnInit {
               ])
               ,'fechaNacimiento' : new FormControl('', [
                   Validators.required,
-                  CustomValidators.espaciosVacios,
                   CustomValidators.fechaNacimientoTrabajador
 
               ])
               ,'fechaIngreso' : new FormControl('', [
                   Validators.required,
-                  CustomValidators.espaciosVacios,
                   CustomValidators.mayorFechaActual
               ])
               ,'documentoTrabajador' : new FormControl('', [
@@ -100,18 +101,17 @@ export class UpdateTrabajadorComponent implements OnInit {
                   CustomValidators.espaciosVacios
               ])
               ,'tipoDocumento' : new FormControl('', [
-                  Validators.required,
-                  CustomValidators.espaciosVacios
+                  Validators.required
               ])
               , 'telefonoPrincipal' : new FormControl('', [
                   Validators.required
                   , CustomValidators.espaciosVacios
-                  , Validators.minLength(9)
+                  , Validators.minLength(8)
                   , Validators.maxLength(9)
 
               ])
               , 'telefonoSecundario' : new FormControl('', [
-                  Validators.minLength(9)
+                  Validators.minLength(8)
                   , Validators.maxLength(9)
               ])
               // ,telefonos : new FormGroup({
@@ -132,7 +132,7 @@ export class UpdateTrabajadorComponent implements OnInit {
               ,'direccion' : new FormControl('', [
                   Validators.required,
                   CustomValidators.espaciosVacios
-                  , Validators.minLength(10)
+                  , Validators.minLength(5)
                   , Validators.maxLength(300)
               ])
           }
@@ -142,13 +142,12 @@ export class UpdateTrabajadorComponent implements OnInit {
   getValuesFormTrabajador(){
       this.trabajador.Nombres = this.formUpdateTrabajador.value.nombreTrabajador;
       this.trabajador.Apellidos = this.formUpdateTrabajador.value.apellido;
-      this.trabajador.IdTipoDocumento = 1;
-      this.trabajador.Documento = '0020311960028E';
+      this.trabajador.Documento = this.formUpdateTrabajador.value.documentoTrabajador;
       this.trabajador.Direccion = this.formUpdateTrabajador.value.direccion;
-      this.trabajador.FechaIngreso = '2017-02-02';
-      this.trabajador.FechaNacimiento =  '2017-02-02';
-      this.trabajador.Telefono1 = (this.formUpdateTrabajador.value.telefonoPrincipal).replace("-","");
-      this.trabajador.Telefono2 = (this.formUpdateTrabajador.value.telefonoSecundario).replace("-","");;
+      this.trabajador.FechaIngreso = this.formUpdateTrabajador.value.fechaIngreso;
+      this.trabajador.FechaNacimiento =  this.formUpdateTrabajador.value.fechaNacimiento;
+      this.trabajador.Telefono1 = this.formUpdateTrabajador.value.telefonoPrincipal != null ? this.formUpdateTrabajador.value.telefonoPrincipal.replace("-","") : '';
+      this.trabajador.Telefono2 = this.formUpdateTrabajador.value.telefonoSecundario != null ? (this.formUpdateTrabajador.value.telefonoSecundario).replace("-","") : '';
 
   }
 
@@ -178,6 +177,28 @@ export class UpdateTrabajadorComponent implements OnInit {
       )
   }
 
+  updateTrabajador(){
+
+      this.getValuesFormTrabajador();
+
+      this._trabajadorService.updateTrabajador(this.trabajador).subscribe(
+          response =>{
+              if(response.success){
+                  swal(
+                      'Trabajador',
+                      'El trabajador ha sido actualizado exitosamente!',
+                      'success'
+                  ).then(() => {
+                      this.formUpdateTrabajador.reset();
+                      this._router.navigate(['/trabajador']);
+                  })
+              }
+          }, error =>{
+              Utilidades.showMsgError(Utilidades.mensajeError(error),'Trabajador')
+          }
+      )
+  }
+
   getTrabajador(){
     this._route.params.forEach((params: Params)=>{
 
@@ -199,8 +220,6 @@ export class UpdateTrabajadorComponent implements OnInit {
                             drEvent = $('.dropify').dropify({
                                 defaultFile: imagenTrabajador
                             });
-
-                            console.log('imagen del trabajador');
                         }  else {
                             drEvent = $('.dropify').dropify();
                         }
@@ -235,32 +254,32 @@ export class UpdateTrabajadorComponent implements OnInit {
 
   guardarImagenTrabajador(){
 
-      if(this.filesToUpload != null){
+      if( (isNull(this.filesToUpload) && !this.removioImagen)) {
+          this.updateTrabajador();
 
-          this._uploadService.makeFileRequest(
-              this.url+'trabajadorUploadImage',
-              null,null,null,
-              [],
-              this.filesToUpload,
-              'token',
-              'image').then((result:any)=>{
-              this.trabajador.Imagen = result.image;
-
-
-          },error =>{
-              swal(
-                  'Producto',
-                  'Ha ocurrido un error en la carga de la imagen, intenta nuevamente!',
-                  'error'
-              )
-          });
       } else {
-          swal(
-              'Trabajador',
-              'La imagen es requerida!',
-              'info'
-          )
+          if(this.filesToUpload != null && !this.removioImagen){
+              this._uploadService.makeFileRequest(
+                  this.url+'uploadImage',
+                  CARPETA_TRABAJADORES
+                  ,this.trabajador.Imagen
+                  ,this.removioImagen,
+                  [],
+                  this.filesToUpload,
+                  'token',
+                  'image').then((result:any)=>{
+                  this.trabajador.Imagen = result.image;
+                  this.updateTrabajador();
+
+              },error =>{
+                  Utilidades.msgErrorImage(error);
+              });
+          } else {
+
+              Utilidades.showMsgInfo('La imagen es requerida','Trabajador');
+          }
       }
+
   }
 
   getTiposDocumentos() {
@@ -306,10 +325,9 @@ export class UpdateTrabajadorComponent implements OnInit {
         }
   }
 
-    public filesToUpload: Array<File> = null;
-
   fileChangeEvent(fileInput:any){
         this.filesToUpload = <Array<File>>fileInput.target.files;
+        this.removioImagen = false;
   }
 
 

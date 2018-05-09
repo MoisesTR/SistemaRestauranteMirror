@@ -139,7 +139,7 @@
                     <!-- Nav tabs -->
                     <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 orange-chang'" [contentClass]="'card'">
 
-                        <mdb-tab heading="Proveedores">
+                        <mdb-tab heading="Proveedores" class="height-card scrollbar-card scrollbar-ripe-malinka">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
@@ -160,7 +160,7 @@
                                                     <td>{{proveedor.NombreRepresentante}}</td>
                                                     <td>{{proveedor.Email}}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
+                                                        <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)" mdbTooltip="Visualizar" placement="bottom">
                                                             <i class="fa fa-eye"></i>
                                                         </button>
                                                     </td>
@@ -172,7 +172,7 @@
                             </div>
                         </mdb-tab>
 
-                        <mdb-tab heading="Trabajadores">
+                        <mdb-tab heading="Trabajadores" class="height-card scrollbar-card scrollbar-ripe-malinka">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
@@ -194,7 +194,7 @@
                                                         <td>{{trabajador.Apellidos}}</td>
                                                         <td>{{trabajador.Telefono1}}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-sm orange-chang" (click)="visualizarTrabajador(trabajador)" data-toggle="tooltip" data-placement="bottom" title="Visualizar">
+                                                            <button type="button" class="btn btn-sm orange-chang" (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar" placement="bottom">
                                                                 <i class="fa fa-eye"></i>
                                                             </button>
                                                         </td>
@@ -237,7 +237,7 @@
 
                 <!--Avatar-->
                 <div class="avatar z-depth-1-half mb-4 white">
-                    <img src="{{urlImagen}}" class="rounded-circle" alt="Proveedor" style="height: 100% !important;">
+                    <img src="{{urlImagen}}" class="rounded-circle" alt="Proveedor" style="height: 100% !important; width: 100% !important;">
                 </div>
 
                 <div class="card-body pt-0 mt-0">

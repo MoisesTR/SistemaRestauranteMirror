@@ -297,6 +297,7 @@ h6 {
 .scrollbar-card {
   position: relative;
   overflow-y: scroll;
+  overflow-x: hidden;
   height: 100% !important;
 }
 
@@ -399,4 +400,12 @@ h6 {
 
 .height-card{
   height: 78% !important;
+}
+
+.team-section .height-card{
+  height: 55% !important;  
+}
+
+.team-section .position-margin{
+  margin-top: 3%;
 }

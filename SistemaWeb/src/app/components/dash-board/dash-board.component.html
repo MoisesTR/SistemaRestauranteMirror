@@ -133,7 +133,7 @@
     <div class="row">
 
         <!-- Tab Tablas -->
-        <div class="col-md-8">
+        <div class="col-sm-12 col-md-12 col-lg-8">
             <div class="row">
                 <div class="col-md-12">
                     <!-- Nav tabs -->
@@ -142,6 +142,14 @@
                         <mdb-tab heading="Proveedores" class="height-card scrollbar-card scrollbar-ripe-malinka">
                             <div class="row">
                                 <div class="col-12">
+                                    <!-- Input de busqueda -->
+                                    <div class="col-12">
+                                        <br>
+                                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                                            <i class="fa fa-search position-margin"></i>
+                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
+                                        </div>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
@@ -175,6 +183,14 @@
                         <mdb-tab heading="Trabajadores" class="height-card scrollbar-card scrollbar-ripe-malinka">
                             <div class="row">
                                 <div class="col-12">
+                                    <!-- Input de busqueda -->
+                                    <div class="col-12">
+                                        <br>
+                                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
+                                        </div>
+                                    </div>
                                     <div class="table-responsive">
                                         <div class="table-responsive">
                                             <table class="table">
@@ -194,7 +210,8 @@
                                                         <td>{{trabajador.Apellidos}}</td>
                                                         <td>{{trabajador.Telefono1}}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-sm orange-chang" (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar" placement="bottom">
+                                                            <button type="button" class="btn btn-sm orange-chang" (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar"
+                                                                placement="bottom">
                                                                 <i class="fa fa-eye"></i>
                                                             </button>
                                                         </td>
@@ -228,7 +245,7 @@
         </div>
 
         <!-- Contenedor de imagen y detalles -->
-        <div class="col-md-4 mb-1">
+        <div class="col-sm-12 col-md-12 col-lg-4 mb-1">
             <br>
             <br>
             <!--Card-->
@@ -253,13 +270,15 @@
 
                     <ul class="striped list-unstyled text-center">
                         <li>
-                            <strong>{{tabSeleccionado == 'trabajador' ? 'Documento : ' : 'Nombre representante : ' }} </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Documento : proveedor.NombreRepresentante}}</li>
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Documento : ' : 'Nombre representante : ' }} </strong>{{tabSeleccionado
+                            == 'trabajador' ? trabajador.Documento : proveedor.NombreRepresentante}}</li>
                         <hr>
                         <li>
                             <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 : proveedor.Telefono}}</li>
                         <hr>
                         <li>
-                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador' ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador'
+                            ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
 
                     </ul>
 

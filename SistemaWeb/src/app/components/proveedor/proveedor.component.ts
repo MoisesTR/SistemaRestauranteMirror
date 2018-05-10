@@ -342,8 +342,7 @@ export class ProveedorComponent implements OnInit ,InvocarFormulario{
           , email: Proveedor.Email
           , direccionProveedor: Proveedor.Direccion
           , nombreRepresentante: Proveedor.NombreRepresentante
-          , telefonoProveedor:  Proveedor.Telefono
-          , email : Proveedor.Email
+          , telefonoProveedor:  Proveedor.Telefono          
       })
 
       Modal.show();

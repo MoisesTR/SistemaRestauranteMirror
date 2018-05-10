@@ -20,6 +20,8 @@ import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/
 import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.component';
 import {BuscarPipe} from '../../pipe/buscar.pipe';
 import {FormatoComaDineroPipe} from '../../pipe/formato-coma-dinero.pipe';
+import {BuscarTrabajadorPipe} from '../../pipe/buscar-trabajador.pipe';
+import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import {FormatoComaDineroPipe} from '../../pipe/formato-coma-dinero.pipe';
       , ModalCategoriaComponent
       , ModalEmpaqueComponent
       , BuscarPipe
+      , BuscarTrabajadorPipe
+      , BuscarProveedorPipe
       , FormatoComaDineroPipe
       , NgSelectModule
       , MDBBootstrapModule
@@ -70,6 +74,8 @@ import {FormatoComaDineroPipe} from '../../pipe/formato-coma-dinero.pipe';
         , ModalCategoriaComponent
         , ModalEmpaqueComponent
         , BuscarPipe
+        , BuscarTrabajadorPipe
+        , BuscarProveedorPipe
         , FormatoComaDineroPipe
     ]
   , providers  : [{

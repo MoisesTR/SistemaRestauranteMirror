@@ -101,6 +101,7 @@ import {InicioComponent} from '../inicio/inicio.component';
     , TelephoneNumberFormatValidatorDirective
     , BirthYearValidatorDirective
 
+
   ],
   providers: [
     CategoriaProductoService

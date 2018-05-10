@@ -20,6 +20,7 @@ export class DashBoardComponent implements OnInit {
   public trabajador : Trabajador;
   public proveedor : Proveedor;
   public url : string;
+  public buscando;
   public carpeta = 'temp';
   public tabSeleccionado : string = 'proveedor';
   public urlImagen : string;

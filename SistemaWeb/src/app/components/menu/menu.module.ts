@@ -54,6 +54,7 @@ import {BirthYearValidatorDirective} from '../../validadores/birthYear';
 import {BuscarPipe} from '../../pipe/buscar.pipe';
 import {DatePipe} from '@angular/common';
 import {DeleteImageService} from '../../services/delete-image-service';
+import {InicioComponent} from '../inicio/inicio.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import {DeleteImageService} from '../../services/delete-image-service';
     , HabilitadosComponent
     , UnidadmedidaComponent
     , DashBoardComponent
+      , InicioComponent
     , SalidaProductoComponent
     , InformacionFacturaComponent
     , BuscarGeneralFacturaComponent

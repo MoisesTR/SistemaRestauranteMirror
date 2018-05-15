@@ -312,7 +312,7 @@ CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
 	UPDATE dbo.	PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
 					NombreRepresentante=ISNULL(@NombreRepresentante, NombreRepresentante),
 					Retencion2 = ISNULL(@Retencion2, Retencion2),Documento=ISNULL(@Documento,Documento),
-					Telefono1 = ISNULL(@Telefono1, Telefono1),Telefono2 = ISNULL(@Telefono2, Telefono2)
+					Telefono1 = ISNULL(@Telefono1, Telefono1),Telefono2 = ISNULL(@Telefono2, Telefono2),
 					UpdateAt=GETDATE() 
 					WHERE IdProveedor = @IdProveedor;
 END 

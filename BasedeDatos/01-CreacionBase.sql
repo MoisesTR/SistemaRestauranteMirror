@@ -96,7 +96,7 @@ GO
 INSERT INTO PAIS(NombrePais, Abreviatura, PrefijoTelefonico)
 VALUES('Nicaragua', 'NIC','505'), ('China','CH','012')
 GO
-CREATE TABLE PROVEEDOR(
+CREATE TABLE dbo.PROVEEDOR(
     IdProveedor			INT IDENTITY(1,1),
 	IdPais				INT					NOT NULL	DEFAULT 1, --Foraneo
     NombreProveedor		NVARCHAR(50)		NOT NULL,
@@ -117,6 +117,10 @@ CREATE TABLE PROVEEDOR(
 	CONSTRAINT FK_PAIS_PROVEEDOR FOREIGN KEY(IdPais) REFERENCES PAIS(IdPais),
 	CONSTRAINT FK_TIPO_DOCUMENTO_PROVEEDOR FOREIGN KEY(IdTipoDocumento) REFERENCES TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento)
 );
+GO
+--Por default es 2 por que hasta el momento es 2 el id del tipo numero RUC
+ALTER TABLE PROVEEDOR
+	ADD CONSTRAINT DF_IdTipoNumeroRUC_Proveedor DEFAULT 2 FOR IdTipoDocumento
 GO
 --INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Telefono) 
 --VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante','87792956')

@@ -194,16 +194,16 @@ IF OBJECT_ID('USP_UPDATE_SUBCLASIFICACION','P') IS NOT NULL
 	DROP PROCEDURE USP_UPDATE_SUBCLASIFICACION
 GO
 CREATE PROCEDURE USP_UPDATE_SUBCLASIFICACION(
-	@IdSubClasificacion INT,
-    @IdClasificacion INT NULL,
-	@Nombre NVARCHAR(50)  NULL,
-    @Descripcion NVARCHAR(150) NULL
+	@IdSubClasificacion					INT,
+    @IdClasificacion					INT NULL,
+	@NombreSubClasificacion				NVARCHAR(50)  NULL,
+    @DescripcionSubClasificacion		NVARCHAR(150) NULL
 ) AS BEGIN
-	IF COALESCE(@IdSubClasificacion, @Nombre, @Descripcion) IS NOT NULL
+	IF COALESCE(@IdSubClasificacion, @NombreSubClasificacion, @De) IS NOT NULL
 		BEGIN
 			UPDATE SUBCLASIFICACION_PRODUCTO
 			SET IdClasificacion= ISNULL(@IdClasificacion,IdClasificacion)
-			,NombreSubClasificacion = ISNULL(@Nombre, NombreSubClasificacion),DescripcionSubClasificacion  = ISNULL(@Descripcion,DescripcionSubclasificacion),UpdateAt=GETDATE() 
+			,NombreSubClasificacion = ISNULL(@Nombre, NombreSubClasificacion),DescripcionSubClasificacion  = ISNULL(@DescripcionSubClasificacion,DescripcionSubclasificacion),UpdateAt=GETDATE() 
 			WHERE IdSubClasificacion = @IdSubClasificacion;
 		END
 END 

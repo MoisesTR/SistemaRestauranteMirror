@@ -317,11 +317,13 @@ IF OBJECT_ID('USP_CREATE_SUCURSAL','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_CREATE_SUCURSAL(
     @NombreSucursal NVARCHAR(100) ,
-    @Direccion NVARCHAR(250) 
+    @Direccion		NVARCHAR(250),
+	@Telefono1		NVARCHAR(20),
+	@Telefono2		NVARCHAR(20) NULL
 )
 AS BEGIN 
-	INSERT INTO dbo.SUCURSAL(NombreSucursal,Direccion)
-	VALUES(@NombreSucursal,@Direccion)
+	INSERT INTO dbo.SUCURSAL(NombreSucursal,Direccion, Telefono1, Telefono2)
+	VALUES(@NombreSucursal,@Direccion, @Telefono1, @Telefono2)
 	SELECT @@IDENTITY AS IdSucursal
 END
 GO
@@ -331,10 +333,12 @@ GO
 CREATE PROCEDURE USP_GET_SUCURSALES
 	@Habilitado BIT NULL
 AS 
+BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdSucursal,NombreSucursal,Direccion from dbo.SUCURSAL
+		SELECT IdSucursal,NombreSucursal,Direccion, Telefono1, Telefono2 from dbo.SUCURSAL
 	ELSE
-		SELECT IdSucursal,NombreSucursal,Direccion from dbo.SUCURSAL WHERE Habilitado = @Habilitado
+		SELECT IdSucursal,NombreSucursal,Direccion, Telefono1, Telefono2 from dbo.SUCURSAL WHERE Habilitado = @Habilitado
+END
 GO
 IF OBJECT_ID('USP_GET_SUCURSAL','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_SUCURSAL
@@ -342,7 +346,10 @@ GO
 CREATE PROCEDURE USP_GET_SUCURSAL
 	@IdSucursal INT
 AS 
-	SELECT IdSucursal,NombreSucursal,Direccion from dbo.SUCURSAL WHERE IdSucursal = @IdSucursal
+BEGIN
+	SELECT IdSucursal,NombreSucursal,Direccion, Telefono1,Telefono2 
+	from dbo.SUCURSAL WHERE IdSucursal = @IdSucursal
+END
 GO
 USE PRUEBAS_NODE
 IF OBJECT_ID('USP_CREATE_PRODUCTO_PROVEEDOR','P') IS NOT NULL

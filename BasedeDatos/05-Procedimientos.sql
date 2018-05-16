@@ -104,26 +104,31 @@ CREATE PROCEDURE USP_GET_CLASIFICACIONES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT	CLASI.IdCategoria
-				, CLASI.IdClasificacion
-				, CLASI.NombreClasificacion
-				, CLASI.DescripcionClasificacion
-				, CLASI.Habilitado 
-				, CATE.NombreCategoria
-		FROM	dbo.CLASIFICACION_PRODUCTO CLASI
-				INNER JOIN dbo.CATEGORIA_PRODUCTO CATE
-		ON		CLASI.IdCategoria = CATE.IdCategoria
+		BEGIN
+			SELECT	CLASI.IdCategoria
+					, CLASI.IdClasificacion
+					, CLASI.NombreClasificacion
+					, CLASI.DescripcionClasificacion
+					, CLASI.Habilitado 
+					, CATE.NombreCategoria
+			FROM	dbo.CLASIFICACION_PRODUCTO CLASI
+					INNER JOIN dbo.CATEGORIA_PRODUCTO CATE
+			ON		CLASI.IdCategoria = CATE.IdCategoria
+		END
 	ELSE
-		SELECT	CLASI.IdCategoria
-				, CLASI.IdClasificacion
-				, CLASI.NombreClasificacion
-				, CLASI.DescripcionClasificacion
-				, CLASI.Habilitado 
-				, CATE.NombreCategoria
-		FROM	dbo.CLASIFICACION_PRODUCTO CLASI
-				INNER JOIN dbo.CATEGORIA_PRODUCTO CATE
-		ON		CLASI.IdCategoria = CATE.IdCategoria
-		WHERE CLASI.Habilitado= @Habilitado
+		BEGIN
+			SELECT	CLASI.IdCategoria
+					, CLASI.IdClasificacion
+					, CLASI.NombreClasificacion
+					, CLASI.DescripcionClasificacion
+					, CLASI.Habilitado 
+					, CATE.NombreCategoria
+			FROM	dbo.CLASIFICACION_PRODUCTO CLASI
+					INNER JOIN dbo.CATEGORIA_PRODUCTO CATE
+			ON		CLASI.IdCategoria = CATE.IdCategoria
+			WHERE CLASI.Habilitado= @Habilitado
+					AND CATE.Habilitado = @Habilitado
+		END
 END
 GO
 IF OBJECT_ID('USP_UPDATE_CLASIFICACION','P') IS NOT NULL
@@ -163,7 +168,8 @@ GO
 CREATE PROCEDURE USP_GET_CLASIFICACION(
 	@IdClasificacion INT
 ) AS BEGIN 
-	SELECT IdCategoria,IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado FROM dbo.CLASIFICACION_PRODUCTO WHERE IdClasificacion = @IdClasificacion;
+	SELECT IdCategoria,IdClasificacion,NombreClasificacion,DescripcionClasificacion,Habilitado 
+		FROM dbo.CLASIFICACION_PRODUCTO WHERE IdClasificacion = @IdClasificacion;
 END
 GO
 IF OBJECT_ID('USP_CREATE_SUBCLASIFICACION','P') IS NOT NULL
@@ -221,12 +227,29 @@ CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES
 	@Habilitado BIT  NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT s.IdSubClasificacion
-		,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
-		INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion
+	BEGIN
+		SELECT	s.IdSubClasificacion,
+				s.NombreSubClasificacion,
+				s.DescripcionSubClasificacion,
+				s.IdClasificacion,
+				c.NombreClasificacion,
+				s.Habilitado,
+				s.CreatedAt,
+				s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
+			INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion
+	END
 	ELSE
-		SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
+		BEGIN
+			SELECT	s.IdSubClasificacion,
+				s.NombreSubClasificacion,
+				s.DescripcionSubClasificacion,
+				s.IdClasificacion,
+				c.NombreClasificacion,
+				s.Habilitado,
+				s.CreatedAt,
+				s.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
 			INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion WHERE c.Habilitado = @Habilitado
+		END
 END
 GO
 IF OBJECT_ID('USP_DISP_SUBCLASIFICACION','P') IS NOT NULL
@@ -256,15 +279,18 @@ IF OBJECT_ID('USP_CREATE_PROVEEDOR','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_PROVEEDOR
 GO
 CREATE PROCEDURE USP_CREATE_PROVEEDOR(
-	@NombreProveedor NVARCHAR(50), -- NOT NULL,
-    @Direccion NVARCHAR(200),-- NOT NULL,
-    @Email NVARCHAR(100),-- NULL
-    @Descripcion NVARCHAR(200),-- NULL,
+	@NombreProveedor	NVARCHAR(50), -- NOT NULL,
+    @Direccion			NVARCHAR(200),-- NOT NULL,
+    @Email				NVARCHAR(100),-- NULL
+    @Descripcion		NVARCHAR(200),-- NULL,
     @NombreRepresentante NVARCHAR(100), -- NOT NULL,
-	@Retencion2		BIT NULL
+	@Documento			NVARCHAR(20), --Por defecto sera el numero ruc
+	@Telefono1			NVARCHAR(20),
+	@Telefono2			NVARCHAR(20) NULL,
+	@Retencion2			BIT NULL
 ) AS BEGIN
-	INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2)
-    VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante, @Retencion2);
+	INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento, Telefono1,Telefono2,Retencion2)
+    VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento, @Telefono1,@Telefono2,@Retencion2);
 	SELECT @@IDENTITY AS IdProveedor
 END 
 GO
@@ -278,24 +304,17 @@ CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
     @Email			NVARCHAR(100),-- NULL
     @Descripcion	NVARCHAR(200),-- NULL,
     @NombreRepresentante NVARCHAR(100) NULL, -- NOT NULL,
+	@Documento		NVARCHAR(20),
+	@Telefono1		NVARCHAR(20), 
+	@Telefono2		NVARCHAR(20),
 	@Retencion2		BIT NULL
 ) AS BEGIN
-	UPDATE PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
-    NombreRepresentante=ISNULL(@NombreRepresentante, NombreRepresentante),Retencion2 = ISNULL(@Retencion2, Retencion2), UpdateAt=GETDATE() WHERE IdProveedor = @IdProveedor;
-END 
-GO
-IF OBJECT_ID('USP_CREATE_NUMEROPROVEEDOR','P') IS NOT NULL
-	DROP PROCEDURE USP_CREATE_NUMEROPROVEEDOR
-GO 
---Nombre Anterior USP_InsertNumeroProveedor
-CREATE PROCEDURE USP_CREATE_NUMEROPROVEEDOR(
-    @IdProveedor INT,
-    @Prefijo NVARCHAR(3),
-    @NumeroTelefono NVARCHAR(50) --NOT NULL
-) AS BEGIN
-	INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,Prefijo,NumeroTelefono)
-    VALUES(@IdProveedor,@Prefijo,@NumeroTelefono);
-	SELECT @@IDENTITY AS IdNumero
+	UPDATE dbo.	PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
+					NombreRepresentante=ISNULL(@NombreRepresentante, NombreRepresentante),
+					Retencion2 = ISNULL(@Retencion2, Retencion2),Documento=ISNULL(@Documento,Documento),
+					Telefono1 = ISNULL(@Telefono1, Telefono1),Telefono2 = ISNULL(@Telefono2, Telefono2),
+					UpdateAt=GETDATE() 
+					WHERE IdProveedor = @IdProveedor;
 END 
 GO
 IF OBJECT_ID('USP_DISP_PROVEEDOR','P') IS NOT NULL
@@ -309,19 +328,6 @@ CREATE PROCEDURE USP_DISP_PROVEEDOR(
 	WHERE IdProveedor = @IdProveedor;
 END
 GO
-IF OBJECT_ID('USP_UPDATE_NUMERO_PROVEEDOR','P') IS NOT NULL
-	DROP PROCEDURE USP_UPDATE_NUMERO_PROVEEDOR
-GO
-CREATE PROCEDURE USP_UPDATE_NUMERO_PROVEEDOR(
-	@IdProveedor INT,
-    @IdNumero INT,
-	@Prefijo NVARCHAR(3),
-    @NumeroTelefono NVARCHAR(50) --NOT NULL
-) AS BEGIN
-		UPDATE NUMERO_TELEFONO_PROVEEDOR SET Prefijo = @Prefijo, NumeroTelefono = @NumeroTelefono,UpdateAt=GETDATE() where IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
-END 
-GO 
-
 IF OBJECT_ID('USP_GET_PROVEEDORES','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_PROVEEDORES
 GO
@@ -329,10 +335,34 @@ CREATE PROCEDURE USP_GET_PROVEEDORES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2 FROM PROVEEDOR;
+		BEGIN
+			SELECT IdProveedor
+				, NombreProveedor
+				, Direccion
+				, Email
+				, Descripcion
+				, NombreRepresentante
+				, Documento
+				, Telefono1
+				, Telefono2
+				, Retencion2 
+			FROM	dbo.PROVEEDOR;
+		END
 	ELSE
-		SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2 FROM PROVEEDOR
-		WHERE Habilitado = @Habilitado;
+		BEGIN
+			SELECT IdProveedor
+				, NombreProveedor
+				, Direccion
+				, Email
+				, Descripcion
+				, NombreRepresentante
+				, Documento
+				, Telefono1
+				, Telefono2
+				, Retencion2 
+			FROM	dbo.PROVEEDOR
+			WHERE Habilitado = @Habilitado;
+		END
 END
 GO
 IF OBJECT_ID('USP_GET_PROVEEDOR','P') IS NOT NULL
@@ -341,27 +371,19 @@ GO
 CREATE PROCEDURE USP_GET_PROVEEDOR(
 	@IdProveedor INT
 ) AS BEGIN 
-	SELECT IdProveedor,NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante, Retencion2 FROM PROVEEDOR where IdProveedor = @IdProveedor;
-END
-GO
-IF OBJECT_ID('USP_GET_NUMEROS_PROVEEDOR','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_NUMEROS_PROVEEDOR
-GO
-CREATE PROCEDURE USP_GET_NUMEROS_PROVEEDOR(
-	@IdProovedor INT
-) 
-AS BEGIN
-	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProovedor;
-END
-GO
-IF OBJECT_ID('USP_GET_NUMEROESPECIFICO','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_NUMEROESPECIFICO
-GO
-CREATE PROCEDURE USP_GET_NUMEROESPECIFICO(
-	@IdProveedor	INT,
-    @IdNumero		INT
-) AS BEGIN
-	SELECT IdNumero,IdProveedor,Prefijo,NumeroTelefono FROM NUMERO_TELEFONO_PROVEEDOR WHERE IdProveedor = @IdProveedor AND IdNumero = @IdNumero;
+	SELECT IdProveedor
+		, NombreProveedor
+		, Direccion
+		, Email
+		, Descripcion
+		, NombreRepresentante
+		, IdTipoDocumento
+		, Documento
+		, Telefono1
+		, Telefono2
+		, Retencion2 
+	FROM	dbo.PROVEEDOR
+	WHERE IdProveedor = @IdProveedor;
 END
 GO
 IF OBJECT_ID('UFN_CHECK_ESTADO_EMPAQUE','FN') IS NOT NULL

@@ -30,6 +30,22 @@ CREATE TABLE USO_PRODUCTO(
     CONSTRAINT U_USO_PRODUCTO UNIQUE(Nombre)
 );
 GO
+CREATE TABLE TIPO_DOCUMENTO_IDENTIFICACION(
+	IdTipoDocumento		INT IDENTITY(1,1),
+	NombreTD			NVARCHAR(50)		NOT NULL	UNIQUE,
+	DescripcionTD		NVARCHAR(150)		NULL,
+	Habilitado			BIT					NOT NULL	DEFAULT 1,
+	CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
+	CONSTRAINT PK_TIPO_DOCUMENTO_IDENTIFICACION PRIMARY KEY(IdTipoDocumento)
+)
+GO
+SET IDENTITY_INSERT dbo.TIPO_DOCUMENTO_IDENTIFICACION ON;
+GO
+INSERT INTO TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento,NombreTD, DescripcionTD)
+VALUES(1,'Cedula',NULL),(2,'Numero RUC', NULL)
+GO
+SET IDENTITY_INSERT dbo.TIPO_DOCUMENTO_IDENTIFICACION OFF;
+GO
 INSERT INTO USO_PRODUCTO(Nombre,Descripcion)
 VALUES	('Nuevo/Sin Usar','Producto que no se ha usado.')
 		,('En Uso','Producto que se esta usando.')
@@ -80,47 +96,36 @@ GO
 INSERT INTO PAIS(NombrePais, Abreviatura, PrefijoTelefonico)
 VALUES('Nicaragua', 'NIC','505'), ('China','CH','012')
 GO
-CREATE TABLE PROVEEDOR(
+CREATE TABLE dbo.PROVEEDOR(
     IdProveedor			INT IDENTITY(1,1),
-	IdPais				INT					NOT NULL	DEFAULT 1,
+	IdPais				INT					NOT NULL	DEFAULT 1, --Foraneo
     NombreProveedor		NVARCHAR(50)		NOT NULL,
     Direccion			NVARCHAR(200)		NOT NULL,
     Email				NVARCHAR(100)		NULL,
 	Imagen				NVARCHAR(50)		NOT NULL	DEFAULT 'proveedor.png',
     Descripcion			NVARCHAR(200)		NULL,
     NombreRepresentante NVARCHAR(100)		NOT NULL,
-	Telefono			NVARCHAR(20)		NOT NULL,
+	Telefono1			NVARCHAR(20)		NOT NULL,
+	Telefono2			NVARCHAR(20)		NULL,
+	IdTipoDocumento		INT					NOT NULL,  -- Foraneo
+	Documento			NVARCHAR(50)		NOT NULL,
     Retencion2			Bit					NOT NULL	DEFAULT 0,
 	Habilitado			Bit					NOT NULL	DEFAULT 1,
     CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
     UpdateAt			SMALLDATETIME		NULL,
     CONSTRAINT PK_IdProveedor PRIMARY KEY (IdProveedor),
-	CONSTRAINT FK_PAIS_PROVEEDOR FOREIGN KEY(IdPais) REFERENCES PAIS(IdPais)
+	CONSTRAINT FK_PAIS_PROVEEDOR FOREIGN KEY(IdPais) REFERENCES PAIS(IdPais),
+	CONSTRAINT FK_TIPO_DOCUMENTO_PROVEEDOR FOREIGN KEY(IdTipoDocumento) REFERENCES TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento)
 );
 GO
-INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Telefono) 
-VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante','87792956')
-		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante','87603420')
-		,('Insumos Chinos','asdasda sdasdsa asd','esteesun@correo.com','descripcion','Representante','87792987');
+--Por default es 2 por que hasta el momento es 2 el id del tipo numero RUC
+ALTER TABLE PROVEEDOR
+	ADD CONSTRAINT DF_IdTipoNumeroRUC_Proveedor DEFAULT 2 FOR IdTipoDocumento
 GO
-CREATE TABLE NUMERO_TELEFONO_PROVEEDOR(
-    IdNumero			INT IDENTITY(1,1),
-    IdProveedor			INT,
-    Prefijo				NVARCHAR(3),
-    NumeroTelefono		NVARCHAR(20)		NOT NULL,
-    Habilitado			Bit								DEFAULT 1,
-    CreatedAt			SMALLDATETIME		NOT NULL 	DEFAULT GETDATE(),
-    UpdateAt			SMALLDATETIME		NULL,
-    CONSTRAINT Fk_ProveedorTele FOREIGN KEY (IdProveedor)
-        REFERENCES Proveedor (IdProveedor),
-	CONSTRAINT PK_IdNumeroTelefProv PRIMARY KEY (IdNumero,IdProveedor)
-);
-GO
---INSERT INTO NUMERO_TELEFONO_PROVEEDOR(IdProveedor,NumeroTelefono) 
---VALUES	(1,'2279-9245')
---		,(1,'782323239')
---		,(2,'58556641')
---		,(3,'322578734');
+--INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Telefono) 
+--VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante','87792956')
+--		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante','87603420')
+--		,('Insumos Chinos','asdasda sdasdsa asd','esteesun@correo.com','descripcion','Representante','87792987');
 GO
 CREATE TABLE CLASIFICACION_UNIDAD_MEDIDA (
     IdClasificacionUnidadMedida	INT IDENTITY(1,1),
@@ -411,17 +416,15 @@ CREATE TABLE BODEGA_SUCURSAL (
 	CONSTRAINT FK_SUCURSAL_BODEGA FOREIGN KEY(IdBodegaS) REFERENCES SUCURSAL(IdSucursal)
 );
 GO
-CREATE TABLE TIPO_DOCUMENTO(
-	IdTipoDocumento		INT IDENTITY(1,1),
-	NombreTD			NVARCHAR(50)		NOT NULL	UNIQUE,
-	DescripcionTD		NVARCHAR(150)		NULL,
-	Habilitado			BIT					NOT NULL	DEFAULT 1,
-	CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
-	CONSTRAINT PK_TIPO_DOCUMENTO PRIMARY KEY(IdTipoDocumento)
-)
-GO
-INSERT INTO TIPO_DOCUMENTO(NombreTD, DescripcionTD)
-VALUES('Cedula',NULL)
+--CREATE TABLE DOCUMENTO_IDENTIFICACION (
+--	IdDocumentoI		INT IDENTITY(1,1),
+--	IdTipoDocumento		INT					NOT NULL,
+--	Documento			NVARCHAR(50),
+--	Habilitado			BIT					NOT NULL	DEFAULT 1,
+--	CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
+--	UpdateAt			SMALLDATETIME		NULL,
+--	CONSTRAINT PK_DOCUMENTO	PRIMARY KEY(IdDocumentoI)
+--)
 GO
 CREATE TABLE TRABAJADOR (
     IdTrabajador		INT IDENTITY(1,1),
@@ -445,8 +448,8 @@ CREATE TABLE TRABAJADOR (
         REFERENCES Cargo (IdCargo),
     CONSTRAINT FK_TRABAJADOR_SUCURSAL FOREIGN KEY (IdSucursal)
         REFERENCES SUCURSAL (IdSucursal),
-	CONSTRAINT FK_TIPO_DOCUMENTO FOREIGN KEY(IdTipoDocumento)
-		REFERENCES TIPO_DOCUMENTO(IdTipoDocumento),
+	CONSTRAINT FK_TIPO_DOCUMENTO_IDENTIFICACION FOREIGN KEY(IdTipoDocumento)
+		REFERENCES TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento),
 	CONSTRAINT U_NumeroCedula UNIQUE(Documento),
 	CONSTRAINT CK_TelefonosDistintos CHECK(Telefono1 <> Telefono2)
 )

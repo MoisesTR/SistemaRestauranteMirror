@@ -276,9 +276,9 @@ CREATE PROCEDURE [dbo].[USP_GET_TIPOS_DOCUMENTOS](
 AS BEGIN
 	IF @Habilitado IS NULL
 		SELECT	IdTipoDocumento, NombreTD, DescripcionTD, Habilitado, CreatedAt
-		FROM	dbo.TIPO_DOCUMENTO
+		FROM	dbo.TIPO_DOCUMENTO_IDENTIFICACION
 	ELSE
 		SELECT	IdTipoDocumento, NombreTD, DescripcionTD, Habilitado,CreatedAt
-		FROM	dbo.TIPO_DOCUMENTO T 
+		FROM	dbo.TIPO_DOCUMENTO_IDENTIFICACION T 
 		WHERE T.Habilitado = @Habilitado
 END

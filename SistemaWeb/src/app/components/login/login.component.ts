@@ -6,7 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utilidades} from '../Utilidades';
 import {ToastService} from '../../typescripts/pro/alerts';
-import {isArray} from 'util';
+import {UserIdleService} from 'angular-user-idle';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     private usuarioServicio: UsuarioService,
     private formBuilderUser : FormBuilder
     , private toastr: ToastService
+    , private userIdle: UserIdleService
   ) {
 
     this.usuario = new Usuario();
@@ -83,6 +84,16 @@ export class LoginComponent implements OnInit {
               if(this.token.length <= 0){
                 console.log('El token no se ha generado');
               } else {
+                  // Start watching for user inactivity.
+                  this.userIdle.startWatching();
+
+                  // Start watching when user idle is starting.
+                  this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+                  // Start watch when time is up.
+                  this.userIdle.onTimeout().subscribe(() => {
+                      this._router.navigate(['/login']);
+                  });
                 this.status = 'success';
                 this._router.navigate(['/dashboard']);
               }

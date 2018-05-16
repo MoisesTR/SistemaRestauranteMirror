@@ -28,6 +28,7 @@
     "@ng-select/ng-select": "^0.21.0",
     "angular-bootstrap-md": "^5.2.2",
     "angular-datatables": "5.0.0",
+    "angular-user-idle": "1.1.0",
     "angular2-jwt": "^0.2.3",
     "chart.js": "2.5.0",
     "classlist.js": "1.1.x",
@@ -93,7 +94,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.4.2",
+    "typescript": "~2.7.2",
     "webpack": "^3.1.0"
   }
 }

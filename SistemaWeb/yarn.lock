@@ -398,6 +398,10 @@ angular-datatables@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/angular-datatables/-/angular-datatables-5.0.0.tgz#5264116d3e5f9a150403342db9eb91f91f9e06ca"
 
+angular-user-idle@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/angular-user-idle/-/angular-user-idle-1.1.0.tgz#63f204870a637448a08751f0bebc6f5408e18f7e"
+
 angular2-jwt@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/angular2-jwt/-/angular2-jwt-0.2.3.tgz#54efdda3ceedba85f6a37b165f22ac22b8adf021"
@@ -7163,13 +7167,13 @@ typescript@^2.0.10:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.2.tgz#606022508479b55ffa368b58fee963a03dfd7b0c"
 
-typescript@~2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
-
 typescript@~2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
+
+typescript@~2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
 
 uglify-es@^3.3.4:
   version "3.3.9"

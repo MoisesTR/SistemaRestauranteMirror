@@ -11,6 +11,8 @@ import {MenuModule} from './components/menu/menu.module';
 import {SharedModuleModule} from './components/shared-module/shared-module.module';
 import {LoginComponent} from './components/login/login.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
+import {UserIdleModule} from 'angular-user-idle';
+
 
 //Rutas principales
 const routes: Routes = [
@@ -34,10 +36,12 @@ const routes: Routes = [
     , ToastModule.forRoot({maxOpened : 1,timeOut : 2000, preventDuplicates : true})
     , MDBBootstrapModule.forRoot()
     , MDBBootstrapModulePro.forRoot()
+      , UserIdleModule.forRoot({idle: 600, timeout: 1, ping: 0})
     , AgmCoreModule.forRoot({
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: 'Your_api_key'
-    })
+    }),
+
   ],
   providers: [MDBSpinningPreloader],
   bootstrap: [AppComponent],

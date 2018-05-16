@@ -1,6 +1,6 @@
 {
   "compileOnSave": false,
-  "include": ["/src/app/typescripts/pro/index.ts",  "src/**/*.ts"],
+  "include": ["/src/app/typescripts/pro/index.ts",  "src/**/*.ts","src/user-idle.ts"],
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",

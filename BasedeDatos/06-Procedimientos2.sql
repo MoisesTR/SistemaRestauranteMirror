@@ -297,6 +297,7 @@ AS BEGIN
 	FROM	dbo.UNIDAD_MEDIDA UNIDAD 
 			INNER JOIN dbo.CLASIFICACION_UNIDAD_MEDIDA CLASI_UNIDAD
 	ON		UNIDAD.IdClasificacionUnidadMedida = CLASI_UNIDAD.IdClasificacionUnidadMedida
+	WHERE UNIDAD.Habilitado = 1
 	ORDER BY UNIDAD.NImportancia DESC
 END
 GO
@@ -436,11 +437,19 @@ CREATE PROCEDURE USP_UPDATE_TRABAJADOR(
 	@Imagen				NVARCHAR(50), 
     @FechaNacimiento	DATE,
     @Direccion			NVARCHAR(300),
+	@Telefono1			NVARCHAR(20),
+	@Telefono2			NVARCHAR(20),
     @FechaIngreso		DATE 
 )
 AS BEGIN 
-	UPDATE TRABAJADOR SET IdSucursal=@IdSucursal,IdCargo=@IdCargo,nombres=@Nombres,Apellidos=@Apellidos, Imagen = @Imagen,
-	Documento=@Documento,FechaNacimiento=@FechaNacimiento,UpdateAt=GETDATE()
+	UPDATE TRABAJADOR 
+	SET IdSucursal=@IdSucursal,IdCargo=@IdCargo,nombres=@Nombres,Apellidos=@Apellidos, 
+		Imagen = @Imagen,Documento=@Documento,FechaNacimiento=@FechaNacimiento,
+		Telefono1 = @Telefono1, Telefono2 = @Telefono2,	UpdateAt=GETDATE()
+		WHERE IdTrabajador = @IdTrabajador
+
+	IF EXISTS(SELECT 1 FROM USUARIO WHERE IdTrabajador = @IdTrabajador)
+		UPDATE USUARIO SET Imagen = @Imagen FROM USUARIO WHERE IdTrabajador = @IdTrabajador
 END
 GO
 IF	 OBJECT_ID('USP_CREATE_TELEFONO_TRABAJADOR','P') IS NOT NULL
@@ -552,3 +561,17 @@ BEGIN
 	RETURN @RETORNO;
 END
 GO
+IF OBJECT_ID('USP_UPDATE_SUCURSAL',N'P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_UPDATE_SUCURSAL
+GO
+CREATE PROCEDURE [dbo].USP_UPDATE_SUCURSAL(
+	@IdSucursal			INT,
+    @NombreSucursal		NVARCHAR(100) ,
+    @Direccion			NVARCHAR(250) ,
+	@Telefono1			NVARCHAR(20) ,
+	@Telefono2			NVARCHAR(20) NULL
+) AS BEGIN
+	UPDATE SUCURSAL SET NombreSucursal=@NombreSucursal,Direccion=@Direccion,
+    Telefono1 = @Telefono1,Telefono2 = ISNULL(@Telefono2, Telefono2), UpdateAt=GETDATE() 
+	WHERE IdSucursal = @IdSucursal;
+END 

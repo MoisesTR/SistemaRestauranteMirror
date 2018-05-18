@@ -48,8 +48,8 @@
                   <br>
                   <label class="margin-label-trabajador" for="fechaNacimiento">Fecha de Nacimiento</label>
                   <div class="md-form">
-                    <mdb-date-picker mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
-                      [options]="myDatePickerOptions" required></mdb-date-picker>
+                    <mdb-date-picker mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento" [options]="myDatePickerOptions"
+                      required></mdb-date-picker>
                     <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
                   </div>
                 </div>
@@ -58,8 +58,8 @@
                   <br>
                   <label class="margin-label-trabajador" for="FechaIngreso">Fecha de Ingreso</label>
                   <div class="md-form">
-                    <mdb-date-picker mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso"
-                      [options]="myDatePickerOptions" required></mdb-date-picker>
+                    <mdb-date-picker mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso" [options]="myDatePickerOptions"
+                      required></mdb-date-picker>
                     <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
                   </div>
                 </div>
@@ -67,16 +67,17 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form ">
-                    <input mdbActive type="text" id="documentoTrabajador" name="documentoTrabajador" formControlName="documentoTrabajador" class="form-control cedula" minlength="4" maxlength="50">
-                     <show-errors [control]="formUpdateTrabajador.controls['documentoTrabajador']"></show-errors>
+                    <input mdbActive type="text" id="documentoTrabajador" name="documentoTrabajador" formControlName="documentoTrabajador" class="form-control cedula"
+                      minlength="4" maxlength="50">
+                    <show-errors [control]="formUpdateTrabajador.controls['documentoTrabajador']"></show-errors>
                     <label for="documentoTrabajador" class="">Documento</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <label for="sucursal">Tipo de Documento</label>
-                  <ng-select [items]="tiposDocumento" bindLabel="NombreTD" bindValue="IdTipoDocumento" placeholder="Selecciona un tipo de documento" id="tipoDocumento"
-                    (change)="onChangeTipoDocumento($event)" formControlName="tipoDocumento">
+                  <ng-select [items]="tiposDocumento" bindLabel="NombreTD" bindValue="IdTipoDocumento" placeholder="Selecciona un tipo de documento"
+                    id="tipoDocumento" (change)="onChangeTipoDocumento($event)" formControlName="tipoDocumento">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['tipoDocumento']"></show-errors>
                 </div>
@@ -85,7 +86,7 @@
                   <br>
                   <div class="md-form ">
                     <input mdbActive type="text" id="TelefonoPrincipalTrabajador" minlength="4" maxlength="50" class="form-control telefono"
-                           name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal">
+                      name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
@@ -95,7 +96,7 @@
                   <br>
                   <div class="md-form ">
                     <input mdbActive type="text" id="TelefonoSecundarioTrabajador" minlength="4" maxlength="50" class="form-control telefono"
-                           name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario">
+                      name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
@@ -104,7 +105,7 @@
                 <div class="col-md-12">
                   <label for="sucursal">Sucursal</label>
                   <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
-                             (change)="onChangeSucursal($event)" formControlName="sucursal">
+                    (change)="onChangeSucursal($event)" formControlName="sucursal">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['sucursal']"></show-errors>
                 </div>
@@ -132,7 +133,9 @@
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" [disabled] = "!formUpdateTrabajador.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateTrabajador.valid">Ingresar
+                  <i class="fa fa-check ml-1"></i>
+                </button>
               </div>
 
             </form>
@@ -146,25 +149,34 @@
   </section>
 </div>
 
-<div mdbModal #modalUsuario="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-notify modal-success" role="document">
-    <div class="modal-content">
+<div mdbModal #modalUsuario="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+    <!--Content-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Header-->
       <div class="modal-header">
-        <p class="heading lead">Crear usuario</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
-          <span aria-hidden="true" class="white-text">×</span>
-        </button>
+        <!-- Cambiar imagen -->
+        <img src="https://vignette.wikia.nocookie.net/rick-y-morty-espanol/images/5/58/Ick_y_morty_wiki.png/revision/latest?cb=20170914132754&path-prefix=es"
+          class="rounded-circle img-responsive">
       </div>
-      <div class="modal-body">
+      <!--Body-->
+      <div class="modal-body text-center mb-1">
+
+        <h4 class="mt-1 mb-2">Crear Usuario</h4>
+        <p>Desea crear un usuario a partir de este trabajador?</p>
+
+
         <div class="text-center">
-          <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
-          <p>Desea crear un usuario a partir de este trabajador?</p>
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal" (click)="listaTrabajadores()" mdbWavesEffect>No</button>
+          <button class="btn orange-chang mt-1 waves-light" (click)="relacionarTrabajador()" mdbWavesEffect>SI
+            <i class="fa fa-sign-in ml-1"></i>
+          </button>
         </div>
       </div>
-      <div class="modal-footer justify-content-center">
-        <a type="button" class="btn btn-primary waves-light" (click)="relacionarTrabajador()" mdbWavesEffect>SI</a>
-        <a type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="listaTrabajadores()" mdbWavesEffect>NO</a>
-      </div>
+
     </div>
+    <!--/.Content-->
   </div>
 </div>

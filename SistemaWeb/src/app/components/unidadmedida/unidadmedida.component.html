@@ -35,10 +35,10 @@
                       id="btnEditUnidadMedida" mdbTooltip="Editar" placement="bottom">
                       <i class="fa fa-pencil"></i>
                     </button>
-                    <button type="button" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)" class="btn btn-sm orange-chang"
-                      id="btnDeleteUnidadMedida" mdbTooltip="Eliminar" placement="bottom">
+                    <button type="button" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)" class="btn btn-sm orange-chang" id="btnDeleteUnidadMedida"
+                      mdbTooltip="Eliminar" placement="bottom">
                       <i class="fa fa-times"></i>
-                    </button>                    
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -96,8 +96,7 @@
           <div class="md-form">
             <br>
             <h6 class="orange-chang-text">Importancia</h6>
-            <input type="number" id="nimportancia" class="input-modal-sm" name="nimportancia" formControlName="nimportancia"
-                   required>
+            <input type="number" id="nimportancia" class="input-modal-sm" name="nimportancia" formControlName="nimportancia" required>
             <show-errors [control]="formAddUnidadMedida.controls['nimportancia']"></show-errors>
           </div>
 
@@ -147,23 +146,23 @@
           <h6 class="orange-chang-text">Clasificación</h6>
           <ng-select dropdownPosition="top" class="select-mdl" [items]="clasificacionesUnidad" bindLabel="NombreClasificacion" bindValue="IdClasificacionUnidadMedida"
             [(ngModel)]="unidadMedida.IdClasificacionUnidadMedida" placeholder="Selecciona una clasificacion" formControlName="clasificacionesUnidad"
-            id="upclasificacionunidadmedida" (change)="changeClasificacionUnidad($event)" >
+            id="upclasificacionunidadmedida" (change)="changeClasificacionUnidad($event)">
           </ng-select>
 
-          <div class="md-form ">
+          <div class="md-form">
+            <br>
             <h6 class="orange-chang-text">Simbolo</h6>
             <input type="text" id="upsimbolounidadmedida" class="input-modal-sm letras" name="simbolounidadmedida" formControlName="simboloUnidadMedida"
               required>
             <show-errors [control]="formUpdateUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
           </div>
 
-            <div class="md-form">
-                <br>
-                <h6 class="orange-chang-text">Importancia</h6>
-                <input type="number" id="upnimportancia" class="input-modal-sm" name="nimportancia" formControlName="nimportancia"
-                       required>
-                <show-errors [control]="formUpdateUnidadMedida.controls['nimportancia']"></show-errors>
-            </div>
+          <div class="md-form">
+            <br>
+            <h6 class="orange-chang-text">Importancia</h6>
+            <input type="number" id="upnimportancia" class="input-modal-sm" name="nimportancia" formControlName="nimportancia" required>
+            <show-errors [control]="formUpdateUnidadMedida.controls['nimportancia']"></show-errors>
+          </div>
 
           <div class="text-center mt-1-half">
             <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateUnidadMedida.valid">Ingresar

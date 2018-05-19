@@ -310,6 +310,13 @@ export class AddProductoProveedorComponent implements OnInit {
   }
 
 
+  addProducto(){
+    this._router.navigate(['producto/add'])
+  }
+
+  addProveedor(){
+      this._router.navigate(['proveedor/add'])
+  }
 
   showModalAddEmpaque(){
       this.showModalEmpaque  = true;

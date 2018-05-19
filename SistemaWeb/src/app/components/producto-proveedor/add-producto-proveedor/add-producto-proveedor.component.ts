@@ -128,9 +128,7 @@ export class AddProductoProveedorComponent implements OnInit {
         ]),
         'envase': new FormControl(''),
         'empaque': new FormControl(''),
-        'cantidadEmpaque': new FormControl('',[
-            Validators.required,
-            CustomValidators.rangeNumber(1,200)
+        'cantidadEmpaque': new FormControl(null,[
         ]),
         'costo': new FormControl('',[
             Validators.required
@@ -277,7 +275,6 @@ export class AddProductoProveedorComponent implements OnInit {
 
   guardarProductoProveedor(){
     this.getValuesForm();
-
     this._ProductoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
       response => {
         if (response){

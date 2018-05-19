@@ -61,186 +61,186 @@
 
 
 
-<!--&lt;!&ndash; Modal proveedores &ndash;&gt;-->
-<!--<div mdbModal #modalAddProveedor="mdb-modal" class="modal modal-scroll fade" id="modalingresarproveedor" tabindex="-1" role="dialog"-->
-     <!--aria-labelledby="myModalLabel" aria-hidden="true">-->
-  <!--<div class="modal-dialog modal-lg cascading-modal " role="document">-->
-    <!--&lt;!&ndash;Contenido&ndash;&gt;-->
-    <!--<div class="modal-content background-gray mdl">-->
+<!-- Modal proveedores -->
+<div mdbModal #modalAddProveedor="mdb-modal" class="modal modal-scroll fade" id="modalingresarproveedor" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
 
-      <!--&lt;!&ndash;Titulo&ndash;&gt;-->
-      <!--<div class="modal-header white-text orange-chang">-->
-        <!--<h4 class="title">-->
-          <!--<i class="fa fa-truck"></i> Proveedores</h4>-->
-        <!--<button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddProveedor.hide()">-->
-          <!--<span aria-hidden="true">×</span>-->
-        <!--</button>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;Cuerpo modal&ndash;&gt;-->
-      <!--<div class="modal-body mb-0">-->
+      <!--Titulo-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-truck"></i> Proveedores</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddProveedor.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
 
-        <!--<div class="container-fluid">-->
-          <!--&lt;!&ndash; Inicio form&ndash;&gt;-->
-          <!--<form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor(modalAddProveedor)" novalidate>-->
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor(modalAddProveedor)" novalidate>
 
-            <!--<div class="row">-->
+            <div class="row">
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Nombre Empresa</h6>-->
-                  <!--<input mdbActive type="text" id="nombreProveedor" class="input-modal-sm" name="nombreProveedor" formControlName="nombreProveedor">-->
-                  <!--<show-errors [control]="formAddProveedor.controls['nombreProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Nombre Empresa</h6>
+                  <input mdbActive type="text" id="nombreProveedor" class="input-modal-sm" name="nombreProveedor" formControlName="nombreProveedor">
+                  <show-errors [control]="formAddProveedor.controls['nombreProveedor']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Correo Electrónico</h6>-->
-                  <!--<input mdbActive type="email" id="email" class="input-modal-sm" name="email" formControlName="email"-->
-                         <!--pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">-->
-                  <!--<show-errors [control]="formAddProveedor.controls['email']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Correo Electrónico</h6>
+                  <input mdbActive type="email" id="email" class="input-modal-sm" name="email" formControlName="email"
+                         pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                  <show-errors [control]="formAddProveedor.controls['email']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-12">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Dirección</h6>-->
-                  <!--<textarea mdbActive type="text" id="direccionProveedor" class="text-area-modal" name="direccionProveedor" formControlName="direccionProveedor"></textarea>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-12">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Dirección</h6>
+                  <textarea mdbActive type="text" id="direccionProveedor" class="text-area-modal" name="direccionProveedor" formControlName="direccionProveedor"></textarea>
+                </div>
+              </div>
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Nombre Representante</h6>-->
-                  <!--<input mdbActive type="text" id="nombreRepresentante" class="input-modal-sm" name="nombreRepresentante" formControlName="nombreRepresentante"-->
-                         <!--noNumeros>-->
-                  <!--<show-errors [control]="formAddProveedor.controls['nombreRepresentante']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Nombre Representante</h6>
+                  <input mdbActive type="text" id="nombreRepresentante" class="input-modal-sm" name="nombreRepresentante" formControlName="nombreRepresentante"
+                         noNumeros>
+                  <show-errors [control]="formAddProveedor.controls['nombreRepresentante']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Telefóno</h6>-->
-                  <!--<input mdbActive type="text" id="telefonoProveedor" class="input-modal-sm telefono" name="telefonoProveedor" formControlName="telefonoProveedor">-->
-                  <!--<show-errors [control]="formAddProveedor.controls['telefonoProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Telefóno</h6>
+                  <input mdbActive type="text" id="telefonoProveedor" class="input-modal-sm telefono" name="telefonoProveedor" formControlName="telefonoProveedor">
+                  <show-errors [control]="formAddProveedor.controls['telefonoProveedor']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-12">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Descripción</h6>-->
-                  <!--<textarea mdbActive type="text" id="descripcionProveedor" class="text-area-modal" name="descripcionProveedor" formControlName="descripcionProveedor">-->
-                  <!--<show-errors [control]="formAddProveedor.controls['descripcionProveedor']"></show-errors>-->
-                <!--</textarea>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-12">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Descripción</h6>
+                  <textarea mdbActive type="text" id="descripcionProveedor" class="text-area-modal" name="descripcionProveedor" formControlName="descripcionProveedor">
+                  <show-errors [control]="formAddProveedor.controls['descripcionProveedor']"></show-errors>
+                </textarea>
+                </div>
+              </div>
 
-              <!--<div class="col-12">-->
-                <!--<div class="text-center mt-1-half">-->
-                  <!--<button class="btn orange-chang mb-1" value="Submit Form" [disabled]="!formAddProveedor.valid">Ingresar-->
-                    <!--<i class="fa fa-check ml-1"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-12">
+                <div class="text-center mt-1-half">
+                  <button class="btn orange-chang mb-1" value="Submit Form" [disabled]="!formAddProveedor.valid">Ingresar
+                    <i class="fa fa-check ml-1"></i>
+                  </button>
+                </div>
+              </div>
 
-            <!--</div>-->
-          <!--</form>-->
-          <!--&lt;!&ndash; Final form &ndash;&gt;-->
-        <!--</div>-->
+            </div>
+          </form>
+          <!-- Final form -->
+        </div>
 
-      <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;/.Contenido&ndash;&gt;-->
-  <!--</div>-->
-<!--</div>-->
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>
 
-<!--&lt;!&ndash; Modal update  proveedores &ndash;&gt;-->
-<!--<div mdbModal #modalUpdateProveedor="mdb-modal" class="modal modal-scroll fade" id="modalUpdateProveedor" tabindex="-1" role="dialog"-->
-     <!--aria-labelledby="myModalLabel" aria-hidden="true">-->
-  <!--<div class="modal-dialog modal-lg cascading-modal " role="document">-->
-    <!--&lt;!&ndash;Contenido&ndash;&gt;-->
-    <!--<div class="modal-content background-gray mdl">-->
+<!-- Modal update  proveedores -->
+<div mdbModal #modalUpdateProveedor="mdb-modal" class="modal modal-scroll fade" id="modalUpdateProveedor" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
 
-      <!--&lt;!&ndash;Titulo&ndash;&gt;-->
-      <!--<div class="modal-header orange-chang white-text">-->
-        <!--<h4 class="title">-->
-          <!--<i class="fa fa-truck"></i> Proveedores</h4>-->
-        <!--<button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateProveedor.hide()">-->
-          <!--<span aria-hidden="true">×</span>-->
-        <!--</button>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;Cuerpo modal&ndash;&gt;-->
-      <!--<div class="modal-body mb-0">-->
+      <!--Titulo-->
+      <div class="modal-header orange-chang white-text">
+        <h4 class="title">
+          <i class="fa fa-truck"></i> Proveedores</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateProveedor.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
 
-        <!--<div class="container-fluid">-->
-          <!--&lt;!&ndash; Inicio form&ndash;&gt;-->
-          <!--<form [formGroup]="formUpdateProveedor" (ngSubmit)="updateProveedor(modalUpdateProveedor)" novalidate>-->
+        <div class="container-fluid">
+          <!-- Inicio form-->
+          <form [formGroup]="formUpdateProveedor" (ngSubmit)="updateProveedor(modalUpdateProveedor)" novalidate>
 
-            <!--<div class="row">-->
+            <div class="row">
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Nombre Empresa</h6>-->
-                  <!--<input type="text" id="upnombreProveedor" class="input-modal-sm" name="nombreProveedor" formControlName="nombreProveedor">-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['nombreProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Nombre Empresa</h6>
+                  <input type="text" id="upnombreProveedor" class="input-modal-sm" name="nombreProveedor" formControlName="nombreProveedor">
+                  <show-errors [control]="formUpdateProveedor.controls['nombreProveedor']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Correo Electrónico</h6>-->
-                  <!--<input type="email" id="upemail" class="input-modal-sm" name="upemail" formControlName="email">-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['email']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Correo Electrónico</h6>
+                  <input type="email" id="upemail" class="input-modal-sm" name="upemail" formControlName="email">
+                  <show-errors [control]="formUpdateProveedor.controls['email']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-12">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Dirección</h6>-->
-                  <!--<textarea type="text" id="updireccionProveedor" class="text-area-modal" name="direccionProveedor" formControlName="direccionProveedor"></textarea>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['direccionProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-12">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Dirección</h6>
+                  <textarea type="text" id="updireccionProveedor" class="text-area-modal" name="direccionProveedor" formControlName="direccionProveedor"></textarea>
+                  <show-errors [control]="formUpdateProveedor.controls['direccionProveedor']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form ">-->
-                  <!--<h6 class="orange-chang-text">Nombre Representante</h6>-->
-                  <!--<input type="text" id="upnombreRepresentante" class="input-modal-sm" name="nombreRepresentante" formControlName="nombreRepresentante">-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['nombreRepresentante']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form ">
+                  <h6 class="orange-chang-text">Nombre Representante</h6>
+                  <input type="text" id="upnombreRepresentante" class="input-modal-sm" name="nombreRepresentante" formControlName="nombreRepresentante">
+                  <show-errors [control]="formUpdateProveedor.controls['nombreRepresentante']"></show-errors>
+                </div>
+              </div>
 
 
-              <!--<div class="col-6">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Telefóno</h6>-->
-                  <!--<input type="text" id="uptelefonoProveedor" class="input-modal-sm telefono" name="telefonoProveedor" formControlName="telefonoProveedor">-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['telefonoProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-6">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Telefóno</h6>
+                  <input type="text" id="uptelefonoProveedor" class="input-modal-sm telefono" name="telefonoProveedor" formControlName="telefonoProveedor">
+                  <show-errors [control]="formUpdateProveedor.controls['telefonoProveedor']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-md-12">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Descripción</h6>-->
-                  <!--<textarea type="text" id="updescripcionProveedor" class="text-area-modal" name="descripcionProveedor" formControlName="descripcionProveedor"></textarea>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['descripcionProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="col-md-12">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Descripción</h6>
+                  <textarea type="text" id="updescripcionProveedor" class="text-area-modal" name="descripcionProveedor" formControlName="descripcionProveedor"></textarea>
+                  <show-errors [control]="formUpdateProveedor.controls['descripcionProveedor']"></show-errors>
+                </div>
+              </div>
 
-              <!--<div class="col-12">-->
-                <!--<div class="text-center mt-1-half">-->
-                  <!--<button class="btn orange-chang mb-1" [disabled]="!formUpdateProveedor.valid">Actualizar-->
-                    <!--<i class="fa fa-check ml-1"></i>-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</form>-->
-          <!--&lt;!&ndash; Final form &ndash;&gt;-->
-          <!--<br>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;/.Contenido&ndash;&gt;-->
-  <!--</div>-->
-<!--</div>-->
+              <div class="col-12">
+                <div class="text-center mt-1-half">
+                  <button class="btn orange-chang mb-1" [disabled]="!formUpdateProveedor.valid">Actualizar
+                    <i class="fa fa-check ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- Final form -->
+          <br>
+        </div>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

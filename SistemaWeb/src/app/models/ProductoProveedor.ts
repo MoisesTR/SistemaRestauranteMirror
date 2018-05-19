@@ -29,6 +29,7 @@ export class ProductoProveedor{
     public UpdateAt : string;
     public Cantidad : number = 1;
     public Descuento : number = 0;
+    public Retencion2 : number;
 
 	constructor(
     ){}

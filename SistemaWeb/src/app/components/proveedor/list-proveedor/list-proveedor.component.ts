@@ -158,7 +158,7 @@ export class ListProveedorComponent implements OnInit {
         this.proveedor.NombreRepresentante = this.formAddProveedor.value.nombreRepresentante;
         this.proveedor.Descripcion = this.formAddProveedor.value.descripcionProveedor;
         this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
-        this.proveedor.Telefono = this.formAddProveedor.value.telefonoProveedor.toString().replace("-","");
+        // this.proveedor.Telefono = this.formAddProveedor.value.telefonoProveedor.toString().replace("-","");
         this.proveedor.Retencion2 = 1;
         this.proveedor.Email = this.formAddProveedor.value.email;
     }
@@ -168,7 +168,7 @@ export class ListProveedorComponent implements OnInit {
         this.proveedor.NombreRepresentante = this.formUpdateProveedor.value.nombreRepresentante;
         this.proveedor.Descripcion = this.formUpdateProveedor.value.descripcionProveedor;
         this.proveedor.Direccion = this.formUpdateProveedor.value.direccionProveedor;
-        this.proveedor.Telefono = this.formUpdateProveedor.value.telefonoProveedor.toString().replace("-","");
+        // this.proveedor.Telefono = this.formUpdateProveedor.value.telefonoProveedor.toString().replace("-","");
         this.proveedor.Retencion2 = 1;
         this.proveedor.Email = this.formUpdateProveedor.value.email;
 
@@ -325,17 +325,17 @@ export class ListProveedorComponent implements OnInit {
         this.proveedor.Descripcion = Proveedor.Descripcion;
         this.proveedor.Direccion = Proveedor.Direccion;
         this.proveedor.NombreRepresentante = Proveedor.NombreRepresentante;
-        this.proveedor.Telefono = Proveedor.Telefono;
+        // this.proveedor.Telefono = Proveedor.Telefono;
         this.proveedor.Email = Proveedor.Email;
 
-        this.formUpdateProveedor.setValue({
-            nombreProveedor: Proveedor.NombreProveedor
-            , descripcionProveedor: Proveedor.Descripcion
-            , email: Proveedor.Email
-            , direccionProveedor: Proveedor.Direccion
-            , nombreRepresentante: Proveedor.NombreRepresentante
-            , telefonoProveedor:  Proveedor.Telefono
-        })
+        // this.formUpdateProveedor.setValue({
+        //     nombreProveedor: Proveedor.NombreProveedor
+        //     , descripcionProveedor: Proveedor.Descripcion
+        //     , email: Proveedor.Email
+        //     , direccionProveedor: Proveedor.Direccion
+        //     , nombreRepresentante: Proveedor.NombreRepresentante
+        //     , telefonoProveedor:  Proveedor.Telefono
+        // })
 
     }
 

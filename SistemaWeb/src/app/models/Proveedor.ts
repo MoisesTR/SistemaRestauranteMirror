@@ -6,7 +6,9 @@ export class Proveedor {
     public Email: string;
     public Descripcion: string;
     public NombreRepresentante: string;
-    public Telefono: string;
+    public Documento : string;
+    public Telefono1: string;
+    public Telefono2: string;
     public Retencion2 : number;
     public Habilitado: number;
 

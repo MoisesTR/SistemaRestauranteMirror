@@ -1,5 +1,5 @@
 import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {isString} from 'util';
+import {isNull, isString} from 'util';
 import {Utilidades} from '../components/Utilidades';
 
 export class CustomValidators {
@@ -160,7 +160,8 @@ export class CustomValidators {
         return (control: AbstractControl): { [key  : string ] : { [key: string]: string  }} | null => {
             if (control.value !== undefined && (isNaN(control.value) || control.value < min || control.value > max)) {
 
-                error = 'Fuera de rango, el rango de numeros permitidos es ['+min+' - ' + max + ']';
+                if(!isNull(control.value))
+                    error = 'Fuera de rango, el rango de numeros permitidos es ['+min+' - ' + max + ']';
             } else {
                 error = '';
             }

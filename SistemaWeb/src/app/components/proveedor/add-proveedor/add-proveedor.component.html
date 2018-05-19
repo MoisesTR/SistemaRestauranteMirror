@@ -10,13 +10,14 @@
         <!-- Contenido -->
         <div class="card-body ">
 
-          <form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor(modalAddProveedor)" novalidate>
+          <form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor()" novalidate>
             <div class="row">
 
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
                   <input mdbActive type="text" id="nombreProveedor" formControlName="nombreProveedor" class="form-control letras" autocomplete="off">
+                  <show-errors [control]="formAddProveedor.controls['nombreProveedor']"></show-errors>
                   <label for="nombreProveedor">Nombre Empresa</label>
                 </div>
               </div>
@@ -24,7 +25,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="numeroruc" formControlName="numeroruc" class="form-control letras" autocomplete="off">
+                  <input mdbActive type="number" id="numeroruc" formControlName="numeroRuc" class="form-control" autocomplete="off">
+                  <show-errors [control]="formAddProveedor.controls['numeroRuc']"></show-errors>
                   <label for="numeroruc">Número Ruc</label>
                 </div>
               </div>
@@ -34,6 +36,7 @@
                 <div class="md-form">
                   <textarea mdbActive type="text" id="direccionProveedor" formControlName="direccionProveedor" class="md-textarea" autocomplete="off"
                     required></textarea>
+                  <show-errors [control]="formAddProveedor.controls['direccionProveedor']"></show-errors>
                   <label for="direccionProveedor">Dirección Proveedor</label>
                 </div>
               </div>
@@ -42,6 +45,7 @@
                 <br>
                 <div class="md-form">
                   <input mdbActive type="text" id="nombreRepresentante" formControlName="nombreRepresentante" class="form-control letras" autocomplete="off">
+                  <show-errors [control]="formAddProveedor.controls['nombreRepresentante']"></show-errors>
                   <label for="nombreRepresentante">Nombre Representante</label>
                 </div>
               </div>
@@ -50,6 +54,7 @@
                 <br>
                 <div class="md-form">
                   <input mdbActive type="email" id="email" formControlName="email" class="form-control letras" autocomplete="off">
+                  <show-errors [control]="formAddProveedor.controls['email']"></show-errors>
                   <label for="email">Correo Electrónico</label>
                 </div>
               </div>
@@ -57,7 +62,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="telefonoProveedor" formControlName="telefonoProveedor" class="form-control letras" autocomplete="off">
+                  <input mdbActive type="number" id="telefonoProveedor" formControlName="telefono1" class="form-control" autocomplete="off">
+                  <show-errors [control]="formAddProveedor.controls['telefono1']"></show-errors>
                   <label for="telefonoProveedor">Telefóno</label>
                 </div>
               </div>
@@ -65,8 +71,9 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="telefonoProveedoropcional" formControlName="telefonoProveedoropcional" class="form-control letras"
+                  <input mdbActive type="number" id="telefonoProveedoropcional" formControlName="telefono2" class="form-control"
                     autocomplete="off">
+                  <show-errors [control]="formAddProveedor.controls['telefono2']"></show-errors>
                   <label for="telefonoProveedoropcional">Telefóno (Opcional)</label>
                 </div>
               </div>
@@ -76,6 +83,7 @@
                 <div class="md-form">
                   <textarea mdbActive type="text" id="descripcionProveedor" formControlName="descripcionProveedor" class="md-textarea" autocomplete="off"
                     required></textarea>
+                  <show-errors [control]="formAddProveedor.controls['descripcionProveedor']"></show-errors>
                   <label for="descripcionProveedor">Descripción Proveedor</label>
                 </div>
               </div>

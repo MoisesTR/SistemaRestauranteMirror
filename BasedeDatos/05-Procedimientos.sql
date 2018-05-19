@@ -199,11 +199,11 @@ CREATE PROCEDURE USP_UPDATE_SUBCLASIFICACION(
 	@NombreSubClasificacion				NVARCHAR(50)  NULL,
     @DescripcionSubClasificacion		NVARCHAR(150) NULL
 ) AS BEGIN
-	IF COALESCE(@IdSubClasificacion, @NombreSubClasificacion, @De) IS NOT NULL
+	IF COALESCE(@IdSubClasificacion, @NombreSubClasificacion, @DescripcionSubClasificacion) IS NOT NULL
 		BEGIN
 			UPDATE SUBCLASIFICACION_PRODUCTO
 			SET IdClasificacion= ISNULL(@IdClasificacion,IdClasificacion)
-			,NombreSubClasificacion = ISNULL(@Nombre, NombreSubClasificacion),DescripcionSubClasificacion  = ISNULL(@DescripcionSubClasificacion,DescripcionSubclasificacion),UpdateAt=GETDATE() 
+			,NombreSubClasificacion = ISNULL(@NombreSubClasificacion, NombreSubClasificacion),DescripcionSubClasificacion  = ISNULL(@DescripcionSubClasificacion,DescripcionSubclasificacion),UpdateAt=GETDATE() 
 			WHERE IdSubClasificacion = @IdSubClasificacion;
 		END
 END 

@@ -21,6 +21,7 @@
       "styles": [
         "../scss/bootstrap/bootstrap.scss",
         "../scss/mdb.scss",
+        "../node_modules/sweetalert2/dist/sweetalert2.min.css",
         "../node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
         "../node_modules/datatables.net-select/js/dataTables.select.js",
         "./styles.scss"
@@ -32,6 +33,7 @@
         "../node_modules/screenfull/dist/screenfull.js",
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/jquery-mask-plugin/dist/jquery.mask.js",
+        "../node_modules/sweetalert2/dist/sweetalert2.min.js",
         "assets/js/datatables.min.js",
         "assets/js/jquery.dataTables.min.js",
         "../node_modules/datatables.net-responsive/js/dataTables.responsive.js",

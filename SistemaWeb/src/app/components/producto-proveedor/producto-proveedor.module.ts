@@ -9,7 +9,6 @@ import {UpdateProductoProveedorComponent} from './update-producto-proveedor/upda
 import {ProductoProveedorRoutingModule} from './producto-proveedor.routing.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {UnidadMedidaService} from '../../services/unidad-medida.service';
-import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.component';
 
 @NgModule({
   imports: [
@@ -29,7 +28,6 @@ import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.comp
   ],
   providers: [
     UnidadMedidaService
-      , ModalEmpaqueComponent
   ]
 })
 export class ProductoProveedorModule { }

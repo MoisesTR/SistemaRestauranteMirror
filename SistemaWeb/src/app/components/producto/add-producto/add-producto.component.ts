@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import swal from 'sweetalert2';
+import swal from 'sweetalert2'
 import {Proveedor} from '../../../models/Proveedor';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoriaProductoService} from '../../../services/categoria-producto.service';
@@ -41,6 +41,7 @@ export class AddProductoComponent implements OnInit {
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
   public tituloPantalla : string = 'Productos';
+  public showModalcategoria : boolean = true;
 
   constructor(
     private _route: ActivatedRoute
@@ -180,13 +181,26 @@ export class AddProductoComponent implements OnInit {
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
         if(response.IdProducto){
-          swal(
-            'Producto',
-            'El producto ha sido creado exitosamente!',
-            'success'
-          ).then(() => {
-            this._router.navigate(['/producto']);
-          })
+            swal({
+                title: 'Producto Creado exitosamente!',
+                text: 'Deseas agregar otro producto?',
+                type: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'SI',
+                cancelButtonText: 'NO'
+            }).then((result) => {
+                if (result.value) {
+                    this.formAddProducto.reset();
+                    this.producto = new Producto();
+                    this.filesToUpload = null;
+                    this.subclasificaciones = null;
+                    $(".dropify-clear").click()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    this._router.navigate(['/producto'])
+                }
+            })
         }
       }, error =>{
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
@@ -232,5 +246,18 @@ export class AddProductoComponent implements OnInit {
 
     })
   }
+
+    showModalCategoria(){
+        this.showModalcategoria  = true;
+    }
+
+    resultadoConsultaCategoria(event) {
+        this.showModalcategoria = false;
+
+        if(event) {
+            this.getCategorias();
+        }
+
+    }
 
 }

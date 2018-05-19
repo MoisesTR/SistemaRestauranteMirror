@@ -5,7 +5,7 @@ import {CategoriaProducto} from '../../../models/CategoriaProducto';
 import {ModalDirective} from '../../../typescripts/free/modals';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {isNull} from 'util';
+import {isNull, isUndefined} from 'util';
 import {Utilidades} from '../../Utilidades';
 
 @Component({
@@ -15,9 +15,11 @@ import {Utilidades} from '../../Utilidades';
 export class ModalCategoriaComponent implements OnInit {
 
   public categoriaProducto: CategoriaProducto;
-  @ViewChild('modalAddCategoria') modalAddCategoria : ModalDirective;
+  @ViewChild('modalAddCategoria') modalAddCategoria  : ModalDirective;
   @Input() mostrarModal : boolean;
-  @Output() resultadoModal : EventEmitter<boolean> = new EventEmitter<boolean>()
+  @Output() resultadoModal : EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
+  @Output() resultadoConsulta : EventEmitter<boolean> = new EventEmitter<boolean>();
+  public isVisible: boolean = false;
   public isModalShown:boolean = false;
   public formAddCategoria: FormGroup;
 
@@ -32,7 +34,6 @@ export class ModalCategoriaComponent implements OnInit {
   ngOnInit() {
 
     this.initFormAddCategoria();
-    this.showModal();
 
   }
 
@@ -43,12 +44,22 @@ export class ModalCategoriaComponent implements OnInit {
       }
   }
 
-  eventoClick(event : ModalDirective){
+  show() {
+      this.isVisible = true;
+  }
 
-      if( !isNull(event.dismissReason) )
-          if( (event.dismissReason).toString() == ( 'backdrop-click')) {
-              this.hideModal();
-          }
+  ngAfterViewInit(){
+        this.modalAddCategoria.show();
+  }
+
+
+    eventoClick(event){
+
+        if( !isNull(event.dismissReason) && !isUndefined(event.dismissReason) )
+            if( (event.dismissReason).toString() == ( 'backdrop-click')) {
+                this.hideModal();
+
+        }
   }
 
     /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
@@ -91,28 +102,24 @@ export class ModalCategoriaComponent implements OnInit {
                       'La categoría ha sido creada exitosamente!',
                       'success'
                   ).then(() => {
+                      this.modalAddCategoria.hide();
                       this.formAddCategoria.reset();
+                      this.resultadoConsulta.emit(true);
                   })
 
               } else {
-                  swal(
-                      'Error inesperado',
-                      'Ha ocurrido un error al insertar la categoria, intenta nuevamente!',
-                      'error'
-                  )
-                  console.log('Ha ocurrido un error en el servidor, intenta nuevamente');
+                  Utilidades.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente','Categoria')
+
 
               }
               /* this.getCategoriasProductos();*/
           }, error => {
-              if (error.status == 500) {
-                  Utilidades.showMsgError(Utilidades.mensajeError(error));
-              }
+              Utilidades.showMsgError(Utilidades.mensajeError(error));
 
           }
       )
 
-      this.resultadoModal.emit(true);
+
   }
 
 
@@ -122,7 +129,7 @@ export class ModalCategoriaComponent implements OnInit {
 
   public hideModal() {
       this.modalAddCategoria.hide();
-      this.resultadoModal.emit(true);
+      this.resultadoConsulta.emit(false);
   }
 
 

@@ -281,13 +281,24 @@ export class AddProductoProveedorComponent implements OnInit {
     this._ProductoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
       response => {
         if (response){
-          swal(
-            'Producto-Proveedor',
-            'Se ha relacion exitosamente el producto ccn el proveedor!',
-            'success'
-          ).then(() => {
-            this._router.navigate(['/producto-proveedor']);
-          })
+            swal({
+                title: 'Se ha relacionado exitosamente el producto ccn el proveedor!',
+                text: 'Deseas relacionar otro producto?',
+                type: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'SI',
+                cancelButtonText: 'NO'
+            }).then((result) => {
+                if (result.value) {
+                    this.formProveedor.reset();
+                    this.productoProveedor = new ProductoProveedor();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    this._router.navigate(['/producto-proveedor']);
+                }
+            })
+
         }
       }, error => {
         Utilidades.showMsgError(Utilidades.mensajeError(error));

@@ -1,6 +1,6 @@
 
 <!-- Modal categorias crear -->
-<div mdbModal (click)="eventoClick()" #modalAddCategoria="mdb-modal" class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div mdbModal (click)="eventoClick($event)" [config]="{ignoreBackdropClick: true}" #modalAddCategoria="mdb-modal" class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
     <!--Contenido-->

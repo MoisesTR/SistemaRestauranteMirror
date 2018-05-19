@@ -7,7 +7,6 @@ import {ClasificacionProductoComponent} from '../clasificacion-producto/clasific
 import {SubClasificacionProductoComponent} from '../sub-clasificacion-producto/sub-clasificacion-producto.component';
 import {SucursalComponent} from '../sucursal/sucursal.component';
 import {EnvaseComponent} from '../envase/envase.component';
-import {ProveedorComponent} from '../proveedor/proveedor.component';
 import {AddUsuarioComponent} from '../usuario/add-usuario/add-usuario.component';
 import {EmpaqueComponent} from '../empaque/empaque.component';
 import {ListProductosComponent} from '../producto/list-productos/list-productos.component';
@@ -37,6 +36,9 @@ import {AuthGuardService} from '../../services/auth/auth-guard.service';
 import {AddProductoProveedorComponent} from '../producto-proveedor/add-producto-proveedor/add-producto-proveedor.component';
 import {UpdateProductoProveedorComponent} from '../producto-proveedor/update-producto-proveedor/update-producto-proveedor.component';
 import {ListProductoProveedorComponent} from '../producto-proveedor/list-producto-proveedor/list-producto-proveedor.component';
+import {ListProveedorComponent} from '../proveedor/list-proveedor/list-proveedor.component';
+import {AddProveedorComponent} from '../proveedor/add-proveedor/add-proveedor.component';
+import {UpdateProveedorComponent} from '../proveedor/update-proveedor/update-proveedor.component';
 
 
 const menuRoutes: Routes = [
@@ -60,7 +62,10 @@ const menuRoutes: Routes = [
 
         , {path:'categorias',component: CategoriaProductoComponent, data : { titulo : 'Categorias'}}
         , {path:'clasificacion-productos',component: ClasificacionProductoComponent, data : { titulo : 'Clasificaciones Produtos'}}
-        , {path:'proveedores',component: ProveedorComponent, data : { titulo : 'Proveedores'}}
+        //modulo de proveedores
+        , {path:'proveedor',component: ListProveedorComponent, data : { titulo : 'Proveedores'}}
+        , {path:'proveedor/add',component: AddProveedorComponent, data : { titulo : 'Proveedor'}}
+        , {path:'proveedor/update',component: UpdateProveedorComponent, data : { titulo : 'Proveedor'}}
         , {path:'subclasificacion-productos',component: SubClasificacionProductoComponent, data : { titulo : 'Subclasificaciones Productos'}}
         , {path:'sucursales',component: SucursalComponent, data : { titulo : 'Sucursales'}}
         , {path:'empaques',component: EmpaqueComponent, data : { titulo : 'Empaques'} }

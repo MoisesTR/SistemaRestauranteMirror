@@ -12,7 +12,6 @@ import {MDBBootstrapModulePro} from '../../typescripts/pro';
 import {MDBBootstrapModule} from '../../typescripts/free';
 //Componentes
 import {ClasificacionProductoComponent} from '../clasificacion-producto/clasificacion-producto.component';
-import {ProveedorComponent} from '../proveedor/proveedor.component';
 import {SucursalComponent} from '../sucursal/sucursal.component';
 import {CategoriaProductoComponent} from '../categoria-producto/categoria-producto.component';
 import {SubClasificacionProductoComponent} from '../sub-clasificacion-producto/sub-clasificacion-producto.component';
@@ -51,10 +50,10 @@ import {JwtHelper} from 'angular2-jwt';
 //Directivas
 import {TelephoneNumberFormatValidatorDirective} from '../../validadores/telephoneNumber';
 import {BirthYearValidatorDirective} from '../../validadores/birthYear';
-import {BuscarPipe} from '../../pipe/buscar.pipe';
 import {DatePipe} from '@angular/common';
 import {DeleteImageService} from '../../services/delete-image-service';
 import {InicioComponent} from '../inicio/inicio.component';
+import {ProveedorModule} from '../proveedor/proveedor.module';
 
 
 @NgModule({
@@ -62,7 +61,6 @@ import {InicioComponent} from '../inicio/inicio.component';
     CategoriaProductoComponent
     , ClasificacionProductoComponent
     , SubClasificacionProductoComponent
-    , ProveedorComponent
     , SucursalComponent
     , EnvaseComponent
     , EmpaqueComponent
@@ -83,6 +81,7 @@ import {InicioComponent} from '../inicio/inicio.component';
     , InformacionFacturaComponent
     , BuscarGeneralFacturaComponent
 
+
   ],
   imports: [
       SharedModuleModule
@@ -90,6 +89,7 @@ import {InicioComponent} from '../inicio/inicio.component';
     , ProductoModule
     , FacturaModule
     , TrabajadorModule
+      , ProveedorModule
     , UsuarioModule
     , ProductoProveedorModule
     , MDBBootstrapModule

@@ -41,7 +41,9 @@ export class AddProductoComponent implements OnInit {
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
   public tituloPantalla : string = 'Productos';
-  public showModalcategoria : boolean = true;
+  public showModalCategoria : boolean = true;
+  public showModalClasificacion : boolean = true;
+  public showModalSubclasificacion : boolean = true;
 
   constructor(
     private _route: ActivatedRoute
@@ -247,17 +249,41 @@ export class AddProductoComponent implements OnInit {
     })
   }
 
-    showModalCategoria(){
-        this.showModalcategoria  = true;
+  showModalCategoriaM(){
+      this.showModalCategoria = true;
+  }
+
+  resultadoConsultaCategoria(event) {
+    this.showModalCategoria = false;
+
+    if(event) {
+        this.getCategorias();
+    }
+  }
+
+  showModalClasificacionM(){
+      this.showModalClasificacion = true;
+  }
+
+  resultadoConsultaClasificacion(event) {
+    this.showModalClasificacion = false;
+
+    if(event) {
+        this.getClasificaciones();
+    }
+  }
+
+  showModalSubclasificacionM(){
+      this.showModalSubclasificacion  = true;
+  }
+
+  resultadoConsultaSubclasificacion(event) {
+    this.showModalSubclasificacion = false;
+
+    if(event) {
+        this.getCategorias();
     }
 
-    resultadoConsultaCategoria(event) {
-        this.showModalcategoria = false;
-
-        if(event) {
-            this.getCategorias();
-        }
-
-    }
+  }
 
 }

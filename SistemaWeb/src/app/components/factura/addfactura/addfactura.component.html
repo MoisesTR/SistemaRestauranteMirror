@@ -121,11 +121,11 @@
                             <thead>
                                 <tr>
                                     <th class="header-negrita">Producto</th>
-                                    <th class="header-negrita">Cantidad</th>
                                     <th class="header-negrita">U. Medida</th>
+                                    <th class="header-negrita">Cantidad</th>
                                     <th class="header-negrita">Precio unitario</th>
-                                    <th class="header-negrita">Gravado IVA</th>
                                     <th class="header-negrita">Descuento</th>
+                                    <th class="header-negrita">Gravado IVA</th>
                                     <th class="header-negrita">Precio Total</th>
                                     <th class="header-negrita centrar-texto">Accion</th>
                                 </tr>
@@ -133,8 +133,8 @@
                             <tbody>
                                 <tr *ngFor="let productoFactura of productosFactura">
                                     <td class="body-negrita">{{productoFactura.NombreProducto}}</td>
-                                    <td class="body-negrita">{{productoFactura.Cantidad}}</td>
                                     <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
+                                    <td class="body-negrita">{{productoFactura.Cantidad}}</td>
                                     <td class="body-negrita">{{productoFactura.Costo}} C$</td>
                                     <td class="body-negrita">
                                         <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>

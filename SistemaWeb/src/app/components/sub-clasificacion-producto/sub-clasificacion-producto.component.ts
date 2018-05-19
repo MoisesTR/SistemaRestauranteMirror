@@ -121,10 +121,10 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     this.settingsDatatable();
 
     //Investigar que la longitud sea extensa en la mascara
-    $('.letras').mask('Aaaaaa ',{'translation': {
-        A: {pattern: /[A-Za-z]/}
-      }
-    });
+    // $('.letras').mask('Aaaaaa ',{'translation': {
+    //     A: {pattern: /[A-Za-z]/}
+    //   }
+    // });
 
     this.getSubClasificaciones();
     this.getClasificaciones();
@@ -193,17 +193,16 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
           ).then( () =>  {
             Modal.hide();
             this.formAddSubClasificacion.reset();
+            this.subclasificacion = new SubClasificacionProducto();
           })
         } else {
             Utilidades.showMsgError('Ha ocurrido un error al insertar la subclasificación, intenta nuevamente!',this.tituloPantalla);
         }
         this.getSubClasificacionesRender();
       }, error => {
-          console.log(error);
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
-    this.subclasificacion = new SubClasificacionProducto();
   }
 
   capturarDatosActualizados(){

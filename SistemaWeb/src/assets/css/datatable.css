@@ -440,8 +440,9 @@ table.dataTable td {
 }
 
 /* Width input search */
+
 .width-input-dt {
-  width: 85% !important;
+  width: calc(100% - 150px) !important;
 }
 
 .modal-body .width-input-dt {
@@ -450,4 +451,5 @@ table.dataTable td {
 
 .float-right-dt {
   float: right !important;
+  /* width: 100% !important; */
 }

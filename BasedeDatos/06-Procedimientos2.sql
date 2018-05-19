@@ -418,6 +418,19 @@ CREATE PROCEDURE USP_CREATE_TRABAJADOR(
     @FechaIngreso DATE 
 )
 AS BEGIN 
+
+	IF EXISTS (SELECT 1 FROM TRABAJADOR WHERE Documento = @Documento AND @IdTipoDocumento = 1)
+	BEGIN
+		RAISERROR('Esta cedula ya se encuentra registrada!!',16,1);
+		RETURN
+	END
+
+	IF (@Telefono1 = @Telefono2)
+	BEGIN
+		RAISERROR('Los telefonos no pueden ser iguales!!',16,1)
+		RETURN
+	END
+
 	INSERT INTO TRABAJADOR(IdSucursal,IdCargo,Nombres,Apellidos,IdTipoDocumento, Documento, Imagen, FechaNacimiento,Direccion, Telefono1,Telefono2,FechaIngreso)
 	VALUES(@IdSucursal,@IdCargo,@Nombres,@Apellidos,ISNULL(@IdTipoDocumento,1),@Documento, @Imagen, @FechaNacimiento,@Direccion,@Telefono1, @Telefono2,@FechaIngreso)
 	SELECT @@IDENTITY AS IdTrabajador

@@ -37,7 +37,9 @@ function createProveedor(req, res) {
     db.pushAOJParam(aoj, 'Email', sql.NVarChar(100), data.Email);
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(200), data.Descripcion)
     db.pushAOJParam(aoj, 'NombreRepresentante', sql.NVarChar(200), data.NombreRepresentante)
-    db.pushAOJParam(aoj, 'Telefono', sql.NVarChar(200), data.Telefono)
+    db.pushAOJParam(aoj, 'Documento', sql.NVarChar(20), data.Documento)
+    db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(200), data.Telefono1)
+    db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(200), data.Telefono2)
     db.pushAOJParam(aoj, 'Retencion2', sql.Int, data.Retencion2)
     db.storedProcExecute('USP_CREATE_PROVEEDOR', aoj)
         .then((results) => {
@@ -47,45 +49,18 @@ function createProveedor(req, res) {
         });
 }
 
-function telefonoProveedor(req, res) {
-    var data = matchedData(req);
-    var aoj = [];
-    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor)
-    db.pushAOJParam(aoj, 'Prefijo', sql.NVarChar(3), data.Prefijo)
-    db.pushAOJParam(aoj, 'NumeroTelefono', sql.NVarChar(50), data.NumeroTelefono)
-    db.storedProcExecute('USP_CREATE_NUMEROPROVEEDOR', aoj)
-        .then((result) => {
-            res.status(200).json(result.recordset[0]);
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        })
-}
-
-function updateTelefonoProveedor(req, res) {
-    var data = req.body;
-    var aoj = [];
-    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor)
-    db.pushAOJParam(aoj, 'IdNumero', sql.Int, data.IdNumero)
-    db.pushAOJParam(aoj, 'Prefijo', sql.NVarChar(3), data.Prefijo)
-    db.pushAOJParam(aoj, 'NumeroTelefono', sql.NVarChar(50), data.NumeroTelefono)
-    db.storedProcExecute('USP_UPDATE_NUMERO_PROVEEDOR', aoj)
-        .then((result) => {
-
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        })
-}
-
 function updateProveedor(req, res) {
     var data = matchedData(req, {locations: ['body','params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor)
-    db.pushAOJParam(aoj, 'NombreProveedor', sql.NVarChar(50), data.NombreProveedor)
-    db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(200), data.Direccion)
-    db.pushAOJParam(aoj, 'Email', sql.NVarChar(100), data.Email)
+    db.pushAOJParam(aoj, 'NombreProveedor', sql.NVarChar(50), data.NombreProveedor);
+    db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(200), data.Direccion);
+    db.pushAOJParam(aoj, 'Email', sql.NVarChar(100), data.Email);
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(200), data.Descripcion)
-    db.pushAOJParam(aoj, 'NombreRepresentante', sql.NVarChar(100), data.NombreRepresentante)
-    db.pushAOJParam(aoj, 'Telefono', sql.NVarChar(200), data.Telefono)
+    db.pushAOJParam(aoj, 'NombreRepresentante', sql.NVarChar(200), data.NombreRepresentante)
+    db.pushAOJParam(aoj, 'Documento', sql.NVarChar(20), data.Documento)
+    db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(200), data.Telefono1)
+    db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(200), data.Telefono2)
     db.pushAOJParam(aoj, 'Retencion2', sql.Int, data.Retencion2)
     db.storedProcExecute('USP_UPDATE_PROVEEDOR', aoj)
         .then((results) => {

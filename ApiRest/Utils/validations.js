@@ -85,8 +85,11 @@ var createProveedor = [
     check('Email','Ingrese el Email del Proveedor.').isEmail(),
     check('Descripcion').optional({nullable:true}),
     check('NombreRepresentante','Ingrese el Nombre del representante.').exists(),
-    check('Telefono','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
+    check('Documento','El campo de Ruc es requerido!.').exists(),
+    check('Telefono1','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
+    check('Telefono2').optional({nullable:true}),
     check('Retencion2','El campo de retencion es requerido.').exists(),
+    
 ];
 exports.createProveedor = createProveedor;
 
@@ -179,7 +182,7 @@ exports.createTrabajador = [
     body('FechaNacimiento', 'FechaNacimiento debe ser una fecha').exists(),
     body('Direccion', 'Direccion debe tener un minimo de 10 y un maximo de 300').isLength({ min: 10, max: 300 }),
     body('Telefono1', 'EL primer telefono es requerido y debe tener 8 digitos!').isLength(8).isInt(),
-    body('Telefono2', 'El Telefono2 debe tener una longitud de 8 digitos y ser numerico!').isInt().isLength(8),
+    body('Telefono2', 'El Telefono2 debe tener una longitud de 8 digitos y ser numerico!').optional({nullable:true}),
     body('FechaIngreso', 'FechaIngreso es requerida!').exists(),
     sanitize('IdSucursal', 'IdSucursal debe ser entero').toInt(),
     sanitize('IdCargo', 'IdCargo debe ser entero').toInt()

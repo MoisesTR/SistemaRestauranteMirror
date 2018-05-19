@@ -10,26 +10,41 @@
             <form [formGroup]="formProveedor" (ngSubmit)="guardarProductoProveedor()" novalidate>
               <div class="row">
 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-9 col-md-5">
                   <br>
                   <label>Nombre del Producto</label>
-                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" formControlName="nombreProducto" placeholder="Selecciona un producto" id="productosProveedor"
-                    (change)="onChangeProducto($event)">
-
+                  <ng-select [items]="productos" bindLabel="NombreProducto" bindValue="IdProducto" formControlName="nombreProducto" placeholder="Selecciona un producto"
+                    id="productosProveedor" (change)="onChangeProducto($event)" class="">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['productosProveedor']"></show-errors>
                 </div>
 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-3 col-md-1 align-self-end" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top"
+                  popoverTitle="Agregar Nuevo Producto" triggers="mouseenter:mouseleave">
+                  <a class="btn-floating btn-sm orange-chang" style="margin-bottom: 25px;">
+                    <i class="fa fa-plus" (click)="showModalAddEmpaque()"></i>
+                  </a>
+                </div>
+
+                <div class="col-sm-9 col-md-5">
                   <br>
                   <br>
                   <div class="md-form" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top" popoverTitle="Selecciona al Proveedor"
                     triggers="mouseenter:mouseleave">
-                    <input mdbActive type="text" readonly id="proveedor" class="form-control" formControlName="nombreProveedor" autocomplete="off" (click)="modalEncontrarProveedor.show()">
+                    <input mdbActive type="text" readonly id="proveedor" class="form-control" formControlName="nombreProveedor" autocomplete="off"
+                      (click)="modalEncontrarProveedor.show()">
                     <label for="proveedor">Nombre del Proveedor</label>
                   </div>
                   <show-errors [control]="formProveedor.controls['nombreProveedor']"></show-errors>
                 </div>
+
+                <div class="col-sm-3 col-md-1 align-self-end" mdbPopover="Haz clíck, se mostrará una ventana y selecciona " placement="top"
+                  popoverTitle="Agregar Nuevo Proveedor" triggers="mouseenter:mouseleave">
+                  <a class="btn-floating btn-sm orange-chang" style="margin-bottom: 25px;">
+                    <i class="fa fa-plus" (click)="showModalAddEmpaque()"></i>
+                  </a>
+                </div>
+                
                 <div class="col-sm-9 col-md-5">
                   <br>
                   <label>Empaque</label>
@@ -83,7 +98,7 @@
                   <br>
                   <label>Unidad de Medida</label>
                   <ng-select [items]="unidadesMedida" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
-                             formControlName="unidadmedida" id="unidadmedida" (change)="onChangeUnidadMedida($event)" class="select-no-margin">
+                    formControlName="unidadmedida" id="unidadmedida" (change)="onChangeUnidadMedida($event)" class="select-no-margin">
                   </ng-select>
                   <show-errors [control]="formProveedor.controls['unidadmedida']"></show-errors>
                 </div>
@@ -114,7 +129,7 @@
                 </button>
               </div>
 
-            </form >
+            </form>
           </div>
         </div>
       </div>
@@ -140,8 +155,8 @@
 
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="mdl-data-table table-striped dt-responsive row-border hover" cellspacing="0"
-          width="100%">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="mdl-data-table table-striped dt-responsive row-border hover"
+          cellspacing="0" width="100%">
           <thead>
             <tr>
               <th class="header-negrita" width="90%">Nombre</th>
@@ -153,8 +168,8 @@
               <td class="body-negrita">{{proveedor.NombreProveedor}}</td>
               <td class="body-negrita">
                 <div class="text-center">
-                  <button type="button" (click)="seleccionarProveedor(proveedor,modalEncontrarProveedor)" class="btn btn-sm" style="background-color:#E67E22;" id="" data-toggle="tooltip" data-placement="bottom"
-                    title="Agregar">
+                  <button type="button" (click)="seleccionarProveedor(proveedor,modalEncontrarProveedor)" class="btn btn-sm" style="background-color:#E67E22;"
+                    id="" data-toggle="tooltip" data-placement="bottom" title="Agregar">
                     <i class="fa fa-check"></i>
                   </button>
                 </div>
@@ -169,6 +184,6 @@
   </div>
 </div>
 
-<modal-empaque *ngIf="showModalEmpaque" [mostrarModal]="showModalEmpaque" (resultadoConsulta)="resultadoConsultaEmpaque($event)" ></modal-empaque>
-<modal-envase *ngIf="showModalEnvase" [mostrarModal]="showModalEnvase" (resultadoConsulta)="resultadoConsultaEnvase($event)" ></modal-envase>
+<modal-empaque *ngIf="showModalEmpaque" [mostrarModal]="showModalEmpaque" (resultadoConsulta)="resultadoConsultaEmpaque($event)"></modal-empaque>
+<modal-envase *ngIf="showModalEnvase" [mostrarModal]="showModalEnvase" (resultadoConsulta)="resultadoConsultaEnvase($event)"></modal-envase>
 <modal-unidad-medida *ngIf="showModalUnidadMedida" [mostrarModal]="showModalUnidadMedida" (resultadoConsulta)="resultadoConsultaUnidadMedida($event)"></modal-unidad-medida>

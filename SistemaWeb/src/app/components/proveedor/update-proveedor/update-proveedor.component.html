@@ -1,3 +1,107 @@
-<p>
-  update-proveedor works!
-</p>
+<section>
+
+    <div class="row">
+      <!--Datos del Proveedor-->
+      <div class="col-lg-12">
+        <div class="card card-cascade narrower">
+          <div class="view gradient-card-header orange-chang">
+            <h4 class="mb-0">Actualizar Proveedor</h4>
+          </div>
+          <!-- Contenido -->
+          <div class="card-body ">
+  
+            <form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor(modalAddProveedor)" novalidate>
+              <div class="row">
+  
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input mdbActive type="text" id="nombreProveedor" formControlName="nombreProveedor" class="form-control letras" autocomplete="off">
+                    <label for="nombreProveedor">Nombre Empresa</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input mdbActive type="number" id="numeroruc" formControlName="numeroruc" class="form-control letras" autocomplete="off">
+                    <label for="numeroruc">Número Ruc</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-12">
+                  <br>
+                  <div class="md-form">
+                    <textarea mdbActive type="text" id="direccionProveedor" formControlName="direccionProveedor" class="md-textarea" autocomplete="off"
+                      required></textarea>
+                    <label for="direccionProveedor">Dirección Proveedor</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input mdbActive type="text" id="nombreRepresentante" formControlName="nombreRepresentante" class="form-control letras" autocomplete="off">
+                    <label for="nombreRepresentante">Nombre Representante</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input mdbActive type="email" id="email" formControlName="email" class="form-control letras" autocomplete="off">
+                    <label for="email">Correo Electrónico</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input mdbActive type="number" id="telefonoProveedor" formControlName="telefonoProveedor" class="form-control letras" autocomplete="off">
+                    <label for="telefonoProveedor">Telefóno</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <input mdbActive type="number" id="telefonoProveedoropcional" formControlName="telefonoProveedoropcional" class="form-control letras"
+                      autocomplete="off">
+                    <label for="telefonoProveedoropcional">Telefóno (Opcional)</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <br>
+                  <div class="md-form">
+                    <textarea mdbActive type="text" id="descripcionProveedor" formControlName="descripcionProveedor" class="md-textarea" autocomplete="off"
+                      required></textarea>
+                    <label for="descripcionProveedor">Descripción Proveedor</label>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <br>
+                  <br>
+                  <br>
+                  <input class="filled-in" type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2" formControlName="retencion">
+                  <label for="segundo2">
+                    <strong>Aplica Retención</strong>
+                  </label>
+                </div>
+  
+              </div>
+              <br>
+              <div class="text-center mt-1-half">
+                <button class="btn orange-chang mb-1" [disabled]="!formAddProveedor.valid">Ingresar
+                  <i class="fa fa-check ml-1"></i>
+                </button>
+              </div>
+  
+            </form>
+          </div>
+          <!-- Contenido -->
+        </div>
+      </div>
+    </div>
+  </section>

@@ -71,14 +71,20 @@
                 <mdb-item-head mdbRippleRadius>
                   <i class="fa">
                     <img src="./assets/img/icon/product.png" height="18">
-                  </i> Productos</mdb-item-head>
+                  </i> Facturas</mdb-item-head>
                 <mdb-item-body>
                   <ul>
+                    <li routerLinkActive="active-submenu">
+                      <a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>Factura</a>
+                    </li>
+                    <li routerLinkActive="active-submenu">
+                      <a class="waves-effect" [routerLink]="['/proveedores']" mdbRippleRadius>Proveedor</a>
+                    </li>
                     <li routerLinkActive="active-submenu">
                       <a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Productos</a>
                     </li>
                     <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/salida-producto']" mdbRippleRadius>Salidas</a>
+                      <a class="waves-effect" [routerLink]="['/producto-proveedor']" mdbRippleRadius>Detalle Producto</a>
                     </li>
                   </ul>
                 </mdb-item-body>
@@ -93,23 +99,18 @@
                 <mdb-item-body></mdb-item-body>
               </mdb-item>
 
-              <!-- Provedores -->
-              <mdb-item>
-                <mdb-item-head mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/proveedores.png" height="18">
-                  </i> Proveedores</mdb-item-head>
-                <mdb-item-body>
-                  <ul>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/proveedores']" mdbRippleRadius>Proveedores</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/producto-proveedor']" mdbRippleRadius>Productos</a>
-                    </li>
-                  </ul>
-                </mdb-item-body>
-              </mdb-item>
+              <!--&lt;!&ndash; Provedores &ndash;&gt;-->
+              <!--<mdb-item>-->
+                <!--<mdb-item-head mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/proveedores.png" height="18">-->
+                  <!--</i> Proveedores</mdb-item-head>-->
+                <!--<mdb-item-body>-->
+                  <!--<ul>-->
+                    <!---->
+                  <!--</ul>-->
+                <!--</mdb-item-body>-->
+              <!--</mdb-item>-->
 
               <!-- Trabajador -->
               <mdb-item class="no-collase">
@@ -147,12 +148,11 @@
                 <mdb-item-body></mdb-item-body>
               </mdb-item>
 
-              <!-- Factura -->
+              <!-- Salidas -->
               <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/factura/list']" mdbRippleRadius>
+                <mdb-item-head [routerLink]="['/salida-producto']" mdbRippleRadius>
                   <i class="fa">
-                    <img src="./assets/img/icon/facturas.png" height="18">
-                  </i> Facturas</mdb-item-head>
+                    <img src="./assets/img/icon/facturas.png" height="18"></i> Salidas</mdb-item-head>
                 <mdb-item-body></mdb-item-body>
               </mdb-item>
 

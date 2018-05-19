@@ -86,17 +86,22 @@
     </div>
   </form>
 
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+  <div class="fixed-action-btn" style="right:78%; bottom:35px;">
 
-    <a class="btn-floating btn-large red waves-light" mdbWavesEffect (click)="fixed.toggle($event)">
-      <i class="fa fa-pencil"></i>
+    <a class="btn-floating btn-large orange-chang waves-light" mdbWavesEffect (click)="fixed.toggle($event)">
+      <i class="fa fa-plus"></i>
     </a>
 
     <div class="fixed_collapse" mdbCollapse="isCollapsed" #fixed="bs-collapse">
-      <a class="btn-floating red waves-light" mdbWavesEffect><i class="fa fa-star"></i></a>
-      <a class="btn-floating yellow darken-1 waves-light" mdbWavesEffect><i class="fa fa-user"></i></a>
-      <a class="btn-floating green waves-light" mdbWavesEffect><i class="fa fa-envelope"></i></a>
-      <a class="btn-floating blue waves-light" mdbWavesEffect><i class="fa fa-shopping-cart"></i></a>
+      <a class="btn-floating red waves-light" mdbTooltip="Clasificación" placement="right" mdbWavesEffect>
+        <i class="fa fa-shopping-cart"></i>
+      </a>
+      <a class="btn-floating yellow darken-1 waves-light" mdbTooltip="Sub-Clasificación" placement="right" mdbWavesEffect>
+        <i class="fa fa-shopping-cart"></i>
+      </a>
+      <a class="btn-floating green waves-light" mdbTooltip="Categoria" placement="right" mdbWavesEffect>
+        <i class="fa fa-shopping-cart"></i>
+      </a>
     </div>
 
   </div>

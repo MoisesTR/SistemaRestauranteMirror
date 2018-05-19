@@ -129,7 +129,6 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
-    this.formAddClasificacion.reset;
   }
 
   getClasificacionesRender(){

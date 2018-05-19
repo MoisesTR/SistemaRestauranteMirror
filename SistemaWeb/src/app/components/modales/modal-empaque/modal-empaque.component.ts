@@ -40,7 +40,6 @@ export class ModalEmpaqueComponent implements OnInit {
         }
     }
 
-
     eventoClick(event){
         console.log(event.dismissReason)
         if( !isNull(event.dismissReason) && !isUndefined(event.dismissReason) )

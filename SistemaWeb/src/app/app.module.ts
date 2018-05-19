@@ -12,6 +12,7 @@ import {SharedModuleModule} from './components/shared-module/shared-module.modul
 import {LoginComponent} from './components/login/login.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
 import {UserIdleModule} from 'angular-user-idle';
+import { ModalClasificacionComponent } from './components/modales/modal-clasificacion/modal-clasificacion.component';
 
 
 //Rutas principales
@@ -25,7 +26,7 @@ const routes: Routes = [
   declarations: [
     AppComponent
       , LoginComponent
-      , NotFound404Component
+      , NotFound404Component, ModalClasificacionComponent
   ],
   imports: [
     BrowserModule

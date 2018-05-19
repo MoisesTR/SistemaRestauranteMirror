@@ -1,3 +1,56 @@
-<p>
-  modal-subclasificacion works!
-</p>
+
+<!-- Modal para crear Sub-clasificación -->
+<div (click)="eventoClick($event)" [config]="{ignoreBackdropClick: true}" mdbModal #modalAddSubclasificacion="mdb-modal" class="modal fade" id="modalAddSubClasificacion" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal " role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Titulo-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Sub-Clasificación</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Cuerpo modal-->
+      <div class="modal-body mb-0">
+        <!-- Inicio form-->
+        <form [formGroup]="formAddSubClasificacion" (ngSubmit)="createSubCasificacion(modalAddSubclasificacion)" novalidate>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Nombre</h6>
+            <input type="text" id="addnombresubclasificacion" minlength="5" maxlength="100" class="input-modal-sm" name="nombresubclasificacion"
+                   formControlName="nombreSubClasificacion" required>
+            <show-errors [control]="formAddSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
+          </div>
+
+          <div class="md-form">
+            <h6 class="orange-chang-text">Descripción</h6>
+            <textarea type="text" id="adddescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion" minlength="5"
+                      formControlName="descripcionSubClasificacion" required></textarea>
+            <show-errors [control]="formAddSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
+          </div>
+
+          <h6 class="orange-chang-text">Clasificación</h6>
+          <ng-select [items]="clasificaciones" class="select-mdl" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
+                     formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
+
+          </ng-select>
+          <show-errors [control]="formAddSubClasificacion.controls['clasificacion']"></show-errors>
+
+          <div class="text-center mt-1-half">
+            <br>
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddSubClasificacion.valid">Ingresar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+        <!-- Final form -->
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

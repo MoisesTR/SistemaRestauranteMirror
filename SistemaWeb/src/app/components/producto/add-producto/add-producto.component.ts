@@ -41,9 +41,9 @@ export class AddProductoComponent implements OnInit {
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
   public tituloPantalla : string = 'Productos';
-  public showModalCategoria : boolean = true;
-  public showModalClasificacion : boolean = true;
-  public showModalSubclasificacion : boolean = true;
+  public showModalCategoria : boolean = false;
+  public showModalClasificacion : boolean = false;
+  public showModalSubclasificacion : boolean = false;
 
   constructor(
     private _route: ActivatedRoute

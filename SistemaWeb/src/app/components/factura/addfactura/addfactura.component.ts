@@ -14,6 +14,7 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Usuario} from '../../../models/Usuario';
 import {UsuarioService} from '../../../services/usuario.service';
 import {Factura} from '../../../models/Factura';
+import {FacturaService} from '../../../services/factura.service';
 
 declare var $:any;
 
@@ -50,6 +51,7 @@ export class AddfacturaComponent implements OnInit {
   public formatoComaDinero;
   public aplicaRetencion : boolean = false;
   public url : string;
+  public tieneRetencion : boolean = false;
   @ViewChild('modalVerProducto') modalVerProducto : ModalDirective;
   @ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto : ModalDirective;
   @ViewChild('modalAddDescuento') modalAddDescuento : ModalDirective;
@@ -64,6 +66,7 @@ export class AddfacturaComponent implements OnInit {
       , private _productoProveedorService : ProductoProveedorService
       , private _formBuilderFactura : FormBuilder
       , private _usuarioService : UsuarioService
+      , private _facturaService  : FacturaService
   ) {
       this.proveedor = new Proveedor();
       this.productoSeleccionado = new ProductoProveedor();
@@ -101,9 +104,7 @@ export class AddfacturaComponent implements OnInit {
             Validators.required
             , CustomValidators.rangeNumber(1,20000)
         ]),
-        'descuentoTotalProducto' : new FormControl('',[
-            Validators.required
-                , CustomValidators.rangeNumber(0,100)
+        'descuentoTotalProducto' : new FormControl(0,[
         ]),
         'gravadoIva' : new FormControl(1,[
         ])
@@ -127,7 +128,7 @@ export class AddfacturaComponent implements OnInit {
           'checkDescuentoGeneral' : new FormControl('',[
 
           ]),
-          'retencion' : new FormControl('',[
+          'retencion' : new FormControl(false,[
 
           ])
       })
@@ -198,6 +199,7 @@ export class AddfacturaComponent implements OnInit {
       this.factura.IdProveedor = event.IdProveedor;
       this.productosFactura = [];
       this.getProductosOfProveedor(event.IdProveedor);
+      this.tieneRetencion = false;
     }
 
   }
@@ -253,9 +255,16 @@ export class AddfacturaComponent implements OnInit {
 
   }
 
+  agregarProveedor() {
+      this._router.navigate(['proveedor/add']);
+  }
+
+  agregarProducto(){
+      this._router.navigate(['producto/add']);
+  }
+
   showModalDetalleProducto(productoFactura : ProductoProveedor) {
       this.formEditarDetalleProducto.reset();
-      console.log(productoFactura);
       this.productoEditar = productoFactura;
       this.productoEditar.GravadoIva = productoFactura.GravadoIva;
       this.formEditarDetalleProducto.setValue({

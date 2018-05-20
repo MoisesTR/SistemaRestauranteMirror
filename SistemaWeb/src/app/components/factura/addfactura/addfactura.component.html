@@ -4,7 +4,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="card card-cascade narrower" id="card-info">
                 <div class="view gradient-card-header orange-chang">
-                    <h2 class="h2-responsive">Informacion Facturas</h2>
+                    <h2 class="h2-responsive">Informacion Factura</h2>
                 </div>
                 <div class="card-body">
                     <div class="container-fluid">
@@ -42,16 +42,16 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label class="margin-label-factura" for="FechaIngreso">Fecha de Ingreso</label>
+                                    <label class="margin-label-factura" for="FechaIngreso">Fecha de Factura</label>
                                     <div class="md-form">
-                                        <mdb-date-picker formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions" required></mdb-date-picker>
+                                        <mdb-date-picker formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions" ></mdb-date-picker>
                                         <show-errors [control]="formAddFactura.controls['fechaFactura']"></show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <label class="margin-label-factura" for="horaLlegada">Hora de Ingreso</label>
-                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" required></mdb-time-picker>
+                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" ></mdb-time-picker>
                                     <show-errors [control]="formAddFactura.controls['horaLlegada']"></show-errors>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                     <th class="header-negrita">Precio unitario</th>
                                     <th class="header-negrita">Descuento</th>
                                     <th class="header-negrita">Gravado IVA</th>
-                                    <th class="header-negrita">Precio Total</th>
+                                    <th class="header-negrita">Ventas Netas</th>
                                     <th class="header-negrita centrar-texto">Accion</th>
                                 </tr>
                             </thead>
@@ -136,11 +136,11 @@
                                     <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
                                     <td class="body-negrita">{{productoFactura.Cantidad}}</td>
                                     <td class="body-negrita">{{productoFactura.Costo}} C$</td>
-                                    <td class="body-negrita">
-                                        <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
-                                    </td>
                                     <td width="10%" class="body-negrita">
                                         <strong>{{productoFactura.Descuento}}%</strong>
+                                    </td>
+                                    <td class="body-negrita">
+                                        <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                                     </td>
                                     <td width="10%" class="body-negrita">{{calcularPrecioTotalxProducto(productoFactura)}} C$</td>
                                     <td width="25%" class="body-negrita">
@@ -195,7 +195,7 @@
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
-                                    <input (click)="aplicarRetencion()"  class="filled-in" type="checkbox" [checked]="aplicaRetencion" (change)="aplicaRetencion = !aplicaRetencion" value="validando_checkbox1" name="seleccionarcheck" id="segundo2" formControlName="retencion">
+                                    <input (click)="aplicarRetencion()" [(ngModel)]="tieneRetencion" class="filled-in"  disabled type="checkbox" name="seleccionarcheck" id="segundo2" formControlName="retencion">
                                     <label for="segundo2">
                                         <strong>Retención</strong>
                                     </label>
@@ -258,6 +258,22 @@
             </div>
         </div>
     </div>
+
+    <div class="fixed-action-btn" style="right:78%; bottom:35px;">
+
+        <a class="btn-floating btn-large orange-chang waves-light" mdbWavesEffect (click)="fixed.toggle($event)">
+            <i class="fa fa-plus"></i>
+        </a>
+
+        <div class="fixed_collapse" mdbCollapse="isCollapsed" #fixed="bs-collapse">
+            <a class="btn-floating green waves-light" mdbTooltip="Proveedor" placement="right" mdbWavesEffect>
+                <i class="fa fa-shopping-cart" (click)="agregarProveedor()"></i>
+            </a>
+            <a class="btn-floating red waves-light" mdbTooltip="Producto" placement="right" mdbWavesEffect>
+                <i class="fa fa-shopping-cart" (click)="agregarProducto()"></i>
+            </a>
+        </div>
+    </div>
 </section>
 
 <!-- Modal Mostrar Info de producto -->
@@ -298,8 +314,7 @@
                                         <div class="col-md-12">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Nombre</h6>
-                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase"
-                                                    required value={{productoSeleccionado.NombreProducto}}>
+                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase" value={{productoSeleccionado.NombreProducto}}>
                                             </div>
                                         </div>
                                        
@@ -308,7 +323,7 @@
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Descripción</h6>
                                                 <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" class="text-area-modal"
-                                                    name="descripcionproducto" required value={{productoSeleccionado.Descripcion}}></textarea>
+                                                    name="descripcionproducto"  value={{productoSeleccionado.Descripcion}}></textarea>
                                             </div>
                                         </div>
 
@@ -336,7 +351,7 @@
 
             <div class="modal-header white-text orange-chang">
                 <h4 class="title">
-                    <i class="fa fa-file-text-o"></i> Agregar Producto</h4>
+                    <i class="fa fa-file-text-o"></i> Editar Detalle Producto</h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAgregarDetalleProducto.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -350,21 +365,21 @@
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
                                 <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto" formControlName="cantidadProducto"
-                                    required>
+                                    >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
                                 <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto" formControlName="precioProducto"
-                                    required>
+                                    >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Descuento</h6>
-                                <input type="number" id="descuentoTotalProducto" minlength="4" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto"
-                                    required>
+                                <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto"
+                                    >
 
                             </div>
                             <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']"></show-errors>
@@ -389,3 +404,4 @@
         <!--/.Contenido-->
     </div>
 </div>
+

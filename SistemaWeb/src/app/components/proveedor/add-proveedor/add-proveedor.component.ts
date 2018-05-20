@@ -7,6 +7,7 @@ declare var $:any;
 import swal from "sweetalert2";
 import {Utilidades} from '../../Utilidades';
 import {CustomValidators} from '../../../validadores/CustomValidators';
+import {isNull} from 'util';
 
 @Component({
   selector: 'add-proveedor',
@@ -74,6 +75,7 @@ export class AddProveedorComponent implements OnInit {
                   ).then(() => {
                       this.formAddProveedor.reset();
                       this.proveedor = new Proveedor();
+                      this._router.navigate(['/producto/add'])
                   })
 
               } else {
@@ -94,7 +96,8 @@ export class AddProveedorComponent implements OnInit {
       this.proveedor.Documento = this.formAddProveedor.value.numeroRuc;
       this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
       this.proveedor.Telefono1 = this.formAddProveedor.value.telefono1.toString().replace("-","");
-      this.proveedor.Telefono2 = this.formAddProveedor.value.telefono2.toString().replace("-","");
+      this.proveedor.Telefono2 = this.formAddProveedor.value.telefono2;
+      this.proveedor.Telefono2 = isNull(this.proveedor.Telefono2) ? null : this.proveedor.Telefono2.toString().replace("-","");
       this.proveedor.Email = this.formAddProveedor.value.email;
       this.proveedor.Retencion2 = this.formAddProveedor.value.retencion == true ? 1 : 0;
 
@@ -139,10 +142,8 @@ export class AddProveedorComponent implements OnInit {
               CustomValidators.espaciosVacios
           ])
           , 'telefono2': new FormControl('',[
-              Validators.required,
               Validators.minLength(5),
-              Validators.maxLength(10),
-              CustomValidators.espaciosVacios
+              Validators.maxLength(10)
           ])
           , 'descripcionProveedor': new FormControl('',
               [

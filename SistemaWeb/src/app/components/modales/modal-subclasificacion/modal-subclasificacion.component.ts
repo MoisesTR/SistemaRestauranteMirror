@@ -12,7 +12,7 @@ import {isNull, isUndefined} from 'util';
 import {ModalDirective} from '../../../typescripts/free/modals';
 
 @Component({
-  selector: 'app-modal-subclasificacion',
+  selector: 'modal-subclasificacion',
   templateUrl: './modal-subclasificacion.component.html'
 })
 export class ModalSubclasificacionComponent implements OnInit {

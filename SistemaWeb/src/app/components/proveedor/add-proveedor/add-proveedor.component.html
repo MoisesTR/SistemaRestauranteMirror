@@ -25,7 +25,7 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="numeroruc" formControlName="numeroRuc" class="form-control" autocomplete="off">
+                  <input mdbActive type="text" id="numeroruc" formControlName="numeroRuc" class="form-control" autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['numeroRuc']"></show-errors>
                   <label for="numeroruc">Número Ruc</label>
                 </div>
@@ -35,7 +35,7 @@
                 <br>
                 <div class="md-form">
                   <textarea mdbActive type="text" id="direccionProveedor" formControlName="direccionProveedor" class="md-textarea" autocomplete="off"
-                    required></textarea>
+                    ></textarea>
                   <show-errors [control]="formAddProveedor.controls['direccionProveedor']"></show-errors>
                   <label for="direccionProveedor">Dirección Proveedor</label>
                 </div>
@@ -82,7 +82,7 @@
                 <br>
                 <div class="md-form">
                   <textarea mdbActive type="text" id="descripcionProveedor" formControlName="descripcionProveedor" class="md-textarea" autocomplete="off"
-                    required></textarea>
+                    ></textarea>
                   <show-errors [control]="formAddProveedor.controls['descripcionProveedor']"></show-errors>
                   <label for="descripcionProveedor">Descripción Proveedor</label>
                 </div>

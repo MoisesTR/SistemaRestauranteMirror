@@ -94,13 +94,13 @@
 
     <div class="fixed_collapse" mdbCollapse="isCollapsed" #fixed="bs-collapse">
       <a class="btn-floating green waves-light" mdbTooltip="Categoria" placement="right" mdbWavesEffect>
-        <i class="fa fa-shopping-cart"></i>
+        <i class="fa fa-shopping-cart" (click)="showModalCategoriaM()"></i>
       </a>
-      <a class="btn-floating red waves-light" mdbTooltip="Clasificación" placement="right" mdbWavesEffect>
-        <i class="fa fa-shopping-cart"></i>
+      <a class="btn-floating red waves-light"  mdbTooltip="Clasificación" placement="right" mdbWavesEffect>
+        <i class="fa fa-shopping-cart" (click)="showModalClasificacionM()"></i>
       </a>
       <a class="btn-floating yellow darken-1 waves-light" mdbTooltip="SubClasificación" placement="right" mdbWavesEffect>
-        <i class="fa fa-shopping-cart"></i>
+        <i class="fa fa-shopping-cart" (click)="showModalSubclasificacionM()"></i>
       </a>
     </div>
   </div>
@@ -108,6 +108,6 @@
 
 </section>
 
-<!--<modal-categoria *ngIf="showModalCategoria" [mostrarModal]="showModalCategoriaM" (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>-->
-<!--<modal-categoria *ngIf="showModalClasificacion" [mostrarModal]="showModalClasificacionM()" (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-categoria>-->
-<!--<modal-categoria *ngIf="showModalSubclasificacion" [mostrarModal]="showModalSubclasificacionM()" (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-categoria>-->
+<modal-categoria *ngIf="showModalCategoria" [mostrarModal]="showModalCategoria" (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
+<modal-clasificacion *ngIf="showModalClasificacion" [mostrarModal]="showModalClasificacion" (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>
+<modal-subclasificacion *ngIf="showModalSubclasificacion" [mostrarModal]="showModalSubclasificacion" (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>

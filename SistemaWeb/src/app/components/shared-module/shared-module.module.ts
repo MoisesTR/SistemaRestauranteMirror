@@ -22,6 +22,7 @@ import {BuscarPipe} from '../../pipe/buscar.pipe';
 import {FormatoComaDineroPipe} from '../../pipe/formato-coma-dinero.pipe';
 import {BuscarTrabajadorPipe} from '../../pipe/buscar-trabajador.pipe';
 import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
+import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-clasificacion.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
       , ModalSucursalComponent
       , ModalCategoriaComponent
       , ModalEmpaqueComponent
+      , ModalClasificacionComponent
       , BuscarPipe
       , BuscarTrabajadorPipe
       , BuscarProveedorPipe
@@ -72,6 +74,8 @@ import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
         , ModalSubclasificacionComponent
         , ModalSucursalComponent
         , ModalCategoriaComponent
+        , ModalSubclasificacionComponent
+        , ModalClasificacionComponent
         , ModalEmpaqueComponent
         , BuscarPipe
         , BuscarTrabajadorPipe

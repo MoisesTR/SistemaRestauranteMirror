@@ -12,7 +12,7 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
 import {isNull, isUndefined} from 'util';
 
 @Component({
-  selector: 'app-modal-clasificacion',
+  selector: 'modal-clasificacion',
   templateUrl: './modal-clasificacion.component.html',
   styleUrls: ['./modal-clasificacion.component.scss']
 })

@@ -5,3 +5,6 @@
 .height-card-productos {
     height: 70% !important; 
 }
+input[type="checkbox"][readonly] {
+    pointer-events: none;
+}

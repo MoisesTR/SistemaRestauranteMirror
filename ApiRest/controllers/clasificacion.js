@@ -33,6 +33,23 @@ function getClasificaciones(req, res) {
         });
 }
 
+function getClasificacionesByIdCategoria(req,res){
+    var data = req.params;
+    console.log(data);
+    
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdCategoria',sql.Int, data.IdCategoria)
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int, data.Habilitado)
+    db.storedProcExecute('USP_GET_CLASIFICACIONES_BY_ID_CATEGORIA', aoj)
+    .then((results) => {
+        res.status(200).json({
+            clasificaciones:results.recordset
+        })
+    }).catch((err) => {
+        res.status(500).json( mssqlErrors(err) );
+    });
+}
+
 function updateClasificacion(req, res) {
     var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
@@ -82,7 +99,9 @@ function changeStateClasificacion(req, res) {
 module.exports = {
     createClasificacion,
     getClasificacionById,
+    getClasificacionesByIdCategoria,
     getClasificaciones,
     updateClasificacion,
     changeStateClasificacion
+    
 }

@@ -285,7 +285,7 @@ exports.updateRol = createRol.concat([
 
 var createProducto = [
     body('IdCategoria','Elige una Categoria para el producto.').isInt(),
-    body('IdSubclasificacion', 'Selecciona Una SubClasificacion.').isInt(),
+    body('IdSubClasificacion', 'Selecciona Una SubClasificacion.').isInt(),
     body('IdEstado','Elige el estado del producto.').isInt(),
     body('NombreProducto','Ingresa el Nombre del Producto.').isAscii(),
     body('Descripcion','Ingresa la Descripcion del producto.').isAscii(),

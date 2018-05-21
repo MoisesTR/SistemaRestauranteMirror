@@ -38,7 +38,7 @@ function createProducto(req, res) {
     var data = req.body;
     var aoj = [];
     db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)
-    db.pushAOJParam(aoj, 'IdSubclasificacion', sql.Int, data.IdSubclasificacion)
+    db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdEstado', sql.Int, data.IdEstado)
     db.pushAOJParam(aoj, 'NombreProducto', sql.NVarChar(50), data.NombreProducto)
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(200), data.Descripcion)
@@ -56,7 +56,7 @@ function updateProducto(req, res) {
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto)
     db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)
-    db.pushAOJParam(aoj, 'IdSubclasificacion', sql.Int, data.IdSubclasificacion)
+    db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdEstado', sql.Int, data.IdEstado)
     db.pushAOJParam(aoj, 'NombreProducto', sql.NVarChar(50), data.NombreProducto)
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(200), data.Descripcion)

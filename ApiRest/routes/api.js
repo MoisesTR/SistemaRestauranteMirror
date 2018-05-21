@@ -38,6 +38,7 @@ Router
     .delete('/categoria/:IdCategoria(\\d+)',validations.changeStateCategoria,validations.validsParams, CategoriaController.changeStateCategoria)
     //Rutas clasificacion controller
     .get('/clasificacion/:IdClasificacion(\\d+)', ClasificacionController.getClasificacionById)
+    .get('/clasificaciones/:IdCategoria(\\d+)/:Habilitado(\\d+)', ClasificacionController.getClasificacionesByIdCategoria)
     .get('/clasificaciones', ClasificacionController.getClasificaciones)
     .post('/clasificacion',validations.createClasificacion, validations.validsParams, ClasificacionController.createClasificacion)
     .put('/clasificacion/:IdClasificacion(\\d+)',validations.updateClasificacion, validations.validsParams, ClasificacionController.updateClasificacion)

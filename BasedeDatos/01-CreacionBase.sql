@@ -237,14 +237,14 @@ VALUES	(2, 'Pollo','Las distintas cortes de pollo.')
 		,(1, 'Granos Basicos',NULL)
 GO
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
-    IdSubclasificacion			INT IDENTITY(1,1),
+    IdSubClasificacion			INT IDENTITY(1,1),
     IdClasificacion				INT,
     NombreSubclasificacion		NVARCHAR(50)	NOT NULL,
     DescripcionSubclasificacion NVARCHAR(150),
     Habilitado					Bit				NOT NULL	DEFAULT 1,
     CreatedAt					SMALLDATETIME	NOT NULL	DEFAULT GETDATE(),
     UpdateAt					SMALLDATETIME	NULL,
-    CONSTRAINT Pk_IdSubClasfProdu PRIMARY KEY (IdSubclasificacion),
+    CONSTRAINT Pk_IdSubClasfProdu PRIMARY KEY (IdSubClasificacion),
     CONSTRAINT FK_SUBCLAS_CLAS FOREIGN KEY (IdClasificacion)
         REFERENCES CLASIFICACION_PRODUCTO (IdClasificacion),
 	CONSTRAINT U_NombreSubClasi UNIQUE(NombreSubClasificacion)
@@ -311,7 +311,7 @@ GO
 CREATE TABLE PRODUCTO (
     IdProducto			INT IDENTITY(1,1),
 	IdCategoria			INT					NOT NULL,
-    IdSubclasificacion	INT					NOT NULL,
+    IdSubClasificacion	INT					NOT NULL,
     IdEstado			int					NOT NULL,
     NombreProducto		NVARCHAR(50)		NOT NULL,
     Descripcion			NVARCHAR(200)		NOT NULL,
@@ -323,8 +323,8 @@ CREATE TABLE PRODUCTO (
     CONSTRAINT PK_ID_PRODUCT PRIMARY KEY (IdProducto),
     CONSTRAINT FK_CATEGPRODU FOREIGN KEY (IdCategoria)
         REFERENCES  CATEGORIA_PRODUCTO (IdCategoria),
-    CONSTRAINT FK_PRODUCT_SUBCLASIF FOREIGN KEY (IdSubclasificacion)
-        REFERENCES SUBCLASIFICACION_PRODUCTO (IdSubclasificacion),
+    CONSTRAINT FK_PRODUCT_SUBCLASIF FOREIGN KEY (IdSubClasificacion)
+        REFERENCES SUBCLASIFICACION_PRODUCTO (IdSubClasificacion),
 	constraint fk_Estado_Producto foreign key(IdEstado)
 		references ESTADO_PRODUCTO(IdEstado),
 	constraint U_ProductoUnico UNIQUE(NombreProducto)

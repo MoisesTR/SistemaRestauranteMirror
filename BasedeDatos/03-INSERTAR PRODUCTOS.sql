@@ -1,24 +1,24 @@
 USE pruebas_node;
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,IdEstado)
 VALUES('Filete de Pollo','Filetes de pollo sin hueso.',2,1,1);
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,IdEstado)
 VALUES('Tallarin','Bolsa de tallarines.',1,3,1);
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,IdEstado)
 VALUES('Camaron','Bolsa de Camarones.',1,3,1);
 
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,IdEstado)
 VALUES('Arroz','Bolsa de Arroz.',3,3,1);
 
-INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,IdEstado)
+INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,IdEstado)
 VALUES('Hongos','Bolsa de Hongos.',1,3,1);
 
 
---INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado)
---select NombreProducto,Descripcion,IdCategoria,IdSubclasificacion,Imagen,IdEstado from PRODUCTO
+--INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,Imagen,IdEstado)
+--select NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,Imagen,IdEstado from PRODUCTO
 --VALUES('Res','Bolsa de Res.',2,3,NULL,1);
 
 -- INSERT INTO BodegaSucursal(Nombre,DescripcionLocal)

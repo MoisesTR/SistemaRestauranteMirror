@@ -15,3 +15,5 @@ VALUES(@ID_ROL_USUARIO,@ID_TRABAJADOR,'Chang','chang@gmail.com','chang.jpg','$2a
 
 
 --UPDATE USUARIO SET Password = '$2a$10$z7b9HIddHmRvfD5.nY/hQuQaEthl28qBoGfMnuNNYNs.lQr5f/WfG' FROM USUARIO WHERE IdUsuario = 3
+
+select * From PRODUCTO

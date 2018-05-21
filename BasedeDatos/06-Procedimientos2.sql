@@ -5,7 +5,7 @@ IF OBJECT_ID('USP_CREATE_PRODUCTO','P') IS NOT NULL
 GO
 CREATE PROCEDURE USP_CREATE_PRODUCTO(
 	@IdCategoria INT,
-    @IdSubclasificacion INT,
+    @IdSubClasificacion INT,
     @IdEstado int,
     @NombreProducto NVARCHAR(50),
     @Descripcion NVARCHAR(200),
@@ -15,8 +15,8 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
 		RAISERROR('El nombre del producto ya existe',16,1)
 	ELSE
 		BEGIN
-		INSERT INTO PRODUCTO(IdCategoria,IdSubclasificacion,IdEstado,NombreProducto,Descripcion,Imagen)
-		VALUES(@IdCategoria,@IdSubclasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen)
+		INSERT INTO PRODUCTO(IdCategoria,IdSubClasificacion,IdEstado,NombreProducto,Descripcion,Imagen)
+		VALUES(@IdCategoria,@IdSubClasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen)
 		SELECT @@IDENTITY AS IdProducto
 		END 
 END 
@@ -27,13 +27,13 @@ GO
 CREATE PROCEDURE USP_UPDATE_PRODUCTO(
 	@IdProducto INT,
     @IdCategoria INT,
-    @IdSubclasificacion INT,
+    @IdSubClasificacion INT,
     @IdEstado int,
     @NombreProducto NVARCHAR(50),
     @Descripcion NVARCHAR(200),
     @Imagen NVARCHAR(100) NULL
 ) AS BEGIN 
-	UPDATE dbo.PRODUCTO SET IdCategoria=@IdCategoria,IdSubclasificacion=@IdSubclasificacion,IdEstado=@IdEstado,
+	UPDATE dbo.PRODUCTO SET IdCategoria=@IdCategoria,IdSubClasificacion=@IdSubClasificacion,IdEstado=@IdEstado,
 		NombreProducto=@NombreProducto,Descripcion=@Descripcion,Imagen=@Imagen,UpdateAt=GETDATE()
     WHERE IdProducto = @IdProducto;
 END
@@ -45,10 +45,10 @@ CREATE PROCEDURE USP_GET_PRODUCTO(
 	@IdProducto INT
 )
 AS BEGIN
-	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
+	SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubClasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 	FROM dbo.PRODUCTO P
 	INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
-	INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+	INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubClasificacion = SC.IdSubClasificacion
 	INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
 	 WHERE IdProducto =@IdProducto
 END
@@ -60,16 +60,16 @@ CREATE PROCEDURE USP_GET_PRODUCTOS
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado is NULL
-		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubClasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		FROM dbo.PRODUCTO P
 		INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
-		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubClasificacion = SC.IdSubClasificacion
 		INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion
 	ELSE
-		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubclasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubClasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		FROM dbo.PRODUCTO P
 		INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
-		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubclasificacion = SC.IdSubclasificacion
+		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubClasificacion = SC.IdSubClasificacion
 		INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion WHERE P.Habilitado = @Habilitado
 END
 GO

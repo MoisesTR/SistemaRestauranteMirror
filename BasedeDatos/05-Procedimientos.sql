@@ -68,6 +68,23 @@ CREATE PROCEDURE USP_GET_CATEGORIA_BY_ID(
 	SELECT IdCategoria,NombreCategoria,DescripcionCategoria,Habilitado FROM CATEGORIA_PRODUCTO WHERE IdCategoria = @IdCategoria;
 END 
 GO
+
+IF OBJECT_ID('USP_GET_CLASIFICACIONES_BY_ID_CATEGORIA','P') IS NOT NULL
+	DROP PROCEDURE USP_GET_CLASIFICACIONES_BY_ID_CATEGORIA
+GO
+CREATE PROCEDURE USP_GET_CLASIFICACIONES_BY_ID_CATEGORIA(
+	@IdCategoria INT
+	, @Habilitado BIT 
+) AS BEGIN
+	SELECT	*
+	FROM	dbo.CATEGORIA_PRODUCTO CAT
+			INNER JOIN	CLASIFICACION_PRODUCTO CLASI
+				ON CAT.IdCategoria = CLASI.IdCategoria
+	WHERE	@IdCategoria = CAT.IdCategoria
+			AND @Habilitado = CAT.Habilitado
+END 
+GO
+
 IF OBJECT_ID('USP_GET_CATEGORIA_BY_NOMBRE','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_CATEGORIA_BY_NOMBRE
 GO
@@ -215,8 +232,18 @@ CREATE PROCEDURE USP_GET_SUBCLASIFICACIONES_BY_IDCLASIFICACION(
 	@IdClasificacion INT
 )
 AS BEGIN
-	SELECT s.IdSubClasificacion,s.NombreSubClasificacion,s.DescripcionSubClasificacion,s.IdClasificacion,c.NombreClasificacion,s.Habilitado,s.CreatedAt,S.UpdateAt FROM SUBCLASIFICACION_PRODUCTO s
-    INNER JOIN dbo.CLASIFICACION_PRODUCTO c ON s.IdClasificacion = c.IdClasificacion where s.IdClasificacion=@IdClasificacion;
+	SELECT s.IdSubClasificacion
+			, s.NombreSubClasificacion
+			, s.DescripcionSubClasificacion
+			, s.IdClasificacion
+			, c.NombreClasificacion
+			, s.Habilitado
+			, s.CreatedAt
+			, s.UpdateAt 
+	FROM	SUBCLASIFICACION_PRODUCTO s
+			INNER JOIN dbo.CLASIFICACION_PRODUCTO c 
+				ON s.IdClasificacion = c.IdClasificacion 
+	WHERE s.IdClasificacion = @IdClasificacion;
 END
 GO
 IF OBJECT_ID('USP_GET_SUBCLASIFICACIONES','P') IS NOT NULL

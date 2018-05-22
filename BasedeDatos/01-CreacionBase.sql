@@ -313,10 +313,15 @@ CREATE TABLE PRODUCTO (
 	IdCategoria			INT					NOT NULL,
     IdSubClasificacion	INT					NOT NULL,
     IdEstado			int					NOT NULL,
+	IdEnvase			INT					NULL, --id del envase si es que tiene
+    IdEmpaque			INT					NULL, --id del empaque si es que tiene
+	IdUnidadMedida		INT					NOT NULL,
+    ValorUnidadMedida	NUMERIC(10,5)		NOT NULL,
+	CantidadEmpaque		INT					NULL, --si tiene empaque 
+	DiasCaducidad		INT					NOT NULL,
     NombreProducto		NVARCHAR(50)		NOT NULL,
     Descripcion			NVARCHAR(200)		NOT NULL,
     Imagen				NVARCHAR(100)		NOT NULL	DEFAULT 'nodisponible.png', --	
-	DiasCaducidad		INT					NOT NULL	DEFAULT 30,
 	Habilitado			Bit DEFAULT 1		NOT NULL,
     CreatedAt			SMALLDATETIME		NOT NULL DEFAULT GETDATE(),
     UpdateAt			SMALLDATETIME		NULL,
@@ -327,30 +332,27 @@ CREATE TABLE PRODUCTO (
         REFERENCES SUBCLASIFICACION_PRODUCTO (IdSubClasificacion),
 	constraint fk_Estado_Producto foreign key(IdEstado)
 		references ESTADO_PRODUCTO(IdEstado),
-	constraint U_ProductoUnico UNIQUE(NombreProducto)
+	constraint U_ProductoUnico 
+		UNIQUE(NombreProducto),
+	CONSTRAINT FK_Envase_PRODUCT FOREIGN KEY (IdEnvase) 
+		REFERENCES ENVASE (IdEnvase),
+    CONSTRAINT FK_UDM_Producto FOREIGN KEY (IdUnidadMedida) 
+		REFERENCES UNIDAD_MEDIDA (IdUnidadMedida),
+	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque)  
+		REFERENCES EMPAQUE(IdEmpaque),
 );
 GO
-CREATE TABLE PRODUCTO_PROVEEDOR(
-	IdProductoProveedor INT IDENTITY(1,1),
-	IdProducto			INT					NOT NULL,
-	IdProveedor			INT					NOT NULL,
-	IdEnvase			INT					NULL, --id del envase si es que tiene
-    IdEmpaque			INT					NULL, --id del empaque si es que tiene
-	IdUnidadMedida		INT					NOT NULL,
-    ValorUnidadMedida	NUMERIC(10,5)		NOT NULL,
-	CantidadEmpaque		INT					NULL, --si tiene empaque 
-	DiasCaducidad		INT					NOT NULL,
-	Costo				Money				NOT NULL,
-	Habilitado			Bit					NOT NULL	DEFAULT 0,
-    CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
-    UpdateAt SMALLDATETIME NULL,
-	CONSTRAINT PK_PRODUCTO_PROVEEDOR PRIMARY KEY(IdProductoProveedor),
-	CONSTRAINT fk_PRODUCTO_PROVEIDO FOREIGN KEY(IdProducto) references PRODUCTO(IdProducto),
-	constraint fk_ProveedorProducto foreign key(IdProveedor) references PROVEEDOR(IdProveedor),
-	CONSTRAINT FK_Envase_PRODUCT FOREIGN KEY (IdEnvase) REFERENCES ENVASE (IdEnvase),
-    CONSTRAINT FK_UDM_Producto FOREIGN KEY (IdUnidadMedida) REFERENCES UNIDAD_MEDIDA (IdUnidadMedida),
-	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque)  REFERENCES EMPAQUE(IdEmpaque),
-	CONSTRAINT U_PRODUCTO_PROVEEDOR UNIQUE(IdProducto,IdProveedor)
+CREATE TABLE PRODUCTO_PROVEEDOR (
+	IdProductoProveedor		INT IDENTITY(1,1) PRIMARY KEY,
+	IdProducto				INT NOT NULL,
+	IdProveedor				INT NOT NULL,
+	Habilitado				Bit DEFAULT 1		NOT NULL,
+    CreatedAt				SMALLDATETIME		NOT NULL DEFAULT GETDATE(),
+    UpdateAt				SMALLDATETIME		NULL,
+	CONSTRAINT FK_Producto_Proveedor FOREIGN KEY (IdProducto)
+		REFERENCES Producto(IdProducto),
+	CONSTRAINT FK_Proveedor_Producto FOREIGN KEY (IdProveedor)
+		REFERENCES Proveedor(IdProveedor)
 )
 GO
 CREATE TABLE  PRODUCTO_ORIGEN(
@@ -549,15 +551,17 @@ create table DETALLE_BODEGA_AP(
 	IdBodegaAreaP		INT					NOT NULL,
 	IdDetalleEntradaAP	INT					NOT NULL,-- PAra saber que producto de que detalle
 	IdEntradaBodegaAP	INT					NOT NULL,--
-    IdProductoProveedor INT					NOT NULL,
+    IdProductoProveedor	INT					NOT NULL,
 	IdEstadoEmpaque		INT					NOT NULL,
     Cantidad			INT					NOT NULL	check(Cantidad >= 0),
     FechaHoraIngreso	SMALLDATETIME		NOT NULL,
     FechaHoraProduccion SMALLDATETIME		NULL,
     Habilitado			Bit					NOT NULL	DEFAULT 1,
     constraint pk_IdDetalleBodega primary key(IdDetalle,IdBodegaAreaP),	
-    constraint FK_BodegaDelleAP foreign key(IdBodegaAreaP) references BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
-	constraint FK_DetalleEntradaBodegaAP foreign key(IdDetalleEntradaAP,IdEntradaBodegaAP) references DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdDetalleEntradaAP,IdEntradaBodegaAP),
-    constraint FK_IdProducto foreign key(IdProductoProveedor) references PRODUCTO_PROVEEDOR(IdProductoProveedor),
+    constraint FK_BodegaDelleAP foreign key(IdBodegaAreaP) 
+		REFERENCES BODEGA_AREA_PRODUCCION(IdBodegaAreaP),
+	constraint FK_DetalleEntradaBodegaAP foreign key(IdDetalleEntradaAP,IdEntradaBodegaAP) 
+		REFERENCES DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdDetalleEntradaAP,IdEntradaBodegaAP),
+    constraint FK_IdProducto foreign key(IdProductoProveedor) references dbo.PRODUCTO_PROVEEDOR(IdProductoProveedor),
 	constraint FK_EstadoEmpaqueProductoBodega FOREIGN KEY(IdEstadoEmpaque) REFERENCES ESTADO_EMPAQUE(IdEstadoEmpaque)
 )

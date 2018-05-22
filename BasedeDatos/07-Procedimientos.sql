@@ -183,14 +183,19 @@ GO
 CREATE PROCEDURE USP_GET_DETALLE_BODEGA_AP
 	@IdBodegaAreaP INT
 AS BEGIN
-	SELECT IdDetalle,IdBodegaAreaP,IdDetalleEntradaAP,IdEntradaBodegaAP,PP.IdProveedor,DAP.IdProductoProveedor,P.IdProducto,P.NombreProducto,P.IdCategoria,C.NombreCategoria,
+	SELECT IdDetalle,IdBodegaAreaP,IdDetalleEntradaAP,IdEntradaBodegaAP,PP.IdProveedor,DAP.IdProductoProveedor,P.IdProducto, P.NombreProducto,P.IdCategoria,C.NombreCategoria,
 	P.IdSubclasificacion,SP.NombreSubclasificacion,SP.IdClasificacion,CP.NombreClasificacion,Cantidad,FechaHoraIngreso,FechaHoraProduccion,DAP.Habilitado 
-	FROM DETALLE_BODEGA_AP DAP
-	INNER JOIN PRODUCTO_PROVEEDOR PP ON DAP.IdProductoProveedor = PP.IdProductoProveedor
-	INNER JOIN PRODUCTO  P ON PP.IdProducto = P.IdProducto
-	INNER JOIN CATEGORIA_PRODUCTO C ON P.IdCategoria = P.IdCategoria
-	INNER JOIN SUBCLASIFICACION_PRODUCTO SP ON P.IdSubclasificacion = SP.IdSubclasificacion
-	INNER JOIN CLASIFICACION_PRODUCTO CP ON SP.IdClasificacion = CP.IdClasificacion
+	FROM dbo.DETALLE_BODEGA_AP DAP
+	INNER JOIN PRODUCTO_PROVEEDOR PP 
+		ON DAP.IdProductoProveedor = PP.IdProductoProveedor
+	INNER JOIN PRODUCTO  P 
+		ON PP.IdProducto = P.IdProducto
+	INNER JOIN CATEGORIA_PRODUCTO C 
+		ON P.IdCategoria = P.IdCategoria
+	INNER JOIN SUBCLASIFICACION_PRODUCTO SP 
+		ON P.IdSubclasificacion = SP.IdSubclasificacion
+	INNER JOIN CLASIFICACION_PRODUCTO CP 
+		ON SP.IdClasificacion = CP.IdClasificacion
 END
 GO
 IF OBJECT_ID('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION','P') IS NOT NULL
@@ -229,10 +234,9 @@ CREATE PROCEDURE USP_INSERT_DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(
 )
 AS BEGIN
 	DECLARE @PrecioUnitarioActual MONEY
-	SELECT @PrecioUnitarioActual = Costo FROM PRODUCTO_PROVEEDOR  WHERE IdProductoProveedor = @IdProductoProveedor
-
-	INSERT INTO DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdEntradaBodegaAP,IdProductoProveedor,Cantidad,PrecioUnitarioEntrada,PrecioUnitarioActual,DescuentoCalculado)
-	VALUES(@IdEntradaBodegaAP,@IdProductoProveedor,@Cantidad,@PrecioUnitarioEntrada,@PrecioUnitarioActual,@DescuentoCalculado)
+	
+	INSERT INTO dbo.DETALLE_ENTRADA_BODEGA_AREA_PRODUCCION(IdEntradaBodegaAP,IdProductoProveedor,Cantidad,PrecioUnitarioEntrada,DescuentoCalculado)
+	VALUES(@IdEntradaBodegaAP,@IdProductoProveedor,@Cantidad,@PrecioUnitarioEntrada,@DescuentoCalculado)
 END
 GO
 IF OBJECT_ID('USP_GENERAR_FACTURA','P') IS NOT NULL

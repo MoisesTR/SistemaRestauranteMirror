@@ -144,7 +144,6 @@ AS BEGIN
 					INNER JOIN dbo.CATEGORIA_PRODUCTO CATE
 			ON		CLASI.IdCategoria = CATE.IdCategoria
 			WHERE CLASI.Habilitado= @Habilitado
-					AND CATE.Habilitado = @Habilitado
 		END
 END
 GO

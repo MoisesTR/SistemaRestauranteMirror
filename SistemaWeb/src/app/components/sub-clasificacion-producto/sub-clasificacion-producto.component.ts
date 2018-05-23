@@ -185,7 +185,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
     this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
       response => {
-        if (response.IdSubclasificacion) {
+        if (response.IdSubClasificacion) {
           swal(
             'Subclasificación',
             'la Subclasificación ha sido creado exitosamente!',

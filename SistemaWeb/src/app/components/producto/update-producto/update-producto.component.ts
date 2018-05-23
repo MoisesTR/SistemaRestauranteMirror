@@ -119,9 +119,9 @@ export class UpdateProductoComponent implements OnInit {
   onChangeSubclasificacion(event){
 
       if(isNull(event)){
-          this.producto.IdSubclasificacion = null;
+          this.producto.IdSubClasificacion = null;
       } else{
-          this.producto.IdSubclasificacion = event.IdSubClasificacion;
+          this.producto.IdSubClasificacion = event.IdSubClasificacion;
       }
   }
 

@@ -2,7 +2,7 @@ export class Producto{
 
   public IdProducto: number
   public IdCategoria: number
-  public IdSubclasificacion: number
+  public IdSubClasificacion: number
   public IdEstado: number
   public NombreProducto: string
   public Descripcion: string

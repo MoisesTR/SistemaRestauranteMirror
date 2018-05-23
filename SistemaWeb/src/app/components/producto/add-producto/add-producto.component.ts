@@ -1,11 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import swal from 'sweetalert2'
 import {Proveedor} from '../../../models/Proveedor';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoriaProductoService} from '../../../services/categoria-producto.service';
 import {CategoriaProducto} from '../../../models/CategoriaProducto';
 import {Envase} from '../../../models/Envase';
-import {UnidadMedida} from '../../../models/UnidadMedida';
 import {UploadService} from '../../../services/upload.service';
 import {CARPETA_PRODUCTOS, Global} from '../../../services/global';
 import {Producto} from '../../../models/Producto';
@@ -17,6 +16,8 @@ import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto
 import {ProductoService} from '../../../services/producto.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utilidades} from '../../Utilidades';
+import {isNull, isUndefined} from 'util';
+import {SelectComponent} from '../../../typescripts/pro/material-select';
 
 
 declare var $:any;
@@ -31,124 +32,136 @@ declare var $:any;
 
 export class AddProductoComponent implements OnInit {
 
-  public producto : Producto;
-  formAddProducto: FormGroup;
-  public proveedores: Proveedor [];
-  public categorias: CategoriaProducto[];
-  public envases: Envase[];
-  public unidadesMedida : UnidadMedida[];
-  public clasificaciones: ClasificacionProducto[];
-  public subclasificaciones: SubClasificacionProducto[];
-  public url: string;
-  public tituloPantalla : string = 'Productos';
-  public showModalCategoria : boolean = false;
-  public showModalClasificacion : boolean = false;
-  public showModalSubclasificacion : boolean = false;
+    public producto: Producto;
+    formAddProducto: FormGroup;
+    public proveedores: Proveedor [];
+    public categorias: CategoriaProducto[];
+    public envases: Envase[];
+    public clasificaciones: ClasificacionProducto[];
+    public subclasificaciones: SubClasificacionProducto[];
+    public url: string;
+    public tituloPantalla: string = 'Productos';
+    public showModalCategoria: boolean = false;
+    public showModalClasificacion: boolean = false;
+    public showModalSubclasificacion: boolean = false;
+    @ViewChild('selectClasificacion') public ngSelect: SelectComponent;
+    groupByFn = (item) => item.Habilitado;
 
-  constructor(
-    private _route: ActivatedRoute
-    , private _router: Router
-    , private _categoriaService: CategoriaProductoService
-    , private _uploadService : UploadService
-    , private clasificacionService: ClasificacionProductoService
-    , private _subclasificacionService: SubClasificacionProductoService
-    , private _productoService : ProductoService
-    , private _fAddProducto: FormBuilder
-  ) {
-    this.url = Global.url;
-    this.producto = new Producto();
+    constructor(private _route: ActivatedRoute
+        , private _router: Router
+        , private _categoriaService: CategoriaProductoService
+        , private _uploadService: UploadService
+        , private clasificacionService: ClasificacionProductoService
+        , private _subclasificacionService: SubClasificacionProductoService
+        , private _productoService: ProductoService
+        , private _fAddProducto: FormBuilder) {
+        this.url = Global.url;
+        this.producto = new Producto();
 
-  }
+    }
 
-  ngOnInit() {
+    ngOnInit() {
 
-    $(document).ready(()=>{
-      $(".letras").keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-          && (key.charCode != 45) //retroceso
-          && (key.charCode != 241) //ñ
-          && (key.charCode != 209) //Ñ
-          && (key.charCode != 32) //espacio
-          && (key.charCode != 225) //á
-          && (key.charCode != 233) //é
-          && (key.charCode != 237) //í
-          && (key.charCode != 243) //ó
-          && (key.charCode != 250) //ú
-          && (key.charCode != 193) //Á
-          && (key.charCode != 201) //É
-          && (key.charCode != 205) //Í
-          && (key.charCode != 211) //Ó
-          && (key.charCode != 218) //Ú
+        $(document).ready(() => {
+            $(".letras").keypress(function (key) {
+                if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+                    && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+                    && (key.charCode != 45) //retroceso
+                    && (key.charCode != 241) //ñ
+                    && (key.charCode != 209) //Ñ
+                    && (key.charCode != 32) //espacio
+                    && (key.charCode != 225) //á
+                    && (key.charCode != 233) //é
+                    && (key.charCode != 237) //í
+                    && (key.charCode != 243) //ó
+                    && (key.charCode != 250) //ú
+                    && (key.charCode != 193) //Á
+                    && (key.charCode != 201) //É
+                    && (key.charCode != 205) //Í
+                    && (key.charCode != 211) //Ó
+                    && (key.charCode != 218) //Ú
+                )
+                    return false;
+            });
+            $('.dropify').dropify();
+
+        });
+
+        this.getCategorias();
+        this.initFormAddProducto();
+
+    }
+
+    getCategorias() {
+
+        this._categoriaService.getCategoriasProductos().subscribe(
+            response => {
+                if (response.categorias) {
+                    this.categorias = response.categorias;
+                } else {
+
+                }
+            }, error => {
+                console.log(error);
+            }
         )
-          return false;
-      });
-      $('.dropify').dropify();
 
-    });
+    }
+    onChangeClasificacion(event) {
 
-    this.getCategorias();
-    this.getClasificaciones();
-    this.initFormAddProducto();
-
-  }
-
-  getCategorias(){
-
-    this._categoriaService.getCategoriasProductos().subscribe(
-      response =>{
-        if(response.categorias){
-          this.categorias = response.categorias;
+        if(isNull(event) || isUndefined(event)){
+            this.producto.IdClasificacion = null;
+            this.subclasificaciones = [];
         } else {
+            this.producto.IdClasificacion = event.IdClasificacion;
+            this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
+                response => {
+                    if (response.subclasificaciones) {
+                        this.subclasificaciones = [];
+                        this.subclasificaciones.push(response.subclasificaciones);
+                        this.subclasificaciones = response.subclasificaciones;
+                    }
+                }, error => {
 
+                }
+            )
         }
-      }, error =>{
-          console.log(error);
-      }
-    )
+    }
 
-  }
-  onAddSelectClasificacion(event){
+    onChangeCategoria(event){
 
-    this.producto.IdClasificacion = event.IdClasificacion;
-
-    this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
-      response =>{
-        if(response.subclasificaciones){
-          this.subclasificaciones = response.subclasificaciones;
+        if(isNull(event) || isUndefined(event)){
+            this.producto.IdCategoria = null;
+            this.clasificaciones = [];
+        } else {
+            this.producto.IdCategoria = event.IdCategoria;
+            this.clasificacionService.getClasificacionesByIdCategoria(1,this.producto.IdCategoria).subscribe(
+                response =>{
+                    if(response.clasificaciones){
+                        this.clasificaciones = response.clasificaciones;
+                    } else {
+                        Utilidades.showMsgInfo('No se ha podido obtener las clasificaciones','Producto');
+                    }
+                }, error=>{
+                    Utilidades.showMsgError(Utilidades.mensajeError(error));
+                }
+            )
         }
-      }, error=>{
+    }
 
+    onChangeSubclasificacion(event){
+      if(isNull(event) || isUndefined(event)){
+          this.producto.IdSubClasificacion = null;
+      } else {
+          this.producto.IdSubClasificacion = event.IdSubClasificacion;
       }
-    )
+    }
 
-  }
+ customSearchFn(term: string, item: SubClasificacionProducto) {
+    term = term.toLocaleLowerCase();
+    return item.NombreSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 || item.DescripcionSubClasificacion.toLocaleLowerCase() === term;
+ }
 
-  onAddSelectSubClasificacion(event){
-    // console.log(event.IdSubClasificacion)
-    this.producto.IdSubclasificacion = event.IdSubClasificacion;
-  }
-
-  onAddCategoria(event){
-    this.producto.IdCategoria = event.IdCategoria;
-  }
-
-  getClasificaciones(){
-
-    this.clasificacionService.getClasificaciones().subscribe(
-
-      response =>{
-        if(response.clasificaciones){
-          this.clasificaciones = [];
-          this.clasificaciones.push(response.clasificaciones)
-          this.clasificaciones = response.clasificaciones;;
-
-        }
-      }, error=>{
-
-      }
-    )
-  }
   guardarImagenProducto(){
 
     if(this.filesToUpload != null){
@@ -180,6 +193,7 @@ export class AddProductoComponent implements OnInit {
 
   crearProducto(){
     this.getValueForm();
+    console.log(this.producto);
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
         if(response.IdProducto){
@@ -249,6 +263,7 @@ export class AddProductoComponent implements OnInit {
     })
   }
 
+  //Metodos para invocar a las modales
   showModalCategoriaM(){
       this.showModalCategoria = true;
   }
@@ -268,8 +283,16 @@ export class AddProductoComponent implements OnInit {
   resultadoConsultaClasificacion(event) {
     this.showModalClasificacion = false;
 
-    if(event) {
-        this.getClasificaciones();
+    if(event){
+        this.clasificacionService.getClasificacionesByIdCategoria(1,this.producto.IdCategoria).subscribe(
+            response =>{
+                if(response.clasificaciones){
+                    this.clasificaciones = response.clasificaciones;
+                }
+            }, error =>{
+                Utilidades.showMsgError(Utilidades.mensajeError(error));
+            }
+        )
     }
   }
 

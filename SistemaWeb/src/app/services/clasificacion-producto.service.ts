@@ -31,6 +31,16 @@ export class ClasificacionProductoService {
     return this._http.get(this.url + 'clasificaciones?Habilitado='+Habilitado)
   }
 
+  getClasificacionesByIdCategoria(Habilitado = 1,IdCategoria) : Observable<any>{
+    let params = JSON.stringify(Habilitado);
+    let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'token'
+    });
+
+    return this._http.get(this.url + 'clasificaciones/'+IdCategoria+'/'+Habilitado);
+  }
+
   updateClasificacionProducto(Clasificacion) : Observable<any> {
 
     let params = JSON.stringify(Clasificacion);

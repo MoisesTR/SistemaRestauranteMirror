@@ -4,7 +4,7 @@ INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,I
 VALUES('Filete de Pollo','Filetes de pollo sin hueso.',2,1,1);
 
 INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,IdEstado)
-VALUES('Tallarin','Bolsa de tallarines.',1,3,1);
+VALUES('Tallarin','Bolsa de tallarines.',1,3,1);	
 
 INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,IdEstado)
 VALUES('Camaron','Bolsa de Camarones.',1,3,1);

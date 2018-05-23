@@ -45,13 +45,6 @@ function createProductoProveedor(req, res) {
     console.log(req.params);
     db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto)
     db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor)
-    db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase)
-    db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque)
-    db.pushAOJParam(aoj, 'IdUnidadMedida', sql.Int, data.IdUnidadMedida)
-    db.pushAOJParam(aoj, 'ValorUnidadMedida', sql.Numeric(10, 5), data.ValorUnidadMedida)
-    db.pushAOJParam(aoj, 'CantidadEmpaque', sql.Int, data.CantidadEmpaque)
-    db.pushAOJParam(aoj, 'Costo', sql.Money, data.Costo)
-    db.pushAOJParam(aoj, 'DiasCaducidad', sql.Int, data.DiasCaducidad)
     db.storedProcExecute('USP_CREATE_PRODUCTO_PROVEEDOR', aoj)
         .then((results) => {
             res.status(200).json(results.recordset[0])
@@ -73,29 +66,6 @@ function getProductosByProveedorId(req, res) {
         })
 }
 
-function updateProductoProveedor(req, res) {
-    var data = matchedData(req, {locations: ['body', 'params']});
-    var aoj = [];
-    db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int, data.IdProductoProveedor);
-    db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase);
-    db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque);
-    db.pushAOJParam(aoj, 'IdUnidadMedida', sql.Int, data.IdUnidadMedida);
-    db.pushAOJParam(aoj, 'ValorUnidadMedida', sql.Numeric(10, 5), data.ValorUnidadMedida);
-    db.pushAOJParam(aoj, 'CantidadEmpaque', sql.Int, data.CantidadEmpaque);
-    db.pushAOJParam(aoj, 'Costo', sql.Money, data.Costo);
-    db.pushAOJParam(aoj, 'DiasCaducidad', sql.Int, data.DiasCaducidad);
-    db.storedProcExecute('USP_UPDATE_PRODUCTO_PROVEEDOR', aoj)
-        .then((results) => {
-            let afectadas = results.rowsAffected[0];
-            res.status(200).json(
-                (afectadas > 0) ? { success: 'Producto Actualizado exitosamente!!' } : { failed: 'No se pudo actualizar la relacion producto-proveedor!' }
-            );
-            console.log('Producto Actualizado con exito!');
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        });
-}
-
 function changeStateProductoProveedor(req, res) {
     var data = req.body;
     var aoj = [];
@@ -111,6 +81,7 @@ function changeStateProductoProveedor(req, res) {
             res.status(500).json(mssqlErrors(err));
         });
 }
+
 module.exports = {
     createProductoProveedor,
     changeStateProductoProveedor,

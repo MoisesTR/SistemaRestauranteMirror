@@ -132,26 +132,13 @@ exports.detalleEntradaBodega = [
     check('DescuentoCalculado').isFloat()
 ];
 
-var createProductoProveedor = [
+exports.createProductoProveedor = [
     check('IdProducto').isInt(),
     check('IdProveedor').isInt(),
-    body('IdEnvase').isInt().optional({nullable:true}),
-    body('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
-    body('Costo','El costo es necesario!').isFloat(),
-    body('CantidadEmpaque').isInt().optional({nullable:true}),
-    body('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
-    body('ValorUnidadMedida').isNumeric(),
-    check('DiasCaducidad').optional({ nullable: true }),
-    sanitize('ValorUnidadMedida').toFloat()
+    sanitize('IdProducto').toInt(),
+    sanitize('IdProveedor').toInt()
 ];
-exports.createProductoProveedor = createProductoProveedor;
 
-var updateProductoProv = createProductoProveedor.slice(2,createProductoProveedor.length);
-
-exports.updateProductoProv = updateProductoProv.concat([
-    check('IdProductoProveedor', 'El id de la relacion producto proveedor es requerido!').isInt(),
-    sanitize('IdProductoProveedor').toInt()    
-]);
 
 var createEnvase = [
     body('NombreEnvase', 'El nombre de envase es requerido!').isAscii().isLength({min: 3, max:50}),
@@ -289,7 +276,15 @@ var createProducto = [
     body('IdEstado','Elige el estado del producto.').isInt(),
     body('NombreProducto','Ingresa el Nombre del Producto.').isAscii(),
     body('Descripcion','Ingresa la Descripcion del producto.').isAscii(),
-    body('Imagen','Ingresa el nombre de la Imagen.').optional({nullable:true})
+    body('Imagen','Ingresa el nombre de la Imagen.').optional({nullable:true}),
+    body('IdEnvase').isInt().optional({nullable:true}),
+    body('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
+    body('Costo','El costo es necesario!').isFloat(),
+    body('CantidadEmpaque').isInt().optional({nullable:true}),
+    body('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
+    body('ValorUnidadMedida').isNumeric(),
+    check('DiasCaducidad').optional({ nullable: true }),
+    sanitize('ValorUnidadMedida').toFloat()
 ];
 exports.createProducto = createProducto;
 

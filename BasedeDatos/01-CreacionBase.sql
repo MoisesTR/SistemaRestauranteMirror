@@ -36,6 +36,7 @@ CREATE TABLE TIPO_DOCUMENTO_IDENTIFICACION(
 	DescripcionTD		NVARCHAR(150)		NULL,
 	Habilitado			BIT					NOT NULL	DEFAULT 1,
 	CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
+	UpdatedAt			SMALLDATETIME		NULL,
 	CONSTRAINT PK_TIPO_DOCUMENTO_IDENTIFICACION PRIMARY KEY(IdTipoDocumento)
 )
 GO
@@ -122,6 +123,8 @@ GO
 ALTER TABLE PROVEEDOR
 	ADD CONSTRAINT DF_IdTipoNumeroRUC_Proveedor DEFAULT 2 FOR IdTipoDocumento
 GO
+ALTER TABLE PROVEEDOR
+ ADD CONSTRAINT U_NumeroRuc UNIQUE(Documento)
 --INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Telefono) 
 --VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante','87792956')
 --		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante','87603420')
@@ -310,7 +313,6 @@ VALUES ('Sin Procesar','Producto que no se ha procesado')
 GO
 CREATE TABLE PRODUCTO (
     IdProducto			INT IDENTITY(1,1),
-	IdCategoria			INT					NOT NULL,
     IdSubClasificacion	INT					NOT NULL,
     IdEstado			int					NOT NULL,
 	IdEnvase			INT					NULL, --id del envase si es que tiene
@@ -326,8 +328,6 @@ CREATE TABLE PRODUCTO (
     CreatedAt			SMALLDATETIME		NOT NULL DEFAULT GETDATE(),
     UpdateAt			SMALLDATETIME		NULL,
     CONSTRAINT PK_ID_PRODUCT PRIMARY KEY (IdProducto),
-    CONSTRAINT FK_CATEGPRODU FOREIGN KEY (IdCategoria)
-        REFERENCES  CATEGORIA_PRODUCTO (IdCategoria),
     CONSTRAINT FK_PRODUCT_SUBCLASIF FOREIGN KEY (IdSubClasificacion)
         REFERENCES SUBCLASIFICACION_PRODUCTO (IdSubClasificacion),
 	constraint fk_Estado_Producto foreign key(IdEstado)
@@ -392,6 +392,10 @@ CREATE TABLE SUCURSAL (
     UpdateAt		SMALLDATETIME		NULL,
     CONSTRAINT PK_IDSUCUR PRIMARY KEY (IdSucursal)
 )
+GO
+ALTER TABLE SUCURSAL
+	ADD CONSTRAINT U_NombreSucursal UNIQUE(NombreSucursal)
+GO
 INSERT INTO SUCURSAL(NombreSucursal,Direccion,Telefono1) VALUES('Restaurante Familia Chang - Rubenia','Semforos de Rubenia 1 1/2c al La, frente al Hotel Estrella
 #Managua','22492774'),('Restaurante Familia Chang - Ciudad Jardin','Ciudad jardin','22492742');
 GO

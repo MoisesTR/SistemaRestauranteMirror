@@ -27,7 +27,7 @@ CREATE PROCEDURE USP_UPDATE_CARGO(
     @DescripcionCargo NVARCHAR(150)
 )
 AS BEGIN
-	UPDATE CARGO SET NombreCargo=@NombreCargo,DescripcionCargo=@DescripcionCargo
+	UPDATE CARGO SET NombreCargo=@NombreCargo,DescripcionCargo=@DescripcionCargo, UpdateAt = GETDATE()
 	WHERE IdCargo = @IdCargo
 END
 GO
@@ -50,10 +50,14 @@ CREATE PROCEDURE USP_GET_CARGOS(
 )
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT IdCargo,NombreCargo,DescripcionCargo,Habilitado,CreatedAt,UpdateAt FROM CARGO
+		BEGIN
+			SELECT IdCargo,NombreCargo,DescripcionCargo,Habilitado,CreatedAt,UpdateAt FROM CARGO
+		END
 	ELSE
-		SELECT IdCargo,NombreCargo,DescripcionCargo,Habilitado,CreatedAt,UpdateAt FROM CARGO
-		WHERE Habilitado=@Habilitado
+		BEGIN
+			SELECT IdCargo,NombreCargo,DescripcionCargo,Habilitado,CreatedAt,UpdateAt FROM CARGO
+			WHERE Habilitado=@Habilitado
+		END
 END
 GO
 IF OBJECT_ID('USP_DISP_CARGO','P') IS NOT NULL
@@ -136,66 +140,27 @@ GO
 --		WHERE TT.IdTrabajador= @IdTrabajador AND TT.Habilitado= @Habilitado
 --END
 GO
-IF OBJECT_ID('USP_GET_TELEFONOS_SUCURSAL','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_TELEFONOS_SUCURSAL
-GO
-CREATE PROCEDURE USP_GET_TELEFONOS_SUCURSAL(
-	@IdSucursal INT,
-	@Habilitado BIT
-) AS BEGIN
-	IF @Habilitado IS NULL
-		SELECT IdTelefonoSucursal,IdSucursal, NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
-		FROM TELEFONO_SUCURSAL TS
-		WHERE TS.IdSucursal= @IdSucursal
-	ELSE
-		SELECT IdTelefonoSucursal,IdSucursal, NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
-		FROM TELEFONO_SUCURSAL TS
-		WHERE TS.IdSucursal= @IdSucursal AND TS.Habilitado= @Habilitado
-END
-GO
-IF OBJECT_ID('USP_GET_TELEFONO_SUCURSAL','P') IS NOT NULL
-	DROP PROCEDURE USP_GET_TELEFONO_SUCURSAL
-GO
-CREATE PROCEDURE USP_GET_TELEFONO_SUCURSAL(
-	@IdTelefonoSucursal INT,
-	@IdSucursal INT
-) AS BEGIN
-		SELECT IdTelefonoSucursal,IdSucursal, NumeroTelefono,TS.Habilitado,TS.CreatedAt,TS.UpdateAt 
-		FROM TELEFONO_SUCURSAL TS
-		WHERE TS.IdSucursal= @IdSucursal AND IdTelefonoSucursal= @IdTelefonoSucursal
-END
-GO
---IF OBJECT_ID('USP_GET_TELEFONO_TRABAJADOR','P') IS NOT NULL
---	DROP PROCEDURE USP_GET_TELEFONO_TRABAJADOR
---GO
---CREATE PROCEDURE USP_GET_TELEFONO_TRABAJADOR(
---	@IdTelefoNOTrabajador INT,
---	@IdTrabajador INT
---) AS BEGIN
---		SELECT IdTelefoNOTrabajador,IdTrabajador, NumeroTelefono,TT.Habilitado,TT.CreatedAt,TT.UpdateAt 
---		FROM TELEFONO_TRABAJADOR TT
---		WHERE TT.IdTrabajador= @IdTrabajador AND IdTelefoNOTrabajador = @IdTelefoNOTrabajador
---END
-GO
 IF OBJECT_ID('USP_GET_DETALLE_BODEGA_AP','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_DETALLE_BODEGA_AP
 GO
 CREATE PROCEDURE USP_GET_DETALLE_BODEGA_AP
 	@IdBodegaAreaP INT
 AS BEGIN
-	SELECT IdDetalle,IdBodegaAreaP,IdDetalleEntradaAP,IdEntradaBodegaAP,PP.IdProveedor,DAP.IdProductoProveedor,P.IdProducto, P.NombreProducto,P.IdCategoria,C.NombreCategoria,
-	P.IdSubclasificacion,SP.NombreSubclasificacion,SP.IdClasificacion,CP.NombreClasificacion,Cantidad,FechaHoraIngreso,FechaHoraProduccion,DAP.Habilitado 
+	SELECT	IdDetalle,	IdBodegaAreaP,	IdDetalleEntradaAP,	IdEntradaBodegaAP,	PP.IdProveedor,	
+			DAP.IdProductoProveedor,	P.IdProducto, P.NombreProducto,	CP.IdCategoria,	C.NombreCategoria,
+			P.IdSubclasificacion,	SP.NombreSubclasificacion,	SP.IdClasificacion,	CP.NombreClasificacion,
+			Cantidad,	FechaHoraIngreso,	FechaHoraProduccion,	DAP.Habilitado 
 	FROM dbo.DETALLE_BODEGA_AP DAP
 	INNER JOIN PRODUCTO_PROVEEDOR PP 
 		ON DAP.IdProductoProveedor = PP.IdProductoProveedor
 	INNER JOIN PRODUCTO  P 
 		ON PP.IdProducto = P.IdProducto
-	INNER JOIN CATEGORIA_PRODUCTO C 
-		ON P.IdCategoria = P.IdCategoria
 	INNER JOIN SUBCLASIFICACION_PRODUCTO SP 
 		ON P.IdSubclasificacion = SP.IdSubclasificacion
 	INNER JOIN CLASIFICACION_PRODUCTO CP 
 		ON SP.IdClasificacion = CP.IdClasificacion
+	INNER JOIN CATEGORIA_PRODUCTO C
+		ON CP.IdCategoria = C.IdCategoria
 END
 GO
 IF OBJECT_ID('USP_INSERT_ENTRADA_BODEGA_AREA_PRODUCCION','P') IS NOT NULL
@@ -271,10 +236,44 @@ AS BEGIN
 		WHERE Habilitado= @Habilitado
 END
 GO
-IF OBJECT_ID('dbo.USP_GET_TIPOS_DOCUMENTOS',N'P') IS NOT NULL
-	DROP PROCEDURE dbo.USP_GET_TIPOS_DOCUMENTOS;
+IF OBJECT_ID('dbo.USP_INSERT_TIPO_DOCUMENTO_IDENTIFICACION') IS NOT NULL
+	DROP PROCEDURE dbo.USP_INSERT_TIPO_DOCUMENTO_IDENTIFICACION
 GO
-CREATE PROCEDURE [dbo].[USP_GET_TIPOS_DOCUMENTOS](
+CREATE PROCEDURE dbo.USP_INSERT_TIPO_DOCUMENTO_IDENTIFICACION (
+	@NombreTD		NVARCHAR(50),
+	@DescripcionTD	NVARCHAR(150)
+)
+AS BEGIN
+	IF EXISTS(SELECT IdTipoDocumento FROM dbo.TIPO_DOCUMENTO_IDENTIFICACION WHERE NombreTD = @NombreTD)
+		BEGIN
+			RAISERROR('Ya existe un tipo de documento llamado "%s".',16,1,@NombreTD)
+		END
+	ELSE
+		BEGIN
+			INSERT INTO dbo.TIPO_DOCUMENTO_IDENTIFICACION(NombreTD, DescripcionTD)
+			VALUES(@NombreTD, @DescripcionTD)
+
+			SELECT @@IDENTITY AS IdTipoDocumento
+		END
+END
+GO
+IF OBJECT_ID('dbo.USP_UPDATE_TIPO_DOCUMENTO_IDENTIFICACION','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_UPDATE_TIPO_DOCUMENTO_IDENTIFICACION
+GO
+CREATE PROCEDURE dbo.USP_UPDATE_TIPO_DOCUMENTO_IDENTIFICACION(
+	@IdTipoDocumento	INT,
+	@NombreTD			NVARCHAR(50),
+	@DescripcionTD		NVARCHAR(50)
+)
+AS BEGIN
+	UPDATE dbo.TIPO_DOCUMENTO_IDENTIFICACION SET NombreTD=@NombreTD, DescripcionTD = @DescripcionTD  , UpdatedAt = GETDATE()
+	WHERE IdTipoDocumento = @IdTipoDocumento
+END
+GO
+IF OBJECT_ID('dbo.USP_GET_TIPOS_DOCUMENTOS_IDENTIFICACION',N'P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_GET_TIPOS_DOCUMENTOS_IDENTIFICACION;
+GO
+CREATE PROCEDURE [dbo].[USP_GET_TIPOS_DOCUMENTOS_IDENTIFICACION](
 	@Habilitado BIT NULL
 )
 AS BEGIN
@@ -285,4 +284,16 @@ AS BEGIN
 		SELECT	IdTipoDocumento, NombreTD, DescripcionTD, Habilitado,CreatedAt
 		FROM	dbo.TIPO_DOCUMENTO_IDENTIFICACION T 
 		WHERE T.Habilitado = @Habilitado
+END
+GO
+IF OBJECT_ID('dbo.USP_DISP_TIPO_DOCUMENTO_IDENTIFICACION','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_DISP_TIPO_DOCUMENTO_IDENTIFICACION
+GO
+CREATE PROCEDURE dbo.USP_DISP_TIPO_DOCUMENTO_IDENTIFICACION(
+	@IdTipoDocumento	INT,
+	@Habilitado			BIT
+)
+AS BEGIN
+	UPDATE dbo.TIPO_DOCUMENTO_IDENTIFICACION SET Habilitado = @Habilitado , UpdatedAt = GETDATE()
+	WHERE	IdTipoDocumento = @IdTipoDocumento
 END

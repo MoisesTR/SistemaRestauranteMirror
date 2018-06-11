@@ -5,18 +5,18 @@ IF OBJECT_ID('dbo.V_ProductosDetallados','V') IS NOT NULL
 GO
 CREATE VIEW dbo.V_ProductosDetallados
 AS
-SELECT	p.IdProducto,	p.NombreProducto,	p.Descripcion,	p.IdCategoria,	cp.NombreCategoria,
+SELECT	p.IdProducto,	p.NombreProducto,	p.Descripcion,	cl.IdCategoria,	cp.NombreCategoria,
 		p.IdSubClasificacion,	sp.NombreSubClasificacion,	cl.IdClasificacion,		cl.NombreClasificacion,
 		p.IdEnvase,	e.NombreEnvase,		p.IdEmpaque,	em.NombreEmpaque,    p.CantidadEmpaque,
 		p.Imagen,	p.IdUnidadMedida,	um.NombreUnidad,	p.ValorUnidadMedida,	p.IdEstado,
 		ep.Nombre,	p.Habilitado,		P.DiasCaducidad,	P.CreatedAt,P.UpdateAt
     FROM Producto p 
-	INNER JOIN CATEGORIA_PRODUCTO cp 
-		ON	p.IdCategoria = cp.IdCategoria
     INNER JOIN SUBCLASIFICACION_PRODUCTO sp 
 		ON	p.IdSubClasificacion = sp.IdSubClasificacion
     INNER JOIN CLASIFICACION_PRODUCTO cl 
 		ON	sp.IdClasificacion = cl.IdClasificacion
+	INNER JOIN CATEGORIA_PRODUCTO cp 
+		ON	cl.IdCategoria = cp.IdCategoria
     LEFT JOIN ENVASE e 
 		ON	p.IdEnvase = e.IdEnvase
     LEFT JOIN EMPAQUE em 

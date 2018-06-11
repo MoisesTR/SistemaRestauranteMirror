@@ -315,9 +315,17 @@ CREATE PROCEDURE USP_CREATE_PROVEEDOR(
 	@Telefono2			NVARCHAR(20) NULL,
 	@Retencion2			BIT NULL
 ) AS BEGIN
-	INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento, Telefono1,Telefono2,Retencion2)
-    VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento, @Telefono1,@Telefono2,@Retencion2);
-	SELECT @@IDENTITY AS IdProveedor
+	BEGIN TRANSACTION
+	BEGIN TRY
+		INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento, Telefono1,Telefono2,Retencion2)
+		VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento, @Telefono1,@Telefono2,@Retencion2);
+		SELECT @@IDENTITY AS IdProveedor
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+		THROW;
+	END CATCH
 END 
 GO
 IF OBJECT_ID('USP_UPDATE_PROVEEDOR','P') IS NOT NULL

@@ -42,7 +42,7 @@ CREATE PROCEDURE dbo.USP_UPDATE_ROL(
 	@DescripcionRol NVARCHAR(150)
 )
 AS BEGIN
-	UPDATE dbo.ROL_USUARIO SET NombreRol = @NombreRol, @DescripcionRol=@DescripcionRol 
+	UPDATE dbo.ROL_USUARIO SET NombreRol = @NombreRol, DescripcionRol=@DescripcionRol 
 		WHERE IdRol = @IdRol
 END
 GO
@@ -88,12 +88,12 @@ GO
 		DROP PROCEDURE USP_CREATE_USUARIO
 	GO
 	CREATE PROCEDURE USP_CREATE_USUARIO(
-		@IdTrabajador INT,
-		@IdRol INT,
-		@Username NVARCHAR(50),
-		@Email NVARCHAR(100) NULL,
-		@Imagen NVARCHAR(100) NULL,
-		@Password NVARCHAR(100)
+		@IdTrabajador	INT,
+		@IdRol			INT,
+		@Username		NVARCHAR(50),
+		@Email			NVARCHAR(100)	NULL,
+		@Imagen			NVARCHAR(100)	NULL,
+		@Password		NVARCHAR(100)
 	)
 	AS BEGIN 
 		INSERT INTO USUARIO(IdRol,IdTrabajador,Username,Email,Imagen,Password)
@@ -105,6 +105,22 @@ GO
 		INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
 	END
 GO
+IF OBJECT_ID('dbo.USP_CREATE_USUARIO_ADMIN','P') IS NOT NULL
+	DROP PROCEDURE dbo.USP_CREATE_USUARIO_ADMIN
+GO
+CREATE PROCEDURE dbo.USP_CREATE_USUARIO_ADMIN (
+	@Username		NVARCHAR(50),
+	@Email			NVARCHAR(100) NULL,
+	@Imagen			NVARCHAR(100) NULL,
+	@Password		NVARCHAR(100)
+)
+AS BEGIN
+	--//El id Rol es 1 por que ese es el defecto para administradores
+	INSERT INTO dbo.USUARIO(IdRol, Username, Email,Imagen, Password)
+	VALUES(1, @Username, @Email, @Imagen, @Password)
+	SELECT @@IDENTITY AS IdUSuario
+END
+GO
 IF OBJECT_ID('dbo.VIEW_USUARIO_INFO', 'V') IS NOT NULL
 	DROP VIEW VIEW_USUARIO_INFO
 GO
@@ -112,9 +128,9 @@ CREATE VIEW VIEW_USUARIO_INFO
 AS
 	SELECT U.IdUsuario, U.IdTrabajador, T.Nombres,U.IdRol, R.NombreRol, R.DescripcionRol , C.NombreCargo, Username, U.Imagen, Email, Password,U.Habilitado,U.CreateAt,U.UpdateAt
 	FROM USUARIO U
-	INNER JOIN TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
-	INNER JOIN CARGO C ON T.IdCargo= C.IdCargo
-	INNER JOIN ROL_USUARIO R ON U.IdRol = R.IdRol
+	LEFT  JOIN dbo.TRABAJADOR T ON U.IdTrabajador = T.IdTrabajador
+	LEFT JOIN dbo.CARGO C ON T.IdCargo= C.IdCargo
+	INNER JOIN dbo.ROL_USUARIO R ON U.IdRol = R.IdRol
 GO
 IF OBJECT_ID('dbo.USP_GET_USUARIOS','P') IS NOT NULL
 	DROP PROCEDURE USP_GET_USUARIOS
@@ -124,7 +140,8 @@ CREATE PROCEDURE USP_GET_USUARIOS(
 )
 AS BEGIN
 	IF @Habilitado IS NULL
-		SELECT * FROM VIEW_USUARIO_INFO
+		SELECT IdUsuario, IdTrabajador, Nombres,IdRol, NombreRol, DescripcionRol , NombreCargo, Username, Imagen, Email,Habilitado,CreateAt 
+		FROM dbo.VIEW_USUARIO_INFO
 	ELSE
 		SELECT * FROM VIEW_USUARIO_INFO	WHERE Habilitado = @Habilitado
 END

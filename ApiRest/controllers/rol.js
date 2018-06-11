@@ -16,9 +16,10 @@ function createRol(req,res){
     })
 }
 function getRoles(req,res){
-    let Habilitado = req.query.Habilitado;
+    let data = matchedData(req, {locations:['query']})
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado',sql.Int,Habilitado)
+    console.log(data)
+    db.pushAOJParam(aoj, 'Habilitado',sql.Int,+data.Habilitado)
     db.storedProcExecute('USP_GET_ROLES', aoj)
     .then((results) => {
         res.status(200).json({
@@ -29,17 +30,17 @@ function getRoles(req,res){
     });
 }
 function getRolbyId(req,res){
-    var IdCargo = req.params.IdCargo;
+    var IdRol = req.params.IdRol;
     var aoj = [];
     db.pushAOJParam(aoj, 'IdRol',   sql.Int,    IdRol)
     db.storedProcExecute('USP_GET_ROL', aoj) 
     .then((results) => {
         res.status(200).json({
-            rol:results.recordset
+            rol:results.recordset[0]
         })
     }).catch((err) => {
-    });
-    res.status(500).json( mssqlErrors(err) );
+        res.status(500).json( mssqlErrors(err) );
+    }); 
 }
 function updateRol(req,res){
     var data = matchedData(req, {locations: ['body', 'params']});
@@ -49,9 +50,9 @@ function updateRol(req,res){
     db.pushAOJParam(aoj, 'DescripcionRol',sql.NVarChar(150),data.DescripcionRol)
     db.storedProcExecute('USP_UPDATE_ROL', aoj)
     .then((results) => {
-        res.status(200).json({
-            success:'rol Actualizada Exitosamente!'
-        })
+        let afectadas = results.rowsAffected[0];
+        res.status(200).json((afectadas > 0) ? { success: 'Rol modificado con exito!' } : { failed: 'No se encontro el Rol solicitado!' })
+    
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
     });

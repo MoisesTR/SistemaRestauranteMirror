@@ -19,9 +19,10 @@ function createClasificacion(req, res) {
 }
 
 function getClasificaciones(req, res) {
-    var data = req.query;
+    var data = matchedData(req,{locations: ['query']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado);
+    console.log(+data.Habilitado)
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     console.log('Agrego el parametro')
     db.storedProcExecute('USP_GET_CLASIFICACIONES', aoj)
         .then((results) => {
@@ -53,22 +54,24 @@ function getClasificacionesByIdCategoria(req,res){
 function updateClasificacion(req, res) {
     var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, data.IdClasificacion)
-    db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)
+    db.pushAOJParam(aoj, 'IdClasificacion', sql.Int(), data.IdClasificacion)
+    db.pushAOJParam(aoj, 'IdCategoria', sql.Int(), data.IdCategoria)
     db.pushAOJParam(aoj, 'NombreClasificacion', sql.NVarChar(50), data.NombreClasificacion)
     db.pushAOJParam(aoj, 'DescripcionClasificacion', sql.NVarChar(150), data.DescripcionClasificacion)
     db.storedProcExecute('USP_UPDATE_CLASIFICACION', aoj)
-        .then((results) => {
-            res.status(200).json({ success: 'Clasificacion actualizada con exito!' })
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        });
+    .then((results) => {
+        let afectadas = results.rowsAffected[0];
+        res.status(200).json((afectadas > 0) ? { success: 'Clasificación modificada con exito!' } : { failed: 'No se encontro la Clasificación solicitada!' })
+    
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+    });
 }
 
 function getClasificacionById(req, res) {
     var data = req.params;
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, IdClasificacion);
+    db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, data.IdClasificacion);
     db.storedProcExecute('USP_GET_CLASIFICACION', aoj)
         .then((results) => {
             res.status(200).json({ clasificacion: results.recordset[0] })
@@ -78,12 +81,10 @@ function getClasificacionById(req, res) {
 }
 
 function changeStateClasificacion(req, res) {
-    let IdClasificacion = req.params.IdClasificacion
-    let Habilitado = req.body.Habilitado
-    console.log('IdClasificacion:' + IdClasificacion, 'Habilitado:' + Habilitado)
+    let data = matchedData(req, {locations:['query','params']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdClasificacion', sql.Int, IdClasificacion);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.pushAOJParam(aoj, 'IdClasificacion', sql.Int(), data.IdClasificacion);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('USP_DISP_CLASIFICACION', aoj)
         .then((results) => {
             console.log(results)
@@ -103,5 +104,4 @@ module.exports = {
     getClasificaciones,
     updateClasificacion,
     changeStateClasificacion
-    
 }

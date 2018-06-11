@@ -5,7 +5,6 @@ const { matchedData, sanitize } = require('express-validator/filter');
 
 function getEmpaqueById(req, res) {
     const data = req.params;
-
     var aoj = [];
     db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque);
     db.queryExecute('SELECT IdEmpaque,NombreEmpaque,Descripcion,Habilitado FROM EMPAQUE WHERE IdEmpaque = @IdEmpaque', aoj)
@@ -17,10 +16,10 @@ function getEmpaqueById(req, res) {
 }
 
 function getEmpaques(req, res) {
-    let Habilitado = req.query.Habilitado;
+    let data = matchedData(req, {locations:['query']});
     var aoj = [];
-    console.log(Habilitado)
-    db.pushAOJParam(aoj, 'Habilitado',sql.Bit, Habilitado);
+    console.log(data)
+    db.pushAOJParam(aoj, 'Habilitado',sql.Bit(), +data.Habilitado);
     db.storedProcExecute('USP_GET_EMPAQUES', aoj)
         .then((results) => {
             res.status(200).json({ empaques: results.recordset })
@@ -51,22 +50,25 @@ function updateEmpaque(req, res) {
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(150), data.Descripcion);
     db.storedProcExecute('dbo.USP_UPDATE_EMPAQUE', aoj)
         .then((result) => {
-            res.status(200).json({ success: 'Empaque actualizado con exito!!' })
+            let afectadas = result.rowsAffected[0]
+        
+            res.status(200).json((afectadas > 0) ? { success: 'Empaque editado con exito!' } : { failed: 'No se encontro el Empaque solicitado!' })   
+        
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));
         })
 }
 
 function changeStateEmpaque(req,res){
-    let data = matchedData(req);
+    let data = matchedData(req, {locations:['query','params']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdEmpaque', sql.Int, data.IdEmpaque);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado);
+    db.pushAOJParam(aoj, 'IdEmpaque', sql.Int(), data.IdEmpaque);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('dbo.USP_DISP_EMPAQUE', aoj).then((results) => {
-        console.log(results)
+        console.log(results.rowsAffected)
         let afectadas = results.rowsAffected[0]
         let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
-        res.status(200).json((afectadas > 0) ? { success: 'Empaque ' + accion + ' con exito!' } : { failed: 'No se encontro el empaque solicitado!' })
+        res.status(200).json((afectadas > 0) ? { success: 'Empaque ' + accion + ' con exito!' } : { failed: 'No se encontro el Empaque solicitado!' })
     }).catch((err) => {
         res.status(500).json(mssqlErrors(err));
         console.log('Error:', err)

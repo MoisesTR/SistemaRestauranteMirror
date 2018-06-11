@@ -67,10 +67,10 @@ function getProductosByProveedorId(req, res) {
 }
 
 function changeStateProductoProveedor(req, res) {
-    var data = req.body;
+    let data = matchedData(req, {locations:['query','param']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int, data.IdProductoProveedor);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Bit, data.Habilitado);
+    db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int(), data.IdProductoProveedor);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('USP_DISP_PRODUCTO_PROVEEDOR', aoj)
         .then((results) => {
             let afectadas = results.rowsAffected[0];
@@ -88,6 +88,5 @@ module.exports = {
     getProductosProveedores,
     getProductoProveedorById,
     getProveedoresOfProducto,
-    getProductosByProveedorId,
-    updateProductoProveedor
+    getProductosByProveedorId
 }

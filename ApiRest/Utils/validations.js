@@ -1,4 +1,4 @@
-const { param,body,check, validationResult } = require('express-validator/check');
+const { query,param,body,check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
 exports.validsParams = (req, res, next) => {
@@ -17,6 +17,20 @@ exports.userSignUpValidation = [
         sanitize('IdTrabajador').toInt()
     ];
 
+exports.userSignUpValidationAdmin = [
+    body('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 }),
+    body('Email', 'Campo email debe ser un Email').isEmail().optional({ nullable: true }),
+    body('Imagen', 'Imagen debe ser un archivo').optional({ nullable: true }),
+    body('Password', 'El password debe tener una longitud minima de 5 y maxima de 20').isLength({ min: 5, max: 20 }),
+    sanitize('username').toString(),
+    sanitize('email').toString(), 
+    sanitize('password').toString()
+];
+exports.getTelefonoSucursal = [
+    param('IdTelefonoSucursal').isInt(),
+    check('IdSucursal', 'IdSucursal es requerido.').isInt(),
+    sanitize('IdSucursal').toInt()
+]
 exports.userFindUsername = [
         body('Username', 'username debe tener un minimo de 5 caracteres y maximo 40.').isLength({ min: 5, max: 40 })
     ];
@@ -54,12 +68,6 @@ exports.updateCategoria = createCategoria.concat([
         sanitize('IdCategoria').toInt(),
     ]);
 
-exports.changeStateCategoria = [
-    check('IdCategoria').isInt(),
-    check('Habilitado').isBoolean(),
-    sanitize('Habilitado').toInt()
-];
-
 var createCargo = [
     check('NombreCargo', 'El nombre del cargo es requerido!').exists(),
     check('DescripcionCargo', 'La descripcion del cargo es requerida!').exists(),
@@ -72,23 +80,17 @@ exports.updateCargo = createCargo.concat([
     check('IdCargo').exists().isInt(),
 ]);
 
-exports.changeStateCargo = [
-    check('IdCargo').isInt(),
-    check('Habilitado').isBoolean(),
-    sanitize('Habilitado').toInt()
-];
-
 var createProveedor = [
     body('NombreProveedor').exists(),
-    check('NombreProveedor', 'Ingrese el Nombre del proveedor.').exists(),
-    check('Direccion', 'Ingrese la direccion del proveedor.').isAscii().trim(),
-    check('Email','Ingrese el Email del Proveedor.').isEmail(),
-    check('Descripcion').optional({nullable:true}),
-    check('NombreRepresentante','Ingrese el Nombre del representante.').exists(),
-    check('Documento','El campo de Ruc es requerido!.').exists(),
-    check('Telefono1','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
-    check('Telefono2').optional({nullable:true}),
-    check('Retencion2','El campo de retencion es requerido.').exists(),
+    body('NombreProveedor', 'Ingrese el Nombre del proveedor.').exists(),
+    body('Direccion', 'Ingrese la direccion del proveedor.').isAscii().trim(),
+    body('Email','Ingrese el Email del Proveedor.').isEmail(),
+    body('Descripcion').optional({nullable:true}),
+    body('NombreRepresentante','Ingrese el Nombre del representante.').exists(),
+    body('Documento','El campo de Ruc es requerido!.').exists(),
+    body('Telefono1','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
+    body('Telefono2').optional({nullable:true}),
+    body('Retencion2','El campo de retencion es requerido.').exists(),
     
 ];
 exports.createProveedor = createProveedor;
@@ -96,12 +98,6 @@ exports.createProveedor = createProveedor;
 exports.updateProveedor = createProveedor.concat([
     param('IdProveedor', 'Seleccione el proveedor a actualizar.').isInt()
 ]);
-
-exports.changeStateProveedor = [
-    param('IdProveedor', 'Id de Proveedor requerido, debe ser entero.').isInt(),
-    check('Habilitado', 'Habilitado es requerido y debe ser Bit.').isBoolean(),
-    sanitize('Habilitado').toInt()
-];
 
 exports.createEntradaBodegaAP = [
     body('IdBodegaAreaP', 'Selecciona una Bodega de Area de Produccion').isInt(),
@@ -152,12 +148,11 @@ exports.updateEnvase = createEnvase.concat([
     param('IdEnvase', 'IdEnvase debe ser Entero').isInt(),
     sanitize('IdEnvase').toInt()
 ]); 
-exports.changeStateEnvase =[
-    param('IdEnvase').isInt(),
-    check('Habilitado').isBoolean(),
-    sanitize('Habilitado').toInt()
-]
 
+exports.Habilitado = [
+    query('Habilitado','Habilitado debe ser booleano.').optional({nullable:true}).isBoolean(),
+    sanitize('Habilitado').toBoolean()
+]
 exports.createTrabajador = [
     check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),
     body('IdCargo', 'IdCargo debe ser entero').isInt(),
@@ -172,25 +167,14 @@ exports.createTrabajador = [
     body('Telefono2', 'El Telefono2 debe tener una longitud de 8 digitos y ser numerico!').optional({nullable:true}),
     body('FechaIngreso', 'FechaIngreso es requerida!').exists(),
     sanitize('IdSucursal', 'IdSucursal debe ser entero').toInt(),
-    sanitize('IdCargo', 'IdCargo debe ser entero').toInt()
+    sanitize('IdCargo', 'IdCargo debe ser entero').toInt(),
+    sanitize('FechaNacimiento').toDate(),
+    sanitize('FechaIngreso').toDate()
 ];
 
 exports.updateTrabajador = [
     check('IdTrabajador', 'IdTrabajador debe ser un entero!').exists().isInt(),
     sanitize('IdTrabajador').toInt()
-];
-
-exports.deleteTrabajador = [
-    check('Habilitado', 'Habilitado es requerido y debe ser un boolean').isBoolean(),
-    sanitize('Habilitado').toBoolean()
-];
-
-exports.createSucursalTelef = [
-    body('IdSucursal', 'IdSucursal debe ser entero').isInt(),
-    body('IdOperadora', 'IdOperadora debe ser entero').isInt(),
-    body('NumeroTelefono', 'NumeroTelefono es requerido').exists(),
-    sanitize('IdSucursal').toInt(),
-    sanitize('IdOperadora').toInt()
 ];
 
 var createEmpaque = [
@@ -207,11 +191,6 @@ exports.updateEmpaque = createEmpaque.concat([
     sanitize('IdEmpaque').toInt()
 ]);
 
-exports.changeStateEmpaque =[
-    param('IdEmpaque').isInt(),
-    check('Habilitado').isBoolean(),
-    sanitize('Habilitado').toInt()
-]
 var createClasificacion =  [
     body('NombreClasificacion','El nombre de la clasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
     body('DescripcionClasificacion', 'La Descripcion no debe tener mas de 150 caracteres.').isAscii().optional({nullable:true}),
@@ -243,11 +222,11 @@ exports.updateSubclasificacion = createSubclasificacion.concat([
 
 var createSucursal =  [
     body('NombreSucursal','El nombre de la subclasificacion es requerido, y no debe tener mas de 50 caracteres.').isAscii().isLength({max:50}),
-    body('Direccion', 'La Direccion no debe tener mas de 300 caracteres.').isAscii().optional({nullable:true}),
+    body('Direccion', 'La Direccion no debe tener mas de 300 caracteres.').isAscii(),
     body('Telefono1','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
     body('Telefono2','El telefono debe tener 8 digitos.').optional({nullable:true}),
     sanitize('NombreSucursal').toString(),
-    sanitize('Direccion').toString()
+    sanitize('Direccion').toString().trim()
 ];
 
 exports.createSucursal = createSucursal;
@@ -271,7 +250,6 @@ exports.updateRol = createRol.concat([
 ])
 
 var createProducto = [
-    body('IdCategoria','Elige una Categoria para el producto.').isInt(),
     body('IdSubClasificacion', 'Selecciona Una SubClasificacion.').isInt(),
     body('IdEstado','Elige el estado del producto.').isInt(),
     body('NombreProducto','Ingresa el Nombre del Producto.').isAscii(),
@@ -279,12 +257,12 @@ var createProducto = [
     body('Imagen','Ingresa el nombre de la Imagen.').optional({nullable:true}),
     body('IdEnvase').isInt().optional({nullable:true}),
     body('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
-    body('Costo','El costo es necesario!').isFloat(),
     body('CantidadEmpaque').isInt().optional({nullable:true}),
     body('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
     body('ValorUnidadMedida').isNumeric(),
-    check('DiasCaducidad').optional({ nullable: true }),
-    sanitize('ValorUnidadMedida').toFloat()
+    body('DiasCaducidad').isInt(),
+    sanitize('ValorUnidadMedida').toFloat(),
+    sanitize('DiasCaducidad').toInt()
 ];
 exports.createProducto = createProducto;
 
@@ -304,14 +282,24 @@ exports.updateUnidadMedida = createUnidadMedida.concat([
     param('IdUnidadMedida').isInt()
 ]);
 
-exports.changeStateUnidadMedida =[
-    param('IdUnidadMedida').isInt(),
-    check('Habilitado').isBoolean(),
-    sanitize('Habilitado').toInt()
-]
+exports.changeStateGeneric = (nameIdParam) => {
+    return [
+        param(nameIdParam).isInt(),
+        check('Habilitado','Habilitado debe ser booleano.').isBoolean(),
+        sanitize('Habilitado').toBoolean(),
+        sanitize(nameIdParam).toInt()
+    ]
+}
+let createTipoDocumento = [
+    body('NombreTD', 'Tipo de Documento necesario.').isAscii().isLength({min:2,max:50 }),
+    body('DescripcionTD','Es Necesaria la Descripcion del Tipo de Documento').isAscii().isLength({min:2, max:50}),
+    sanitize('NombreTD').toString(),
+    sanitize('DescripcionTD').toString()
+];
 
-exports.changeStateSubclasificacion = [
-    param('IdSubClasificacion').isInt(),
-    check('Habilitado').isBoolean(),
-    sanitize('Habilitado').toInt()
-]
+exports.createTipoDocumentoI = createTipoDocumento
+
+exports.updateTipoDocumentoI = createTipoDocumento.concat([
+    param('IdTipoDocumento').isInt(),
+    sanitize('IdTipoDocumento').toInt()
+])

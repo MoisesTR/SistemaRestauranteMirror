@@ -17,9 +17,9 @@ function createCargo(req, res) {
 }
 
 function getCargos(req, res) {
-    let Habilitado = req.query.Habilitado;
+    let data = matchedData(req,{locations:['query']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado',  sql.Int, Habilitado);
+    db.pushAOJParam(aoj, 'Habilitado',  sql.Bit, +data.Habilitado);
     db.storedProcExecute('USP_GET_CARGOS', aoj)
         .then((results) => {
             res.status(200).json({
@@ -39,9 +39,9 @@ function updateCargo(req, res) {
     db.pushAOJParam(aoj, 'DescripcionCargo', sql.NVarChar(100), data.DescripcionCargo);
     db.storedProcExecute('USP_UPDATE_CARGO', aoj)
         .then((results) => {
-            res.status(200).json({
-                success: 'Cargo Actualizado Exitosamente!'
-            })
+            let afectadas = results.rowsAffected[0];
+            res.status(200).json((afectadas > 0) ? { success: 'Cargo modificado con exito!' } : { failed: 'No se encontro el Cargo solicitado!' })
+        
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));
         });
@@ -60,17 +60,17 @@ function getCargoById(req, res) {
 }
 
 function changeStateCargo(req, res) {
-    let IdCargo     = req.params.IdCargo;
-    let Habilitado  = req.body.Habilitado;
-    console.log('IdCargo:' + IdCargo, 'Habilitado:' + Habilitado);
+    let data = matchedData(req,{locations:['params','query']});
+    
+    console.log(data)
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdCargo', sql.Int, IdCargo);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.pushAOJParam(aoj, 'IdCargo', sql.Int, data.IdCargo);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit, +data.Habilitado);
     db.storedProcExecute('USP_DISP_CARGO', aoj)
         .then((results) => {
             console.log(results)
             let afectadas = results.rowsAffected[0]
-            let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+            let accion =( data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
             res.status(200).json((afectadas > 0) ? { success: 'Cargo ' + accion + ' con exito!' } : { failed: 'No se encontro el producto solicitado!' })
             console.log('Cargo cambiado de estado con exito!')
         }).catch((err) => {

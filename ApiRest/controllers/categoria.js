@@ -17,9 +17,9 @@ function createCategoria(req,res){
     })
 }
 function getCategorias(req,res){
-    let Habilitado = req.query.Habilitado;
+    let data = matchedData(req, {locations:['query']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado',sql.Int, Habilitado)
+    db.pushAOJParam(aoj, 'Habilitado',sql.Bit() , +data.Habilitado)
     db.storedProcExecute('USP_GET_CATEGORIAS', aoj)
     .then((results) => {
         res.status(200).json({
@@ -37,9 +37,9 @@ function updateCategoria(req,res){
     db.pushAOJParam(aoj, 'DescripcionCategoria',sql.NVarChar(150),data.DescripcionCategoria)
     db.storedProcExecute('USP_UPDATE_CATEGORIA', aoj)
     .then((results) => {
-        res.status(200).json({
-            success:'Categoria Actualizada Exitosamente!'
-        })
+        let afectadas = results.rowsAffected[0];
+        res.status(200).json((afectadas > 0) ? { success: 'Categoria modificada con exito!' } : { failed: 'No se encontro la Categoria solicitada!' })
+    
     }).catch((err) => {
         res.status(500).json( mssqlErrors(err) );
     });
@@ -56,12 +56,12 @@ function getCategoriaById(req,res){
     });
 }
 function changeStateCategoria(req,res){
-    let data = matchedData(req);
+    let data = matchedData(req,{locations:['body','params']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado);
+    console.log(data)
+    db.pushAOJParam(aoj, 'IdCategoria', sql.Int(), data.IdCategoria);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('USP_DISP_CATEGORIA', aoj).then((results) => {
-        console.log(results)
         let afectadas = results.rowsAffected[0]
         let accion = (data.Habilitado == 0) ? 'Deshabilitada' : 'Habilitada';
         res.status(200).json((afectadas > 0) ? { success: 'Categoria ' + accion + ' con exito!' } : { failed: 'No se encontro la categoria solicitado!' })

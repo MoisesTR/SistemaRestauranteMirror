@@ -6,7 +6,7 @@ const {matchedData} = require('express-validator/filter');
 function getUnidadById(req,res){
     const data = req.params;
     var aoj  = [];
-    db.pushAOJParam(aoj, 'IdUnidadMedida',sql.Int,IdUnidadMedida)
+    db.pushAOJParam(aoj, 'IdUnidadMedida',sql.Int,data.IdUnidadMedida)
     db.storedProcExecute('USP_GET_UNIDAD_DE_MEDIDA', aoj)
     .then((results) => {
         res.status(200).json({unidadmedida:results.recordset[0]}) 
@@ -15,7 +15,10 @@ function getUnidadById(req,res){
     });
 }
 function getUnidadesMedida(req,res){
+    let data    = matchedData(req, {locations:['query']})
     var aoj = [];
+
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit, +data.Habilitado)
     db.storedProcExecute('USP_GET_UNIDADES_DE_MEDIDA', aoj) 
     .then((results) => {
         res.status(200).json({unidadesmedida:results.recordset}) 
@@ -30,7 +33,7 @@ function createUnidadMedida(req,res){
     db.pushAOJParam(aoj, 'NombreUnidad',sql.NVarChar(50),data.NombreUnidad)
     db.pushAOJParam(aoj, 'Simbolo',sql.NVarChar(3),data.Simbolo);
     db.pushAOJParam(aoj, 'NImportancia', sql.Int, data.NImportancia);
-    db.storedProcExecute('USP_CREATE_UNIDAD_MEDIDA', aoj)
+    db.storedProcExecute('dbo.USP_CREATE_UNIDAD_MEDIDA', aoj)
     .then((results) => {
         res.status(200).json(results.recordset[0])
     }).catch((err) => {
@@ -54,20 +57,20 @@ function updateUnidadMedida(req,res){
     })
 }
 function changeStateUnidadMedida(req,res){
-    let data = matchedData(req);
-    var aoj = [];
+    let data = matchedData(req, {locations:['query','params']});
+    var aoj  = [];
     db.pushAOJParam(aoj, 'IdUnidadMedida', sql.Int, data.IdUnidadMedida)
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado)
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit, +data.Habilitado)
     db.storedProcExecute('dbo.USP_DISP_UNIDAD_MEDIDA', aoj)
-        .then((results) => {
-            console.log(results)
-            let afectadas = results.rowsAffected[0]
-            let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
-            res.status(200).json((afectadas > 0) ? { success: 'Unidad de Medida ' + accion + ' con exito!' } : { failed: 'No se encontro la unidad de medida solicitada!' })
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-            console.log('Error:', err)
-        });
+    .then((results) => {
+        console.log(results)
+        let afectadas = results.rowsAffected[0];
+        let accion = (data.Habilitado == false) ? 'Deshabilitada' : 'Habilitada';
+        res.status(200).json((afectadas > 0) ? { success: 'Unidad de Medida ' + accion + ' con exito!' } : { failed: 'No se encontro la unidad de medida solicitada!' })
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+        console.log('Error:', err)
+    });
 }
 module.exports={
     createUnidadMedida,

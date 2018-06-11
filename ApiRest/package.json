@@ -28,6 +28,6 @@
     "tedious": "2.2.4"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.17.5"
   }
 }

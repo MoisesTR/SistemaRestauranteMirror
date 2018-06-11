@@ -16,10 +16,10 @@ function getEnvaseById(req, res) {
 }
 
 function getEnvases(req, res) {
-    let Habilitado = req.query.Habilitado;
+    let data = matchedData(req, {locations:['query']});
     console.log('Getting envases');
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('USP_GET_ENVASES', aoj)
         .then((results) => {
             res.status(200).json({
@@ -53,16 +53,18 @@ function updateEnvase(req, res) {
     db.pushAOJParam(aoj, 'Descripcion', sql.NVarChar(150), data.Descripcion);
     db.storedProcExecute('dbo.USP_UPDATE_ENVASE', aoj)
         .then((result) => {
-            res.status(200).json({ success: 'Empaque actualizado con exito!!' })
+            let afectadas = result.rowsAffected[0];
+            res.status(200).json((afectadas > 0) ? { success: 'Envase modificado con exito!' } : { failed: 'No se encontro el envase solicitado!' })
+        
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));
         })
 }
 function changeStateEnvase(req,res){
-    let data = matchedData(req);
+    let data = matchedData(req, {locations:['query','params']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdEnvase', sql.Int, data.IdEnvase);
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, data.Habilitado);
+    db.pushAOJParam(aoj, 'IdEnvase', sql.Int(), data.IdEnvase);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('dbo.USP_DISP_ENVASE', aoj).then((results) => {
         console.log(results)
         let afectadas = results.rowsAffected[0]

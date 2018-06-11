@@ -1,11 +1,12 @@
 const {mssqlErrors} =  require('../Utils/util');
 const db = require('../services/database');
 const sql = require('mssql')
+const {matchedData} = require('express-validator/filter');
 
 function getClasificacionesUdm(req,res){
-    let Habilitado = req.query.Habilitado;
+    let data = matchedData(req,{locations:['query']});
     var aoj = [];
-    db.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
+    db.pushAOJParam(aoj,'Habilitado',sql.Int,+data.Habilitado)
     db.storedProcExecute('USP_GET_CLASIFICACIONES_UDM',aoj).then((results) => {
         res.status(200).json({
             clasificaciones:results.recordset
@@ -14,6 +15,7 @@ function getClasificacionesUdm(req,res){
         res.status(500).json( mssqlErrors(err) );
     });
 }
+
 function getClasificacionUdmById(req,res){
     var data = req.params;
     var aoj=[];

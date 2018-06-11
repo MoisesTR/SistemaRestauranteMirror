@@ -37,7 +37,6 @@ function getProductos(req, res) {
 function createProducto(req, res) {
     var data = req.body;
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdCategoria',     sql.Int,        data.IdCategoria)
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int,     data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdEstado',        sql.Int,        data.IdEstado)
     db.pushAOJParam(aoj, 'NombreProducto',  sql.NVarChar(50), data.NombreProducto)
@@ -61,7 +60,6 @@ function updateProducto(req, res) {
     var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto)
-    db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdEstado', sql.Int, data.IdEstado)
     db.pushAOJParam(aoj, 'NombreProducto', sql.NVarChar(50), data.NombreProducto)
@@ -75,6 +73,7 @@ function updateProducto(req, res) {
     db.pushAOJParam(aoj, 'DiasCaducidad',   sql.Int, data.DiasCaducidad);
     db.storedProcExecute('USP_UPDATE_PRODUCTO', aoj)
         .then((results) => {
+            console.dir(results)
             res.status(200).json({
                 success: 'Producto Actualizado exitosamente!!'
             });
@@ -85,13 +84,12 @@ function updateProducto(req, res) {
 }
 
 function changeStateProducto(req, res) {
-    let IdProducto = req.params.IdProducto;
-    let Habilitado = req.body.Habilitado;
+    let data = matchedData(req,{locations:['params','query']});
     console.log('Changing state')
     console.log(IdProducto + ' ! ', Habilitado)
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdProducto', sql.Int, IdProducto)
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado)
+    db.pushAOJParam(aoj, 'IdProducto', sql.Int(), data.IdProducto)
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado)
     db.storedProcExecute('USP_DISP_PRODUCTO', aoj)
         .then((results) => {
             console.log(results)

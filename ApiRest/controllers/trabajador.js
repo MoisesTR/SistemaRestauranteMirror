@@ -1,6 +1,5 @@
 const { mssqlErrors }           = require('../Utils/util')
 const { matchedData, sanitize } = require('express-validator/filter');
-var     path                    = require('path');
 const   db                      = require('../services/database');
 const   sql                     = require('mssql')
 
@@ -17,9 +16,9 @@ function getTrabajadorById(req, res) {
 }
 
 function getTrabajadores(req, res) {
-    let Habilitado = req.query.Habilitado
+    let data = matchedData(req,{locations:['query']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, +data.Habilitado);
     db.storedProcExecute('USP_GET_TRABAJADORES', aoj)
         .then((results) => {
             res.status(200).json({ trabajadores: results.recordset })
@@ -39,11 +38,11 @@ function createTrabajador(req, res) {
     db.pushAOJParam(aoj, 'IdTipoDocumento', sql.Int, trabajadorData.IdTipoDocumento);
     db.pushAOJParam(aoj, 'Documento', sql.NVarChar(50), trabajadorData.Documento);
     db.pushAOJParam(aoj, 'Imagen', sql.NVarChar(50), trabajadorData.Imagen);
-    db.pushAOJParam(aoj, 'FechaNacimiento', sql.Date, trabajadorData.FechaNacimiento);
+    db.pushAOJParam(aoj, 'FechaNacimiento', sql.Date(), trabajadorData.FechaNacimiento);
     db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(300), trabajadorData.Direccion);
     db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), trabajadorData.Telefono1);
     db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), trabajadorData.Telefono2);
-    db.pushAOJParam(aoj, 'FechaIngreso', sql.Date, trabajadorData.FechaIngreso);
+    db.pushAOJParam(aoj, 'FechaIngreso', sql.Date(), trabajadorData.FechaIngreso);
     // db.pushOutParam(aoj, 'IdTrabajador', sql.Int)
     db.storedProcExecute('USP_CREATE_TRABAJADOR', aoj)
         .then((results) => {
@@ -69,47 +68,33 @@ function updateTrabajador(req, res) {
     db.pushAOJParam(aoj, 'Direccion', sql.NVarChar(300), trabajadorData.Direccion);
     db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), trabajadorData.Telefono1);
     db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), trabajadorData.Telefono2);
-    db.pushAOJParam(aoj, 'FechaIngreso', sql.Date, trabajadorData.FechaIngreso);
-    
+    db.pushAOJParam(aoj, 'FechaIngreso', sql.Date(), trabajadorData.FechaIngreso);  
     db.storedProcExecute('USP_UPDATE_TRABAJADOR', aoj)
-        .then((results) => {
-            res.status(200).json({
-                success: 'Trabajador actualizado con exito!'
-            })
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        });
+    .then((results) => {
+        let afectadas = results.rowsAffected[0];
+        res.status(200).json(
+            (afectadas > 0) ? { success: 'Trabajador modificado con exito!' } : { failed: 'No se encontro el Trabajador solicitado!' })
+
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+    });
 }
 
 function changeStateTrabajador(req, res) {
-    let IdTrabajador = req.params.IdTrabajador;
-    let Habilitado = req.body.Habilitado;
+    let data = matchedData(req,{locations:['query','params']})
     var aoj = [];
     console.log('Changing state')
-    db.pushAOJParam(aoj, 'IdTrabajador', sql.Int, IdTrabajador)
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado)
+    db.pushAOJParam(aoj, 'IdTrabajador',    sql.Int, data.IdTrabajador);
+    db.pushAOJParam(aoj, 'Habilitado',      sql.Bit, +data.Habilitado);
     db.storedProcExecute('USP_DISP_TRABAJADOR', aoj)
-        .then((results) => {
-            res.status(200).json({
-                success: 'Trabajador ' + (Habilitado) ? 'Habilitado' : 'Deshabilitado' + ' con exito!'
-            })
-            console.log('Trabajador ' + (Habilitado) ? 'Habilitado' : 'Deshabilitado' + ' con exito!')
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        });
-}
-
-function getTiposDocumento(req, res) {
-
-    let Habilitado = req.query.Habilitado
-    var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado);
-    db.storedProcExecute('USP_GET_TIPOS_DOCUMENTOS', aoj)
-        .then((results) => {
-            res.status(200).json({ documentos: results.recordset })
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));
-        });
+    .then((results) => {
+        let afectadas = results.rowsAffected[0]
+            let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+            res.status(200).json((afectadas > 0) ? { success: 'Trabajador '  + accion + ' con exito!' } : { failed: 'No se encontro el Trabajador solicitado!' })
+            console.log('Trabajador cambiado de estado con exito!')
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+    });
 }
 
 
@@ -118,6 +103,5 @@ module.exports = {
     getTrabajadores,
     getTrabajadorById,
     updateTrabajador,
-    changeStateTrabajador,
-    getTiposDocumento
+    changeStateTrabajador
 }

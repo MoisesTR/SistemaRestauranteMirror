@@ -1,9 +1,13 @@
 const db   = require('../services/database');
 const sql  = require('mssql');
 const {mssqlErrors} = require('../Utils/util');
+const {matchedData} = require('express-validator/filter');
 
 function getEstados(req,res){
-    var aoj = [];
+    let data = matchedData(req,{locations:['query']});
+    let aoj = [];
+
+    db.pushAOJParam(aoj,'Habilitado',sql.Int,+data.Habilitado)
     db.storedProcExecute('USP_GET_ESTADOSPRODUCTO', aoj)
     .then((results) => {
         res.status(200).json({estados:results.recordset})

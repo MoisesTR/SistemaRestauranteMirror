@@ -57,6 +57,7 @@ function storedProcExecute(spName, parametersJsonArray) {
                     eval(parametersJsonArray[i]['pType']));
             }
         }
+        // console.dir(request)
         return request.execute(spName);			
     }).catch(function(err) {
         throw err

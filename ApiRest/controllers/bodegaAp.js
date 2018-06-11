@@ -66,24 +66,6 @@ function generarFactura(req,res){
         res.status(500).json( mssqlErrors(err) );
     });
 }
-function changeStateCargo(req,res){
-    let IdCargo= req.params.IdCargo
-    let Habilitado = req.body.Habilitado
-    console.log('IdCargo:'+IdCargo,'Habilitado:'+Habilitado)
-    var aoj=[];
-    db.pushAOJParam(aoj,'IdCargo',sql.Int,IdCargo)
-    db.pushAOJParam(aoj,'Habilitado',sql.Int,Habilitado)
-    db.storedProcExecute('USP_DISP_CARGO',aoj).then((results) => {
-        console.log(results)
-        let afectadas = results.rowsAffected[0]
-        let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
-        res.status(200).json((afectadas > 0) ? {success:'Cargo '+accion+' con exito!'} :{failed:'No se encontro el producto solicitado!'})
-        console.log('Cargo cambiado de estado con exito!')
-    }).catch((err) => {
-       res.status(500).json( mssqlErrors(err) ); 
-       console.log('Error:',err)
-    });
-}
 module.exports={
    createEntradaBodegaAp,
    getDetalleBodegaAp,

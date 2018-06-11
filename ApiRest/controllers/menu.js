@@ -36,7 +36,10 @@ function updateMenu(req, res) {
 }
 
 function getMenus(req, res) {
+    let data = matchedData(req,{locations:['query']});
     var aoj = [];
+
+    db.pushAOJParam(aoj,'Habilitado',sql.Int,+data.Habilitado);
     db.storedProcExecute('USP_GET_MENUES', aoj).then((result) => {
         var jsonString = result.recordset[0];
         console.log(jsonString);
@@ -44,7 +47,6 @@ function getMenus(req, res) {
         res.status(200).json(jsonString)
     }).catch((err) => {
         console.log(err)
-        console.dir(err)
         res.status(500).json(err)
     })
 }

@@ -115,7 +115,7 @@ Router
     .get('/clasificacionesunidadmedida', clasificacionUnidadMedidaController.getClasificacionesUdm)
     /*********** faltan */
     //Rutas para Trabajador Controller
-    .get('/trabajadores', validations.Habilitado,validations.validsParams,TrabajadorController.getTrabajadores)
+    .get('/trabajadores', validations.Habilitado,validations.IdSucursal,validations.validsParams,TrabajadorController.getTrabajadores)
     .post('/trabajador', validations.createTrabajador, validations.validsParams, TrabajadorController.createTrabajador)
     .get('/trabajador/:IdTrabajador(\\d+)', TrabajadorController.getTrabajadorById)
     .put('/trabajador/:IdTrabajador(\\d+)', validations.createTrabajador.concat(validations.updateTrabajador), validations.validsParams, TrabajadorController.updateTrabajador)

@@ -19,6 +19,7 @@ function getTrabajadores(req, res) {
     let data = matchedData(req,{locations:['query']});
     var aoj = [];
     db.pushAOJParam(aoj, 'Habilitado', sql.Int, +data.Habilitado);
+    db.pushAOJParam(aoj, 'IdSucursal', sql.Int, data.IdSucursal);
     db.storedProcExecute('USP_GET_TRABAJADORES', aoj)
         .then((results) => {
             res.status(200).json({ trabajadores: results.recordset })

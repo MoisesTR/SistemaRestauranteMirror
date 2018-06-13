@@ -153,6 +153,10 @@ exports.Habilitado = [
     query('Habilitado','Habilitado debe ser booleano.').optional({nullable:true}).isBoolean(),
     sanitize('Habilitado').toBoolean()
 ]
+exports.IdSucursal = [
+    check('IdSucursal','Ingresa un Numero Valido').isInt().optional({nullable:true}),
+    sanitize('IdSucursal').toInt()
+]
 exports.createTrabajador = [
     check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),
     body('IdCargo', 'IdCargo debe ser entero').isInt(),

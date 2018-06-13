@@ -107,11 +107,12 @@ AS BEGIN
 		WHERE T.IdSucursal = ISNULL(@IdSucursal, T.IdSucursal)
 	ELSE
 		SELECT T.IdTrabajador,T.IdSucursal,S.NombreSucursal,T.IdCargo,C.NombreCargo,T.Nombres,
-				T.Apellidos,T.IdTipoDocumento,T.Documento, T.Imagen, FechaNacimiento,T.Direccion, 
+				T.Apellidos,U.Username,T.IdTipoDocumento,T.Documento, T.Imagen, FechaNacimiento,T.Direccion, 
 				T.Telefono1, T.Telefono2,T.FechaIngreso,T.Habilitado,T.CreatedAt
 		FROM dbo.TRABAJADOR T 
 		INNER JOIN dbo.SUCURSAL S ON T.IdSucursal= S.IdSucursal
 		INNER JOIN dbo.CARGO C ON T.IdCargo = C.IdCargo
+		LEFT  JOIN dbo.USUARIO U ON T.IdTrabajador = U.IdTrabajador
 		WHERE T.Habilitado = @Habilitado
 		AND T.IdSucursal = ISNULL(@IdSucursal, T.IdSucursal)
 END

@@ -20,10 +20,9 @@ function getProductoById(req, res) {
 }
 
 function getProductos(req, res) {
-    let Habilitado = req.query.Habilitado;
-    (!Habilitado) ? console.log('sin query'): console.log('con query');
+    let data = matchedData(req,{locations:['query']});
     var aoj = [];
-    db.pushAOJParam(aoj, 'Habilitado', sql.Int, Habilitado)
+    db.pushAOJParam(aoj, 'Habilitado', sql.Int, +data.Habilitado)
     db.storedProcExecute('USP_GET_PRODUCTOS', aoj)
         .then((results) => {
             res.status(200).json({
@@ -35,7 +34,7 @@ function getProductos(req, res) {
 }
 
 function createProducto(req, res) {
-    var data = req.body;
+    var data = matchedData(req, {locations:['body']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int,     data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdEstado',        sql.Int,        data.IdEstado)

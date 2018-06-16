@@ -4,6 +4,10 @@ export class Producto{
   public IdCategoria: number
   public IdSubClasificacion: number
   public IdEstado: number
+  public IdEmpaque : number;
+  public IdUnidadMedida : number;
+  public ValorUnidadMedida : number;
+  public CantidadEmpaque : number;
   public NombreProducto: string
   public Descripcion: string
   public Imagen: string
@@ -13,7 +17,9 @@ export class Producto{
   public IdClasificacion?: number
   public DiasCaducidad?: number;
   public Visualizar : boolean = true;
+  public CreatedAt: string;
+  public UpdateAt: string;
 
   constructor(){}
-
+  
 }

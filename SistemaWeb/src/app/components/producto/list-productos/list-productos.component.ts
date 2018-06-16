@@ -8,6 +8,7 @@ import {idioma_espanol} from "../../../services/global";
 import {DataTableDirective} from "angular-datatables";
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';
+import {Utilidades} from '../../Utilidades';
 
 @Component({
   selector: 'app-list-productos',
@@ -86,7 +87,8 @@ export class ListProductosComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         }
       }, error =>{
-
+        this.spinner.hide();
+        Utilidades.showMsgError(Utilidades.mensajeError(error))
       }
     );
   }

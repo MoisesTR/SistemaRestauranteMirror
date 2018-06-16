@@ -78,7 +78,7 @@ export class ListUsuariosComponent implements OnInit {
           this.dtTrigger.next();
         }
       },error =>{
-
+            Utilidades.showMsgError(Utilidades.mensajeError(error))
       }
     )
   }

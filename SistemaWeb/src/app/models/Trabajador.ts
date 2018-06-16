@@ -15,6 +15,7 @@ export class Trabajador{
 	public Telefono2: string;
 	public Habilitado: number;
 	public Imagen : string;
+	public Username : string;
 
 	constructor(){}
 }

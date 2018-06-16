@@ -1,0 +1,1 @@
+SELECT * FROM dbo.[Cotizacion Tarj Desc Doc] INNER JOIN dbo.[Cotizacion Tarjeta de Kardex] ON dbo.[Cotizacion Tarj Desc Doc].NUM_REG = dbo.[Cotizacion Tarjeta de Kardex].NUM_REG WHERE     (dbo.[Cotizacion Tarj Desc Doc].NUM_DOC = '0147720') AND (dbo.[Cotizacion Tarj Desc Doc].COD_DIA = 'COTCD')

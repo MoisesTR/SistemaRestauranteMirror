@@ -4,7 +4,7 @@
     <div class="row">
 
       <!--Imagen-->
-      <div class="col-lg-4">
+      <div class="col-lg-4" id="imagen-productos">
         <div class="card card-cascade narrower">
           <div class="view gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
@@ -19,7 +19,7 @@
       <!-- /.Imagen -->
 
       <!--Datos del producto-->
-      <div class="col-lg-8  ">
+      <div class="col-lg-8" id="formulario-productos">
         <div class="card card-cascade narrower">
           <div class="view gradient-card-header orange-chang">
             <h4 class="mb-0">Datos del Producto</h4>
@@ -28,44 +28,147 @@
           <div class="card-body ">
 
             <div class="row">
+
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
                   <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formAddProducto.value.nombreProducto"
                     class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto">
                   <show-errors [control]="formAddProducto.controls['nombreProducto']"></show-errors>
-                  <label for="nombreproducto">Nombre</label>
+                  <label for="nombreproducto">Nombre del Producto</label>
                 </div>
               </div>
-              <div class="col-md-6">
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <label for="proveedor">Proveedor</label>
+                <ng-select placeholder="Selecciona un Proveedor" class="select-no-margin">
+                </ng-select>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label for="categoria">Categoria</label>
+                <ng-select [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria"
+                  formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)" class="select-no-margin">
+                </ng-select>
+                <show-errors [control]="formAddProducto.controls['categoria']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
                 <label for="clasificacion">Clasificación</label>
                 <ng-select [items]="clasificaciones" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
-                  formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
-
+                  formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)" class="select-no-margin">
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
                 <label for="subclasificacion">Subclasificación</label>
                 <ng-select [items]="subclasificaciones" bindLabel="NombreSubClasificacion" bindValue="IdSubClasificacion" placeholder="Selecciona una subclasificacion"
-                           [searchFn]="customSearchFn" formControlName="subclasificacion" id="subclasificacion" (change)="onChangeSubclasificacion($event)">
+                  [searchFn]="customSearchFn" formControlName="subclasificacion" id="subclasificacion" (change)="onChangeSubclasificacion($event)" class="select-no-margin">
                   <!--<ng-template ng-option-tmp let-item="item">-->
-                    <!--{{item.NombreSubclasificacion}} <br />-->
-                    <!--<small>{{item.DescripcionSubClasificacion}}</small>-->
+                  <!--{{item.NombreSubclasificacion}} <br />-->
+                  <!--<small>{{item.DescripcionSubClasificacion}}</small>-->
                   <!--</ng-template>-->
 
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>
               </div>
-              <div class="col-md-6">
+
+              <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <label for="categoria">Categoria</label>
-                <ng-select [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria"
-                  formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
-                </ng-select>
-                <show-errors [control]="formAddProducto.controls['categoria']"></show-errors>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
               </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label>Empaque</label>
+                <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque" formControlName="empaque"
+                  id="empaque" (change)="onChangeEmpaque($event)" class="select-no-margin">
+                </ng-select>
+                <show-errors [control]="formProveedor.controls['empaque']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label>Envase</label>
+                <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase" formControlName="envase"
+                  id="envase" (change)="onChangeEnvase($event)" class="select-no-margin">
+                </ng-select>
+                <show-errors [control]="formProveedor.controls['envase']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label>Unidad de Medida</label>
+                <ng-select [items]="unidadesMedida" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
+                  formControlName="unidadmedida" id="unidadmedida" (change)="onChangeUnidadMedida($event)" class="select-no-margin">
+                </ng-select>
+                <show-errors [control]="formProveedor.controls['unidadmedida']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-md-4  ">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                  <label for="cantidadEmpaque">Cantidad de Empaque</label>
+                  <show-errors [control]="formProveedor.controls['cantidadEmpaque']"></show-errors>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" min="1" id="costo" formControlName="costo" class="form-control" autocomplete="off">
+                  <label for="costo">Costo del producto</label>
+                  <show-errors [control]="formProveedor.controls['costo']"></show-errors>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
+                  <label for="valorunidadmedida">Valor unidad de medida</label>
+                  <show-errors [control]="formProveedor.controls['valorunidadmedida']"></show-errors>
+                </div>
+              </div>
+
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
@@ -91,7 +194,7 @@
     </div>
   </form>
 
-  <div class="fixed-action-btn" style="right:78%; bottom:35px;">
+  <!-- <div class="fixed-action-btn" style="right:78%; bottom:35px;">
 
     <a class="btn-floating btn-large orange-chang waves-light" mdbWavesEffect (click)="fixed.toggle($event)">
       <i class="fa fa-plus"></i>
@@ -101,14 +204,14 @@
       <a class="btn-floating green waves-light" mdbTooltip="Categoria" placement="right" mdbWavesEffect>
         <i class="fa fa-shopping-cart" (click)="showModalCategoriaM()"></i>
       </a>
-      <a class="btn-floating red waves-light"  mdbTooltip="Clasificación" placement="right" mdbWavesEffect>
+      <a class="btn-floating red waves-light" mdbTooltip="Clasificación" placement="right" mdbWavesEffect>
         <i class="fa fa-shopping-cart" (click)="showModalClasificacionM()"></i>
       </a>
       <a class="btn-floating yellow darken-1 waves-light" mdbTooltip="SubClasificación" placement="right" mdbWavesEffect>
         <i class="fa fa-shopping-cart" (click)="showModalSubclasificacionM()"></i>
       </a>
     </div>
-  </div>
+  </div> -->
 
 
 </section>

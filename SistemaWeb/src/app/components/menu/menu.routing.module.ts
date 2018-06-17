@@ -39,6 +39,7 @@ import {ListProductoProveedorComponent} from '../producto-proveedor/list-product
 import {ListProveedorComponent} from '../proveedor/list-proveedor/list-proveedor.component';
 import {AddProveedorComponent} from '../proveedor/add-proveedor/add-proveedor.component';
 import {UpdateProveedorComponent} from '../proveedor/update-proveedor/update-proveedor.component';
+import {ReportesComponent} from '../reportes/reportes.component';
 
 
 const menuRoutes: Routes = [
@@ -77,6 +78,8 @@ const menuRoutes: Routes = [
         , {path:'rol',component: RolusuarioComponent, data : { titulo : 'Roles'}}
         , {path:'habilitados',component: HabilitadosComponent, data : { titulo : 'Habilitados'}}
         , {path:'unidadmedida',component: UnidadmedidaComponent , data : { titulo : 'Unidad Medida'}}
+        //Reportes
+        , {path:'reportes',component: ReportesComponent , data : { titulo : 'Reportes'}}
         /*FACTURA MODULO*/
         , {path:'factura/add',component: AddfacturaComponent, data : { titulo : 'Factura'}}
         , {path:'factura/list',component: ListFacturaComponent, data : { titulo : 'Facturas'}}

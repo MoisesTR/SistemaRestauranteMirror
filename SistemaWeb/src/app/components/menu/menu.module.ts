@@ -54,6 +54,7 @@ import {DatePipe} from '@angular/common';
 import {DeleteImageService} from '../../services/delete-image-service';
 import {InicioComponent} from '../inicio/inicio.component';
 import {ProveedorModule} from '../proveedor/proveedor.module';
+import {ReportesComponent} from '../reportes/reportes.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import {ProveedorModule} from '../proveedor/proveedor.module';
     , SalidaProductoComponent
     , InformacionFacturaComponent
     , BuscarGeneralFacturaComponent
+    , ReportesComponent
 
 
   ],

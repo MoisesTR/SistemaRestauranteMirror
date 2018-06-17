@@ -41,8 +41,10 @@
 
               <div class="col-9 col-sm-9 col-md-9">
                 <label for="proveedor">Proveedor</label>
-                <ng-select placeholder="Selecciona un Proveedor" class="select-no-margin">
+                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
+                           formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)" class="select-no-margin">
                 </ng-select>
+                <show-errors [control]="formAddProducto.controls['proveedor']"></show-errors>
               </div>
 
               <div class="col-3 col-sm-3 col-md-3">
@@ -102,7 +104,7 @@
                 <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque" formControlName="empaque"
                   id="empaque" (change)="onChangeEmpaque($event)" class="select-no-margin">
                 </ng-select>
-                <show-errors [control]="formProveedor.controls['empaque']"></show-errors>
+                <show-errors [control]="formAddProducto.controls['empaque']"></show-errors>
               </div>
 
               <div class="col-3 col-sm-3 col-md-3">
@@ -116,7 +118,7 @@
                 <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase" formControlName="envase"
                   id="envase" (change)="onChangeEnvase($event)" class="select-no-margin">
                 </ng-select>
-                <show-errors [control]="formProveedor.controls['envase']"></show-errors>
+                <show-errors [control]="formAddProducto.controls['envase']"></show-errors>
               </div>
 
               <div class="col-3 col-sm-3 col-md-3">
@@ -128,10 +130,10 @@
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
                 <label>Unidad de Medida</label>
-                <ng-select [items]="unidadesMedida" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
+                <ng-select [items]="unidades" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
                   formControlName="unidadmedida" id="unidadmedida" (change)="onChangeUnidadMedida($event)" class="select-no-margin">
                 </ng-select>
-                <show-errors [control]="formProveedor.controls['unidadmedida']"></show-errors>
+                <show-errors [control]="formAddProducto.controls['unidadmedida']"></show-errors>
               </div>
 
               <div class="col-3 col-sm-3 col-md-3">
@@ -145,7 +147,7 @@
                 <div class="md-form">
                   <input mdbActive type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
                   <label for="cantidadEmpaque">Cantidad de Empaque</label>
-                  <show-errors [control]="formProveedor.controls['cantidadEmpaque']"></show-errors>
+                  <show-errors [control]="formAddProducto.controls['cantidadEmpaque']"></show-errors>
                 </div>
               </div>
 
@@ -155,7 +157,7 @@
                 <div class="md-form">
                   <input mdbActive type="number" min="1" id="costo" formControlName="costo" class="form-control" autocomplete="off">
                   <label for="costo">Costo del producto</label>
-                  <show-errors [control]="formProveedor.controls['costo']"></show-errors>
+                  <show-errors [control]="formAddProducto.controls['costo']"></show-errors>
                 </div>
               </div>
 
@@ -165,7 +167,7 @@
                 <div class="md-form">
                   <input mdbActive type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                   <label for="valorunidadmedida">Valor unidad de medida</label>
-                  <show-errors [control]="formProveedor.controls['valorunidadmedida']"></show-errors>
+                  <show-errors [control]="formAddProducto.controls['valorunidadmedida']"></show-errors>
                 </div>
               </div>
 

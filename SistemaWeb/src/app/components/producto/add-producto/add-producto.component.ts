@@ -18,6 +18,13 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utilidades} from '../../Utilidades';
 import {isNull, isUndefined} from 'util';
 import {SelectComponent} from '../../../typescripts/pro/material-select';
+import {EmpaqueService} from '../../../services/empaque.service';
+import {EnvaseService} from '../../../services/envase.service';
+import {Empaque} from '../../../models/Empaque';
+import {UnidadMedida} from '../../../models/UnidadMedida';
+import {UnidadMedidaService} from '../../../services/unidad-medida.service';
+import {ProveedorService} from '../../../services/proveedor.service';
+import {ProductoProveedor} from '../../../models/ProductoProveedor';
 
 
 declare var $:any;
@@ -36,9 +43,11 @@ export class AddProductoComponent implements OnInit {
     formAddProducto: FormGroup;
     public proveedores: Proveedor [];
     public categorias: CategoriaProducto[];
-    public envases: Envase[];
     public clasificaciones: ClasificacionProducto[];
     public subclasificaciones: SubClasificacionProducto[];
+    public envases: Envase[];
+    public empaques : Empaque[];
+    public unidades : UnidadMedida[];
     public url: string;
     public tituloPantalla: string = 'Productos';
     public showModalCategoria: boolean = false;
@@ -49,10 +58,14 @@ export class AddProductoComponent implements OnInit {
 
     constructor(private _route: ActivatedRoute
         , private _router: Router
-        , private _categoriaService: CategoriaProductoService
         , private _uploadService: UploadService
+        , private _proveedorService : ProveedorService
+        , private _categoriaService: CategoriaProductoService
         , private clasificacionService: ClasificacionProductoService
         , private _subclasificacionService: SubClasificacionProductoService
+        , private  _empaqueService : EmpaqueService
+        , private _envaseService : EnvaseService
+        , private _unidadService : UnidadMedidaService
         , private _productoService: ProductoService
         , private _fAddProducto: FormBuilder) {
         this.url = Global.url;
@@ -61,7 +74,6 @@ export class AddProductoComponent implements OnInit {
     }
 
     ngOnInit() {
-
         $(document).ready(() => {
             $(".letras").keypress(function (key) {
                 if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
@@ -87,9 +99,25 @@ export class AddProductoComponent implements OnInit {
 
         });
 
+        this.getProveedores();
         this.getCategorias();
+        this.getEnvases();
+        this.getEmpaques();
+        this.getUnidadesDeMedida();
         this.initFormAddProducto();
 
+    }
+
+    getProveedores(){
+        this._proveedorService.getProveedores().subscribe(
+            response =>{
+                if(response.proveedores){
+                    this.proveedores = response.proveedores;
+                }
+            }, error =>{
+                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }
+        )
     }
 
     getCategorias() {
@@ -107,6 +135,7 @@ export class AddProductoComponent implements OnInit {
         )
 
     }
+
     onChangeClasificacion(event) {
 
         if(isNull(event) || isUndefined(event)){
@@ -149,12 +178,85 @@ export class AddProductoComponent implements OnInit {
         }
     }
 
+    getEmpaques(){
+        this._empaqueService.getEmpaques().subscribe(
+            response =>{
+                if(response.empaques){
+                    this.empaques = response.empaques;
+                }
+            }
+            , error =>{
+                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }
+        )
+    }
+
+    getEnvases(){
+        this._envaseService.getEnvases().subscribe(
+            response =>{
+                if(response.envases){
+                    this.envases = response.envases;
+                }
+            }, error =>{
+                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }
+        )
+    }
+
+    getUnidadesDeMedida(){
+        this._unidadService.getUnidadesMedida().subscribe(
+            response => {
+                if(response.unidadesmedida){
+                    this.unidades = response.unidadesmedida;
+                }
+            }, error =>{
+
+            }
+        )
+    }
+
+    onChangeProveedor(event){
+
+        if(isNull(event)) {
+            this.producto.IdProveedor = null;
+        } else {
+            this.producto.IdProveedor = event.IdProveedor;
+        }
+    }
+
     onChangeSubclasificacion(event){
       if(isNull(event) || isUndefined(event)){
           this.producto.IdSubClasificacion = null;
       } else {
           this.producto.IdSubClasificacion = event.IdSubClasificacion;
       }
+    }
+
+    onChangeUnidadMedida(event){
+        if(isNull(event)) {
+            this.producto.IdUnidadMedida = null;
+        } else {
+            this.producto.IdUnidadMedida = event.IdUnidadMedida;
+        }
+    }
+
+
+    onChangeEnvase(event : ProductoProveedor){
+
+        if(isNull(event)) {
+            this.producto.IdEnvase = null;
+        } else {
+            this.producto.IdEnvase = event.IdEnvase;
+        }
+    }
+
+    onChangeEmpaque(event){
+
+        if(isNull(event)) {
+            this.producto.IdEmpaque = null;
+        } else {
+            this.producto.IdEmpaque = event.IdEmpaque;
+        }
     }
 
  customSearchFn(term: string, item: SubClasificacionProducto) {
@@ -189,10 +291,16 @@ export class AddProductoComponent implements OnInit {
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
+    this.producto.DiasCaducidad = 30;
+    this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque;
+    this.producto.Costo = this.formAddProducto.value.costo;
+    this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
+
   }
 
   crearProducto(){
     this.getValueForm();
+
     console.log(this.producto);
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
@@ -211,7 +319,6 @@ export class AddProductoComponent implements OnInit {
                     this.formAddProducto.reset();
                     this.producto = new Producto();
                     this.filesToUpload = null;
-                    this.subclasificaciones = null;
                     $(".dropify-clear").click()
                 } else if (result.dismiss === swal.DismissReason.cancel) {
                     this._router.navigate(['/producto'])
@@ -235,31 +342,47 @@ export class AddProductoComponent implements OnInit {
 
   private initFormAddProducto() {
     this.formAddProducto =  this._fAddProducto.group({
-      'nombreProducto': new FormControl('',[
+        'nombreProducto': new FormControl('',[
           Validators.required
           , Validators.minLength(5)
           , Validators.maxLength(100)
           , CustomValidators.espaciosVacios
-        ]
-
-      ),
-      'descripcionProducto': new FormControl('',[
+        ]),
+        'descripcionProducto': new FormControl('',[
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(300)
         , CustomValidators.espaciosVacios
-      ]),
-      'clasificacion': new FormControl('',[
-        Validators.required
-      ]),
-      'subclasificacion': new FormControl('',[
-        Validators.required
-      ]),
+        ]),
+        'proveedor': new FormControl('',[
+            Validators.required
+        ]),
+        'categoria': new FormControl('',[
+            Validators.required
+        ]),
+        'clasificacion': new FormControl('',[
+            Validators.required
+        ]),
+        'subclasificacion': new FormControl('',[
+            Validators.required
+        ]),
 
-      'categoria': new FormControl('',[
-        Validators.required
-      ]),
+        'empaque': new FormControl('',[
+        ]),
+        'envase': new FormControl('',[
+        ]),
+        'unidadmedida': new FormControl('',[
+            Validators.required
+        ]),
+        'cantidadEmpaque': new FormControl('',[
+        ]),
 
+        'valorunidadmedida': new FormControl('',[
+            Validators.required
+        ]),
+        'costo': new FormControl('',[
+            Validators.required
+        ])
     })
   }
 

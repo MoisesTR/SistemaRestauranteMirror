@@ -42,7 +42,7 @@
               <div class="col-9 col-sm-9 col-md-9">
                 <label for="proveedor">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
-                           formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)" class="select-no-margin">
+                  formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)" class="select-no-margin">
                 </ng-select>
                 <show-errors [control]="formAddProducto.controls['proveedor']"></show-errors>
               </div>
@@ -83,7 +83,8 @@
                 <br>
                 <label for="subclasificacion">Subclasificación</label>
                 <ng-select [items]="subclasificaciones" bindLabel="NombreSubClasificacion" bindValue="IdSubClasificacion" placeholder="Selecciona una subclasificacion"
-                  [searchFn]="customSearchFn" formControlName="subclasificacion" id="subclasificacion" (change)="onChangeSubclasificacion($event)" class="select-no-margin">
+                  [searchFn]="customSearchFn" formControlName="subclasificacion" id="subclasificacion" (change)="onChangeSubclasificacion($event)"
+                  class="select-no-margin">
                   <!--<ng-template ng-option-tmp let-item="item">-->
                   <!--{{item.NombreSubclasificacion}} <br />-->
                   <!--<small>{{item.DescripcionSubClasificacion}}</small>-->
@@ -141,7 +142,26 @@
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
               </div>
 
-              <div class="col-md-4  ">
+              <div class="col-md-6">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" id="diascaducidad" formControlName="diascaducidad" class="form-control" autocomplete="off">
+                  <label for="diascaducidad">Días de Cadudicad</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
+                  <label for="valorunidadmedida">Valor unidad de medida</label>
+                  <show-errors [control]="formAddProducto.controls['valorunidadmedida']"></show-errors>
+                </div>
+              </div>
+
+              <div class="col-md-6">
                 <br>
                 <br>
                 <div class="md-form">
@@ -151,7 +171,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <br>
                 <br>
                 <div class="md-form">
@@ -161,15 +181,6 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
-                <br>
-                <br>
-                <div class="md-form">
-                  <input mdbActive type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
-                  <label for="valorunidadmedida">Valor unidad de medida</label>
-                  <show-errors [control]="formAddProducto.controls['valorunidadmedida']"></show-errors>
-                </div>
-              </div>
 
               <div class="col-md-12">
                 <br>

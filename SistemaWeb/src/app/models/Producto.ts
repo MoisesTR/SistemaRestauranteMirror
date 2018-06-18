@@ -9,7 +9,6 @@ export class Producto{
   public IdEmpaque : number;
   public IdUnidadMedida : number;
   public ValorUnidadMedida : number;
-  public CantidadEmpaque : number;
   public NombreProducto: string
   public Descripcion: string;
   public Imagen: string;

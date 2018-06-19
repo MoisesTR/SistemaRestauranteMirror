@@ -336,10 +336,8 @@ export class AddProductoComponent implements OnInit {
     this.producto.IdEstado = 1;
     this.producto.DiasCaducidad = 30;
     this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque;
-    this.producto.Costo = this.formAddProducto.value.costo;
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
     this.producto.DiasCaducidad = this.formAddProducto.value.diascaducidad;
-
   }
 
   crearProducto(){
@@ -428,9 +426,6 @@ export class AddProductoComponent implements OnInit {
         ]),
 
         'valorunidadmedida': new FormControl('',[
-            Validators.required
-        ]),
-        'costo': new FormControl('',[
             Validators.required
         ]),
         'diascaducidad': new FormControl('',[

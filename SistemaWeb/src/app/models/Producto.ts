@@ -19,7 +19,6 @@ export class Producto{
   public DiasCaducidad?: number;
   public Costo : number;
   public CantidadEmpaque : number;
-  public valorUnidadMedida : number;
   public Visualizar : boolean = true;
   public CreatedAt: string;
   public UpdateAt: string;

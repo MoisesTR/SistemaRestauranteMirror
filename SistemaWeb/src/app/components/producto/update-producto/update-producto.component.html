@@ -1,67 +1,167 @@
+<!--<section>-->
+  <!--<form [formGroup]="formUpdateProducto" (ngSubmit)="validarCampos()" novalidate>-->
+    <!--<div class="row">-->
+
+      <!--&lt;!&ndash;Imagen&ndash;&gt;-->
+      <!--<div class="col-lg-4">-->
+        <!--<div class="card card-cascade narrower">-->
+          <!--<div class="view gradient-card-header orange-chang">-->
+            <!--<h4 class="mb-0">Imagen</h4>-->
+          <!--</div>-->
+          <!--<div class="card-body text-center">-->
+            <!--<input type="file" id="imageProducto"  class="dropify" (change)="fileChangeEvent($event)" data-height="300"  />-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash; /.Imagen &ndash;&gt;-->
+
+      <!--&lt;!&ndash;Datos del producto&ndash;&gt;-->
+      <!--<div class="col-lg-8  ">-->
+        <!--<div class="card card-cascade narrower">-->
+          <!--<div class="view gradient-card-header orange-chang">-->
+            <!--<h4 class="mb-0">Actualizar Datos del Producto</h4>-->
+          <!--</div>-->
+          <!--&lt;!&ndash; Contenido &ndash;&gt;-->
+          <!--<div class="card-body ">-->
+
+            <!--<div class="row">-->
+              <!--<div class="col-md-12">-->
+                <!--<br>-->
+                <!--<div class="md-form">-->
+                  <!--<input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off">-->
+                  <!--<show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>-->
+                  <!--<label [class.active] = "producto.NombreProducto && producto.NombreProducto.length > 0" for="nombreproducto" class="input-char-counter">Nombre</label>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-md-6">-->
+                <!--<label for="upClasifSelect">Clasificación</label>-->
+                <!--<ng-select [items]="clasificaciones"-->
+                           <!--bindLabel="NombreClasificacion"-->
+                           <!--bindValue="IdClasificacion"-->
+                           <!--placeholder="Selecciona una clasificacion"-->
+                           <!--formControlName="clasificacion" id="upClasifSelect" (change)="onChangeClasificacion($event)"-->
+                           <!--[(ngModel)] = "producto.IdClasificacion"-->
+
+                <!--&gt;-->
+                <!--</ng-select>-->
+                <!--<show-errors [control]="formUpdateProducto.controls['clasificacion']"></show-errors>-->
+
+              <!--</div>-->
+              <!--<div class="col-md-6">-->
+                <!--<label for="selectSubClasificacion">Subclasificación</label>-->
+                <!--<ng-select [items]="subclasificaciones"-->
+                           <!--bindLabel="NombreSubClasificacion"-->
+                           <!--bindValue="IdSubClasificacion"-->
+                           <!--placeholder="Selecciona una subclasificacion"-->
+                           <!--formControlName="subclasificacion" id="selectSubClasificacion"-->
+                           <!--(change)="onChangeSubclasificacion($event)"-->
+                           <!--[(ngModel)] = "producto.IdSubClasificacion"-->
+                <!--&gt;-->
+
+                <!--</ng-select>-->
+                <!--<show-errors [control]="formUpdateProducto.controls['subclasificacion']"></show-errors>-->
+              <!--</div>-->
+              <!--<div class="col-md-6">-->
+                <!--<br>-->
+                <!--<label for="selectCategoria">Categoria</label>-->
+                <!--<ng-select [items]="categorias"-->
+                           <!--bindLabel="NombreCategoria"-->
+                           <!--bindValue="IdCategoria"-->
+                           <!--placeholder="Selecciona una categoria"-->
+                           <!--formControlName="categoria" id="selectCategoria"-->
+                           <!--(change)="onChangeCategoria($event)"-->
+                           <!--[(ngModel)] = "producto.IdCategoria"-->
+                <!--&gt;-->
+                <!--</ng-select>-->
+                <!--<show-errors [control]="formUpdateProducto.controls['categoria']"></show-errors>-->
+
+              <!--</div>-->
+              <!--<div class="col-md-12">-->
+                <!--<br>-->
+                <!--<div class="md-form">-->
+                  <!--<textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>-->
+                  <!--<show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>-->
+                  <!--<label [class.active] = "producto.Descripcion && producto.Descripcion.length > 0" for="descripcionproducto">Descripción</label>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<br>-->
+            <!--<div class="text-center mt-1-half">-->
+              <!--<button class="btn orange-chang mb-1" [disabled]="!formUpdateProducto.valid">Actualizar <i class="fa fa-check ml-1"></i></button>-->
+            <!--</div>-->
+
+          <!--</div>-->
+          <!--&lt;!&ndash; Contenido &ndash;&gt;-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash; /.Datos del usuario&ndash;&gt;-->
+
+    <!--</div>-->
+  <!--</form>-->
+
+<!--</section>-->
+
 <section>
-  <form [formGroup]="formUpdateProducto" (ngSubmit)="validarCampos()" novalidate>
+
+  <form [formGroup]="formUpdateProducto" (ngSubmit)="cargarImagen()" novalidate>
     <div class="row">
 
       <!--Imagen-->
-      <div class="col-lg-4">
+      <div class="col-lg-4" id="imagen-productos">
         <div class="card card-cascade narrower">
           <div class="view gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input type="file" id="imageProducto"  class="dropify" (change)="fileChangeEvent($event)" data-height="300"  />
+            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg png jpeg"
+            />
           </div>
         </div>
+
       </div>
       <!-- /.Imagen -->
 
       <!--Datos del producto-->
-      <div class="col-lg-8  ">
+      <div class="col-lg-8" id="formulario-productos">
         <div class="card card-cascade narrower">
           <div class="view gradient-card-header orange-chang">
-            <h4 class="mb-0">Actualizar Datos del Producto</h4>
+            <h4 class="mb-0">Datos del Producto</h4>
           </div>
           <!-- Contenido -->
           <div class="card-body ">
 
             <div class="row">
+
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <input type="text" id="nombreproducto" formControlName="nombreProducto" class="form-control input-char-counter letras" length="50" autocomplete="off">
+                  <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formUpdateProducto.value.nombreProducto"
+                         class="form-control letras" autocomplete="off" [(ngModel)]="formUpdateProducto.value.nombreProducto">
                   <show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>
-                  <label [class.active] = "producto.NombreProducto && producto.NombreProducto.length > 0" for="nombreproducto" class="input-char-counter">Nombre</label>
+                  <label for="nombreproducto">Nombre del Producto</label>
                 </div>
               </div>
-              <div class="col-md-6">
-                <label for="upClasifSelect">Clasificación</label>
-                <ng-select [items]="clasificaciones"
-                           bindLabel="NombreClasificacion"
-                           bindValue="IdClasificacion"
-                           placeholder="Selecciona una clasificacion"
-                           formControlName="clasificacion" id="upClasifSelect" (change)="onChangeClasificacion($event)"
-                           [(ngModel)] = "producto.IdClasificacion"
 
-                >
+              <div class="col-9 col-sm-9 col-md-9">
+                <label for="proveedor">Proveedor</label>
+                <ng-select [items]="proveedores"
+                           bindLabel="NombreProveedor"
+                           bindValue="IdProveedor"
+                           placeholder="Selecciona un proveedor"
+                           formControlName="proveedor"
+                           id="proveedor"
+                           (change)="onChangeProveedor($event)"
+                           [(ngModel)] = "producto.IdProveedor"
+                           class="select-no-margin">
                 </ng-select>
-                <show-errors [control]="formUpdateProducto.controls['clasificacion']"></show-errors>
-
+                <show-errors [control]="formUpdateProducto.controls['proveedor']"></show-errors>
               </div>
-              <div class="col-md-6">
-                <label for="selectSubClasificacion">Subclasificación</label>
-                <ng-select [items]="subclasificaciones"
-                           bindLabel="NombreSubClasificacion"
-                           bindValue="IdSubClasificacion"
-                           placeholder="Selecciona una subclasificacion"
-                           formControlName="subclasificacion" id="selectSubClasificacion"
-                           (change)="onChangeSubclasificacion($event)"
-                           [(ngModel)] = "producto.IdSubClasificacion"
-                >
 
-                </ng-select>
-                <show-errors [control]="formUpdateProducto.controls['subclasificacion']"></show-errors>
+              <div class="col-3 col-sm-3 col-md-3">
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position" mdbWavesEffect>Agregar</button>
               </div>
-              <div class="col-md-6">
+
+              <div class="col-9 col-sm-9 col-md-9">
                 <br>
                 <label for="selectCategoria">Categoria</label>
                 <ng-select [items]="categorias"
@@ -71,32 +171,190 @@
                            formControlName="categoria" id="selectCategoria"
                            (change)="onChangeCategoria($event)"
                            [(ngModel)] = "producto.IdCategoria"
+                           class="select-no-margin"
                 >
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['categoria']"></show-errors>
-
               </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label for="upclasificacion">Clasificación</label>
+                <ng-select [items]="clasificaciones"
+                           bindLabel="NombreClasificacion"
+                           bindValue="IdClasificacion"
+                           placeholder="Selecciona una clasificacion"
+                           formControlName="clasificacion" id="upclasificacion" (change)="onChangeClasificacion($event)"
+                           [(ngModel)] = "producto.IdClasificacion"
+                           class = "select-no-margin"
+
+                >
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['clasificacion']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label for="upsubclasificacion">Subclasificación</label>
+                  <ng-select [items]="subclasificaciones"
+                             bindLabel="NombreSubClasificacion"
+                             bindValue="IdSubClasificacion"
+                             placeholder="Selecciona una subclasificacion"
+                             formControlName="subclasificacion" 
+                             id="upsubclasificacion"
+                             (change)="onChangeSubclasificacion($event)"
+                             [(ngModel)] = "producto.IdSubClasificacion"
+                             class = "select-no-margin"
+                  >
+                  </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['subclasificacion']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label>Empaque</label>
+                <ng-select [items]="empaques"
+                           bindLabel="NombreEmpaque"
+                           bindValue="IdEmpaque"
+                           placeholder="Selecciona un empaque"
+                           formControlName="empaque"
+                           id="empaque"
+                           (change)="onChangeEmpaque($event)"
+                           [(ngModel)] = "producto.IdEmpaque"
+                           class="select-no-margin">
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['empaque']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label>Envase</label>
+                <ng-select [items]="envases"
+                           bindLabel="NombreEnvase"
+                           bindValue="IdEnvase"
+                           placeholder="Selecciona un envase"
+                           formControlName="envase"
+                           id="envase"
+                           (change)="onChangeEnvase($event)"
+                           [(ngModel)] = "producto.IdEnvase"
+                           class="select-no-margin">
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['envase']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+
+              <div class="col-9 col-sm-9 col-md-9">
+                <br>
+                <label>Unidad de Medida</label>
+                <ng-select [items]="unidades"
+                           dropdownPosition="top"
+                           bindLabel="NombreUnidad"
+                           bindValue="IdUnidadMedida"
+                           placeholder="Selecciona una unidad de medida"
+                           formControlName="unidadmedida"
+                           id="unidadmedida"
+                           (change)="onChangeUnidadMedida($event)"
+                           [(ngModel)] = "producto.IdUnidadMedida"
+                           class="select-no-margin">
+                </ng-select>
+                <show-errors [control]="formUpdateProducto.controls['unidadmedida']"></show-errors>
+              </div>
+
+              <div class="col-3 col-sm-3 col-md-3">
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" id="diascaducidad" formControlName="diasCaducidad" class="form-control" autocomplete="off">
+                  <label for="diascaducidad">Días de Cadudicad</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" id="valorunidadmedida" formControlName="valorUnidadMedida" class="form-control" autocomplete="off">
+                  <label for="valorunidadmedida">Valor unidad de medida</label>
+                  <show-errors [control]="formUpdateProducto.controls['valorunidadmedida']"></show-errors>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                  <label for="cantidadEmpaque">Cantidad de Empaque</label>
+                  <show-errors [control]="formUpdateProducto.controls['cantidadEmpaque']"></show-errors>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <br>
+                <br>
+                <div class="md-form">
+                  <input mdbActive type="number" min="1" id="costo" formControlName="costo" class="form-control" autocomplete="off">
+                  <label for="costo">Costo del producto</label>
+                  <show-errors [control]="formUpdateProducto.controls['costo']"></show-errors>
+                </div>
+              </div>
+
+
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea" autocomplete="off"></textarea>
+                  <textarea mdbActive type="text" id="descripcionproducto" formControlName="descripcionProducto" [(ngModel)]="formUpdateProducto.value.descripcionProducto"
+                            class="md-textarea" autocomplete="off" required></textarea>
                   <show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>
-                  <label [class.active] = "producto.Descripcion && producto.Descripcion.length > 0" for="descripcionproducto">Descripción</label>
+                  <label for="descripcionproducto">Descripción</label>
                 </div>
               </div>
             </div>
             <br>
             <div class="text-center mt-1-half">
-              <button class="btn orange-chang mb-1" [disabled]="!formUpdateProducto.valid">Actualizar <i class="fa fa-check ml-1"></i></button>
+              <button class="btn orange-chang mb-1" [disabled]="!formUpdateProducto.valid">Ingresar
+                <i class="fa fa-check ml-1"></i>
+              </button>
             </div>
 
           </div>
           <!-- Contenido -->
         </div>
       </div>
-      <!-- /.Datos del usuario-->
 
     </div>
-  </form>
+  </form> 
+
 
 </section>
+

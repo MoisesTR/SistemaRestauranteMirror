@@ -1,6 +1,8 @@
 export class ProductoProveedor{
 
     public IdProducto : number;
+    public IdProveedor: number;
+    public IdProductoProveedor : number;
     public NombreProducto : string;
     public Costo : number;
     public Descripcion : string;
@@ -20,7 +22,6 @@ export class ProductoProveedor{
     public ValorUnidadMedida : number;
     public IdEstado : number;
     public Nombre : string;
-    public IdProveedor : number;
     public NombreProveedor : string;
     public Habilitado : boolean;
     public DiasCaducidad : number;

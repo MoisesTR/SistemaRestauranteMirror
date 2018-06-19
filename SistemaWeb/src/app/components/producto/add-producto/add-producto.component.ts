@@ -25,6 +25,7 @@ import {UnidadMedida} from '../../../models/UnidadMedida';
 import {UnidadMedidaService} from '../../../services/unidad-medida.service';
 import {ProveedorService} from '../../../services/proveedor.service';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
+import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 
 
 declare var $:any;
@@ -40,6 +41,7 @@ declare var $:any;
 export class AddProductoComponent implements OnInit {
 
     public producto: Producto;
+    public productoProveedor : ProductoProveedor;
     formAddProducto: FormGroup;
     public proveedores: Proveedor [];
     public categorias: CategoriaProducto[];
@@ -67,9 +69,11 @@ export class AddProductoComponent implements OnInit {
         , private _envaseService : EnvaseService
         , private _unidadService : UnidadMedidaService
         , private _productoService: ProductoService
+        , private _productoProveedorService : ProductoProveedorService
         , private _fAddProducto: FormBuilder) {
         this.url = Global.url;
         this.producto = new Producto();
+        this.productoProveedor = new ProductoProveedor();
 
     }
 
@@ -257,9 +261,9 @@ export class AddProductoComponent implements OnInit {
     onChangeProveedor(event){
 
         if(isNull(event)) {
-            this.producto.IdProveedor = null;
+            this.productoProveedor.IdProveedor = null;
         } else {
-            this.producto.IdProveedor = event.IdProveedor;
+            this.productoProveedor.IdProveedor = event.IdProveedor;
         }
     }
 
@@ -334,35 +338,43 @@ export class AddProductoComponent implements OnInit {
     this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque;
     this.producto.Costo = this.formAddProducto.value.costo;
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
+    this.producto.DiasCaducidad = this.formAddProducto.value.diascaducidad;
 
   }
 
   crearProducto(){
     this.getValueForm();
-
-    console.log(this.producto);
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
         if(response.IdProducto){
-            swal({
-                title: 'Producto Creado exitosamente!',
-                text: 'Deseas agregar otro producto?',
-                type: 'success',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'SI',
-                cancelButtonText: 'NO'
-            }).then((result) => {
-                if (result.value) {
-                    this.formAddProducto.reset();
-                    this.producto = new Producto();
-                    this.filesToUpload = null;
-                    $(".dropify-clear").click()
-                } else if (result.dismiss === swal.DismissReason.cancel) {
-                    this._router.navigate(['/producto'])
+            this.productoProveedor.IdProducto = response.IdProducto;
+            this._productoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
+                response =>{
+                    if(response.IdProductoProveedor) {
+                        swal({
+                            title: 'Producto Creado exitosamente!',
+                            text: 'Deseas agregar otro producto?',
+                            type: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'SI',
+                            cancelButtonText: 'NO'
+                        }).then((result) => {
+                            if (result.value) {
+                                this.formAddProducto.reset();
+                                this.producto = new Producto();
+                                this.filesToUpload = null;
+                                $(".dropify-clear").click()
+                            } else if (result.dismiss === swal.DismissReason.cancel) {
+                                this._router.navigate(['/producto'])
+                            }
+                        })
+                    }
+                }, error=>{
+                    Utilidades.showMsgError(Utilidades.mensajeError(error))
                 }
-            })
+            )
         }
       }, error =>{
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
@@ -405,7 +417,6 @@ export class AddProductoComponent implements OnInit {
         'subclasificacion': new FormControl('',[
             Validators.required
         ]),
-
         'empaque': new FormControl('',[
         ]),
         'envase': new FormControl('',[
@@ -420,6 +431,9 @@ export class AddProductoComponent implements OnInit {
             Validators.required
         ]),
         'costo': new FormControl('',[
+            Validators.required
+        ]),
+        'diascaducidad': new FormControl('',[
             Validators.required
         ])
     })

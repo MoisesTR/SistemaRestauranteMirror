@@ -19,6 +19,12 @@ import swal from 'sweetalert2';
 import {Utilidades} from '../../Utilidades';
 import {isNull, isUndefined} from 'util';
 import {DeleteImageService} from '../../../services/delete-image-service';
+import {ProductoProveedor} from '../../../models/ProductoProveedor';
+import {ProveedorService} from '../../../services/proveedor.service';
+import {EmpaqueService} from '../../../services/empaque.service';
+import {EnvaseService} from '../../../services/envase.service';
+import {UnidadMedidaService} from '../../../services/unidad-medida.service';
+import {Empaque} from '../../../models/Empaque';
 
 declare var $:any;
 @Component({
@@ -33,7 +39,8 @@ export class UpdateProductoComponent implements OnInit {
   public proveedores: Proveedor [];
   public categorias: CategoriaProducto[];
   public envases: Envase[];
-  public unidadesMedida : UnidadMedida[];
+  public unidades : UnidadMedida[];
+  public empaques : Empaque[];
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
@@ -41,13 +48,17 @@ export class UpdateProductoComponent implements OnInit {
   public filesToUpload: Array<File> = null;
 
   constructor(
-    private _route: ActivatedRoute
-    , private _router: Router
-    , private _categoriaService: CategoriaProductoService
-    , private _uploadService : UploadService
-    , private _clasificaionService: ClasificacionProductoService
-    , private _subclasificacionService: SubClasificacionProductoService
-    , private _productoService : ProductoService
+      private _route: ActivatedRoute
+      , private _router: Router
+      , private _uploadService: UploadService
+      , private _proveedorService : ProveedorService
+      , private _categoriaService: CategoriaProductoService
+      , private _clasificacionService: ClasificacionProductoService
+      , private _subclasificacionService: SubClasificacionProductoService
+      , private  _empaqueService : EmpaqueService
+      , private _envaseService : EnvaseService
+      , private _unidadService : UnidadMedidaService
+      , private _productoService: ProductoService
     , private _deleteImageService : DeleteImageService
     , private formBuilderUProducto : FormBuilder
   ) {
@@ -60,39 +71,62 @@ export class UpdateProductoComponent implements OnInit {
 
     this.initFormUpdateProducto();
     this.getProducto();
+    this.getProveedores();
+    this.getCategorias();
     this.getClasificaciones();
     this.getSubClasificaciones();
-    this.getCategorias();
+    this.getEmpaques();
+    this.getEnvases();
+    this.getUnidadesDeMedida();
+
 
   }
 
   private initFormUpdateProducto() {
     this.formUpdateProducto =  this.formBuilderUProducto.group({
-      'nombreProducto': new FormControl('',[
-          Validators.required
-          , Validators.minLength(5)
-          , Validators.maxLength(100)
-          , CustomValidators.espaciosVacios
-        ]
+        'nombreProducto': new FormControl('',[
+            Validators.required
+            , Validators.minLength(5)
+            , Validators.maxLength(100)
+            , CustomValidators.espaciosVacios
+        ]),
+        'descripcionProducto': new FormControl('',[
+            Validators.required
+            , Validators.minLength(5)
+            , Validators.maxLength(300)
+            , CustomValidators.espaciosVacios
+        ]),
+        'proveedor': new FormControl('',[
+            Validators.required
+        ]),
+        'categoria': new FormControl('',[
+            Validators.required
+        ]),
+        'clasificacion': new FormControl('',[
+            Validators.required
+        ]),
+        'subclasificacion': new FormControl('',[
+            Validators.required
+        ]),
+        'empaque': new FormControl('',[
+        ]),
+        'envase': new FormControl('',[
+        ]),
+        'unidadmedida': new FormControl('',[
+            Validators.required
+        ]),
+        'cantidadEmpaque': new FormControl('',[
+        ]),
 
-      ),
-      'descripcionProducto': new FormControl('',[
-        Validators.required
-        , Validators.minLength(5)
-        , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
-      ]),
-      'clasificacion': new FormControl('',[
-        Validators.required
-      ]),
-      'subclasificacion': new FormControl('',[
-        Validators.required
-      ]),
-
-      'categoria': new FormControl('',[
-        Validators.required
-      ]),
-
+        'valorUnidadMedida': new FormControl('',[
+            Validators.required
+        ]),
+        'costo': new FormControl('',[
+            Validators.required
+        ]),
+        'diasCaducidad': new FormControl('',[
+            Validators.required
+        ])
     })
   }
 
@@ -116,14 +150,49 @@ export class UpdateProductoComponent implements OnInit {
 
   }
 
-  onChangeSubclasificacion(event){
+    onChangeProveedor(event){
 
-      if(isNull(event)){
-          this.producto.IdSubClasificacion = null;
-      } else{
-          this.producto.IdSubClasificacion = event.IdSubClasificacion;
-      }
-  }
+        if(isNull(event)) {
+            this.producto.IdProveedor = null;
+        } else {
+            this.producto.IdProveedor = event.IdProveedor;
+        }
+    }
+
+    onChangeSubclasificacion(event){
+        if(isNull(event) || isUndefined(event)){
+            this.producto.IdSubClasificacion = null;
+        } else {
+            this.producto.IdSubClasificacion = event.IdSubClasificacion;
+        }
+    }
+
+    onChangeUnidadMedida(event){
+        if(isNull(event)) {
+            this.producto.IdUnidadMedida = null;
+        } else {
+            this.producto.IdUnidadMedida = event.IdUnidadMedida;
+        }
+    }
+
+
+    onChangeEnvase(event : ProductoProveedor){
+
+        if(isNull(event)) {
+            this.producto.IdEnvase = null;
+        } else {
+            this.producto.IdEnvase = event.IdEnvase;
+        }
+    }
+
+    onChangeEmpaque(event){
+
+        if(isNull(event)) {
+            this.producto.IdEmpaque = null;
+        } else {
+            this.producto.IdEmpaque = event.IdEmpaque;
+        }
+    }
 
 
 
@@ -141,6 +210,9 @@ export class UpdateProductoComponent implements OnInit {
   inicializarValoresFormularioProducto(){
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
+    this.formUpdateProducto.controls['diasCaducidad'].setValue(this.producto.DiasCaducidad);
+    this.formUpdateProducto.controls['valorUnidadMedida'].setValue(this.producto.ValorUnidadMedida);
+    this.formUpdateProducto.controls['cantidadEmpaque'].setValue(this.producto.CantidadEmpaque);
 
   }
 
@@ -158,7 +230,6 @@ export class UpdateProductoComponent implements OnInit {
           response =>{
             if(response.producto){
               this.producto = response.producto;
-
               //Inicializar componentes de la vista
               $(document).ready(()=>{
 
@@ -251,6 +322,10 @@ export class UpdateProductoComponent implements OnInit {
       this.producto.NombreProducto = this.formUpdateProducto.value.nombreProducto;
       this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
       this.producto.IdEstado = 1;
+      this.producto.CantidadEmpaque = this.formUpdateProducto.value.cantidadEmpaque;
+      this.producto.Costo = this.formUpdateProducto.value.costo;
+      this.producto.ValorUnidadMedida = this.formUpdateProducto.value.valorUnidadMedida;
+      this.producto.DiasCaducidad = this.formUpdateProducto.value.diasCaducidad;
   }
 
   actualizarProducto(){
@@ -259,7 +334,6 @@ export class UpdateProductoComponent implements OnInit {
     this._productoService.updateProducto(this.producto).subscribe(
       response =>{
         if(response.success){
-
           swal(
             'Producto',
             'El producto ha sido actualizado exitosamente!',
@@ -282,9 +356,21 @@ export class UpdateProductoComponent implements OnInit {
 
   }
 
-  getClasificaciones(){
+    getProveedores(){
+        this._proveedorService.getProveedores().subscribe(
+            response =>{
+                if(response.proveedores){
+                    this.proveedores = response.proveedores;
+                }
+            }, error =>{
+                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }
+        )
+    }
 
-    this._clasificaionService.getClasificaciones().subscribe(
+    getClasificaciones(){
+
+    this._clasificacionService.getClasificaciones().subscribe(
 
       response =>{
         if(response.clasificaciones){
@@ -294,9 +380,9 @@ export class UpdateProductoComponent implements OnInit {
 
       }
     )
-  }
+    }
 
-  getCategorias(){
+    getCategorias(){
 
     this._categoriaService.getCategoriasProductos().subscribe(
       response =>{
@@ -308,5 +394,42 @@ export class UpdateProductoComponent implements OnInit {
       }
     )
   }
+
+    getEmpaques(){
+        this._empaqueService.getEmpaques().subscribe(
+            response =>{
+                if(response.empaques){
+                    this.empaques = response.empaques;
+                }
+            }
+            , error =>{
+                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }
+        )
+    }
+
+    getEnvases(){
+        this._envaseService.getEnvases().subscribe(
+            response =>{
+                if(response.envases){
+                    this.envases = response.envases;
+                }
+            }, error =>{
+                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }
+        )
+    }
+
+    getUnidadesDeMedida(){
+        this._unidadService.getUnidadesMedida().subscribe(
+            response => {
+                if(response.unidadesmedida){
+                    this.unidades = response.unidadesmedida;
+                }
+            }, error =>{
+
+            }
+        )
+    }
 
 }

@@ -130,7 +130,7 @@ export class UpdateProductoComponent implements OnInit {
     })
   }
 
-  onChangeClasificacion(event){
+    onChangeClasificacion(event){
 
       if(isNull(event)) {
           this.producto.IdClasificacion = null;
@@ -148,7 +148,7 @@ export class UpdateProductoComponent implements OnInit {
           )
       }
 
-  }
+    }
 
     onChangeProveedor(event){
 
@@ -194,9 +194,7 @@ export class UpdateProductoComponent implements OnInit {
         }
     }
 
-
-
-  onChangeCategoria(event){
+    onChangeCategoria(event){
 
       if(isNull(event)) {
           this.producto.IdCategoria = null;
@@ -204,7 +202,7 @@ export class UpdateProductoComponent implements OnInit {
           this.producto.IdCategoria = event.IdCategoria;
       }
 
-  }
+    }
 
 
   inicializarValoresFormularioProducto(){
@@ -214,10 +212,6 @@ export class UpdateProductoComponent implements OnInit {
     this.formUpdateProducto.controls['valorUnidadMedida'].setValue(this.producto.ValorUnidadMedida);
     this.formUpdateProducto.controls['cantidadEmpaque'].setValue(this.producto.CantidadEmpaque);
 
-  }
-
-  validarCampos(){
-    this.cargarImagen();
   }
 
   getProducto(){

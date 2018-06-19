@@ -48,15 +48,38 @@
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
                 <label for="proveedor">Proveedor</label>
-                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
-                  formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)">
+                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+                 placeholder="Selecciona un proveedor"
+                 (change)="onChangeProveedor($event)"
+                 formControlName="proveedor"
+                >
+                  <ng-template ng-option-tmp let-item="item" let-index="index"  let-search="searchTerm">
+                    <div style="margin: 10px 0;" class="card">
+                      <div class="card-body">
+                        <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Nombre Representante : {{item.NombreRepresentante}}</h6>
+                        <p class="card-text">
+                          <!--<img height="15" width="15" [src]="item.avatar"/>-->
+                          Descripcion :
+                          {{item.Descripcion}}
+                        </p>
+                        <!--<div *ngIf="item.name === 'Pavilnys'">-->
+                          <!--<a href="#" class="card-link">Card link</a>-->
+                          <!--<a href="#" class="card-link">Another link</a>-->
+                        <!--</div>-->
+                      </div>
+                    </div>
+                  </ng-template>
                 </ng-select>
+                <!--<ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"-->
+                  <!--formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)">-->
+                <!--</ng-select>-->
                 <show-errors [control]="formAddProducto.controls['proveedor']"></show-errors>
               </div>
 
               <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" tabindex="-1" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-9 col-sm-9 col-md-9">
@@ -70,7 +93,7 @@
 
               <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" tabindex="-1" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-9 col-sm-9 col-md-9">
@@ -84,7 +107,7 @@
 
               <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" tabindex="-1" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-9 col-sm-9 col-md-9">
@@ -103,7 +126,7 @@
 
               <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" tabindex="-1" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-9 col-sm-9 col-md-9">
@@ -117,7 +140,7 @@
 
               <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" tabindex="-1" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-9 col-sm-9 col-md-9">
@@ -131,7 +154,7 @@
 
               <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" tabindex="-1" mdbWavesEffect>Agregar</button>
               </div>
 
 
@@ -146,7 +169,7 @@
 
               <div class="col-3 col-sm-3 col-md-3">
                 <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" tabindex="-1" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-md-4">
@@ -154,7 +177,7 @@
                 <br>
                 <div class="md-form">
                   <input mdbActive type="number" id="diascaducidad" formControlName="diascaducidad" class="form-control" autocomplete="off">
-                  <label for="diascaducidad">Días de Cadudicad</label>
+                  <label for="diascaducidad">Días de Caducicad</label>
                 </div>
               </div>
 
@@ -162,7 +185,7 @@
                 <br>
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
+                  <input mdbActive min="0" type="number" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                   <label for="valorunidadmedida">Valor unidad de medida</label>
                   <show-errors [control]="formAddProducto.controls['valorunidadmedida']"></show-errors>
                 </div>
@@ -203,26 +226,6 @@
 
     </div>
   </form>
-
-  <!-- <div class="fixed-action-btn" style="right:78%; bottom:35px;">
-
-    <a class="btn-floating btn-large orange-chang waves-light" mdbWavesEffect (click)="fixed.toggle($event)">
-      <i class="fa fa-plus"></i>
-    </a>
-
-    <div class="fixed_collapse" mdbCollapse="isCollapsed" #fixed="bs-collapse">
-      <a class="btn-floating green waves-light" mdbTooltip="Categoria" placement="right" mdbWavesEffect>
-        <i class="fa fa-shopping-cart" (click)="showModalCategoriaM()"></i>
-      </a>
-      <a class="btn-floating red waves-light" mdbTooltip="Clasificación" placement="right" mdbWavesEffect>
-        <i class="fa fa-shopping-cart" (click)="showModalClasificacionM()"></i>
-      </a>
-      <a class="btn-floating yellow darken-1 waves-light" mdbTooltip="SubClasificación" placement="right" mdbWavesEffect>
-        <i class="fa fa-shopping-cart" (click)="showModalSubclasificacionM()"></i>
-      </a>
-    </div>
-  </div> -->
-
 
 </section>
 

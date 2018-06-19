@@ -42,6 +42,7 @@ export class AddProductoComponent implements OnInit {
 
     public producto: Producto;
     public productoProveedor : ProductoProveedor;
+    public proveedoresSeleccionados : Proveedor[];
     formAddProducto: FormGroup;
     public proveedores: Proveedor [];
     public categorias: CategoriaProducto[];
@@ -262,8 +263,9 @@ export class AddProductoComponent implements OnInit {
 
         if(isNull(event)) {
             this.productoProveedor.IdProveedor = null;
+            this.proveedoresSeleccionados = [];
         } else {
-            this.productoProveedor.IdProveedor = event.IdProveedor;
+            this.proveedoresSeleccionados = event;
         }
     }
 
@@ -345,39 +347,53 @@ export class AddProductoComponent implements OnInit {
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
         if(response.IdProducto){
-            this.productoProveedor.IdProducto = response.IdProducto;
-            this._productoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
-                response =>{
-                    if(response.IdProductoProveedor) {
-                        swal({
-                            title: 'Producto Creado exitosamente!',
-                            text: 'Deseas agregar otro producto?',
-                            type: 'success',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'SI',
-                            cancelButtonText: 'NO'
-                        }).then((result) => {
-                            if (result.value) {
-                                this.formAddProducto.reset();
-                                this.producto = new Producto();
-                                this.filesToUpload = null;
-                                $(".dropify-clear").click()
-                            } else if (result.dismiss === swal.DismissReason.cancel) {
-                                this._router.navigate(['/producto'])
-                            }
-                        })
-                    }
-                }, error=>{
-                    Utilidades.showMsgError(Utilidades.mensajeError(error))
-                }
-            )
+            this.createProductoProveedor(response);
         }
       }, error =>{
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
+  }
+
+  createProductoProveedor(response){
+      var resultado = false;
+      this.productoProveedor.IdProducto = response.IdProducto;
+      this.proveedoresSeleccionados.forEach((value,index)=>{
+          this.productoProveedor.IdProveedor = value.IdProveedor;
+          this._productoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
+              response =>{
+                  if(response.IdProductoProveedor) {
+                      resultado = true;
+                  }
+              }, error=>{
+                  Utilidades.showMsgError(Utilidades.mensajeError(error))
+                  resultado = false;
+              }
+          )
+          if(index == this.proveedoresSeleccionados.length - 1){
+              if(resultado) {
+                  swal({
+                      title: 'El producto se ha creado y relacionado exitosamente con el proveedor!',
+                      text: 'Deseas agregar otro producto?',
+                      type: 'success',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'SI',
+                      cancelButtonText: 'NO'
+                  }).then((result) => {
+                      if (result.value) {
+                          this.formAddProducto.reset();
+                          this.producto = new Producto();
+                          this.filesToUpload = null;
+                          $(".dropify-clear").click()
+                      } else if (result.dismiss === swal.DismissReason.cancel) {
+                          this._router.navigate(['/producto'])
+                      }
+                  })
+              }
+          }
+      })
   }
 
   public filesToUpload: Array<File>;

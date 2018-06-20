@@ -54,6 +54,7 @@ import {DeleteImageService} from '../../services/delete-image-service';
 import {InicioComponent} from '../inicio/inicio.component';
 import {ProveedorModule} from '../proveedor/proveedor.module';
 import {ReportesComponent} from '../reportes/reportes.component';
+import {UnidadMedidaService} from '../../services/unidad-medida.service';
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import {ReportesComponent} from '../reportes/reportes.component';
     , TrabajadorService
     , UploadService
     , ProductoProveedorService
+    , UnidadMedidaService
     , ClasificacionUnidadMedidaService
     , TelefonosucursalService
     , AuthGuardService

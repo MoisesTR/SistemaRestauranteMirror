@@ -121,9 +121,6 @@ export class UpdateProductoComponent implements OnInit {
         'valorUnidadMedida': new FormControl('',[
             Validators.required
         ]),
-        'costo': new FormControl('',[
-            Validators.required
-        ]),
         'diasCaducidad': new FormControl('',[
             Validators.required
         ])
@@ -317,7 +314,6 @@ export class UpdateProductoComponent implements OnInit {
       this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
       this.producto.IdEstado = 1;
       this.producto.CantidadEmpaque = this.formUpdateProducto.value.cantidadEmpaque;
-      this.producto.Costo = this.formUpdateProducto.value.costo;
       this.producto.ValorUnidadMedida = this.formUpdateProducto.value.valorUnidadMedida;
       this.producto.DiasCaducidad = this.formUpdateProducto.value.diasCaducidad;
   }

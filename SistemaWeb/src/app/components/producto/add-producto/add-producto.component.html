@@ -48,32 +48,27 @@
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
                 <label for="proveedor">Proveedor</label>
-                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                 placeholder="Selecciona un proveedor"
-                 (change)="onChangeProveedor($event)"
-                 formControlName="proveedor"
-                 [multiple]="true"
-                >
-                  <ng-template ng-option-tmp let-item="item" let-index="index"  let-search="searchTerm">
+                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor"
+                  (change)="onChangeProveedor($event)" formControlName="proveedor" [multiple]="true">
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
                       <div class="card-body">
                         <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Nombre Representante : {{item.NombreRepresentante}}</h6>
                         <p class="card-text">
                           <!--<img height="15" width="15" [src]="item.avatar"/>-->
-                          Descripcion :
-                          {{item.Descripcion}}
+                          Descripcion : {{item.Descripcion}}
                         </p>
                         <!--<div *ngIf="item.name === 'Pavilnys'">-->
-                          <!--<a href="#" class="card-link">Card link</a>-->
-                          <!--<a href="#" class="card-link">Another link</a>-->
+                        <!--<a href="#" class="card-link">Card link</a>-->
+                        <!--<a href="#" class="card-link">Another link</a>-->
                         <!--</div>-->
                       </div>
                     </div>
                   </ng-template>
                 </ng-select>
                 <!--<ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"-->
-                  <!--formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)">-->
+                <!--formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)">-->
                 <!--</ng-select>-->
                 <show-errors [control]="formAddProducto.controls['proveedor']"></show-errors>
               </div>
@@ -202,7 +197,7 @@
                 </div>
               </div>
 
-              
+
               <div class="col-md-12">
                 <br>
                 <div class="md-form">

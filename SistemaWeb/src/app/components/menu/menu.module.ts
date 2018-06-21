@@ -5,7 +5,6 @@ import {MenuRoutingModule} from './menu.routing.module';
 import {SharedModuleModule} from '../shared-module/shared-module.module';
 import {TrabajadorModule} from '../trabajador/trabajador.module';
 import {UsuarioModule} from '../usuario/usuario.module';
-import {ProductoProveedorModule} from '../producto-proveedor/producto-proveedor.module';
 import {ProductoModule} from '../producto/producto.module';
 import {FacturaModule} from '../factura/factura.module';
 import {MDBBootstrapModulePro} from '../../typescripts/pro';
@@ -55,6 +54,7 @@ import {DeleteImageService} from '../../services/delete-image-service';
 import {InicioComponent} from '../inicio/inicio.component';
 import {ProveedorModule} from '../proveedor/proveedor.module';
 import {ReportesComponent} from '../reportes/reportes.component';
+import {UnidadMedidaService} from '../../services/unidad-medida.service';
 
 
 @NgModule({
@@ -93,7 +93,6 @@ import {ReportesComponent} from '../reportes/reportes.component';
     , TrabajadorModule
       , ProveedorModule
     , UsuarioModule
-    , ProductoProveedorModule
     , MDBBootstrapModule
     , MDBBootstrapModulePro
 
@@ -118,6 +117,7 @@ import {ReportesComponent} from '../reportes/reportes.component';
     , TrabajadorService
     , UploadService
     , ProductoProveedorService
+    , UnidadMedidaService
     , ClasificacionUnidadMedidaService
     , TelefonosucursalService
     , AuthGuardService

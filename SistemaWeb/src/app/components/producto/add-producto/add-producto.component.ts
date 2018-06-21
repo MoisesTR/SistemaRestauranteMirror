@@ -25,6 +25,7 @@ import {UnidadMedida} from '../../../models/UnidadMedida';
 import {UnidadMedidaService} from '../../../services/unidad-medida.service';
 import {ProveedorService} from '../../../services/proveedor.service';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
+import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 
 
 declare var $:any;
@@ -40,6 +41,8 @@ declare var $:any;
 export class AddProductoComponent implements OnInit {
 
     public producto: Producto;
+    public productoProveedor : ProductoProveedor;
+    public proveedoresSeleccionados : Proveedor[];
     formAddProducto: FormGroup;
     public proveedores: Proveedor [];
     public categorias: CategoriaProducto[];
@@ -67,9 +70,11 @@ export class AddProductoComponent implements OnInit {
         , private _envaseService : EnvaseService
         , private _unidadService : UnidadMedidaService
         , private _productoService: ProductoService
+        , private _productoProveedorService : ProductoProveedorService
         , private _fAddProducto: FormBuilder) {
         this.url = Global.url;
         this.producto = new Producto();
+        this.productoProveedor = new ProductoProveedor();
 
     }
 
@@ -263,9 +268,10 @@ export class AddProductoComponent implements OnInit {
     onChangeProveedor(event){
 
         if(isNull(event)) {
-            this.producto.IdProveedor = null;
+            this.productoProveedor.IdProveedor = null;
+            this.proveedoresSeleccionados = [];
         } else {
-            this.producto.IdProveedor = event.IdProveedor;
+            this.proveedoresSeleccionados = event;
         }
     }
 
@@ -338,42 +344,62 @@ export class AddProductoComponent implements OnInit {
     this.producto.IdEstado = 1;
     this.producto.DiasCaducidad = 30;
     this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque;
-    this.producto.Costo = this.formAddProducto.value.costo;
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
-
+    this.producto.DiasCaducidad = this.formAddProducto.value.diascaducidad;
   }
 
   crearProducto(){
     this.getValueForm();
-
-    console.log(this.producto);
     this._productoService.createProducto(this.producto).subscribe(
       response =>{
         if(response.IdProducto){
-            swal({
-                title: 'Producto Creado exitosamente!',
-                text: 'Deseas agregar otro producto?',
-                type: 'success',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'SI',
-                cancelButtonText: 'NO'
-            }).then((result) => {
-                if (result.value) {
-                    this.formAddProducto.reset();
-                    this.producto = new Producto();
-                    this.filesToUpload = null;
-                    $(".dropify-clear").click()
-                } else if (result.dismiss === swal.DismissReason.cancel) {
-                    this._router.navigate(['/producto'])
-                }
-            })
+            this.createProductoProveedor(response);
         }
       }, error =>{
         Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
       }
     )
+  }
+
+  createProductoProveedor(response){
+      var resultado = false;
+      this.productoProveedor.IdProducto = response.IdProducto;
+      this.proveedoresSeleccionados.forEach((value,index)=>{
+          this.productoProveedor.IdProveedor = value.IdProveedor;
+          this._productoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
+              response =>{
+                  if(response.IdProductoProveedor) {
+                      resultado = true;
+                  }
+              }, error=>{
+                  Utilidades.showMsgError(Utilidades.mensajeError(error))
+                  resultado = false;
+              }
+          )
+          if(index == this.proveedoresSeleccionados.length - 1){
+              if(resultado) {
+                  swal({
+                      title: 'El producto se ha creado y relacionado exitosamente con el proveedor!',
+                      text: 'Deseas agregar otro producto?',
+                      type: 'success',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'SI',
+                      cancelButtonText: 'NO'
+                  }).then((result) => {
+                      if (result.value) {
+                          this.formAddProducto.reset();
+                          this.producto = new Producto();
+                          this.filesToUpload = null;
+                          $(".dropify-clear").click()
+                      } else if (result.dismiss === swal.DismissReason.cancel) {
+                          this._router.navigate(['/producto'])
+                      }
+                  })
+              }
+          }
+      })
   }
 
   public filesToUpload: Array<File>;
@@ -411,7 +437,6 @@ export class AddProductoComponent implements OnInit {
         'subclasificacion': new FormControl('',[
             Validators.required
         ]),
-
         'empaque': new FormControl('',[
         ]),
         'envase': new FormControl('',[
@@ -425,7 +450,7 @@ export class AddProductoComponent implements OnInit {
         'valorunidadmedida': new FormControl('',[
             Validators.required
         ]),
-        'costo': new FormControl('',[
+        'diascaducidad': new FormControl('',[
             Validators.required
         ])
     })

@@ -33,9 +33,6 @@ import {InformacionFacturaComponent} from '../informacion-factura/informacion-fa
 import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
 import {ListUsuarioComponent} from '../usuario/list-usuario/list-usuario.component';
 import {AuthGuardService} from '../../services/auth/auth-guard.service';
-import {AddProductoProveedorComponent} from '../producto-proveedor/add-producto-proveedor/add-producto-proveedor.component';
-import {UpdateProductoProveedorComponent} from '../producto-proveedor/update-producto-proveedor/update-producto-proveedor.component';
-import {ListProductoProveedorComponent} from '../producto-proveedor/list-producto-proveedor/list-producto-proveedor.component';
 import {ListProveedorComponent} from '../proveedor/list-proveedor/list-proveedor.component';
 import {AddProveedorComponent} from '../proveedor/add-proveedor/add-proveedor.component';
 import {UpdateProveedorComponent} from '../proveedor/update-proveedor/update-proveedor.component';
@@ -95,10 +92,10 @@ const menuRoutes: Routes = [
         , {path:'salida-producto',component: SalidaProductoComponent, data : { titulo : 'Salida Producto'}}
 
         //Producto proveedor
-      , {path:'producto-proveedor/add',component: AddProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
-      , {path:'producto-proveedor/update/:id',component: UpdateProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
-      , {path:'producto-proveedor/list',component: ListProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
-      , {path:'producto-proveedor',component: ListProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
+      // , {path:'producto-proveedor/add',component: AddProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
+      // , {path:'producto-proveedor/update/:id',component: UpdateProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
+      // , {path:'producto-proveedor/list',component: ListProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
+      // , {path:'producto-proveedor',component: ListProductoProveedorComponent, data : { titulo : 'Producto Proveedor'}}
 
     ]
   },

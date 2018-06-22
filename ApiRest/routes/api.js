@@ -99,7 +99,6 @@ Router
     //Rutas para Producto Proveedor
     .get('/productos/proveedores', validations.Habilitado,validations.validsParams,ProductoProveedorController.getProductosProveedores)
     .get('/producto/proveedor/:IdProductoProveedor(\\d+)', ProductoProveedorController.getProductoProveedorById)
-    //.get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductoProveedorById)
     .get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductosByProveedorId)
     .get('/producto/proveedores/:IdProducto(\\d+)', ProductoProveedorController.getProveedoresOfProducto)
     .post('/producto/proveedor', validations.createProductoProveedor, validations.validsParams, ProductoProveedorController.createProductoProveedor)

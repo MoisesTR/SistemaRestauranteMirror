@@ -16,15 +16,15 @@ function getProductoProveedorById(req, res) {
 }
 
 function getProveedoresOfProducto(req, res) {
-    var data = req.body;
+    var data = req.params;
     var aoj = [];
-    db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int, data.IdProductoProveedor);
-    db.storedProcExecute('USP_GET_PRODUCTO_PROVEEDOR', aoj)
-        .then((results) => {
-            res.status(200).json({ productos: results.recordset })
-        }).catch((err) => {
-            res.status(500).json(mssqlErrors(err));;
-        })
+    db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto);
+    db.storedProcExecute('USP_GET_PRODUCTO_PROVEEDORES', aoj)
+    .then((results) => {
+        res.status(200).json({ proveedores: results.recordset })
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));;
+    })
 }
 
 function getProductosProveedores(req, res) {
@@ -49,6 +49,7 @@ function createProductoProveedor(req, res) {
         .then((results) => {
             res.status(200).json(results.recordset[0])
         }).catch((err) => {
+            // console.log(err)
             res.status(500).json(mssqlErrors(err));
         });
 }

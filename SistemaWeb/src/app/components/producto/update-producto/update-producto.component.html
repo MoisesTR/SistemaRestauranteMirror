@@ -42,17 +42,6 @@
               </div>
               <show-errors [control]="formUpdateProducto.controls['nombreProducto']" style="margin-top: -25px;"></show-errors>
 
-
-              <!-- <div class="col-10 col-sm-10 col-md-10 col-lg-10">
-                <br>
-                <div class="md-form">
-                  <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formUpdateProducto.value.nombreProducto"
-                    class="form-control letras" autocomplete="off" [(ngModel)]="formUpdateProducto.value.nombreProducto">
-
-                  <label for="nombreproducto">Nombre del Producto</label>
-                </div>
-              </div> -->
-
               <div class="col-9 col-sm-9 col-md-9">
                 <label for="proveedor">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"

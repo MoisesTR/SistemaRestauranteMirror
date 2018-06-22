@@ -28,7 +28,20 @@
 
             <div class="row">
 
-              <div class="col-10 col-sm-10 col-md-10 col-lg-10" id="btn-agregar-nm-producto">
+              <div class="md-form input-group">
+                <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formAddProducto.value.nombreProducto"
+                  class="form-control letras" autocomplete="off" [(ngModel)]="formAddProducto.value.nombreProducto" placeholder="Nombre del Producto"
+                  style="margin-right: 5%;">
+                <div class="input-group-btn">
+                  <button type="button" class="btn orange-chang px-3 add-img-position" (click)="showCardImg()" mdbTooltip="Agregar Imagen"
+                    placement="bottom" id="btn-animation" style="margin-left: -20%;">
+                    <i class="fa fa-file-photo-o" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <show-errors [control]="formAddProducto.controls['nombreProducto']" style="margin-top: -25px;"></show-errors>
+
+              <!-- <div class="col-11 col-sm-11 col-md-11 col-lg-11">
                 <br>
                 <div class="md-form">
                   <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formAddProducto.value.nombreProducto"
@@ -43,7 +56,7 @@
                   placement="bottom" id="btn-animation">
                   <i class="fa fa-file-photo-o" aria-hidden="true"></i>
                 </button>
-              </div>
+              </div> -->
 
               <div class="col-9 col-sm-9 col-md-9">
                 <br>

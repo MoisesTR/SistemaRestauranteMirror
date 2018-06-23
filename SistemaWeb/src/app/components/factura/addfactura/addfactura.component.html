@@ -13,17 +13,22 @@
 
                             <div class="row">
 
-                                <div class="col-md-12">
+                                <div class="col-8 col-sm-8 col-md-8">
                                     <div class="md-form">
                                         <div class="mt-1-half">
                                             <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"
                                                 (change)="onChangeProveedor($event)" formControlName="proveedor">
-
                                             </ng-select>
                                             <show-errors [control]="formAddFactura.controls['proveedor']"></show-errors>
                                         </div>
                                     </div>
                                     <br>
+                                </div>
+
+                                <div class="col-4 col-sm-4 col-md-4">
+                                    <br>
+                                    <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Proveedor"
+                                        placement="bottom" (click)="agregarProveedor()" mdbWavesEffect>Agregar</button>
                                 </div>
 
                                 <div class="col-md-12">
@@ -44,14 +49,14 @@
                                 <div class="col-md-12">
                                     <label class="margin-label-factura" for="FechaIngreso">Fecha de Factura</label>
                                     <div class="md-form">
-                                        <mdb-date-picker formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions" ></mdb-date-picker>
+                                        <mdb-date-picker formControlName="fechaFactura" mdbActive name="FechaFactura" id="FechaFactura" [options]="myDatePickerOptions"></mdb-date-picker>
                                         <show-errors [control]="formAddFactura.controls['fechaFactura']"></show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <label class="margin-label-factura" for="horaLlegada">Hora de Ingreso</label>
-                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false" ></mdb-time-picker>
+                                    <mdb-time-picker buttonLabel="Seleccionar" formControlName="horaLlegada" [twelvehour]="true" [darktheme]="false"></mdb-time-picker>
                                     <show-errors [control]="formAddFactura.controls['horaLlegada']"></show-errors>
                                 </div>
                             </div>
@@ -195,7 +200,8 @@
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
-                                    <input (click)="aplicarRetencion()" [(ngModel)]="tieneRetencion" class="filled-in"  disabled type="checkbox" name="seleccionarcheck" id="segundo2" formControlName="retencion">
+                                    <input (click)="aplicarRetencion()" [(ngModel)]="tieneRetencion" class="filled-in" disabled type="checkbox" name="seleccionarcheck"
+                                        id="segundo2" formControlName="retencion">
                                     <label for="segundo2">
                                         <strong>Retención</strong>
                                     </label>
@@ -266,9 +272,6 @@
         </a>
 
         <div class="fixed_collapse" mdbCollapse="isCollapsed" #fixed="bs-collapse">
-            <a class="btn-floating green waves-light" mdbTooltip="Proveedor" placement="right" mdbWavesEffect>
-                <i class="fa fa-shopping-cart" (click)="agregarProveedor()"></i>
-            </a>
             <a class="btn-floating red waves-light" mdbTooltip="Producto" placement="right" mdbWavesEffect>
                 <i class="fa fa-shopping-cart" (click)="agregarProducto()"></i>
             </a>
@@ -317,13 +320,13 @@
                                                 <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase" value={{productoSeleccionado.NombreProducto}}>
                                             </div>
                                         </div>
-                                       
+
                                         <div class="col-md-12">
                                             <br>
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Descripción</h6>
-                                                <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" class="text-area-modal"
-                                                    name="descripcionproducto"  value={{productoSeleccionado.Descripcion}}></textarea>
+                                                <textarea type="text" minlength="3" maxlength="150" id="descripcionproducto" class="text-area-modal" name="descripcionproducto"
+                                                    value={{productoSeleccionado.Descripcion}}></textarea>
                                             </div>
                                         </div>
 
@@ -364,22 +367,19 @@
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
-                                <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto" formControlName="cantidadProducto"
-                                    >
+                                <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto" formControlName="cantidadProducto">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
-                                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto" formControlName="precioProducto"
-                                    >
+                                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto" formControlName="precioProducto">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Descuento</h6>
-                                <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto"
-                                    >
+                                <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto">
 
                             </div>
                             <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']"></show-errors>
@@ -404,4 +404,3 @@
         <!--/.Contenido-->
     </div>
 </div>
-

@@ -315,15 +315,15 @@ CREATE PROCEDURE USP_CREATE_PROVEEDOR(
 	@Telefono2			NVARCHAR(20) NULL,
 	@Retencion2			BIT NULL
 ) AS BEGIN
-	BEGIN TRANSACTION
+	BEGIN TRANSACTION myTran
 	BEGIN TRY
 		INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento, Telefono1,Telefono2,Retencion2)
 		VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento, @Telefono1,@Telefono2,@Retencion2);
 		SELECT @@IDENTITY AS IdProveedor
-		COMMIT TRANSACTION
+		COMMIT TRANSACTION myTran;
 	END TRY
 	BEGIN CATCH
-		ROLLBACK TRANSACTION
+		ROLLBACK TRANSACTION myTran;
 		THROW;
 	END CATCH
 END 

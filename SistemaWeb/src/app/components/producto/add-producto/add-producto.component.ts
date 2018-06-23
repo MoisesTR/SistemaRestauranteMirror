@@ -147,6 +147,11 @@ export class AddProductoComponent implements OnInit {
 
         } else {
         // Ocultar card de agregar imagen
+
+        // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón            
+        $("#btn-animation").click(function() {
+            $("#imagen-productos").toggleClass("animated");
+        }); 
         f.classList.remove('col-lg-8');
         f.classList.add('col-lg-12');
         f.classList.remove('col-md-8');

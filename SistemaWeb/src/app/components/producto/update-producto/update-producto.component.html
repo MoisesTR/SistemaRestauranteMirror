@@ -29,22 +29,18 @@
 
             <div class="row">
 
-              <div class="col-10 col-sm-10 col-md-10 col-lg-10">
-                <br>
-                <div class="md-form">
-                  <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formUpdateProducto.value.nombreProducto"
-                    class="form-control letras" autocomplete="off" [(ngModel)]="formUpdateProducto.value.nombreProducto">
-                  <show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>
-                  <label for="nombreproducto">Nombre del Producto</label>
+              <div class="md-form input-group">
+                <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formUpdateProducto.value.nombreProducto"
+                  class="form-control letras" autocomplete="off" [(ngModel)]="formUpdateProducto.value.nombreProducto" placeholder="Nombre del Producto"
+                  style="margin-right: 5%;">
+                <div class="input-group-btn">
+                  <button type="button" class="btn orange-chang px-3 add-img-position" (click)="showCardImg()" mdbTooltip="Agregar Imagen"
+                    placement="bottom" id="btn-animation" style="margin-left: -20%;">
+                    <i class="fa fa-file-photo-o" aria-hidden="true"></i>
+                  </button>
                 </div>
               </div>
-
-              <div class="col-1 col-sm-1 col-md-1 col-lg-1">
-                <button type="button" class="btn orange-chang px-3 add-img-position" (click)="showCardImg()" mdbTooltip="Agregar Imagen"
-                  placement="bottom" id="btn-animation">
-                  <i class="fa fa-file-photo-o" aria-hidden="true"></i>
-                </button>
-              </div>
+              <show-errors [control]="formUpdateProducto.controls['nombreProducto']" style="margin-top: -30px;margin-bottom: -5%;"></show-errors>
 
               <div class="col-9 col-sm-9 col-md-9">
                 <label for="proveedor">Proveedor</label>

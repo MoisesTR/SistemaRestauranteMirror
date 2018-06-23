@@ -83,9 +83,9 @@ function updateProducto(req, res) {
 }
 
 function changeStateProducto(req, res) {
-    let data = matchedData(req,{locations:['params','query']});
+    let data = matchedData(req,{locations:['params','query','body']});
     console.log('Changing state')
-    console.log(IdProducto + ' ! ', Habilitado)
+    console.log(data.IdProducto + ' ! ', data.Habilitado)
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProducto', sql.Int(), data.IdProducto)
     db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado)
@@ -93,7 +93,7 @@ function changeStateProducto(req, res) {
         .then((results) => {
             console.log(results)
             let afectadas = results.rowsAffected[0]
-            let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+            let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
             res.status(200).json((afectadas > 0) ? { success: 'Producto ' + accion + ' con exito!' } : { failed: 'No se encontro el producto solicitado!' })
             console.log('Producto cambiado de estado con exito!')
         }).catch((err) => {

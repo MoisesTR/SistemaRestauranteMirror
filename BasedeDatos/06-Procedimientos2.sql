@@ -16,8 +16,9 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
 	@CantidadEmpaque	INT, 
 	@DiasCaducidad		INT
 ) AS BEGIN
-	IF EXISTS (SELECT NombreProducto FROM dbo.PRODUCTO WHERE @NombreProducto = NombreProducto )
-		RAISERROR('Ya existe un Producto llamado "%s"',16,1,@NombreProducto)
+	IF EXISTS (SELECT NombreProducto FROM dbo.PRODUCTO WHERE @NombreProducto = NombreProducto AND IdEnvase = @IdEnvase 
+				AND IdUnidadMedida = @IdUnidadMedida AND ValorUnidadMedida = @ValorUnidadMedida )
+		RAISERROR('Ya existe un Producto con las mismas caracteristicas que "%s"',16,1,@NombreProducto)
 	ELSE
 	BEGIN
 		BEGIN TRANSACTION
@@ -139,9 +140,18 @@ CREATE PROCEDURE dbo.USP_GET_PRODUCTOS_PROVEEDORES
 	@Habilitado BIT NULL
 AS BEGIN
 	IF @Habilitado is NULL
-		SELECT *, Cantidad = 1, Descuento = 0, GravadoIva = 0 FROM dbo.V_ProductosDetallados;
+		SELECT VP.*,PV.IdProveedor,PV.NombreProveedor, Cantidad = 1, Descuento = 0, GravadoIva = 0 FROM dbo.V_ProductosDetallados VP
+		INNER JOIN dbo.PRODUCTO_PROVEEDOR PP
+		ON VP.IdProducto = PP.IdProducto
+		INNER JOIN dbo.PROVEEDOR PV
+		ON PP.IdProveedor = PV.IdProveedor
 	ELSE
-		SELECT *, Cantidad = 1, Descuento = 0, GravadoIva = 0 FROM dbo.V_ProductosDetallados WHERE Habilitado = @Habilitado;
+		SELECT VP.*, Cantidad = 1, Descuento = 0, GravadoIva = 0 FROM dbo.V_ProductosDetallados VP
+		INNER JOIN dbo.PRODUCTO_PROVEEDOR PP
+		ON VP.IdProducto = PP.IdProducto
+		LEFT JOIN dbo.PROVEEDOR PV
+		ON PP.IdProveedor = PV.IdProveedor
+		WHERE VP.Habilitado = @Habilitado;
 END 
 GO
 IF OBJECT_ID('USP_GET_PRODUCTO_PROVEEDORES','P') IS NOT NULL
@@ -150,7 +160,10 @@ GO
 CREATE PROCEDURE USP_GET_PRODUCTO_PROVEEDORES(
 	@IdProducto INT
 ) AS BEGIN
-	SELECT * FROM V_ProductosDetallados WHERE IdProducto = @IdProducto;
+	SELECT PRO.* FROM dbo.PROVEEDOR PRO
+	INNER JOIN dbo.PRODUCTO_PROVEEDOR PP
+	ON PRO.IdProveedor = PP.IdProveedor
+	WHERE PP.IdProducto = @IdProducto;
 END
 GO
 IF OBJECT_ID('USP_GET_PRODUCTOS_PROVEEDOR','P') IS NOT NULL
@@ -443,19 +456,29 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO_PROVEEDOR(
 	@IdProducto		INT,
 	@IdProveedor	INT
 ) AS BEGIN
+
 	IF NOT EXISTS(SELECT IdProductoProveedor FROM dbo.PRODUCTO_PROVEEDOR WHERE IdProducto = @IdProducto AND IdProveedor = @IdProveedor AND Habilitado = 1)
 	BEGIN
-		BEGIN TRANSACTION
+		BEGIN TRANSACTION miTran;
 		BEGIN TRY
+			IF NOT EXISTS(SELECT IdProveedor FROM PROVEEDOR WHERE IdProveedor = @IdProveedor) BEGIN
+			RAISERROR('El proveedor Seleccionado no existe',16,1)
+			END
+		IF NOT EXISTS(SELECT IdProducto FROM dbo.PRODUCTO WHERE IdProducto  = @IdProducto) BEGIN
+			RAISERROR('El producto seleccionado no existe.',16,2)
+		END
 			INSERT INTO dbo.PRODUCTO_PROVEEDOR(IdProducto,IdProveedor)
 			VALUES(@IdProducto,@IdProveedor)
 			SELECT @@IDENTITY AS IdProductoProveedor
-			COMMIT TRANSACTION
+			COMMIT TRANSACTION miTran
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRANSACTION miTran;
 			THROW;
-			ROLLBACK TRANSACTION
 		END CATCH
+	END
+	ELSE BEGIN
+		RAISERROR('Ya existe una relacion Producto Proveedor Activa.',16,3)
 	END
 END 
 GO

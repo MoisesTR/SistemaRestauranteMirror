@@ -311,7 +311,7 @@ VALUES ('Sin Procesar','Producto que no se ha procesado')
 		,('Semiterminado','Producto que se esta procesando.')
         ,('Terminado','Producto terminado.');
 GO
-CREATE TABLE PRODUCTO (
+CREATE TABLE dbo.PRODUCTO (
     IdProducto			INT IDENTITY(1,1),
     IdSubClasificacion	INT					NOT NULL,
     IdEstado			int					NOT NULL,
@@ -329,17 +329,17 @@ CREATE TABLE PRODUCTO (
     UpdateAt			SMALLDATETIME		NULL,
     CONSTRAINT PK_ID_PRODUCT PRIMARY KEY (IdProducto),
     CONSTRAINT FK_PRODUCT_SUBCLASIF FOREIGN KEY (IdSubClasificacion)
-        REFERENCES SUBCLASIFICACION_PRODUCTO (IdSubClasificacion),
+        REFERENCES dbo.SUBCLASIFICACION_PRODUCTO (IdSubClasificacion),
 	constraint fk_Estado_Producto foreign key(IdEstado)
-		references ESTADO_PRODUCTO(IdEstado),
+		references dbo.ESTADO_PRODUCTO(IdEstado),
 	constraint U_ProductoUnico 
 		UNIQUE(NombreProducto),
 	CONSTRAINT FK_Envase_PRODUCT FOREIGN KEY (IdEnvase) 
-		REFERENCES ENVASE (IdEnvase),
+		REFERENCES dbo.ENVASE (IdEnvase),
     CONSTRAINT FK_UDM_Producto FOREIGN KEY (IdUnidadMedida) 
-		REFERENCES UNIDAD_MEDIDA (IdUnidadMedida),
+		REFERENCES dbo.UNIDAD_MEDIDA (IdUnidadMedida),
 	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque)  
-		REFERENCES EMPAQUE(IdEmpaque),
+		REFERENCES dbo.EMPAQUE(IdEmpaque),
 );
 GO
 CREATE TABLE PRODUCTO_PROVEEDOR (

@@ -307,3 +307,37 @@ exports.updateTipoDocumentoI = createTipoDocumento.concat([
     param('IdTipoDocumento').isInt(),
     sanitize('IdTipoDocumento').toInt()
 ])
+
+exports.createFacturaCompra [
+    body('NumRefFactura').exists(),
+    body('IdProveedor').exists(),
+    body('IdTrabajador').exists(),
+    body('NombVendedor').exists(),
+    body('FechaIngreso').exists(),
+    body('SubTotal').exists(),
+    body('TotalIva').exists(),
+    body('CambioActual').exists(),
+    body('TotalDescuento').exists(),
+    body('TotalCordobas').exists(),
+    body('Retencion').exists()
+];
+
+exports.createDetalleFacturaCompra = [
+    body('IdDetalle').isInt().exists(),
+    body('IdFactura').isInt().exists(),
+    body('IdProducto').exists(),
+    body('PrecioUnitario').exists(),
+    body('Cantidad').exists(),
+    body('GravadoIva').exists(),
+    body('SubTotal').exists(),
+    body('Iva').exists(),
+    body('Descuento').exists(),
+    body('TotalDetalle').exists(),
+    body('Bonificacion').isInt().optional({nullable:true})
+];
+exports.obtenerFacturasC = [
+    body('FechaInicio').exists(),
+    body('FechaFin').exists(),
+    body('IdProveedor').isInt().optional({nullable:true}),
+    body('IdEstadoFactura').isInt().optional({nullable:true})
+];

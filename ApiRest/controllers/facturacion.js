@@ -66,7 +66,7 @@ function obtenerFacturasCompra(req, res ) {
     })
 }
 
-exports.module = {
+module.exports = {
     createFacturaCompra, 
     createDetalleFacturaCompra,
     obtenerFacturasCompra

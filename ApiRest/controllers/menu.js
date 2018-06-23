@@ -6,7 +6,7 @@ const { matchedData } = require('express-validator/filter');
 function createMenu(req, res) {
     var menuData = matchedData(req, { locations: 'body' });
     var aoj = [];
-    db.pushOutParam(aoj, 'IdMenu', sql.Int, menuData.IdMenu);
+    db.pushOutParam(aoj, 'IdMenu', sql.Int);
     db.pushAOJParam(aoj, 'IdPadre', sql.Int, menuData.IdPadre);
     db.pushAOJParam(aoj, 'NombreM', sql.NVarChar(50), menuData.NombreM);
     db.pushAOJParam(aoj, 'DescripcionM', sql.NVarChar(150), menuData.DescripcionM);
@@ -36,6 +36,21 @@ function updateMenu(req, res) {
 }
 
 function getMenus(req, res) {
+    let data = matchedData(req);
+    var aoj = [];
+
+    db.pushAOJParam(aoj, 'IdRol', sql.Int, data.IdRol);
+    db.storedProcExecute('USP_GET_MENUES', aoj).then((result) => {
+        var jsonString = result.recordset[0];
+        console.log(jsonString);
+        jsonString.Menues = JSON.parse(jsonString.Menues);
+        res.status(200).json(jsonString)
+    }).catch((err) => {
+        console.log(err)
+        res.status(500).json(err)
+    })
+}
+function getMenuesByRol(req, res) {
     let data = matchedData(req,{locations:['query']});
     var aoj = [];
 
@@ -53,5 +68,6 @@ function getMenus(req, res) {
 module.exports = {
     getMenus,
     createMenu,
-    updateMenu
+    updateMenu, 
+    getMenuesByRol
 }

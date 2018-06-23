@@ -22,6 +22,7 @@ const validations               = require('../Utils/validations');
 const jwt                       = require('../services/jwt');
 const AuthController            = require('../controllers/auth');
 const TipoDocIdentController    = require('../controllers/tipo_documento');
+let   FactCompController        = require('../controllers/facturacion');
 
 var Router = express.Router();
 
@@ -135,7 +136,10 @@ Router
     .post('/detalleentradabodegaap', validations.detalleEntradaBodega, validations.validsParams, bodegaApController.createDetalleEntrada)
     .get('/detallebodegaap', bodegaApController.getDetalleBodegaAp)
     .put('/generarfactura/:IdEntradaBodegaAP(\\d+)', validations.crearFactura, validations.validsParams, bodegaApController.generarFactura)
-    .get('/listarfacturas', validations.Habilitado,validations.validsParams)
+    //Facturacion
+    .post('/factComp', validations.createFacturaCompra, validations.validsParams,FactCompController.createFacturaCompra)
+    .post('/detalleFactComp', validations.createDetalleFacturaCompra, validations.validsParams, FactCompController.createDetalleFacturaCompra)
+    .get('/listarfacturas', validations.Habilitado,validations.validsParams, FactCompController.obtenerFacturasCompra)
     //Rutas para 
     .post('/signup', validations.userSignUpValidation, validations.validsParams, AuthController.signUp)
     .post('/signupAdmin', validations.userSignUpValidationAdmin, validations.validsParams, AuthController.signUp)
@@ -143,10 +147,9 @@ Router
     .get('/users',validations.Habilitado,validations.validsParams, AuthController.getUsers)
     .put('/update-user/:IdUsuario(\\d+)', validations.userSignInValidation, validations.userUpdate, validations.validsParams, AuthController.updateUser)
     .delete('/user/:IdUsuario(\\d+)', AuthController.changeStateUser)
-    .get('/menu', menuController.getMenus)
     
     //Rutas para los menues
     .post('/menu', menuController.createMenu)
-    .get('/menu', menuController.getMenus)
+    .get('/menu',validations.getMenues,validations.validsParams, menuController.getMenus)
 
 module.exports = Router

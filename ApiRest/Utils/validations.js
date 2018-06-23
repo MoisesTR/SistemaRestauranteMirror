@@ -157,6 +157,9 @@ exports.IdSucursal = [
     check('IdSucursal','Ingresa un Numero Valido').isInt().optional({nullable:true}),
     sanitize('IdSucursal').toInt()
 ]
+exports.getMenues = [
+    query('IdRol','Rol Necesario').isInt()
+]
 exports.createTrabajador = [
     check('IdSucursal', 'IdSucursal debe ser entero!').isInt(),
     body('IdCargo', 'IdCargo debe ser entero').isInt(),
@@ -308,7 +311,7 @@ exports.updateTipoDocumentoI = createTipoDocumento.concat([
     sanitize('IdTipoDocumento').toInt()
 ])
 
-exports.createFacturaCompra [
+exports.createFacturaCompra  = [
     body('NumRefFactura').exists(),
     body('IdProveedor').exists(),
     body('IdTrabajador').exists(),

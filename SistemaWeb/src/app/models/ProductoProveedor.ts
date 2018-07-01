@@ -16,6 +16,7 @@ export class ProductoProveedor{
     public IdEmpaque;
     public NombreEmpaque : string;
     public CantidadEmpaque : number;
+    public NombreEnvase : string;
     public Imagen : string;
     public IdUnidadMedida : number;
     public NombreUnidad : string;
@@ -28,10 +29,12 @@ export class ProductoProveedor{
     public GravadoIva : number;
     public createdAt : string;
     public UpdateAt : string;
-    public Cantidad : number = 1;
-    public Descuento : number = 0;
+    public Cantidad : number ;
+    public Descuento : number ;
     public Retencion2 : number;
+    public TotalDetalle : number;
 
 	constructor(
-    ){}
+    ){
+    }
 }

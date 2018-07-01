@@ -45,7 +45,7 @@ export class ProductoService {
       'Authorization': 'token'
     });
 
-    let body = JSON.stringify({"Habilitado": 0});
+    let body = JSON.stringify({"Habilitado": false});
 
     return this._http.request('delete',this.url+'producto/'+IdProducto,{headers:headers,body:body})
 

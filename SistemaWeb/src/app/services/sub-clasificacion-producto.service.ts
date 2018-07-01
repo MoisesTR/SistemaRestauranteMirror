@@ -53,7 +53,7 @@ export class SubClasificacionProductoService {
         'Authorization': 'token'
     });
 
-    let body = JSON.stringify({"Habilitado": 0});
+    let body = JSON.stringify({"Habilitado": false});
 
     return this._http.request('delete',this.url+'subclasificacion/'+IdSubclasificacion,{headers:headers,body:body})
 

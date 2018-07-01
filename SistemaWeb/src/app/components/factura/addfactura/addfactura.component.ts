@@ -7,7 +7,7 @@ import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
 import {ProductoProveedorService} from '../../../services/producto-proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Global, opcionesDatePicker} from '../../../services/global';
-import {isNull} from 'util';
+import {isNull, isUndefined} from 'util';
 import {ModalDirective} from '../../../typescripts/free/modals';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
 import {CustomValidators} from '../../../validadores/CustomValidators';
@@ -15,6 +15,8 @@ import {Usuario} from '../../../models/Usuario';
 import {UsuarioService} from '../../../services/usuario.service';
 import {Factura} from '../../../models/Factura';
 import {FacturaService} from '../../../services/factura.service';
+import {Utilidades} from '../../Utilidades';
+import {DetalleFactura} from '../../../models/DetalleFactura';
 
 declare var $:any;
 
@@ -29,6 +31,7 @@ export class AddfacturaComponent implements OnInit {
   public productoSeleccionado : ProductoProveedor;
   public proveedores : Proveedor[];
   public proveedor : Proveedor;
+  public detalleFactura : DetalleFactura;
   public formEditarDetalleProducto : FormGroup;
   public formAddFactura : FormGroup;
   public formDetallesFactura : FormGroup;
@@ -162,10 +165,18 @@ export class AddfacturaComponent implements OnInit {
   }
 
   getValueFromFormFactura() {
-      this.factura.CodFactura = this.formAddFactura.value.codigoFactura;
-      this.factura.FechaIngreso = this.formAddFactura.value.fechaFactura;
+      this.factura.NumRefFactura = this.formAddFactura.value.codigoFactura;
       this.factura.IdTrabajador = this.usuario.IdTrabajador;
       this.factura.NombVendedor = this.usuario.Nombres;
+      this.factura.FechaIngreso = this.formAddFactura.value.fechaFactura;
+      this.factura.SubTotal = this.subTotalFactura;
+      this.factura.TotalIva = this.ivaCalculoFactura;
+      this.factura.CambioActual = 31.50;
+      this.factura.TotalDescuento = this.descuentoCalculoFactura;
+      this.factura.TotalCordobas = this.totalFactura;
+      this.factura.Retencion = 0;
+
+      console.log(this.factura);
   }
   editarDatosProducto() {
 
@@ -188,7 +199,7 @@ export class AddfacturaComponent implements OnInit {
 
   onChangeProveedor(event){
 
-    if(isNull(event)) {
+    if(isNull(event) || isUndefined(event)) {
       this.proveedor.IdProveedor = null;
       this.factura.IdProveedor = null;
       this.productos = null;
@@ -232,6 +243,54 @@ export class AddfacturaComponent implements OnInit {
 
   createFactura() {
       this.getValueFromFormFactura();
+
+      this._facturaService.createFactura(this.factura).subscribe(
+          response =>{
+              if(response.IdFactura) {
+                  // Utilidades.showMsgSucces('La factura se ha creado correctamente');
+                  this.createDetailFactura(response.IdFactura);
+              } else {
+                  Utilidades.showMsgInfo('Ha ocurrido un error al crear la factura')
+              }
+          }, error =>{
+              Utilidades.showMsgError(Utilidades.mensajeError(error))
+          }
+      )
+  }
+
+  createDetailFactura(IdFactura : number){
+
+      this.productosFactura.forEach( (value,index) =>{
+          this.detalleFactura = new DetalleFactura();
+          this.detalleFactura.IdFactura = IdFactura;
+          this.detalleFactura.IdProducto = value.IdProducto;
+          this.detalleFactura.PrecioUnitario = value.Costo;
+          this.detalleFactura.Cantidad = value.Cantidad;
+          this.detalleFactura.GravadoIva = value.GravadoIva;
+          this.detalleFactura.SubTotal = value.Costo * value.Cantidad;
+          this.detalleFactura.Iva = value.GravadoIva == 1 ? value.Costo * 0.15 : 0;
+          this.detalleFactura.Descuento = value.Descuento;
+          this.detalleFactura.TotalDetalle = this.calcularPrecioTotalxProducto(value);
+          this.detalleFactura.Bonificacion = 0;
+
+          this._facturaService.createDetailFactura(this.detalleFactura).subscribe(
+              response =>{
+                  if(response.IdDetalle){
+
+                  } else {
+                      Utilidades.showMsgInfo('Ha ocurrido un error al insertar el detalle del producto'+ value.IdProducto)
+                  }
+              }, error =>{
+                    Utilidades.showMsgError(Utilidades.mensajeError(error))
+              }
+          )
+
+          if(index == (this.productosFactura.length - 1)){
+              Utilidades.showMsgSucces('La factur se ha creado exitosamente');
+          }
+      })
+
+
   }
 
   aplicarRetencion() {
@@ -268,10 +327,10 @@ export class AddfacturaComponent implements OnInit {
       this.productoEditar = productoFactura;
       this.productoEditar.GravadoIva = productoFactura.GravadoIva;
       this.formEditarDetalleProducto.setValue({
-          cantidadProducto : this.productoEditar.Cantidad
-          , precioProducto : this.productoEditar.Costo
-          , descuentoTotalProducto : this.productoEditar.Descuento
-          , gravadoIva : this.productoEditar.GravadoIva
+          cantidadProducto : isUndefined(this.productoEditar.Cantidad) ? 1 : this.productoEditar.Cantidad
+          , precioProducto : isUndefined(this.productoEditar.Costo) ? 0 : this.productoEditar.Costo
+          , descuentoTotalProducto : isUndefined(this.productoEditar.Descuento) ? 0 : this.productoEditar.Descuento
+          , gravadoIva : isUndefined(this.productoEditar.GravadoIva) ? 0 : this.productoEditar.GravadoIva
       });
 
       this.modalAgregarDetalleProducto.show();
@@ -299,7 +358,7 @@ export class AddfacturaComponent implements OnInit {
           precioTotal = precioProducto - descuentoProducto;
       }
 
-      return precioTotal;
+      return isNaN(precioTotal) ? 0 : precioTotal;
   }
 
   calcularSubtotalFactura(productoFactura : ProductoProveedor, operacion : string) {

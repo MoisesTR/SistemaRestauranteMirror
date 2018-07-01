@@ -16,8 +16,27 @@
                                 <div class="col-8 col-sm-8 col-md-8">
                                     <div class="md-form">
                                         <div class="mt-1-half">
-                                            <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"
-                                                (change)="onChangeProveedor($event)" formControlName="proveedor">
+                                            <!--<ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona una proveedor"-->
+                                                <!--(change)="onChangeProveedor($event)" formControlName="proveedor">-->
+                                            <!--</ng-select>-->
+                                            <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor"
+                                                       (change)="onChangeProveedor($event)" formControlName="proveedor" >
+                                                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                                    <div style="margin: 10px 0;" class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                                                            <h6 class="card-subtitle mb-2 text-muted">Nombre Representante : {{item.NombreRepresentante}}</h6>
+                                                            <p class="card-text">
+                                                                <!--<img height="15" width="15" [src]="item.avatar"/>-->
+                                                                Descripcion : {{item.Descripcion}}
+                                                            </p>
+                                                            <!--<div *ngIf="item.name === 'Pavilnys'">-->
+                                                            <!--<a href="#" class="card-link">Card link</a>-->
+                                                            <!--<a href="#" class="card-link">Another link</a>-->
+                                                            <!--</div>-->
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
                                             </ng-select>
                                             <show-errors [control]="formAddFactura.controls['proveedor']"></show-errors>
                                         </div>
@@ -87,6 +106,7 @@
                                 <tr>
                                     <th width="10%">#</th>
                                     <th width="50%">Nombre del producto</th>
+                                    <th width="50%">Envase</th>
                                     <th width="40%" class="text-center">Acción</th>
                                 </tr>
                             </thead>
@@ -94,6 +114,7 @@
                                 <tr *ngFor="let producto of productos | buscar: buscando; let i = index">
                                     <th scope="row">{{i + 1}}</th>
                                     <td>{{producto.NombreProducto}}</td>
+                                    <td>{{producto.NombreEnvase}}</td>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-sm orange-chang" (click)="seleccionarProducto(producto)" mdbWavesEffect>
                                             <i class="fa fa-check" aria-hidden="true"></i>

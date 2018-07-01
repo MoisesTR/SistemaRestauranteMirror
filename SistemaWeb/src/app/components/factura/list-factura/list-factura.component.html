@@ -14,17 +14,17 @@
             <tr>
               <th class="header-negrita">#</th>
               <th class="header-negrita">Codigo de factura</th>
-              <th class="header-negrita">Proveedor</th>
-              <th class="header-negrita">Fecha</th>
-              <th class="header-negrita">Descripción</th>
+              <th class="header-negrita">Responsable</th>
+              <th class="header-negrita">Fecha Ingreso</th>
+              <th class="header-negrita">Acciones</th>
             </tr>
             </thead>
             <tbody >
             <tr *ngFor="let factura of facturas; let i = index">
               <td class="body-negrita">{{ i + 1 }}</td>
-              <td class="body-negrita">{{ factura.IdFactura }}</td>
-              <td class="body-negrita">{{ factura.CodFactura }}</td>
-              <td class="body-negrita">{{ factura.Descripcion}}</td>
+              <td class="body-negrita">{{ factura.NumRefFactura }}</td>
+              <td class="body-negrita">{{ factura.TrabajadorIngreso }}</td>
+              <td class="body-negrita">{{ factura.FechaIngreso}}</td>
               <td width="25%" class="body-negrita">
                 <div class="text-center">
                   <button type="button"  class="btn btn-sm" style="background-color:#E67E22;" id="btnUpdateFactura" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>

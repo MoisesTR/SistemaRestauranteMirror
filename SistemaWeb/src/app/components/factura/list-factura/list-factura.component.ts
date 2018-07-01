@@ -15,7 +15,7 @@ import {Producto} from '../../../models/Producto';
 })
 export class ListFacturaComponent implements OnInit {
 
-  public facturas: Factura[];
+  public    facturas: Factura[];
   public productos: Producto[];
   public tituloPantalla : string = 'Factura';
 
@@ -40,7 +40,8 @@ export class ListFacturaComponent implements OnInit {
 
     this.settingsDatatable();
     // this.getFacturas();
-    this.getProductos();
+    // this.getProductos();
+    this.getFacturas();
 
   }
 
@@ -73,7 +74,7 @@ export class ListFacturaComponent implements OnInit {
       response => {
         if(response.facturas) {
           this.facturas = response.facturas;
-
+          this.dtTrigger.next();
         }
       }, error =>{
 

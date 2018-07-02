@@ -27,91 +27,121 @@
         <li>
           <ul class="collapsible collapsible-accordion">
             <mdb-squeezebox [multiple]="false" aria-multiselectable="false">
+              <mdb-item *ngFor="let menu of menues">
 
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/dashboard']" mdbRippleRadius>
+                <mdb-item-head [routerLink]="[menu.Ruta]" mdbRippleRadius>
                   <i class="fa">
-                    <img src="./assets/img/icon/home.png" height="18">
-                  </i> Inicio</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
-
-              <!-- Facturas -->
-              <mdb-item>
-                <mdb-item-head mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/product.png" height="18">
-                  </i> Facturas</mdb-item-head>
+                    <img src="{{menu.Icono}}" height="18">
+                  </i> {{menu.Nombre}}</mdb-item-head>
                 <mdb-item-body>
                   <ul>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>Factura</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Proveedor</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Productos</a>
+                    <li routerLinkActive="active-submenu" *ngFor="let submenu of menu.Submenues">
+                      <a class="waves-effect" [routerLink]="[submenu.Ruta]" mdbRippleRadius>{{submenu.Nombre}}</a>
                     </li>
                   </ul>
                 </mdb-item-body>
               </mdb-item>
 
-              <!-- Reportes -->
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/reportes']" mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/home.png" height="18">
-                  </i> Reportes</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
 
-              <!-- Catálogos -->
-              <mdb-item>
-                <mdb-item-head mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/catalogo.png" height="18">
-                  </i> Catálogos</mdb-item-head>
-                <mdb-item-body>
-                  <ul>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>Lista Facturas</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Lista Productos</a>
-                    </li><li routerLinkActive="active-submenu">
-                    <a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Lista Proveedores</a>
-                  </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/categorias']" mdbRippleRadius>Categoria</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/clasificacion-productos']" mdbRippleRadius>Clasificación</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/subclasificacion-productos']" mdbRippleRadius>Subclasificación</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/empaques']" mdbRippleRadius>Empaques</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/envases']" mdbRippleRadius>Envases</a>
-                    </li>
-                    <li routerLinkActive="active-submenu">
-                      <a class="waves-effect" [routerLink]="['/unidadmedida']" mdbRippleRadius>Unidad de Medida</a>
-                    </li>
-                  </ul>
-                </mdb-item-body>
-              </mdb-item>
+              <!--&lt;!&ndash; Facturas &ndash;&gt;-->
+              <!--<mdb-item *ngFor="let menu of menues">-->
+                <!--<mdb-item-head class="no-collase">-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/product.png" height="18">-->
+                  <!--</i> {{menu.Nombre}}</mdb-item-head>-->
+                <!--<mdb-item-body *ngfor="let submenu of menu.Submenues">-->
+                  <!--<ul>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>{{submenu.Nombre}}</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Proveedor</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Productos</a>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</mdb-item-body>-->
+              <!--</mdb-item>-->
 
-              <!-- Sucursales -->
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/sucursales']" mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/sucursales.png" height="18">
-                  </i> Sucursales</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
+
+
+              <!--&lt;!&ndash; Facturas &ndash;&gt;-->
+              <!--<mdb-item>-->
+                <!--<mdb-item-head mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/product.png" height="18">-->
+                  <!--</i> Facturas</mdb-item-head>-->
+                <!--<mdb-item-body>-->
+                  <!--<ul>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>Factura</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Proveedor</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Productos</a>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</mdb-item-body>-->
+              <!--</mdb-item>-->
+
+              <!--&lt;!&ndash; Reportes &ndash;&gt;-->
+              <!--<mdb-item class="no-collase">-->
+                <!--<mdb-item-head [routerLink]="['/reportes']" mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/home.png" height="18">-->
+                  <!--</i> Reportes</mdb-item-head>-->
+                <!--<mdb-item-body></mdb-item-body>-->
+              <!--</mdb-item>-->
+
+              <!--&lt;!&ndash; Catálogos &ndash;&gt;-->
+              <!--<mdb-item>-->
+                <!--<mdb-item-head mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/catalogo.png" height="18">-->
+                  <!--</i> Catálogos</mdb-item-head>-->
+                <!--<mdb-item-body>-->
+                  <!--<ul>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>Lista Facturas</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Lista Productos</a>-->
+                    <!--</li><li routerLinkActive="active-submenu">-->
+                    <!--<a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Lista Proveedores</a>-->
+                  <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/categorias']" mdbRippleRadius>Categoria</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/clasificacion-productos']" mdbRippleRadius>Clasificación</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/subclasificacion-productos']" mdbRippleRadius>Subclasificación</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/empaques']" mdbRippleRadius>Empaques</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/envases']" mdbRippleRadius>Envases</a>-->
+                    <!--</li>-->
+                    <!--<li routerLinkActive="active-submenu">-->
+                      <!--<a class="waves-effect" [routerLink]="['/unidadmedida']" mdbRippleRadius>Unidad de Medida</a>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</mdb-item-body>-->
+              <!--</mdb-item>-->
+
+              <!--&lt;!&ndash; Sucursales &ndash;&gt;-->
+              <!--<mdb-item class="no-collase">-->
+                <!--<mdb-item-head [routerLink]="['/sucursales']" mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/sucursales.png" height="18">-->
+                  <!--</i> Sucursales</mdb-item-head>-->
+                <!--<mdb-item-body></mdb-item-body>-->
+              <!--</mdb-item>-->
 
               <!--&lt;!&ndash; Provedores &ndash;&gt;-->
               <!--<mdb-item>-->
@@ -121,54 +151,54 @@
                   <!--</i> Proveedores</mdb-item-head>-->
                 <!--<mdb-item-body>-->
                   <!--<ul>-->
-                    <!---->
+
                   <!--</ul>-->
                 <!--</mdb-item-body>-->
               <!--</mdb-item>-->
 
-              <!-- Trabajador -->
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/trabajador']" mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/trabajadores.png" height="18">
-                  </i> Trabajadores</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
+              <!--&lt;!&ndash; Trabajador &ndash;&gt;-->
+              <!--<mdb-item class="no-collase">-->
+                <!--<mdb-item-head [routerLink]="['/trabajador']" mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/trabajadores.png" height="18">-->
+                  <!--</i> Trabajadores</mdb-item-head>-->
+                <!--<mdb-item-body></mdb-item-body>-->
+              <!--</mdb-item>-->
 
-              <!-- Cargos -->
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/cargo']" mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/roles.png" height="18">
-                  </i> Cargos</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
+              <!--&lt;!&ndash; Cargos &ndash;&gt;-->
+              <!--<mdb-item class="no-collase">-->
+                <!--<mdb-item-head [routerLink]="['/cargo']" mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/roles.png" height="18">-->
+                  <!--</i> Cargos</mdb-item-head>-->
+                <!--<mdb-item-body></mdb-item-body>-->
+              <!--</mdb-item>-->
 
-              <!-- Usuarios -->
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/usuario']" mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/usuarios.png" height="18">
-                  </i> Usuarios</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
+              <!--&lt;!&ndash; Usuarios &ndash;&gt;-->
+              <!--<mdb-item class="no-collase">-->
+                <!--<mdb-item-head [routerLink]="['/usuario']" mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/usuarios.png" height="18">-->
+                  <!--</i> Usuarios</mdb-item-head>-->
+                <!--<mdb-item-body></mdb-item-body>-->
+              <!--</mdb-item>-->
 
-              <!-- Roles -->
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/rol']" mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/usuarios.png" height="18">
-                  </i> Roles</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
+              <!--&lt;!&ndash; Roles &ndash;&gt;-->
+              <!--<mdb-item class="no-collase">-->
+                <!--<mdb-item-head [routerLink]="['/rol']" mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/usuarios.png" height="18">-->
+                  <!--</i> Roles</mdb-item-head>-->
+                <!--<mdb-item-body></mdb-item-body>-->
+              <!--</mdb-item>-->
 
-              <!-- Salidas -->
-              <mdb-item class="no-collase">
-                <mdb-item-head [routerLink]="['/salida-producto']" mdbRippleRadius>
-                  <i class="fa">
-                    <img src="./assets/img/icon/facturas.png" height="18"></i> Salidas</mdb-item-head>
-                <mdb-item-body></mdb-item-body>
-              </mdb-item>
+              <!--&lt;!&ndash; Salidas &ndash;&gt;-->
+              <!--<mdb-item class="no-collase">-->
+                <!--<mdb-item-head [routerLink]="['/salida-producto']" mdbRippleRadius>-->
+                  <!--<i class="fa">-->
+                    <!--<img src="./assets/img/icon/facturas.png" height="18"></i> Salidas</mdb-item-head>-->
+                <!--<mdb-item-body></mdb-item-body>-->
+              <!--</mdb-item>-->
 
             </mdb-squeezebox>
           </ul>

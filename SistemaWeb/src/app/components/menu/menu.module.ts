@@ -55,6 +55,7 @@ import {InicioComponent} from '../inicio/inicio.component';
 import {ProveedorModule} from '../proveedor/proveedor.module';
 import {ReportesComponent} from '../reportes/reportes.component';
 import {UnidadMedidaService} from '../../services/unidad-medida.service';
+import {MenuService} from '../../services/menu-service';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import {UnidadMedidaService} from '../../services/unidad-medida.service';
     , UploadService
     , ProductoProveedorService
     , UnidadMedidaService
+    , MenuService
     , ClasificacionUnidadMedidaService
     , TelefonosucursalService
     , AuthGuardService

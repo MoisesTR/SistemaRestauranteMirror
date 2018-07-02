@@ -326,7 +326,6 @@ exports.createFacturaCompra  = [
 ];
 
 exports.createDetalleFacturaCompra = [
-    body('IdDetalle').isInt().exists(),
     body('IdFactura').isInt().exists(),
     body('IdProducto').exists(),
     body('PrecioUnitario').exists(),

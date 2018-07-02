@@ -51,14 +51,12 @@ function getMenus(req, res) {
     })
 }
 function getMenuesByRol(req, res) {
-    let data = matchedData(req,{locations:['query']});
+    let data = matchedData(req,{locations:['query','params']});
     var aoj = [];
-
-    db.pushAOJParam(aoj,'Habilitado',sql.Int,+data.Habilitado);
+    db.pushAOJParam(aoj,'IdRol',sql.Int,data.IdRol);
     db.storedProcExecute('USP_GET_MENUES', aoj).then((result) => {
         var jsonString = result.recordset[0];
-        console.log(jsonString);
-        jsonString.Menues = JSON.parse(jsonString.Menues);
+        jsonString = JSON.parse(jsonString['JSON_F52E2B61-18A1-11d1-B105-00805F49916B']);
         res.status(200).json(jsonString)
     }).catch((err) => {
         console.log(err)

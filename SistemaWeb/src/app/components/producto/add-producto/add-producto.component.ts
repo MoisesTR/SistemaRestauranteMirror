@@ -379,34 +379,34 @@ export class AddProductoComponent implements OnInit {
               response =>{
                   if(response.IdProductoProveedor) {
                       resultado = true;
+
                   }
               }, error=>{
                   Utilidades.showMsgError(Utilidades.mensajeError(error))
                   resultado = false;
               }
           )
-          if(index == this.proveedoresSeleccionados.length - 1){
-              if(resultado) {
-                  swal({
-                      title: 'El producto se ha creado y relacionado exitosamente con el proveedor!',
-                      text: 'Deseas agregar otro producto?',
-                      type: 'success',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'SI',
-                      cancelButtonText: 'NO'
-                  }).then((result) => {
-                      if (result.value) {
-                          this.formAddProducto.reset();
-                          this.producto = new Producto();
-                          this.filesToUpload = null;
-                          $(".dropify-clear").click()
-                      } else if (result.dismiss === swal.DismissReason.cancel) {
-                          this._router.navigate(['/producto'])
-                      }
-                  })
-              }
+          if(index == (this.proveedoresSeleccionados.length - 1)){
+              swal({
+                  title: 'El producto se ha creado y relacionado exitosamente con el proveedor!',
+                  text: 'Deseas agregar otro producto?',
+                  type: 'success',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'SI',
+                  cancelButtonText: 'NO'
+              }).then((result) => {
+                  if (result.value) {
+                      this.formAddProducto.reset();
+                      this.producto = new Producto();
+                      this.filesToUpload = null;
+                      $(".dropify-clear").click()
+                  } else if (result.dismiss === swal.DismissReason.cancel) {
+                      this._router.navigate(['/producto'])
+                  }
+              })
+
           }
       })
   }

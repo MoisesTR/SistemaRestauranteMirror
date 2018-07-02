@@ -85,6 +85,9 @@ export class ListProductosComponent implements OnInit, OnDestroy {
           this.productos = response.productos;
           this.dtTrigger.next();
           this.spinner.hide();
+        } else {
+          this.spinner.hide();
+          Utilidades.showMsgInfo('Ha ocurrido un error al cargar los productos')
         }
       }, error =>{
         this.spinner.hide();

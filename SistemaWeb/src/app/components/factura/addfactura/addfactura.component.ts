@@ -160,10 +160,6 @@ export class AddfacturaComponent implements OnInit {
       )
   }
 
-  getValueFromModalEditarDatosProducto() {
-
-  }
-
   getValueFromFormFactura() {
       this.factura.NumRefFactura = this.formAddFactura.value.codigoFactura;
       this.factura.IdTrabajador = this.usuario.IdTrabajador;
@@ -175,8 +171,6 @@ export class AddfacturaComponent implements OnInit {
       this.factura.TotalDescuento = this.descuentoCalculoFactura;
       this.factura.TotalCordobas = this.totalFactura;
       this.factura.Retencion = 0;
-
-      console.log(this.factura);
   }
   editarDatosProducto() {
 
@@ -243,19 +237,18 @@ export class AddfacturaComponent implements OnInit {
 
   createFactura() {
       this.getValueFromFormFactura();
-
-      this._facturaService.createFactura(this.factura).subscribe(
-          response =>{
-              if(response.IdFactura) {
-                  // Utilidades.showMsgSucces('La factura se ha creado correctamente');
-                  this.createDetailFactura(response.IdFactura);
-              } else {
-                  Utilidades.showMsgInfo('Ha ocurrido un error al crear la factura')
-              }
-          }, error =>{
-              Utilidades.showMsgError(Utilidades.mensajeError(error))
-          }
-      )
+      console.log(this.factura)
+      // this._facturaService.createFactura(this.factura).subscribe(
+      //     response =>{
+      //         if(response.IdFactura) {
+      //             this.createDetailFactura(response.IdFactura);
+      //         } else {
+      //             Utilidades.showMsgInfo('Ha ocurrido un error al crear la factura')
+      //         }
+      //     }, error =>{
+      //         Utilidades.showMsgError(Utilidades.mensajeError(error))
+      //     }
+      // )
   }
 
   createDetailFactura(IdFactura : number){

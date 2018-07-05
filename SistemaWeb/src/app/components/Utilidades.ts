@@ -1,6 +1,6 @@
 import {isArray, isUndefined} from 'util';
 import swal from 'sweetalert2';
-import moment = require('moment');
+import * as moment from 'moment';
 
 declare var $:any;
 

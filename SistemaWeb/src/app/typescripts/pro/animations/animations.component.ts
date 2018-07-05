@@ -1,4 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 // SideNav
 export const slideIn: any =  trigger('slideIn', [

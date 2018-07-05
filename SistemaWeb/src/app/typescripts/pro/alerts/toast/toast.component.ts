@@ -1,15 +1,17 @@
 import {
   Component,
-  trigger,
-  state,
-  transition,
-  animate,
-  style,
   OnDestroy,
   HostBinding,
   HostListener,
   ApplicationRef,
 } from '@angular/core';
+import {
+    trigger,
+    state,
+    transition,
+    animate,
+    style
+} from '@angular/animations'
 import { SafeHtml } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs/Subscription';

@@ -12,20 +12,21 @@ INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden) VALUES ('Sa
 
 --MENU FACTURA
 --SUBMENUES
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Productos','Catalogos de sistema','/producto','ninguno',1,1)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Clasificaciones','Catalogos de sistema','/clasificacion-productos','ninguno',2,1)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Factura','Modulo Factura','/factura/add','ninguno',1,2)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Productos','Catalogos de sistema','/producto','ninguno',2,2)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Proveedor','Modulo Proveedor','/proveedor','ninguno',3,2)
+--INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Clasificaciones','Catalogos de sistema','/clasificacion-productos','ninguno',2,1)
 
 --MENU CATALOGOS
 --SUBMENUES
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Lista Facturas','Listado de las facturas registradas','/factura/list','ninguno',1,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Producto','Modulo Producto','/producto','ninguno',2,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Proveedor','Modulo Proveedor','/proveedor','ninguno',3,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Categoria','Categorias de los productos','/categorias','ninguno',4,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Clasificacion','Clasificaciones de los productos','/clasificacion-productos','ninguno',5,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('SubClasificación','Subclasificaciones de los productos','/subclasificacion-productos','ninguno',6,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Empaques','Empaques de los productos','/empaques','ninguno',7,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Envases','Envases de los productos','/envases','ninguno',8,2)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Unidades Medida','Unidades de medida de los productos','/unidadmedida','ninguno',9,2)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Lista Facturas','Listado de las facturas registradas','/factura/list','ninguno',1,4)
+--INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Producto','Modulo Producto','/producto','ninguno',2,4)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Categoria','Categorias de los productos','/categorias','ninguno',4,4)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Clasificacion','Clasificaciones de los productos','/clasificacion-productos','ninguno',5,4)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('SubClasificación','Subclasificaciones de los productos','/subclasificacion-productos','ninguno',6,4)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Empaques','Empaques de los productos','/empaques','ninguno',7,4)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Envases','Envases de los productos','/envases','ninguno',8,4)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Orden,IdMenuPadre) VALUES ('Unidades Medida','Unidades de medida de los productos','/unidadmedida','ninguno',9,4)
 
 INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,1)
 INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,2)
@@ -45,4 +46,6 @@ INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,15)
 INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,16)
 INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,17)
 INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,18)
-INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,19)
+
+
+--SELECT * FROM dbo.RECURSO_SISTEMA

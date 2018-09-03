@@ -1,20 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
+import {ClasificacionProductoService} from '../../services/shared/clasificacion-producto.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClasificacionProducto} from '../../models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {idioma_espanol} from '../../services/global';
+import {idioma_espanol} from '../../services/shared/global';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {Utilidades} from '../Utilidades';
-import {ModalDirective} from '../../typescripts/free/modals';
-import {CategoriaProductoService} from '../../services/categoria-producto.service';
+import {Utils} from '../Utils';
+import {ModalDirective} from 'ng-uikit-pro-standard';
+import {CategoriaProductoService} from '../../services/shared/categoria-producto.service';
 import {CategoriaProducto} from '../../models/CategoriaProducto';
 import {isNull} from 'util';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-clasificacion-producto',
@@ -24,12 +24,12 @@ declare var $:any;
 })
 export class ClasificacionProductoComponent implements OnInit, InvocarFormulario {
 
-  public clasificacion : ClasificacionProducto;
+  public clasificacion: ClasificacionProducto;
   public clasificaciones: ClasificacionProducto[];
 
   public formAddClasificacion: FormGroup;
   public formUpdateClasificacion: FormGroup;
-  public categorias : CategoriaProducto[];
+  public categorias: CategoriaProducto[];
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -38,14 +38,14 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
-  public tituloPantalla : string = 'Clasificación';
+  public tituloPantalla = 'Clasificación';
 
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
-    , private _clasificacionService : ClasificacionProductoService
-    , private _categoriaService : CategoriaProductoService
-    , private formBuilderClasificacion : FormBuilder
+    , private _clasificacionService: ClasificacionProductoService
+    , private _categoriaService: CategoriaProductoService
+    , private formBuilderClasificacion: FormBuilder
   ) {
       this.clasificacion = new ClasificacionProducto();
   }
@@ -60,7 +60,7 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
           this.clasificaciones = response.clasificaciones;
           this.dtTrigger.next();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
@@ -102,7 +102,7 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
     });
   }
 
-  createClasificacion(){
+  createClasificacion() {
 
     this.clasificacion.DescripcionClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
     this.clasificacion.NombreClasificacion = this.formAddClasificacion.value.nombreClasificacion;
@@ -120,25 +120,25 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
             this.formAddClasificacion.reset();
             this.clasificacion = new ClasificacionProducto();
             this.getClasificacionesRender();
-          })
+          });
         } else {
-          Utilidades.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
+          Utils.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
         }
       },
-      error=>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      error => {
+          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
-  getClasificacionesRender(){
+  getClasificacionesRender() {
     this._clasificacionService.getClasificaciones().subscribe(
       response => {
-        if(response.clasificaciones){
+        if(response.clasificaciones) {
           this.clasificaciones = response.clasificaciones;
           this.rerender();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
@@ -152,13 +152,13 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(100)
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
       ])
       , 'descripcionClasificacion': new FormControl('',[
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
       ])
       , 'categoria': new FormControl('',[
             Validators.required
@@ -167,20 +167,20 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
 
   }
 
-  initFormUpdateClasificacion(){
+  initFormUpdateClasificacion() {
 
     this.formUpdateClasificacion = this.formBuilderClasificacion.group({
       'nombreClasificacion': new FormControl('',[
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(100)
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
       ])
       , 'descripcionClasificacion': new FormControl('',[
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(300)
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
       ])
       , 'categoria': new FormControl('',[
             Validators.required
@@ -188,13 +188,13 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
     });
   }
 
-  updateClasificacion(Modal){
+  updateClasificacion(Modal) {
 
     this.getValuesFormUpdateClasificacion();
 
     this._clasificacionService.updateClasificacionProducto(this.clasificacion).subscribe(
-      response =>{
-        if(response.success){
+      response => {
+        if (response.success) {
           swal(
             'Clasificación',
             'La clasificación ha sido actualizada exitosamente!',
@@ -204,18 +204,15 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
             this.formUpdateClasificacion.reset();
             this.getClasificacionesRender();
             this.clasificacion = new ClasificacionProducto();
-          })
+          });
 
         } else {
-          Utilidades.showMsgError('Ha ocurrido un error inesperado al actualizar la categoria, intenta nuevamnte!!',this.tituloPantalla);
+          Utils.showMsgError('Ha ocurrido un error inesperado al actualizar la categoria, intenta nuevamnte!!', this.tituloPantalla);
         }
-      }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
-
-
-
+    );
   }
 
   getCategorias() {
@@ -224,10 +221,10 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
           if(response.categorias){
             this.categorias = response.categorias;
           } else {
-            Utilidades.showMsgInfo('Ha ocurrido un error al cargar las categorias',this.tituloPantalla);
+            Utils.showMsgInfo('Ha ocurrido un error al cargar las categorias', this.tituloPantalla);
           }
         }, error => {
-          Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
         }, () =>{
 
         }
@@ -240,49 +237,51 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
 
   }
 
-  getValuesFormUpdateClasificacion(){
+  getValuesFormUpdateClasificacion() {
 
-    this.clasificacion.NombreClasificacion= this.formUpdateClasificacion.value.nombreClasificacion;
+    this.clasificacion.NombreClasificacion = this.formUpdateClasificacion.value.nombreClasificacion;
     this.clasificacion.DescripcionClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
   }
 
   deleteClasificacion(IdClasificacion){
 
     swal({
-      title: "Estas seguro(a)?",
-      text: "La clasificacion sera eliminada permanentemente!",
+      title: 'Estas seguro(a)?',
+      text: 'La clasificacion sera eliminada permanentemente!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
-    }).catch(swal.noop).then((eliminar) => {
-      if (eliminar) {
-        this._clasificacionService.deleteClasificacionProducto(IdClasificacion).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                'Eliminada!',
-                'La clasificacion ha sido eliminada exitosamente',
-                'success'
-              ).then(() => {
-               this.getClasificacionesRender();
-              })
-            } else {
-              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar, intentalo nuevamente',this.tituloPantalla);
-            }
-          }, error =>{
-            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-          }
-        )
+      confirmButtonText: 'Si, Eliminala!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            this._clasificacionService.deleteClasificacionProducto(IdClasificacion).subscribe(
+                response => {
+                    if (response.success) {
+                        swal(
+                            'Eliminada!',
+                            'La clasificacion ha sido eliminada exitosamente',
+                            'success'
+                        ).then(() => {
+                            this.getClasificacionesRender();
+                        });
+                    } else {
+                        Utils.showMsgInfo('Ha ocurrido un error al eliminar, intentalo nuevamente', this.tituloPantalla);
+                    }
+                }, error => {
+                    Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+                }
+            );
+        } else if (result.dismiss === swal.DismissReason.cancel) {
 
-      }
+        }
     });
 
   }
 
   onChangeCategoria(event) {
-      if(isNull(event)){
+      if(event === null){
         this.clasificacion.IdCategoria = null;
       } else {
         this.clasificacion.IdCategoria = event.IdCategoria;
@@ -290,10 +289,10 @@ export class ClasificacionProductoComponent implements OnInit, InvocarFormulario
   }
 
   InvocarModal(Modal, Formulario) {
-    Utilidades.invocacionModal(Modal,Formulario);
+    Utils.invocacionModal(Modal, Formulario);
   }
 
-  InvocarModalUpdate(Modal,Clasificacion : ClasificacionProducto){
+  InvocarModalUpdate(Modal, Clasificacion : ClasificacionProducto) {
 
     this.formUpdateClasificacion.reset();
 

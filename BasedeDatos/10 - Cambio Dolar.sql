@@ -23,7 +23,9 @@ AS BEGIN
 	END
 	ELSE
 		BEGIN
-			RAISERROR('Ya existe un valor para el dolar, en la fecha %s .', 16,1,convert(NVARCHAR(10),getdate()))
+			RAISERROR('Ya existe un valor para el dolar, en la fecha %s .', 16,1)
+			--CORREGIR RAISE ERROR NO FUNCIONA EL COMENTADO
+			--RAISERROR('Ya existe un valor para el dolar, en la fecha %s .', 16,1,convert(NVARCHAR(10),getdate()))
 		END
 END
 GO

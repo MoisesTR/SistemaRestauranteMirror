@@ -1,12 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UsuarioService} from "../../../services/usuario.service";
-import {TrabajadorService} from "../../../services/trabajador.service";
+import {UsuarioService} from "../../../services/shared/usuario.service";
+import {TrabajadorService} from "../../../services/shared/trabajador.service";
 import {Usuario} from "../../../models/Usuario";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs/Subject";
-import {idioma_espanol} from "../../../services/global";
-import {Utilidades} from '../../Utilidades';
+import {idioma_espanol} from "../../../services/shared/global";
+import {Utils} from '../../Utils';
 import swal from "sweetalert2";
 
 @Component({
@@ -78,7 +78,7 @@ export class ListUsuariosComponent implements OnInit {
           this.dtTrigger.next();
         }
       },error =>{
-            Utilidades.showMsgError(Utilidades.mensajeError(error))
+            Utils.showMsgError(Utils.msgError(error))
       }
     )
   }
@@ -91,7 +91,7 @@ export class ListUsuariosComponent implements OnInit {
                 this.rerender();
             }
         },error =>{
-            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+            Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
         }
     )
   }
@@ -119,10 +119,10 @@ export class ListUsuariosComponent implements OnInit {
                               this.getUsuariosRender();
                           })
                       } else {
-                          Utilidades.showMsgInfo('Ha ocurrido un error en la eliminación, intentalo nuevamente',this.tituloPantalla);
+                          Utils.showMsgInfo('Ha ocurrido un error en la eliminación, intentalo nuevamente',this.tituloPantalla);
                       }
                   }, error =>{
-                      Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+                      Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
                   }
               )
 

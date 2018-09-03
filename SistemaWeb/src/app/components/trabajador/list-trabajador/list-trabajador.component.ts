@@ -1,13 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs/Subject";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TrabajadorService} from "../../../services/trabajador.service";
-import {idioma_espanol} from "../../../services/global";
-import {Trabajador} from "../../../models/Trabajador";
-import {DatePipe} from '@angular/common';
-import swal from "sweetalert2";
-import {Utilidades} from '../../Utilidades';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs/Subject';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TrabajadorService} from '../../../services/shared/trabajador.service';
+import {idioma_espanol} from '../../../services/shared/global';
+import {Trabajador} from '../../../models/Trabajador';
+import swal from 'sweetalert2';
+import {Utils} from '../../Utils';
 
 @Component({
   selector: 'app-list-trabajador',
@@ -16,15 +15,13 @@ import {Utilidades} from '../../Utilidades';
 })
 export class ListTrabajadorComponent implements OnInit {
 
-
-  public trabajador : Trabajador;
+  public trabajador: Trabajador;
   public trabajadores: Trabajador[];
-  public tituloPantalla : string = 'Trabajador';
+  public tituloPantalla = 'Trabajador';
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
-
 
   constructor(
     private _route: ActivatedRoute,
@@ -37,11 +34,11 @@ export class ListTrabajadorComponent implements OnInit {
     this.getTrabajadores();
   }
 
-  getTrabajadores(){
+  getTrabajadores() {
 
     this._trabajadorService.getTrabajadores().subscribe(
-      response =>{
-        if(response.trabajadores){
+      response => {
+        if (response.trabajadores) {
           this.trabajadores = response.trabajadores;
           this.dtTrigger.next();
         } else {
@@ -50,14 +47,14 @@ export class ListTrabajadorComponent implements OnInit {
       }, error => {
 
       }
-    )
+    );
   }
 
   getTrabajadoresRender() {
 
       this._trabajadorService.getTrabajadores().subscribe(
-          response =>{
-              if(response.trabajadores){
+          response => {
+              if (response.trabajadores) {
                   this.trabajadores = response.trabajadores;
                   this.rerender();
               } else {
@@ -66,7 +63,7 @@ export class ListTrabajadorComponent implements OnInit {
           }, error => {
 
           }
-      )
+      );
   }
 
   settingsDatatable() {
@@ -103,36 +100,35 @@ export class ListTrabajadorComponent implements OnInit {
 
 
   deleteTrabajador(IdTrabajador) {
-
       swal({
-          title: "Estas seguro(a)?",
-          text: "El trabajador sera eliminado!",
+          title: 'Estas seguro(a)?',
+          text: 'El trabajador sera eliminado!',
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, Eliminalo!'
-      }).catch(swal.noop).then((eliminar) => {
-          if (eliminar) {
-              this._trabajadorService.deleteTrabajador(IdTrabajador).subscribe(
-                  response =>{
-                      if(response.success){
-                          swal(
-                              'Eliminado!',
-                              'El trabajador ha sido eliminado exitosamente',
-                              'success'
-                          ).then(() => {
-                              this.getTrabajadoresRender();
-                          })
-                      } else {
-                         Utilidades.showMsgInfo('Ha ocurrido un error en la eliminación, intentalo nuevamente',this.tituloPantalla);
-                      }
-                  }, error =>{
-                      Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-                  }
-              )
-
-          }
+          confirmButtonText: 'Si, Eliminalo!',
+          cancelButtonText: 'Cancelar'
+      }).then((result) => {
+         if(result.value) {
+             this._trabajadorService.deleteTrabajador(IdTrabajador).subscribe(
+                 response => {
+                     if (response.success) {
+                         swal(
+                             'Eliminado!',
+                             'El trabajador ha sido eliminado exitosamente',
+                             'success'
+                         ).then(() => {
+                             this.getTrabajadoresRender();
+                         });
+                     } else {
+                         Utils.showMsgInfo('Ha ocurrido un error en la eliminación, intentalo nuevamente', this.tituloPantalla);
+                     }
+                 }, error => {
+                     Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+                 }
+             );
+         }  else if (result.dismiss === swal.DismissReason.cancel) {}
       });
   }
 

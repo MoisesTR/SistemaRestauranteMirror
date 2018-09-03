@@ -1,0 +1,452 @@
+<section>
+  <div class="row">
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+
+      <div class="card card-cascade narrower height-card-productos" id="card-info">
+        <div class="view view-cascade gradient-card-header orange-chang height-title">
+          <h2 class="h2-responsive center-text">Información</h2>
+        </div>
+        <div class="card-body">
+          <div class="container-fluid">
+            <!-- Inicio form-->
+            <form [formGroup]="formUpdateFactura" novalidate>
+
+              <div class="row">
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <label class="margin-label-proveedor">Proveedor</label>
+                  <div class="md-form">
+                    <ng-select [items]="proveedores" bindLabel="NombreProveedor" [ngModel]="factura.IdProveedor" bindValue="IdProveedor" id="proveedor"
+                               formControlName="proveedor" class="disabled">
+                    </ng-select>
+                  </div>
+                  <br>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="md-form">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura" formControlName="codigoFactura" placeholder="BD200" class="form-control" autocomplete="off">
+                    <label for="nombreproveedor">Código de factura</label>
+                    <!-- <show-errors [control]="formUpdateFactura.controls['codigoFactura']"></show-errors> -->
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <mdb-date-picker [options]="myDatePickerOptions" name="FechaFactura" formControlName="fechaFactura" id="FechaFactura" [placeholder]="'Seleccione la fecha'"
+                    [label]="'Fecha de Factura'" required></mdb-date-picker>
+                </div>
+
+                <div class="col-md-6">
+                  <br>
+                  <label>Moneda</label>
+                  <ng-select dropdownPosition="top" [items]="Moneda" formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada" bindLabel="Moneda"
+                             bindValue="Id" id="moneda">
+                  </ng-select>
+                  <!--<show-errors [control]=""></show-errors>-->
+                </div>
+
+                <div class="col-md-6">
+                  <br>
+                  <label>Forma de Pago</label>
+                  <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado" bindLabel="FormaPago"
+                             bindValue="Id" id="pago">
+                  </ng-select>
+                  <!--<show-errors [control]=""></show-errors>-->
+                </div>
+
+                <div class="col-md-6 mt-3">
+                  <div class="md-form">
+                    <input mdbInputDirective [mdbValidate]=false type="number" disabled id="tipoCambio" class="form-control" autocomplete="off">
+                    <label for="tipoCambio">Tipo de Cambio</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                  <div class="md-form">
+                    <input mdbInputDirective [mdbValidate]=false type="number" disabled id="plazoPagos" class="form-control" autocomplete="off">
+                    <label for="plazoPagos">Plazo de pagos(dias)</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- Final form -->
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 mb-r">
+
+      <div class="card card-cascade narrower height-card-productos">
+        <div class="view view-cascade gradient-card-header orange-chang height-title">
+          <h2 class="h2-responsive center-text">Productos</h2>
+        </div>
+        <div class="scrollbar-card scrollbar-ripe-malinka">
+          <div class="card-body">
+
+            <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
+            </div>
+
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th width="7%">#</th>
+                  <th width="50%">Nombre del producto</th>
+                  <th width="50%">Envase</th>
+                  <th width="43%" class="text-center">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of productos | buscar: buscando; let i = index">
+                  <th scope="row">{{i + 1}}</th>
+                  <td>{{producto.NombreProducto}}</td>
+                  <td>{{producto.NombreEnvase}}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-sm orange-chang" (click)="seleccionarProducto(producto)" mdbWavesEffect>
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm orange-chang" (click)="mostrarProducto(producto)" mdbWavesEffect>
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+      <div class="card">
+        <div class="container-fluid mt-3">
+          <div class="table-responsive">
+            <!-- Lista de productos -->
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th class="header-negrita">Producto</th>
+                  <th class="header-negrita">U. Medida</th>
+                  <th class="header-negrita">Cantidad</th>
+                  <th class="header-negrita">Precio unitario</th>
+                  <th class="header-negrita">Descuento</th>
+                  <th class="header-negrita">Gravado IVA</th>
+                  <th class="header-negrita">Ventas Netas</th>
+                  <th id="id-text-align-table">
+                    <img src="./assets/img/icon/regalo.png">
+                  </th>
+                  <th class="header-negrita centrar-texto">Accion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let productoFactura of productosFactura;let i = index">
+                  <td class="body-negrita">{{productoFactura.NombreProducto}}</td>
+                  <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
+                  <td class="body-negrita">{{productoFactura.Cantidad}}</td>
+                  <td class="body-negrita">{{productoFactura.PrecioUnitario}} {{simboloMonedaUtilizado}}</td>
+                  <td width="10%" class="body-negrita">
+                    <strong>{{productoFactura.Descuento}}%</strong>
+                  </td>
+                  <td class="body-negrita">
+                    <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
+                  </td>
+                  <td width="10%" class="body-negrita">{{productoFactura.TotalDetalle | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                  </td>
+                  <td>
+                    <div class="form-check checkbox-chang-filled">
+
+                      <input class="form-check-input" type="checkbox" class="form-check-input" id="{{i}}">
+                      <label class="form-check-label" for="{{i}}"></label>
+
+                    </div>
+                  </td>
+                  <td width="25%" class="body-negrita">
+                    <div class="text-center">
+                      <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)"
+                        data-toggle="tooltip" data-placement="bottom" title="Editar">
+                        <i class="fa fa-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" (click)="eliminarProductoDeFactura(productoFactura)"
+                        data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- /.Lista de productos -->
+          </div>
+
+          <div class="row mt-5">
+            <div class="col-lg-10 col-md-10 col-sm-10 text-lg-right text-md-right text-sm-right">
+              <form novalidate>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="SubTotal">
+                    <strong>SubTotal</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="SubTotal">
+                    <strong>Descuento</strong>
+                  </label>
+                </div>
+
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="SubTotal">
+                    <strong>SubTotal con Descuento</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="porcentajeiva">
+                    <strong>IVA(15%)</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12 checkbox-chang-filled">
+                  <input class="form-check-input" (click)="aplicarRetencion()" [(ngModel)]="tieneRetencion" type="checkbox" class="form-check-input filled-in"
+                    disabled name="seleccionarcheck" id="segundo2" formControlName="retencion" mdbInputDirective>
+                  <label for="segundo2">
+                    <strong>Retención</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="Total">
+                    <strong>Total</strong>
+                  </label>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 text-lg-right text-md-right text-sm-right">
+              <form>
+                <div class="">
+                  <label>
+                     {{subTotalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                  </label>
+                </div>
+                <div class="">
+                  <label>
+                     {{descuentoCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                  </label>
+                </div>
+                <div class="">
+                  <label>
+                     {{subtotalFacturaConDescuento | number : '1.2-2'}} {{simboloMonedaUtilizado }}
+                  </label>
+                </div>
+                <div class="">
+                  <label>
+                     {{ivaCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                  </label>
+                </div>
+                <div class="">
+                  <label>0
+                    <!-- {{retencionCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}} -->
+                  </label>
+                </div>
+                <div class="">
+                  <label>
+                     {{totalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                  </label>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Acciones -->
+          <div class="row mt-3">
+
+            <div class="col-lg-3 col-md-3 col-sm-2"></div>
+
+            <div class="col-lg-3 col-md-3 col-sm-4">
+              <div class="md-form">
+                <button type="button" class="btn orange-chang waves-effect">Actualizar factura
+                </button>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-4">
+              <div class="md-form">
+                <button type="button" class="btn orange-chang waves-effect">Imprimir Factura</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal Mostrar Info de producto -->
+<div mdbModal #modalVerProducto="mdb-modal" class="modal modal-scroll fade" id="modalVerProducto" tabindex="-1">
+  <div class="modal-dialog modal-lg cascading-modal " role="document">
+    
+    <div class="modal-content background-gray mdl">
+
+      <div class="modal-header orange-chang white-text">
+        <h4 class="title"> Información del producto</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalVerProducto.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body mb-0">
+        <div class="container-fluid">
+          
+          <form>
+            <div class="row">
+
+              <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                <div class="card card-cascade narrower">
+                  <div class="view view-cascade gradient-card-header orange-chang">
+                    <h4 class="mb-0">Imagen</h4>
+                  </div>
+                  <div class="card-body text-center">
+                    <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}" alt="..." class="img-thumbnail height-card-usuario">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                <div class="container-fluid">
+                  <div class="row">
+
+                    <div class="col-md-12">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text">Nombre</h6>
+                        <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase" value={{productoSeleccionado.NombreProducto}}
+                          readonly>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text">Categoria</h6>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text">Clasificación</h6>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreClasificacion}}>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text">Subclasificación</h6>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreSubClasificacion}}>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text">Empaque</h6>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEmpaque}}>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text">Cantidad por Empaque</h6>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.CantidadEmpaque}}>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text">Envase</h6>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEnvase}}>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Modal para agregar detalles de producto -->
+<div mdbModal #modalUpdateDetalleProducto="mdb-modal" class="modal fade" id="modalUpdateDetalleProducto" tabindex="-1"
+  role="dialog" aria-labelledby="modalUpdateDetalleProducto" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+
+    <div class="modal-content background-gray mdl">
+
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Editar Detalle Producto</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateDetalleProducto.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body mb-0">
+
+        <form [formGroup] = "formUpdateDetalleFactura" (ngSubmit)="editarDatosProducto()" novalidate>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form">
+                <h6 class="orange-chang-text">Cantidad</h6>
+                <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto" formControlName="cantidadProducto">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <h6 class="orange-chang-text">Precio</h6>
+                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto" formControlName="precioProducto">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <h6 class="orange-chang-text">Descuento</h6>
+                <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto">
+
+              </div>
+              <show-errors [control]="formUpdateDetalleFactura.controls['descuentoTotalProducto']"></show-errors>
+            </div>
+            <div class="col-md-6 mt-4">
+              <br>
+              <div class="md-form checkbox-chang-filled">
+                <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" name="seleccionarcheck" id="checkbox33"
+                  formControlName="gravadoIva" mdbInputDirective>
+                <label class="form-check-label" for="checkbox33">Gravado de Iva</label>
+                <show-errors [control]="formUpdateDetalleFactura.controls['gravadoIva']"></show-errors>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-1-half">
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateDetalleFactura.valid">Ingresar
+              <i class="fa fa-check ml-1"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

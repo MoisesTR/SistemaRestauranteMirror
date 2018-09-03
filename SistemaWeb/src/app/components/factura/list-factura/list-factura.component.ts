@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
-import {FacturaService} from '../../../services/factura.service';
+import {FacturaService} from '../../../services/shared/factura.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Factura} from '../../../models/Factura';
-import {idioma_espanol} from '../../../services/global';
-import {ProductoService} from '../../../services/producto.service';
+import {idioma_espanol} from '../../../services/shared/global';
 import {Producto} from '../../../models/Producto';
+import {Utils} from '../../Utils';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-list-factura',
@@ -15,34 +16,33 @@ import {Producto} from '../../../models/Producto';
 })
 export class ListFacturaComponent implements OnInit {
 
-  public    facturas: Factura[];
+  public facturas: Factura[];
   public productos: Producto[];
-  public tituloPantalla : string = 'Factura';
-
+  public tituloPantalla = 'Factura';
+  public fechaActual: string;
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
-    , private _facturaService  : FacturaService
-    , private _productoService  : ProductoService
+    , private _facturaService: FacturaService
+    , private datePipe: DatePipe
   ) {
-
   }
 
   ngOnInit() {
-
+    this.fechaActual = this.transformDate(new Date());
     this.settingsDatatable();
-    // this.getFacturas();
-    // this.getProductos();
     this.getFacturas();
+  }
 
+  transformDate(date): string | null {
+      return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   settingsDatatable() {
@@ -61,40 +61,27 @@ export class ListFacturaComponent implements OnInit {
                   key: '1',
                   className: 'btn orange-chang float-right-dt',
                   action: (e, dt, node, config) => {
-                      this._router.navigate(['factura/add'])
+                      this._router.navigate(['factura/add']);
                   }
               }
           ]
       };
   }
 
-  getFacturas(){
-
-    this._facturaService.getFacturas().subscribe(
-      response => {
-        if(response.facturas) {
-          this.facturas = response.facturas;
-          this.dtTrigger.next();
-        }
-      }, error =>{
-
-      },
-      () => {
-
-      }
-    )
-
+  getFacturas() {
+      this._facturaService.getFacturas(true, this.fechaActual, this.fechaActual, 1, 2).subscribe(
+          response => {
+              if (response.facturas) {
+                  this.facturas = response.facturas;
+                  this.dtTrigger.next();
+              } else {
+                Utils.showMsgInfo('Ha ocurrido un error al obtener las facturas');
+              }
+          }, error => {
+              Utils.showMsgError(Utils.msgError(error));
+          }
+      );
   }
 
-  getProductos(){
-    this._productoService.getProductos().subscribe(
-      response =>{
-        if(response.productos){
-          this.productos = response.productos;
-          this.dtTrigger.next();
-        }
-      }
-    )
-  }
 
 }

@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RolUsuario} from '../../models/RolUsuario';
-import {RolusuarioService} from '../../services/rolusuario.service';
+import {RolusuarioService} from '../../services/shared/rolusuario.service';
 import {Subject} from 'rxjs/Subject';
-import {idioma_espanol} from '../../services/global';
+import {idioma_espanol} from '../../services/shared/global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {Utilidades} from '../Utilidades';
-import {ModalDirective} from '../../typescripts/free/modals';
+import {Utils} from '../Utils';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 
 declare var $:any;
 
@@ -121,13 +121,13 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
           Validators.required
           , Validators.maxLength(20)
           , Validators.minLength(5)
-          , CustomValidators.espaciosVacios
+          , CustomValidators.nospaceValidator
         ])
       , 'descripcionRol': new FormControl('',
        [ Validators.required
         , Validators.maxLength(20)
         , Validators.minLength(5)
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
       ])
     });
 
@@ -141,13 +141,13 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
           Validators.required
           , Validators.maxLength(20)
           , Validators.minLength(5)
-          , CustomValidators.espaciosVacios
+          , CustomValidators.nospaceValidator
         ])
       , 'descripcionRol': new FormControl('',
         [ Validators.required
           , Validators.maxLength(20)
           , Validators.minLength(5)
-          , CustomValidators.espaciosVacios
+          , CustomValidators.nospaceValidator
         ])
     });
 
@@ -183,11 +183,11 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
           })
 
         } else {
-         Utilidades.showMsgInfo('Ha ocurrido un error al insertar el rol, intentalo nuevamente',this.tituloPantalla);
+         Utils.showMsgInfo('Ha ocurrido un error al insertar el rol, intentalo nuevamente',this.tituloPantalla);
 
         }
       }, error => {
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
       }
     )
   }
@@ -210,10 +210,10 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
           })
 
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error inesperado al actualizar, intentalo nuevamente',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error inesperado al actualizar, intentalo nuevamente',this.tituloPantalla);
         }
       }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
       }
     )
 
@@ -266,7 +266,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario{
   //
   // }
   InvocarModal(Modal, Formulario) {
-    Utilidades.invocacionModal(Modal,Formulario);
+    Utils.invocacionModal(Modal,Formulario);
   }
 
   invocarModalUpdate(Modal,Rol : RolUsuario) {

@@ -1,9 +1,6 @@
-import {ToastModule} from './typescripts/pro/alerts/toast/toast.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-import {MDBBootstrapModule} from './typescripts/free';
-import {MDBBootstrapModulePro, MDBSpinningPreloader} from './typescripts/pro/index';
 import {AgmCoreModule} from '@agm/core';
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -12,14 +9,15 @@ import {SharedModuleModule} from './components/shared-module/shared-module.modul
 import {LoginComponent} from './components/login/login.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
 import {UserIdleModule} from 'angular-user-idle';
+import {MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule} from 'ng-uikit-pro-standard';
+import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 
-
-//Rutas principales
+// Rutas principales
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
-    {path:'**',component: NotFound404Component},
-    {path:'notfound',component: NotFound404Component}
-]
+    {path: '**', component: NotFound404Component},
+    {path: 'notfound', component: NotFound404Component}
+];
 
 @NgModule({
   declarations: [
@@ -33,10 +31,9 @@ const routes: Routes = [
     , RouterModule.forRoot(routes)
     , SharedModuleModule
     , MenuModule
-    , ToastModule.forRoot({maxOpened : 1,timeOut : 2000, preventDuplicates : true})
-    , MDBBootstrapModule.forRoot()
-    , MDBBootstrapModulePro.forRoot()
-      , UserIdleModule.forRoot({idle: 600, timeout: 1, ping: 600})
+    , ToastModule.forRoot({maxOpened : 1, timeOut : 2000, preventDuplicates : true})
+    , MDBBootstrapModulesPro.forRoot()
+    , UserIdleModule.forRoot({idle: 600, timeout: 1, ping: 600})
     , AgmCoreModule.forRoot({
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: 'Your_api_key'

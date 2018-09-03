@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Usuario} from '../../models/Usuario';
-import {UsuarioService} from '../../services/usuario.service';
+import {UsuarioService} from '../../services/shared/usuario.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Pantalla} from '../../models/Pantalla';
-import {Global} from '../../services/global';
-import {MenuService} from '../../services/menu-service';
+import {Global} from '../../services/shared/global';
+import {MenuService} from '../../services/shared/menu-service';
 import {Menu} from '../../models/Menu';
 
 @Component({
@@ -14,15 +14,15 @@ import {Menu} from '../../models/Menu';
 })
 export class MenuComponent implements OnInit {
 
-  public rol: string = 'admin';
+  public rol = 'admin';
   public Usuario: Usuario;
   public menues: Menu[];
-  public url : string;
+  public url: string;
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
               private _usuarioService: UsuarioService
-              , private _menuService : MenuService
+              , private _menuService: MenuService
   ) {
   }
 
@@ -31,6 +31,25 @@ export class MenuComponent implements OnInit {
     this.url = Global.url;
     this.menues = [];
     this.getMenuesByIdRol(this.Usuario.IdRol);
+
+    window.onscroll = function () {
+      if (pageYOffset >= 200) {
+          document.getElementById('backToTop').style.visibility = "visible";
+      } else {
+          document.getElementById('backToTop').style.visibility = "hidden";
+      }
+    };
+
+  
+  }
+
+  backtoPage(){
+    window.history.back();
+    console.log(document.referrer);
+  }
+
+  onActivate(event) {
+    window.scroll(0,0);
   }
 
   logout() {
@@ -52,6 +71,6 @@ export class MenuComponent implements OnInit {
         }, error => {
 
         }
-    )
+    );
   }
 }

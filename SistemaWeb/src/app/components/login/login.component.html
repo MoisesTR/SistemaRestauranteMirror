@@ -1,57 +1,58 @@
-<header>
-  <!--Formulario-->
-  <section class="view background-login hm-black-light">
+<!--Formulario-->
+<section class="view background-login">
 
-    <div class="full-bg-img flex-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+  <div class="full-bg-img flex-center rgba-black-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
 
-            <div class="text-center">
-              <h1 class="display-1 mb-2 wow fadeInDownBig orange-chang-text" data-wow-delay="0.5s">張家餐廳</h1>
-              <h2 class="h1-reponsive white-text font-up font-bold mb-3 wow fadeInDownBig" data-wow-delay="0.5s">
-                <strong>Restaurante de la Familia Chang</strong>
-              </h2>
-            </div>
-            <br>
+          <div class="text-center">
+            <h1 class="display-1 mb-2 wow fadeInDownBig orange-chang-text" data-wow-delay="0.5s">
+              <strong>張家餐廳</strong>
+            </h1>
+            <h2 class="h1-reponsive white-text font-up font-bold mb-3 wow fadeInDownBig" data-wow-delay="0.5s">
+              <strong>Restaurante de la Familia Chang</strong>
+            </h2>
+          </div>
+          <br>
 
-            <div class="wow fadeInUp pattern-7" data-wow-delay="0.8s">
-              <div class="card-body login">
+          <div class="wow fadeInUp pattern-7" data-wow-delay="0.8s">
+            <div class="card-body login">
 
-                <!--Header-->
-                <div class="form-header orange-chang">
-                  <h3>
-                    <i class="fa fa-user mt-2 mb-2"></i> Iniciar Sesión:</h3>
+              <!--Header-->
+              <div class="form-header orange-chang">
+                <h3>
+                  <i class="fa fa-user mt-2 mb-2"></i> Iniciar Sesión:</h3>
+              </div>
+
+              <!--Body-->
+              <form [formGroup]="formLoginUser" (ngSubmit)="onSubmit()" novalidate>
+
+                <div class="md-form">
+                  <i class="fa fa-user prefix"></i>
+                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreusuariologin" class="form-control" formControlName="nombre"
+                    autocomplete="off">
+                  <label for="nombreusuariologin">Nombre de Usuario</label>
                 </div>
 
-                <!--Body-->
-                <form [formGroup]="formLoginUser" (ngSubmit)="onSubmit()" novalidate>
+                <div class="md-form">
+                  <i class="fa fa-lock prefix white-text"></i>
+                  <input [mdbValidate]=false mdbInputDirective type="password" id="contrasenausuariologin" class="form-control" formControlName="password"
+                    autocomplete="off">
+                  <label for="contrasenausuariologin">Contraseña</label>
+                  <!-- <p class="font-small grey-text d-flex justify-content-end">Olvido su <a class=" font-bold ml-1 orange-chang-text"> Contraseña?</a></p> -->
+                </div>
 
-                  <div class="md-form">
-                    <i class="fa fa-user prefix"></i>
-                    <input mdbActive type="text" id="nombreusuariologin" class="form-control" formControlName="nombre" autocomplete="off">
-                    <label for="nombreusuariologin">Nombre de Usuario</label>
-                  </div>
+                <div class="text-center">
+                  <button class="btn orange-chang loginIncorrectoSweetAlert" type="submit" [disabled]=!formLoginUser.valid>
+                    <!--[routerLink]="['/menu']"-->Ingresar</button>
+                </div>
+              </form>
 
-                  <div class="md-form">
-                    <i class="fa fa-lock prefix white-text"></i>
-                    <input mdbActive type="password" id="contrasenausuariologin" class="form-control" formControlName="password" autocomplete="off">
-                    <label for="contrasenausuariologin">Contraseña</label>
-                    <!-- <p class="font-small grey-text d-flex justify-content-end">Olvido su <a class=" font-bold ml-1 orange-chang-text"> Contraseña?</a></p> -->
-                  </div>
-
-                  <div class="text-center">
-                    <button class="btn orange-chang loginIncorrectoSweetAlert" type="submit" [disabled]=!formLoginUser.valid>
-                      <!--[routerLink]="['/menu']"-->Ingresar</button>
-                  </div>
-                </form>
-
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-</header>
+  </div>
+</section>

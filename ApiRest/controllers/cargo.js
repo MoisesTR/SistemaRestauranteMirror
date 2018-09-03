@@ -60,7 +60,7 @@ function getCargoById(req, res) {
 }
 
 function changeStateCargo(req, res) {
-    let data = matchedData(req,{locations:['params','query']});
+    let data = matchedData(req,{locations:['params','query','body']});
     
     console.log(data)
     var aoj = [];

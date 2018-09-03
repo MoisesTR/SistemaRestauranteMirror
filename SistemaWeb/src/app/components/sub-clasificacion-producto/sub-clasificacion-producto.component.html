@@ -6,7 +6,7 @@
 
       <div class="card card-cascade narrower">
         <!--Titulo-->
-        <div class="view gradient-card-header orange-chang">
+        <div class="view view-cascade gradient-card-header orange-chang">
           <h2 class="h2-responsive">Subclasificaciones</h2>
         </div>
         <!--/Titulo-->
@@ -136,7 +136,7 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input mdbActive type="text" id="upnombresubclasificacion" minlength="5" class="input-modal-sm" name="nombresubclasificacion"
+            <input mdbInputDirective type="text" id="upnombresubclasificacion" minlength="5" class="input-modal-sm" name="nombresubclasificacion"
               formControlName="nombreSubClasificacion" required>
             <show-errors [control]="formUpdateSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
           </div>
@@ -144,7 +144,7 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea mdbActive type="text" minlength="5" id="updescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
+            <textarea mdbInputDirective type="text" minlength="5" id="updescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
               formControlName="descripcionSubClasificacion" required>
                   </textarea>
             <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>

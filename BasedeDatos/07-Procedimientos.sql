@@ -153,7 +153,7 @@ CREATE PROCEDURE USP_GET_DETALLE_BODEGA_AP
 AS BEGIN
 	SELECT	IdDetalle,	IdBodegaAreaP,	IdDetalleEntradaAP,	IdEntradaBodegaAP,	PP.IdProveedor,	
 			DAP.IdProductoProveedor,	P.IdProducto, P.NombreProducto,	CP.IdCategoria,	C.NombreCategoria,
-			P.IdSubclasificacion,	SP.NombreSubclasificacion,	SP.IdClasificacion,	CP.NombreClasificacion,
+			P.IdSubClasificacion,	SP.NombreSubClasificacion,	SP.IdClasificacion,	CP.NombreClasificacion,
 			Cantidad,	FechaHoraIngreso,	FechaHoraProduccion,	DAP.Habilitado 
 	FROM dbo.DETALLE_BODEGA_AP DAP
 	INNER JOIN PRODUCTO_PROVEEDOR PP 
@@ -161,7 +161,7 @@ AS BEGIN
 	INNER JOIN PRODUCTO  P 
 		ON PP.IdProducto = P.IdProducto
 	INNER JOIN SUBCLASIFICACION_PRODUCTO SP 
-		ON P.IdSubclasificacion = SP.IdSubclasificacion
+		ON P.IdSubClasificacion = SP.IdSubClasificacion
 	INNER JOIN CLASIFICACION_PRODUCTO CP 
 		ON SP.IdClasificacion = CP.IdClasificacion
 	INNER JOIN CATEGORIA_PRODUCTO C

@@ -4,12 +4,12 @@
       <!--Imagen-->
       <div class="col-lg-4">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
             <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
-                   data-height="300" />
+              data-height="300" />
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
       <!--Datos del Trabajador-->
       <div class="col-lg-8 ">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Datos del Trabajador</h4>
           </div>
           <!-- Contenido -->
@@ -30,7 +30,8 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input mdbActive type="text" id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required class="form-control validate letras">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required class="form-control validate letras"
+                      autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['nombreTrabajador']"></show-errors>
                     <label for="nombreTrabajador">Nombres</label>
                   </div>
@@ -38,74 +39,64 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input mdbActive type="text" id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control validate letras">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control validate letras"
+                      autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['apellido']"></show-errors>
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <br>
-                  <label class="margin-label-trabajador" for="fechaNacimiento">Fecha de Nacimiento</label>
+                  <mdb-date-picker [options]="myDatePickerOptions" name="fechaNacimiento" id="fechaNacimiento" [placeholder]="'Seleccione'"
+                    [label]="'Fecha de Nacimiento'" formControlName="fechaNacimiento" required></mdb-date-picker>
+                  <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
+                </div>
+
+                <div class="col-md-6">
+                  <mdb-date-picker [options]="myDatePickerOptions" name="FechaIngreso" id="fechaIngreso" [placeholder]="'Seleccione'"
+                    [label]="'Fecha de Ingreso'" formControlName="fechaIngreso" required></mdb-date-picker>
+                  <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
+                </div>
+
+                <div class="col-md-6 mt-1">
                   <div class="md-form">
-                    <mdb-date-picker  [placeholder]="'Fecha de Nacimiento'"  mdbActive name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento"
-                                      [options]="myDatePickerOptions" required></mdb-date-picker>
-                    <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <br>
-                  <label class="margin-label-trabajador" for="FechaIngreso">Fecha de Ingreso</label>
-                  <div class="md-form">
-                    <mdb-date-picker [placeholder]="'Fecha de Ingreso'" mdbActive name="FechaIngreso" id="fechaIngreso" formControlName="fechaIngreso"
-                                     [options]="myDatePickerOptions" required></mdb-date-picker>
-                    <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <br>
-                  <div class="md-form ">
-                    <input mdbActive type="text" id="DocumentoTrabajador" minlength="4" maxlength="50" class="form-control"
-                           name="DocumentoTrabajador" class="cedula" formControlName="documentoTrabajador">
-                    <show-errors [control]="formUpdateTrabajador.controls['documentoTrabajador']"></show-errors>
-                    <label for="DocumentoTrabajador" class="">Documento</label>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="sucursal">Tipo de Documento</label>
-                  <ng-select [items]="tiposDocumento" bindLabel="NombreTD" bindValue="IdTipoDocumento" placeholder="Selecciona un tipo de documento" id="tipoDocumento"
-                             (change)="onChangeTipoDocumento($event)" [(ngModel)]="trabajador.IdTipoDocumento" formControlName="tipoDocumento">
-                  </ng-select>
-                  <show-errors [control]="formUpdateTrabajador.controls['tipoDocumento']"></show-errors>
-                </div>
-
-                <div class="col-md-6">
-                  <br>
-                  <div class="md-form ">
-                    <input mdbActive type="text" id="TelefonoPrincipalTrabajador"  class="form-control telefono"
-                           name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoPrincipalTrabajador" class="form-control telefono" name="TelefonoPrincipalTrabajador"
+                      formControlName="telefonoPrincipal" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
                 </div>
 
-                <div class="col-md-6">
-                  <br>
-                  <div class="md-form ">
-                    <input mdbActive type="text" id="TelefonoSecundarioTrabajador"  class="form-control telefono"
-                           name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario">
+                <div class="col-md-6 mt-1">
+                  <div class="md-form">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control telefono" name="TelefonoSecundarioTrabajador"
+                      formControlName="telefonoSecundario" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="sucursal">Tipo de Documento</label>
+                  <ng-select [items]="tiposDocumento" bindLabel="NombreTD" bindValue="IdTipoDocumento" placeholder="Selecciona un tipo de documento"
+                    id="tipoDocumento" (change)="onChangeTipoDocumento($event)" [(ngModel)]="trabajador.IdTipoDocumento" formControlName="tipoDocumento">
+                  </ng-select>
+                  <show-errors [control]="formUpdateTrabajador.controls['tipoDocumento']"></show-errors>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form ">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="DocumentoTrabajador" name="DocumentoTrabajador" class="form-control cedula" formControlName="documentoTrabajador"
+                      autocomplete="off">
+                    <show-errors [control]="formUpdateTrabajador.controls['documentoTrabajador']"></show-errors>
+                    <label for="DocumentoTrabajador" class="">Documento</label>
                   </div>
                 </div>
 
                 <div class="col-md-12">
                   <label for="sucursal">Sucursal</label>
                   <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal"
-                             (change)="onChangeSucursal($event)" [(ngModel)]="trabajador.IdSucursal" formControlName="sucursal">
+                    (change)="onChangeSucursal($event)" [(ngModel)]="trabajador.IdSucursal" formControlName="sucursal">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['sucursal']"></show-errors>
                 </div>
@@ -113,27 +104,28 @@
                 <div class="col-md-12">
                   <br>
                   <label for="cargo">Cargo</label>
-                  <ng-select [items]="cargos" bindLabel="NombreCargo" bindValue="IdCargo" placeholder="Selecciona un cargo" id="cargo"
-                             (change)="onChangeCargo($event)" [(ngModel)]="trabajador.IdCargo" formControlName="cargo">
+                  <ng-select [items]="cargos" bindLabel="NombreCargo" bindValue="IdCargo" placeholder="Selecciona un cargo" id="cargo" (change)="onChangeCargo($event)"
+                    [(ngModel)]="trabajador.IdCargo" formControlName="cargo">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['cargo']"></show-errors>
                 </div>
 
                 <div class="col-md-12">
-                  <br>
                   <div class="md-form">
-                    <textarea mdbActive type="text" id="Direccion" name="Direccion" formControlName="direccion" class="md-textarea"></textarea>
+                    <textarea [mdbValidate]=false mdbInputDirective type="text" id="Direccion" name="Direccion" formControlName="direccion" class="md-textarea form-control"></textarea>
                     <label for="Direccion">Dirección</label>
                     <show-errors [control]="formUpdateTrabajador.controls['direccion']"></show-errors>
                   </div>
                 </div>
-
               </div>
+
               <div class="margin-paneladministrativo"></div>
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" [disabled] = "!formUpdateTrabajador.valid">Ingresar <i class="fa fa-check ml-1"></i></button>
+                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateTrabajador.valid">Actualizar
+                  <i class="fa fa-check ml-1"></i>
+                </button>
               </div>
 
             </form>
@@ -142,30 +134,6 @@
         </div>
       </div>
       <!-- /.Datos del Trabajador-->
-
     </div>
   </section>
-</div>
-
-<div mdbModal #modalUsuario="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-notify modal-success" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <p class="heading lead">Crear usuario</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
-          <span aria-hidden="true" class="white-text">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="text-center">
-          <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
-          <p>Desea crear un usuario a partir de este trabajador?</p>
-        </div>
-      </div>
-      <div class="modal-footer justify-content-center">
-        <a type="button" class="btn btn-primary waves-light" (click)="relacionarTrabajador()" mdbWavesEffect>SI</a>
-        <a type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="listaTrabajadores()" mdbWavesEffect>NO</a>
-      </div>
-    </div>
-  </div>
 </div>

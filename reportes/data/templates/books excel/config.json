@@ -1,0 +1,25 @@
+{
+    "shortid": "HkhaEH5UQ",
+    "name": "books excel",
+    "recipe": "html",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "modificationDate": {
+        "$$date": 1534903835605
+    },
+    "_id": "T9MPKf1RkA0KdWxS",
+    "$entitySet": "templates",
+    "data": {
+        "shortid": "Sy5S19ncg"
+    },
+    "resources": {
+        "items": [
+            {
+                "shortid": "Sy5S19ncg",
+                "entitySet": "data"
+            }
+        ]
+    }
+}

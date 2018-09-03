@@ -72,7 +72,7 @@ function updateProveedor(req, res) {
 }
 
 function changeStateProveedor(req, res) {
-    let data = matchedData(req, {locations:['query','params']});
+    let data = matchedData(req, {locations:['query','params','body']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProveedor', sql.Int(), data.IdProveedor);
     db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);

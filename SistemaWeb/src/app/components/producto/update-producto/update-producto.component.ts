@@ -8,25 +8,25 @@ import {UnidadMedida} from '../../../models/UnidadMedida';
 import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
 import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {UploadService} from '../../../services/upload.service';
-import {ClasificacionProductoService} from '../../../services/clasificacion-producto.service';
-import {ProductoService} from '../../../services/producto.service';
-import {CARPETA_PRODUCTOS, Global} from '../../../services/global';
-import {SubClasificacionProductoService} from '../../../services/sub-clasificacion-producto.service';
-import {CategoriaProductoService} from '../../../services/categoria-producto.service';
+import {UploadService} from '../../../services/shared/upload.service';
+import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
+import {ProductoService} from '../../../services/shared/producto.service';
+import {CARPETA_PRODUCTOS, Global} from '../../../services/shared/global';
+import {SubClasificacionProductoService} from '../../../services/shared/sub-clasificacion-producto.service';
+import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
-import swal from 'sweetalert2';
-import {Utilidades} from '../../Utilidades';
-import {isNull, isUndefined} from 'util';
-import {DeleteImageService} from '../../../services/delete-image-service';
+import {Utils} from '../../Utils';
+import {DeleteImageService} from '../../../services/shared/delete-image-service';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
-import {ProveedorService} from '../../../services/proveedor.service';
-import {EmpaqueService} from '../../../services/empaque.service';
-import {EnvaseService} from '../../../services/envase.service';
-import {UnidadMedidaService} from '../../../services/unidad-medida.service';
+import {ProveedorService} from '../../../services/shared/proveedor.service';
+import {EmpaqueService} from '../../../services/shared/empaque.service';
+import {EnvaseService} from '../../../services/shared/envase.service';
+import {UnidadMedidaService} from '../../../services/shared/unidad-medida.service';
 import {Empaque} from '../../../models/Empaque';
+import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
+import swal from 'sweetalert2';
 
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-update-producto',
   templateUrl: './update-producto.component.html',
@@ -34,33 +34,37 @@ declare var $:any;
 })
 export class UpdateProductoComponent implements OnInit {
 
-  public producto : Producto;
+  public producto: Producto;
   formUpdateProducto: FormGroup;
   public proveedores: Proveedor [];
+  public proveedoresProducto: Proveedor[];
+  public proveedoresEliminar: Proveedor[] = [];
+  public proveedoresAgregar: Proveedor[] = [];
   public categorias: CategoriaProducto[];
   public envases: Envase[];
-  public unidades : UnidadMedida[];
-  public empaques : Empaque[];
+  public unidades: UnidadMedida[];
+  public empaques: Empaque[];
   public clasificaciones: ClasificacionProducto[];
   public subclasificaciones: SubClasificacionProducto[];
   public url: string;
-  public removioImagen : boolean = false;
+  public removioImagen = false;
   public filesToUpload: Array<File> = null;
 
   constructor(
       private _route: ActivatedRoute
       , private _router: Router
       , private _uploadService: UploadService
-      , private _proveedorService : ProveedorService
+      , private _proveedorService: ProveedorService
       , private _categoriaService: CategoriaProductoService
       , private _clasificacionService: ClasificacionProductoService
       , private _subclasificacionService: SubClasificacionProductoService
-      , private  _empaqueService : EmpaqueService
-      , private _envaseService : EnvaseService
-      , private _unidadService : UnidadMedidaService
+      , private  _empaqueService: EmpaqueService
+      , private _envaseService: EnvaseService
+      , private _unidadService: UnidadMedidaService
       , private _productoService: ProductoService
-    , private _deleteImageService : DeleteImageService
-    , private formBuilderUProducto : FormBuilder
+      , private _productoProveedorService: ProductoProveedorService
+    , private _deleteImageService: DeleteImageService
+    , private formBuilderUProducto: FormBuilder
   ) {
     this.url = Global.url;
     this.producto = new Producto();
@@ -82,25 +86,25 @@ export class UpdateProductoComponent implements OnInit {
 
   }
 
-  showCardImg(){
-        var x = document.getElementById("imagen-productos");
-        var f = document.getElementById("formulario-productos");
-        var proveedor = document.getElementById("proveedor");
-        var categoria = document.getElementById("selectCategoria");
-        var clasificacion = document.getElementById("upclasificacion");
-        var subclasificacion = document.getElementById("upsubclasificacion");
-        var empaque = document.getElementById("empaque");
-        var envase = document.getElementById("envase");
-        var unidadmedida = document.getElementById("unidadmedida");
+showCardImg() {
+    var x = document.getElementById("imagen-productos");
+    var f = document.getElementById("formulario-productos");
+    var proveedor = document.getElementById("proveedor");
+    var categoria = document.getElementById("selectCategoria");
+    var clasificacion = document.getElementById("upclasificacion");
+    var subclasificacion = document.getElementById("upsubclasificacion");
+    var empaque = document.getElementById("empaque");
+    var envase = document.getElementById("envase");
+    var unidadmedida = document.getElementById("unidadmedida");
 
-        if (x.style.display === "none") {
-        // Mostrar card de agregar imagen    
+    if (x.style.display === "none") {
+        // Mostrar card de agregar imagen
         // Pequeño
-        
-        // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón            
+
+        // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
         $("#btn-animation").click(function() {
             $("#imagen-productos").toggleClass("animated");
-        }); 
+        });
         f.classList.remove('col-lg-12');
         f.classList.add('col-lg-8');
         f.classList.remove('col-md-12');
@@ -113,11 +117,10 @@ export class UpdateProductoComponent implements OnInit {
         envase.classList.add('select-no-margin');
         unidadmedida.classList.add('select-no-margin');
         x.style.display = "block";
-
-        } else {
+    } else {
         // Ocultar card de agregar imagen
 
-        // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón            
+        // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
         $("#btn-animation").click(function() {
             $("#imagen-productos").toggleClass("animated");
         });
@@ -133,8 +136,9 @@ export class UpdateProductoComponent implements OnInit {
         envase.classList.remove('select-no-margin');
         unidadmedida.classList.remove('select-no-margin');
         x.style.display = "none";
-        }
     }
+}
+
 
   private initFormUpdateProducto() {
     this.formUpdateProducto =  this.formBuilderUProducto.group({
@@ -142,84 +146,107 @@ export class UpdateProductoComponent implements OnInit {
             Validators.required
             , Validators.minLength(5)
             , Validators.maxLength(100)
-            , CustomValidators.espaciosVacios
+            , CustomValidators.nospaceValidator
         ]),
         'descripcionProducto': new FormControl('',[
             Validators.required
             , Validators.minLength(5)
             , Validators.maxLength(300)
-            , CustomValidators.espaciosVacios
+            , CustomValidators.nospaceValidator
         ]),
-        'proveedor': new FormControl('',[
+        'proveedor': new FormControl('', [
             Validators.required
         ]),
-        'categoria': new FormControl('',[
+        'categoria': new FormControl('',  [
             Validators.required
         ]),
-        'clasificacion': new FormControl('',[
+        'clasificacion': new FormControl('', [
             Validators.required
         ]),
         'subclasificacion': new FormControl('',[
             Validators.required
         ]),
-        'empaque': new FormControl('',[
+        'empaque': new FormControl('', [
         ]),
-        'envase': new FormControl('',[
+        'envase': new FormControl('', [
         ]),
-        'unidadmedida': new FormControl('',[
+        'unidadmedida': new FormControl('', [
             Validators.required
         ]),
-        'cantidadEmpaque': new FormControl('',[
+        'cantidadEmpaque': new FormControl('', [
         ]),
 
-        'valorUnidadMedida': new FormControl('',[
+        'valorUnidadMedida': new FormControl('', [
             Validators.required
         ]),
-        'diasCaducidad': new FormControl('',[
+        'diasCaducidad': new FormControl('', [
             Validators.required
         ])
-    })
+    });
   }
 
-    onChangeClasificacion(event){
+    onChangeClasificacion(event) {
 
-      if(isNull(event)) {
+      if (event === null) {
           this.producto.IdClasificacion = null;
       } else {
           this.producto.IdClasificacion = event.IdClasificacion;
 
           this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
-              response =>{
-                  if(response.subclasificaciones){
+              response => {
+                  if (response.subclasificaciones) {
                       this.subclasificaciones = response.subclasificaciones;
                   }
-              }, error=>{
-                    Utilidades.showMsgError(Utilidades.mensajeError(error),'Producto');
+              }, error => {
+                    Utils.showMsgError(Utils.msgError(error), 'Producto');
               }
-          )
+          );
       }
 
     }
 
-    onChangeProveedor(event){
+    addProveedor(event) {
+      let filtro: Proveedor[] = [];
+      if (event === null || event === undefined) {
+          this.proveedoresAgregar = [];
+      } else {
+          filtro = this.proveedoresProducto.filter( proveedor => proveedor.IdProveedor === event.IdProveedor );
+          if (filtro.length >= 1) {
+              // Si el elemento a eliminar se vuelve agregar,eliminarlo de la lista proveedoresEliminar
+              this.proveedoresEliminar = this.proveedoresEliminar.filter( proveedor => proveedor.IdProveedor !== event.IdProveedor);
+          }
+          if (filtro.length  === 0) {
+              this.proveedoresAgregar.push(event);
+          }
+      }
+    }
 
-        if(isNull(event)) {
-            this.producto.IdProveedor = null;
+    removeProveedor(event) {
+      let filtro: Proveedor[] = [];
+        if (event === null) {
+            this.proveedoresEliminar = [];
         } else {
-            this.producto.IdProveedor = event.IdProveedor;
+            filtro = this.proveedoresProducto.filter( proveedor => proveedor.IdProveedor === event.value.IdProveedor);
+            if (filtro.length  === 0) {
+                // Si el elemento a agregar se vuelve eliminar,eliminarlo de la lista proveedoresAgregar
+                this.proveedoresAgregar = this.proveedoresAgregar.filter( proveedor => proveedor.IdProveedor !== event.value.IdProveedor);
+            }
+            if (filtro.length >= 1) {
+               this.proveedoresEliminar.push(filtro[0]);
+            }
         }
     }
 
-    onChangeSubclasificacion(event){
-        if(isNull(event) || isUndefined(event)){
+    onChangeSubclasificacion(event) {
+        if (event === null || event === undefined) {
             this.producto.IdSubClasificacion = null;
         } else {
             this.producto.IdSubClasificacion = event.IdSubClasificacion;
         }
     }
 
-    onChangeUnidadMedida(event){
-        if(isNull(event)) {
+    onChangeUnidadMedida(event) {
+        if (event === null) {
             this.producto.IdUnidadMedida = null;
         } else {
             this.producto.IdUnidadMedida = event.IdUnidadMedida;
@@ -227,32 +254,31 @@ export class UpdateProductoComponent implements OnInit {
     }
 
 
-    onChangeEnvase(event : ProductoProveedor){
+    onChangeEnvase(event: ProductoProveedor) {
 
-        if(isNull(event)) {
+        if (event === null) {
             this.producto.IdEnvase = null;
         } else {
             this.producto.IdEnvase = event.IdEnvase;
         }
     }
 
-    onChangeEmpaque(event){
+    onChangeEmpaque(event) {
 
-        if(isNull(event)) {
+        if (event === null) {
             this.producto.IdEmpaque = null;
         } else {
             this.producto.IdEmpaque = event.IdEmpaque;
         }
     }
 
-    onChangeCategoria(event){
+    onChangeCategoria(event) {
 
-      if(isNull(event)) {
+      if (event === null) {
           this.producto.IdCategoria = null;
       } else {
           this.producto.IdCategoria = event.IdCategoria;
       }
-
     }
 
 
@@ -265,28 +291,29 @@ export class UpdateProductoComponent implements OnInit {
 
   }
 
-  getProducto(){
-    this._route.params.forEach((params: Params)=>{
+  getProducto() {
+    this._route.params.forEach((params: Params) => {
 
-        let id = params['id'];
+        const id = params['id'];
         this.producto.IdProducto = id;
 
         this._productoService.getProducto(id).subscribe(
-          response =>{
-            if(response.producto){
-              this.producto = response.producto;
-              //Inicializar componentes de la vista
-              $(document).ready(()=>{
+          response => {
+            if (response.producto) {
+              this.producto = response.producto[0];
+              this.proveedoresProducto = this.producto.Proveedores;
+              // Inicializar componentes de la vista
+              $(document).ready(() => {
 
-                var imagenProducto =  this.url + 'getImagen/'+ CARPETA_PRODUCTOS + '/' + this.producto.Imagen;
-                var drEvent;
+                const imagenProducto =  this.url + 'getImagen/' + CARPETA_PRODUCTOS + '/' + this.producto.Imagen;
+                  let drEvent;
 
-                if(this.producto.Imagen.length > 0) {
+                if (this.producto.Imagen.length > 0) {
                     drEvent = $('.dropify').dropify({
                         defaultFile: imagenProducto
                     });
 
-                    this.filesToUpload = [];
+                    this.filesToUpload = null;
                 }  else {
                     drEvent = $('.dropify').dropify();
                 }
@@ -301,64 +328,59 @@ export class UpdateProductoComponent implements OnInit {
             } else {
               this._router.navigate(['/producto/list']);
             }
-          }, error =>{
+          }, error => {
 
           }
-        )
+        );
     });
   }
 
-  getSubClasificaciones(){
+  getSubClasificaciones() {
     this._subclasificacionService.getSubClasificaciones().subscribe(
-      response =>{
-        if(response.subclasificaciones){
+      response => {
+        if (response.subclasificaciones) {
           this.subclasificaciones = response.subclasificaciones;
         } else {
 
         }
-
-
-
-      },error=>{
-
+      }, error => {
+            Utils.showMsgError(Utils.msgError(error));
       }
-    )
+    );
   }
 
-  cargarImagen(){
-    //si es nulo significa que dejo la misma imagen que traia o en dado caso tambien imagen que no traia
-    if( (isNull(this.filesToUpload) && !this.removioImagen) ||  (this.producto.Imagen == '' && this.removioImagen)) {
+  cargarImagen() {
+    // si es nulo significa que dejo la misma imagen que traia o en dado caso tambien imagen que no traia
+    if ( ( this.filesToUpload === null && !this.removioImagen) ||  (this.producto.Imagen === '' && this.removioImagen)) {
         this.actualizarProducto();
 
-    } else if(isNull(this.filesToUpload) && this.removioImagen && this.producto.Imagen != ''){
-
-        this._deleteImageService.deleteImage(CARPETA_PRODUCTOS,this.producto.Imagen).subscribe(
+    } else if (this.filesToUpload === null && this.removioImagen && this.producto.Imagen !== '') {
+        this._deleteImageService.deleteImage(CARPETA_PRODUCTOS, this.producto.Imagen).subscribe(
             response => {
-                if(response.success){
+                if (response.success) {
                     this.producto.Imagen = '';
                     this.actualizarProducto();
                 }
-            }, error =>{
-                Utilidades.msgErrorImage(error,'Producto');
+            }, error => {
+                Utils.msgErrorImage(error, 'Producto');
             }
-        )
+        );
 
     } else {
-
         this._uploadService.makeFileRequest(
-            this.url+'uploadImage'
+            this.url + 'uploadImage'
             , CARPETA_PRODUCTOS
             , this.producto.Imagen
             , this.removioImagen
             , []
             , this.filesToUpload
             , 'token'
-            , 'image').then((result:any)=>{
+            , 'image').then((result: any) => {
             this.producto.Imagen = result.image;
             this.actualizarProducto();
 
-        },error =>{
-            Utilidades.msgErrorImage(error,'Producto');
+        }, error => {
+            Utils.msgErrorImage(error, 'Producto');
         });
     }
   }
@@ -372,108 +394,142 @@ export class UpdateProductoComponent implements OnInit {
       this.producto.DiasCaducidad = this.formUpdateProducto.value.diasCaducidad;
   }
 
-  actualizarProducto(){
+  actualizarProducto() {
     this.getValuesFormUpdate();
-
     this._productoService.updateProducto(this.producto).subscribe(
-      response =>{
-        if(response.success){
-          swal(
-            'Producto',
-            'El producto ha sido actualizado exitosamente!',
-            'success'
-          ).then(() => {
-            this._router.navigate(['/producto']);
-          })
+      response => {
+        if (response.success) {
+            this.actualizarProductoProveedor();
         }
-      }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),'Producto');
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error), 'Producto');
       }
-    )
+    );
+  }
+
+  actualizarProductoProveedor() {
+      this.proveedoresEliminar.forEach( (value, index) => {
+          const id = this.proveedoresProducto.filter( proveedor => proveedor.IdProveedor === value.IdProveedor)[0].IdProductoProveedor;
+          this._productoProveedorService.deleteProductoProveedor(id).subscribe(
+              response => {
+                  if (response.success) {
+                    console.log('La relacion producto-proveedor se ha inhabilitado correctamente');
+                  } else {
+                      Utils.showMsgInfo('Ha ocurrido un error al eliminar el proveedor: ' + value.NombreProveedor);
+                  }
+              }, error => {
+                  Utils.showMsgError(Utils.msgError(error));
+              }
+          );
+      });
+      this.proveedoresAgregar.forEach( (value, index) => {
+          value.IdProducto = this.producto.IdProducto;
+          this._productoProveedorService.createProductoProveedor(value).subscribe(
+              response => {
+                  if (response.IdProductoProveedor) {
+                      console.log('Se ha insertado una nueva relacion producto proveedor');
+                  } else {
+                      Utils.showMsgInfo('Ha ocurrido un error al relacionar el proveedor:  ' + value.NombreProveedor);
+                  }
+              }, error => {
+                  Utils.showMsgError(Utils.msgError(error));
+              }
+          );
+      });
+
+      swal(
+          'Producto',
+          'El producto ha sido actualizado exitosamente!',
+          'success'
+      ).then(() => {
+          this._router.navigate(['/producto']);
+      });
   }
 
 
-  fileChangeEvent(fileInput:any){
+  fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload);
     this.removioImagen = false;
 
   }
 
-    getProveedores(){
-        this._proveedorService.getProveedores().subscribe(
-            response =>{
-                if(response.proveedores){
+    getProveedores() {
+        this._proveedorService.getProveedores(null).subscribe(
+            response => {
+                if (response.proveedores) {
                     this.proveedores = response.proveedores;
+                    this.proveedores.forEach( (value, index) => {
+                       this.proveedores[index].disabled  = !value.Habilitado;
+                    });
                 }
-            }, error =>{
-                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }, error => {
+                Utils.showMsgError(Utils.msgError(error));
             }
-        )
+        );
     }
 
-    getClasificaciones(){
+    getClasificaciones() {
 
     this._clasificacionService.getClasificaciones().subscribe(
 
-      response =>{
-        if(response.clasificaciones){
+      response => {
+        if (response.clasificaciones) {
           this.clasificaciones = response.clasificaciones;
         }
-      }, error=>{
-
+      }, error => {
+            Utils.showMsgError(Utils.msgError(error));
       }
-    )
+    );
     }
 
-    getCategorias(){
+    getCategorias() {
 
     this._categoriaService.getCategoriasProductos().subscribe(
-      response =>{
-        if(response.categorias){
+      response => {
+        if (response.categorias) {
           this.categorias = response.categorias;
         }
-      }, error=>{
-
+      }, error => {
+            Utils.showMsgError(Utils.msgError(error));
       }
-    )
+    );
   }
 
-    getEmpaques(){
+    getEmpaques() {
         this._empaqueService.getEmpaques().subscribe(
-            response =>{
-                if(response.empaques){
+            response => {
+                if (response.empaques) {
                     this.empaques = response.empaques;
                 }
             }
-            , error =>{
-                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            , error => {
+                Utils.showMsgError(Utils.msgError(error));
             }
-        )
+        );
     }
 
-    getEnvases(){
+    getEnvases() {
         this._envaseService.getEnvases().subscribe(
-            response =>{
-                if(response.envases){
+            response => {
+                if (response.envases) {
                     this.envases = response.envases;
                 }
-            }, error =>{
-                Utilidades.showMsgError(Utilidades.mensajeError(error))
+            }, error => {
+                Utils.showMsgError(Utils.msgError(error));
             }
-        )
+        );
     }
 
-    getUnidadesDeMedida(){
+    getUnidadesDeMedida() {
         this._unidadService.getUnidadesMedida().subscribe(
             response => {
-                if(response.unidadesmedida){
+                if (response.unidadesmedida) {
                     this.unidades = response.unidadesmedida;
                 }
-            }, error =>{
-
+            }, error => {
+                Utils.showMsgError(Utils.msgError(error));
             }
-        )
+        );
     }
 
 }

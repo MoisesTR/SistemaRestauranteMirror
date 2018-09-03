@@ -8,8 +8,8 @@ import {HttpModule} from "@angular/http";
 import {DataTablesModule} from "angular-datatables";
 import {ProductoRoutingModule} from "../producto/producto.routing.module";
 import {SharedModuleModule} from "../shared-module/shared-module.module";
-import {TrabajadorService} from "../../services/trabajador.service";
-import {CargoService} from "../../services/cargo.service";
+import {TrabajadorService} from "../../services/shared/trabajador.service";
+import {CargoService} from "../../services/shared/cargo.service";
 import {Select2Module} from 'ng2-select2';
 import {NgSelectModule} from '@ng-select/ng-select';
 

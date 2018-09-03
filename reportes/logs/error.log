@@ -1,0 +1,93 @@
+2018-08-16T05:44:11.908Z - error: Error when processing render request Timeout Error: pdf generation not completed after 40000ms Error: Timeout Error: pdf generation not completed after 40000ms
+    at Timeout.setTimeout (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\jsreport-chrome-pdf\lib\chrome.js:28:19)
+    at ontimeout (timers.js:458:11)
+    at tryOnTimeout (timers.js:296:5)
+    at Timer.listOnTimeout (timers.js:259:5)
+2018-08-16T05:44:11.909Z - error: Error during processing request at http://localhost:5488/api/report/OrdersHeader
+2018-08-24T04:31:14.667Z - error: Error when processing OData POST: /odata/assets Error: Duplicated entry for key global helpers.js
+    at persist (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\jsreport-fs-store\lib\persistence.js:102:11)
+    at <anonymous>
+2018-08-24T04:47:16.847Z - error: Error when processing render request Timeout Error: pdf generation not completed after 40000ms Error: Timeout Error: pdf generation not completed after 40000ms
+    at Timeout.setTimeout [as _onTimeout] (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\jsreport-chrome-pdf\lib\chrome.js:28:19)
+    at ontimeout (timers.js:458:11)
+    at tryOnTimeout (timers.js:296:5)
+    at Timer.listOnTimeout (timers.js:259:5)
+2018-08-24T04:47:16.849Z - error: Error during processing request at http://localhost:8001/api/report/Orders
+2018-08-24T04:49:23.298Z - error: Error when processing render request Timeout Error: pdf generation not completed after 40000ms Error: Timeout Error: pdf generation not completed after 40000ms
+    at Timeout.setTimeout [as _onTimeout] (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\jsreport-chrome-pdf\lib\chrome.js:28:19)
+    at ontimeout (timers.js:458:11)
+    at tryOnTimeout (timers.js:296:5)
+    at Timer.listOnTimeout (timers.js:259:5)
+2018-08-24T04:49:23.299Z - error: Error during processing request at http://localhost:8001/api/report/Orders
+2018-08-24T05:33:45.660Z - error: Error when processing render request Page crashed! Error: Page crashed!
+    at Page._onTargetCrashed (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Page.js:156:24)
+    at CDPSession.Page.client.on.event (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Page.js:132:56)
+    at CDPSession.emit (events.js:160:13)
+    at CDPSession._onMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Connection.js:232:12)
+    at Connection._onMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Connection.js:119:19)
+    at WebSocket.emit (events.js:160:13)
+    at Receiver.receiverOnMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\websocket.js:720:20)
+    at Receiver.emit (events.js:160:13)
+    at Receiver.dataMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:414:14)
+    at Receiver.getData (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:346:17)
+    at Receiver.startLoop (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:133:22)
+    at Receiver._write (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:69:10)
+    at doWrite (_stream_writable.js:407:12)
+    at writeOrBuffer (_stream_writable.js:393:5)
+    at Receiver.Writable.write (_stream_writable.js:290:11)
+    at Socket.socketOnData (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\websocket.js:795:35)
+2018-08-24T05:33:45.676Z - error: Error during processing request at http://localhost:8001/api/report
+2018-08-24T05:33:45.676Z - error: Error when processing render request Page crashed! Error: Page crashed!
+    at Page._onTargetCrashed (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Page.js:156:24)
+    at CDPSession.Page.client.on.event (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Page.js:132:56)
+    at CDPSession.emit (events.js:160:13)
+    at CDPSession._onMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Connection.js:232:12)
+    at Connection._onMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\lib\Connection.js:119:19)
+    at WebSocket.emit (events.js:160:13)
+    at Receiver.receiverOnMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\websocket.js:720:20)
+    at Receiver.emit (events.js:160:13)
+    at Receiver.dataMessage (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:414:14)
+    at Receiver.getData (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:346:17)
+    at Receiver.startLoop (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:133:22)
+    at Receiver._write (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\receiver.js:69:10)
+    at doWrite (_stream_writable.js:407:12)
+    at writeOrBuffer (_stream_writable.js:393:5)
+    at Receiver.Writable.write (_stream_writable.js:290:11)
+    at Socket.socketOnData (C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\node_modules\puppeteer\node_modules\ws\lib\websocket.js:795:35)
+2018-08-24T05:33:45.676Z - error: Error during processing request at http://localhost:8001/api/report
+2018-08-24T06:59:51.503Z - error: Error when processing OData PATCH: /odata/templates(b27rGmmolyE6HzW3) Error: EPERM: operation not permitted, rename 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~~servicio~servicio' -> 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~servicio~servicio'
+2018-08-25T03:26:35.643Z - error: Error when processing OData PATCH: /odata/templates(b27rGmmolyE6HzW3) Error: EPERM: operation not permitted, rename 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~~servicio~servicio' -> 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~servicio~servicio'
+2018-08-25T05:14:46.173Z - error: Error when processing OData PATCH: /odata/templates(b27rGmmolyE6HzW3) Error: EPERM: operation not permitted, rename 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~~servicio~servicio' -> 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~servicio~servicio'
+2018-08-25T06:46:22.735Z - error: Error when processing OData PATCH: /odata/templates(3iLO1sFvGxW7a5KC) Error: EPERM: operation not permitted, rename 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~~proveedores~proveedores' -> 'C:\Desarrollo\Atomic Developers\SistemaRestaurante\reportes\data\templates\~proveedores~proveedores'
+2018-08-25T08:18:47.879Z - error: Error when starting http server on port 8001 Error: listen EADDRINUSE :::8001
+    at Object._errnoException (util.js:1003:13)
+    at _exceptionWithHostPort (util.js:1024:20)
+    at Server.setupListenHandle [as _listen2] (net.js:1366:14)
+    at listenInCluster (net.js:1407:12)
+    at Server.listen (net.js:1495:7)
+    at Promise (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:23:12)
+    at Promise._execute (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\bluebird\js\release\debuggability.js:303:9)
+    at Promise._resolveFromExecutor (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\bluebird\js\release\promise.js:483:18)
+    at new Promise (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\bluebird\js\release\promise.js:79:10)
+    at startAsync (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:17:10)
+    at steps.push (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:51:14)
+    at Object.start (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:125:13)
+    at Object.reporter.initializeListeners.add (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:273:30)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:160:7)
+2018-08-25T08:18:47.919Z - error: Error occured during reporter init Error: listen EADDRINUSE :::8001
+    at Object._errnoException (util.js:1003:13)
+    at _exceptionWithHostPort (util.js:1024:20)
+    at Server.setupListenHandle [as _listen2] (net.js:1366:14)
+    at listenInCluster (net.js:1407:12)
+    at Server.listen (net.js:1495:7)
+    at Promise (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:23:12)
+    at Promise._execute (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\bluebird\js\release\debuggability.js:303:9)
+    at Promise._resolveFromExecutor (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\bluebird\js\release\promise.js:483:18)
+    at new Promise (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\bluebird\js\release\promise.js:79:10)
+    at startAsync (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:17:10)
+    at steps.push (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:51:14)
+    at Object.start (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:125:13)
+    at Object.reporter.initializeListeners.add (D:\Desarrollo\gitlab\SistemaRestaurante\reportes\node_modules\jsreport-express\lib\reporter.express.js:273:30)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:160:7)

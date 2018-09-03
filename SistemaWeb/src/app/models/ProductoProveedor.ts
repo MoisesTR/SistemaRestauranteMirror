@@ -33,6 +33,7 @@ export class ProductoProveedor{
     public Descuento : number ;
     public Retencion2 : number;
     public TotalDetalle : number;
+    public Remover: boolean;
 
 	constructor(
     ){

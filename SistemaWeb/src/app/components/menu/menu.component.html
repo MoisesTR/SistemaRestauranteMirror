@@ -2,6 +2,7 @@
 <div class="background-gray">
 
   <div class="chang-skin">
+
     <!-- Sidebar navigation -->
     <mdb-sidenav #sidenav class="sn-bg-7 fixed" [fixed]="true">
 
@@ -10,16 +11,13 @@
         <li>
           <div class="logo-wrapper sn-ad-avatar-wrapper">
             <img src="{{this.url + 'getImagen/' + 'trabajadores' + '/' + Usuario.Imagen}}" class="img-fluid ">
-            <div class="rgba-stylish-strong">
-              <p class="user white-text" *ngIf="Usuario">{{Usuario.Username}}
-                <br>{{Usuario.NombreCargo}}</p>
-              <p class="user white-text" *ngIf="!Usuario">Indefinido
-                <br>Cargo</p>
-            </div>
+            <p class="user white-text" *ngIf="Usuario">{{Usuario.Username}}
+              <br>{{Usuario.NombreCargo}}</p>
+            <p class="user white-text" *ngIf="!Usuario">Indefinido
+              <br>Cargo</p>
           </div>
         </li>
         <!--/. Logo -->
-        <div class="dropdown-divider"></div>
       </logo>
 
 
@@ -27,7 +25,7 @@
         <li>
           <ul class="collapsible collapsible-accordion">
             <mdb-squeezebox [multiple]="false" aria-multiselectable="false">
-              <mdb-item *ngFor="let menu of menues">
+              <mdb-item class="{{menu.Clase}}" *ngFor="let menu of menues">
 
                 <mdb-item-head [routerLink]="[menu.Ruta]" mdbRippleRadius>
                   <i class="fa">
@@ -41,175 +39,17 @@
                   </ul>
                 </mdb-item-body>
               </mdb-item>
-
-
-              <!--&lt;!&ndash; Facturas &ndash;&gt;-->
-              <!--<mdb-item *ngFor="let menu of menues">-->
-                <!--<mdb-item-head class="no-collase">-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/product.png" height="18">-->
-                  <!--</i> {{menu.Nombre}}</mdb-item-head>-->
-                <!--<mdb-item-body *ngfor="let submenu of menu.Submenues">-->
-                  <!--<ul>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>{{submenu.Nombre}}</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Proveedor</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Productos</a>-->
-                    <!--</li>-->
-                  <!--</ul>-->
-                <!--</mdb-item-body>-->
-              <!--</mdb-item>-->
-
-
-
-              <!--&lt;!&ndash; Facturas &ndash;&gt;-->
-              <!--<mdb-item>-->
-                <!--<mdb-item-head mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/product.png" height="18">-->
-                  <!--</i> Facturas</mdb-item-head>-->
-                <!--<mdb-item-body>-->
-                  <!--<ul>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>Factura</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Proveedor</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Productos</a>-->
-                    <!--</li>-->
-                  <!--</ul>-->
-                <!--</mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Reportes &ndash;&gt;-->
-              <!--<mdb-item class="no-collase">-->
-                <!--<mdb-item-head [routerLink]="['/reportes']" mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/home.png" height="18">-->
-                  <!--</i> Reportes</mdb-item-head>-->
-                <!--<mdb-item-body></mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Catálogos &ndash;&gt;-->
-              <!--<mdb-item>-->
-                <!--<mdb-item-head mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/catalogo.png" height="18">-->
-                  <!--</i> Catálogos</mdb-item-head>-->
-                <!--<mdb-item-body>-->
-                  <!--<ul>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/factura/list']" mdbRippleRadius>Lista Facturas</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/producto']" mdbRippleRadius>Lista Productos</a>-->
-                    <!--</li><li routerLinkActive="active-submenu">-->
-                    <!--<a class="waves-effect" [routerLink]="['/proveedor']" mdbRippleRadius>Lista Proveedores</a>-->
-                  <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/categorias']" mdbRippleRadius>Categoria</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/clasificacion-productos']" mdbRippleRadius>Clasificación</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/subclasificacion-productos']" mdbRippleRadius>Subclasificación</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/empaques']" mdbRippleRadius>Empaques</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/envases']" mdbRippleRadius>Envases</a>-->
-                    <!--</li>-->
-                    <!--<li routerLinkActive="active-submenu">-->
-                      <!--<a class="waves-effect" [routerLink]="['/unidadmedida']" mdbRippleRadius>Unidad de Medida</a>-->
-                    <!--</li>-->
-                  <!--</ul>-->
-                <!--</mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Sucursales &ndash;&gt;-->
-              <!--<mdb-item class="no-collase">-->
-                <!--<mdb-item-head [routerLink]="['/sucursales']" mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/sucursales.png" height="18">-->
-                  <!--</i> Sucursales</mdb-item-head>-->
-                <!--<mdb-item-body></mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Provedores &ndash;&gt;-->
-              <!--<mdb-item>-->
-                <!--<mdb-item-head mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/proveedores.png" height="18">-->
-                  <!--</i> Proveedores</mdb-item-head>-->
-                <!--<mdb-item-body>-->
-                  <!--<ul>-->
-
-                  <!--</ul>-->
-                <!--</mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Trabajador &ndash;&gt;-->
-              <!--<mdb-item class="no-collase">-->
-                <!--<mdb-item-head [routerLink]="['/trabajador']" mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/trabajadores.png" height="18">-->
-                  <!--</i> Trabajadores</mdb-item-head>-->
-                <!--<mdb-item-body></mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Cargos &ndash;&gt;-->
-              <!--<mdb-item class="no-collase">-->
-                <!--<mdb-item-head [routerLink]="['/cargo']" mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/roles.png" height="18">-->
-                  <!--</i> Cargos</mdb-item-head>-->
-                <!--<mdb-item-body></mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Usuarios &ndash;&gt;-->
-              <!--<mdb-item class="no-collase">-->
-                <!--<mdb-item-head [routerLink]="['/usuario']" mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/usuarios.png" height="18">-->
-                  <!--</i> Usuarios</mdb-item-head>-->
-                <!--<mdb-item-body></mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Roles &ndash;&gt;-->
-              <!--<mdb-item class="no-collase">-->
-                <!--<mdb-item-head [routerLink]="['/rol']" mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/usuarios.png" height="18">-->
-                  <!--</i> Roles</mdb-item-head>-->
-                <!--<mdb-item-body></mdb-item-body>-->
-              <!--</mdb-item>-->
-
-              <!--&lt;!&ndash; Salidas &ndash;&gt;-->
-              <!--<mdb-item class="no-collase">-->
-                <!--<mdb-item-head [routerLink]="['/salida-producto']" mdbRippleRadius>-->
-                  <!--<i class="fa">-->
-                    <!--<img src="./assets/img/icon/facturas.png" height="18"></i> Salidas</mdb-item-head>-->
-                <!--<mdb-item-body></mdb-item-body>-->
-              <!--</mdb-item>-->
-
             </mdb-squeezebox>
           </ul>
         </li>
       </links>
-      <div class="sidenav-bg mask-light"></div>
+      <div class="sidenav-bg rgba-black-light"></div>
     </mdb-sidenav>
     <!--/. Sidebar navigation -->
 
     <!-- Navbar -->
-    <mdb-navbar SideClass="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav" [containerInside]="false">
+    <mdb-navbar SideClass="red-chang white-text navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav"
+      [containerInside]="false">
 
       <navlinks class="navbar-container">
         <!-- SideNav slide-out button -->
@@ -221,30 +61,16 @@
         <!--/. SideNav slide-out button -->
       </navlinks>
 
-        <logo>
-            <app-breadcrumb>
+      <logo>
+        <div id="btn-back-page">
+          <button class="btn btn-flat btn-sm" (click)="backtoPage()" mdbWavesEffect>
+            <i class="fa fa-arrow-left mr-1"></i>
+          </button>
+        </div>
+        <app-breadcrumb>
 
-            </app-breadcrumb>
-        </logo>
-
-      <!--<logo>-->
-        <!--&lt;!&ndash; Breadcrumb&ndash;&gt;-->
-         <!--<div class="breadcrumbs breadcrumb-dn mr-auto">-->
-          <!--<a class="navbar-brand" href="#!">-->
-            <!--<img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="">-->
-          <!--</a>-->
-          <!--<ol class="breadcrumb d-inline-flex pl-0 pt-0">-->
-              <!--<li class="breadcrumb-item"><a class="white-text" href="#!">Productos</a></li>-->
-              <!--<li class="breadcrumb-item active">Agregar</li>-->
-          <!--</ol>-->
-        <!--</div> -->
-        <!--&lt;!&ndash;/. Breadcrumb&ndash;&gt;-->
-        <!--&lt;!&ndash; Logo &ndash;&gt;-->
-        <!--<div class="breadcrumbs breadcrumb-dn mr-auto">-->
-          <!--<p>Restaurante de la Familia Chang</p>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;/. Logo &ndash;&gt;-->
-      <!--</logo>-->
+        </app-breadcrumb>
+      </logo>
 
       <navlinks>
         <ul class="nav navbar-nav nav-flex-icons ml-auto ie-double-nav">
@@ -264,7 +90,7 @@
             </a>
             <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
               <a class="dropdown-item " (click)="verInformacionUsuario()">Mis datos</a>
-              <a class="dropdown-item " (click)="logout()">Salir</a>
+              <a class="dropdown-item " (click)="style.show()">Salir</a>
             </div>
           </li>
         </ul>
@@ -279,12 +105,12 @@
   <main id="top-panel">
     <div class="container-fluid mt-5">
 
-      <button class="btn btn-floating btn-large orange-chang waves-light" mdbPageScroll href="#top-panel" mdbRippleRadius style="right:1%; bottom:35px; visibility:hidden"
+      <button class="btn btn-floating btn-large orange-chang waves-light" mdbPageScroll href="#top-panel" mdbRippleRadius style="right:1%; bottom:35px; visibility:hidden; z-index: 100 !important;"
         [pageScrollDuration]="750" id="backToTop">
         <i class="fa fa-arrow-up"></i>
       </button>
 
-      <router-outlet></router-outlet>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
       <div style="height: 40px"></div>
 
     </div>
@@ -292,3 +118,57 @@
   <!--/Main layout-->
 
 </div>
+
+<!-- Modal categorias crear -->
+<div mdbModal #style="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Contenido-->
+    <div class="modal-content cerrar-sesion">
+
+      <!--Header-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Cerrar Sesión</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Cuerpo Modal-->
+      <div class="modal-body mb-0">
+        <div class="text-center">
+          <i class="fa fa-check fa-4x mb-3 animated rotateIn red-chang-text"></i>
+          <p>Esta seguro de cerrar la sesión?.</p>
+          <hr>
+          <a type="button" class="btn red-chang waves-light white-text" (click)="logout()" mdbWavesEffect>SI</a>
+          <a type="button" class="btn btn-outline-warning" data-dismiss="modal" (click)="style.hide()" mdbWavesEffect>NO</a>
+        </div>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>
+<!-- 
+<div mdbModal #style="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Cerrar Sesión</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
+          <p>Estas seguro de cerrar la sesión?.</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary waves-light" (click)="logout()" mdbWavesEffect>SI</a>
+        <a type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="style.hide()" mdbWavesEffect>NO</a>
+      </div>
+    </div>
+  </div>
+</div> -->

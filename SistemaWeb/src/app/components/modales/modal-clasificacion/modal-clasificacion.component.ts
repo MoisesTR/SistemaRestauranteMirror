@@ -2,14 +2,13 @@ import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild}
 import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoriaProducto} from '../../../models/CategoriaProducto';
-import {ModalDirective} from '../../../typescripts/free/modals';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CategoriaProductoService} from '../../../services/categoria-producto.service';
-import {ClasificacionProductoService} from '../../../services/clasificacion-producto.service';
-import swal from "sweetalert2";
-import {Utilidades} from '../../Utilidades';
+import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
+import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
+import swal from 'sweetalert2';
+import {Utils} from '../../Utils';
 import {CustomValidators} from '../../../validadores/CustomValidators';
-import {isNull, isUndefined} from 'util';
 
 @Component({
   selector: 'modal-clasificacion',
@@ -18,23 +17,23 @@ import {isNull, isUndefined} from 'util';
 })
 export class ModalClasificacionComponent implements OnInit {
 
-  public clasificacion : ClasificacionProducto;
+  public clasificacion: ClasificacionProducto;
   public formAddClasificacion: FormGroup;
-  public categorias : CategoriaProducto[];
-  public tituloPantalla : string = 'Clasificación';
-  public isVisible: boolean = false;
+  public categorias: CategoriaProducto[];
+  public tituloPantalla  = 'Clasificación';
+  public isVisible = false;
 
-  @ViewChild('modalAddClasificacion') modalAddClasificacion : ModalDirective;
-  @Input() mostrarModal : boolean;
-  @Output() resultadoModal : EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
-  @Output() resultadoConsulta : EventEmitter<boolean> = new EventEmitter<boolean>();
+  @ViewChild('modalAddClasificacion') modalAddClasificacion: ModalDirective;
+  @Input() mostrarModal: boolean;
+  @Output() resultadoModal: EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
+  @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
       private _route: ActivatedRoute
       , private _router: Router
-      , private _clasificacionService : ClasificacionProductoService
-      , private _categoriaService : CategoriaProductoService
-      , private formBuilderClasificacion : FormBuilder
+      , private _clasificacionService: ClasificacionProductoService
+      , private _categoriaService: CategoriaProductoService
+      , private formBuilderClasificacion: FormBuilder
   ) {
       this.clasificacion = new ClasificacionProducto();
   }
@@ -46,19 +45,19 @@ export class ModalClasificacionComponent implements OnInit {
       }
   }
 
-  eventoClick(event){
-      console.log(event.dismissReason)
-      if( !isNull(event.dismissReason) && !isUndefined(event.dismissReason) )
-          if( (event.dismissReason).toString() == ( 'backdrop-click')) {
+  eventoClick(event) {
+      if ( event.dismissReason !== null && event.dismissReason !== undefined ) {
+          if ( (event.dismissReason).toString() === ( 'backdrop-click')) {
               this.hideModal();
           }
+      }
   }
 
   show() {
     this.isVisible = true;
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.modalAddClasificacion.show();
   }
 
@@ -69,22 +68,22 @@ export class ModalClasificacionComponent implements OnInit {
   }
 
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddClasificacion(){
+  initFormAddClasificacion() {
 
       this.formAddClasificacion = this.formBuilderClasificacion.group({
-          'nombreClasificacion': new FormControl('',[
+          'nombreClasificacion': new FormControl('', [
               Validators.required
               , Validators.minLength(5)
               , Validators.maxLength(100)
-              , CustomValidators.espaciosVacios
+              , CustomValidators.nospaceValidator
           ])
-          , 'descripcionClasificacion': new FormControl('',[
+          , 'descripcionClasificacion': new FormControl('', [
               Validators.required
               , Validators.minLength(5)
               , Validators.maxLength(300)
-              , CustomValidators.espaciosVacios
+              , CustomValidators.nospaceValidator
           ])
-          , 'categoria': new FormControl('',[
+          , 'categoria': new FormControl('', [
               Validators.required
           ])
       });
@@ -94,28 +93,28 @@ export class ModalClasificacionComponent implements OnInit {
   getCategorias() {
       this._categoriaService.getCategoriasProductos().subscribe(
           response => {
-              if(response.categorias){
+              if (response.categorias) {
                   this.categorias = response.categorias;
               } else {
-                  Utilidades.showMsgInfo('Ha ocurrido un error al cargar las categorias',this.tituloPantalla);
+                  Utils.showMsgInfo('Ha ocurrido un error al cargar las categorias', this.tituloPantalla);
               }
           }, error => {
-              Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-          }, () =>{
+              Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+          }, () => {
 
           }
-      )
+      );
   }
 
-  createClasificacion(){
+  createClasificacion() {
 
       this.clasificacion.DescripcionClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
       this.clasificacion.NombreClasificacion = this.formAddClasificacion.value.nombreClasificacion;
 
       this._clasificacionService.createClasificacionProducto(this.clasificacion).subscribe(
-          response =>{
+          response => {
 
-              if(response.IdClasificacion){
+              if (response.IdClasificacion) {
                   swal(
                       'Clasificación',
                       'La clasificación ha sido creada exitosamente!',
@@ -125,20 +124,19 @@ export class ModalClasificacionComponent implements OnInit {
                       this.formAddClasificacion.reset();
                       this.clasificacion = new ClasificacionProducto();
                       this.resultadoConsulta.emit(true);
-                  })
+                  });
               } else {
-                  Utilidades.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
+                  Utils.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!', this.tituloPantalla);
               }
           },
-          error=>{
-              Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+          error => {
+              Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
           }
-      )
-      // this.formAddClasificacion.reset;
+      );
   }
 
   onChangeCategoria(event) {
-        if(isNull(event)){
+        if (event === null) {
             this.clasificacion.IdCategoria = null;
         } else {
             this.clasificacion.IdCategoria = event.IdCategoria;

@@ -1,5 +1,5 @@
 <!-- Modal Agregar unidad de medida -->
-<div (click)="eventoClick($event)" mdbModal [config]="{ignoreBackdropClick: true}" #modalAddUnidadMedida="mdb-modal" class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog"
+<div (click)="eventClick($event)" mdbModal [config]="{ignoreBackdropClick: true}" #modalAddUnidadMedida="mdb-modal" class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal " role="document">
     <!--Contenido-->
@@ -31,7 +31,6 @@
           </ng-select>
           <show-errors [control]="formAddUnidadMedida.controls['clasificacionesUnidad']"></show-errors>
           <div class="md-form">
-            <br>
             <h6 class="orange-chang-text">Simbolo</h6>
             <input type="text" id="simbolounidadmedida" class="input-modal-sm letras" name="simbolounidadmedida" formControlName="simboloUnidadMedida"
                    required>

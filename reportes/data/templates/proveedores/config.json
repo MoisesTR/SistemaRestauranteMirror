@@ -1,0 +1,19 @@
+{
+    "shortid": "BkZfjOAUQ",
+    "name": "proveedores",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "modificationDate": {
+        "$$date": 1535797693449
+    },
+    "_id": "3iLO1sFvGxW7a5KC",
+    "$entitySet": "templates",
+    "scripts": [
+        {
+            "shortid": "B1CBndqU7"
+        }
+    ]
+}

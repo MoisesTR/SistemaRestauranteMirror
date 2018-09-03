@@ -67,15 +67,32 @@ function getProductosByProveedorId(req, res) {
         })
 }
 
-function changeStateProductoProveedor(req, res) {
-    let data = matchedData(req, {locations:['query','param']});
+function getProductosByProveedorIdFiltrado(req, res) {
+    var data = req.params;
     var aoj = [];
+
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int, data.IdProveedor);
+    db.pushAOJParam(aoj, 'IdFactura', sql.Int, data.IdFactura);
+    db.storedProcExecute('[USP_GET_PRODUCTOS_PROVEEDOR_FILTRADOS]', aoj)
+        .then((results) => {
+            res.status(200).json({ productos: results.recordset })
+        }).catch((err) => {
+            res.status(500).json(mssqlErrors(err));;
+        })
+}
+
+
+
+function changeStateProductoProveedor(req, res) {
+    let data = matchedData(req, {locations:['query','params','body']});
+    var aoj = [];
+    console.log(data);
     db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int(), data.IdProductoProveedor);
     db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('USP_DISP_PRODUCTO_PROVEEDOR', aoj)
         .then((results) => {
             let afectadas = results.rowsAffected[0];
-            let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+            let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
             res.status(200).json((afectadas > 0) ? { success: 'Producto Proveedor ' + accion + ' con exito!' } : { failed: 'No existe relacion entre el producto y proveedor!' })
             console.log('Producto cambiado de estado con exito!')
         }).catch((err) => {
@@ -89,5 +106,6 @@ module.exports = {
     getProductosProveedores,
     getProductoProveedorById,
     getProveedoresOfProducto,
-    getProductosByProveedorId
+    getProductosByProveedorId,
+    getProductosByProveedorIdFiltrado
 }

@@ -1,15 +1,13 @@
-///Modulos
+// Modulos
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {MenuRoutingModule} from './menu.routing.module';
-//Modulos propios
+// Modulos propios
 import {SharedModuleModule} from '../shared-module/shared-module.module';
 import {TrabajadorModule} from '../trabajador/trabajador.module';
 import {UsuarioModule} from '../usuario/usuario.module';
 import {ProductoModule} from '../producto/producto.module';
 import {FacturaModule} from '../factura/factura.module';
-import {MDBBootstrapModulePro} from '../../typescripts/pro';
-import {MDBBootstrapModule} from '../../typescripts/free';
-//Componentes
+// Componentes
 import {ClasificacionProductoComponent} from '../clasificacion-producto/clasificacion-producto.component';
 import {SucursalComponent} from '../sucursal/sucursal.component';
 import {CategoriaProductoComponent} from '../categoria-producto/categoria-producto.component';
@@ -27,36 +25,19 @@ import {UnidadmedidaComponent} from '../unidadmedida/unidadmedida.component';
 import {DashBoardComponent} from '../dash-board/dash-board.component';
 import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
 import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
+import {ShowFacturaComponent} from '../factura/show-factura/show-factura.component';
 import {SalidaProductoComponent} from '../salida-producto/salida-producto.component';
-//Servicios
-import {CategoriaProductoService} from '../../services/categoria-producto.service';
-import {ClasificacionProductoService} from '../../services/clasificacion-producto.service';
-import {SubClasificacionProductoService} from '../../services/sub-clasificacion-producto.service';
-import {ProveedorService} from '../../services/proveedor.service';
-import {SucursalService} from '../../services/sucursal.service';
-import {UsuarioService} from '../../services/usuario.service';
-import {EnvaseService} from '../../services/envase.service';
-import {EmpaqueService} from '../../services/empaque.service';
-import {BodegaSucursalService} from '../../services/bodega-sucursal.service';
-import {TrabajadorService} from '../../services/trabajador.service';
-import {UploadService} from '../../services/upload.service';
-import {ProductoProveedorService} from '../../services/producto-proveedor.service';
-import {ClasificacionUnidadMedidaService} from '../../services/clasificacion-unidad-medida.service';
-import {TelefonosucursalService} from '../../services/telefonosucursal.service';
-import {AuthGuardService} from '../../services/auth/auth-guard.service';
-import {AuthService} from '../../services/auth/auth.service';
-import {JwtHelper} from 'angular2-jwt';
-//Directivas
+import {UpdateFacturaComponent} from '../factura/update-factura/update-factura.component';
+
+// Directivas
 import {TelephoneNumberFormatValidatorDirective} from '../../validadores/telephoneNumber';
 import {BirthYearValidatorDirective} from '../../validadores/birthYear';
-import {DatePipe} from '@angular/common';
-import {DeleteImageService} from '../../services/delete-image-service';
 import {InicioComponent} from '../inicio/inicio.component';
 import {ProveedorModule} from '../proveedor/proveedor.module';
 import {ReportesComponent} from '../reportes/reportes.component';
-import {UnidadMedidaService} from '../../services/unidad-medida.service';
-import {MenuService} from '../../services/menu-service';
-
+import {MDBBootstrapModulesPro} from 'ng-uikit-pro-standard';
+import {ServiceModule} from '../../services/service.module';
+import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 
 @NgModule({
   declarations: [
@@ -78,57 +59,28 @@ import {MenuService} from '../../services/menu-service';
     , HabilitadosComponent
     , UnidadmedidaComponent
     , DashBoardComponent
-      , InicioComponent
+    , InicioComponent
     , SalidaProductoComponent
-    , InformacionFacturaComponent
-    , BuscarGeneralFacturaComponent
     , ReportesComponent
-
-
+    , ConfiguracionComponent
   ],
   imports: [
       SharedModuleModule
+    , ServiceModule
     , MenuRoutingModule
     , ProductoModule
     , FacturaModule
     , TrabajadorModule
-      , ProveedorModule
+    , ProveedorModule
     , UsuarioModule
-    , MDBBootstrapModule
-    , MDBBootstrapModulePro
-
+    , MDBBootstrapModulesPro
   ],
   exports: [
     MenuComponent
     , TelephoneNumberFormatValidatorDirective
     , BirthYearValidatorDirective
-
-
   ],
-  providers: [
-    CategoriaProductoService
-    , ClasificacionProductoService
-    , SubClasificacionProductoService
-    , ProveedorService
-    , SucursalService
-    , UsuarioService
-    , EnvaseService
-    , EmpaqueService
-    , BodegaSucursalService
-    , TrabajadorService
-    , UploadService
-    , ProductoProveedorService
-    , UnidadMedidaService
-    , MenuService
-    , ClasificacionUnidadMedidaService
-    , TelefonosucursalService
-    , AuthGuardService
-    , AuthService
-    , JwtHelper
-      , DatePipe
-      , DeleteImageService
-
-  ],
+  providers: [],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
 

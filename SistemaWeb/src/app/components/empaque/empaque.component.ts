@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {EmpaqueService} from '../../services/empaque.service';
+import {EmpaqueService} from '../../services/shared/empaque.service';
 import {Empaque} from '../../models/Empaque';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {idioma_espanol} from '../../services/global';
+import {idioma_espanol} from '../../services/shared/global';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {Utilidades} from '../Utilidades';
-import {ModalDirective} from '../../typescripts/free/modals';
+import {Utils} from '../Utils';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 
 declare var $:any;
 
@@ -23,7 +23,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
   public empaque: Empaque;
   public empaques: Empaque[];
-  public tituloPantalla : string = 'Empaque';
+  public tituloPantalla = 'Empaque';
 
   public formAddEmpaque: FormGroup;
   public formUpdateEmpaque: FormGroup;
@@ -98,7 +98,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
                   key: '1',
                   className: 'btn orange-chang float-right-dt',
                   action:  (e, dt, node, config) => {
-                      this.InvocarModal(this.modalAddEmpaque,this.formAddEmpaque);
+                      this.InvocarModal(this.modalAddEmpaque, this.formAddEmpaque);
                   }
               }
           ]
@@ -118,31 +118,31 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
       this._EmpaqueServicio.getEmpaques().subscribe(
         response => {
-          if(response.empaques){
-            this.empaques= response.empaques;
+          if (response.empaques) {
+            this.empaques = response.empaques;
             this.dtTrigger.next();
           }
-        }, error =>{
+        }, error => {
 
         }
       );
   }
 
-  getEmpaquesRender(){
+  getEmpaquesRender() {
     this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
-        if(response.empaques){
+        if(response.empaques) {
           this.empaques = response.empaques;
           this.rerender();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
   }
 
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddEmpaque(){
+  initFormAddEmpaque() {
 
     this.formAddEmpaque = this.formBuilderEmpaque.group({
       'nombreEmpaque': new FormControl('',[
@@ -150,14 +150,14 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
 
       , 'descripcionEmpaque': new FormControl('',[
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
       ])
     });
 
@@ -171,14 +171,14 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(100),
-        CustomValidators.espaciosVacios
+        CustomValidators.nospaceValidator
       ])
       , 'descripcionEmpaque': new FormControl('',
         [
             Validators.required,
             Validators.minLength(5),
             Validators.maxLength(100),
-            CustomValidators.espaciosVacios
+            CustomValidators.nospaceValidator
         ])
     });
   }
@@ -200,48 +200,48 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
             this.formAddEmpaque.reset();
             this.empaque = new Empaque();
             this.getEmpaquesRender();
-          })
+          });
 
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error el insertar el empaque, intenta nuevamnete!!',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error el insertar el empaque, intenta nuevamnete!!', this.tituloPantalla);
         }
         this.getEmpaquesProductos();
       }, error => {
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     )
   }
 
-  getValuesFormAddEmpaque(){
+  getValuesFormAddEmpaque() {
     this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
     this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
   }
 
-  getValuesFormUpdateEmpaque(){
-    this.empaque.NombreEmpaque= this.formUpdateEmpaque.value.nombreEmpaque;
+  getValuesFormUpdateEmpaque() {
+    this.empaque.NombreEmpaque = this.formUpdateEmpaque.value.nombreEmpaque;
     this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
   }
-  getEmpaquesProductos(){
+  getEmpaquesProductos() {
     this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
 
-        if(!response.empaques){
-          Utilidades.showMsgInfo('Ha ocurrido un error al obtener los empaques',this.tituloPantalla);
+        if (!response.empaques) {
+          Utils.showMsgInfo('Ha ocurrido un error al obtener los empaques', this.tituloPantalla);
         } else {
           this.empaques = response.empaques;
         }
       },error => {
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
     }
-    )
+    );
   }
 
   updateEmpaque(Modal){
 
     this.getValuesFormUpdateEmpaque();
     this._EmpaqueServicio.updateEmpaque(this.empaque).subscribe(
-      response =>{
-        if(response.success){
+      response => {
+        if (response.success) {
           swal(
             'Empaque',
             'El empaque ha sido actualizado exitosamente!',
@@ -251,59 +251,55 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
             this.formUpdateEmpaque.reset();
             this.getEmpaquesRender();
             this.empaque = new Empaque();
-          })
-
+          });
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error en la actualización',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error en la actualización', this.tituloPantalla);
         }
       }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
-
-
+    );
   }
 
   deleteEmpaque(IdEmpaque){
 
     swal({
-      title: "Estas seguro(a)?",
-      text: "El empaque sera eliminado permanentemente!",
+      title: 'Estas seguro(a)?',
+      text: 'El empaque sera eliminado permanentemente!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminalo!'
-    }).catch(swal.noop).then((eliminar) => {
-      if (eliminar) {
-        this._EmpaqueServicio.deleteEmpaque(IdEmpaque).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                'Eliminado!',
-                'El empaque ha sido eliminado exitosamente',
-                'success'
-              ).then(() => {
-               this.getEmpaquesRender();
-              })
-            } else {
-                Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
-            }
-          }, error =>{
-            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-          }
-        )
-
-      }
+      confirmButtonText: 'Si, Eliminalo!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+     if (result.value) {
+         this._EmpaqueServicio.deleteEmpaque(IdEmpaque).subscribe(
+             response => {
+                 if (response.success) {
+                     swal(
+                         'Eliminado!',
+                         'El empaque ha sido eliminado exitosamente',
+                         'success'
+                     ).then(() => {
+                         this.getEmpaquesRender();
+                     });
+                 } else {
+                     Utils.showMsgInfo('Ha ocurrido un error al eliminar', this.tituloPantalla);
+                 }
+             }, error => {
+                 Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+             }
+         );
+     } else if (result.dismiss === swal.DismissReason.cancel) {}
     });
-
   }
 
   InvocarModal(Modal, Formulario) {
-    Utilidades.invocacionModal(Modal,Formulario);
+    Utils.invocacionModal(Modal, Formulario);
   }
 
-  invocarModalUpdate(Modal,Empaque : Empaque){
+  invocarModalUpdate(Modal, Empaque: Empaque) {
 
       this.empaque.IdEmpaque  = Empaque.IdEmpaque;
       this.empaque.NombreEmpaque = Empaque.NombreEmpaque;

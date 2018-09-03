@@ -69,9 +69,23 @@ CREATE PROCEDURE USP_GET_PRODUCTO(
 	@IdProducto INT
 )
 AS BEGIN
-	SELECT	IdProducto,	C.IdCategoria,	CP.NombreCategoria,	P.IdSubClasificacion,	SC.NombreSubclasificacion,
-			C.IdClasificacion,	C.NombreClasificacion,	IdEstado,	NombreProducto,	Descripcion,	Imagen,	P.DiasCaducidad,	P.Habilitado,
-			P.CreatedAt,P.UpdateAt 
+	SELECT P.IdProducto
+			, C.IdCategoria
+			, C.IdClasificacion
+			, P.IdSubClasificacion
+			, P.IdEstado
+			, P.IdEnvase
+			, P.IdEmpaque
+			, P.IdUnidadMedida
+			, P.ValorUnidadMedida
+			, P.CantidadEmpaque
+			, P.DiasCaducidad
+			, P.NombreProducto
+			, P.Descripcion
+			, P.Imagen
+			, P.Habilitado
+			, P.CreatedAt
+			, P.UpdateAt 
 	FROM dbo.PRODUCTO P
 	INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC 
 		ON P.IdSubClasificacion = SC.IdSubClasificacion
@@ -90,7 +104,7 @@ CREATE PROCEDURE USP_GET_PRODUCTOS
 AS BEGIN
 	IF @Habilitado is NULL
 	BEGIN
-		SELECT	IdProducto,	C.IdCategoria,	CP.NombreCategoria,	P.IdSubClasificacion,	SC.NombreSubclasificacion,	
+		SELECT	IdProducto,	C.IdCategoria,	CP.NombreCategoria,	P.IdSubClasificacion,	SC.NombreSubClasificacion,	
 				C.IdClasificacion,	C.NombreClasificacion,	IdEstado,	NombreProducto,	Descripcion,	Imagen,
 				P.DiasCaducidad,	P.Habilitado,	P.CreatedAt,	P.UpdateAt 
 		FROM dbo.PRODUCTO P
@@ -103,12 +117,12 @@ AS BEGIN
 	END
 	ELSE
 	BEGIN
-		--SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubClasificacion,SC.NombreSubclasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		--SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubClasificacion,SC.NombreSubClasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		--FROM dbo.PRODUCTO P
 		--INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 		--INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubClasificacion = SC.IdSubClasificacion
 		--INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion 
-		SELECT	IdProducto,	C.IdCategoria,	CP.NombreCategoria,	P.IdSubClasificacion,	SC.NombreSubclasificacion,	
+		SELECT	IdProducto,	C.IdCategoria,	CP.NombreCategoria,	P.IdSubClasificacion,	SC.NombreSubClasificacion,	
 				C.IdClasificacion,	C.NombreClasificacion,	IdEstado,	NombreProducto,	Descripcion,	Imagen,
 				P.DiasCaducidad,	P.Habilitado,	P.CreatedAt,	P.UpdateAt 
 		FROM dbo.PRODUCTO P

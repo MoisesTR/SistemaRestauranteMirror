@@ -1,12 +1,12 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {CategoriaProductoService} from '../../../services/categoria-producto.service';
+import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoriaProducto} from '../../../models/CategoriaProducto';
-import {ModalDirective} from '../../../typescripts/free/modals';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {isNull, isUndefined} from 'util';
-import {Utilidades} from '../../Utilidades';
+import {Utils} from '../../Utils';
 
 @Component({
   selector: 'modal-categoria',
@@ -71,14 +71,14 @@ export class ModalCategoriaComponent implements OnInit {
                   Validators.required,
                   Validators.minLength(5),
                   Validators.maxLength(100),
-                  CustomValidators.espaciosVacios
+                  CustomValidators.nospaceValidator
               ])
           , 'descripcionCategoria': new FormControl('',
               [
                   Validators.required,
                   Validators.minLength(5),
                   Validators.maxLength(300),
-                  CustomValidators.espaciosVacios
+                  CustomValidators.nospaceValidator
               ])
       });
 
@@ -108,13 +108,13 @@ export class ModalCategoriaComponent implements OnInit {
                   })
 
               } else {
-                  Utilidades.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente','Categoria')
+                  Utils.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente','Categoria')
 
 
               }
               /* this.getCategoriasProductos();*/
           }, error => {
-              Utilidades.showMsgError(Utilidades.mensajeError(error));
+              Utils.showMsgError(Utils.msgError(error));
 
           }
       )

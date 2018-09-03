@@ -1,12 +1,11 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from '../../../typescripts/free/modals';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmpaqueService} from '../../../services/empaque.service';
+import {EmpaqueService} from '../../../services/shared/empaque.service';
 import {Empaque} from '../../../models/Empaque';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {Utilidades} from '../../Utilidades';
-import {isNull, isUndefined} from 'util';
+import {Utils} from '../../Utils';
 
 @Component({
   selector: 'modal-empaque',
@@ -16,18 +15,18 @@ import {isNull, isUndefined} from 'util';
 })
 export class ModalEmpaqueComponent implements OnInit {
 
-  @ViewChild('modalAddEmpaque') modalAddEmpaque  : ModalDirective;
+  @ViewChild('modalAddEmpaque') modalAddEmpaque: ModalDirective;
 
-  @Input() mostrarModal : boolean;
-  @Output() resultadoModal : EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
-  @Output() resultadoConsulta : EventEmitter<boolean> = new EventEmitter<boolean>();
-  public isVisible: boolean = false;
+  @Input() mostrarModal: boolean;
+  @Output() resultadoModal: EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
+  @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public isVisible = false;
 
-  public empaque : Empaque;
+  public empaque: Empaque;
   public formAddEmpaque: FormGroup;
 
   constructor(
-      private _empaqueService : EmpaqueService
+      private _empaqueService: EmpaqueService
       , private formBuilderEmpaque: FormBuilder
   ) {
       this.empaque = new Empaque();
@@ -40,12 +39,12 @@ export class ModalEmpaqueComponent implements OnInit {
         }
     }
 
-    eventoClick(event){
-        console.log(event.dismissReason)
-        if( !isNull(event.dismissReason) && !isUndefined(event.dismissReason) )
-            if( (event.dismissReason).toString() == ( 'backdrop-click')) {
+    eventClick(event) {
+        if ( event.dismissReason !== null && event.dismissReason !== undefined ) {
+            if ( (event.dismissReason).toString() === ( 'backdrop-click')) {
                 this.hideModal();
             }
+        }
     }
 
   ngOnInit() {
@@ -57,33 +56,33 @@ export class ModalEmpaqueComponent implements OnInit {
         this.isVisible = true;
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
       this.modalAddEmpaque.show();
   }
 
     /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddEmpaque(){
+  initFormAddEmpaque() {
 
       this.formAddEmpaque = this.formBuilderEmpaque.group({
-          'nombreEmpaque': new FormControl('',[
+          'nombreEmpaque': new FormControl('', [
 
               Validators.required,
               Validators.minLength(5),
               Validators.maxLength(100),
-              CustomValidators.espaciosVacios
+              CustomValidators.nospaceValidator
           ])
 
-          , 'descripcionEmpaque': new FormControl('',[
+          , 'descripcionEmpaque': new FormControl('', [
               Validators.required,
               Validators.minLength(5),
               Validators.maxLength(100),
-              CustomValidators.espaciosVacios
+              CustomValidators.nospaceValidator
           ])
       });
 
   }
 
-  createEmpaque(Modal){
+  createEmpaque(Modal) {
     this.getValuesFormAddEmpaque();
 
     this._empaqueService.createEmpaque(this.empaque).subscribe(
@@ -98,19 +97,18 @@ export class ModalEmpaqueComponent implements OnInit {
                     Modal.hide();
                     this.formAddEmpaque.reset();
                     this.resultadoConsulta.emit(true);
-                })
+                });
 
             } else {
-                Utilidades.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente','Empaque')
-
+                Utils.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente', 'Empaque');
             }
         }, error => {
-                Utilidades.showMsgError(Utilidades.mensajeError(error));
+            Utils.showMsgError(Utils.msgError(error));
         }
-    )
+    );
   }
 
-  getValuesFormAddEmpaque(){
+  getValuesFormAddEmpaque() {
     this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
     this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
   }

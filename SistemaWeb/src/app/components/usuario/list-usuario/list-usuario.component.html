@@ -4,7 +4,7 @@
       <!--Imagen-->
       <div class="col-lg-4">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
@@ -17,7 +17,7 @@
       <!--Datos del usuario-->
       <div class="col-lg-8  ">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Datos del Usuario</h4>
           </div>
           <!-- Contenido -->
@@ -28,7 +28,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form">
-                    <input type="text" id="trabajador" name="trabajador" class="form-control validate" [readonly]="true" formControlName="trabajador" autocomplete="off">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="trabajador" name="trabajador" class="form-control validate" [readonly]="true" formControlName="trabajador" autocomplete="off">
                     <label [class.active] = "usuario.Nombres && usuario.Nombres.length > 0" for="trabajador">Nombres y Apellidos</label>
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="email" id="Correo" name="Correo" class="form-control validate" [readonly]="true" formControlName="correo" autocomplete="off">
+                    <input [mdbValidate]=false mdbInputDirective type="email" id="Correo" name="Correo" class="form-control validate" [readonly]="true" formControlName="correo" autocomplete="off">
                     <label [class.active] = "usuario.Email && usuario.Email.length > 0" for="Correo">Correo Electrónico</label>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="col-md-6">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="username" name="username" class="form-control validate" [readonly]="true" formControlName="username" autocomplete="off">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="username" name="username" class="form-control validate" [readonly]="true" formControlName="username" autocomplete="off">
                     <label [class.active] = "usuario.Username && usuario.Username.length > 0" for="username">Nombre de Usuario</label>
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="col-md-12">
                   <br>
                   <div class="md-form">
-                    <input type="text" id="rol" name="RolUsuario" class="form-control validate" [readonly]="true" formControlName="rol" autocomplete="off">
+                    <textarea [mdbValidate]=false mdbInputDirective type="text" id="rol" name="RolUsuario" class="md-textarea form-control validate" [readonly]="true" formControlName="rol" autocomplete="off"></textarea>
                     <label [class.active] = "usuario.DescripcionRol && usuario.DescripcionRol.length > 0" for="rol">Roles</label>
                   </div>
                   <!-- <select2 name="RolUsuario" class="selectrol" id="selectrol" [options]="optionsSelectRol" [value]="usuario.IdRol">

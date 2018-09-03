@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {ProveedorService} from '../../services/proveedor.service';
-import {TrabajadorService} from '../../services/trabajador.service';
+import {ProveedorService} from '../../services/shared/proveedor.service';
+import {TrabajadorService} from '../../services/shared/trabajador.service';
 import {Proveedor} from '../../models/Proveedor';
 import {Trabajador} from '../../models/Trabajador';
-import {Utilidades} from '../Utilidades';
-import {Global} from '../../services/global';
+import {Utils} from '../Utils';
+import {Global} from '../../services/shared/global';
 
 @Component({
   selector: 'app-dash-board',
@@ -14,21 +14,21 @@ import {Global} from '../../services/global';
 })
 export class DashBoardComponent implements OnInit {
 
-  public fechaActual : string;
-  public proveedores : Proveedor[];
-  public trabajadores : Trabajador[];
-  public trabajador : Trabajador;
-  public proveedor : Proveedor;
-  public url : string;
+  public fechaActual: string;
+  public proveedores: Proveedor[];
+  public trabajadores: Trabajador[];
+  public trabajador: Trabajador;
+  public proveedor: Proveedor;
+  public url: string;
   public buscando;
   public carpeta = 'temp';
-  public tabSeleccionado : string = 'proveedor';
-  public urlImagen : string;
+  public tabSeleccionado = 'proveedor';
+  public urlImagen: string;
 
   constructor(
       private datePipe: DatePipe
-      , private _proveedorService : ProveedorService
-      , private _trabajadorService : TrabajadorService
+      , private _proveedorService: ProveedorService
+      , private _trabajadorService: TrabajadorService
   ) {
       this.url = Global.url;
       this.urlImagen = this.url + 'getImagen/temp/' + 'no-img.jpg';
@@ -45,7 +45,7 @@ export class DashBoardComponent implements OnInit {
 
   }
 
-  transformDate(date) : string | null {
+  transformDate(date): string | null {
       return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
@@ -53,46 +53,46 @@ export class DashBoardComponent implements OnInit {
     this._proveedorService.getProveedores().subscribe(
         response => {
 
-          if(response.proveedores){
+          if(response.proveedores) {
             this.proveedores = response.proveedores;
           } else {
 
           }
-        }, error =>{
-          console.log(Utilidades.mensajeError(error));
-        }, () =>{
+        }, error => {
+          console.log(Utils.msgError(error));
+        }, () => {
 
         }
-    )
+    );
   }
 
 
   getTrabajadores() {
       this._trabajadorService.getTrabajadores().subscribe(
           response => {
-              if(response.trabajadores) {
+              if (response.trabajadores) {
                   this.trabajadores = response.trabajadores;
               }
           }, error => {
-              Utilidades.showMsgError(Utilidades.mensajeError(error))
-          }, () =>{
+              Utils.showMsgError(Utils.msgError(error));
+          }, () => {
 
           }
-      )
+      );
   }
 
-  visualizarTrabajador(trabajador : Trabajador) {
+  visualizarTrabajador(trabajador: Trabajador) {
       this.trabajador = trabajador;
       this.tabSeleccionado = 'trabajador';
 
-      if(this.trabajador.Imagen == '') {
+      if (this.trabajador.Imagen === '') {
         this.urlImagen = this.url + 'getImagen/temp/' + 'no-img.jpg';
       } else {
         this.urlImagen = this.url + 'getImagen/trabajadores/' + this.trabajador.Imagen;
       }
   }
 
-  visualizarProveedor(proveedor : Proveedor) {
+  visualizarProveedor(proveedor: Proveedor) {
       this.proveedor = proveedor;
 
       this.tabSeleccionado = 'proveedor';

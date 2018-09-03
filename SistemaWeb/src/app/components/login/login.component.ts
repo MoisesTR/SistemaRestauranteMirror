@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Usuario} from '../../models/Usuario';
-import {UsuarioService} from '../../services/usuario.service';
+import {UsuarioService} from '../../services/shared/usuario.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {Utilidades} from '../Utilidades';
-import {ToastService} from '../../typescripts/pro/alerts';
+import {Utils} from '../Utils';
 import {UserIdleService} from 'angular-user-idle';
+import {ToastService} from 'ng-uikit-pro-standard';
 
 @Component({
   selector: 'app-login',
@@ -45,11 +45,11 @@ export class LoginComponent implements OnInit {
     this.formLoginUser = this.formBuilderUser.group({
       'nombre' : new FormControl('',[
         Validators.required
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
       ]),
       'password' : new FormControl('',[
         Validators.required
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
       ])
     })
   }
@@ -99,14 +99,14 @@ export class LoginComponent implements OnInit {
               }
             },
             error => {
-                this.toastr.error(Utilidades.mensajeError(<any>error),'Error')
+                this.toastr.error(Utils.msgError(<any>error),'Error')
 
             }
           );
         }
       },
       error => {
-        this.toastr.error(Utilidades.mensajeError(<any>error),'Error')
+        this.toastr.error(Utils.msgError(<any>error),'Error')
       }
     );
   }

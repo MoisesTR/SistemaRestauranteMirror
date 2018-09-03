@@ -1,0 +1,238 @@
+<section>
+  <div class="row">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+      <div class="card card-cascade narrower height-card-productos" id="card-info">
+        <div class="view view-cascade gradient-card-header orange-chang height-title">
+          <h2 class="h2-responsive center-text">Información</h2>
+        </div>
+        <div class="card-body">
+          <div class="container-fluid">
+            <!-- Inicio form-->
+            <form [formGroup]="formFactura" novalidate>
+
+              <div class="row">
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-proveedor">
+                  <label class="mb-label">Proveedor</label>
+                  <div class="md-form">
+                    <ng-select id="proveedor" [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
+                      [(ngModel)]="IdProveedorSeleccionado" formControlName="Proveedor" class="disabled">
+                    </ng-select>
+                  </div>
+                  <br>
+                </div>
+
+                <div class="col-xs-12 col-md-6 col-lg-6 mt-nombre_vendedor">
+                  <div class="md-form">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="nombrevendedor" formControlName="nombrevendedor" class="form-control" autocomplete="off" readonly>
+                    <label for="nombrevendedor">Nombre vendedor</label>
+                  </div>
+                </div>
+
+                <div class="col-xs-6 col-md-6 col-lg-6 mt-codigo-factura">
+                  <div class="md-form">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura" class="form-control" formControlName="mumeroFactura"
+                      autocomplete="off" readonly>
+                    <label for="numeroFactura">Código de factura</label>
+                  </div>
+                </div>
+
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                  <mdb-date-picker [options]="myDatePickerOptions" [placeholder]="'Seleccione la fecha'" [label]="'Fecha de Factura'" formControlName="fechaFactura"
+                    required [disabled]="true"></mdb-date-picker>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input [mdbValidate]=false formControlName="usuario" mdbInputDirective type="text" id="usuario" class="form-control" autocomplete="off"
+                      readonly>
+                    <label for="usuario">Trabajador Ingreso</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mdb-time-picker [buttonLabel]="'OK'" [twelvehour]="true" [darktheme]="false" [placeholder]="'Seleccione la hora'" formControlName="hora"
+                    [label]="'Hora ingreso factura'" [showClock]="false"></mdb-time-picker>
+                </div>
+
+                <div class="col-md-6">
+                  <br>
+                  <label>Moneda</label>
+                  <ng-select dropdownPosition="top" [items]="Moneda" formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada" bindLabel="Moneda"
+                    bindValue="Id" id="moneda" class="disabled">
+                  </ng-select>
+                </div>
+
+                <div class="col-md-6">
+                  <br>
+                  <label>Forma de Pago</label>
+                  <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado" bindLabel="FormaPago"
+                    bindValue="Id" id="pago" class="disabled">
+                  </ng-select>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                  <div class="md-form">
+                    <input mdbInputDirective [mdbValidate]=false type="number" id="tipoCambio" class="form-control" autocomplete="off" readonly>
+                    <label for="tipoCambio">Tipo de Cambio</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                  <div class="md-form">
+                    <input mdbInputDirective [mdbValidate]=false type="number" id="plazoPagos" class="form-control" autocomplete="off" readonly>
+                    <label for="plazoPagos">Plazo de pagos(dias)</label>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+            <!-- Final form -->
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+      <div class="card">
+        <div class="container-fluid mt-3">
+          <h3 class="red-chang-text mt-3">
+            <b>N° de Referencia:</b>
+          </h3>
+          <hr>
+          <div class="table-responsive">
+            <!-- Lista de productos -->
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th class="header-negrita">Producto</th>
+                  <th class="header-negrita">U. Medida</th>
+                  <th class="header-negrita">Cantidad</th>
+                  <th class="header-negrita">Precio unitario</th>
+                  <th class="header-negrita">Descuento</th>
+                  <th class="header-negrita">Gravado IVA</th>
+                  <th class="header-negrita">Ventas Netas</th>
+                  <th id="id-text-align-table">
+                    <img src="./assets/img/icon/regalo.png">
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalle of factura.Detalle ;let i = index">
+                  <td class="body-negrita">{{detalle.NombreProducto}}</td>
+                  <td class="body-negrita">{{detalle.NombreUnidad}}</td>
+                  <td class="body-negrita">{{detalle.Cantidad}}</td>
+                  <td class="body-negrita">{{detalle.PrecioUnitario | number : '1.2-2'}} C$</td>
+                  <td width="10%" class="body-negrita">
+                    <strong>{{detalle.Descuento}}%</strong>
+                  </td>
+                  <td class="body-negrita">
+                    <strong>{{detalle.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
+                  </td>
+                  <td width="10%" class="body-negrita">{{detalle.TotalDetalle | number : '1.2-2'}} C$</td>
+                  <td>
+                    <div class="form-check checkbox-chang-filled" id="id-text-align-table">
+
+                      <input class="form-check-input" type="checkbox" class="form-check-input" id="{{i}}" onclick="return false;">
+                      <label class="form-check-label" for="{{i}}"></label>
+
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- /.Lista de productos -->
+          </div>
+
+          <div class="row mt-5">
+            <div class="col-lg-10 col-md-10 col-sm-10 text-lg-right text-md-right text-sm-right">
+              <form [formGroup]="formDetallesFactura" novalidate>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="SubTotal">
+                    <strong>SubTotal</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="SubTotal">
+                    <strong>Descuento</strong>
+                  </label>
+                </div>
+
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="SubTotal">
+                    <strong>SubTotal con Descuento</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="porcentajeiva">
+                    <strong>IVA(15%)</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12 checkbox-chang-filled">
+                  <input class="form-check-input" formControlName="aplicaRetencion" [(ngModel)]="tieneRetencion" type="checkbox" class="form-check-input filled-in"
+                    disabled name="seleccionarcheck" id="segundo2" mdbInputDirective>
+                  <label for="segundo2">
+                    <strong>Retención</strong>
+                  </label>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <label for="Total">
+                    <strong>Total</strong>
+                  </label>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 text-lg-right text-md-right text-sm-right">
+              <form>
+                <div class="">
+                  <label>{{factura.SubTotal | number : '1.2-2'}} C$</label>
+                </div>
+                <div class="">
+                  <label>{{factura.TotalDescuento | number : '1.2-2'}} C$</label>
+                </div>
+                <div class="">
+                  <label>
+                     {{factura.SubTotal + factura.TotalDescuento | number : '1.2-2'}}  C$
+                  </label>
+                </div>
+                <div class="">
+                  <label>{{factura.TotalIva | number : '1.2-2'}} C$</label>
+                </div>
+                <div class="">
+                  <label>0
+                    <!--{{retencionCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}} -->
+                  </label>
+                </div>
+                <div class="">
+                  <label>{{factura.TotalCordobas | number : '1.2-2'}} C$</label>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Acciones -->
+          <div class="row mt-3">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="md-form text-center mt-1-half">
+                <button type="button" class="btn orange-chang waves-effect" (click)="imprimirFactura()">Imprimir Factura</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

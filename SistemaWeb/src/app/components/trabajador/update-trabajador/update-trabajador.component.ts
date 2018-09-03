@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Sucursal} from '../../../models/Sucursal';
 import {Trabajador} from '../../../models/Trabajador';
-import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
 import {Cargo} from '../../../models/Cargo';
-import {CARPETA_PRODUCTOS, CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '../../../services/global';
-import {TrabajadorService} from '../../../services/trabajador.service';
-import {CargoService} from '../../../services/cargo.service';
+import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '../../../services/shared/global';
+import {TrabajadorService} from '../../../services/shared/trabajador.service';
+import {CargoService} from '../../../services/shared/cargo.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {UploadService} from '../../../services/upload.service';
-import {SucursalService} from '../../../services/sucursal.service';
+import {UploadService} from '../../../services/shared/upload.service';
+import {SucursalService} from '../../../services/shared/sucursal.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
 import {TipoDocumento} from '../../../models/TipoDocumento';
-import {isNull} from "util";
-import {Utilidades} from '../../Utilidades';
+import {isNull} from 'util';
+import {Utils} from '../../Utils';
+import {IMyOptions} from 'ng-uikit-pro-standard';
+
 declare var $:any
 
 @Component({
@@ -75,14 +76,14 @@ export class UpdateTrabajadorComponent implements OnInit {
       this.formUpdateTrabajador = this.formBuilderTrabajador.group({
               'nombreTrabajador' : new FormControl('', [
                   Validators.required,
-                  CustomValidators.espaciosVacios
+                  CustomValidators.nospaceValidator
                   , Validators.minLength(5)
                   , Validators.maxLength(300)
 
               ])
               ,'apellido' : new FormControl('', [
                   Validators.required,
-                  CustomValidators.espaciosVacios
+                  CustomValidators.nospaceValidator
                   , Validators.minLength(5)
                   , Validators.maxLength(300)
 
@@ -98,14 +99,14 @@ export class UpdateTrabajadorComponent implements OnInit {
               ])
               ,'documentoTrabajador' : new FormControl('', [
                   Validators.required,
-                  CustomValidators.espaciosVacios
+                  CustomValidators.nospaceValidator
               ])
               ,'tipoDocumento' : new FormControl('', [
                   Validators.required
               ])
               , 'telefonoPrincipal' : new FormControl('', [
                   Validators.required
-                  , CustomValidators.espaciosVacios
+                  , CustomValidators.nospaceValidator
                   , Validators.minLength(8)
                   , Validators.maxLength(9)
 
@@ -117,7 +118,7 @@ export class UpdateTrabajadorComponent implements OnInit {
               // ,telefonos : new FormGroup({
               //   'telefonoPrincipal' : new FormControl('', [
               //     Validators.required
-              //     , CustomValidators.espaciosVacios
+              //     , CustomValidators.nospaceValidator
               //     , Validators.minLength(9)
               //     , Validators.maxLength(9)
               //
@@ -131,7 +132,7 @@ export class UpdateTrabajadorComponent implements OnInit {
               ,'cargo' : new FormControl('', [Validators.required])
               ,'direccion' : new FormControl('', [
                   Validators.required,
-                  CustomValidators.espaciosVacios
+                  CustomValidators.nospaceValidator
                   , Validators.minLength(5)
                   , Validators.maxLength(300)
               ])
@@ -194,7 +195,7 @@ export class UpdateTrabajadorComponent implements OnInit {
                   })
               }
           }, error =>{
-              Utilidades.showMsgError(Utilidades.mensajeError(error),'Trabajador')
+              Utils.showMsgError(Utils.msgError(error),'Trabajador')
           }
       )
   }
@@ -272,11 +273,11 @@ export class UpdateTrabajadorComponent implements OnInit {
                   this.updateTrabajador();
 
               },error =>{
-                  Utilidades.msgErrorImage(error);
+                  Utils.msgErrorImage(error);
               });
           } else {
 
-              Utilidades.showMsgInfo('La imagen es requerida','Trabajador');
+              Utils.showMsgInfo('La imagen es requerida','Trabajador');
           }
       }
 
@@ -299,7 +300,7 @@ export class UpdateTrabajadorComponent implements OnInit {
 
   onChangeSucursal(event){
 
-        if(isNull(event)) {
+        if(event === null) {
             this.trabajador.IdSucursal = null;
         } else {
             this.trabajador.IdSucursal = event.IdSucursal;
@@ -308,7 +309,7 @@ export class UpdateTrabajadorComponent implements OnInit {
 
   onChangeCargo(event){
 
-        if(isNull(event)) {
+        if(event === null) {
             this.trabajador.IdCargo = null;
         } else {
             this.trabajador.IdCargo =  event.IdCargo;
@@ -318,7 +319,7 @@ export class UpdateTrabajadorComponent implements OnInit {
 
   onChangeTipoDocumento(event) {
 
-        if (isNull(event)) {
+        if (event === null) {
             this.trabajador.IdTipoDocumento = null;
         } else {
             this.trabajador.IdTipoDocumento = event.IdTipoDocumento;

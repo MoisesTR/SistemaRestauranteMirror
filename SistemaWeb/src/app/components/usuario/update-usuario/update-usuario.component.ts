@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {RolUsuario} from '../../../models/RolUsuario';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {RolusuarioService} from '../../../services/rolusuario.service';
+import {RolusuarioService} from '../../../services/shared/rolusuario.service';
 import {Trabajador} from '../../../models/Trabajador';
-import {UsuarioService} from '../../../services/usuario.service';
+import {UsuarioService} from '../../../services/shared/usuario.service';
 import {Usuario} from '../../../models/Usuario';
-import {TrabajadorService} from '../../../services/trabajador.service';
+import {TrabajadorService} from '../../../services/shared/trabajador.service';
 declare var $:any;
 
 @Component({
@@ -16,6 +16,12 @@ declare var $:any;
 })
 export class UpdateUsuarioComponent implements OnInit {
 
+    public usuario: Usuario;
+    public usuarios: Usuario[];
+    public roles: RolUsuario[];
+    public trabajadores: Trabajador[];
+    public formUpdateUsuario: FormGroup;
+
   ngOnInit(): void {
 
     $(document).ready(function(){
@@ -24,12 +30,6 @@ export class UpdateUsuarioComponent implements OnInit {
 
   }
 
-  public usuario : Usuario;
-  public usuarios : Usuario[];
-  public roles: RolUsuario[];
-  public trabajadores: Trabajador[];
-
-  formularioAddUsuario : FormGroup
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
@@ -48,7 +48,7 @@ export class UpdateUsuarioComponent implements OnInit {
   }
 
   initForm(){
-    this.formularioAddUsuario = this.formBuilderUsuario.group({
+    this.formUpdateUsuario = this.formBuilderUsuario.group({
       'nombre': new FormControl('',[Validators.required])
       ,'contrasenia': new FormControl('',[Validators.required])
       ,'correo': new FormControl('',[Validators.required])
@@ -80,7 +80,11 @@ export class UpdateUsuarioComponent implements OnInit {
       }, error =>{
 
       }
-    )
+    );
+  }
+
+  updateUsuario() {
+
   }
 
   getUsuario(){

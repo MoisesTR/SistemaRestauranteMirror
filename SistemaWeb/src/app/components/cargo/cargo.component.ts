@@ -1,17 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Cargo} from '../../models/Cargo';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CargoService} from '../../services/cargo.service';
+import {CargoService} from '../../services/shared/cargo.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {idioma_espanol} from '../../services/global';
-import {Utilidades} from '../Utilidades';
-import {ModalDirective} from '../../typescripts/free/modals';
-
-declare var $:any;
+import {idioma_espanol} from '../../services/shared/global';
+import {Utils} from '../Utils';
+import {ModalDirective} from 'ng-uikit-pro-standard';
+declare var $: any;
 
 @Component({
   selector: 'app-cargo',
@@ -21,28 +20,27 @@ declare var $:any;
 })
 export class CargoComponent implements OnInit, InvocarFormulario {
 
-  public cargo : Cargo;
+  public cargo: Cargo;
   public cargos: Cargo[];
   public formAddCargo: FormGroup;
   public formUpdateCargo: FormGroup;
-  public tituloPantalla : string = 'Cargo';
+  public tituloPantalla = 'Cargo';
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  @ViewChild('modalAddCargo') modalAddCargo  : ModalDirective;
-  @ViewChild('modalUpdateCargo') modalUpdateCargo  : ModalDirective;
+  @ViewChild('modalAddCargo') modalAddCargo: ModalDirective;
+  @ViewChild('modalUpdateCargo') modalUpdateCargo: ModalDirective;
 
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _cargoServicio : CargoService,
-    private _formBuilderCargo : FormBuilder
+    private _cargoServicio: CargoService,
+    private _formBuilderCargo: FormBuilder
 
-  )
-  {
+  ) {
     this.cargo = new Cargo();
   }
 
@@ -71,7 +69,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
                 key: '1',
                 className: 'btn orange-chang float-right-dt',
                 action: (e, dt, node, config) => {
-                    this.InvocarModal(this.modalAddCargo,this.formAddCargo);
+                    this.InvocarModal(this.modalAddCargo, this.formAddCargo);
                 }
             }
         ]
@@ -87,83 +85,81 @@ export class CargoComponent implements OnInit, InvocarFormulario {
      });
     }
 
-  getCargo(){
+  getCargo() {
 
       this._cargoServicio.getCargos().subscribe(
         response => {
-          if(response.cargos){
-            this.cargos= response.cargos;
+          if (response.cargos) {
+            this.cargos = response.cargos;
             this.dtTrigger.next();
           }
-        }, error =>{
+        }, error => {
 
         }
       );
     }
 
-  getCargosRender(){
+  getCargosRender() {
     this._cargoServicio.getCargos().subscribe(
       response => {
-        if(response.cargos){
+        if (response.cargos) {
           this.cargos = response.cargos;
           this.rerender();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
   }
 
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddCargo(){
-
+  initFormAddCargo() {
     this.formAddCargo = this._formBuilderCargo.group({
       'nombreCargo': new FormControl('',[
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
 
       ])
       , 'descripcionCargo': new FormControl('',
           [ Validators.required,
             Validators.minLength(5),
             Validators.maxLength(100),
-            CustomValidators.espaciosVacios
+            CustomValidators.nospaceValidator
           ])
     });
   }
 
-  initFormUpdateCargo(){
-
+  initFormUpdateCargo() {
     this.formUpdateCargo = this._formBuilderCargo.group({
-      'nombreCargo': new FormControl('',[
-        Validators.required,
+      'nombreCargo': new FormControl('', [
+        Validators.required
           , Validators.minLength(5)
           , Validators.maxLength(100)
-          , CustomValidators.espaciosVacios
+          , CustomValidators.nospaceValidator
       ])
-      , 'descripcionCargo': new FormControl( '',[
+      , 'descripcionCargo': new FormControl( '', [
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(100)
-        , CustomValidators.espaciosVacios
+        , CustomValidators.nospaceValidator
         ]
       )
     });
   }
 
-  getValuesFormAddCargo(){
+  getValuesFormAddCargo() {
     this.cargo.NombreCargo = this.formAddCargo.value.nombreCargo;
     this.cargo.DescripcionCargo = this.formAddCargo.value.descripcionCargo;
   }
 
-  getValuesFormUpdateCargo(){
-    this.cargo.NombreCargo= this.formUpdateCargo.value.nombreCargo;
+  getValuesFormUpdateCargo() {
+    this.cargo.NombreCargo = this.formUpdateCargo.value.nombreCargo;
     this.cargo.DescripcionCargo = this.formUpdateCargo.value.descripcionCargo;
   }
 
-  createCargoUsuario(){
+  createCargoUsuario() {
     this.getValuesFormAddCargo();
 
     this._cargoServicio.createCargo(this.cargo).subscribe(
@@ -183,21 +179,21 @@ export class CargoComponent implements OnInit, InvocarFormulario {
           })
 
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error al insertar el cargo, intentalo nuevamente',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error al insertar el cargo, intentalo nuevamente', this.tituloPantalla);
         }
       }, error => {
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     )
   }
 
-  updateCargo(){
+  updateCargo() {
 
     this.getValuesFormUpdateCargo();
 
     this._cargoServicio.updateCargo(this.cargo).subscribe(
-      response =>{
-        if(response.success){
+      response => {
+        if (response.success) {
           swal(
             'Cargo',
             'El cargo ha sido actualizado exitosamente!',
@@ -206,58 +202,56 @@ export class CargoComponent implements OnInit, InvocarFormulario {
             this.modalUpdateCargo.hide();
             this.formUpdateCargo.reset();
             this.getCargosRender();
-          })
+          });
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error inesperado en la actualización',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error inesperado en la actualización',this.tituloPantalla);
         }
-      }, error =>{
-       Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }, error => {
+       Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
     this.cargo = new Cargo();
-
   }
 
-  deleteCargo(IdCargo){
-
+  deleteCargo(IdCargo) {
     swal({
-      title: "Estas seguro(a)?",
-      text: "El cargo sera eliminado permanentemente!",
+      title: 'Estas seguro(a)?',
+      text: 'El cargo sera eliminado permanentemente!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminalo!'
-    }).catch(swal.noop).then((eliminar) => {
-      if (eliminar) {
-        this._cargoServicio.deleteCargo(IdCargo).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                this.tituloPantalla,
-                'El cargo ha sido eliminado exitosamente',
-                'success'
-              ).then(() => {
-               this.getCargosRender();
-              })
-            } else {
-              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
-            }
-          }, error =>{
-            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-          }
-        )
-
-      }
+      confirmButtonText: 'Si, Eliminalo!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            this._cargoServicio.deleteCargo(IdCargo).subscribe(
+                response => {
+                    if (response.success) {
+                        swal(
+                            this.tituloPantalla,
+                            'El cargo ha sido eliminado exitosamente',
+                            'success'
+                        ).then(() => {
+                            this.getCargosRender();
+                        });
+                    } else {
+                        Utils.showMsgInfo('Ha ocurrido un error al eliminar', this.tituloPantalla);
+                    }
+                }, error => {
+                    Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+                }
+            );
+        } else if (result.dismiss === swal.DismissReason.cancel) {}
     });
 
   }
 
   InvocarModal(Modal, Formulario) {
-    Utilidades.invocacionModal(Modal,Formulario);
+    Utils.invocacionModal(Modal, Formulario);
   }
 
-  invocarModalUpdate(Modal, Cargo : Cargo) {
+  invocarModalUpdate(Modal, Cargo: Cargo) {
 
       this.cargo.IdCargo  = Cargo.IdCargo;
       this.cargo.NombreCargo = Cargo.NombreCargo;

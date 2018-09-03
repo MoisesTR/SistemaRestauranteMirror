@@ -11,9 +11,9 @@ function getProductoById(req, res) {
     db.pushAOJParam(aoj, 'IdProducto',      sql.Int, data.IdProducto)
     db.storedProcExecute('dbo.USP_GET_PRODUCTO', aoj)
         .then((results) => {
-            res.status(200).json({
-                producto: results.recordset[0]
-            });
+            var jsonString = results.recordset[0];
+            jsonString = JSON.parse(jsonString['JSON_F52E2B61-18A1-11d1-B105-00805F49916B']);
+            res.status(200).json(jsonString);
         }).catch((err) => {
             res.status(500).json(mssqlErrors(err));
         });
@@ -59,6 +59,7 @@ function updateProducto(req, res) {
     var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto)
+    db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdEstado', sql.Int, data.IdEstado)
     db.pushAOJParam(aoj, 'NombreProducto', sql.NVarChar(50), data.NombreProducto)

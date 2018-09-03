@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CategoriaProductoService} from '../../services/categoria-producto.service';
+import {CategoriaProductoService} from '../../services/shared/categoria-producto.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoriaProducto} from '../../models/CategoriaProducto';
 import {Subject} from 'rxjs/Rx';
-import {idioma_espanol} from '../../services/global';
+import {idioma_espanol} from '../../services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {ModalDirective} from '../../typescripts/free/modals';
-import {Utilidades} from '../Utilidades';
+import {ModalDirective} from 'ng-uikit-pro-standard';
+import {Utils} from '../Utils';
 
 declare var $:any;
 
@@ -114,7 +114,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
   }
 
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddCategoria(){
+  initFormAddCategoria() {
 
     this.formAddCategoria = this._formBuilderCategoria.group({
       'nombreCategoria': new FormControl('',
@@ -122,20 +122,20 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
       , 'descripcionCategoria': new FormControl('',
         [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(300),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
     });
 
   }
 
-  initFormUpdateCategoria(){
+  initFormUpdateCategoria() {
 
     this.formUpdateCategoria = this._formBuilderCategoria.group({
       'nombreCategoria': new FormControl('',
@@ -143,14 +143,14 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
       , 'descripcionCategoria': new FormControl('',
         [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(300),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
     });
   }
@@ -185,10 +185,10 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           })
 
         } else {
-            Utilidades.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
+            Utils.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
         }
       }, error => {
-          Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla)
+          Utils.showMsgError(Utils.msgError(error),this.tituloPantalla)
       }
     )
   }
@@ -212,17 +212,17 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           })
 
         } else {
-          Utilidades.showMsgError('Ha ocurrido un error inesperado en la actualización , intenta nuevamente');
+          Utils.showMsgError('Ha ocurrido un error inesperado en la actualización , intenta nuevamente');
         }
       }, error =>{
-          Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+          Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
       }
     )
 
   }
 
 
-  invocarModalUpdate(Modal,Categoria){
+  invocarModalUpdate(Modal, Categoria) {
 
       this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
       this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
@@ -240,40 +240,41 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
   deleteCategoria(IdCategoria){
 
     swal({
-      title: "Estas seguro(a)?",
-      text: "La categoria sera eliminada permanentemente!",
+      title: 'Estas seguro(a)?',
+      text: 'La categoria sera eliminada permanentemente!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!'
-    }).catch(swal.noop).then((eliminar) => {
-      if (eliminar) {
-        this._categoriaProductoServicio.deleteCategoriaProducto(IdCategoria).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                'Eliminada!',
-                'La categoría ha sido eliminada exitosamente',
-                'success'
-              ).then(() => {
-               this.getCategoriasRender();
-              })
-            } else {
-              Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
-            }
-          }, error =>{
-            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-          }
-        )
+      confirmButtonText: 'Si, Eliminala!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            this._categoriaProductoServicio.deleteCategoriaProducto(IdCategoria).subscribe(
+                response => {
+                    if (response.success) {
+                        swal(
+                            'Eliminada!',
+                            'La categoría ha sido eliminada exitosamente',
+                            'success'
+                        ).then(() => {
+                            this.getCategoriasRender();
+                        });
+                    } else {
+                        Utils.showMsgInfo('Ha ocurrido un error al eliminar', this.tituloPantalla);
+                    }
+                }, error => {
+                    Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+                }
+            );
+        } else if (result.dismiss === swal.DismissReason.cancel) {
 
-      }
+        }
     });
-
   }
 
   InvocarModal(Modal, Formulario) {
-      Utilidades.invocacionModal(Modal,Formulario);
+      Utils.invocacionModal(Modal, Formulario);
   }
 
 }

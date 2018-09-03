@@ -61,7 +61,7 @@ function updateEnvase(req, res) {
         })
 }
 function changeStateEnvase(req,res){
-    let data = matchedData(req, {locations:['query','params']});
+    let data = matchedData(req, {locations:['query','params','body']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdEnvase', sql.Int(), data.IdEnvase);
     db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);

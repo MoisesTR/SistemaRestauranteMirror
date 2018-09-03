@@ -4,9 +4,6 @@ import {ShowErrorsComponent} from '../show-errors.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {NG_SELECT_DEFAULT_CONFIG, NgSelectModule} from '@ng-select/ng-select';
-import {MDBBootstrapModulePro} from '../../typescripts/pro';
-import {MDBBootstrapModule} from '../../typescripts/free';
-import {ToastModule} from '../../typescripts/pro/alerts/toast/toast.module';
 import {HttpModule} from '@angular/http';
 import {DataTablesModule} from 'angular-datatables';
 import {NgxSpinnerModule} from 'ngx-spinner';
@@ -23,14 +20,13 @@ import {FormatoComaDineroPipe} from '../../pipe/formato-coma-dinero.pipe';
 import {BuscarTrabajadorPipe} from '../../pipe/buscar-trabajador.pipe';
 import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
 import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-clasificacion.component';
-
+import {MDBBootstrapModulesPro, ToastModule} from 'ng-uikit-pro-standard';
 
 @NgModule({
   imports: [
     CommonModule
     ,  NgSelectModule
-      , MDBBootstrapModule
-      , MDBBootstrapModulePro
+      , MDBBootstrapModulesPro
       , ToastModule
       , ReactiveFormsModule
       , HttpModule
@@ -56,31 +52,31 @@ import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-
       , BuscarProveedorPipe
       , FormatoComaDineroPipe
       , NgSelectModule
-      , MDBBootstrapModule
-      , MDBBootstrapModulePro
+      , MDBBootstrapModulesPro
       , ToastModule
       , ReactiveFormsModule
-      , HttpModule
+      , HttpClientModule
       , HttpClientModule
       , FormsModule
       , DataTablesModule
       , NgxSpinnerModule
   ],
-    declarations: [ShowErrorsComponent
-        , BreadcrumbComponent
-        , ModalEnvaseComponent
-        , ModalUnidadMedidaComponent
-        , ModalProveedorComponent
-        , ModalSubclasificacionComponent
-        , ModalSucursalComponent
-        , ModalCategoriaComponent
-        , ModalSubclasificacionComponent
-        , ModalClasificacionComponent
-        , ModalEmpaqueComponent
-        , BuscarPipe
-        , BuscarTrabajadorPipe
-        , BuscarProveedorPipe
-        , FormatoComaDineroPipe
+    declarations: [
+    ShowErrorsComponent
+    , BreadcrumbComponent
+    , ModalEnvaseComponent
+    , ModalUnidadMedidaComponent
+    , ModalProveedorComponent
+    , ModalSubclasificacionComponent
+    , ModalSucursalComponent
+    , ModalCategoriaComponent
+    , ModalSubclasificacionComponent
+    , ModalClasificacionComponent
+    , ModalEmpaqueComponent
+    , BuscarPipe
+    , BuscarTrabajadorPipe
+    , BuscarProveedorPipe
+    , FormatoComaDineroPipe
     ]
   , providers  : [{
     provide: NG_SELECT_DEFAULT_CONFIG,

@@ -62,7 +62,7 @@ function updateSucursal(req, res) {
 }
 
 function changeStateSucursal(req, res) {
-    let data = matchedData(req, {locations:['query','params']});
+    let data = matchedData(req, {locations:['query','params','body']});
     var aoj = [];
     console.log(data)
     db.pushAOJParam(aoj, 'IdSucursal', sql.Int, data.IdSucursal);

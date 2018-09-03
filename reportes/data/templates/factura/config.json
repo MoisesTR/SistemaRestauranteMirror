@@ -1,0 +1,19 @@
+{
+    "shortid": "H1C5H9wDX",
+    "name": "factura",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "modificationDate": {
+        "$$date": 1535797719486
+    },
+    "_id": "7shGUrq6dhSZAbwH",
+    "$entitySet": "templates",
+    "scripts": [
+        {
+            "shortid": "Skf8zk_PX"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BodegaSucursalService} from "../../services/bodega-sucursal.service";
+import {BodegaSucursalService} from "../../services/shared/bodega-sucursal.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BodegaSucursal} from "../../models/BodegaSucursal";
 

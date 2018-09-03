@@ -82,7 +82,7 @@ function updateTrabajador(req, res) {
 }
 
 function changeStateTrabajador(req, res) {
-    let data = matchedData(req,{locations:['query','params']})
+    let data = matchedData(req,{locations:['query','params','body']})
     var aoj = [];
     console.log('Changing state')
     db.pushAOJParam(aoj, 'IdTrabajador',    sql.Int, data.IdTrabajador);

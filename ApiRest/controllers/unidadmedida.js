@@ -57,7 +57,7 @@ function updateUnidadMedida(req,res){
     })
 }
 function changeStateUnidadMedida(req,res){
-    let data = matchedData(req, {locations:['query','params']});
+    let data = matchedData(req, {locations:['query','params','body']});
     var aoj  = [];
     db.pushAOJParam(aoj, 'IdUnidadMedida', sql.Int, data.IdUnidadMedida)
     db.pushAOJParam(aoj, 'Habilitado', sql.Bit, +data.Habilitado)

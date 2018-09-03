@@ -1,21 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Trabajador} from '../../../models/Trabajador';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TrabajadorService} from '../../../services/trabajador.service';
+import {TrabajadorService} from '../../../services/shared/trabajador.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SucursalService} from '../../../services/sucursal.service';
+import {SucursalService} from '../../../services/shared/sucursal.service';
 import {Sucursal} from '../../../models/Sucursal';
-import {CargoService} from '../../../services/cargo.service';
+import {CargoService} from '../../../services/shared/cargo.service';
 import {Cargo} from '../../../models/Cargo';
 import swal from 'sweetalert2';
-import {UploadService} from '../../../services/upload.service';
-import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '../../../services/global';
+import {UploadService} from '../../../services/shared/upload.service';
+import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '../../../services/shared/global';
 import {CustomValidators} from '../../../validadores/CustomValidators';
-import {IMyOptions} from '../../../typescripts/pro/date-picker/interfaces';
-import {Utilidades} from '../../Utilidades';
+import {Utils} from '../../Utils';
 import {isNull} from 'util';
 import {TipoDocumento} from '../../../models/TipoDocumento';
-import {ModalDirective} from '../../../typescripts/free/modals';
+import {IMyOptions, ModalDirective} from 'ng-uikit-pro-standard';
 
 declare var $:any
 
@@ -28,43 +27,44 @@ export class AddTrabajadorComponent implements OnInit {
 
   public trabajador: Trabajador;
   public trabajadores: Trabajador[];
-  formUpdateTrabajador : FormGroup;
-  public sucursales : Sucursal[];
+  formAddTrabajador: FormGroup;
+  public sucursales: Sucursal[];
   public cargos: Cargo[];
-  public tiposDocumento : TipoDocumento [];
+  public tiposDocumento: TipoDocumento [];
   public url: string;
   public myDatePickerOptions: IMyOptions = opcionesDatePicker;
-  public tituloPantalla : string = 'Trabajador';
+  public tituloPantalla = 'Trabajador';
+  public filesToUpload: Array<File>;
 
-  @ViewChild('modalUsuario') modalUsuario : ModalDirective;
+  @ViewChild('modalUsuario') modalUsuario: ModalDirective;
 
     constructor(
     private _route: ActivatedRoute
-    ,private _router: Router
-    , private _TrabajadorService : TrabajadorService
-    , private formBuilderAddTrabajador : FormBuilder
+    , private _router: Router
+    , private _TrabajadorService: TrabajadorService
+    , private formBuilderAddTrabajador: FormBuilder
     , private _sucursalService: SucursalService
     , private _cargoService: CargoService
-    , private _uploadService : UploadService
+    , private _uploadService: UploadService
   ) {
     this.url = Global.url;
     this.trabajador  = new Trabajador();
 
-    this.getTrabajadores()
+    this.getTrabajadores();
     this.getCargos();
   }
 
   ngOnInit() {
     $(document).ready(function(){
 
-        $('.cedula').mask('000-ZX0000-0000A',{'translation': {
-          A: {pattern: /[A-Za-z]/},
-          Z: {pattern: /[0-3]/},
-          X: {pattern: /[0-9]/},
-            }
-        });
+        // $('.cedula').mask('000-ZX0000-0000A',{'translation': {
+        //   A: {pattern: /[A-Za-z]/},
+        //   Z: {pattern: /[0-3]/},
+        //   X: {pattern: /[0-9]/},
+        //     }
+        // });
 
-    $(".letras").keypress(function (key) {
+    $('.letras').keypress(function (key) {
         if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
             && (key.charCode < 65 || key.charCode > 90) //letras minusculas
             && (key.charCode != 45) //retroceso
@@ -96,31 +96,31 @@ export class AddTrabajadorComponent implements OnInit {
   }
 
 
-  getTrabajadores(){
+  getTrabajadores() {
 
     this._TrabajadorService.getTrabajadores().subscribe(
       response => {
-        if(response.trabajadores){
+        if (response.trabajadores) {
           this.trabajadores = response.trabajadores;
         }
-      }, error =>{
-
+      }, error => {
+          Utils.showMsgError(Utils.msgError(error));
       }
-    )
+    );
   }
 
-  onChangeSucursal(event){
+  onChangeSucursal(event) {
 
-      if(isNull(event)) {
+      if (event === null) {
         this.trabajador.IdSucursal = null;
       } else {
         this.trabajador.IdSucursal = event.IdSucursal;
       }
   }
 
-  onChangeCargo(event){
+  onChangeCargo(event) {
 
-      if(isNull(event)) {
+      if (event === null) {
         this.trabajador.IdCargo = null;
       } else {
         this.trabajador.IdCargo =  event.IdCargo;
@@ -130,51 +130,67 @@ export class AddTrabajadorComponent implements OnInit {
 
   onChangeTipoDocumento(event) {
 
-      if (isNull(event)) {
+      if (event === null) {
           this.trabajador.IdTipoDocumento = null;
       } else {
           this.trabajador.IdTipoDocumento = event.IdTipoDocumento;
+          this.formAddTrabajador.controls['documentoTrabajador'].setValue('');
+          if (event.IdTipoDocumento === 1) {
+              this.formAddTrabajador.controls['documentoTrabajador'].setValidators([
+                  Validators.required,
+                  CustomValidators.nospaceValidator,
+                  Validators.maxLength(15)
+              ]);
+          } else {
+              this.formAddTrabajador.controls['documentoTrabajador'].setValidators([
+                  Validators.required,
+                  CustomValidators.nospaceValidator,
+                  Validators.maxLength(10)
+              ]);
+          }
       }
   }
 
-  initFormTrabajador(){
-    this.formUpdateTrabajador = this.formBuilderAddTrabajador.group({
+  initFormTrabajador() {
+    this.formAddTrabajador = this.formBuilderAddTrabajador.group({
       'nombreTrabajador' : new FormControl('', [
         Validators.required,
-        CustomValidators.espaciosVacios
+        CustomValidators.nospaceValidator
         , Validators.minLength(5)
         , Validators.maxLength(300)
 
       ])
-      ,'apellido' : new FormControl('', [
+      , 'apellido' : new FormControl('', [
         Validators.required,
-        CustomValidators.espaciosVacios
+        CustomValidators.nospaceValidator
         , Validators.minLength(5)
         , Validators.maxLength(300)
 
       ])
-      ,'fechaNacimiento' : new FormControl('', [
+      , 'fechaNacimiento' : new FormControl('', [
           Validators.required,
-          CustomValidators.espaciosVacios,
+          CustomValidators.nospaceValidator,
             CustomValidators.fechaNacimientoTrabajador
 
       ])
-      ,'fechaIngreso' : new FormControl('', [
+      , 'fechaIngreso' : new FormControl('', [
           Validators.required,
-          CustomValidators.espaciosVacios,
+          CustomValidators.nospaceValidator,
           CustomValidators.mayorFechaActual
       ])
-      ,'documentoTrabajador' : new FormControl('', [
+      , 'documentoTrabajador' : new FormControl('', [
           Validators.required,
-          CustomValidators.espaciosVacios
+          Validators.minLength(10),
+          Validators.maxLength(15),
+          CustomValidators.nospaceValidator,
+
       ])
-      ,'tipoDocumento' : new FormControl('', [
-          Validators.required,
-          CustomValidators.espaciosVacios
+      , 'tipoDocumento' : new FormControl('', [
+          Validators.required
       ])
        , 'telefonoPrincipal' : new FormControl('', [
             Validators.required
-            , CustomValidators.espaciosVacios
+            , CustomValidators.nospaceValidator
             , Validators.minLength(9)
             , Validators.maxLength(9)
 
@@ -183,24 +199,11 @@ export class AddTrabajadorComponent implements OnInit {
             Validators.minLength(9)
             , Validators.maxLength(9)
         ])
-      // ,telefonos : new FormGroup({
-      //   'telefonoPrincipal' : new FormControl('', [
-      //     Validators.required
-      //     , CustomValidators.espaciosVacios
-      //     , Validators.minLength(9)
-      //     , Validators.maxLength(9)
-      //
-      //   ])
-      //   , 'telefonoSecundario' : new FormControl('', [
-      //       Validators.minLength(9)
-      //       , Validators.maxLength(9)
-      //   ])
-      // })
-      ,'sucursal' : new FormControl('', [Validators.required])
-      ,'cargo' : new FormControl('', [Validators.required])
-      ,'direccion' : new FormControl('', [
+      , 'sucursal' : new FormControl('', [Validators.required])
+      , 'cargo' : new FormControl('', [Validators.required])
+      , 'direccion' : new FormControl('', [
         Validators.required,
-        CustomValidators.espaciosVacios
+        CustomValidators.nospaceValidator
         , Validators.minLength(10)
         , Validators.maxLength(300)
       ])
@@ -208,87 +211,87 @@ export class AddTrabajadorComponent implements OnInit {
     );
   }
 
-  getValueFormAddTrabajador(){
-    this.trabajador.Nombres = this.formUpdateTrabajador.value.nombreTrabajador;
-    this.trabajador.Apellidos = this.formUpdateTrabajador.value.apellido;
-    this.trabajador.FechaNacimiento =  this.formUpdateTrabajador.value.fechaNacimiento;
-    this.trabajador.FechaIngreso = this.formUpdateTrabajador.value.fechaIngreso;
-    this.trabajador.Documento = this.formUpdateTrabajador.value.documentoTrabajador.replace("-","");
-    this.trabajador.Telefono1 = (this.formUpdateTrabajador.value.telefonoPrincipal).replace("-","");
-    this.trabajador.Telefono2 = (this.formUpdateTrabajador.value.telefonoSecundario).replace("-","");
-    this.trabajador.Direccion = this.formUpdateTrabajador.value.direccion;
+  getValueFormAddTrabajador() {
+    this.trabajador.Nombres = this.formAddTrabajador.value.nombreTrabajador;
+    this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
+    this.trabajador.FechaNacimiento =  this.formAddTrabajador.value.fechaNacimiento;
+    this.trabajador.FechaIngreso = this.formAddTrabajador.value.fechaIngreso;
+    this.trabajador.Documento = this.formAddTrabajador.value.documentoTrabajador.replace('-', '');
+    this.trabajador.Telefono1 = (this.formAddTrabajador.value.telefonoPrincipal).replace('-', '');
+    this.trabajador.Telefono2 = (this.formAddTrabajador.value.telefonoSecundario).replace('-', '');
+    this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
   }
 
-  createTrabajador(){
+  createTrabajador() {
     this.getValueFormAddTrabajador();
 
     this._TrabajadorService.createTrabajador(this.trabajador).subscribe(
-      response =>{
-        if(response.IdTrabajador){
+      response => {
+        if (response.IdTrabajador) {
           swal(
             'Trabajador',
             'El trabajador ha sido creado exitosamente!',
             'success'
           ).then(() => {
               this.modalUsuario.show();
-          })
+          });
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error al insertar el trabajador, intentalo nuevamente',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error al insertar el trabajador, intentalo nuevamente', this.tituloPantalla);
         }
-      }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 
-      }, () =>{
-        this.formUpdateTrabajador.reset;
+      }, () => {
+        this.formAddTrabajador.reset();
       }
-    )
+    );
   }
 
-  getSucursales(){
+  getSucursales() {
     this._sucursalService.getSucursales().subscribe(
-      response =>{
-        if(response.sucursales){
+      response => {
+        if (response.sucursales) {
           this.sucursales = response.sucursales;
         } else {
 
         }
-      }, error=>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
-  getCargos(){
+  getCargos() {
     this._cargoService.getCargos().subscribe(
-      response =>{
-        if(response.cargos){
+      response => {
+        if (response.cargos) {
           this.cargos = response.cargos;
         }
-      }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
-  guardarImagenTrabajador(){
+  guardarImagenTrabajador() {
 
-    if(this.filesToUpload != null){
+    if (this.filesToUpload != null) {
       this._uploadService.makeFileRequest(
-        this.url+'uploadImage/'
+        this.url + 'uploadImage/'
         , CARPETA_TRABAJADORES
-        ,''
-        ,false
+        , ''
+        , false
         , []
         , this.filesToUpload
         , 'token'
-        , 'image').then((result:any)=>{
+        , 'image').then((result: any) => {
         this.trabajador.Imagen = result.image;
         this.createTrabajador();
-      },error =>{
-          Utilidades.msgErrorImage(error);
+      }, error => {
+          Utils.msgErrorImage(error);
       });
     } else {
-        Utilidades.showMsgInfo('La imagen del trabajador es requerida',this.tituloPantalla);
+        Utils.showMsgInfo('La imagen del trabajador es requerida', this.tituloPantalla);
     }
 
   }
@@ -297,18 +300,18 @@ export class AddTrabajadorComponent implements OnInit {
 
     this._TrabajadorService.getTiposDocumento().subscribe(
         response => {
-          if(response.documentos) {
+          if (response.documentos) {
             this.tiposDocumento = response.documentos;
           }
-        }, error =>{
+        }, error => {
 
         }, () => {
 
         }
-    )
+    );
   }
-  public filesToUpload: Array<File>;
-  fileChangeEvent(fileInput:any){
+
+  fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 

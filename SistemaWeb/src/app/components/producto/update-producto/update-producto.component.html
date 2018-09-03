@@ -6,7 +6,7 @@
       <!--Imagen-->
       <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-r wow fadeInLeft" data-wow-delay="0.4s" id="imagen-productos" style="display: none;">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
@@ -21,7 +21,7 @@
       <!--Datos del producto-->
       <div class="col-12 col-sm-12 col-md-12 col-lg-12" id="formulario-productos">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Datos del Producto</h4>
           </div>
           <!-- Contenido -->
@@ -29,8 +29,8 @@
 
             <div class="row">
 
-              <div class="md-form input-group">
-                <input mdbActive type="text" id="nombreproducto" formControlName="nombreProducto" mdbActive [(ngModel)]="formUpdateProducto.value.nombreProducto"
+              <div class="md-form input-group padding-input">
+                <input mdbInputDirective type="text" id="nombreproducto" formControlName="nombreProducto" mdbInputDirective [(ngModel)]="formUpdateProducto.value.nombreProducto"
                   class="form-control letras" autocomplete="off" [(ngModel)]="formUpdateProducto.value.nombreProducto" placeholder="Nombre del Producto"
                   style="margin-right: 5%;">
                 <div class="input-group-btn">
@@ -40,18 +40,38 @@
                   </button>
                 </div>
               </div>
-              <show-errors [control]="formUpdateProducto.controls['nombreProducto']" style="margin-top: -30px;margin-bottom: -5%;"></show-errors>
+              <show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>
 
               <div class="col-9 col-sm-9 col-md-9">
+                <br>
                 <label for="proveedor">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
-                  formControlName="proveedor" id="proveedor" (change)="onChangeProveedor($event)" [(ngModel)]="producto.IdProveedor">
+                  formControlName="proveedor" id="proveedor" (add) ="addProveedor($event)" (remove) ="removeProveedor($event)"  [(ngModel)]="proveedoresProducto"
+                  [multiple]="true">
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                    <div style="margin: 10px 0;" class="card">
+                      <div class="card-body">
+                        <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                        <p class="card-subtitle mb-2 text-muted">
+                          <b>Nombre del Representante</b>
+                          <br>
+                          <i>{{item.NombreRepresentante}}</i>
+                        </p>
+                        <p class="card-text">
+                          <b>Descripcion</b>
+                          <br>
+                          <i>{{item.Descripcion}}</i>
+                        </p>
+                      </div>
+                    </div>
+                  </ng-template>
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['proveedor']"></show-errors>
               </div>
 
               <div class="col-3 col-sm-3 col-md-3">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio-updt" mdbWavesEffect>Agregar</button>
+                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-9 col-sm-9 col-md-9">
@@ -143,7 +163,7 @@
                 <br>
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="diascaducidad" formControlName="diasCaducidad" class="form-control" autocomplete="off">
+                  <input mdbInputDirective type="number" id="diascaducidad" formControlName="diasCaducidad" class="form-control" autocomplete="off">
                   <label for="diascaducidad">Días de Cadudicad</label>
                 </div>
               </div>
@@ -152,7 +172,7 @@
                 <br>
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="valorunidadmedida" formControlName="valorUnidadMedida" class="form-control" autocomplete="off">
+                  <input mdbInputDirective type="number" id="valorunidadmedida" formControlName="valorUnidadMedida" class="form-control" autocomplete="off">
                   <label for="valorunidadmedida">Valor unidad de medida</label>
                   <show-errors [control]="formUpdateProducto.controls['valorunidadmedida']"></show-errors>
                 </div>
@@ -162,7 +182,7 @@
                 <br>
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                  <input mdbInputDirective type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
                   <label for="cantidadEmpaque">Cantidad de Empaque</label>
                   <show-errors [control]="formUpdateProducto.controls['cantidadEmpaque']"></show-errors>
                 </div>
@@ -172,8 +192,8 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea mdbActive type="text" id="descripcionproducto" formControlName="descripcionProducto" [(ngModel)]="formUpdateProducto.value.descripcionProducto"
-                    class="md-textarea" autocomplete="off" required></textarea>
+                  <textarea mdbInputDirective type="text" id="descripcionproducto" formControlName="descripcionProducto" [(ngModel)]="formUpdateProducto.value.descripcionProducto"
+                    class="md-textarea form-control" autocomplete="off" required></textarea>
                   <show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
                 </div>

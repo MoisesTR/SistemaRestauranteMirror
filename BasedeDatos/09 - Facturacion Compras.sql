@@ -8,6 +8,8 @@ go
 
 IF OBJECT_ID('dbo.ESTADO_FACTURA') is not null drop table dbo.ESTADO_FACTURA
 go
+IF OBJECT_ID('dbo.SERIE_DOCUMENTO') is not null drop table dbo.SERIE_DOCUMENTO
+go
 CREATE TABLE dbo.SERIE_DOCUMENTO(
 	Serie		VARCHAR(5) NOT NULL,
 	DescDoc		VARCHAR(150) NOT NULL,
@@ -77,7 +79,7 @@ CREATE TABLE DETALLE_FACTURA_COMPRA(
 	UpdateAt			SMALLDATETIME NULL,
 	CONSTRAINT PK_DetalleFacturaCompra PRIMARY KEY(IdDetalle, IdFactura),
 	CONSTRAINT FK_FacturaCompraDetalle FOREIGN KEY(IdFactura) REFERENCES FACTURA_COMPRA(IdFactura),
-	CONSTRAINT FK_ProductoFacturaCompra FOREIG	N KEY(IdProducto) REFERENCES PRODUCTO(IdProducto)
+	CONSTRAINT FK_ProductoFacturaCompra FOREIGN KEY(IdProducto) REFERENCES PRODUCTO(IdProducto)
 )
 GO
 IF OBJECT_ID('dbo.USP_CREATE_FACTURA_COMPRA', N'P') IS NOT NULL
@@ -141,7 +143,7 @@ CREATE PROCEDURE dbo.USP_GET_FACTURAS_COMPRA (
 	@IdEstadoFactura	INT NULL
 )
 AS BEGIN
-	SELECT IdFactura, NumRefFactura, FC.IdProveedor,PRO.NombreProveedor, TRA.IdTrabajador,TRA.Nombres +' ' + TRA.Apellidos AS [TrabajadorIngreso], IdEstadoFactura, NombVendedor,  FC.FechaIngreso,FC.SubTotal,
+	SELECT IdFactura, NumRefFactura, FC.IdProveedor,PRO.NombreProveedor, TRA.IdTrabajador,TRA.Nombres +' ' + TRA.Apellidos AS [TrabajadorIngreso], FC.IdEstadoFactura, NombVendedor,  FC.FechaIngreso,FC.SubTotal,
 			FC.TotalIva, FC.CambioActual, FC.TotalDescuento, FC.TotalCordobas,FC.Habilitado, FC.CreatedAt
 	FROM dbo.FACTURA_COMPRA FC
 	INNER JOIN dbo.ESTADO_FACTURA EF

@@ -200,9 +200,9 @@ CREATE PROCEDURE USP_CREATE_SUBCLASIFICACION(
 		RAISERROR('La Clasificacion Seleccionada no se encontro, por lo tanto no se inserto la Subclasificacion.',16,1);
     ELSE
 		BEGIN
-			INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion)
+			INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubClasificacion,DescripcionSubclasificacion)
 			VALUES(@IdClasificacion,@NombreSubClasificacion,@DescripcionSubClasificacion);
-			SELECT @@IDENTITY AS IdSubclasificacion
+			SELECT @@IDENTITY AS IdSubClasificacion
 		END
 END
 GO

@@ -127,7 +127,20 @@ exports.detalleEntradaBodega = [
     check('PrecioUnitarioEntrada').isFloat(),
     check('DescuentoCalculado').isFloat()
 ];
-
+function isDate(nombreCampo ) {
+    return check(nombreCampo,nombreCampo + '  es requerido.').exists()
+    .custom((value) => {
+        console.log('Valor sin formatear: ' +value);
+        let date = new Date(value);
+       
+        if(isNaN(date)) {
+            console.log('No es una fecha')
+            throw new Error(`El parametro ${nombreCampo} debe ser una fecha valida.`);
+        }
+        date = date.toISOString();
+        return date;
+    },`El parametro ${nombreCampo} debe ser una fecha valida.`)
+}
 exports.createProductoProveedor = [
     check('IdProducto').isInt(),
     check('IdProveedor').isInt(),
@@ -316,13 +329,25 @@ exports.createFacturaCompra  = [
     body('IdProveedor').exists(),
     body('IdTrabajador').exists(),
     body('NombVendedor').exists(),
-    body('FechaIngreso').exists(),
+    isDate('FechaIngreso'),
     body('SubTotal').exists(),
     body('TotalIva').exists(),
     body('CambioActual').exists(),
     body('TotalDescuento').exists(),
     body('TotalCordobas').exists(),
     body('Retencion').exists()
+];
+
+exports.updateFacturaCompra  = [
+    check('NumRefFactura'),
+    check('IdTrabajador'),
+    check('NombVendedor'),
+    check('SubTotal'),
+    check('TotalIva'),
+    check('CambioActual'),
+    check('TotalDescuento'),
+    check('TotalCordobas'),
+    check('Retencion')
 ];
 
 exports.createDetalleFacturaCompra = [
@@ -337,9 +362,36 @@ exports.createDetalleFacturaCompra = [
     body('TotalDetalle').exists(),
     body('Bonificacion').isInt().optional({nullable:true})
 ];
+
+exports.updateDetalleFacturaCompra = [
+    body('IdFactura').isInt().exists(),
+    body('IdProducto').exists(),
+    body('PrecioUnitario'),
+    body('Cantidad'),
+    body('GravadoIva'),
+    body('SubTotal'),
+    body('Iva'),
+    body('Descuento'),
+    body('TotalDetalle'),
+    body('Bonificacion')
+];
+
+exports.getFacturaById = [
+    check('IdFactura').isInt()
+
+];
+
+exports.getCambiosFacturaById = [
+    check('IdFactura').isInt()
+
+];
+
+
 exports.obtenerFacturasC = [
-    body('FechaInicio').exists(),
-    body('FechaFin').exists(),
-    body('IdProveedor').isInt().optional({nullable:true}),
-    body('IdEstadoFactura').isInt().optional({nullable:true})
+    check('FechaInicio').toDate().optional({nullable:true}),
+    check('FechaFin').toDate().optional({nullable:true}),
+    check('IdProveedor').isInt().optional({nullable:true}),
+    check('IdEstadoFactura').isInt().optional({nullable:true}),
+    sanitize('FechaInicio', 'La fecha Inicio enviada no es una fecha valida.').toDate(),
+    sanitize('FechaFin', 'La Fecha Fin Enviada no es una fecha valida').toDate()
 ];

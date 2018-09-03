@@ -8,6 +8,7 @@ var serveIndex = require('serve-index');
 const fileUpload = require('express-fileupload');
 
 var api = require('./routes/api')
+var reports = require('./routes/reports')
 var app = express();
 
 // view engine setup
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
+app.use('/reports', reports);
 
 //Imagenes
 app.use(express.static(__dirname + '/'))

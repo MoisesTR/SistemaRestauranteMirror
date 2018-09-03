@@ -4,7 +4,7 @@
       <!--Imagen-->
       <div class="col-lg-4">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
@@ -17,13 +17,13 @@
       <!--Datos del usuario-->
       <div class="col-lg-8  ">
         <div class="card card-cascade narrower">
-          <div class="view gradient-card-header orange-chang">
+          <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Datos del Usuario</h4>
           </div>
           <!-- Contenido -->
           <div class="card-body ">
             <!-- Formulario -->
-            <form [formGroup] = "formularioAddUsuario" (ngSubmit)="createUsuario()" novalidate>
+            <form [formGroup] = "formUpdateUsuario" (ngSubmit)="updateUsuario()" novalidate>
               <!-- Campos a ingresar -->
               <div class="row">
                 <div class="col-md-12">

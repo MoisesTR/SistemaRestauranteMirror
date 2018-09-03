@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ProveedorService} from '../../../services/proveedor.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
+import {ProveedorService} from '../../../services/shared/proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Proveedor} from '../../../models/Proveedor';
-declare var $:any;
-import swal from "sweetalert2";
-import {Utilidades} from '../../Utilidades';
+import swal from 'sweetalert2';
+import {Utils} from '../../Utils';
 import {CustomValidators} from '../../../validadores/CustomValidators';
-import {isNull} from 'util';
+import {filter, pairwise} from 'rxjs/operators';
+import {PreviousRouteService} from '../../../services/service.index';
+
+
+declare var $: any;
 
 @Component({
   selector: 'add-proveedor',
@@ -17,17 +20,21 @@ import {isNull} from 'util';
 export class AddProveedorComponent implements OnInit {
 
   public proveedor: Proveedor;
-  public tituloPantalla : string = 'Proveedor';
+  public tituloPantalla = 'Proveedor';
   formAddProveedor: FormGroup;
+  previousUrl: string;
 
   constructor(
       private _route: ActivatedRoute
       , private _router: Router
-      , private _proveedorService : ProveedorService
+      , private _proveedorService: ProveedorService
       , private _formBuilderProveedor: FormBuilder
-  ) { }
+      , private previousRouteService: PreviousRouteService
+  ) {}
 
   ngOnInit() {
+      this.previousUrl = this.previousRouteService.getPreviousUrl();
+      console.log(this.previousRouteService.getPreviousUrl());
       this.proveedor = new Proveedor();
 
       $(document).ready(function() {
@@ -66,7 +73,6 @@ export class AddProveedorComponent implements OnInit {
       this.capturarDadosProveedor();
       this._proveedorService.createProveedor(this.proveedor).subscribe(
           response => {
-
               if (response.IdProveedor) {
                   swal(
                       'Proveedor',
@@ -75,17 +81,22 @@ export class AddProveedorComponent implements OnInit {
                   ).then(() => {
                       this.formAddProveedor.reset();
                       this.proveedor = new Proveedor();
-                      this._router.navigate(['/producto/add'])
-                  })
 
+                      if (this.previousUrl === '/factura/add') {
+                          this._router.navigate(['/producto/add']);
+                      } else if (this.previousUrl === '/producto/add') {
+                          this._router.navigate([this.previousUrl]);
+                      } else {
+                          this._router.navigate(['/proveedor']);
+                      }
+                  });
               } else {
-                  Utilidades.showMsgInfo('Ha ocurrido un error al insertar el proveedor, intentalo nuevamente',this.tituloPantalla);
+                  Utils.showMsgInfo('Ha ocurrido un error al insertar el proveedor, intentalo nuevamente', this.tituloPantalla);
               }
           }, error => {
-              Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-
+              Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
           }
-      )
+      );
 
   }
 
@@ -95,51 +106,51 @@ export class AddProveedorComponent implements OnInit {
       this.proveedor.Descripcion = this.formAddProveedor.value.descripcionProveedor;
       this.proveedor.Documento = this.formAddProveedor.value.numeroRuc;
       this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
-      this.proveedor.Telefono1 = this.formAddProveedor.value.telefono1.toString().replace("-","");
+      this.proveedor.Telefono1 = this.formAddProveedor.value.telefono1.toString().replace('-', '');
       this.proveedor.Telefono2 = this.formAddProveedor.value.telefono2;
-      this.proveedor.Telefono2 = isNull(this.proveedor.Telefono2) ? null : this.proveedor.Telefono2.toString().replace("-","");
+      this.proveedor.Telefono2 = this.proveedor.Telefono2 === null ? null : this.proveedor.Telefono2.toString().replace('-', '');
       this.proveedor.Email = this.formAddProveedor.value.email;
-      this.proveedor.Retencion2 = this.formAddProveedor.value.retencion == true ? 1 : 0;
+      this.proveedor.Retencion2 = this.formAddProveedor.value.retencion === true ? 1 : 0;
 
   }
 
-  initFormAdd(){
+  initFormAdd() {
       this.formAddProveedor = this._formBuilderProveedor.group({
           'nombreProveedor': new FormControl('', [
               Validators.required,
               Validators.minLength(5),
               Validators.maxLength(100),
-              CustomValidators.espaciosVacios
+              CustomValidators.nospaceValidator
           ]),
           'numeroRuc': new FormControl('', [
               Validators.required,
               Validators.minLength(6),
               Validators.maxLength(20),
-              CustomValidators.espaciosVacios
+              CustomValidators.nospaceValidator
           ])
           , 'direccionProveedor': new FormControl('',[
               Validators.required,
               Validators.minLength(5),
               Validators.maxLength(400),
-              CustomValidators.espaciosVacios
+              CustomValidators.nospaceValidator
           ])
           , 'nombreRepresentante': new FormControl('',
               [
                   Validators.required,
                   Validators.minLength(5),
                   Validators.maxLength(200),
-                  CustomValidators.espaciosVacios
+                  CustomValidators.nospaceValidator
               ])
           , 'email': new FormControl('',[
               Validators.minLength(5),
               Validators.maxLength(200),
-              CustomValidators.espaciosVacios
+              CustomValidators.nospaceValidator
           ])
           , 'telefono1': new FormControl('',[
               Validators.required,
               Validators.minLength(5),
               Validators.maxLength(10),
-              CustomValidators.espaciosVacios
+              CustomValidators.nospaceValidator
           ])
           , 'telefono2': new FormControl('',[
               Validators.minLength(5),

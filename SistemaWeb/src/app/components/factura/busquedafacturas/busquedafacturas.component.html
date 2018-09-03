@@ -1,0 +1,140 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-cascade narrower">
+        <!--Titulo-->
+        <div class="view view-cascade gradient-card-header orange-chang">
+          <h2 class="h2-responsive">Búsqueda de facturas</h2>
+        </div>
+        <!--/Titulo-->
+        <div class="card-body">
+
+          <form [formGroup]="formBusquedaFactura" novalidate>
+
+            <div class="container-fluid">
+              <div class="row">
+
+                <div class="col-xs-12 col-md-4 col-lg-4 mb-2 mt-2">
+                  <label for="proveedor">Proveedor</label>
+                  <ng-select [items]="proveedores" formControlName="proveedor" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+                    placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)">
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <div style="margin: 10px 0;" class="card">
+                        <div class="card-body">
+                          <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                          <p class="card-subtitle mb-2 text-muted">
+                            <b>Nombre del Representante</b>
+                            <br>
+                            <i>{{item.NombreRepresentante}}</i>
+                          </p>
+                          <p class="card-text">
+                            <b>Descripcion</b>
+                            <br>
+                            <i>{{item.Descripcion}}</i>
+                          </p>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+
+                <div class="col-xs-12 col-md-3 col-lg-3 mb-2 mt-2">
+                  <mdb-date-picker [options]="startDate" formControlName="fechaInicio" name="fechaInicio" id="FechaInicio" [placeholder]="'Seleccione la fecha'"
+                    [label]="'Fecha Inicio'" required></mdb-date-picker>
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-3 mt-2">
+                  <mdb-date-picker [options]="finalDate" formControlName="fechaFin" name="fechaFin" id="FechaFin" [placeholder]="'Seleccione la fecha'"
+                    [label]="'Fecha Fin'" required></mdb-date-picker>
+                </div>
+                <div class="col-xs-12 col-md-2 col-lg-2 mb-4 mt-4">
+                  <button class="btn orange-chang btn-sm btn-block waves-light" mdbWavesEffect (click)="finFacturas()">Buscar
+                    <i class="fa fa-search ml-1"></i>
+                  </button>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-5" *ngFor="let factura of facturas">
+                  <!--Card-->
+                  <mdb-card class="text-center">
+                    <mdb-card-header class="orange-chang white-text">
+                      <h4>{{factura.CodFactura}}</h4>
+                    </mdb-card-header>
+                    <mdb-card-body class="card-background-img-facturas">
+                      <mdb-card-title>
+                        <h4>Tip-Top</h4>
+                      </mdb-card-title>
+                      <mdb-card-text>
+                        <strong>Nombre Proveedor: </strong>{{factura.NombreProveedor}}
+                        <br>
+                        <strong>Ingresado por: </strong>{{factura.TrabajadorIngreso}}
+                        <br>
+                        <strong>Total factura: </strong>C${{factura.TotalCordobas}}
+                      </mdb-card-text>
+                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="mostrarFactura(factura.IdFactura)" mdbWavesEffect>
+                        <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
+                      </a>
+                      <!--<a mdbBtn size="sm" class="waves-light orange-chang white-text" mdbWavesEffect (click)="editarFactura(factura.IdFactura)">-->
+                        <!--<i class="fa fa-pencil" aria-hidden="true"></i> Editar-->
+                      <!--</a>-->
+                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="imprimirFactura(factura.IdFactura)" mdbWavesEffect>
+                        <i class="fa fa-print" aria-hidden="true"></i> Imprimir
+                      </a>
+                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="mostrarModalCambiosFactura(factura.IdFactura)" mdbWavesEffect>
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i> Historial
+                      </a>
+                    </mdb-card-body>
+                    <mdb-card-footer class="text-muted orange-chang white-text">
+                      <p class="mb-0">
+                        <i class="fa fa-calendar mr-2"></i>{{factura.FechaIngreso | date:'yyyy-MM-dd'}}
+                        <i class="fa fa-clock-o ml-3 mr-2"></i> {{factura.Hora}}
+                      </p>
+                    </mdb-card-footer>
+                  </mdb-card>
+                  <!--/.Card-->
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Full-height right Modal -->
+<div mdbModal #modalCambiosFactura="mdbModal" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="mymodalCambiosFacturaLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content background-gray">
+
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalCambiosFactura.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Historial de cambios</h4>
+      </div>
+
+      <div class="scrollbar-card scrollbar-ripe-malinka">
+        <div class="modal-body">
+
+          <div class="list-group">
+
+            <a *ngFor="let cambio of cambios; let i = index" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Cambio {{ (cambios.length + 1) - 1}}</h5>
+                <small class="red-chang-text">{{cambio.CreatedAt}}</small>
+              </div>
+              <p class="mb-1">{{cambio.Descripcion}}</p>
+              <small>{{cambio.NombreUsuario}}</small>
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

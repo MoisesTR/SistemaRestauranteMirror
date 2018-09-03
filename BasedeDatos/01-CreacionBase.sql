@@ -242,7 +242,7 @@ GO
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     IdSubClasificacion			INT IDENTITY(1,1),
     IdClasificacion				INT,
-    NombreSubclasificacion		NVARCHAR(50)	NOT NULL,
+    NombreSubClasificacion		NVARCHAR(50)	NOT NULL,
     DescripcionSubclasificacion NVARCHAR(150),
     Habilitado					Bit				NOT NULL	DEFAULT 1,
     CreatedAt					SMALLDATETIME	NOT NULL	DEFAULT GETDATE(),
@@ -253,7 +253,7 @@ CREATE TABLE SUBCLASIFICACION_PRODUCTO (
 	CONSTRAINT U_NombreSubClasi UNIQUE(NombreSubClasificacion)
 );
 GO
-INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubclasificacion,DescripcionSubclasificacion) 
+INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubClasificacion,DescripcionSubclasificacion) 
 VALUES (1,'Filete','Filete de pollo entero.')
 		,(1,'Tira','Pollo Cortado en tiras.')
         ,(2,'Tallarin','Tallarin');

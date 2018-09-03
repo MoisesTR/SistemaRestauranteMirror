@@ -81,7 +81,7 @@ function getClasificacionById(req, res) {
 }
 
 function changeStateClasificacion(req, res) {
-    let data = matchedData(req, {locations:['query','params']});
+    let data = matchedData(req, {locations:['query','params','body']});
     var aoj = [];
     db.pushAOJParam(aoj, 'IdClasificacion', sql.Int(), data.IdClasificacion);
     db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
@@ -89,7 +89,7 @@ function changeStateClasificacion(req, res) {
         .then((results) => {
             console.log(results)
             let afectadas = results.rowsAffected[0]
-            let accion = (Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+            let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
             res.status(200).json((afectadas > 0) ? { success: 'Clasificacion ' + accion + ' con exito!' } : { failed: 'No se encontro la clasificacion solicitada!' })
             console.log('Clasificacion cambiado de estado con exito!')
         }).catch((err) => {

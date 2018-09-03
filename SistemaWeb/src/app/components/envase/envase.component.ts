@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {EnvaseService} from '../../services/envase.service';
+import {EnvaseService} from '../../services/shared/envase.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subject} from 'rxjs/Rx';
-import {idioma_espanol} from '../../services/global';
+import {Subject} from 'rxjs';
+import {idioma_espanol} from '../../services/shared/global';
 import {Envase} from '../../models/Envase';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {Utilidades} from '../Utilidades';
-import {ModalDirective} from '../../typescripts/free/modals';
+import {Utils} from '../Utils';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 declare var $:any;
 
 @Component({
@@ -20,9 +20,9 @@ declare var $:any;
 })
 export class EnvaseComponent implements OnInit, InvocarFormulario {
 
-  public envase : Envase;
+  public envase: Envase;
   public envases: Envase[];
-  public tituloPantalla : string = 'Envase';
+  public tituloPantalla = 'Envase';
 
   public formAddEnvase: FormGroup;
   public formUpdateEnvase: FormGroup;
@@ -32,8 +32,8 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  @ViewChild('modalAddEnvase') modalAddEnvase : ModalDirective;
-  @ViewChild('modalUpdateEnvase') modalUpdateEnvase : ModalDirective;
+  @ViewChild('modalAddEnvase') modalAddEnvase: ModalDirective;
+  @ViewChild('modalUpdateEnvase') modalUpdateEnvase: ModalDirective;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -78,7 +78,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
     });
 
       this.settingsDatatable();
-      this.getEnvase();
+      this.getEnvases();
       this.initFormAddEnvase();
       this.initFormUpdateEnvase();
 
@@ -99,7 +99,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
                 key: '1',
                 className: 'btn orange-chang float-right-dt',
                 action:  (e, dt, node, config) => {
-                    this.InvocarModal(this.modalAddEnvase,this.formAddEnvase);
+                    this.InvocarModal(this.modalAddEnvase, this.formAddEnvase);
                 }
             }
         ]
@@ -116,50 +116,49 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
     }
 
-  getEnvase(){
+  getEnvases() {
     this._envaseService.getEnvases().subscribe(
       response => {
-
-        if(response.envases){
+        if (response.envases) {
           this.envases = response.envases;
           this.dtTrigger.next();
         } else {
 
         }
-      },error => {
-        console.log(<any>error);
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error));
       }
-    )
+    );
   }
 
-  getEnvasesRender(){
+  getEnvasesRender() {
     this._envaseService.getEnvases().subscribe(
       response => {
-        if(response.envases){
+        if (response.envases) {
           this.envases = response.envases;
           this.rerender();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
   }
 
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddEnvase(){
+  initFormAddEnvase() {
 
     this.formAddEnvase = this._formBuilderEnvase.group({
-      'nombreEnvase': new FormControl('',[
+      'nombreEnvase': new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
-      , 'descripcionEnvase': new FormControl('',[
+      , 'descripcionEnvase': new FormControl('', [
             Validators.required,
             Validators.minLength(5),
             Validators.maxLength(100),
-            CustomValidators.espaciosVacios
+            CustomValidators.nospaceValidator
         ]
 
       )
@@ -167,7 +166,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
   }
 
-  initFormUpdateEnvase(){
+  initFormUpdateEnvase() {
 
     this.formUpdateEnvase = new FormGroup({
       'nombreEnvase': new FormControl('',
@@ -175,26 +174,26 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ]
          )
-      , 'descripcionEnvase': new FormControl('',[
+      , 'descripcionEnvase': new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ]
         )
     });
   }
 
-  getValuesFormAddEnvase(){
+  getValuesFormAddEnvase() {
     this.envase.NombreEnvase = this.formAddEnvase.value.nombreEnvase;
     this.envase.Descripcion = this.formAddEnvase.value.descripcionEnvase;
 
   }
 
-  getValuesFormUpdateEnvase(){
+  getValuesFormUpdateEnvase() {
     this.envase.NombreEnvase= this.formUpdateEnvase.value.nombreEnvase;
     this.envase.Descripcion = this.formUpdateEnvase.value.descripcionEnvase;
   }
@@ -208,13 +207,10 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
       nombreEnvase: envase.NombreEnvase
       , descripcionEnvase: envase.Descripcion
     });
-
-
     this.modalUpdateEnvase.show();
-
   }
 
-  createEnvaseProducto(Modal){
+  createEnvaseProducto(Modal) {
     this.getValuesFormAddEnvase();
     this._envaseService.createEnvase(this.envase).subscribe(
       response => {
@@ -229,23 +225,23 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
             this.envase = new Envase();
             this.formAddEnvase.reset();
             this.getEnvasesRender();
-          })
+          });
 
         } else {
-         Utilidades.showMsgInfo('Ha ocurrido un error al crear el envase, intentalo nuevamente');
+         Utils.showMsgInfo('Ha ocurrido un error al crear el envase, intentalo nuevamente');
         }
       }, error => {
-       Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla)
+       Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
-  updateEnvase(){
+  updateEnvase() {
 
     this.getValuesFormUpdateEnvase();
     this._envaseService.updateEnvase(this.envase).subscribe(
-      response =>{
-        if(response.success){
+      response => {
+        if (response.success) {
           swal(
             this.tituloPantalla,
             'El envase ha sido actualizado exitosamente!',
@@ -255,55 +251,55 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
             this.formUpdateEnvase.reset();
             this.getEnvasesRender();
             this.envase = new Envase();
-          })
+          });
 
         } else {
-         Utilidades.showMsgInfo('Ha ocurrido un error al actualizar',this.tituloPantalla);
+         Utils.showMsgInfo('Ha ocurrido un error al actualizar', this.tituloPantalla);
         }
       }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     )
 
 
   }
 
-  deleteEnvase(IdEnvase){
+  deleteEnvase(IdEnvase) {
 
     swal({
-      title: "Estas seguro(a)?",
-      text: "El envase sera eliminado permanentemente!",
+      title: 'Estas seguro(a)?',
+      text: 'El envase sera eliminado permanentemente!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Eliminalo!'
-    }).catch(swal.noop).then((eliminar) => {
-      if (eliminar) {
-        this._envaseService.deleteEnvase(IdEnvase).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                this.tituloPantalla,
-                'El envase ha sido eliminado exitosamente',
-                'success'
-              ).then(() => {
-               this.getEnvasesRender();
-              })
-            } else {
-             Utilidades.showMsgInfo('Ha ocurrido un error al eliminar',this.tituloPantalla);
-            }
-          }, error =>{
-            Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
-          }
-        )
+    }).then((result) => {
+        if (result.value) {
+            this._envaseService.deleteEnvase(IdEnvase).subscribe(
+                response => {
+                    if (response.success) {
+                        swal(
+                            this.tituloPantalla,
+                            'El envase ha sido eliminado exitosamente',
+                            'success'
+                        ).then(() => {
+                            this.getEnvasesRender();
+                        });
+                    } else {
+                        Utils.showMsgInfo('Ha ocurrido un error al eliminar', this.tituloPantalla);
+                    }
+                }, error => {
+                    Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+                }
+            );
+        } else if (result.dismiss === swal.DismissReason.cancel) {
 
-      }
+        }
     });
-
   }
 
   InvocarModal(Modal, Formulario) {
-      Utilidades.invocacionModal(Modal,Formulario);
+      Utils.invocacionModal(Modal, Formulario);
   }
 }

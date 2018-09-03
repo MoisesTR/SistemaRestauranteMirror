@@ -13,14 +13,14 @@ export class FormatoComaDineroPipe implements PipeTransform {
         var valorEntero = '';
         var valorFormateado = '';
 
-        if(valor.indexOf(".")!= -1) {
+        if (valor.indexOf(".")!= -1) {
             var cadena = valor.toString().split(".",2);
             valorEntero = cadena[0];
             valorDecimal = cadena[1];
         }
 
-        valorFormateado = valorEntero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        if(valorDecimal != '')
+        valorFormateado = valorEntero.toString().replace(/\B(?=(\d{3})+(?!\d))/g,  ",");
+        if (valorDecimal !== '')
             valorRetornar = valorFormateado + '.' + valorDecimal;
         else {
             valorRetornar = valorFormateado;

@@ -141,24 +141,3 @@ input[type="button"] {
     width: 100%;
   }
 }
-
-//
-// Posición de boton agregar proveedor en pantalla agregar nuevo producto
-//
-.add-btn-position-factura {
-  position:relative !important;
-  top: 0% !important;
-  transform: translateY(-65%) !important;
-}
-
-.add-btn-position-espacio {
-  position:relative !important;
-  top: 55% !important;
-  transform: translateY(-50%) !important;
-}
-
-.add-btn-position-espacio-updt {
-  position:relative !important;
-  top: 70% !important;
-  transform: translateY(-50%) !important;
-}

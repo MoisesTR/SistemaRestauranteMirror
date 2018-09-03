@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+            {#asset bootstrap.min.css @encoding=utf8}
+            {#asset mdb.min.css @encoding=utf8}
+            {#asset reportschang.css @encoding=utf8}
+    </style> 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid" style="margin-top:6%;">
+        <div class="text-center">
+            <h1 class="display-1 mb-2 orange-chang-text">
+                <strong>張家餐廳</strong>
+            </h1>
+            <h2 class="h2-reponsive font-up font-bold mb-3">
+                <strong>Restaurante de la Familia Chang</strong>
+            </h2>
+            <h3 class="h3-reponsive font-up font-bold mb-3">
+                <strong class="red-chang-text">Factura</strong>
+            </h3>
+        </div>
+
+        <section class="invoice row mb-r">
+
+            <div class="col-md-12">
+                
+                <div class="row invoice-data">
+
+                    <div class="col-6">
+                        <h4 class="red-chang-text"><strong>{{factura.NombreProveedor}}</strong></h4>
+                        <h4 class="red-chang-text"><small class="black-text">Fecha de la factura:</small> {{factura.FechaIngresoFormato}}</h4>
+                        <h4 class="red-chang-text"><small class="black-text">Hora de la factura:</small> {{factura.Hora}}</h4>
+                    </div>
+                    <div class="col-6 text-right">
+                        <h3 class="h3-responsive"><small>Codigo Factura</small><br><strong><span class="red-chang-text">{{factura.IdFactura}}</span></strong></h3>
+                        <h3 class="h3-responsive"><small>Trabajador Ingreso</small><br><strong><span class="red-chang-text">{{factura.TrabajadorIngreso}}</span></strong></h3>
+                    </div>
+
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Cod</th>
+                                        <th>Descripción</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Desc Total</th>
+                                        <th>Precio Total</th>
+                                    </tr>
+                                </thead>
+                                {{#each factura.Detalle}}
+                                <tbody>
+                                    <tr>
+                                        <td>{{IdProducto}}</td>
+                                        <td>{{NombreProducto}}</td>
+                                        <td>{{Cantidad}}</td>
+                                        <td>{{PrecioUnitario}}</td>
+                                        <td>{{Descuento}}</td>
+                                        <td>{{TotalDetalle}}</td>
+                                    </tr>
+                                </tbody>
+                                {{/each}}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col-md-3 float-md-right ml-auto">
+                        <ul class="striped list-unstyled">
+                            <li><strong>Sub Total:</strong><span class="float-right">C$ {{factura.SubTotal}}</span></li>
+                            <hr>
+                            <li><strong>IVA:</strong><span class="float-right">C$ {{factura.TotalIva}}</span></li>
+                            <hr>
+                            <li><strong>TOTAL:</strong><span class="float-right">C$ {{factura.TotalCordobas}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <h3 class="red-chang-text"><strong class="black-text">Entregado por:</strong> {{factura.NombVendedor}}</h3>
+            </div>
+
+        </section>
+    </div>
+    
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script src="{#asset jquery-3.3.1.min.js @encoding=link}"></script>
+    <!-- Bootstrap tooltips -->
+    <script src="{#asset popper.min.js @encoding=link}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="{#asset bootstrap.min.js @encoding=link}"></script>
+    <!-- MDB core JavaScript -->
+    <script src="{#asset mdb.min.js @encoding=link}"></script>
+</body>
+
+</html>

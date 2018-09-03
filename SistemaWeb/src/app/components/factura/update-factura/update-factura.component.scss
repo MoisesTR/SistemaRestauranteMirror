@@ -1,0 +1,40 @@
+.height-card-productos {
+  height: 90% !important;
+}
+
+input[type="checkbox"][readonly] {
+  pointer-events: none;
+}
+
+.add-btn-position-factura {
+  position: relative !important;
+  top: 20% !important;
+  transform: translateY(-65%) !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .add-btn-position-factura {
+    top: 0% !important;
+    margin-bottom: -8px !important;
+    margin-top: -30px;
+  }
+}
+
+.margin-label-proveedor {
+  color: #757575 !important;
+  margin-bottom: -30px !important;
+}
+
+.height-title {
+  height: 13% !important;
+}
+
+.center-text {
+  position: relative !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+#id-text-align-table {
+  text-align: center !important;
+}

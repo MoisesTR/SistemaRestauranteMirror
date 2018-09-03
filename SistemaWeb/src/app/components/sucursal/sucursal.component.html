@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="card card-cascade narrower">
         <!-- Titulo -->
-        <div class="view gradient-card-header orange-chang">
+        <div class="view view-cascade gradient-card-header orange-chang">
           <h2 class="h2-responsive">Sucursales</h2>
         </div>
         <!-- Contenido card -->
@@ -70,13 +70,13 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre Sucursal</h6>
-            <input mdbActive type="text" id="NombreSucursal" class="input-modal-sm " name="NombreSucursal" formControlName="nombreSucursal">
+            <input type="text" id="NombreSucursal" class="input-modal-sm " name="NombreSucursal" formControlName="nombreSucursal">
             <show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>
           </div>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Telefóno</h6>
-            <input mdbActive type="text" id="TelefonoPrincipal" class="input-modal-sm telefono" name="TelefonoPrincipal" formControlName="telefonoPrincipal">
+            <input type="text" id="TelefonoPrincipal" class="input-modal-sm telefono" name="TelefonoPrincipal" formControlName="telefonoPrincipal">
             <show-errors [control]="formAddSucursal.controls['telefonoPrincipal']"></show-errors>
           </div>
 
@@ -88,7 +88,7 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Dirección</h6>
-            <textarea mdbActive type="text" id="Direccion" class="text-area-modal" name="Direccion" formControlName="direccion"></textarea>
+            <textarea type="text" id="Direccion" class="text-area-modal" name="Direccion" formControlName="direccion"></textarea>
             <show-errors [control]="formAddSucursal.controls['direccion']"></show-errors>
           </div>
 

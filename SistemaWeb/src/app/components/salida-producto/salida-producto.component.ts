@@ -31,31 +31,31 @@ export class SalidaProductoComponent implements OnInit {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
         , 'cantidaProducto' : new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
         , 'fechaSalida' : new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
         , 'horaSalida' : new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
         , 'motivo' : new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ])
       }
     )

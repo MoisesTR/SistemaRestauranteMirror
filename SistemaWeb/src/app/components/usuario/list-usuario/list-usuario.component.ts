@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RolusuarioService} from '../../../services/rolusuario.service';
-import {UsuarioService} from '../../../services/usuario.service';
+import {RolusuarioService} from '../../../services/shared/rolusuario.service';
+import {UsuarioService} from '../../../services/shared/usuario.service';
 import {Usuario} from '../../../models/Usuario';
-import {TrabajadorService} from '../../../services/trabajador.service';
-import {CARPETA_PRODUCTOS, CARPETA_TRABAJADORES, Global} from '../../../services/global';
+import {TrabajadorService} from '../../../services/shared/trabajador.service';
+import {CARPETA_PRODUCTOS, CARPETA_TRABAJADORES, Global} from '../../../services/shared/global';
 
 declare var $:any;
 

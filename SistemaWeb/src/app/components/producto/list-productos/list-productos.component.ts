@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ProductoService} from "../../../services/producto.service";
+import {ProductoService} from "../../../services/shared/producto.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Producto} from "../../../models/Producto";
 import { Subject } from 'rxjs/Rx';
 import swal from 'sweetalert2';
-import {idioma_espanol} from "../../../services/global";
+import {idioma_espanol} from "../../../services/shared/global";
 import {DataTableDirective} from "angular-datatables";
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';
-import {Utilidades} from '../../Utilidades';
+import {Utils} from '../../Utils';
 
 @Component({
   selector: 'app-list-productos',
@@ -87,14 +87,15 @@ export class ListProductosComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         } else {
           this.spinner.hide();
-          Utilidades.showMsgInfo('Ha ocurrido un error al cargar los productos')
+          Utils.showMsgInfo('Ha ocurrido un error al cargar los productos')
         }
       }, error =>{
         this.spinner.hide();
-        Utilidades.showMsgError(Utilidades.mensajeError(error))
+        Utils.showMsgError(Utils.msgError(error))
       }
     );
   }
+
   getProductosRender(){
 
     this._ProductoServicio.getProductos().subscribe(
@@ -118,37 +119,39 @@ export class ListProductosComponent implements OnInit, OnDestroy {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminalo!'
-    }).catch(swal.noop).then((eliminar) => {
-      if (eliminar) {
-        this._ProductoServicio.deleteProducto(IdProducto).subscribe(
-          response =>{
-            if(response.success){
-              swal(
-                'Eliminado  !',
-                'El producto ha sido eliminado exitosamente',
-                'success'
-              ).then(() => {
-                this.getProductosRender();
+      confirmButtonText: 'Si, Eliminalo!',
+      cancelButtonText : 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+          this._ProductoServicio.deleteProducto(IdProducto).subscribe(
+              response =>{
+                  if(response.success){
+                      swal(
+                          'Eliminado  !',
+                          'El producto ha sido eliminado exitosamente',
+                          'success'
+                      ).then(() => {
+                          this.getProductosRender();
 
-              })
-            } else {
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-                'error'
-              )
-            }
-          }, error =>{
-            if(error.status = 500){
-              swal(
-                'Error inesperado',
-                'Ha ocurrido un error en el servidor, intenta nuevamente!',
-                'error'
-              )
-            }
-          }
-        )
+                      })
+                  } else {
+                      swal(
+                          'Error inesperado',
+                          'Ha ocurrido un error en la eliminación, intenta nuevamente!',
+                          'error'
+                      )
+                  }
+              }, error =>{
+                  if(error.status = 500){
+                      swal(
+                          'Error inesperado',
+                          'Ha ocurrido un error en el servidor, intenta nuevamente!',
+                          'error'
+                      )
+                  }
+              }
+          )
+      } else if (result.dismiss === swal.DismissReason.cancel) {
 
       }
     });

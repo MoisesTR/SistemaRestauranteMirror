@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UsuarioService} from '../../../services/usuario.service';
+import {UsuarioService} from '../../../services/shared/usuario.service';
 import {Usuario} from '../../../models/Usuario';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {TrabajadorService} from '../../../services/trabajador.service';
-import {RolusuarioService} from '../../../services/rolusuario.service';
+import {TrabajadorService} from '../../../services/shared/trabajador.service';
+import {RolusuarioService} from '../../../services/shared/rolusuario.service';
 import {RolUsuario} from '../../../models/RolUsuario';
 import {Trabajador} from '../../../models/Trabajador';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {Global} from '../../../services/global';
-import {Utilidades} from '../../Utilidades';
+import {Global} from '../../../services/shared/global';
+import {Utils} from '../../Utils';
 import {isNull} from "util";
 
 declare var $:any;
@@ -69,20 +69,20 @@ export class AddUsuarioComponent implements OnInit {
           Validators.required
           , Validators.maxLength(10)
           , Validators.minLength(4)
-          , CustomValidators.espaciosVacios
+          , CustomValidators.nospaceValidator
         ])
       ,'contrasenia': new FormControl('',
         [
           Validators.required
           , Validators.maxLength(10)
           , Validators.minLength(5)
-          , CustomValidators.espaciosVacios
+          , CustomValidators.nospaceValidator
         ])
       ,'correo': new FormControl('',
         [
           Validators.required
           , Validators.minLength(8)
-          , CustomValidators.espaciosVacios
+          , CustomValidators.nospaceValidator
         ])
       ,'trabajador': new FormControl('',
         [
@@ -118,7 +118,7 @@ export class AddUsuarioComponent implements OnInit {
           })
         }
       }, error=>{
-          Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+          Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
       },
     )
   }
@@ -151,7 +151,7 @@ export class AddUsuarioComponent implements OnInit {
 
   onChangeTrabajador(event : Trabajador){
 
-      if(isNull(event)) {
+      if(event === null) {
           this.usuario.IdTrabajador = null;
           this.imagenTrabajador = 'no-img.png';
           this.carpetaImagen = 'temp';

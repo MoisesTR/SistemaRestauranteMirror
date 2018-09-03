@@ -101,9 +101,10 @@ Router
     .get('/productos/proveedores', validations.Habilitado,validations.validsParams,ProductoProveedorController.getProductosProveedores)
     .get('/producto/proveedor/:IdProductoProveedor(\\d+)', ProductoProveedorController.getProductoProveedorById)
     .get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductosByProveedorId)
+    .get('/productos/proveedor/:IdProveedor(\\d+)/:IdFactura(\\d+)', ProductoProveedorController.getProductosByProveedorIdFiltrado)
     .get('/producto/proveedores/:IdProducto(\\d+)', ProductoProveedorController.getProveedoresOfProducto)
     .post('/producto/proveedor', validations.createProductoProveedor, validations.validsParams, ProductoProveedorController.createProductoProveedor)
-    .delete('/producto/proveedo/:IdProveedor(\\d+)', validations.changeStateGeneric('IdProveedor'),validations.validsParams,ProductoProveedorController.changeStateProductoProveedor)
+    .delete('/producto/proveedor/:IdProductoProveedor(\\d+)', validations.changeStateGeneric('IdProductoProveedor'),validations.validsParams,ProductoProveedorController.changeStateProductoProveedor)
     //.delete('/producto/proveedor')
     //Rutas para Rol Controller
     .post('/rol', validations.createRol, validations.validsParams, RoleController.createRol)
@@ -139,7 +140,11 @@ Router
     //Facturacion
     .post('/factComp', validations.createFacturaCompra, validations.validsParams,FactCompController.createFacturaCompra)
     .post('/detalleFactComp', validations.createDetalleFacturaCompra, validations.validsParams, FactCompController.createDetalleFacturaCompra)
-    .get('/listarfacturas', validations.Habilitado,validations.validsParams, FactCompController.obtenerFacturasCompra)
+    .get('/getFactura', validations.Habilitado,validations.getFacturaById,validations.validsParams ,FactCompController.getFacturaById)
+    .get('/updateFactComp', validations.Habilitado,validations.updateFacturaCompra,validations.validsParams ,FactCompController.updateFacturaCompra)
+    .get('/updateDetalleFactura', validations.Habilitado,validations.updateClasificacion,validations.validsParams ,FactCompController.updateDetalleFacturaCompra)
+    .get('/getCambiosFactura', validations.Habilitado,validations.getCambiosFacturaById,validations.validsParams ,FactCompController.getCambiosFacturaById)
+    .get('/listarfacturas', validations.Habilitado,validations.obtenerFacturasC,validations.validsParams ,FactCompController.obtenerFacturasCompra)
     //Rutas para 
     .post('/signup', validations.userSignUpValidation, validations.validsParams, AuthController.signUp)
     .post('/signupAdmin', validations.userSignUpValidationAdmin, validations.validsParams, AuthController.signUp)

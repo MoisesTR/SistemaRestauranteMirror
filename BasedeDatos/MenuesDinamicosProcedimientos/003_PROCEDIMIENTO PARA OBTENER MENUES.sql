@@ -50,6 +50,7 @@ SELECT ROL.IdRol
 		, RE.Habilitado
 		, RE.Ruta
 		, RE.Icono
+		, Re.Clase
 		, RE.Orden
     ,Submenues = (
         SELECT	ROL.IdRol

@@ -6,10 +6,10 @@ import {UpdateUsuarioComponent} from './update-usuario/update-usuario.component'
 import {HttpModule} from '@angular/http';
 import {DataTablesModule} from 'angular-datatables';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {UsuarioService} from '../../services/usuario.service';
+import {UsuarioService} from '../../services/shared/usuario.service';
 import {UsuarioRoutingModule} from './usuario.routing.module';
-import {TrabajadorService} from '../../services/trabajador.service';
-import {RolusuarioService} from '../../services/rolusuario.service';
+import {TrabajadorService} from '../../services/shared/trabajador.service';
+import {RolusuarioService} from '../../services/shared/rolusuario.service';
 import {Select2Module} from 'ng2-select2';
 import {ListUsuarioComponent} from './list-usuario/list-usuario.component';
 import {SharedModuleModule} from '../shared-module/shared-module.module';

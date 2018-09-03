@@ -1,14 +1,13 @@
 <section>
-
     <div class="row">
 
-        <div class="col-lg-4 col-md-12 mb-r">
+        <div class="col-lg-4 col-md-12 mb-3">
 
             <!--Card-->
             <div class="card card-cascade narrower height-card">
 
                 <!--Card image-->
-                <div class="view gradient-card-header orange-chang">
+                <div class="view view-cascade gradient-card-header orange-chang">
                     <h4 class="mb-0">Proveedores de hoy</h4>
                 </div>
                 <!--/Card image-->
@@ -41,13 +40,13 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-12 mb-r">
+        <div class="col-lg-4 col-md-12 mb-3">
 
             <!--Card-->
             <div class="card card-cascade narrower height-card">
 
                 <!--Card image-->
-                <div class="view gradient-card-header orange-chang">
+                <div class="view view-cascade gradient-card-header orange-chang">
                     <h4 class="mb-0">Productos por agotarse</h4>
                 </div>
                 <!--/Card image-->
@@ -87,13 +86,13 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-12 mb-r">
+        <div class="col-lg-4 col-md-12 mb-3">
 
             <!--Card-->
             <div class="card card-cascade narrower height-card">
 
                 <!--Card image-->
-                <div class="view gradient-card-header orange-chang">
+                <div class="view view-cascade gradient-card-header orange-chang">
                     <h4 class="mb-0">Productos por expirar</h4>
                 </div>
                 <!--/Card image-->
@@ -129,11 +128,11 @@
     </div>
 </section>
 
-<section class="section team-section">
+<section class="section team-section mt-5">
     <div class="row">
 
         <!-- Tab Tablas -->
-        <div class="col-sm-12 col-md-12 col-lg-8">
+        <div class="col-sm-12 col-md-12 col-lg-8 mt-1 mb-5">
             <div class="row">
                 <div class="col-md-12">
                     <!-- Nav tabs -->
@@ -144,8 +143,7 @@
                                 <div class="col-12">
                                     <!-- Input de busqueda -->
                                     <div class="col-12">
-                                        <br>
-                                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                                        <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin"></i>
                                             <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
@@ -185,8 +183,7 @@
                                 <div class="col-12">
                                     <!-- Input de busqueda -->
                                     <div class="col-12">
-                                        <br>
-                                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                                        <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin" aria-hidden="true"></i>
                                             <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
@@ -223,17 +220,13 @@
                                 </div>
                             </div>
                         </mdb-tab>
-                    </mdb-tabset>                
+                    </mdb-tabset>
                 </div>
             </div>
-            <br>
-            <br>
         </div>
 
         <!-- Contenedor de imagen y detalles -->
-        <div class="col-sm-12 col-md-12 col-lg-4 mb-1 mb-r">
-            <br>
-            <br>
+        <div class="col-sm-12 col-md-12 col-lg-4 mt-5">
             <!--Card-->
             <div class="card agenda-card">
 
@@ -251,7 +244,7 @@
                             <strong>{{tabSeleccionado == 'trabajador' ? trabajador.Nombres : proveedor.NombreProveedor}}</strong>
                         </h3>
                         <!-- Si es proveedore aqui va la compañia a la que pertenece en caso que sea empleado aca va la sucursal -->
-                        <h6 class="font-bold blue-text mb-4">{{trabajador.NombreSucursal}}</h6>
+                        <h6 class="font-bold red-chang-text mb-4">{{trabajador.NombreSucursal}}</h6>
                     </div>
 
                     <ul class="striped list-unstyled text-center">
@@ -260,7 +253,7 @@
                             == 'trabajador' ? trabajador.Documento : proveedor.NombreRepresentante}}</li>
                         <hr>
                         <li>
-                            <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 : proveedor.Telefono}}</li>
+                            <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 : proveedor.Telefono1}}</li>
                         <hr>
                         <li>
                             <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador'

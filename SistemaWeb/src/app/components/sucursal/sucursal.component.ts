@@ -1,20 +1,19 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {SucursalService} from '../../services/sucursal.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {SucursalService} from '../../services/shared/sucursal.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Sucursal} from '../../models/Sucursal';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
-import {idioma_espanol} from '../../services/global';
+import {idioma_espanol} from '../../services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
-import {TelefonosucursalService} from '../../services/telefonosucursal.service';
+import {TelefonosucursalService} from '../../services/shared/telefonosucursal.service';
 import {TelefonoSucursal} from '../../models/TelefonoSucursal';
-import {isNull} from 'util';
-import {Utilidades} from '../Utilidades';
-import {ModalDirective} from '../../typescripts/free/modals';
+import {Utils} from '../Utils';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-sucursal',
@@ -24,18 +23,18 @@ declare var $:any;
 })
 export class SucursalComponent implements OnInit , InvocarFormulario{
 
-  public sucursal : Sucursal;
-  public sucursales : Sucursal[];
-  public telefonosSucursales : TelefonoSucursal [];
+  public sucursal: Sucursal;
+  public sucursales: Sucursal[];
+  public telefonosSucursales: TelefonoSucursal [];
   public telefonoPrincipal: TelefonoSucursal;
   public telefonoSecundario: TelefonoSucursal;
 
   public formAddSucursal: FormGroup;
   public formUpdateSucursal: FormGroup;
-  public tituloPantalla : string = 'Sucursal';
-  public Telefonos  : TelefonoSucursal [] = [];
+  public tituloPantalla = 'Sucursal';
+  public Telefonos: TelefonoSucursal [] = [];
 
-  @ViewChild('modalAddSucursal') modalAddSucursal : ModalDirective;
+  @ViewChild('modalAddSucursal') modalAddSucursal: ModalDirective;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -68,33 +67,32 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
   }
 
 
-  getSucursales(){
+  getSucursales() {
     this._sucursalService.getSucursales().subscribe(
-      response =>{
-        if(response.sucursales){
+      response => {
+        if (response.sucursales) {
           this.sucursales = response.sucursales;
           this.dtTrigger.next();
         }
-      }, error =>{
+      }, error => {
 
-      }, ()=>{
+      }, () => {
       }
-    )
-
+    );
   }
 
-  getSucursalesRender(){
+  getSucursalesRender() {
       this._sucursalService.getSucursales().subscribe(
-          response =>{
-              if(response.sucursales){
+          response => {
+              if (response.sucursales) {
                   this.sucursales = response.sucursales;
                   this.rerender();
               }
-          }, error =>{
+          }, error => {
 
-          }, ()=>{
+          }, () => {
           }
-      )
+      );
   }
 
   settingsDatatable() {
@@ -128,45 +126,45 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
 
   }
 
-  getSucursal(){
+  getSucursal() {
     this._sucursalService.getSucursales().subscribe(
       response => {
 
         if(response.sucursales) {
           this.sucursales = response.sucursales;
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error al obtener las sucursales',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error al obtener las sucursales', this.tituloPantalla);
         }
-      },error => {
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddSucursal(){
+  initFormAddSucursal() {
 
     this.formAddSucursal = this._formBuilderSucursal.group({
       'nombreSucursal': new FormControl('',[
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(100),
-        CustomValidators.espaciosVacios
+        CustomValidators.nospaceValidator
       ])
       , 'direccion': new FormControl('',[
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ]
 
-      ),'telefonoPrincipal': new FormControl('',[
+      ), 'telefonoPrincipal': new FormControl('',[
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100)
         ]
 
-      ),'telefonoSecundario': new FormControl('',[
+      ), 'telefonoSecundario': new FormControl('',[
         Validators.minLength(8),
         Validators.maxLength(100)
       ]
@@ -177,29 +175,29 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
   }
 
 
-  initFormUpdateSucursal(){
+  initFormUpdateSucursal() {
 
     this.formUpdateSucursal = this._formBuilderSucursal.group({
       'nombreSucursal': new FormControl('',[
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(100),
-        CustomValidators.espaciosVacios
+        CustomValidators.nospaceValidator
       ])
       , 'direccion': new FormControl('',[
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          CustomValidators.espaciosVacios
+          CustomValidators.nospaceValidator
         ]
 
-      ),'telefonoPrincipal': new FormControl('',[
+      ), 'telefonoPrincipal': new FormControl('',[
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(10),
         ]
 
-      ),'telefonoSecundario': new FormControl('',[
+      ), 'telefonoSecundario': new FormControl('',[
           Validators.minLength(8),
           Validators.maxLength(10),
 
@@ -209,20 +207,20 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
     });
   }
 
-  getValuesFormAddSucursal(){
+  getValuesFormAddSucursal() {
 
     this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formAddSucursal.value.direccion;
-    this.sucursal.Telefono1= this.formAddSucursal.value.telefonoPrincipal.toString().replace("-","");
-    this.sucursal.Telefono2= this.formAddSucursal.value.telefonoSecundario != null ? this.formAddSucursal.value.telefonoSecundario.toString().replace("-","") : '';
+    this.sucursal.Telefono1 = this.formAddSucursal.value.telefonoPrincipal.toString().replace('-', '');
+    this.sucursal.Telefono2 = this.formAddSucursal.value.telefonoSecundario != null ? this.formAddSucursal.value.telefonoSecundario.toString().replace('-', '') : '';
 
   }
 
   getValuesFormUpdateSucursal(){
     this.sucursal.NombreSucursal = this.formUpdateSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formUpdateSucursal.value.direccion;
-    this.sucursal.Telefono1= this.formUpdateSucursal.value.telefonoPrincipal.toString().replace("-","");
-    this.sucursal.Telefono2= this.formUpdateSucursal.value.telefonoSecundario != null ? this.formUpdateSucursal.value.telefonoSecundario.toString().replace("-","") : '';
+    this.sucursal.Telefono1 = this.formUpdateSucursal.value.telefonoPrincipal.toString().replace('-', '');
+    this.sucursal.Telefono2 = this.formUpdateSucursal.value.telefonoSecundario != null ? this.formUpdateSucursal.value.telefonoSecundario.toString().replace('-', '') : '';
   }
 
 
@@ -241,25 +239,25 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
                 Modal.hide();
                 this.formAddSucursal.reset();
                 this.getSucursalesRender();
-            })
+            });
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error al crear la sucursal,intentalo nuevamente',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error al crear la sucursal,intentalo nuevamente', this.tituloPantalla);
 
         }
       }, error => {
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 
       }
-    )
+    );
   }
 
-  updateSucursal(Modal){
+  updateSucursal(Modal) {
 
     this.getValuesFormUpdateSucursal();
 
     this._sucursalService.updateSucursal(this.sucursal).subscribe(
-      response =>{
-        if(response.success){
+      response => {
+        if (response.success) {
           swal(
             'Sucursal',
             'La sucursal ha sido actualizada exitosamente!',
@@ -269,69 +267,62 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
             this.formUpdateSucursal.reset();
             this.getSucursalesRender();
             this.sucursal = new Sucursal();
-          })
+          });
 
         } else {
-          Utilidades.showMsgInfo('Ha ocurrido un error al actualizar, intentalo nuevamente',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error al actualizar, intentalo nuevamente', this.tituloPantalla);
         }
-      }, error =>{
-        Utilidades.showMsgError(Utilidades.mensajeError(error),this.tituloPantalla);
+      }, error => {
+        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
-
-
+    );
   }
 
-  deleteSucursal(IdSucursal){
+  deleteSucursal(IdSucursal) {
+    swal({
+      title: 'Estas seguro(a)?',
+      text: 'La sucursal sera eliminada!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminala!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            this._sucursalService.deleteSucursal(IdSucursal).subscribe(
+                response => {
+                    if (response.success) {
+                        swal(
+                            'Eliminada!',
+                            'La sucursal ha sido eliminada exitosamente',
+                            'success'
+                        ).then(() => {
+                            this.getSucursalesRender();
+                        });
+                    } else {
+                        swal(
+                            'Error inesperado',
+                            'Ha ocurrido un error en la eliminación, intenta nuevamente!',
+                            'error'
+                        );
+                    }
+                }, error => {
+                   Utils.showMsgError(Utils.msgError(error));
+                }
+            );
+        } else if (result.dismiss === swal.DismissReason.cancel) {
 
-    // swal({
-    //   title: "Estas seguro(a)?",
-    //   text: "La sucursal sera eliminada!",
-    //   type: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Si, Eliminala!'
-    // }).catch(swal.noop).then((eliminar) => {
-    //   if (eliminar) {
-    //     this._sucursalService.deleteSucursal(IdSucursal).subscribe(
-    //       response =>{
-    //         if(response.success){
-    //           swal(
-    //             'Eliminada!',
-    //             'La sucursal ha sido eliminada exitosamente',
-    //             'success'
-    //           ).then(() => {
-    //             this.getSucursalRender();
-    //           })
-    //         } else {
-    //           swal(
-    //             'Error inesperado',
-    //             'Ha ocurrido un error en la eliminación, intenta nuevamente!',
-    //             'error'
-    //           )
-    //         }
-    //       }, error =>{
-    //         if(error.status = 500){
-    //           swal(
-    //             'Error inesperado',
-    //             'Ha ocurrido un error en el servidor, intenta nuevamente!',
-    //             'error'
-    //           )
-    //         }
-    //       }
-    //     )
-    //
-    //   }
-    // });
+        }
+    });
 
   }
 
   InvocarModal(Modal, Formulario) {
-    Utilidades.invocacionModal(Modal,Formulario);
+    Utils.invocacionModal(Modal, Formulario);
   }
 
-  invocarModalUpdate(Modal,Sucursal : Sucursal){
+  invocarModalUpdate(Modal, Sucursal: Sucursal) {
 
     this.sucursal.IdSucursal  = Sucursal.IdSucursal;
 

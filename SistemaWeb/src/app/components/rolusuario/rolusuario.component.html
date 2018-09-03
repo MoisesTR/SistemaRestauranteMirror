@@ -4,7 +4,7 @@
 
     <div class="card card-cascade narrower">
       <!--Titulo-->
-      <div class="view gradient-card-header orange-chang">
+      <div class="view view-cascade gradient-card-header orange-chang">
         <h2 class="h2-responsive">Roles</h2>
       </div>
       <!--/Titulo-->
@@ -72,13 +72,13 @@
 
           <div class="md-form ">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input mdbActive type="text" id="nombreRol" class="input-modal-sm" name="nombreRol" minlength="3" maxlength="40" formControlName="nombreRol">
+            <input mdbInputDirective type="text" id="nombreRol" class="input-modal-sm" name="nombreRol" minlength="3" maxlength="40" formControlName="nombreRol">
             <show-errors [control]="formAddRolUsuario.controls['nombreRol']"></show-errors>
           </div>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea mdbActive type="text" id="createdescripcionRol" class="text-area-modal" name="createdescriopcionRol" minlength="5"
+            <textarea mdbInputDirective type="text" id="createdescripcionRol" class="text-area-modal" name="createdescriopcionRol" minlength="5"
               maxlength="150" formControlName="descripcionRol"></textarea>
             <show-errors [control]="formAddRolUsuario.controls['descripcionRol']"></show-errors>
           </div>

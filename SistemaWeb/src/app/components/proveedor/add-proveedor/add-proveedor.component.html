@@ -4,7 +4,7 @@
     <!--Datos del Proveedor-->
     <div class="col-lg-12">
       <div class="card card-cascade narrower">
-        <div class="view gradient-card-header orange-chang">
+        <div class="view view-cascade gradient-card-header orange-chang">
           <h4 class="mb-0">Agregar Proveedor</h4>
         </div>
         <!-- Contenido -->
@@ -16,7 +16,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="text" id="nombreProveedor" formControlName="nombreProveedor" class="form-control letras" autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor" class="form-control letras"
+                    autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['nombreProveedor']"></show-errors>
                   <label for="nombreProveedor">Nombre Empresa</label>
                 </div>
@@ -25,7 +26,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="text" id="numeroruc" formControlName="numeroRuc" class="form-control" autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="text" id="numeroruc" formControlName="numeroRuc" class="form-control"
+                    autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['numeroRuc']"></show-errors>
                   <label for="numeroruc">Número Ruc</label>
                 </div>
@@ -34,8 +36,8 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea mdbActive type="text" id="direccionProveedor" formControlName="direccionProveedor" class="md-textarea" autocomplete="off"
-                    ></textarea>
+                  <textarea [mdbValidate]=false type="text" id="direccionProveedor" formControlName="direccionProveedor" class="md-textarea form-control"
+                    autocomplete="off" mdbInputDirective></textarea>
                   <show-errors [control]="formAddProveedor.controls['direccionProveedor']"></show-errors>
                   <label for="direccionProveedor">Dirección Proveedor</label>
                 </div>
@@ -44,7 +46,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="text" id="nombreRepresentante" formControlName="nombreRepresentante" class="form-control letras" autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante" class="form-control letras"
+                    autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['nombreRepresentante']"></show-errors>
                   <label for="nombreRepresentante">Nombre Representante</label>
                 </div>
@@ -53,7 +56,7 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="email" id="email" formControlName="email" class="form-control" autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="email" id="email" formControlName="email" class="form-control" autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['email']"></show-errors>
                   <label for="email">Correo Electrónico</label>
                 </div>
@@ -62,7 +65,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="telefonoProveedor" formControlName="telefono1" class="form-control" autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="number" id="telefonoProveedor" formControlName="telefono1" class="form-control"
+                    autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['telefono1']"></show-errors>
                   <label for="telefonoProveedor">Telefóno</label>
                 </div>
@@ -71,7 +75,7 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input mdbActive type="number" id="telefonoProveedoropcional" formControlName="telefono2" class="form-control"
+                  <input [mdbValidate]=false mdbInputDirective type="number" id="telefonoProveedoropcional" formControlName="telefono2" class="form-control"
                     autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['telefono2']"></show-errors>
                   <label for="telefonoProveedoropcional">Telefóno (Opcional)</label>
@@ -81,26 +85,26 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <textarea mdbActive type="text" id="descripcionProveedor" formControlName="descripcionProveedor" class="md-textarea" autocomplete="off"
-                    ></textarea>
+                  <textarea [mdbValidate]=false mdbInputDirective type="text" id="descripcionProveedor" formControlName="descripcionProveedor"
+                    class="md-textarea form-control" autocomplete="off"></textarea>
                   <show-errors [control]="formAddProveedor.controls['descripcionProveedor']"></show-errors>
                   <label for="descripcionProveedor">Descripción Proveedor</label>
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-6 ">
                 <br>
                 <br>
-                <br>
-                <input class="filled-in" type="checkbox" value="validando_checkbox1" name="seleccionarcheck" id="segundo2" formControlName="retencion">
-                <label for="segundo2">
-                  <strong>Aplica Retención</strong>
-                </label>
+                <div class="form-check mt-5 checkbox-chang-filled">
+                  <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" value="validando_checkbox1" name="seleccionarcheck"
+                    id="segundo2" formControlName="retencion" mdbInputDirective>
+                  <label class="form-check-label" for="segundo2">Aplica Retención</label>
+                </div>
               </div>
 
             </div>
-            <br>
-            <div class="text-center mt-1-half">
+
+            <div class="text-center mt-3">
               <button class="btn orange-chang mb-1" [disabled]="!formAddProveedor.valid">Ingresar
                 <i class="fa fa-check ml-1"></i>
               </button>

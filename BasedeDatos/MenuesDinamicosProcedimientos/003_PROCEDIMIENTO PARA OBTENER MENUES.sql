@@ -76,8 +76,9 @@ FROM	dbo.ROL_USUARIO ROL
 			ON ROL.IdRol = RS.IdRol
 		INNER JOIN dbo.RECURSO_SISTEMA RE
 			ON RE.IdRecursoSistema = RS.IdRecursoSistema
-WHERE	 ROL.IdRol = 1
+WHERE	 ROL.IdRol = @IdRol
 		AND RE.IdMenuPadre IS NULL
 ORDER BY RE.Orden ASC
 FOR JSON PATH , ROOT('Menues')
 END
+

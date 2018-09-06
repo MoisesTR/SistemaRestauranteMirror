@@ -54,6 +54,7 @@ function getMenuesByRol(req, res) {
     let data = matchedData(req,{locations:['query','params']});
     var aoj = [];
     db.pushAOJParam(aoj,'IdRol',sql.Int,data.IdRol);
+    console.log(data);
     db.storedProcExecute('USP_GET_MENUES', aoj).then((result) => {
         var jsonString = result.recordset[0];
         jsonString = JSON.parse(jsonString['JSON_F52E2B61-18A1-11d1-B105-00805F49916B']);

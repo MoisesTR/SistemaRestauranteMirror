@@ -155,6 +155,6 @@ Router
     
     //Rutas para los menues
     .post('/menu', menuController.createMenu)
-    .get('/menu/:IdRol(\\d+)', menuController.getMenuesByRol)
+    .get('/menu/:IdRol(\\d+)',validations.getMenuesByRol,menuController.getMenuesByRol)
 
 module.exports = Router

@@ -395,3 +395,7 @@ exports.obtenerFacturasC = [
     sanitize('FechaInicio', 'La fecha Inicio enviada no es una fecha valida.').toDate(),
     sanitize('FechaFin', 'La Fecha Fin Enviada no es una fecha valida').toDate()
 ];
+
+exports.getMenuesByRol = [
+    check('IdRol').isInt()
+];

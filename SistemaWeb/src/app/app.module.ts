@@ -11,6 +11,8 @@ import {NotFound404Component} from './components/not-found-404/not-found-404.com
 import {UserIdleModule} from 'angular-user-idle';
 import {MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule} from 'ng-uikit-pro-standard';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptor} from './services/auth/token.interceptor';
 
 // Rutas principales
 const routes: Routes = [
@@ -41,7 +43,11 @@ const routes: Routes = [
 
   ],
     schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [MDBSpinningPreloader],
+  providers: [MDBSpinningPreloader, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+  }],
   bootstrap: [AppComponent],
 
 })

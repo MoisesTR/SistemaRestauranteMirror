@@ -118,7 +118,7 @@ export class AddProveedorComponent implements OnInit {
       this.formAddProveedor = this._formBuilderProveedor.group({
           'nombreProveedor': new FormControl('', [
               Validators.required,
-              Validators.minLength(5),
+              Validators.minLength(2),
               Validators.maxLength(100),
               CustomValidators.nospaceValidator
           ]),
@@ -137,10 +137,10 @@ export class AddProveedorComponent implements OnInit {
           , 'nombreRepresentante': new FormControl('',
               [
                   Validators.required,
-                  Validators.minLength(5),
+                  Validators.minLength(2),
                   Validators.maxLength(200),
                   CustomValidators.nospaceValidator
-              ])
+          ])
           , 'email': new FormControl('',[
               Validators.minLength(5),
               Validators.maxLength(200),
@@ -148,22 +148,20 @@ export class AddProveedorComponent implements OnInit {
           ])
           , 'telefono1': new FormControl('',[
               Validators.required,
-              Validators.minLength(5),
-              Validators.maxLength(10),
+              Validators.minLength(8),
+              Validators.maxLength(8),
               CustomValidators.nospaceValidator
           ])
           , 'telefono2': new FormControl('',[
-              Validators.minLength(5),
-              Validators.maxLength(10)
+              Validators.minLength(8),
+              Validators.maxLength(8)
           ])
           , 'descripcionProveedor': new FormControl('',
               [
                   Validators.maxLength(400)
               ])
           , 'retencion': new FormControl('',
-              [
-                  Validators.maxLength(400)
-              ])
+              [])
 
       });
   }

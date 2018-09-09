@@ -144,13 +144,13 @@ showCardImg() {
     this.formUpdateProducto =  this.formBuilderUProducto.group({
         'nombreProducto': new FormControl('',[
             Validators.required
-            , Validators.minLength(5)
+            , Validators.minLength(2)
             , Validators.maxLength(100)
             , CustomValidators.nospaceValidator
         ]),
         'descripcionProducto': new FormControl('',[
             Validators.required
-            , Validators.minLength(5)
+            , Validators.minLength(3)
             , Validators.maxLength(300)
             , CustomValidators.nospaceValidator
         ]),

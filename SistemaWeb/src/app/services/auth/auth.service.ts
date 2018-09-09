@@ -8,6 +8,10 @@ export class AuthService {
   public jwtHelper;
   constructor() {}
 
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   public isAuthenticated(): boolean {
     this.jwtHelper = new JwtHelperService();
     const token = localStorage.getItem('token');

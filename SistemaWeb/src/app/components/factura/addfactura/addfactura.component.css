@@ -1,5 +1,5 @@
 .height-card-productos {
-  height: 90% !important;
+  height: 62% !important;
 }
 
 input[type="checkbox"][readonly] {
@@ -37,4 +37,8 @@ input[type="checkbox"][readonly] {
 
 #id-text-align-table {
   text-align: center !important;
+}
+
+#id-padding-check {
+  margin-bottom: 10%;
 }

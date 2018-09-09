@@ -460,4 +460,15 @@ export class AddfacturaComponent implements OnInit {
             this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
         }
     }
+
+    ingresarTipoDescuento(){
+        var checkBox = document.getElementById("checkDescuento");
+        var inputDescuento = document.getElementById("valorDescuento");
+        if(checkBox.checked == true) {
+            inputDescuento.disabled = false;
+        } else {
+            inputDescuento.disabled = true;
+        }
+    }
+
 }

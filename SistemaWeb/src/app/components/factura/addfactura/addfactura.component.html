@@ -136,8 +136,6 @@
                                         <th>Precio</th>
                                         <th class="text-center">
                                             Tipo Descuento
-                                            <span id="span-porcentual"><b class="orange-chang-text">Porcentual</b></span>
-                                            <span id="span-efectivo" style="display:none;"><b class="orange-chang-text">Efectivo</b></span>
                                         </th>
                                         <th>Descuento</th>
                                         <th class="text-center">Acción</th>
@@ -160,6 +158,8 @@
                                             </div>
                                         </td>
                                         <td class="text-center align-middle" width="15%">
+                                            <span id="span-porcentual" style="display:none;"><b class="orange-chang-text">Porcentual</b></span>
+                                            <span id="span-efectivo" style="display:none;"><b class="orange-chang-text">Efectivo</b></span>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="checkDescuento" (click)="ingresarTipoDescuento()" mdbInputDirective>
                                                 <label class="form-check-label " for="checkDescuento"></label>

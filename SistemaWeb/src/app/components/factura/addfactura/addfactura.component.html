@@ -134,7 +134,11 @@
                                         <th>Nombre del producto</th>
                                         <th>Cantidad</th>
                                         <th>Precio</th>
-                                        <th class="text-center">Tipo Descuento</th>
+                                        <th class="text-center">
+                                            Tipo Descuento
+                                            <span id="span-porcentual"><b class="orange-chang-text">Porcentual</b></span>
+                                            <span id="span-efectivo" style="display:none;"><b class="orange-chang-text">Efectivo</b></span>
+                                        </th>
                                         <th>Descuento</th>
                                         <th class="text-center">Acción</th>
                                     </tr>
@@ -202,7 +206,7 @@
                                     <th class="header-negrita">Descuento</th>
                                     <th class="header-negrita">Gravado IVA</th>
                                     <th class="header-negrita">Ventas Netas</th>
-                                    <th id="id-text-align-table">
+                                    <th class="text-center">
                                         <img src="./assets/img/icon/regalo.png">
                                     </th>
                                     <th class="header-negrita centrar-texto">Accion</th>
@@ -223,7 +227,7 @@
                                     <td width="10%" class="body-negrita align-middle">{{productoFactura.TotalDetalle | number
                                         : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">
                                         <div class="form-check checkbox-chang-filled">
                                             <input class="form-check-input" type="checkbox" class="form-check-input" id="{{i}}">
                                             <label class="form-check-label" for="{{i}}"></label>

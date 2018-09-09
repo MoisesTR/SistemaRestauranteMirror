@@ -464,10 +464,17 @@ export class AddfacturaComponent implements OnInit {
     ingresarTipoDescuento(){
         var checkBox = document.getElementById("checkDescuento");
         var inputDescuento = document.getElementById("valorDescuento");
+        var porcentual = document.getElementById("span-porcentual");
+        var efectivo = document.getElementById("span-efectivo");
+
         if(checkBox.checked == true) {
             inputDescuento.disabled = false;
+            efectivo.style.display = "block";
+            porcentual.style.display = "none";
         } else {
             inputDescuento.disabled = true;
+            efectivo.style.display = "none";
+            porcentual.style.display = "block";
         }
     }
 

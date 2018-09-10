@@ -11,7 +11,7 @@ import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-empaque',
@@ -19,7 +19,7 @@ declare var $:any;
   styleUrls: ['./empaque.component.css'],
   providers: [EmpaqueService]
 })
-export class EmpaqueComponent implements OnInit, InvocarFormulario{
+export class EmpaqueComponent implements OnInit, InvocarFormulario {
 
   public empaque: Empaque;
   public empaques: Empaque[];
@@ -28,7 +28,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
   public formAddEmpaque: FormGroup;
   public formUpdateEmpaque: FormGroup;
 
-  @ViewChild('modalAddEmpaque') modalAddEmpaque : ModalDirective;
+  @ViewChild('modalAddEmpaque') modalAddEmpaque: ModalDirective;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -38,7 +38,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
-    , private _EmpaqueServicio : EmpaqueService
+    , private _EmpaqueServicio: EmpaqueService
     , private formBuilderEmpaque: FormBuilder
   ) {
     this.empaque = new Empaque();
@@ -46,33 +46,30 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
   ngOnInit() {
 
-    $(document).ready(function(){
+    $(document).ready(function() {
 
-      $(".letras").keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-          && (key.charCode != 45) //retroceso
-          && (key.charCode != 241) //ñ
-          && (key.charCode != 209) //Ñ
-          && (key.charCode != 32) //espacio
-          && (key.charCode != 225) //á
-          && (key.charCode != 233) //é
-          && (key.charCode != 237) //í
-          && (key.charCode != 243) //ó
-          && (key.charCode != 250) //ú
-          && (key.charCode != 193) //Á
-          && (key.charCode != 201) //É
-          && (key.charCode != 205) //Í
-          && (key.charCode != 211) //Ó
-          && (key.charCode != 218) //Ú
+      $('.letras').keypress(function (key) {
+        if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
+          && (key.charCode < 65 || key.charCode > 90) // letras minusculas
+          && (key.charCode !== 45) // retroceso
+          && (key.charCode !== 241) // ñ
+          && (key.charCode !== 209) // Ñ
+          && (key.charCode !== 32) // espacio
+          && (key.charCode !== 225) // á
+          && (key.charCode !== 233) // é
+          && (key.charCode !== 237) // í
+          && (key.charCode !== 243) // ó
+          && (key.charCode !== 250) // ú
+          && (key.charCode !== 193) // Á
+          && (key.charCode !== 201) // É
+          && (key.charCode !== 205) // Í
+          && (key.charCode !== 211) // Ó
+          && (key.charCode !== 218) // Ú
 
-        )
-          return false;
+        ) {
+            return false;
+        }
       });
-
-      $('.dropify').dropify();
-
-
     });
 
     this.settingsDatatable();
@@ -82,7 +79,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
   }
 
-  settingsDatatable(){
+  settingsDatatable() {
 
       /*PROPIEDADES GENERALES DE LA DATATABLE*/
       this.dtOptions = <DataTables.Settings>{
@@ -114,7 +111,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
     });
   }
 
-  getEmpaques(){
+  getEmpaques() {
 
       this._EmpaqueServicio.getEmpaques().subscribe(
         response => {
@@ -131,7 +128,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
   getEmpaquesRender() {
     this._EmpaqueServicio.getEmpaques().subscribe(
       response => {
-        if(response.empaques) {
+        if (response.empaques) {
           this.empaques = response.empaques;
           this.rerender();
         }
@@ -145,17 +142,17 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
   initFormAddEmpaque() {
 
     this.formAddEmpaque = this.formBuilderEmpaque.group({
-      'nombreEmpaque': new FormControl('',[
+      'nombreEmpaque': new FormControl('', [
 
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ])
 
-      , 'descripcionEmpaque': new FormControl('',[
+      , 'descripcionEmpaque': new FormControl('', [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(3),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
       ])
@@ -163,20 +160,20 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
 
   }
 
-  initFormUpdateEmpaque(){
+  initFormUpdateEmpaque() {
 
     this.formUpdateEmpaque = this.formBuilderEmpaque.group({
-      'nombreEmpaque': new FormControl('',[
+      'nombreEmpaque': new FormControl('', [
 
         Validators.required,
-        Validators.minLength(5),
+        Validators.minLength(2),
         Validators.maxLength(100),
         CustomValidators.nospaceValidator
       ])
       , 'descripcionEmpaque': new FormControl('',
         [
             Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(3),
             Validators.maxLength(100),
             CustomValidators.nospaceValidator
         ])
@@ -184,7 +181,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
   }
 
 
-  createEmpaque(Modal){
+  createEmpaque(Modal) {
     this.getValuesFormAddEmpaque();
 
     this._EmpaqueServicio.createEmpaque(this.empaque).subscribe(
@@ -209,7 +206,7 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
       }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
   getValuesFormAddEmpaque() {
@@ -230,13 +227,13 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
         } else {
           this.empaques = response.empaques;
         }
-      },error => {
+      }, error => {
           Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
     }
     );
   }
 
-  updateEmpaque(Modal){
+  updateEmpaque(Modal) {
 
     this.getValuesFormUpdateEmpaque();
     this._EmpaqueServicio.updateEmpaque(this.empaque).subscribe(
@@ -255,13 +252,13 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
         } else {
           Utils.showMsgInfo('Ha ocurrido un error en la actualización', this.tituloPantalla);
         }
-      }, error =>{
+      }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     );
   }
 
-  deleteEmpaque(IdEmpaque){
+  deleteEmpaque(IdEmpaque) {
 
     swal({
       title: 'Estas seguro(a)?',
@@ -299,18 +296,18 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario{
     Utils.invocacionModal(Modal, Formulario);
   }
 
-  invocarModalUpdate(Modal, Empaque: Empaque) {
+  invocarModalUpdate(Modal, empaque: Empaque) {
 
-      this.empaque.IdEmpaque  = Empaque.IdEmpaque;
-      this.empaque.NombreEmpaque = Empaque.NombreEmpaque;
-      this.empaque.Descripcion = Empaque.Descripcion;
+      this.empaque.IdEmpaque  = empaque.IdEmpaque;
+      this.empaque.NombreEmpaque = empaque.NombreEmpaque;
+      this.empaque.Descripcion = empaque.Descripcion;
 
       console.log(this.empaque);
 
       this.formUpdateEmpaque.reset();
       this.formUpdateEmpaque.setValue({
-          nombreEmpaque: Empaque.NombreEmpaque
-          , descripcionEmpaque: Empaque.Descripcion
+          nombreEmpaque: empaque.NombreEmpaque
+          , descripcionEmpaque: empaque.Descripcion
       });
 
       Modal.show();

@@ -461,18 +461,20 @@ export class AddfacturaComponent implements OnInit {
         }
     }
 
+
     eventTipoDescuento(event, i) {
 
-        var porcentual = document.getElementById("span-porcentual"+ i);
-        var efectivo = document.getElementById("span-efectivo"+ i);
+        const porcentual = document.getElementById('span-porcentual' +  i);
+        const efectivo = document.getElementById('span-efectivo' + i);
 
         if ( event.target.checked ) {
-            efectivo.style.display = "block";
-            porcentual.style.display = "none";
+            efectivo.style.display = 'block';
+            porcentual.style.display = 'none';
         } else {
-            efectivo.style.display = "none";
-            porcentual.style.display = "block";
+            efectivo.style.display = 'none';
+            porcentual.style.display = 'block';
         }
+
     }
 
 }

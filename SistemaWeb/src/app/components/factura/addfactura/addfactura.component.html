@@ -63,8 +63,8 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <mdb-date-picker [options]="myDatePickerOptions" formControlName="fechaFactura" name="FechaFactura" id="FechaFactura" [placeholder]="'Seleccione la fecha'"
-                                        [label]="'Fecha de Recepción'" required></mdb-date-picker>
+                                    <mdb-date-picker [options]="myDatePickerOptions" id="fechaRecepcion" [placeholder]="'Seleccione la fecha'" [label]="'Fecha de Recepción'"
+                                        required></mdb-date-picker>
                                 </div>
 
                                 <div class="col-md-6">
@@ -138,37 +138,49 @@
                                             Tipo Descuento
                                         </th>
                                         <th>Descuento</th>
+                                        <th class="text-center">Exento Iva</th>
+                                        <th class="text-center">Fecha vencimiento</th>
                                         <th class="text-center">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let producto of productos | buscar: buscando; let indice = index">
-                                        <th scope="row" class="align-middle" width="5%">{{indice + 1}}</th>
-                                        <td class="align-middle" width="25%">{{producto.NombreProducto}}</td>
-                                        <td width="12%">
+                                    <tr *ngFor="let producto of productos | buscar: buscando; let i = index">
+                                        <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
+                                        <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
+                                        <td width="10%">
                                             <div class="md-form">
-                                                <input mdbInputDirective type="number" id="cantidadProductoIngresado" name="cantidadProducto" min="0"
-                                                    class="input-modal-sm" style="width: 60% !important;">
+                                                <input mdbInputDirective type="number" id="cantidadProductoIngresado" name="cantidadProducto" formControlName="cantidadProducto"
+                                                    min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
-                                        <td width="12%">
+                                        <td width="10%">
                                             <div class="md-form">
-                                                <input mdbInputDirective type="number" id="precioProductoIngresado" name="precioProducto"  min="0"
-                                                    class="input-modal-sm" style="width: 60% !important;">
+                                                <input mdbInputDirective type="number" id="precioProductoIngresado" name="precioProducto" formControlName="precioProducto"
+                                                    min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
-                                        <td class="text-center align-middle" width="15%">
-                                            <span id="span-porcentual"><b class="orange-chang-text">Porcentual</b></span>
-                                            <span id="span-efectivo" style="display:none;"><b class="orange-chang-text">Efectivo</b></span>
+                                        <td class="text-center align-middle" width="12%">
+                                            <span id="span-porcentual{{i}}"><b class="orange-chang-text">Porcentual</b></span>
+                                            <span id="span-efectivo{{i}}" style="display:none;"><b class="orange-chang-text">Efectivo</b></span>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="{{indice}}" (click)="ingresarTipoDescuento()" mdbInputDirective>
-                                                <label class="form-check-label " for="{{indice}}" ></label>
+                                                <input class="form-check-input" type="checkbox" id="td{{i}}" (change)="eventTipoDescuento($event, i)" mdbInputDirective>
+                                                <label class="form-check-label" for="td{{i}}"></label>
                                             </div>
                                         </td>
-                                        <td width="12%">
+                                        <td width="10%">
                                             <div class="md-form">
                                                 <input mdbInputDirective type="number" id="valorDescuento" name="valorDescuento" min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
+                                        </td>
+
+                                        <td class="text-center align-middle">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="ei{{i}}" mdbInputDirective>
+                                                <label class="form-check-label" for="ei{{i}}"></label>
+                                            </div>
+                                        </td>
+                                        <td width="10%">
+                                            <mdb-date-picker [options]="myDatePickerOptions" id="fechaVencimiento" required></mdb-date-picker>
                                         </td>
                                         <td class="text-center align-middle">
                                             <button type="button" class="btn btn-sm orange-chang" (click)="seleccionarProducto(producto)" mdbWavesEffect>
@@ -198,12 +210,14 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
+                                    <th>#</th>
+                                    <th class="header-negrita text-center">Cod. Producto</th>
                                     <th class="header-negrita">Producto</th>
-                                    <th class="header-negrita">U. Medida</th>
+                                    <th class="header-negrita text-center">Unidad Medida</th>
                                     <th class="header-negrita">Cantidad</th>
                                     <th class="header-negrita">Precio unitario</th>
                                     <th class="header-negrita">Descuento</th>
-                                    <th class="header-negrita">Gravado IVA</th>
+                                    <th class="header-negrita text-center">Exento IVA</th>
                                     <th class="header-negrita">Ventas Netas</th>
                                     <th class="text-center">
                                         <img src="./assets/img/icon/regalo.png">
@@ -213,14 +227,16 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let productoFactura of productosFactura;let i = index">
+                                    <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
+                                    <td class="body-negrita align-middle text-center">166761{{i}}</td>
                                     <td class="body-negrita align-middle">{{productoFactura.NombreProducto}}</td>
-                                    <td class="body-negrita align-middle">{{productoFactura.NombreUnidad}}</td>
+                                    <td class="body-negrita align-middle  text-center">{{productoFactura.NombreUnidad}}</td>
                                     <td class="body-negrita align-middle">{{productoFactura.Cantidad}}</td>
                                     <td class="body-negrita align-middle">{{productoFactura.Costo}} {{simboloMonedaUtilizado}}</td>
                                     <td width="10%" class="body-negrita align-middle">
                                         <strong>{{productoFactura.Descuento}}%</strong>
                                     </td>
-                                    <td class="body-negrita align-middle">
+                                    <td class="body-negrita align-middle text-center">
                                         <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                                     </td>
                                     <td width="10%" class="body-negrita align-middle">{{productoFactura.TotalDetalle | number
@@ -454,7 +470,9 @@
 
             <div class="modal-header white-text orange-chang">
                 <h4 class="title">
-                    <i class="fa fa-file-text-o"></i> Editar Detalle Producto</h4>
+                    <i class="fa fa-file-text-o"></i> Editar Detalle Producto<span id="nombreProductoModal"><br>Nombre del
+                        producto
+                    </span></h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAgregarDetalleProducto.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>

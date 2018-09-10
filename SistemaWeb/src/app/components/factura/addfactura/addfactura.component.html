@@ -142,18 +142,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let producto of productos | buscar: buscando; let i = index">
-                                        <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
+                                    <tr *ngFor="let producto of productos | buscar: buscando; let indice = index">
+                                        <th scope="row" class="align-middle" width="5%">{{indice + 1}}</th>
                                         <td class="align-middle" width="25%">{{producto.NombreProducto}}</td>
                                         <td width="12%">
                                             <div class="md-form">
-                                                <input mdbInputDirective type="number" id="cantidadProducto" name="cantidadProducto" formControlName="cantidadProducto" min="0"
+                                                <input mdbInputDirective type="number" id="cantidadProductoIngresado" name="cantidadProducto" min="0"
                                                     class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="12%">
                                             <div class="md-form">
-                                                <input mdbInputDirective type="number" id="precioProducto" name="precioProducto" formControlName="precioProducto" min="0"
+                                                <input mdbInputDirective type="number" id="precioProductoIngresado" name="precioProducto"  min="0"
                                                     class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
@@ -161,8 +161,8 @@
                                             <span id="span-porcentual"><b class="orange-chang-text">Porcentual</b></span>
                                             <span id="span-efectivo" style="display:none;"><b class="orange-chang-text">Efectivo</b></span>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkDescuento" (click)="ingresarTipoDescuento()" mdbInputDirective>
-                                                <label class="form-check-label " for="checkDescuento"></label>
+                                                <input class="form-check-input" type="checkbox" id="{{indice}}" (click)="ingresarTipoDescuento()" mdbInputDirective>
+                                                <label class="form-check-label " for="{{indice}}" ></label>
                                             </div>
                                         </td>
                                         <td width="12%">

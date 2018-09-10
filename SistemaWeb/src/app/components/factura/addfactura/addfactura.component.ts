@@ -461,12 +461,12 @@ export class AddfacturaComponent implements OnInit {
         }
     }
 
-    ingresarTipoDescuento(){
-        var checkBox = document.getElementById("checkDescuento");
-        var porcentual = document.getElementById("span-porcentual");
-        var efectivo = document.getElementById("span-efectivo");
+    eventTipoDescuento(event, i) {
 
-        if(checkBox.checked == true) {
+        var porcentual = document.getElementById("span-porcentual"+ i);
+        var efectivo = document.getElementById("span-efectivo"+ i);
+
+        if ( event.target.checked ) {
             efectivo.style.display = "block";
             porcentual.style.display = "none";
         } else {

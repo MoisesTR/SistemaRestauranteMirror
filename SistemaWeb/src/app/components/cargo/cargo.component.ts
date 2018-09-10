@@ -10,13 +10,14 @@ import {CustomValidators} from '../../validadores/CustomValidators';
 import {idioma_espanol} from '../../services/shared/global';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
+
 declare var $: any;
 
 @Component({
   selector: 'app-cargo',
   templateUrl: './cargo.component.html',
   styleUrls: ['./cargo.component.css'],
-  providers:[CargoService]
+  providers: [CargoService]
 })
 export class CargoComponent implements OnInit, InvocarFormulario {
 
@@ -115,16 +116,16 @@ export class CargoComponent implements OnInit, InvocarFormulario {
   /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
   initFormAddCargo() {
     this.formAddCargo = this._formBuilderCargo.group({
-      'nombreCargo': new FormControl('',[
+      'nombreCargo': new FormControl('', [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
 
       ])
       , 'descripcionCargo': new FormControl('',
           [ Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(3),
             Validators.maxLength(100),
             CustomValidators.nospaceValidator
           ])
@@ -135,13 +136,13 @@ export class CargoComponent implements OnInit, InvocarFormulario {
     this.formUpdateCargo = this._formBuilderCargo.group({
       'nombreCargo': new FormControl('', [
         Validators.required
-          , Validators.minLength(5)
+          , Validators.minLength(2)
           , Validators.maxLength(100)
           , CustomValidators.nospaceValidator
       ])
       , 'descripcionCargo': new FormControl( '', [
         Validators.required
-        , Validators.minLength(5)
+        , Validators.minLength(3)
         , Validators.maxLength(100)
         , CustomValidators.nospaceValidator
         ]
@@ -176,7 +177,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
             this.formAddCargo.reset();
             this.cargo = new Cargo();
             this.getCargosRender();
-          })
+          });
 
         } else {
           Utils.showMsgInfo('Ha ocurrido un error al insertar el cargo, intentalo nuevamente', this.tituloPantalla);
@@ -184,7 +185,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
       }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
   updateCargo() {
@@ -204,7 +205,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
             this.getCargosRender();
           });
         } else {
-          Utils.showMsgInfo('Ha ocurrido un error inesperado en la actualización',this.tituloPantalla);
+          Utils.showMsgInfo('Ha ocurrido un error inesperado en la actualización', this.tituloPantalla);
         }
       }, error => {
        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
@@ -251,19 +252,17 @@ export class CargoComponent implements OnInit, InvocarFormulario {
     Utils.invocacionModal(Modal, Formulario);
   }
 
-  invocarModalUpdate(Modal, Cargo: Cargo) {
+  invocarModalUpdate(Modal, cargo: Cargo) {
 
-      this.cargo.IdCargo  = Cargo.IdCargo;
-      this.cargo.NombreCargo = Cargo.NombreCargo;
-      this.cargo.DescripcionCargo = Cargo.DescripcionCargo;
+      this.cargo.IdCargo  = cargo.IdCargo;
+      this.cargo.NombreCargo = cargo.NombreCargo;
+      this.cargo.DescripcionCargo = cargo.DescripcionCargo;
 
       this.formUpdateCargo.reset();
       this.formUpdateCargo.setValue({
-          nombreCargo: Cargo.NombreCargo
-          , descripcionCargo:Cargo.DescripcionCargo
+          nombreCargo: cargo.NombreCargo
+          , descripcionCargo: cargo.DescripcionCargo
       });
-
-
     Modal.show();
   }
 }

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {UnidadMedida} from '../../models/UnidadMedida';
 import {UnidadMedidaService} from '../../services/shared/unidad-medida.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs';
 import {idioma_espanol} from '../../services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
@@ -21,10 +21,10 @@ declare var $: any;
   selector: 'app-unidadmedida',
   templateUrl: './unidadmedida.component.html',
   styleUrls: ['./unidadmedida.component.css'],
-  providers:[UnidadMedidaService]
+  providers: [UnidadMedidaService]
 })
 
-export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
+export class UnidadmedidaComponent implements OnInit, InvocarFormulario {
 
   public unidadMedida: UnidadMedida;
   public unidadesMedida: UnidadMedida[];
@@ -58,34 +58,37 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
   ngOnInit() {
 
-    $(document).ready(function(){
-      $(".letras").keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-          && (key.charCode != 45) //retroceso
-          && (key.charCode != 241) //ñ
-          && (key.charCode != 209) //Ñ
-          && (key.charCode != 32) //espacio
-          && (key.charCode != 225) //á
-          && (key.charCode != 233) //é
-          && (key.charCode != 237) //í
-          && (key.charCode != 243) //ó
-          && (key.charCode != 250) //ú
-          && (key.charCode != 193) //Á
-          && (key.charCode != 201) //É
-          && (key.charCode != 205) //Í
-          && (key.charCode != 211) //Ó
-          && (key.charCode != 218) //Ú
+      $(document).ready(function() {
 
-        )
-          return false;
+          $('.letras').keypress(function (key) {
+              if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
+                  && (key.charCode < 65 || key.charCode > 90) // letras minusculas
+                  && (key.charCode !== 45) // retroceso
+                  && (key.charCode !== 241) // ñ
+                  && (key.charCode !== 209) // Ñ
+                  && (key.charCode !== 32) // espacio
+                  && (key.charCode !== 225) // á
+                  && (key.charCode !== 233) // é
+                  && (key.charCode !== 237) // í
+                  && (key.charCode !== 243) // ó
+                  && (key.charCode !== 250) // ú
+                  && (key.charCode !== 193) // Á
+                  && (key.charCode !== 201) // É
+                  && (key.charCode !== 205) // Í
+                  && (key.charCode !== 211) // Ó
+                  && (key.charCode !== 218) // Ú
+
+              ) {
+                  return false;
+              }
+          });
       });
-    });
 
     this.settingsDatatable();
+
     this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
       response => {
-        if (response.unidadesmedida){
+        if (response.unidadesmedida) {
           this.unidadesMedida = response.unidadesmedida;
           this.dtTrigger.next();
         }
@@ -124,58 +127,58 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
       };
   }
 
-  initFormAdd(){
+  initFormAdd() {
     this.formAddUnidadMedida = this.fBuilderUnidadMedida.group({
 
-      'nombreUnidadMedida': new FormControl('',[
+      'nombreUnidadMedida': new FormControl('', [
         Validators.required
-        , Validators.minLength(5)
+        , Validators.minLength(2)
         , Validators.maxLength(100)
         , CustomValidators.nospaceValidator
       ]) ,
-      'simboloUnidadMedida': new FormControl('',[
+      'simboloUnidadMedida': new FormControl('', [
         Validators.required
         , Validators.minLength(2)
-        , Validators.maxLength(3)
+        , Validators.maxLength(6)
         , CustomValidators.nospaceValidator
       ]),
-      'clasificacionesUnidad': new FormControl('',[
+      'clasificacionesUnidad': new FormControl('', [
         Validators.required
       ]),
-      'nimportancia' : new FormControl('',[
+      'nimportancia' : new FormControl('', [
         Validators.required
       ])
-    })
+    });
   }
 
-  initFormUpdate(){
+  initFormUpdate() {
     this.formUpdateUnidadMedida = this.fBuilderUnidadMedida.group({
 
-      'nombreUnidadMedida': new FormControl('',[
+      'nombreUnidadMedida': new FormControl('', [
         Validators.required
         , Validators.minLength(5)
         , Validators.maxLength(100)
         , CustomValidators.nospaceValidator
       ]) ,
-      'simboloUnidadMedida': new FormControl('',[
+      'simboloUnidadMedida': new FormControl('', [
         Validators.required
         , Validators.minLength(2)
         , Validators.maxLength(3)
         , CustomValidators.nospaceValidator
       ]) ,
-      'clasificacionesUnidad': new FormControl('',[
+      'clasificacionesUnidad': new FormControl('', [
           Validators.required
       ]),
-      'nimportancia' : new FormControl('',[
+      'nimportancia' : new FormControl('', [
         Validators.required
       ])
-    })
+    });
   }
 
   getClasificacionUnidades() {
     this._clasificacionUnidad.getClasificacionUnidadesMedida().subscribe(
       response => {
-        if(response.clasificaciones) {
+        if (response.clasificaciones) {
           this.clasificacionesUnidad = response.clasificaciones;
         }
       }, error => {
@@ -200,9 +203,9 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
     this.unidadMedida.NImportancia = this.formAddUnidadMedida.value.nimportancia;
 
     this._UnidadMedidaServicio.createUnidadMedida(this.unidadMedida).subscribe(
-      response =>{
+      response => {
 
-        if(response.IdUnidadMedida){
+        if (response.IdUnidadMedida) {
           swal(
             'Unidad medida',
             'La unidad ha sido creada exitosamente!',
@@ -212,15 +215,15 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
             this.formAddUnidadMedida.reset();
             this.unidadMedida = new UnidadMedida();
             this.getUnidadesMedidaRender();
-          })
+          });
         } else {
           Utils.showMsgInfo('Ha ocurrido un error al insertar la unidad, intentalo nuevamente', this.tituloPantalla);
         }
       },
-      error=>{
+      error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
 
   }
 
@@ -231,7 +234,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
       this._UnidadMedidaServicio.updateUnidadMedida(this.unidadMedida).subscribe(
           response => {
-              if(response.success){
+              if (response.success) {
                   swal(
                       this.tituloPantalla,
                       'La unidad ha sido actualizada exitosamente!',
@@ -252,7 +255,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
 
     this._UnidadMedidaServicio.getUnidadesMedida().subscribe(
       response => {
-        if(response.unidadesmedida) {
+        if (response.unidadesmedida) {
           this.unidadesMedida = response.unidadesmedida;
           this.rerender();
 
@@ -276,7 +279,7 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario{
     );
   }
 
-  deleteUnidadMedida(IdUnidad){
+  deleteUnidadMedida(IdUnidad) {
 
     swal({
       title: 'Estas seguro(a)?',

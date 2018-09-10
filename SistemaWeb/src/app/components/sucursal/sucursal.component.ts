@@ -44,9 +44,9 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
-    , private _sucursalService : SucursalService
+    , private _sucursalService: SucursalService
     , private _telefonoService: TelefonosucursalService
-    , private _formBuilderSucursal : FormBuilder
+    , private _formBuilderSucursal: FormBuilder
   ) {
 
     this.sucursal = new Sucursal();
@@ -130,7 +130,7 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
     this._sucursalService.getSucursales().subscribe(
       response => {
 
-        if(response.sucursales) {
+        if (response.sucursales) {
           this.sucursales = response.sucursales;
         } else {
           Utils.showMsgInfo('Ha ocurrido un error al obtener las sucursales', this.tituloPantalla);
@@ -145,30 +145,29 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
   initFormAddSucursal() {
 
     this.formAddSucursal = this._formBuilderSucursal.group({
-      'nombreSucursal': new FormControl('',[
+      'nombreSucursal': new FormControl('', [
         Validators.required,
-        Validators.minLength(5),
+        Validators.minLength(3),
         Validators.maxLength(100),
         CustomValidators.nospaceValidator
       ])
-      , 'direccion': new FormControl('',[
+      , 'direccion': new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ]
 
-      ), 'telefonoPrincipal': new FormControl('',[
+      ), 'telefonoPrincipal': new FormControl('', [
           Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(100)
+          Validators.minLength(8),
+          Validators.maxLength(8)
         ]
 
-      ), 'telefonoSecundario': new FormControl('',[
+      ), 'telefonoSecundario': new FormControl('', [
         Validators.minLength(8),
-        Validators.maxLength(100)
+        Validators.maxLength(8)
       ]
-
     )
     });
 
@@ -178,31 +177,29 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
   initFormUpdateSucursal() {
 
     this.formUpdateSucursal = this._formBuilderSucursal.group({
-      'nombreSucursal': new FormControl('',[
+      'nombreSucursal': new FormControl('', [
         Validators.required,
-        Validators.minLength(5),
+        Validators.minLength(3),
         Validators.maxLength(100),
         CustomValidators.nospaceValidator
       ])
-      , 'direccion': new FormControl('',[
+      , 'direccion': new FormControl('', [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ]
 
-      ), 'telefonoPrincipal': new FormControl('',[
+      ), 'telefonoPrincipal': new FormControl('', [
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(10),
+          Validators.maxLength(8),
         ]
 
-      ), 'telefonoSecundario': new FormControl('',[
+      ), 'telefonoSecundario': new FormControl('', [
           Validators.minLength(8),
-          Validators.maxLength(10),
-
+          Validators.maxLength(8),
         ]
-
       )
     });
   }
@@ -212,19 +209,20 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
     this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formAddSucursal.value.direccion;
     this.sucursal.Telefono1 = this.formAddSucursal.value.telefonoPrincipal.toString().replace('-', '');
-    this.sucursal.Telefono2 = this.formAddSucursal.value.telefonoSecundario != null ? this.formAddSucursal.value.telefonoSecundario.toString().replace('-', '') : '';
+    this.sucursal.Telefono2 = this.formAddSucursal.value.telefonoSecundario != null ? Utils.replaceCharacter(this.formUpdateSucursal.value.telefonoSecundario.toString()) : '';
 
   }
 
-  getValuesFormUpdateSucursal(){
+  getValuesFormUpdateSucursal() {
     this.sucursal.NombreSucursal = this.formUpdateSucursal.value.nombreSucursal;
     this.sucursal.Direccion = this.formUpdateSucursal.value.direccion;
     this.sucursal.Telefono1 = this.formUpdateSucursal.value.telefonoPrincipal.toString().replace('-', '');
-    this.sucursal.Telefono2 = this.formUpdateSucursal.value.telefonoSecundario != null ? this.formUpdateSucursal.value.telefonoSecundario.toString().replace('-', '') : '';
+    this.sucursal.Telefono2 = this.formUpdateSucursal.value.telefonoSecundario != null ? Utils.replaceCharacter(this.formUpdateSucursal.value.telefonoSecundario.toString()) : '';
   }
 
 
-  createSucursal(Modal){
+
+  createSucursal(Modal) {
     this.getValuesFormAddSucursal();
 
     this._sucursalService.createSucursal(this.sucursal).subscribe(
@@ -322,17 +320,17 @@ export class SucursalComponent implements OnInit , InvocarFormulario{
     Utils.invocacionModal(Modal, Formulario);
   }
 
-  invocarModalUpdate(Modal, Sucursal: Sucursal) {
+  invocarModalUpdate(Modal, sucursal: Sucursal) {
 
-    this.sucursal.IdSucursal  = Sucursal.IdSucursal;
+    this.sucursal.IdSucursal  = sucursal.IdSucursal;
 
     this.formUpdateSucursal.reset();
 
     this.formUpdateSucursal.setValue({
-        nombreSucursal: Sucursal.NombreSucursal
-        , direccion: Sucursal.Direccion
-        , telefonoPrincipal: Sucursal.Telefono1
-        , telefonoSecundario : Sucursal.Telefono2
+        nombreSucursal: sucursal.NombreSucursal
+        , direccion: sucursal.Direccion
+        , telefonoPrincipal: sucursal.Telefono1
+        , telefonoSecundario : sucursal.Telefono2
     });
 
     Modal.show();

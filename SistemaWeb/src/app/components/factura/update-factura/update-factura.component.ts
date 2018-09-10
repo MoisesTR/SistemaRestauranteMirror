@@ -17,7 +17,6 @@ import {ModalDirective} from '../../../../ng-uikit-pro-standard';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utils} from '../../Utils';
 import {Producto} from '../../../models/Producto';
-import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-update-factura',
@@ -229,19 +228,19 @@ export class UpdateFacturaComponent implements OnInit {
     }
 
     editarDatosProducto() {
-        this.productosFactura.forEach((producto,  index) => {
-            if (this.productosFactura[index].IdProducto === this.productoEditar.IdProducto) {
+        this.productosFactura.forEach((producto,  i) => {
+            if (this.productosFactura[i].IdProducto === this.productoEditar.IdProducto) {
 
                 // Hacer la operacion de resta en la factura solamente si ya ingreso previamente los datos de un producto
-                if (this.totalFactura > 0 && this.productosFactura[index].Costo > 0) {
+                if (this.totalFactura > 0 && this.productosFactura[i].Costo > 0) {
                     this.calcularSubtotalFactura(producto, 'RESTA');
                 }
                 // Actualizar los datos del producto editado en la factura
-                this.productosFactura[index].Cantidad = this.formUpdateDetalleFactura.value.cantidadProducto;
-                this.productosFactura[index].Costo = this.formUpdateDetalleFactura.value.precioProducto;
-                this.productosFactura[index].Descuento = this.formUpdateDetalleFactura.value.descuentoTotalProducto;
-                this.productosFactura[index].GravadoIva = this.formUpdateDetalleFactura.value.gravadoIva ? 1 : 0;
-                this.productosFactura[index].TotalDetalle = this.calcularPrecioTotalxProducto(this.productoEditar);
+                this.productosFactura[i].Cantidad = this.formUpdateDetalleFactura.value.cantidadProducto;
+                this.productosFactura[i].Costo = this.formUpdateDetalleFactura.value.precioProducto;
+                this.productosFactura[i].Descuento = this.formUpdateDetalleFactura.value.descuentoTotalProducto;
+                this.productosFactura[i].GravadoIva = this.formUpdateDetalleFactura.value.gravadoIva ? 1 : 0;
+                this.productosFactura[i].TotalDetalle = this.calcularPrecioTotalxProducto(this.productoEditar);
             }
         });
 
@@ -316,7 +315,7 @@ export class UpdateFacturaComponent implements OnInit {
                         this.productos[indice].TotalDetalle = 0;
                     });
 
-                    this.factura.Detalle.forEach( (value, index2) => {
+                    this.factura.Detalle.forEach( (value, i) => {
                         this.productoTemp = new Producto();
                         this.productoTemp = value;
                         this.productosFactura.push(this.productoTemp);
@@ -334,7 +333,7 @@ export class UpdateFacturaComponent implements OnInit {
 
     existenMontosMenorIgualaCero() {
         let menorIgualCero = false;
-        this.productosFactura.forEach((value, index) => {
+        this.productosFactura.forEach((value, i) => {
             if (value.TotalDetalle === undefined) {
                 menorIgualCero = true;
             } else if (value.TotalDetalle <= 0) {
@@ -372,7 +371,7 @@ export class UpdateFacturaComponent implements OnInit {
 
     crearDetalleFactura(IdFactura: number) {
 
-        this.productosFactura.forEach((value, index) => {
+        this.productosFactura.forEach((value, i) => {
             this.detalleFactura = new DetalleFactura();
             this.detalleFactura.IdFactura = IdFactura;
             this.detalleFactura.IdProducto = value.IdProducto;
@@ -397,7 +396,7 @@ export class UpdateFacturaComponent implements OnInit {
                 }
             );
 
-            if (index === (this.productosFactura.length - 1)) {
+            if (i === (this.productosFactura.length - 1)) {
                 Utils.showMsgSucces('La factura se ha creado exitosamente');
                 this._router.navigate(['/factura/busquedafacturas']);
             }

@@ -12,11 +12,10 @@ import {UploadService} from '../../../services/shared/upload.service';
 import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '../../../services/shared/global';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utils} from '../../Utils';
-import {isNull} from 'util';
 import {TipoDocumento} from '../../../models/TipoDocumento';
 import {IMyOptions, ModalDirective} from 'ng-uikit-pro-standard';
 
-declare var $:any
+declare var $: any;
 
 @Component({
   selector: 'app-add-trabajador',
@@ -55,40 +54,35 @@ export class AddTrabajadorComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(document).ready(function(){
 
-        // $('.cedula').mask('000-ZX0000-0000A',{'translation': {
-        //   A: {pattern: /[A-Za-z]/},
-        //   Z: {pattern: /[0-3]/},
-        //   X: {pattern: /[0-9]/},
-        //     }
-        // });
+      $(document).ready(function() {
 
-    $('.letras').keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-            && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-            && (key.charCode != 45) //retroceso
-            && (key.charCode != 241) //ñ
-            && (key.charCode != 209) //Ñ
-            && (key.charCode != 32) //espacio
-            && (key.charCode != 225) //á
-            && (key.charCode != 233) //é
-            && (key.charCode != 237) //í
-            && (key.charCode != 243) //ó
-            && (key.charCode != 250) //ú
-            && (key.charCode != 193) //Á
-            && (key.charCode != 201) //É
-            && (key.charCode != 205) //Í
-            && (key.charCode != 211) //Ó
-            && (key.charCode != 218) //Ú
+          $('.letras').keypress(function (key) {
+              if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
+                  && (key.charCode < 65 || key.charCode > 90) // letras minusculas
+                  && (key.charCode !== 45) // retroceso
+                  && (key.charCode !== 241) // ñ
+                  && (key.charCode !== 209) // Ñ
+                  && (key.charCode !== 32) // espacio
+                  && (key.charCode !== 225) // á
+                  && (key.charCode !== 233) // é
+                  && (key.charCode !== 237) // í
+                  && (key.charCode !== 243) // ó
+                  && (key.charCode !== 250) // ú
+                  && (key.charCode !== 193) // Á
+                  && (key.charCode !== 201) // É
+                  && (key.charCode !== 205) // Í
+                  && (key.charCode !== 211) // Ó
+                  && (key.charCode !== 218) // Ú
 
-        )return false;
-    });
-
-    $('.dropify').dropify();
-    });
+              ) {
+                  return false;
+              }
+          });
+      });
 
     $('.telefono').mask('0000-0000');
+
     this.initFormTrabajador();
     this.getSucursales();
     this.getTiposDocumentos();
@@ -156,14 +150,14 @@ export class AddTrabajadorComponent implements OnInit {
       'nombreTrabajador' : new FormControl('', [
         Validators.required,
         CustomValidators.nospaceValidator
-        , Validators.minLength(5)
+        , Validators.minLength(2)
         , Validators.maxLength(300)
 
       ])
       , 'apellido' : new FormControl('', [
         Validators.required,
         CustomValidators.nospaceValidator
-        , Validators.minLength(5)
+        , Validators.minLength(3)
         , Validators.maxLength(300)
 
       ])

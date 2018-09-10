@@ -12,11 +12,10 @@ import {SucursalService} from '../../../services/shared/sucursal.service';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {TipoDocumento} from '../../../models/TipoDocumento';
-import {isNull} from 'util';
 import {Utils} from '../../Utils';
 import {IMyOptions} from 'ng-uikit-pro-standard';
 
-declare var $:any
+declare var $: any;
 
 @Component({
   selector: 'app-update-trabajador',
@@ -27,23 +26,23 @@ export class UpdateTrabajadorComponent implements OnInit {
 
     public trabajador: Trabajador;
     public trabajadores: Trabajador[];
-    formUpdateTrabajador : FormGroup;
-    public sucursales : Sucursal[];
+    formUpdateTrabajador: FormGroup;
+    public sucursales: Sucursal[];
     public cargos: Cargo[];
     public url: string;
     public myDatePickerOptions: IMyOptions = opcionesDatePicker;
-    public removioImagen : boolean = false;
-    public tiposDocumento : TipoDocumento [];
+    public removioImagen: boolean;
+    public tiposDocumento: TipoDocumento [];
     public filesToUpload: Array<File> = null;
 
   constructor(
       private _route: ActivatedRoute
-      ,private _router: Router
-      , private _trabajadorService : TrabajadorService
-      , private formBuilderTrabajador : FormBuilder
+      , private _router: Router
+      , private _trabajadorService: TrabajadorService
+      , private formBuilderTrabajador: FormBuilder
       , private _sucursalService: SucursalService
       , private _cargoService: CargoService
-      , private _uploadService : UploadService
+      , private _uploadService: UploadService
   ) {
       this.url = Global.url;
       this.trabajador  = new Trabajador();
@@ -55,9 +54,9 @@ export class UpdateTrabajadorComponent implements OnInit {
 
   ngOnInit() {
 
-      $(document).ready(function(){
+      $(document).ready(function() {
 
-          $('.cedula').mask('000-ZX0000-0000A',{'translation': {
+          $('.cedula').mask('000-ZX0000-0000A', {'translation': {
                   A: {pattern: /[A-Za-z]/},
                   Z: {pattern: /[0-3]/},
                   X: {pattern: /[0-9]/},
@@ -70,67 +69,55 @@ export class UpdateTrabajadorComponent implements OnInit {
       this.initFormTrabajador();
       this.getSucursales();
       this.getTrabajador();
+      this.removioImagen = false;
 
   }
-  initFormTrabajador(){
+  initFormTrabajador() {
       this.formUpdateTrabajador = this.formBuilderTrabajador.group({
               'nombreTrabajador' : new FormControl('', [
                   Validators.required,
                   CustomValidators.nospaceValidator
-                  , Validators.minLength(5)
+                  , Validators.minLength(2)
                   , Validators.maxLength(300)
 
               ])
-              ,'apellido' : new FormControl('', [
+              , 'apellido' : new FormControl('', [
                   Validators.required,
                   CustomValidators.nospaceValidator
-                  , Validators.minLength(5)
+                  , Validators.minLength(3)
                   , Validators.maxLength(300)
 
               ])
-              ,'fechaNacimiento' : new FormControl('', [
+              , 'fechaNacimiento' : new FormControl('', [
                   Validators.required,
                   CustomValidators.fechaNacimientoTrabajador
 
               ])
-              ,'fechaIngreso' : new FormControl('', [
+              , 'fechaIngreso' : new FormControl('', [
                   Validators.required,
                   CustomValidators.mayorFechaActual
               ])
-              ,'documentoTrabajador' : new FormControl('', [
+              , 'documentoTrabajador' : new FormControl('', [
                   Validators.required,
                   CustomValidators.nospaceValidator
               ])
-              ,'tipoDocumento' : new FormControl('', [
+              , 'tipoDocumento' : new FormControl('', [
                   Validators.required
               ])
               , 'telefonoPrincipal' : new FormControl('', [
                   Validators.required
                   , CustomValidators.nospaceValidator
-                  , Validators.minLength(8)
+                  , Validators.minLength(9)
                   , Validators.maxLength(9)
 
               ])
               , 'telefonoSecundario' : new FormControl('', [
-                  Validators.minLength(8)
+                  Validators.minLength(9)
                   , Validators.maxLength(9)
               ])
-              // ,telefonos : new FormGroup({
-              //   'telefonoPrincipal' : new FormControl('', [
-              //     Validators.required
-              //     , CustomValidators.nospaceValidator
-              //     , Validators.minLength(9)
-              //     , Validators.maxLength(9)
-              //
-              //   ])
-              //   , 'telefonoSecundario' : new FormControl('', [
-              //       Validators.minLength(9)
-              //       , Validators.maxLength(9)
-              //   ])
-              // })
-              ,'sucursal' : new FormControl('', [Validators.required])
-              ,'cargo' : new FormControl('', [Validators.required])
-              ,'direccion' : new FormControl('', [
+              , 'sucursal' : new FormControl('', [Validators.required])
+              , 'cargo' : new FormControl('', [Validators.required])
+              , 'direccion' : new FormControl('', [
                   Validators.required,
                   CustomValidators.nospaceValidator
                   , Validators.minLength(5)
@@ -140,51 +127,50 @@ export class UpdateTrabajadorComponent implements OnInit {
       );
   }
 
-  getValuesFormTrabajador(){
+  getValuesFormTrabajador() {
       this.trabajador.Nombres = this.formUpdateTrabajador.value.nombreTrabajador;
       this.trabajador.Apellidos = this.formUpdateTrabajador.value.apellido;
       this.trabajador.Documento = this.formUpdateTrabajador.value.documentoTrabajador;
       this.trabajador.Direccion = this.formUpdateTrabajador.value.direccion;
       this.trabajador.FechaIngreso = this.formUpdateTrabajador.value.fechaIngreso;
       this.trabajador.FechaNacimiento =  this.formUpdateTrabajador.value.fechaNacimiento;
-      this.trabajador.Telefono1 = this.formUpdateTrabajador.value.telefonoPrincipal != null ? this.formUpdateTrabajador.value.telefonoPrincipal.replace("-","") : '';
-      this.trabajador.Telefono2 = this.formUpdateTrabajador.value.telefonoSecundario != null ? (this.formUpdateTrabajador.value.telefonoSecundario).replace("-","") : '';
-
+      this.trabajador.Telefono1 = this.formUpdateTrabajador.value.telefonoPrincipal != null ? this.formUpdateTrabajador.value.telefonoPrincipal.replace('-', '') : '';
+      this.trabajador.Telefono2 = this.formUpdateTrabajador.value.telefonoSecundario != null ? (this.formUpdateTrabajador.value.telefonoSecundario).replace('-', '') : '';
   }
 
-  getSucursales(){
+  getSucursales() {
       this._sucursalService.getSucursales().subscribe(
-          response =>{
-              if(response.sucursales){
+          response => {
+              if (response.sucursales) {
                   this.sucursales = response.sucursales;
               } else {
 
               }
-          }, error=>{
+          }, error => {
 
           }
-      )
+      );
   }
 
-  getCargos(){
+  getCargos() {
       this._cargoService.getCargos().subscribe(
-          response =>{
-              if(response.cargos){
+          response => {
+              if (response.cargos) {
                   this.cargos = response.cargos;
               }
-          }, error =>{
+          }, error => {
 
           }
-      )
+      );
   }
 
-  updateTrabajador(){
+  updateTrabajador() {
 
       this.getValuesFormTrabajador();
 
       this._trabajadorService.updateTrabajador(this.trabajador).subscribe(
-          response =>{
-              if(response.success){
+          response => {
+              if (response.success) {
                   swal(
                       'Trabajador',
                       'El trabajador ha sido actualizado exitosamente!',
@@ -192,32 +178,32 @@ export class UpdateTrabajadorComponent implements OnInit {
                   ).then(() => {
                       this.formUpdateTrabajador.reset();
                       this._router.navigate(['/trabajador']);
-                  })
+                  });
               }
-          }, error =>{
-              Utils.showMsgError(Utils.msgError(error),'Trabajador')
+          }, error => {
+              Utils.showMsgError(Utils.msgError(error), 'Trabajador');
           }
-      )
+      );
   }
 
-  getTrabajador(){
-    this._route.params.forEach((params: Params)=>{
+  getTrabajador() {
+    this._route.params.forEach((params: Params) => {
 
-        let id = params['id'];
+        const id = params['id'];
         this.trabajador.IdTrabajador = id;
 
         this._trabajadorService.getTrabajador(id).subscribe(
-            response =>{
-                if(response.trabajador){
+            response => {
+                if (response.trabajador) {
                     this.trabajador = response.trabajador;
 
-                    //Inicializar componentes de la vista
-                    $(document).ready(()=>{
+                    // Inicializar componentes de la vista
+                    $(document).ready(() => {
 
-                        var imagenTrabajador =  this.url + 'getImagen/'+ CARPETA_TRABAJADORES + '/' + this.trabajador.Imagen;
-                        var drEvent;
+                        const imagenTrabajador =  this.url + 'getImagen/' + CARPETA_TRABAJADORES + '/' + this.trabajador.Imagen;
+                        let drEvent;
 
-                        if(this.trabajador.Imagen.length > 0) {
+                        if (this.trabajador.Imagen.length > 0) {
                             drEvent = $('.dropify').dropify({
                                 defaultFile: imagenTrabajador
                             });
@@ -235,14 +221,14 @@ export class UpdateTrabajadorComponent implements OnInit {
                 } else {
                     // this._router.navigate(['/producto/list']);
                 }
-            }, error =>{
+            }, error => {
 
             }
-        )
+        );
     });
   }
 
-  inicializarValoresFormularioTrabajador(){
+  inicializarValoresFormularioTrabajador() {
         this.formUpdateTrabajador.controls['nombreTrabajador'].setValue(this.trabajador.Nombres);
         this.formUpdateTrabajador.controls['apellido'].setValue(this.trabajador.Apellidos);
         this.formUpdateTrabajador.controls['fechaNacimiento'].setValue(this.trabajador.FechaNacimiento);
@@ -253,31 +239,31 @@ export class UpdateTrabajadorComponent implements OnInit {
         this.formUpdateTrabajador.controls['direccion'].setValue(this.trabajador.Direccion);
   }
 
-  guardarImagenTrabajador(){
+  guardarImagenTrabajador() {
 
-      if( (isNull(this.filesToUpload) && !this.removioImagen)) {
+      if ( this.filesToUpload === null && !this.removioImagen) {
           this.updateTrabajador();
 
       } else {
-          if(this.filesToUpload != null && !this.removioImagen){
+          if (this.filesToUpload != null && !this.removioImagen) {
               this._uploadService.makeFileRequest(
-                  this.url+'uploadImage',
+                  this.url + 'uploadImage',
                   CARPETA_TRABAJADORES
-                  ,this.trabajador.Imagen
-                  ,this.removioImagen,
+                  , this.trabajador.Imagen
+                  , this.removioImagen,
                   [],
                   this.filesToUpload,
                   'token',
-                  'image').then((result:any)=>{
+                  'image').then((result: any) => {
                   this.trabajador.Imagen = result.image;
                   this.updateTrabajador();
 
-              },error =>{
+              }, error => {
                   Utils.msgErrorImage(error);
               });
           } else {
 
-              Utils.showMsgInfo('La imagen es requerida','Trabajador');
+              Utils.showMsgInfo('La imagen es requerida', 'Trabajador');
           }
       }
 
@@ -287,29 +273,29 @@ export class UpdateTrabajadorComponent implements OnInit {
 
     this._trabajadorService.getTiposDocumento().subscribe(
         response => {
-            if(response.documentos) {
+            if (response.documentos) {
                 this.tiposDocumento = response.documentos;
             }
-        }, error =>{
+        }, error => {
 
         }, () => {
 
         }
-    )
+    );
   }
 
-  onChangeSucursal(event){
+  onChangeSucursal(event) {
 
-        if(event === null) {
+        if (event === null) {
             this.trabajador.IdSucursal = null;
         } else {
             this.trabajador.IdSucursal = event.IdSucursal;
         }
   }
 
-  onChangeCargo(event){
+  onChangeCargo(event) {
 
-        if(event === null) {
+        if (event === null) {
             this.trabajador.IdCargo = null;
         } else {
             this.trabajador.IdCargo =  event.IdCargo;
@@ -326,10 +312,9 @@ export class UpdateTrabajadorComponent implements OnInit {
         }
   }
 
-  fileChangeEvent(fileInput:any){
+  fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
         this.removioImagen = false;
   }
-
 
 }

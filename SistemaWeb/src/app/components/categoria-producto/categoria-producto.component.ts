@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CategoriaProductoService} from '../../services/shared/categoria-producto.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoriaProducto} from '../../models/CategoriaProducto';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs';
 import {idioma_espanol} from '../../services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import {CustomValidators} from '../../validadores/CustomValidators';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {Utils} from '../Utils';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-categoria-producto',
@@ -23,8 +23,8 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
   public categoriaProducto: CategoriaProducto;
   public categoriasProductos: CategoriaProducto[];
-  @ViewChild('autoShownModal') public autoShownModal:ModalDirective;
-  @ViewChild('modalAddCategoria') modalAddCategoria : ModalDirective;
+  @ViewChild('autoShownModal') public autoShownModal: ModalDirective;
+  @ViewChild('modalAddCategoria') modalAddCategoria: ModalDirective;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -32,13 +32,13 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   public formAddCategoria: FormGroup;
-  public formUpdateCategoria:FormGroup;
+  public formUpdateCategoria: FormGroup;
   public tituloPantalla = 'Categoria';
 
   constructor(
     private _route: ActivatedRoute
     , private _router: Router
-    , private _categoriaProductoServicio : CategoriaProductoService
+    , private _categoriaProductoServicio: CategoriaProductoService
     , private _formBuilderCategoria: FormBuilder
   ) {
     this.categoriaProducto = new CategoriaProducto();
@@ -53,7 +53,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
 
   }
 
-  settingsDatatable(){
+  settingsDatatable() {
 
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
       this.dtOptions = <DataTables.Settings>{
@@ -70,7 +70,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
                   className: 'btn orange-chang float-right-dt',
                   action:  (e, dt, node, config) => {
                       // this._router.navigate(['producto/add']);
-                      this.InvocarModal(this.modalAddCategoria,this.formAddCategoria);
+                      this.InvocarModal(this.modalAddCategoria, this.formAddCategoria);
                   }
               }
           ]
@@ -86,28 +86,28 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
     });
   }
 
-  getCategorias(){
+  getCategorias() {
 
     this._categoriaProductoServicio.getCategoriasProductos().subscribe(
       response => {
-        if(response.categorias){
+        if (response.categorias) {
           this.categoriasProductos = response.categorias;
           this.dtTrigger.next();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
   }
 
-  getCategoriasRender(){
+  getCategoriasRender() {
     this._categoriaProductoServicio.getCategoriasProductos().subscribe(
       response => {
-        if(response.categorias){
+        if (response.categorias) {
           this.categoriasProductos = response.categorias;
           this.rerender();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
@@ -120,14 +120,14 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
       'nombreCategoria': new FormControl('',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ])
       , 'descripcionCategoria': new FormControl('',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(3),
           Validators.maxLength(300),
           CustomValidators.nospaceValidator
         ])
@@ -141,32 +141,32 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
       'nombreCategoria': new FormControl('',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ])
       , 'descripcionCategoria': new FormControl('',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(3),
           Validators.maxLength(300),
           CustomValidators.nospaceValidator
         ])
     });
   }
 
-  getValuesFormAddCategoria(){
+  getValuesFormAddCategoria() {
     this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
     this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
   }
 
-  getValuesFormUpdateCategoria(){
+  getValuesFormUpdateCategoria() {
     this.categoriaProducto.NombreCategoria = this.formUpdateCategoria.value.nombreCategoria;
     this.categoriaProducto.DescripcionCategoria = this.formUpdateCategoria.value.descripcionCategoria;
   }
 
 
-  createCategoriaProducto(){
+  createCategoriaProducto() {
     this.getValuesFormAddCategoria();
 
     this._categoriaProductoServicio.createCategoriaProducto(this.categoriaProducto).subscribe(
@@ -182,24 +182,24 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
             this.formAddCategoria.reset();
             this.categoriaProducto = new CategoriaProducto();
             this.getCategoriasRender();
-          })
+          });
 
         } else {
-            Utils.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!',this.tituloPantalla);
+            Utils.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!', this.tituloPantalla);
         }
       }, error => {
-          Utils.showMsgError(Utils.msgError(error),this.tituloPantalla)
+          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
-  updateCategoria(Modal){
+  updateCategoria(Modal) {
 
     this.getValuesFormUpdateCategoria();
 
     this._categoriaProductoServicio.updateCategoriaProducto(this.categoriaProducto).subscribe(
-      response =>{
-        if(response.success){
+      response => {
+        if (response.success) {
           swal(
             'Categoría',
             'La categoría ha sido actualizada exitosamente!',
@@ -209,27 +209,27 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
             this.formUpdateCategoria.reset();
             this.getCategoriasRender();
             this.categoriaProducto = new CategoriaProducto();
-          })
+          });
 
         } else {
           Utils.showMsgError('Ha ocurrido un error inesperado en la actualización , intenta nuevamente');
         }
-      }, error =>{
-          Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
+      }, error => {
+          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
 
   }
 
 
-  invocarModalUpdate(Modal, Categoria) {
+  invocarModalUpdate(Modal, Categoria: CategoriaProducto) {
 
       this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
       this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
       this.categoriaProducto.DescripcionCategoria = Categoria.DescripcionCategoria;
 
       this.formUpdateCategoria.reset();
-      this.formUpdateCategoria.setValue({
+      this.formUpdateCategoria.setValue( {
           nombreCategoria: Categoria.NombreCategoria
           , descripcionCategoria: Categoria.DescripcionCategoria
       });
@@ -237,7 +237,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
     Modal.show();
   }
 
-  deleteCategoria(IdCategoria){
+  deleteCategoria(IdCategoria) {
 
     swal({
       title: 'Estas seguro(a)?',

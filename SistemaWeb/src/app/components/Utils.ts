@@ -82,6 +82,10 @@ export class Utils{
       return moment(myDate, 'YYYY-MM-DD').year();
   }
 
+  static replaceCharacter(cadena: string) {
+      return cadena.replace('-', '');
+  }
+
   static printReport(idReporte, preview, catalogo, nativeWindow) {
       nativeWindow.open('http://localhost:3000/reports?shortid=' + idReporte + '&preview=' + preview + '&catalogoApi=' + catalogo );
   }

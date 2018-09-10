@@ -12,7 +12,7 @@ import {ClasificacionProductoService} from '../../services/shared/clasificacion-
 import {ClasificacionProducto} from '../../models/ClasificacionProducto';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
-import {isNull} from "util";
+
 declare var $: any;
 
 @Component({
@@ -53,40 +53,40 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     this.initCustomValidatorsFormSubClasificacion();
   }
 
-  private initCustomValidatorsFormSubClasificacion(){
+  private initCustomValidatorsFormSubClasificacion() {
 
     this.formAddSubClasificacion = this.formBuilderSubClasificacion.group({
-        'nombreSubClasificacion' : new FormControl('',[
+        'nombreSubClasificacion' : new FormControl('', [
           Validators.required
-          , Validators.minLength(5)
+          , Validators.minLength(2)
           , Validators.maxLength(100)
           , CustomValidators.nospaceValidator
         ])
-        , 'descripcionSubClasificacion' : new FormControl('',[
+        , 'descripcionSubClasificacion' : new FormControl('', [
           Validators.required
-          , Validators.minLength(5)
+          , Validators.minLength(3)
           , Validators.maxLength(300)
           , CustomValidators.nospaceValidator
         ])
-        , 'clasificacion' : new FormControl('',[
+        , 'clasificacion' : new FormControl('', [
         Validators.required
       ])
-    })
+    });
 
     this.formUpdateSubClasificacion = this.formBuilderSubClasificacion.group({
-      'nombreSubClasificacion' : new FormControl('',[
+      'nombreSubClasificacion' : new FormControl('', [
         Validators.required
-        , Validators.minLength(5)
+        , Validators.minLength(2)
         , Validators.maxLength(100)
         , CustomValidators.nospaceValidator
       ])
-      , 'descripcionSubClasificacion' : new FormControl('',[
+      , 'descripcionSubClasificacion' : new FormControl('', [
         Validators.required
-        , Validators.minLength(5)
+        , Validators.minLength(3)
         , Validators.maxLength(300)
         , CustomValidators.nospaceValidator
       ])
-      , 'clasificacion' : new FormControl('',[
+      , 'clasificacion' : new FormControl('', [
         Validators.required
       ])
     });
@@ -134,7 +134,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
     this._subClasificacionService.getSubClasificaciones().subscribe(
       response => {
 
-        if(response.subclasificaciones) {
+        if (response.subclasificaciones) {
           this.subclasificaciones = response.subclasificaciones;
           this.dtTrigger.next();
         } else {
@@ -152,7 +152,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
       this._subClasificacionService.getSubClasificaciones().subscribe(
           response => {
 
-              if(response.subclasificaciones) {
+              if (response.subclasificaciones) {
                   this.subclasificaciones = response.subclasificaciones;
                   this.rerender();
               } else {
@@ -265,7 +265,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
     this._clasificacionService.getClasificaciones().subscribe(
       response => {
-        if(response.clasificaciones) {
+        if (response.clasificaciones) {
           this.clasificaciones = response.clasificaciones;
         } else {
           Utils.showMsgInfo('Ha ocurrido un error obteniendo las clasificaciones', this.tituloPantalla);
@@ -274,7 +274,7 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
       }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
+    );
   }
 
 
@@ -295,14 +295,14 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
         nombreSubClasificacion: Subclasificacion.NombreSubClasificacion
         , descripcionSubClasificacion: Subclasificacion.DescripcionSubClasificacion
         , clasificacion : Subclasificacion.IdClasificacion
-    })
+    });
 
     Modal.show();
 
   }
 
   onChangeClasificacion(event) {
-      if(event === null) {
+      if (event === null) {
           this.subclasificacion.IdClasificacion  = null;
       } else {
           this.subclasificacion.IdClasificacion = event.IdClasificacion;

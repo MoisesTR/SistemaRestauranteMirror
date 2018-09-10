@@ -10,7 +10,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-envase',
@@ -41,41 +41,38 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _envaseService : EnvaseService,
-    private _formBuilderEnvase : FormBuilder
+    private _envaseService: EnvaseService,
+    private _formBuilderEnvase: FormBuilder
   ) {
     this.envase = new Envase();
   }
 
   ngOnInit() {
 
+      $(document).ready(function() {
 
-    $(document).ready(function() {
-
-      $(".letras").keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
-          && (key.charCode != 45) //retroceso
-          && (key.charCode != 241) //ñ
-          && (key.charCode != 209) //Ñ
-          && (key.charCode != 32) //espacio
-          && (key.charCode != 225) //á
-          && (key.charCode != 233) //é
-          && (key.charCode != 237) //í
-          && (key.charCode != 243) //ó
-          && (key.charCode != 250) //ú
-          && (key.charCode != 193) //Á
-          && (key.charCode != 201) //É
-          && (key.charCode != 205) //Í
-          && (key.charCode != 211) //Ó
-          && (key.charCode != 218) //Ú
-
-        )
-          return false;
+          $('.letras').keypress(function (key) {
+              if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
+                  && (key.charCode < 65 || key.charCode > 90) // letras minusculas
+                  && (key.charCode !== 45) // retroceso
+                  && (key.charCode !== 241) // ñ
+                  && (key.charCode !== 209) // Ñ
+                  && (key.charCode !== 32) // espacio
+                  && (key.charCode !== 225) // á
+                  && (key.charCode !== 233) // é
+                  && (key.charCode !== 237) // í
+                  && (key.charCode !== 243) // ó
+                  && (key.charCode !== 250) // ú
+                  && (key.charCode !== 193) // Á
+                  && (key.charCode !== 201) // É
+                  && (key.charCode !== 205) // Í
+                  && (key.charCode !== 211) // Ó
+                  && (key.charCode !== 218) // Ú
+              ) {
+                  return false;
+              }
+          });
       });
-
-
-    });
 
       this.settingsDatatable();
       this.getEnvases();
@@ -84,7 +81,7 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
 
   }
 
-  settingsDatatable(){
+  settingsDatatable() {
     /*PROPIEDADES GENERALES DE LA DATATABLE*/
     this.dtOptions = <DataTables.Settings>{
         pagingType: 'full_numbers'
@@ -150,13 +147,13 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
     this.formAddEnvase = this._formBuilderEnvase.group({
       'nombreEnvase': new FormControl('', [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ])
       , 'descripcionEnvase': new FormControl('', [
             Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(3),
             Validators.maxLength(100),
             CustomValidators.nospaceValidator
         ]
@@ -172,14 +169,14 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
       'nombreEnvase': new FormControl('',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(2),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ]
          )
       , 'descripcionEnvase': new FormControl('', [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(3),
           Validators.maxLength(100),
           CustomValidators.nospaceValidator
         ]
@@ -194,11 +191,11 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
   }
 
   getValuesFormUpdateEnvase() {
-    this.envase.NombreEnvase= this.formUpdateEnvase.value.nombreEnvase;
+    this.envase.NombreEnvase = this.formUpdateEnvase.value.nombreEnvase;
     this.envase.Descripcion = this.formUpdateEnvase.value.descripcionEnvase;
   }
 
-  showModalUpdateEnvase(envase : Envase){
+  showModalUpdateEnvase(envase: Envase) {
 
     this.envase.IdEnvase  = envase.IdEnvase;
 
@@ -256,12 +253,10 @@ export class EnvaseComponent implements OnInit, InvocarFormulario {
         } else {
          Utils.showMsgInfo('Ha ocurrido un error al actualizar', this.tituloPantalla);
         }
-      }, error =>{
+      }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
-    )
-
-
+    );
   }
 
   deleteEnvase(IdEnvase) {

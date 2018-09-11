@@ -46,8 +46,8 @@
                 <br>
                 <label for="proveedor">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
-                  formControlName="proveedor" id="proveedor" (add) ="addProveedor($event)" (remove) ="removeProveedor($event)"  [(ngModel)]="proveedoresProducto"
-                  [multiple]="true">
+                  formControlName="proveedor" id="proveedor" (add)="addProveedor($event)" (remove)="removeProveedor($event)"
+                  [(ngModel)]="proveedoresProducto" [multiple]="true">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
                       <div class="card-body">
@@ -116,7 +116,7 @@
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
               </div>
 
-              <div class="col-9 col-sm-9 col-md-9">
+              <div class="col-12 col-sm-12 col-md-5">
                 <br>
                 <label>Empaque</label>
                 <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque" formControlName="empaque"
@@ -125,7 +125,15 @@
                 <show-errors [control]="formUpdateProducto.controls['empaque']"></show-errors>
               </div>
 
-              <div class="col-3 col-sm-3 col-md-3">
+              <div class="col-12 col-sm-12 col-md-4 mt-4">
+                <div class="md-form">
+                  <input mdbInputDirective type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                  <label for="cantidadEmpaque">Cantidad de Empaque</label>
+                  <show-errors [control]="formUpdateProducto.controls['cantidadEmpaque']"></show-errors>
+                </div>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-3 mb-4">
                 <br>
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
               </div>
@@ -145,7 +153,7 @@
               </div>
 
 
-              <div class="col-9 col-sm-9 col-md-9">
+              <div class="col-12 col-sm-12 col-md-5">
                 <br>
                 <label>Unidad de Medida</label>
                 <ng-select [items]="unidades" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida" placeholder="Selecciona una unidad de medida"
@@ -154,23 +162,7 @@
                 <show-errors [control]="formUpdateProducto.controls['unidadmedida']"></show-errors>
               </div>
 
-              <div class="col-3 col-sm-3 col-md-3">
-                <br>
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
-              </div>
-
-              <div class="col-md-4">
-                <br>
-                <br>
-                <div class="md-form">
-                  <input mdbInputDirective type="number" id="diascaducidad" formControlName="diasCaducidad" class="form-control" autocomplete="off">
-                  <label for="diascaducidad">Días de Cadudicad</label>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <br>
-                <br>
+              <div class="col-12 col-sm-12 col-md-4 mt-4">
                 <div class="md-form">
                   <input mdbInputDirective type="number" id="valorunidadmedida" formControlName="valorUnidadMedida" class="form-control" autocomplete="off">
                   <label for="valorunidadmedida">Valor unidad de medida</label>
@@ -178,16 +170,38 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-12 col-sm-12 col-md-3">
                 <br>
-                <br>
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-md-6 mt-4">
                 <div class="md-form">
-                  <input mdbInputDirective type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
-                  <label for="cantidadEmpaque">Cantidad de Empaque</label>
-                  <show-errors [control]="formUpdateProducto.controls['cantidadEmpaque']"></show-errors>
+                  <input mdbInputDirective type="number" id="diascaducidad" formControlName="diasCaducidad" class="form-control" autocomplete="off">
+                  <label for="diascaducidad">Días de uso</label>
                 </div>
               </div>
 
+              <div class="col-md-6 mt-4">
+                <div class="md-form">
+                  <input mdbInputDirective type="text" id="codigoProducto" class="form-control">
+                  <label for="codigoProducto" class="">Código producto</label>
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-4">
+                <div class="md-form">
+                  <input mdbInputDirective type="text" id="codigoAlterno" class="form-control">
+                  <label for="codigoAlterno" class="">Código alterno</label>
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-4">
+                <div class="md-form">
+                  <input mdbInputDirective type="text" id="codigoBarra" class="form-control">
+                  <label for="codigoBarra" class="">Código barra</label>
+                </div>
+              </div>
 
               <div class="col-md-12">
                 <br>

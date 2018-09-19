@@ -1,3 +1,5 @@
+import {TelefonoProveedor} from './TelefonoProveedor';
+
 export class Proveedor {
 
     public IdProductoProveedor: number;
@@ -14,9 +16,9 @@ export class Proveedor {
     public Telefono2: string;
     public Retencion2: number;
     public Habilitado: boolean;
-    public disabled = this.Habilitado ;
+    public isMercado: boolean;
+    public disabled: number;
+    public TelefonosProveedor: TelefonoProveedor[];
 
-    constructor() {
-        this.disabled = this.Habilitado;
-    }
+    constructor() {}
 }

@@ -13,7 +13,7 @@ export {MenuService} from './shared/menu-service';
 export {PermisoControlService} from './shared/permiso-control.service';
 export {ProductoService} from './shared/producto.service';
 export {ProductoProveedorService} from './shared/producto-proveedor.service';
-export {ProveedorService} from './shared/proveedor.service';
+export {Proveedo} from './shared/proveedor.service';
 export {RolusuarioService} from './shared/rolusuario.service';
 export {SubClasificacionProductoService} from './shared/sub-clasificacion-producto.service';
 export {SucursalService} from './shared/sucursal.service';

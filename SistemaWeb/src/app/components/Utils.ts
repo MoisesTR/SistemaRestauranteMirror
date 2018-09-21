@@ -49,7 +49,7 @@ export class Utils{
     Formulario.reset();
   }
 
-  static showMsgInfo(mensaje: string, titulo = 'Informacion'){
+  static showMsgInfo(mensaje: string, titulo = 'Información') {
       swal(
           titulo,
           mensaje,

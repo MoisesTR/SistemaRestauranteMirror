@@ -8,12 +8,12 @@
           <h4 class="mb-0">Agregar Proveedor</h4>
         </div>
         <!-- Contenido -->
-        <div class="card-body ">
+        <div class="card-body">
 
           <form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor()" novalidate>
-            <div class="row">
+            <div class="row justify-content-md-center">
 
-              <div class="col-md-6">
+              <div class="col-sm-12 col-md-4">
                 <br>
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor"
@@ -23,7 +23,7 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-sm-9 col-md-4">
                 <br>
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="text" id="numeroruc" formControlName="numeroRuc"
@@ -33,8 +33,15 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
-                <br>
+              <div class="col-sm-3 col-md-3 mt-3">
+                <div class="form-check mt-5 checkbox-chang-filled">
+                  <input [mdbValidate]=false type="checkbox" class="form-check-input" name="chkMercado" id="chkMercado"
+                    mdbInputDirective>
+                  <label class="form-check-label" for="chkMercado">Mercado</label>
+                </div>
+              </div>
+
+              <div class="col-sm-9 col-md-8 mt-4">
                 <div class="md-form">
                   <textarea [mdbValidate]=false type="text" id="direccionProveedor" formControlName="direccionProveedor"
                     class="md-textarea form-control" autocomplete="off" mdbInputDirective></textarea>
@@ -43,8 +50,15 @@
                 </div>
               </div>
 
-              <div class="col-md-5">
-                <br>
+              <div class="col-sm-3 col-md-3 mt-5">
+                <div class="form-check checkbox-chang-filled mtc">
+                  <input [mdbValidate]=false class="form-check-input" type="checkbox" value="validando_checkbox1" name="seleccionarcheck"
+                    id="segundo2" formControlName="retencion" mdbInputDirective>
+                  <label class="form-check-label" for="segundo2">Aplica Retención</label>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-4 mt-4">
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante"
                     class="form-control letras" autocomplete="off">
@@ -53,8 +67,7 @@
                 </div>
               </div>
 
-              <div class="col-md-5">
-                <br>
+              <div class="col-sm-9 col-md-4 mt-4">
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="email" id="email" formControlName="email" class="form-control"
                     autocomplete="off">
@@ -63,14 +76,13 @@
                 </div>
               </div>
 
-              <div class="col-md-2 mt-5">
-                <a class="btn orange-chang mb-1 btn-sm white-text" role="button" (click)="modalTelefonos.show()">
+              <div class="col-sm-3 col-md-3 mt-5">
+                <a class="btn orange-chang mb-1 ml-4 btn-sm white-text" role="button" (click)="modalTelefonos.show()">
                   Telefonos<i class="fa fa-phone ml-1"></i>
                 </a>
               </div>
 
-              <div class="col-md-6">
-                <br>
+              <div class="col-sm-12 col-md-8 mt-4">
                 <div class="md-form">
                   <textarea [mdbValidate]=false mdbInputDirective type="text" id="descripcionProveedor" formControlName="descripcionProveedor"
                     class="md-textarea form-control" autocomplete="off"></textarea>
@@ -79,13 +91,7 @@
                 </div>
               </div>
 
-              <div class="col-md-6 mt-5">
-                <div class="form-check mt-5 checkbox-chang-filled">
-                  <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" value="validando_checkbox1"
-                    name="seleccionarcheck" id="segundo2" formControlName="retencion" mdbInputDirective>
-                  <label class="form-check-label" for="segundo2">Aplica Retención</label>
-                </div>
-              </div>
+              <div class="col-md-3"></div>
 
             </div>
 
@@ -105,8 +111,8 @@
 
 <!-- Modal para agregar telefonos asociados al proveedor -->
 <div mdbModal #modalTelefonos="mdb-modal" class="modal fade" id="modalTelefonos" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: auto">
-  <div class="modal-dialog cascading-modal modal-lg" role="document">
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document" style="height: 41%;">
     <!--Contenido-->
     <div class="modal-content background-gray mdl">
 
@@ -125,39 +131,43 @@
         <div class="container-fluid">
           <form [formGroup]="" novalidate>
 
-            <div class="container-fluid mt-3">
+            <div class="container-fluid">
               <div class="in input-group md-form form-inline form-sm form-2 pl-0">
-                <i class="fa fa-search mt-2" aria-hidden="true"></i>
+                <i class="fa fa-search mt-3" aria-hidden="true"></i>
                 <input class="form-control w-50 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
                 <a class="btn orange-chang my-0 ml-3 white-text" role="button" (click)="inputsTest()">Agregar</a>
               </div>
             </div>
 
-            <div class="row">
+            <div class="scrollbar-card scrollbar-ripe-malinka">
+              <div class="container pl-4 pr-4">
+                <div class="row justify-content-md-center">
 
-              <div class="col-md-4">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Nombre</h6>
-                  <input type="text" id="" class="input-modal-sm">
+                  <div class="col-md-4">
+                    <div class="md-form">
+                      <h6 class="orange-chang-text">Nombre</h6>
+                      <input type="text" id="" class="input-modal-sm">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="md-form">
+                      <h6 class="orange-chang-text">Cargo</h6>
+                      <input type="text" id="" class="input-modal-sm">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="md-form">
+                      <h6 class="orange-chang-text">Télefono</h6>
+                      <input type="number" id="" class="input-modal-sm">
+                    </div>
+                  </div>
+
+                  <div id="inputs-telefono"></div>
+
                 </div>
               </div>
-
-              <div class="col-md-4">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Cargo</h6>
-                  <input type="text" id="" class="input-modal-sm">
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Télefono</h6>
-                  <input type="number" id="" class="input-modal-sm">
-                </div>
-              </div>
-
-              <div id="inputs-telefono"></div>
-
             </div>
 
             <div class="text-center mt-1-half">

@@ -17,8 +17,8 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                   <label class="margin-label-proveedor">Proveedor</label>
                   <div class="md-form">
-                    <ng-select [items]="proveedores" bindLabel="NombreProveedor" [ngModel]="factura.IdProveedor" bindValue="IdProveedor" id="proveedor"
-                               formControlName="proveedor" class="disabled">
+                    <ng-select [items]="proveedores" bindLabel="NombreProveedor" [ngModel]="factura.IdProveedor"
+                      bindValue="IdProveedor" id="proveedor" formControlName="proveedor" class="disabled">
                     </ng-select>
                   </div>
                   <br>
@@ -26,22 +26,23 @@
 
                 <div class="col-md-12">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura" formControlName="codigoFactura" placeholder="BD200" class="form-control" autocomplete="off">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura" formControlName="codigoFactura"
+                      placeholder="BD200" class="form-control" autocomplete="off">
                     <label for="nombreproveedor">Código de factura</label>
                     <!-- <show-errors [control]="formUpdateFactura.controls['codigoFactura']"></show-errors> -->
                   </div>
                 </div>
 
                 <div class="col-md-12">
-                  <mdb-date-picker [options]="myDatePickerOptions" name="FechaFactura" formControlName="fechaFactura" id="FechaFactura" [placeholder]="'Seleccione la fecha'"
-                    [label]="'Fecha de Factura'" required></mdb-date-picker>
+                  <mdb-date-picker [options]="myDatePickerOptions" name="FechaFactura" formControlName="fechaFactura"
+                    id="FechaFactura" [placeholder]="'Seleccione la fecha'" [label]="'Fecha de Factura'" required></mdb-date-picker>
                 </div>
 
                 <div class="col-md-6">
                   <br>
                   <label>Moneda</label>
-                  <ng-select dropdownPosition="top" [items]="Moneda" formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada" bindLabel="Moneda"
-                             bindValue="Id" id="moneda">
+                  <ng-select dropdownPosition="top" [items]="Moneda" formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada"
+                    bindLabel="Moneda" bindValue="Id" id="moneda">
                   </ng-select>
                   <!--<show-errors [control]=""></show-errors>-->
                 </div>
@@ -49,22 +50,24 @@
                 <div class="col-md-6">
                   <br>
                   <label>Forma de Pago</label>
-                  <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado" bindLabel="FormaPago"
-                             bindValue="Id" id="pago">
+                  <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado"
+                    bindLabel="FormaPago" bindValue="Id" id="pago">
                   </ng-select>
                   <!--<show-errors [control]=""></show-errors>-->
                 </div>
 
                 <div class="col-md-6 mt-3">
                   <div class="md-form">
-                    <input mdbInputDirective [mdbValidate]=false type="number" disabled id="tipoCambio" class="form-control" autocomplete="off">
+                    <input mdbInputDirective [mdbValidate]=false type="number" disabled id="tipoCambio" class="form-control"
+                      autocomplete="off">
                     <label for="tipoCambio">Tipo de Cambio</label>
                   </div>
                 </div>
 
                 <div class="col-md-6 mt-3">
                   <div class="md-form">
-                    <input mdbInputDirective [mdbValidate]=false type="number" disabled id="plazoPagos" class="form-control" autocomplete="off">
+                    <input mdbInputDirective [mdbValidate]=false type="number" disabled id="plazoPagos" class="form-control"
+                      autocomplete="off">
                     <label for="plazoPagos">Plazo de pagos(dias)</label>
                   </div>
                 </div>
@@ -106,10 +109,12 @@
                   <td>{{producto.NombreProducto}}</td>
                   <td>{{producto.NombreEnvase}}</td>
                   <td class="text-center">
-                    <button type="button" class="btn btn-sm orange-chang" (click)="seleccionarProducto(producto)" mdbWavesEffect>
+                    <button type="button" class="btn btn-sm orange-chang" (click)="seleccionarProducto(producto)"
+                      mdbWavesEffect>
                       <i class="fa fa-check" aria-hidden="true"></i>
                     </button>
-                    <button type="button" class="btn btn-sm orange-chang" (click)="mostrarProducto(producto)" mdbWavesEffect>
+                    <button type="button" class="btn btn-sm orange-chang" (click)="mostrarProducto(producto)"
+                      mdbWavesEffect>
                       <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
                   </td>
@@ -157,7 +162,8 @@
                   <td class="body-negrita">
                     <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                   </td>
-                  <td width="10%" class="body-negrita">{{productoFactura.TotalDetalle | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                  <td width="10%" class="body-negrita">{{productoFactura.TotalDetalle | number : '1.2-2'}}
+                    {{simboloMonedaUtilizado}}
                   </td>
                   <td>
                     <div class="form-check checkbox-chang-filled">
@@ -215,8 +221,9 @@
                 </div>
 
                 <div class="col-lg-12 col-md-12 checkbox-chang-filled">
-                  <input class="form-check-input" (click)="aplicarRetencion()" [(ngModel)]="tieneRetencion" type="checkbox" class="form-check-input filled-in"
-                    disabled name="seleccionarcheck" id="segundo2" formControlName="retencion" mdbInputDirective>
+                  <input class="form-check-input" (click)="aplicarRetencion()" [(ngModel)]="tieneRetencion" type="checkbox"
+                    class="form-check-input filled-in" disabled name="seleccionarcheck" id="segundo2" formControlName="retencion"
+                    mdbInputDirective>
                   <label for="segundo2">
                     <strong>Retención</strong>
                   </label>
@@ -234,22 +241,22 @@
               <form>
                 <div class="">
                   <label>
-                     {{subTotalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                    {{subTotalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                   </label>
                 </div>
                 <div class="">
                   <label>
-                     {{descuentoCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                    {{descuentoCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                   </label>
                 </div>
                 <div class="">
                   <label>
-                     {{subtotalFacturaConDescuento | number : '1.2-2'}} {{simboloMonedaUtilizado }}
+                    {{subtotalFacturaConDescuento | number : '1.2-2'}} {{simboloMonedaUtilizado }}
                   </label>
                 </div>
                 <div class="">
                   <label>
-                     {{ivaCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                    {{ivaCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                   </label>
                 </div>
                 <div class="">
@@ -259,7 +266,7 @@
                 </div>
                 <div class="">
                   <label>
-                     {{totalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                    {{totalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                   </label>
                 </div>
               </form>
@@ -268,20 +275,12 @@
           </div>
 
           <!-- Acciones -->
-          <div class="row mt-3">
+          <div class="row justify-content-center mt-3">
 
-            <div class="col-lg-3 col-md-3 col-sm-2"></div>
-
-            <div class="col-lg-3 col-md-3 col-sm-4">
+            <div class="col-lg-3 col-md-3 col-sm-3">
               <div class="md-form">
                 <button type="button" class="btn orange-chang waves-effect">Actualizar factura
                 </button>
-              </div>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-4">
-              <div class="md-form">
-                <button type="button" class="btn orange-chang waves-effect">Imprimir Factura</button>
               </div>
             </div>
 
@@ -295,7 +294,7 @@
 <!-- Modal Mostrar Info de producto -->
 <div mdbModal #modalVerProducto="mdb-modal" class="modal modal-scroll fade" id="modalVerProducto" tabindex="-1">
   <div class="modal-dialog modal-lg cascading-modal " role="document">
-    
+
     <div class="modal-content background-gray mdl">
 
       <div class="modal-header orange-chang white-text">
@@ -304,10 +303,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
+
       <div class="modal-body mb-0">
         <div class="container-fluid">
-          
+
           <form>
             <div class="row">
 
@@ -328,8 +327,8 @@
                     <div class="col-md-12">
                       <div class="md-form">
                         <h6 class="orange-chang-text">Nombre</h6>
-                        <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase" value={{productoSeleccionado.NombreProducto}}
-                          readonly>
+                        <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase"
+                          value={{productoSeleccionado.NombreProducto}} readonly>
                       </div>
                     </div>
 
@@ -381,11 +380,11 @@
 
             </div>
           </form>
-          
+
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>
 
@@ -406,25 +405,28 @@
 
       <div class="modal-body mb-0">
 
-        <form [formGroup] = "formUpdateDetalleFactura" (ngSubmit)="editarDatosProducto()" novalidate>
+        <form [formGroup]="formUpdateDetalleFactura" (ngSubmit)="editarDatosProducto()" novalidate>
 
           <div class="row">
             <div class="col-md-6">
               <div class="md-form">
                 <h6 class="orange-chang-text">Cantidad</h6>
-                <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto" formControlName="cantidadProducto">
+                <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto"
+                  formControlName="cantidadProducto">
               </div>
             </div>
             <div class="col-md-6">
               <div class="md-form">
                 <h6 class="orange-chang-text">Precio</h6>
-                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto" formControlName="precioProducto">
+                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto"
+                  formControlName="precioProducto">
               </div>
             </div>
             <div class="col-md-6">
               <div class="md-form">
                 <h6 class="orange-chang-text">Descuento</h6>
-                <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto">
+                <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto"
+                  formControlName="descuentoTotalProducto">
 
               </div>
               <show-errors [control]="formUpdateDetalleFactura.controls['descuentoTotalProducto']"></show-errors>
@@ -432,8 +434,8 @@
             <div class="col-md-6 mt-4">
               <br>
               <div class="md-form checkbox-chang-filled">
-                <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" name="seleccionarcheck" id="checkbox33"
-                  formControlName="gravadoIva" mdbInputDirective>
+                <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" name="seleccionarcheck"
+                  id="checkbox33" formControlName="gravadoIva" mdbInputDirective>
                 <label class="form-check-label" for="checkbox33">Gravado de Iva</label>
                 <show-errors [control]="formUpdateDetalleFactura.controls['gravadoIva']"></show-errors>
               </div>

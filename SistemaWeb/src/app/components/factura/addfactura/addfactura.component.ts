@@ -97,6 +97,11 @@ export class AddfacturaComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        $(document).ready(() => {            
+            $('.dropify').dropify();
+        });
+
         this.getProveedores();
         this.initFormDetailProductoFactura();
         this.initFormAddFactura();
@@ -104,7 +109,7 @@ export class AddfacturaComponent implements OnInit {
 
         this.usuario = this._usuarioService.getIdentity();
         this.valorIva = 0.15;
-
+       
     }
 
     initFormDetailProductoFactura() {

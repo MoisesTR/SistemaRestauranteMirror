@@ -60,12 +60,49 @@ export class AddProveedorComponent implements OnInit {
               )
                   return false;
           });
-
+                 
       });
 
       $('.telefono').mask('0000-0000');
 
-      this.initFormAdd();
+      this.initFormAdd();                   
+  }
+
+  inputsTest(){
+    var inputsTelefono = $("#inputs-telefono");
+    var index = 0;
+    
+    var getInputs = function(index) {
+        return $('\
+            <div class="row justify-content-md-center">\
+                <div class="col-md-3">\
+                    <div class="md-form">\
+                        <h6 class="orange-chang-text">Nombre</h6>\
+                        <input type="text" id="nombre' + index + '" class="input-modal-sm">\
+                    </div>\
+                </div>\
+                <div class="col-md-3">\
+                    <div class="md-form">\
+                        <h6 class="orange-chang-text">Cargo</h6>\
+                        <input type="text" id="cargo' + index + '" class="input-modal-sm">\
+                    </div>\
+                </div>\
+                <div class="col-md-3">\
+                    <div class="md-form">\
+                        <h6 class="orange-chang-text">Télefono</h6>\
+                        <input type="number" id="telefono' + index + '" class="input-modal-sm">\
+                    </div>\
+                </div>\
+                <a class="btn red-chang white-text btn-sm ml-3 mb-5" id="remove" role="button" style="margin-top: 7%;">Eliminar</a>\
+            </div>\
+        ');
+    }     
+
+    var form = getInputs(++index);
+    form.find("#remove").on("click", function() {
+        $(this).parent().remove();
+    });
+    inputsTelefono.append(form);
   }
 
   createProveedor() {

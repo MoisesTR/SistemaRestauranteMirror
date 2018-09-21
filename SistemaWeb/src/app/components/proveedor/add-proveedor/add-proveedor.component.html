@@ -16,8 +16,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor" class="form-control letras"
-                    autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor"
+                    class="form-control letras" autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['nombreProveedor']"></show-errors>
                   <label for="nombreProveedor">Nombre Empresa</label>
                 </div>
@@ -26,8 +26,8 @@
               <div class="col-md-6">
                 <br>
                 <div class="md-form">
-                  <input [mdbValidate]=false mdbInputDirective type="text" id="numeroruc" formControlName="numeroRuc" class="form-control"
-                    autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="text" id="numeroruc" formControlName="numeroRuc"
+                    class="form-control" autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['numeroRuc']"></show-errors>
                   <label for="numeroruc">Número Ruc</label>
                 </div>
@@ -36,50 +36,37 @@
               <div class="col-md-12">
                 <br>
                 <div class="md-form">
-                  <textarea [mdbValidate]=false type="text" id="direccionProveedor" formControlName="direccionProveedor" class="md-textarea form-control"
-                    autocomplete="off" mdbInputDirective></textarea>
+                  <textarea [mdbValidate]=false type="text" id="direccionProveedor" formControlName="direccionProveedor"
+                    class="md-textarea form-control" autocomplete="off" mdbInputDirective></textarea>
                   <show-errors [control]="formAddProveedor.controls['direccionProveedor']"></show-errors>
                   <label for="direccionProveedor">Dirección Proveedor</label>
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <br>
                 <div class="md-form">
-                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante" class="form-control letras"
-                    autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante"
+                    class="form-control letras" autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['nombreRepresentante']"></show-errors>
                   <label for="nombreRepresentante">Nombre Representante</label>
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <br>
                 <div class="md-form">
-                  <input [mdbValidate]=false mdbInputDirective type="email" id="email" formControlName="email" class="form-control" autocomplete="off">
+                  <input [mdbValidate]=false mdbInputDirective type="email" id="email" formControlName="email" class="form-control"
+                    autocomplete="off">
                   <show-errors [control]="formAddProveedor.controls['email']"></show-errors>
                   <label for="email">Correo Electrónico</label>
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <br>
-                <div class="md-form">
-                  <input [mdbValidate]=false mdbInputDirective type="number" id="telefonoProveedor" formControlName="telefono1" class="form-control"
-                    autocomplete="off">
-                  <show-errors [control]="formAddProveedor.controls['telefono1']"></show-errors>
-                  <label for="telefonoProveedor">Telefóno</label>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <br>
-                <div class="md-form">
-                  <input [mdbValidate]=false mdbInputDirective type="number" id="telefonoProveedoropcional" formControlName="telefono2" class="form-control"
-                    autocomplete="off">
-                  <show-errors [control]="formAddProveedor.controls['telefono2']"></show-errors>
-                  <label for="telefonoProveedoropcional">Telefóno (Opcional)</label>
-                </div>
+              <div class="col-md-2 mt-5">
+                <a class="btn orange-chang mb-1 btn-sm white-text" role="button" (click)="modalTelefonos.show()">
+                  Telefonos<i class="fa fa-phone ml-1"></i>
+                </a>
               </div>
 
               <div class="col-md-6">
@@ -92,12 +79,10 @@
                 </div>
               </div>
 
-              <div class="col-md-6 ">
-                <br>
-                <br>
+              <div class="col-md-6 mt-5">
                 <div class="form-check mt-5 checkbox-chang-filled">
-                  <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" value="validando_checkbox1" name="seleccionarcheck"
-                    id="segundo2" formControlName="retencion" mdbInputDirective>
+                  <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" value="validando_checkbox1"
+                    name="seleccionarcheck" id="segundo2" formControlName="retencion" mdbInputDirective>
                   <label class="form-check-label" for="segundo2">Aplica Retención</label>
                 </div>
               </div>
@@ -117,3 +102,75 @@
     </div>
   </div>
 </section>
+
+<!-- Modal para agregar telefonos asociados al proveedor -->
+<div mdbModal #modalTelefonos="mdb-modal" class="modal fade" id="modalTelefonos" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: auto">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Header-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-text-o"></i> Telefonos del proveedor</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalTelefonos.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <!--Cuerpo Modal-->
+      <div class="modal-body mb-0">
+
+        <div class="container-fluid">
+          <form [formGroup]="" novalidate>
+
+            <div class="container-fluid mt-3">
+              <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                <i class="fa fa-search mt-2" aria-hidden="true"></i>
+                <input class="form-control w-50 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
+                <a class="btn orange-chang my-0 ml-3 white-text" role="button" (click)="inputsTest()">Agregar</a>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Nombre</h6>
+                  <input type="text" id="" class="input-modal-sm">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Cargo</h6>
+                  <input type="text" id="" class="input-modal-sm">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="md-form">
+                  <h6 class="orange-chang-text">Télefono</h6>
+                  <input type="number" id="" class="input-modal-sm">
+                </div>
+              </div>
+
+              <div id="inputs-telefono"></div>
+
+            </div>
+
+            <div class="text-center mt-1-half">
+              <button class="btn orange-chang mb-1">Ingresar
+                <i class="fa fa-check ml-1"></i>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

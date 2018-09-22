@@ -188,30 +188,34 @@
 
               <div class="col-md-6 mt-4">
                 <div class="md-form">
-                  <input mdbInputDirective [mdbValidate]=false type="number" id="diascaducidad" formControlName="diascaducidad" class="form-control"
+                  <input mdbInputDirective [mdbValidate]=false type="number" id="diasDeUso" formControlName="diasDeUso" class="form-control"
                     autocomplete="off">
-                  <label for="diascaducidad">Días de uso</label>
+                  <label for="diasDeUso">Días de uso</label>
+                  <show-errors [control]="formAddProducto.controls['diasDeUso']"></show-errors>
                 </div>
               </div>
 
               <div class="col-md-6 mt-4">
                 <div class="md-form">
-                  <input mdbInputDirective type="text" id="codigoProducto" class="form-control">
-                  <label for="codigoProducto" class="">Código producto</label>
+                  <input mdbInputDirective [mdbValidate]=false type="text" id="codigoProducto" formControlName="codigoProducto" class="form-control">
+                  <label for="codigoProducto"class="">Código producto</label>
+                  <show-errors [control]="formAddProducto.controls['codigoProducto']"></show-errors>
                 </div>
               </div>
 
               <div class="col-md-6 mt-4">
                 <div class="md-form">
-                  <input mdbInputDirective type="text" id="codigoAlterno" class="form-control">
+                  <input mdbInputDirective [mdbValidate]=false formControlName="codigoAlterno" type="text" id="codigoAlterno" class="form-control">
                   <label for="codigoAlterno" class="">Código alterno</label>
+                  <show-errors [control]="formAddProducto.controls['codigoAlterno']"></show-errors>
                 </div>
               </div>
 
               <div class="col-md-6 mt-4">
                 <div class="md-form">
-                  <input mdbInputDirective type="text" id="codigoBarra" class="form-control">
-                  <label for="codigoBarra" class="">Código barra</label>
+                  <input mdbInputDirective [mdbValidate]=false type="text" formControlName="codigoBarra" id="codigoBarra" class="form-control">
+                  <label for="codigoBarra"  class="">Código barra</label>
+                  <show-errors [control]="formAddProducto.controls['codigoBarra']"></show-errors>
                 </div>
               </div>
 

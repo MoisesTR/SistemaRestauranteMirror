@@ -19,6 +19,7 @@ export class Producto {
   public NombreSubClasificacion?: string;
   public IdClasificacion?: number;
   public DiasCaducidad?: number;
+  public DiasDeUso: number;
   public Costo: number;
   public CantidadEmpaque: number;
   public Visualizar: boolean;

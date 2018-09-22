@@ -38,8 +38,7 @@ export class UpdateProductoComponent implements OnInit {
   formUpdateProducto: FormGroup;
   public proveedores: Proveedor [];
   public proveedoresProducto: Proveedor[];
-  public proveedoresEliminar: Proveedor[] = [];
-  public proveedoresAgregar: Proveedor[] = [];
+  public idProveedor: number;
   public categorias: CategoriaProducto[];
   public envases: Envase[];
   public unidades: UnidadMedida[];
@@ -83,27 +82,26 @@ export class UpdateProductoComponent implements OnInit {
     this.getEnvases();
     this.getUnidadesDeMedida();
 
-
   }
 
 showCardImg() {
-    var x = document.getElementById("imagen-productos");
-    var f = document.getElementById("formulario-productos");
-    var proveedor = document.getElementById("proveedor");
-    var categoria = document.getElementById("selectCategoria");
-    var clasificacion = document.getElementById("upclasificacion");
-    var subclasificacion = document.getElementById("upsubclasificacion");
-    var empaque = document.getElementById("empaque");
-    var envase = document.getElementById("envase");
-    var unidadmedida = document.getElementById("unidadmedida");
+    const x = document.getElementById('imagen-productos');
+    const f = document.getElementById('formulario-productos');
+    const proveedor = document.getElementById('proveedor');
+    const categoria = document.getElementById('selectCategoria');
+    const clasificacion = document.getElementById('upclasificacion');
+    const subclasificacion = document.getElementById('upsubclasificacion');
+    const empaque = document.getElementById('empaque');
+    const envase = document.getElementById('envase' );
+    const unidadmedida = document.getElementById('unidadmedida');
 
-    if (x.style.display === "none") {
+    if (x.style.display === 'none') {
         // Mostrar card de agregar imagen
         // Pequeño
 
         // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-        $("#btn-animation").click(function() {
-            $("#imagen-productos").toggleClass("animated");
+        $(' #btn-animation').click(function() {
+            $('#imagen-productos').toggleClass('animated');
         });
         f.classList.remove('col-lg-12');
         f.classList.add('col-lg-8');
@@ -116,13 +114,13 @@ showCardImg() {
         empaque.classList.add('select-no-margin');
         envase.classList.add('select-no-margin');
         unidadmedida.classList.add('select-no-margin');
-        x.style.display = "block";
+        x.style.display = 'block';
     } else {
         // Ocultar card de agregar imagen
 
         // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-        $("#btn-animation").click(function() {
-            $("#imagen-productos").toggleClass("animated");
+        $('#btn-animation').click(function() {
+            $('#imagen-productos').toggleClass('animated');
         });
         f.classList.remove('col-lg-8');
         f.classList.add('col-lg-12');
@@ -135,20 +133,20 @@ showCardImg() {
         empaque.classList.remove('select-no-margin');
         envase.classList.remove('select-no-margin');
         unidadmedida.classList.remove('select-no-margin');
-        x.style.display = "none";
+        x.style.display = 'none';
     }
 }
 
 
   private initFormUpdateProducto() {
     this.formUpdateProducto =  this.formBuilderUProducto.group({
-        'nombreProducto': new FormControl('',[
+        'nombreProducto': new FormControl('', [
             Validators.required
             , Validators.minLength(2)
             , Validators.maxLength(100)
             , CustomValidators.nospaceValidator
         ]),
-        'descripcionProducto': new FormControl('',[
+        'descripcionProducto': new FormControl('', [
             Validators.required
             , Validators.minLength(3)
             , Validators.maxLength(300)
@@ -163,7 +161,7 @@ showCardImg() {
         'clasificacion': new FormControl('', [
             Validators.required
         ]),
-        'subclasificacion': new FormControl('',[
+        'subclasificacion': new FormControl('', [
             Validators.required
         ]),
         'empaque': new FormControl('', [
@@ -203,38 +201,6 @@ showCardImg() {
           );
       }
 
-    }
-
-    addProveedor(event) {
-      let filtro: Proveedor[] = [];
-      if (event === null || event === undefined) {
-          this.proveedoresAgregar = [];
-      } else {
-          filtro = this.proveedoresProducto.filter( proveedor => proveedor.IdProveedor === event.IdProveedor );
-          if (filtro.length >= 1) {
-              // Si el elemento a eliminar se vuelve agregar,eliminarlo de la lista proveedoresEliminar
-              this.proveedoresEliminar = this.proveedoresEliminar.filter( proveedor => proveedor.IdProveedor !== event.IdProveedor);
-          }
-          if (filtro.length  === 0) {
-              this.proveedoresAgregar.push(event);
-          }
-      }
-    }
-
-    removeProveedor(event) {
-      let filtro: Proveedor[] = [];
-        if (event === null) {
-            this.proveedoresEliminar = [];
-        } else {
-            filtro = this.proveedoresProducto.filter( proveedor => proveedor.IdProveedor === event.value.IdProveedor);
-            if (filtro.length  === 0) {
-                // Si el elemento a agregar se vuelve eliminar,eliminarlo de la lista proveedoresAgregar
-                this.proveedoresAgregar = this.proveedoresAgregar.filter( proveedor => proveedor.IdProveedor !== event.value.IdProveedor);
-            }
-            if (filtro.length >= 1) {
-               this.proveedoresEliminar.push(filtro[0]);
-            }
-        }
     }
 
     onChangeSubclasificacion(event) {
@@ -282,13 +248,12 @@ showCardImg() {
     }
 
 
-  inicializarValoresFormularioProducto(){
+  inicializarValoresFormularioProducto() {
     this.formUpdateProducto.controls['nombreProducto'].setValue(this.producto.NombreProducto);
     this.formUpdateProducto.controls['descripcionProducto'].setValue(this.producto.Descripcion);
     this.formUpdateProducto.controls['diasCaducidad'].setValue(this.producto.DiasCaducidad);
     this.formUpdateProducto.controls['valorUnidadMedida'].setValue(this.producto.ValorUnidadMedida);
     this.formUpdateProducto.controls['cantidadEmpaque'].setValue(this.producto.CantidadEmpaque);
-
   }
 
   getProducto() {
@@ -407,45 +372,7 @@ showCardImg() {
     );
   }
 
-  actualizarProductoProveedor() {
-      this.proveedoresEliminar.forEach( (value, index) => {
-          const id = this.proveedoresProducto.filter( proveedor => proveedor.IdProveedor === value.IdProveedor)[0].IdProductoProveedor;
-          this._productoProveedorService.deleteProductoProveedor(id).subscribe(
-              response => {
-                  if (response.success) {
-                    console.log('La relacion producto-proveedor se ha inhabilitado correctamente');
-                  } else {
-                      Utils.showMsgInfo('Ha ocurrido un error al eliminar el proveedor: ' + value.NombreProveedor);
-                  }
-              }, error => {
-                  Utils.showMsgError(Utils.msgError(error));
-              }
-          );
-      });
-      this.proveedoresAgregar.forEach( (value, index) => {
-          value.IdProducto = this.producto.IdProducto;
-          this._productoProveedorService.createProductoProveedor(value).subscribe(
-              response => {
-                  if (response.IdProductoProveedor) {
-                      console.log('Se ha insertado una nueva relacion producto proveedor');
-                  } else {
-                      Utils.showMsgInfo('Ha ocurrido un error al relacionar el proveedor:  ' + value.NombreProveedor);
-                  }
-              }, error => {
-                  Utils.showMsgError(Utils.msgError(error));
-              }
-          );
-      });
-
-      swal(
-          'Producto',
-          'El producto ha sido actualizado exitosamente!',
-          'success'
-      ).then(() => {
-          this._router.navigate(['/producto']);
-      });
-  }
-
+  actualizarProductoProveedor() {}
 
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
@@ -459,7 +386,7 @@ showCardImg() {
                 if (response.proveedores) {
                     this.proveedores = response.proveedores;
                     this.proveedores.forEach( (value, index) => {
-                       this.proveedores[index].disabled  = !value.Habilitado;
+                       this.proveedores[index].disabled  = 0;
                     });
                 }
             }, error => {

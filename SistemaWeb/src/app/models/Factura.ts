@@ -1,4 +1,5 @@
 import {DetalleFactura} from './DetalleFactura';
+import {ProductoFactura} from './ProductoFactura';
 
 export class Factura {
 
@@ -23,7 +24,9 @@ export class Factura {
   public Habilitado: number;
   public Detalle: DetalleFactura[];
   public Hora: string;
-  public noReferencia: number;
+  public fechaRecepcion: string;
+  public ProductoFactura: ProductoFactura[];
+
   public IdFormaPago: number;
   public IdTipoMoneda: number;
   public FormaPago: string;

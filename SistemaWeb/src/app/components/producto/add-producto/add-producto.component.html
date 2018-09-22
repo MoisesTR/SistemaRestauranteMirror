@@ -47,7 +47,7 @@
                 <br>
                 <label for="proveedor">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor"
-                  (change)="onChangeProveedor($event)" formControlName="proveedor" [multiple]="true">
+                  (change)="onChangeProveedor($event)" formControlName="proveedor">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
                       <div class="card-body">

@@ -14,14 +14,14 @@ export class ProductoProveedorService{
   }
 
   createProductoProveedor(ProductoProveedor): Observable<any> {
-    let params = JSON.stringify(ProductoProveedor);
-    let headers = new HttpHeaders({
+    const params = JSON.stringify(ProductoProveedor);
+    const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'token'
     });
 
     console.log(ProductoProveedor)
-    return this._http.post(this.url+'producto/proveedor',params,{headers:headers})
+    return this._http.post(this.url + 'producto/proveedor', params,{headers:headers})
   }
 
   getProductosProveedor(IdProductoProveedor) : Observable<any> {
@@ -41,8 +41,8 @@ export class ProductoProveedorService{
   }
   updateProductoProveedor(ProductoProveedor): Observable<any> {
 
-    let params = JSON.stringify(ProductoProveedor);
-    let headers = new HttpHeaders({
+    const params = JSON.stringify(ProductoProveedor);
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
@@ -50,7 +50,7 @@ export class ProductoProveedorService{
     return this._http.put(this.url+'productoproveedor'+params,{headers:headers})
   }
 
-  deleteProductoProveedor(IdProductoProveedor): Observable<any> {
+  deconsteProductoProveedor(IdProductoProveedor): Observable<any> {
       const headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'token'
@@ -58,7 +58,7 @@ export class ProductoProveedorService{
 
       const body = JSON.stringify({ 'Habilitado': false});
 
-      return this._http.request('delete', this.url + 'producto/proveedor/' + IdProductoProveedor, {headers: headers, body: body});
+      return this._http.request('deconste', this.url + 'producto/proveedor/' + IdProductoProveedor, {headers: headers, body: body});
 
   }
 

@@ -1,6 +1,6 @@
 import {Proveedor} from './Proveedor';
 
-export class Producto{
+export class Producto {
 
   public IdProducto: number;
   public IdProveedor: number;
@@ -25,6 +25,10 @@ export class Producto{
   public CreatedAt: string;
   public UpdateAt: string;
   public Proveedores: Proveedor[];
+  public CodigoProducto: string;
+  public CodigoBarra: string;
+  public CodigoAlterno: string;
+  public diasRotacion: number;
 
   constructor() {}
 

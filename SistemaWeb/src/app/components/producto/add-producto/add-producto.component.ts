@@ -362,10 +362,13 @@ export class AddProductoComponent implements OnInit {
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
     this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
-    this.producto.DiasCaducidad = 30;
+    this.producto.DiasCaducidad = this.formAddProducto.value.diasDeUso;
     this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque;
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
-    this.producto.DiasCaducidad = this.formAddProducto.value.diascaducidad;
+    this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso;
+    this.producto.CodigoProducto = this.formAddProducto.value.codigoProducto;
+    this.producto.CodigoBarra = this.formAddProducto.value.codigoBarra;
+    this.producto.CodigoAlterno = this.formAddProducto.value.codigoAlterno;
   }
 
   crearProducto() {
@@ -472,8 +475,15 @@ export class AddProductoComponent implements OnInit {
         'valorunidadmedida': new FormControl('', [
             Validators.required
         ]),
-        'diascaducidad': new FormControl('', [
+        'diasDeUso': new FormControl('', [
             Validators.required
+        ]),
+        'codigoBarra': new FormControl('', [
+            Validators.required
+        ]),
+        'codigoAlterno': new FormControl('', [
+        ]),
+        'codigoProducto': new FormControl('', [
         ])
     });
   }

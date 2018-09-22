@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ProductoService} from "../../../services/shared/producto.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Producto} from "../../../models/Producto";
-import { Subject } from 'rxjs/Rx';
+import {ProductoService} from '../../../services/shared/producto.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Producto} from '../../../models/Producto';
+import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
-import {idioma_espanol} from "../../../services/shared/global";
-import {DataTableDirective} from "angular-datatables";
+import {idioma_espanol} from '../../../services/shared/global';
+import {DataTableDirective} from 'angular-datatables';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';
 import {Utils} from '../../Utils';
@@ -18,15 +18,10 @@ import {Utils} from '../../Utils';
 })
 export class ListProductosComponent implements OnInit, OnDestroy {
 
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  subscription : Subscription;
-  public producto : Producto;
+  subscription: Subscription;
+  public producto: Producto;
   public productos: Producto[];
-  public habilita: number = 1;
+  public habilita = 1;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -36,7 +31,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _ProductoServicio : ProductoService,
+    private _ProductoServicio: ProductoService,
     private spinner: NgxSpinnerService
   ) { }
 
@@ -66,6 +61,10 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 
   }
 
+  ngOnDestroy() {
+        this.subscription.unsubscribe();
+  }
+
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -77,44 +76,44 @@ export class ListProductosComponent implements OnInit, OnDestroy {
   }
 
 
-  getProductos(){
+  getProductos() {
 
     this.subscription = this._ProductoServicio.getProductos().subscribe(
       response => {
-        if(response.productos){
+        if (response.productos) {
           this.productos = response.productos;
           this.dtTrigger.next();
           this.spinner.hide();
         } else {
           this.spinner.hide();
-          Utils.showMsgInfo('Ha ocurrido un error al cargar los productos')
+          Utils.showMsgInfo('Ha ocurrido un error al cargar los productos');
         }
-      }, error =>{
+      }, error => {
         this.spinner.hide();
-        Utils.showMsgError(Utils.msgError(error))
+        Utils.showMsgError(Utils.msgError(error));
       }
     );
   }
 
-  getProductosRender(){
+  getProductosRender() {
 
     this._ProductoServicio.getProductos().subscribe(
       response => {
-        if(response.productos){
+        if (response.productos) {
           this.productos = response.productos;
           this.rerender();
         }
-      }, error =>{
+      }, error => {
 
       }
     );
   }
 
-  eliminarProducto(IdProducto){
+  eliminarProducto(IdProducto) {
 
     swal({
-      title: "Estas seguro(a)?",
-      text: "El producto sera eliminado!",
+      title: 'Estas seguro(a)?',
+      text: 'El producto sera eliminado!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -124,8 +123,8 @@ export class ListProductosComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.value) {
           this._ProductoServicio.deleteProducto(IdProducto).subscribe(
-              response =>{
-                  if(response.success){
+              response => {
+                  if (response.success) {
                       swal(
                           'Eliminado  !',
                           'El producto ha sido eliminado exitosamente',
@@ -133,24 +132,24 @@ export class ListProductosComponent implements OnInit, OnDestroy {
                       ).then(() => {
                           this.getProductosRender();
 
-                      })
+                      });
                   } else {
                       swal(
                           'Error inesperado',
                           'Ha ocurrido un error en la eliminación, intenta nuevamente!',
                           'error'
-                      )
+                      );
                   }
-              }, error =>{
-                  if(error.status = 500){
+              }, error => {
+                  if (error.status = 500) {
                       swal(
                           'Error inesperado',
                           'Ha ocurrido un error en el servidor, intenta nuevamente!',
                           'error'
-                      )
+                      );
                   }
               }
-          )
+          );
       } else if (result.dismiss === swal.DismissReason.cancel) {
 
       }

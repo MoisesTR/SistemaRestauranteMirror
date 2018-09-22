@@ -386,7 +386,7 @@ showCardImg() {
                 if (response.proveedores) {
                     this.proveedores = response.proveedores;
                     this.proveedores.forEach( (value, index) => {
-                       this.proveedores[index].disabled  = !value.Habilitado;
+                       this.proveedores[index].disabled  = 0;
                     });
                 }
             }, error => {

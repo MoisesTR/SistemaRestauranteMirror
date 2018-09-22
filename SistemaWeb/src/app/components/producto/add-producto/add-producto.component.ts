@@ -8,7 +8,7 @@ import {Envase} from '../../../models/Envase';
 import {UploadService} from '../../../services/shared/upload.service';
 import {CARPETA_PRODUCTOS, Global} from '../../../services/shared/global';
 import {Producto} from '../../../models/Producto';
-import {AbstractControl, AbstractControlDirective, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
 import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
 import {SubClasificacionProductoService} from '../../../services/shared/sub-clasificacion-producto.service';

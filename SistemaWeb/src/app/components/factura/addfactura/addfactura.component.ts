@@ -5,7 +5,7 @@ import {Proveedor} from '../../../models/Proveedor';
 import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Global, idioma_espanol, opcionesDatePicker} from '../../../services/shared/global';
-import {IMyOptions, ModalDirective} from 'ng-uikit-pro-standard';
+import {IMyOptions, ModalDirective, ToastService} from 'ng-uikit-pro-standard';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Usuario} from '../../../models/Usuario';
 import {UsuarioService} from '../../../services/shared/usuario.service';
@@ -23,7 +23,7 @@ declare var $: any;
 @Component({
     selector: 'app-addfactura',
     templateUrl: './addfactura.component.html',
-    styleUrls: ['./addfactura.component.css']
+    styleUrls: ['./addfactura.component.scss']
 })
 export class AddfacturaComponent implements OnInit {
 
@@ -63,6 +63,7 @@ export class AddfacturaComponent implements OnInit {
     public mostrarComboPlazoPagos = false;
     public mostrarComboTipoMoneda = false;
     public tituloPantalla: 'Factura';
+    public fechaVencimiento: string;
     Moneda = [
         {Id: 1, Moneda: 'Córdobas'}
         , {Id: 2, Moneda: 'Dólares'},
@@ -93,6 +94,7 @@ export class AddfacturaComponent implements OnInit {
         , private _formBuilderFactura: FormBuilder
         , private _usuarioService: UsuarioService
         , private _facturaService: FacturaService
+        , private toastrService: ToastService
     ) {
         this.proveedor = new Proveedor();
         this.productoSeleccionado = new ProductoFactura();
@@ -175,6 +177,7 @@ export class AddfacturaComponent implements OnInit {
             , responsive : true
             , searching: false
             , paging: false
+            , destroy: true
             ,  rowCallback: (row: Node, data: any[] | Object, index: number) => {
                 const self = this;
                 // Unbind first in order to avoid any duplicate handler
@@ -182,8 +185,8 @@ export class AddfacturaComponent implements OnInit {
                 $('td', row).unbind('click');
                 $('td', row).bind('click', () => {
                     const table = $('#tabla').DataTable();
-                    const datos = table.$('input,checkbox').serialize();
-                    console.log(datos);
+                    const datos = table.$('input,select,checkbox').serializeArray();
+                    const checked = table;
                     self.someClickHandler(data, row, index);
                 });
                 return row;
@@ -193,8 +196,6 @@ export class AddfacturaComponent implements OnInit {
     }
 
     someClickHandler(info: any, row: any, index: any): void {
-        // console.log(info[2]);
-        // console.log(row);
     }
 
     getProveedores() {
@@ -224,30 +225,29 @@ export class AddfacturaComponent implements OnInit {
         this.factura.Retencion = this.tieneRetencion === true ? 1 : 0;
         this.factura.NombVendedor = this.proveedores.filter(
             item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombreRepresentante;
-        console.log(this.factura.NombVendedor);
     }
 
     editarDatosProducto() {
-        this.productosFactura.forEach((producto, index) => {
-            if (this.productosFactura[index].IdProducto === this.productoEditar.IdProducto) {
-
-                // Hacer la operacion de resta en la factura solamente si ya ingreso previamente los datos de un producto
-                if (this.totalFactura > 0 && this.productosFactura[index].Costo > 0) {
-                    this.calcularSubtotalFactura(producto, 'RESTA');
-                }
-                // Actualizar los datos del producto editado en la factura
-                this.productosFactura[index].Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
-                this.productosFactura[index].Costo = this.formEditarDetalleProducto.value.precioProducto;
-                this.productosFactura[index].Descuento = this.formEditarDetalleProducto.value.descuentoTotalProducto;
-                this.productosFactura[index].GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
-                this.productosFactura[index].TotalDetalle = this.calcularPrecioTotalxProducto(this.productoEditar);
-            }
-        });
-
-        // Hacer el calculo con el producto editado
-        this.calcularSubtotalFactura(this.productoEditar, 'SUMA');
-
-        this.modalAgregarDetalleProducto.hide();
+        // this.productosFactura.forEach((producto, index) => {
+        //     if (this.productosFactura[index].IdProducto === this.productoEditar.IdProducto) {
+        //
+        //         // Hacer la operacion de resta en la factura solamente si ya ingreso previamente los datos de un producto
+        //         if (this.totalFactura > 0 && this.productosFactura[index].Costo > 0) {
+        //             this.calcularSubtotalFactura(producto, 'RESTA');
+        //         }
+        //         // Actualizar los datos del producto editado en la factura
+        //         this.productosFactura[index].Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
+        //         this.productosFactura[index].Costo = this.formEditarDetalleProducto.value.precioProducto;
+        //         this.productosFactura[index].Descuento = this.formEditarDetalleProducto.value.descuentoTotalProducto;
+        //         this.productosFactura[index].GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
+        //         this.productosFactura[index].TotalDetalle = this.calcularPrecioTotalxProducto(this.productoEditar);
+        //     }
+        // });
+        //
+        // // Hacer el calculo con el producto editado
+        // this.calcularSubtotalFactura(this.productoEditar, 'SUMA');
+        //
+        // this.modalAgregarDetalleProducto.hide();
     }
 
     onChangeProveedor(event) {
@@ -257,12 +257,18 @@ export class AddfacturaComponent implements OnInit {
             this.factura.IdProveedor = null;
             this.productos = null;
             this.productosFactura = [];
+            this.productosFiltrados = [];
+            this.productosProveedor = [];
+            this.buscando = '';
             this.subtotalFacturaConDescuento = 0;
             this.tieneRetencion = false;
         } else {
+            this.buscando = '';
+            this.productosProveedor = [];
+            this.productosFiltrados = [];
+            this.productosFactura = [];
             this.proveedor.IdProveedor = event.IdProveedor;
             this.factura.IdProveedor = event.IdProveedor;
-            this.productosFactura = [];
             this.getProductosOfProveedor(event.IdProveedor);
             this.tieneRetencion = event.Retencion2;
         }
@@ -303,8 +309,21 @@ export class AddfacturaComponent implements OnInit {
     }
 
     agregarProductoAFactura(producto: ProductoFactura) {
-        this.productoSeleccionado = producto;
-        this.productosFactura.push(this.productoSeleccionado);
+        let productoFiltrado: ProductoFactura = new ProductoFactura();
+        productoFiltrado = Object.assign({}, producto);
+
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0) {
+            productoFiltrado.TotalDetalle = productoFiltrado.Cantidad * productoFiltrado.Costo;
+            this.productosFactura.push(productoFiltrado);
+            this.calcularSubtotalFactura(productoFiltrado, 'SUMA');
+            this.showSuccess();
+        } else {
+            Utils.showMsgInfo('Debe tener algun costo o cantidad el producto agregado');
+        }
+
+        console.log('Prueba valores');
+        console.log(productoFiltrado);
+        console.log(producto);
     }
 
     getProductosOfProveedor(IdProveedor) {
@@ -315,6 +334,7 @@ export class AddfacturaComponent implements OnInit {
                     this.productosProveedor.forEach( (value, index) => {
                        this.productosProveedor[index].Costo = 0;
                        this.productosProveedor[index].TotalDetalle = 0;
+                       this.productosProveedor[index].ExentoIva = 0;
                     });
                     this.dtTrigger.next();
                 }
@@ -564,6 +584,44 @@ export class AddfacturaComponent implements OnInit {
                 }, 100);
             }
         }
+    }
+
+    fechaVencimientoInputFieldChanged (event, IdProducto) {
+        this.productosFiltrados.forEach( (value, index) => {
+            if (value.IdProducto === IdProducto) {
+                value.FechaVencimiento = event.value;
+            }
+        });
+    }
+
+    onSearchChangePrecioProducto(precioProducto, IdProducto) {
+        this.productosFiltrados.forEach( (value, index) => {
+            if (value.IdProducto === IdProducto) {
+                this.productosFiltrados[index].Costo = precioProducto;
+            }
+        });
+    }
+
+    onSearchChangeCantidadProducto(cantidadProducto, IdProducto) {
+        this.productosFiltrados.forEach( (value, index) => {
+            if (value.IdProducto === IdProducto) {
+                this.productosFiltrados[index].Cantidad = cantidadProducto;
+            }
+        });
+    }
+
+    changeExentoIva(event, IdProducto) {
+        this.productosFiltrados.forEach( (value, index) => {
+            if (value.IdProducto === IdProducto) {
+                this.productosFiltrados[index].GravadoIva = event.path[0].checked === true ? 0 : 1;
+                this.productosFiltrados[index].ExentoIva = event.path[0].checked === true ? 1 : 0;
+            }
+        });
+    }
+
+    showSuccess() {
+        const options = { enableHtml: false,  positionClass: 'toast-top-right', toastClass: 'opacity'};
+        this.toastrService.success('El producto ha sido agregado a la factura', 'Factura', options);
     }
 
 }

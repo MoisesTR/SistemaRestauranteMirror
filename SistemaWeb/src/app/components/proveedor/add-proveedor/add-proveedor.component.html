@@ -35,7 +35,7 @@
 
               <div class="col-sm-3 col-md-3 mt-3">
                 <div class="form-check mt-5 checkbox-chang-filled">
-                  <input [mdbValidate]=false type="checkbox" class="form-check-input" name="chkMercado" id="chkMercado"
+                  <input [mdbValidate]=false type="checkbox" formControlName="isMercado" class="form-check-input" name="chkMercado" id="chkMercado"
                     mdbInputDirective>
                   <label class="form-check-label" for="chkMercado">Mercado</label>
                 </div>
@@ -77,7 +77,7 @@
               </div>
 
               <div class="col-sm-3 col-md-3 mt-5">
-                <a class="btn orange-chang mb-1 ml-4 btn-sm white-text" role="button" (click)="modalTelefonos.show()">
+                <a class="btn orange-chang mb-1 ml-4 btn-sm white-text" role="button" (click)="showModalTelefonos()">
                   Telefonos<i class="fa fa-phone ml-1"></i>
                 </a>
               </div>
@@ -129,45 +129,55 @@
       <div class="modal-body mb-0">
 
         <div class="container-fluid">
-          <form [formGroup]="" novalidate>
+          <form [formGroup]="formAddTelefonos" (ngSubmit)="agregarTelefonosProveedor()" novalidate>
 
             <div class="container-fluid">
               <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                 <i class="fa fa-search mt-3" aria-hidden="true"></i>
                 <input class="form-control w-50 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
-                <a class="btn orange-chang my-0 ml-3 white-text" role="button" (click)="inputsTest()">Agregar</a>
+                <a class="btn orange-chang my-0 ml-3 white-text" role="button" (click)="agregarTelefono()">Agregar</a>
               </div>
             </div>
 
             <div class="scrollbar-card scrollbar-ripe-malinka">
+              <fieldset *ngFor="let telefono of telefonos; let i = index">
               <div class="container pl-4 pr-4">
+
                 <div class="row justify-content-md-center">
 
-                  <div class="col-md-4">
+                  <div [ngClass]="(i === 0) ? 'col-md-4':'col-md-3'">
                     <div class="md-form">
                       <h6 class="orange-chang-text">Nombre</h6>
-                      <input type="text" id="" class="input-modal-sm">
+                      <input type="text" id = "n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]= "telefono.NombrePersona" class="input-modal-sm">
                     </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div [ngClass]="(i === 0) ? 'col-md-4':'col-md-3'">
                     <div class="md-form">
                       <h6 class="orange-chang-text">Cargo</h6>
-                      <input type="text" id="" class="input-modal-sm">
+                      <input type="text" id = "c{{i}}"  [ngModelOptions]="{standalone: true}" [(ngModel)]= "telefono.Cargo" class="input-modal-sm">
                     </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div [ngClass]="(i === 0) ? 'col-md-4':'col-md-3'">
                     <div class="md-form">
                       <h6 class="orange-chang-text">Télefono</h6>
-                      <input type="number" id="" class="input-modal-sm">
+                      <input type="number" id = "t{{i}}"   [ngModelOptions]="{standalone: true}" [(ngModel)]= "telefono.Telefono" class="input-modal-sm">
+                    </div>
+                  </div>
+
+                  <div *ngIf="i !== 0" class="col-md-3">
+                    <div class="md-form">
+                      <a class="btn red-chang white-text btn-sm ml-3 mb-5 " id="remove" (click)="eliminarTelefono(telefono,i)"  role="button">Eliminar</a>
                     </div>
                   </div>
 
                   <div id="inputs-telefono"></div>
 
                 </div>
+
               </div>
+              </fieldset>
             </div>
 
             <div class="text-center mt-1-half">

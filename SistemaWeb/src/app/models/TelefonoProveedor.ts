@@ -5,5 +5,9 @@ export class TelefonoProveedor {
     public NombrePersona: string;
     public Cargo: string;
 
-    constructor() {}
+    constructor() {
+        this.Telefono = '';
+        this.NombrePersona = '';
+        this.Cargo = '';
+    }
 }

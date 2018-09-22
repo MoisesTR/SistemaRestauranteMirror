@@ -16,7 +16,7 @@ export class Proveedor {
     public Telefono2: string;
     public Retencion2: number;
     public Habilitado: boolean;
-    public isMercado: boolean;
+    public IsMercado: number;
     public disabled: number;
     public TelefonosProveedor: TelefonoProveedor[];
 

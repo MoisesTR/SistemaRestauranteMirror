@@ -13,9 +13,34 @@
 
           <div class="row" *ngIf="productos">
 
-            <div class="col-md-12 mt-4">
+            <div class="col-12 col-sm-12 col-md-5">
+              <br>
+              <label for="proveedor">Proveedor</label>
+              <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+                placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <div style="margin: 10px 0;" class="card">
+                    <div class="card-body">
+                      <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                      <p class="card-subtitle mb-2 text-muted">
+                        <b>Nombre del Representante</b>
+                        <br>
+                        <i>{{item.NombreRepresentante}}</i>
+                      </p>
+                      <p class="card-text">
+                        <b>Descripcion</b>
+                        <br>
+                        <i>{{item.Descripcion}}</i>
+                      </p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-7 mt-4">
               <div class="in input-group md-form form-inline form-sm form-2 pl-0">
-                <i class="fa fa-search" aria-hidden="true"></i>
+                <i class="fa fa-search mt-2" aria-hidden="true"></i>
                 <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
               </div>
 
@@ -28,62 +53,47 @@
             </div>
 
 
-            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-x-4" *ngFor="let producto of productos | buscar: buscando ">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xs-4 mt-4" *ngFor="let producto of productos | buscar: buscando ">
 
-              <!--Rotating card-->
-              <mdb-card-rotating #card>
-                <!--Front Side-->
-                <div class="face front card tp-box_side tp-box_front card-height-productos">
-                  <!-- Image-->
-                  <div class="card-up card-image">
-                    <div class="overlay hm-white-slight waves-light" mdbWavesEffect>
-                      <img src="{{url + 'getImagen/productos/' + (producto.Imagen == '' ? 'default.png' : producto.Imagen)}}" class="img-fluid card-size-img" alt="">
-                    </div>
-                  </div>
-                  <!--/.Image-->
-
-                  <!--Content-->
-                  <div class="content card-background-img">
-                    <a class="btn-floating orange-chang waves-light rotate-btn" mdbWavesEffect (click)="card.toggle()" style="margin-right: 0px;">
-                      <i class="fa fa-eye" style="margin-left: -15px;margin-top: -15px;"></i>
-                    </a>
-
-                    <h4 class="card-title">
-                      {{producto.NombreProducto}}
-                    </h4>
-
-                    <p>{{producto.Descripcion}}</p>
-                    <hr>
-                    <h5>{{producto.NombreCategoria}}</h5>
-                  </div>
-                  <!--/.Content-->
-
+              <mdb-card>
+                <div class="view overlay">
+                  <!-- Card img -->
+                  <mdb-card-img src="{{url + 'getImagen/productos/' + (producto.Imagen == '' ? 'default.png' : producto.Imagen)}}"
+                    alt="imagen de producto" class="card-img-top"></mdb-card-img>
+                  <a>
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
                 </div>
-                <!--/.Front Side-->
+                <!--Card content-->
+                <mdb-card-body>
 
-                <!--Back Side-->
-                <div class="face back tp-box_side tp-box_back card-height-productos">
-                  <!--Title-->
-                  <h4 class="card-title">{{producto.NombreProducto}}
-                    <i class="fa fa-close rotate-btn" (click)="card.toggle()"></i>
-                  </h4>
-                  <hr>
-                  <p>{{producto.NombreProducto}}</p>
-                  <p>{{producto.Descripcion}}</p>
+                  <!-- Title -->
+                  <h4 class="card-title font-weight-bold"><a>{{producto.NombreProducto}}</a></h4>
 
-                </div>
-                <!--/.Back Side-->
-              </mdb-card-rotating>
-              <!--/.Rotating card-->
+                  <p class="mb-2">{{producto.Descripcion}}</p>
+                  <!-- Text -->
+                  <p class="card-text">22/08/2018</p>
+                  <hr class="my-1">
+
+                  <div class="chip white-text mr-2 text-center" mdbTooltip="Categoría" placement="bottom" style="background-color:#FF5722;">{{producto.NombreCategoria}}</div>
+                  <div class="chip white-text text-center" mdbTooltip="Clasificación" placement="bottom" style="background-color:#F44336;">{{producto.NombreClasificacion}}</div>
+                  <br>
+                  <div class="chip white-text mr-2 text-center" mdbTooltip="SubClasificación" placement="bottom" style="background-color:#D32F2F;">Filete</div>
+                  <div class="chip white-text text-center" mdbTooltip="Tipo Insumo" placement="bottom" style="background-color:#C0392B;">Alimento</div>
+
+
+                </mdb-card-body>
+              </mdb-card>
+
             </div>
           </div>
 
-          <div class="row" *ngIf="productos==null">            
+          <div class="row" *ngIf="productos==null">
             <div class="container text-center">
               <br>
               <h1>PRODUCTOS</h1>
               <p>No se encontraron productos registrados</p>
-            </div>        
+            </div>
           </div>
         </div>
       </div>
@@ -91,7 +101,7 @@
   </div>
 
   <button type="button" class="btn btn-floating btn-large orange-chang waves-light" mdbWavesEffect [routerLink]="'../producto'"
-    style="right:78%; bottom:35px;">
+    style="bottom:3%; margin-left: -5%;">
     <i class="fa fa-th-list"></i>
   </button>
 

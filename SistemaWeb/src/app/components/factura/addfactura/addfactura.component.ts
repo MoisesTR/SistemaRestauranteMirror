@@ -4,7 +4,7 @@ import {ProductoService} from '../../../services/shared/producto.service';
 import {Proveedor} from '../../../models/Proveedor';
 import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Global, idioma_espanol, opcionesDatePicker} from '../../../services/shared/global';
+import {CARPETA_FACTURA, CARPETA_PRODUCTOS, Global, idioma_espanol, opcionesDatePicker} from '../../../services/shared/global';
 import {IMyOptions, ModalDirective, ToastService} from 'ng-uikit-pro-standard';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Usuario} from '../../../models/Usuario';
@@ -16,7 +16,7 @@ import {DetalleFactura} from '../../../models/DetalleFactura';
 import {ProductoFactura} from '../../../models/ProductoFactura';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs/Subject';
-import {ProveedorService} from '../../../services/service.index';
+import {ProveedorService, UploadService} from '../../../services/service.index';
 
 declare var $: any;
 
@@ -64,6 +64,8 @@ export class AddfacturaComponent implements OnInit {
     public mostrarComboTipoMoneda = false;
     public tituloPantalla: 'Factura';
     public fechaVencimiento: string;
+    public filesToUpload: Array<File>;
+
     Moneda = [
         {Id: 1, Moneda: 'Córdobas'}
         , {Id: 2, Moneda: 'Dólares'},
@@ -73,11 +75,6 @@ export class AddfacturaComponent implements OnInit {
         {Id: 1, FormaPago: 'Contado'}
         , {Id: 2, FormaPago: 'Crédito'},
     ];
-
-    @ViewChild(DataTableDirective)
-    dtElement: DataTableDirective;
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<any> = new Subject<any>();
 
     @ViewChild('modalVerProducto') modalVerProducto: ModalDirective;
     @ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto: ModalDirective;
@@ -95,6 +92,7 @@ export class AddfacturaComponent implements OnInit {
         , private _usuarioService: UsuarioService
         , private _facturaService: FacturaService
         , private toastrService: ToastService
+        , private _uploadService: UploadService
     ) {
         this.proveedor = new Proveedor();
         this.productoSeleccionado = new ProductoFactura();
@@ -115,7 +113,6 @@ export class AddfacturaComponent implements OnInit {
             $('.dropify').dropify();
         });
 
-        this.settingsDatatable();
         this.getProveedores();
         this.initFormDetailProductoFactura();
         this.initFormAddFactura();
@@ -146,6 +143,9 @@ export class AddfacturaComponent implements OnInit {
             , 'fechaFactura': new FormControl('', [
                 Validators.required
             ])
+            , 'fechaRecepcion': new FormControl('', [
+                Validators.required
+            ])
             , 'Moneda': new FormControl('', Validators.required)
             , 'FormaPago': new FormControl('', Validators.required)
             , 'TipoCambio': new FormControl('')
@@ -158,44 +158,6 @@ export class AddfacturaComponent implements OnInit {
             'checkDescuentoGeneral': new FormControl('', []),
             'retencion': new FormControl(false, [])
         });
-    }
-
-    initFormDescuentoGeneral() {
-        this.formDescuentoGeneral = this._formBuilderFactura.group({
-            'descuentoGeneral': new FormControl('', [
-                CustomValidators.rangeNumber(0, 100)
-            ])
-        });
-    }
-
-    settingsDatatable() {
-        this.dtOptions = <DataTables.Settings>{
-            pagingType: 'full_numbers'
-            , pageLength: 10
-            , language: idioma_espanol
-            , 'lengthChange': false
-            , responsive : true
-            , searching: false
-            , paging: false
-            , destroy: true
-            ,  rowCallback: (row: Node, data: any[] | Object, index: number) => {
-                const self = this;
-                // Unbind first in order to avoid any duplicate handler
-                // (see https://github.com/l-lin/angular-datatables/issues/87)
-                $('td', row).unbind('click');
-                $('td', row).bind('click', () => {
-                    const table = $('#tabla').DataTable();
-                    const datos = table.$('input,select,checkbox').serializeArray();
-                    const checked = table;
-                    self.someClickHandler(data, row, index);
-                });
-                return row;
-            }
-        };
-        this.dtTrigger.next();
-    }
-
-    someClickHandler(info: any, row: any, index: any): void {
     }
 
     getProveedores() {
@@ -217,37 +179,18 @@ export class AddfacturaComponent implements OnInit {
         this.factura.IdTrabajador = this.usuario.IdTrabajador;
         this.factura.NombVendedor = this.usuario.Nombres;
         this.factura.FechaIngreso = this.formAddFactura.value.fechaFactura;
+        this.factura.FechaFactura = this.formAddFactura.value.fechaFactura;
+        this.factura.FechaRecepcion = this.formAddFactura.value.fechaRecepcion;
         this.factura.SubTotal = this.subTotalFactura;
         this.factura.TotalIva = this.ivaCalculoFactura;
-        this.factura.CambioActual = 31.50;
+        this.factura.CambioActual = 32;
         this.factura.TotalDescuento = this.descuentoCalculoFactura;
         this.factura.TotalCordobas = this.totalFactura;
         this.factura.Retencion = this.tieneRetencion === true ? 1 : 0;
+        this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
+        this.factura.FormaPago = 'contado';
         this.factura.NombVendedor = this.proveedores.filter(
             item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombreRepresentante;
-    }
-
-    editarDatosProducto() {
-        // this.productosFactura.forEach((producto, index) => {
-        //     if (this.productosFactura[index].IdProducto === this.productoEditar.IdProducto) {
-        //
-        //         // Hacer la operacion de resta en la factura solamente si ya ingreso previamente los datos de un producto
-        //         if (this.totalFactura > 0 && this.productosFactura[index].Costo > 0) {
-        //             this.calcularSubtotalFactura(producto, 'RESTA');
-        //         }
-        //         // Actualizar los datos del producto editado en la factura
-        //         this.productosFactura[index].Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
-        //         this.productosFactura[index].Costo = this.formEditarDetalleProducto.value.precioProducto;
-        //         this.productosFactura[index].Descuento = this.formEditarDetalleProducto.value.descuentoTotalProducto;
-        //         this.productosFactura[index].GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
-        //         this.productosFactura[index].TotalDetalle = this.calcularPrecioTotalxProducto(this.productoEditar);
-        //     }
-        // });
-        //
-        // // Hacer el calculo con el producto editado
-        // this.calcularSubtotalFactura(this.productoEditar, 'SUMA');
-        //
-        // this.modalAgregarDetalleProducto.hide();
     }
 
     onChangeProveedor(event) {
@@ -312,18 +255,22 @@ export class AddfacturaComponent implements OnInit {
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
-        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0) {
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0
+            && (productoFiltrado.FechaVencimiento !== '' && productoFiltrado.FechaVencimiento !== undefined)) {
+
             productoFiltrado.TotalDetalle = productoFiltrado.Cantidad * productoFiltrado.Costo;
             this.productosFactura.push(productoFiltrado);
             this.calcularSubtotalFactura(productoFiltrado, 'SUMA');
             this.showSuccess();
         } else {
-            Utils.showMsgInfo('Debe tener algun costo o cantidad el producto agregado');
+            if (productoFiltrado.Cantidad <= 0) {
+                Utils.showMsgInfo('La cantidad debe ser mayor a cero!');
+            } else if (productoFiltrado.Costo <= 0) {
+                Utils.showMsgInfo('El precio debe ser mayor a cero!');
+            } else if (productoFiltrado.FechaVencimiento === '') {
+                Utils.showMsgInfo('La fecha de vencimiento es requerida!');
+            }
         }
-
-        console.log('Prueba valores');
-        console.log(productoFiltrado);
-        console.log(producto);
     }
 
     getProductosOfProveedor(IdProveedor) {
@@ -335,8 +282,9 @@ export class AddfacturaComponent implements OnInit {
                        this.productosProveedor[index].Costo = 0;
                        this.productosProveedor[index].TotalDetalle = 0;
                        this.productosProveedor[index].ExentoIva = 0;
+                       this.productosProveedor[index].Cantidad = 0;
+                       this.productosProveedor[index].FechaVencimiento = '';
                     });
-                    this.dtTrigger.next();
                 }
             }, error => {
 
@@ -344,15 +292,6 @@ export class AddfacturaComponent implements OnInit {
 
             }
         );
-    }
-
-    rerender(): void {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            // Destroy the table first
-            dtInstance.destroy();
-            // Call the dtTrigger to rerender again
-            this.dtTrigger.next();
-        });
     }
 
     existenMontosMenorIgualaCero() {
@@ -441,18 +380,40 @@ export class AddfacturaComponent implements OnInit {
         }
     }
 
-    eliminarProductoDeFactura(productoFactura: ProductoFactura) {
-        // this.calcularSubtotalFactura(productoFactura, 'RESTA');
-        this.productosFactura = this.productosFactura.filter(item => item.IdProducto !== productoFactura.IdProducto);
-
+    eliminarProductoDeFactura(productoFactura: ProductoFactura, index) {
+        this.calcularSubtotalFactura(productoFactura, 'RESTA');
+        this.productosFactura.splice(index, 1);
     }
 
     agregarProveedor() {
         this._router.navigate(['proveedor/add']);
     }
 
-    agregarProducto() {
-        this._router.navigate(['producto/add']);
+    guardarRespaldoFactura() {
+
+        if (this.filesToUpload != null) {
+            this._uploadService.makeFileRequest(
+                this.url + 'uploadImage/',
+                CARPETA_FACTURA,
+                '',
+                false,
+                [],
+                this.filesToUpload,
+                'token',
+                'image').then((result: any ) => {
+                this.factura.respaldoFactura = result.image;
+                this.crearFactura();
+            }, error => {
+                Utils.msgErrorImage(error);
+            });
+        } else {
+            this.factura.respaldoFactura = 'vacio';
+            this.crearFactura();
+        }
+    }
+
+    fileChangeEvent(fileInput: any) {
+        this.filesToUpload = <Array<File>>fileInput.target.files;
     }
 
     showModalDetalleProducto(productoFactura: ProductoFactura) {
@@ -569,14 +530,12 @@ export class AddfacturaComponent implements OnInit {
             }, 100);
         } else {
             if (this.buscando !== '' && this.buscando !== undefined)  {
-                this.productosFiltrados = this.productosProveedor.filter( item => item.NombreProducto === this.buscando);
+                this.productosFiltrados = this.productosProveedor.filter( item => item.NombreProducto.toUpperCase() === this.buscando.toUpperCase());
 
                 if (this.productosFiltrados.length === 0) {
                     setTimeout(() => {
                         Utils.showMsgInfo('No se han encontrado resultados!', this.tituloPantalla);
                     }, 100);
-                } else {
-                    this.rerender();
                 }
             } else {
                 setTimeout(() => {

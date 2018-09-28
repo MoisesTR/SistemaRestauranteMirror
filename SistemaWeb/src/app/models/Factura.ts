@@ -24,8 +24,10 @@ export class Factura {
   public Habilitado: number;
   public Detalle: DetalleFactura[];
   public Hora: string;
-  public fechaRecepcion: string;
+  public FechaRecepcion: string;
+  public FechaFactura: string;
   public ProductoFactura: ProductoFactura[];
+  public respaldoFactura: string;
 
   public IdFormaPago: number;
   public IdTipoMoneda: number;

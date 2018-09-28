@@ -14,7 +14,7 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
 	@IdUnidadMedida		INT,
 	@ValorUnidadMedida	NUMERIC(10,5),
 	@CantidadEmpaque	INT, 
-	@DiasCaducidad		INT
+	@DiasRotacion		INT
 ) AS BEGIN
 	IF EXISTS (SELECT NombreProducto FROM dbo.PRODUCTO WHERE @NombreProducto = NombreProducto AND IdEnvase = @IdEnvase 
 				AND IdUnidadMedida = @IdUnidadMedida AND ValorUnidadMedida = @ValorUnidadMedida )
@@ -23,8 +23,8 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
 	BEGIN
 		BEGIN TRANSACTION
 		BEGIN TRY
-			INSERT INTO dbo.PRODUCTO(IdSubClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque, DiasCaducidad)
-			VALUES(@IdSubClasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque, @DiasCaducidad)
+			INSERT INTO dbo.PRODUCTO(IdSubClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque, DiasRotacion)
+			VALUES(@IdSubClasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque, @DiasRotacion)
 			SELECT @@IDENTITY AS IdProducto
 			COMMIT TRANSACTION
 		END TRY
@@ -51,14 +51,14 @@ CREATE PROCEDURE USP_UPDATE_PRODUCTO(
 	@IdUnidadMedida		INT,
 	@ValorUnidadMedida	INT,
 	@CantidadEmpaque	INT,
-	@DiasCaducidad		INT
+	@DiasRotacion		INT
 ) AS BEGIN 
 	UPDATE dbo.PRODUCTO 
 		SET IdSubClasificacion	= ISNULL(@IdSubClasificacion,IdSubClasificacion),	
 		IdEstado		= @IdEstado,						NombreProducto		= @NombreProducto,	cantidadEmpaque		= @CantidadEmpaque,
 		Descripcion		= @Descripcion,						Imagen				= @Imagen,			IdEnvase			= @IdEnvase,		
 		IdEmpaque		= @IdEmpaque,						IdUnidadMedida		= @IdUnidadMedida,	ValorUnidadMedida	= @ValorUnidadMedida, 
-		DiasCaducidad	=  ISNULL(@DiasCaducidad, DiasCaducidad),				UpdateAt	= GETDATE()
+		DiasRotacion	=  ISNULL(@DiasRotacion, DiasRotacion),				UpdateAt	= GETDATE()
     WHERE IdProducto = @IdProducto;
 END
 GO
@@ -79,7 +79,7 @@ AS BEGIN
 			, P.IdUnidadMedida
 			, P.ValorUnidadMedida
 			, P.CantidadEmpaque
-			, P.DiasCaducidad
+			, P.DiasRotacion
 			, P.NombreProducto
 			, P.Descripcion
 			, P.Imagen
@@ -106,7 +106,7 @@ AS BEGIN
 	BEGIN
 		SELECT	IdProducto,	C.IdCategoria,	CP.NombreCategoria,	P.IdSubClasificacion,	SC.NombreSubClasificacion,	
 				C.IdClasificacion,	C.NombreClasificacion,	IdEstado,	NombreProducto,	Descripcion,	Imagen,
-				P.DiasCaducidad,	P.Habilitado,	P.CreatedAt,	P.UpdateAt 
+				P.DiasRotacion,	P.Habilitado,	P.CreatedAt,	P.UpdateAt 
 		FROM dbo.PRODUCTO P
 		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC 
 			ON P.IdSubClasificacion = SC.IdSubClasificacion
@@ -117,14 +117,14 @@ AS BEGIN
 	END
 	ELSE
 	BEGIN
-		--SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubClasificacion,SC.NombreSubClasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasCaducidad,P.Habilitado,P.CreatedAt,P.UpdateAt 
+		--SELECT IdProducto,P.IdCategoria,CP.NombreCategoria,P.IdSubClasificacion,SC.NombreSubClasificacion,C.IdClasificacion,C.NombreClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,P.DiasRotacion,P.Habilitado,P.CreatedAt,P.UpdateAt 
 		--FROM dbo.PRODUCTO P
 		--INNER JOIN dbo.CATEGORIA_PRODUCTO CP ON P.IdCategoria = CP.IdCategoria
 		--INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC ON P.IdSubClasificacion = SC.IdSubClasificacion
 		--INNER JOIN dbo.CLASIFICACION_PRODUCTO C ON SC.IdClasificacion = C.IdClasificacion 
 		SELECT	IdProducto,	C.IdCategoria,	CP.NombreCategoria,	P.IdSubClasificacion,	SC.NombreSubClasificacion,	
 				C.IdClasificacion,	C.NombreClasificacion,	IdEstado,	NombreProducto,	Descripcion,	Imagen,
-				P.DiasCaducidad,	P.Habilitado,	P.CreatedAt,	P.UpdateAt 
+				P.DiasRotacion,	P.Habilitado,	P.CreatedAt,	P.UpdateAt 
 		FROM dbo.PRODUCTO P
 		INNER JOIN dbo.SUBCLASIFICACION_PRODUCTO SC 
 			ON P.IdSubClasificacion = SC.IdSubClasificacion

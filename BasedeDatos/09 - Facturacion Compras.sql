@@ -39,6 +39,7 @@ CREATE TABLE FACTURA_COMPRA(
 	IdEstadoFactura INT NOT NULL DEFAULT 2, --Abierta por default
 	NombVendedor	NVARCHAR(100) NULL,
 	FechaIngreso	SMALLDATETIME NOT NULL,
+	FechaRecepcion	DATETIME NOT NULL,
 	SubTotal		NUMERIC(7,3) DEFAULT 0 CHECK(SubTotal >= 0) NOT NULL,
 	TotalIva		NUMERIC(7,3) DEFAULT 0 CHECK(TotalIva >= 0) NOT NULL,
 	CambioActual	NUMERIC(7,3) CHECK(CambioActual > 0) NOT NULL,

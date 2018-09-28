@@ -111,6 +111,7 @@ CREATE TABLE dbo.PROVEEDOR(
 	IdTipoDocumento		INT					NOT NULL,  -- Foraneo
 	Documento			NVARCHAR(50)		NOT NULL,
     Retencion2			Bit					NOT NULL	DEFAULT 0,
+	Mercado				BIT					NOT NULL	DEFAULT 0,
 	Habilitado			Bit					NOT NULL	DEFAULT 1,
     CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
     UpdateAt			SMALLDATETIME		NULL,
@@ -311,6 +312,26 @@ VALUES ('Sin Procesar','Producto que no se ha procesado')
 		,('Semiterminado','Producto que se esta procesando.')
         ,('Terminado','Producto terminado.');
 GO
+
+--IF OBJECT_ID('dbo.TIPO_INSUMO') IS NOT NULL
+--	DROP TABLE dbo.TIPO_INSUMO
+
+CREATE TABLE dbo.TIPO_INSUMO (
+	IdTipoInsumo INT IDENTITY(1,1),
+	Descripcion VARCHAR(200),
+	Habilitado	BIT DEFAULT 1,
+	CreatedAt			SMALLDATETIME		NOT NULL DEFAULT GETDATE(),
+    UpdateAt			SMALLDATETIME		NULL,
+
+	CONSTRAINT PK_ID_TIPO_INSUMO PRIMARY KEY (IdTipoInsumo)
+)
+GO
+
+INSERT INTO dbo.TIPO_INSUMO(Descripcion) VALUES ('Consumo')
+INSERT INTO dbo.TIPO_INSUMO(Descripcion) VALUES('Limpieza')
+
+GO
+
 CREATE TABLE dbo.PRODUCTO (
     IdProducto			INT IDENTITY(1,1),
     IdSubClasificacion	INT					NOT NULL,
@@ -320,9 +341,13 @@ CREATE TABLE dbo.PRODUCTO (
 	IdUnidadMedida		INT					NOT NULL,
     ValorUnidadMedida	NUMERIC(10,5)		NOT NULL,
 	CantidadEmpaque		INT					NULL, --si tiene empaque 
-	DiasCaducidad		INT					NOT NULL,
+	DiasRotacion		INT					NOT NULL,
     NombreProducto		NVARCHAR(50)		NOT NULL,
     Descripcion			NVARCHAR(200)		NOT NULL,
+	CodigoProducto		NVARCHAR(100)		NOT NULL,
+	CodigoBarra			NVARCHAR(100)		NULL,
+	CodigoAlterno		NVARCHAR(100)		NULL,
+	TipoInsumo			INT					NOT NULL, 
     Imagen				NVARCHAR(100)		NOT NULL	DEFAULT 'nodisponible.png', --	
 	Habilitado			Bit DEFAULT 1		NOT NULL,
     CreatedAt			SMALLDATETIME		NOT NULL DEFAULT GETDATE(),
@@ -340,6 +365,8 @@ CREATE TABLE dbo.PRODUCTO (
 		REFERENCES dbo.UNIDAD_MEDIDA (IdUnidadMedida),
 	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque)  
 		REFERENCES dbo.EMPAQUE(IdEmpaque),
+	CONSTRAINT FL_TipoInsumoProducto FOREIGN KEY(TipoInsumo)  
+		REFERENCES dbo.TIPO_INSUMO(IdTipoInsumo)
 );
 GO
 CREATE TABLE PRODUCTO_PROVEEDOR (

@@ -97,6 +97,16 @@ GO
 INSERT INTO PAIS(NombrePais, Abreviatura, PrefijoTelefonico)
 VALUES('Nicaragua', 'NIC','505'), ('China','CH','012')
 GO
+CREATE TABLE dbo.TELEFONOS_PROVEEDOR (
+	IdTelefono INT IDENTITY(1,1)
+	, Telefono NVARCHAR(15) NOT NULL
+	, Nombre NVARCHAR(20) NOT NULL
+	, Cargo NVARCHAR(15) NULL
+
+	CONSTRAINT PK_IdTelefono PRIMARY KEY(IdTelefono)
+)
+
+GO
 CREATE TABLE dbo.PROVEEDOR(
     IdProveedor			INT IDENTITY(1,1),
 	IdPais				INT					NOT NULL	DEFAULT 1, --Foraneo
@@ -106,8 +116,6 @@ CREATE TABLE dbo.PROVEEDOR(
 	Imagen				NVARCHAR(50)		NOT NULL	DEFAULT 'proveedor.png',
     Descripcion			NVARCHAR(200)		NULL,
     NombreRepresentante NVARCHAR(100)		NOT NULL,
-	Telefono1			NVARCHAR(20)		NOT NULL,
-	Telefono2			NVARCHAR(20)		NULL,
 	IdTipoDocumento		INT					NOT NULL,  -- Foraneo
 	Documento			NVARCHAR(50)		NOT NULL,
     Retencion2			Bit					NOT NULL	DEFAULT 0,
@@ -119,6 +127,17 @@ CREATE TABLE dbo.PROVEEDOR(
 	CONSTRAINT FK_PAIS_PROVEEDOR FOREIGN KEY(IdPais) REFERENCES PAIS(IdPais),
 	CONSTRAINT FK_TIPO_DOCUMENTO_PROVEEDOR FOREIGN KEY(IdTipoDocumento) REFERENCES TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento)
 );
+GO
+
+CREATE TABLE dbo.TELEFONO_PROVEEDOR (
+	IdTelefonoProveedor INT IDENTITY(1,1)
+	, IdTelefono INT NOT NULL
+	, IdProveedor INT NOT NULL
+
+	CONSTRAINT PK_IdTelefonoProveedor PRIMARY KEY(IdTelefonoProveedor),
+	CONSTRAINT FK_IdTelefono FOREIGN KEY(IdTelefono) REFERENCES TELEFONOS_PROVEEDOR(IdTelefono),
+	CONSTRAINT FK_IdProveedorTelefono FOREIGN KEY(IdProveedor) REFERENCES PROVEEDOR(IdProveedor)
+)
 GO
 --Por default es 2 por que hasta el momento es 2 el id del tipo numero RUC
 ALTER TABLE PROVEEDOR
@@ -334,6 +353,7 @@ GO
 
 CREATE TABLE dbo.PRODUCTO (
     IdProducto			INT IDENTITY(1,1),
+	IdProveedor			INT NOT NULL,
     IdSubClasificacion	INT					NOT NULL,
     IdEstado			int					NOT NULL,
 	IdEnvase			INT					NULL, --id del envase si es que tiene
@@ -365,6 +385,8 @@ CREATE TABLE dbo.PRODUCTO (
 		REFERENCES dbo.UNIDAD_MEDIDA (IdUnidadMedida),
 	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque)  
 		REFERENCES dbo.EMPAQUE(IdEmpaque),
+		CONSTRAINT FL_Proveedor FOREIGN KEY(IdProveedor)  
+		REFERENCES dbo.PROVEEDOR(IdProveedor),
 	CONSTRAINT FL_TipoInsumoProducto FOREIGN KEY(TipoInsumo)  
 		REFERENCES dbo.TIPO_INSUMO(IdTipoInsumo)
 );

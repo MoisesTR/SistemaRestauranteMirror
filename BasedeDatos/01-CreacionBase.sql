@@ -97,16 +97,6 @@ GO
 INSERT INTO PAIS(NombrePais, Abreviatura, PrefijoTelefonico)
 VALUES('Nicaragua', 'NIC','505'), ('China','CH','012')
 GO
-CREATE TABLE dbo.TELEFONOS_PROVEEDOR (
-	IdTelefono INT IDENTITY(1,1)
-	, Telefono NVARCHAR(15) NOT NULL
-	, Nombre NVARCHAR(20) NOT NULL
-	, Cargo NVARCHAR(15) NULL
-
-	CONSTRAINT PK_IdTelefono PRIMARY KEY(IdTelefono)
-)
-
-GO
 CREATE TABLE dbo.PROVEEDOR(
     IdProveedor			INT IDENTITY(1,1),
 	IdPais				INT					NOT NULL	DEFAULT 1, --Foraneo
@@ -128,17 +118,20 @@ CREATE TABLE dbo.PROVEEDOR(
 	CONSTRAINT FK_TIPO_DOCUMENTO_PROVEEDOR FOREIGN KEY(IdTipoDocumento) REFERENCES TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento)
 );
 GO
-
-CREATE TABLE dbo.TELEFONO_PROVEEDOR (
-	IdTelefonoProveedor INT IDENTITY(1,1)
-	, IdTelefono INT NOT NULL
+CREATE TABLE dbo.TELEFONOS_PROVEEDOR (
+	IdTelefono INT IDENTITY(1,1)
 	, IdProveedor INT NOT NULL
+	, Telefono NVARCHAR(15) NOT NULL
+	, Nombre NVARCHAR(20) NOT NULL
+	, Cargo NVARCHAR(15) NULL
+	, CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE()
+    , UpdateAt			SMALLDATETIME		NULL
 
-	CONSTRAINT PK_IdTelefonoProveedor PRIMARY KEY(IdTelefonoProveedor),
-	CONSTRAINT FK_IdTelefono FOREIGN KEY(IdTelefono) REFERENCES TELEFONOS_PROVEEDOR(IdTelefono),
-	CONSTRAINT FK_IdProveedorTelefono FOREIGN KEY(IdProveedor) REFERENCES PROVEEDOR(IdProveedor)
+	CONSTRAINT PK_IdTelefono PRIMARY KEY(IdTelefono),
+	CONSTRAINT FK_IdTelefonoProveedor FOREIGN KEY(IdProveedor) REFERENCES PROVEEDOR(IdProveedor)
 )
 GO
+
 --Por default es 2 por que hasta el momento es 2 el id del tipo numero RUC
 ALTER TABLE PROVEEDOR
 	ADD CONSTRAINT DF_IdTipoNumeroRUC_Proveedor DEFAULT 2 FOR IdTipoDocumento

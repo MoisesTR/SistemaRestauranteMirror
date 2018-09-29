@@ -1,6 +1,6 @@
 --Opciones Generales del menu(Menues Padres)
 INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Inicio','Pantalla inicial del sistema','/','./assets/img/icon/home.png','no-collase',1)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Insumos','Insumos (Inventario)','#','./assets/img/icon/home.png','',2)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Insumos','Insumos (Inventario)','#','./assets/img/icon/product.png','',2)
 INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Factura','Facturas de sistema sistema','#','./assets/img/icon/facturas.png','',4)
 INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Reportes','Modulo de reportes','/reportes','/assets/img/icon/reportes.png','no-collase',5)
 INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Catalogos','Catalogos de sistema','#','./assets/img/icon/catalogo.png','',6)
@@ -9,7 +9,7 @@ INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUE
 INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Cargos','Cargos que ocupan los trabajadores en el restaurante ','/cargo','./assets/img/icon/roles.png','no-collase',9)
 INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Salidas','Salidas del inventario de bodega','/salida-producto','./assets/img/icon/ventas.png','no-collase',10)
 INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Configuraciones','Configuraciones generales del sistema','/configuraciones','./assets/img/icon/configuraciones.png','no-collase',11)
-INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Proveedor','Modulo de Proveedor','#','./assets/img/icon/facturas.png','',3)
+INSERT INTO dbo.RECURSO_SISTEMA(Nombre,Descripcion,Ruta,Icono,Clase,Orden) VALUES ('Proveedor','Modulo de Proveedor','#','./assets/img/icon/proveedores.png','',3)
 
 --Opciones especificas del menu(Submenues)
 
@@ -52,6 +52,6 @@ INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,19)
 INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,20)
 INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(1,21)
 
-INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(2,1)
-INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(2,3)
+--INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(2,1)
+--INSERT INTO dbo.ROL_RECURSO_SISTEMA(IdRol,IdRecursoSistema) VALUES(2,3)
 

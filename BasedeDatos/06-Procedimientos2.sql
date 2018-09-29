@@ -4,6 +4,7 @@ IF OBJECT_ID('USP_CREATE_PRODUCTO','P') IS NOT NULL
 	DROP PROCEDURE USP_CREATE_PRODUCTO
 GO
 CREATE PROCEDURE USP_CREATE_PRODUCTO(
+	@IdProveedor		INT,
     @IdSubClasificacion INT,
     @IdEstado			INT,
     @NombreProducto		NVARCHAR(50),
@@ -16,15 +17,16 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
 	@CantidadEmpaque	INT, 
 	@DiasRotacion		INT
 ) AS BEGIN
-	IF EXISTS (SELECT NombreProducto FROM dbo.PRODUCTO WHERE @NombreProducto = NombreProducto AND IdEnvase = @IdEnvase 
-				AND IdUnidadMedida = @IdUnidadMedida AND ValorUnidadMedida = @ValorUnidadMedida )
+	IF EXISTS (SELECT NombreProducto FROM dbo.PRODUCTO WHERE IdProveedor = @IdProveedor 
+				AND @NombreProducto = NombreProducto AND IdEnvase = @IdEnvase 
+				AND IdUnidadMedida = @IdUnidadMedida AND ValorUnidadMedida = @ValorUnidadMedida)
 		RAISERROR('Ya existe un Producto con las mismas caracteristicas que "%s"',16,1,@NombreProducto)
 	ELSE
 	BEGIN
 		BEGIN TRANSACTION
 		BEGIN TRY
-			INSERT INTO dbo.PRODUCTO(IdSubClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque, DiasRotacion)
-			VALUES(@IdSubClasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque, @DiasRotacion)
+			INSERT INTO dbo.PRODUCTO(IdProveedor,IdSubClasificacion,IdEstado,NombreProducto,Descripcion,Imagen,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque, DiasRotacion)
+			VALUES(@IdProveedor,@IdSubClasificacion,@IdEstado,@NombreProducto,@Descripcion,@Imagen,@IdEnvase,@IdEmpaque,@IdUnidadMedida,@ValorUnidadMedida,@CantidadEmpaque, @DiasRotacion)
 			SELECT @@IDENTITY AS IdProducto
 			COMMIT TRANSACTION
 		END TRY
@@ -93,6 +95,8 @@ AS BEGIN
 		ON SC.IdClasificacion = C.IdClasificacion
 	INNER JOIN dbo.CATEGORIA_PRODUCTO CP 
 		ON C.IdCategoria = CP.IdCategoria
+	INNER JOIN dbo.PROVEEDOR PRO
+		ON P.IdProveedor = PRO.IdProveedor
 	 WHERE IdProducto = @IdProducto
 END
 GO
@@ -114,6 +118,9 @@ AS BEGIN
 			ON SC.IdClasificacion = C.IdClasificacion
 		INNER JOIN dbo.CATEGORIA_PRODUCTO CP 
 			ON C.IdCategoria = CP.IdCategoria
+		INNER JOIN dbo.PROVEEDOR PRO
+			ON P.IdProveedor = PRO.IdProveedor
+
 	END
 	ELSE
 	BEGIN
@@ -132,6 +139,8 @@ AS BEGIN
 			ON SC.IdClasificacion = C.IdClasificacion
 		INNER JOIN dbo.CATEGORIA_PRODUCTO CP 
 			ON C.IdCategoria = CP.IdCategoria
+		INNER JOIN dbo.PROVEEDOR PRO
+			ON P.IdProveedor = PRO.IdProveedor
 		WHERE P.Habilitado = @Habilitado
 	END
 END

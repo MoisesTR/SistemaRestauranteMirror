@@ -10,6 +10,7 @@ export const Global  = {
 export const CARPETA_PRODUCTOS = 'productos';
 export const CARPETA_USUARIOS = 'usuarios';
 export const CARPETA_TRABAJADORES = 'trabajadores';
+export const CARPETA_FACTURA = 'factura';
 
 // Idioma datatable
 export const idioma_espanol = {

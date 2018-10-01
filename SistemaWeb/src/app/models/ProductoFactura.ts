@@ -13,5 +13,6 @@ export class ProductoFactura extends Producto {
 
     constructor() {
         super();
+        this.FechaVencimiento = '';
     }
 }

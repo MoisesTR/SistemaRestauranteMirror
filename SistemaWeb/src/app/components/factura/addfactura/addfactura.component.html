@@ -73,14 +73,14 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <mdb-date-picker [options]="myDatePickerOptions" id="fechaRecepcion" [placeholder]="'Seleccione la fecha'"
+                                    <mdb-date-picker [options]="myDatePickerOptions" id="fechaRecepcion" formControlName="fechaRecepcion" [placeholder]="'Seleccione la fecha'"
                                         [label]="'Fecha de Recepción'" required></mdb-date-picker>
                                 </div>
 
                                 <div class="col-md-6">
                                     <br>
                                     <label>Moneda</label>
-                                    <ng-select dropdownPosition="top" [items]="Moneda" (change)="changeMoneda($event)"
+                                    <ng-select dropdownPosition="top" class="disabled" [items]="Moneda" (change)="changeMoneda($event)"
                                         formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada" bindLabel="Moneda"
                                         bindValue="Id" id="moneda">
                                     </ng-select>
@@ -90,7 +90,7 @@
                                 <div class="col-md-6">
                                     <br>
                                     <label>Forma de Pago</label>
-                                    <ng-select dropdownPosition="top" [items]="FormaPago" (change)="changeFormaPlazoPago($event)"
+                                    <ng-select dropdownPosition="top" class="disabled" [items]="FormaPago" (change)="changeFormaPlazoPago($event)"
                                         formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado" bindLabel="FormaPago"
                                         bindValue="Id" id="pago">
                                     </ng-select>
@@ -139,7 +139,7 @@
                     <div class="card-body">
 
                         <div class="table-responsive">
-                            <table id = "tabla" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+                            <table id = "tabla" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Cód. Producto</th>
@@ -157,7 +157,7 @@
                                 </thead>
                                 <tbody>
 
-                                    <tr *ngFor="let producto of productosFiltrados | buscar: buscando; let i = index">
+                                    <tr *ngFor="let producto of productosFiltrados ; let i = index">
                                         <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
                                         <td width="10%">
@@ -276,7 +276,7 @@
                                                 <!--<i class="fa fa-pencil"></i>-->
                                             <!--</button>-->
                                             <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos"
-                                                (click)="eliminarProductoDeFactura(productoFactura)" data-toggle="tooltip"
+                                                (click)="eliminarProductoDeFactura(productoFactura, index)" data-toggle="tooltip"
                                                 data-placement="bottom" title="Eliminar">
                                                 <i class="fa fa-times"></i>
                                             </button>
@@ -420,6 +420,15 @@
                                                 <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm"
                                                     name="nombreenvase" value={{productoSeleccionado.NombreProducto}}
                                                     readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="md-form">
+                                                <h6 class="orange-chang-text">Codigo Producto</h6>
+                                                <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm"
+                                                       name="codigoproducto" value={{productoSeleccionado.CodigoProducto}}
+                                                       readonly>
                                             </div>
                                         </div>
 
@@ -569,7 +578,7 @@
                 <form [formGroup]="" novalidate>
 
                     <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
-                        <input type="file" id="imageRespaldoFactura" class="dropify" data-height="300"
+                        <input type="file" (change)="fileChangeEvent($event)" id="imageRespaldoFactura" class="dropify" data-height="300"
                             data-allowed-file-extensions="jpg png jpeg" />
                     </div>
 

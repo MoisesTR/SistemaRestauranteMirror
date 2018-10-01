@@ -20,8 +20,7 @@ export class ProductoProveedorService{
         'Authorization': 'token'
     });
 
-    console.log(ProductoProveedor)
-    return this._http.post(this.url + 'producto/proveedor', params,{headers:headers})
+    return this._http.post(this.url + 'producto/proveedor', params,{ headers: headers});
   }
 
   getProductosProveedor(IdProductoProveedor) : Observable<any> {

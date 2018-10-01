@@ -358,8 +358,8 @@ CREATE TABLE dbo.PRODUCTO (
     NombreProducto		NVARCHAR(50)		NOT NULL,
     Descripcion			NVARCHAR(200)		NOT NULL,
 	CodigoProducto		NVARCHAR(100)		NOT NULL,
+	CodigoInterno		NVARCHAR(100)		NULL,
 	CodigoBarra			NVARCHAR(100)		NULL,
-	CodigoAlterno		NVARCHAR(100)		NULL,
 	TipoInsumo			INT					NOT NULL, 
     Imagen				NVARCHAR(100)		NOT NULL	DEFAULT 'nodisponible.png', --	
 	Habilitado			Bit DEFAULT 1		NOT NULL,
@@ -381,8 +381,18 @@ CREATE TABLE dbo.PRODUCTO (
 		CONSTRAINT FL_Proveedor FOREIGN KEY(IdProveedor)  
 		REFERENCES dbo.PROVEEDOR(IdProveedor),
 	CONSTRAINT FL_TipoInsumoProducto FOREIGN KEY(TipoInsumo)  
-		REFERENCES dbo.TIPO_INSUMO(IdTipoInsumo)
+		REFERENCES dbo.TIPO_INSUMO(IdTipoInsumo),
+	CONSTRAINT UC_CodigoProducto UNIQUE (CodigoProducto),	
 );
+
+CREATE UNIQUE NONCLUSTERED INDEX idx_CodigoBarra
+ON dbo.Producto(CodigoBarra)
+WHERE CodigoBarra IS NOT NULL;
+
+CREATE UNIQUE NONCLUSTERED INDEX idx_CodigoInterno
+ON dbo.Producto(CodigoInterno)
+WHERE CodigoInterno IS NOT NULL;
+
 GO
 CREATE TABLE PRODUCTO_PROVEEDOR (
 	IdProductoProveedor		INT IDENTITY(1,1) PRIMARY KEY,

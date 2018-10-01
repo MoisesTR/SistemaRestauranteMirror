@@ -103,7 +103,6 @@ Router
     .get('/productos/proveedor/:IdProveedor(\\d+)', ProductoProveedorController.getProductosByProveedorId)
     .get('/productos/proveedor/:IdProveedor(\\d+)/:IdFactura(\\d+)', ProductoProveedorController.getProductosByProveedorIdFiltrado)
     .get('/producto/proveedores/:IdProducto(\\d+)', ProductoProveedorController.getProveedoresOfProducto)
-    .post('/producto/proveedor', validations.createProductoProveedor, validations.validsParams, ProductoProveedorController.createProductoProveedor)
     .delete('/producto/proveedor/:IdProductoProveedor(\\d+)', validations.changeStateGeneric('IdProductoProveedor'),validations.validsParams,ProductoProveedorController.changeStateProductoProveedor)
     //.delete('/producto/proveedor')
     //Rutas para Rol Controller

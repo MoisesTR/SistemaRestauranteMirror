@@ -87,7 +87,7 @@ function changeStateProductoProveedor(req, res) {
     let data = matchedData(req, {locations:['query','params','body']});
     var aoj = [];
     console.log(data);
-    db.pushAOJParam(aoj, 'IdProductoProveedor', sql.Int(), data.IdProductoProveedor);
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int(), data.IdProductoProveedor);
     db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
     db.storedProcExecute('USP_DISP_PRODUCTO_PROVEEDOR', aoj)
         .then((results) => {

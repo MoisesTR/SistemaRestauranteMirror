@@ -88,9 +88,8 @@ var createProveedor = [
     body('Descripcion').optional({nullable:true}),
     body('NombreRepresentante','Ingrese el Nombre del representante.').exists(),
     body('Documento','El campo de Ruc es requerido!.').exists(),
-    body('Telefono1','El telefono es requerido y debe tener 8 digitos.').isLength(8).isInt(),
-    body('Telefono2').optional({nullable:true}),
     body('Retencion2','El campo de retencion es requerido.').exists(),
+    body('Mercado','El campo de retencion es requerido.')
     
 ];
 exports.createProveedor = createProveedor;
@@ -141,13 +140,6 @@ function isDate(nombreCampo ) {
         return date;
     },`El parametro ${nombreCampo} debe ser una fecha valida.`)
 }
-exports.createProductoProveedor = [
-    check('IdProducto').isInt(),
-    check('IdProveedor').isInt(),
-    sanitize('IdProducto').toInt(),
-    sanitize('IdProveedor').toInt()
-];
-
 
 var createEnvase = [
     body('NombreEnvase', 'El nombre de envase es requerido!').isAscii().isLength({min: 3, max:50}),
@@ -270,6 +262,7 @@ exports.updateRol = createRol.concat([
 ])
 
 var createProducto = [
+    body('IdProveedor', 'Selecciona Un proveedor.').isInt(),
     body('IdSubClasificacion', 'Selecciona Una SubClasificacion.').isInt(),
     body('IdEstado','Elige el estado del producto.').isInt(),
     body('NombreProducto','Ingresa el Nombre del Producto.').isAscii(),
@@ -280,9 +273,14 @@ var createProducto = [
     body('CantidadEmpaque').isInt().optional({nullable:true}),
     body('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
     body('ValorUnidadMedida').isNumeric(),
-    body('DiasCaducidad').isInt(),
+    body('DiasRotacion').isInt(),
+    body('TipoInsumo').isInt(),
+    body('CodigoProducto').isAscii(),
+    body('CodigoInterno').isAscii().optional({nullable:true}),
+    body('CodigoBarra').isAscii().optional({nullable:true}),
     sanitize('ValorUnidadMedida').toFloat(),
-    sanitize('DiasCaducidad').toInt()
+    sanitize('DiasRotacion').toInt(),
+    sanitize('CodigoProducto').toString()
 ];
 exports.createProducto = createProducto;
 
@@ -329,7 +327,8 @@ exports.createFacturaCompra  = [
     body('IdProveedor').exists(),
     body('IdTrabajador').exists(),
     body('NombVendedor').exists(),
-    isDate('FechaIngreso'),
+    isDate('FechaFactura'),
+    isDate('FechaRecepcion'),
     body('SubTotal').exists(),
     body('TotalIva').exists(),
     body('CambioActual').exists(),

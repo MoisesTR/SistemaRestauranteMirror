@@ -1,0 +1,44 @@
+IF OBJECT_ID('dbo.CREATE_TELEFONO_PROVEEDOR') IS NOT NULL
+	DROP PROCEDURE dbo.CREATE_TELEFONO_PROVEEDOR
+GO
+CREATE PROCEDURE dbo.CREATE_TELEFONO_PROVEEDOR (
+	@IdProveedor INT 
+	, @Nombre NVARCHAR(50)
+	, @Cargo NVARCHAR(50)
+	, @Telefono NVARCHAR(15)
+)
+AS	
+BEGIN
+
+	IF EXISTS (SELECT TOP 1 1 FROM dbo.TELEFONO_PROVEEDOR WHERE	IdProveedor = @IdProveedor AND Telefono = @Telefono)
+	BEGIN
+		RAISERROR('Este telefono ya se encuentra registrado!', 16, 1)
+		RETURN
+	END
+	ELSE 
+	BEGIN 
+		INSERT INTO dbo.TELEFONOS_PROVEEDOR(IdProveedor, Nombre, Cargo, Telefono) 
+		VALUES(@IdProveedor, @Nombre, @Cargo, @Telefono)
+	END
+END
+
+GO
+
+IF OBJECT_ID('dbo.DISP_TELEFONO_PROVEEDOR') IS NOT NULL
+	DROP PROCEDURE dbo.DISP_TELEFONO_PROVEEDOR
+GO
+
+CREATE PROCEDURE dbo.DISP_TELEFONO_PROVEEDOR(
+	@IdTelefonoProveedor INT 
+)
+AS
+BEGIN
+	
+	UPDATE	T
+	SET		T.Habilitado = 0
+	FROM	dbo.TELEFONOS_PROVEEDOR
+	WHERE	T.IdTelefonoProveedor = @IdTelefonoProveedor 
+
+END
+
+

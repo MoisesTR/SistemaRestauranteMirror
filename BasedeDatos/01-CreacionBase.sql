@@ -106,11 +106,10 @@ CREATE TABLE dbo.PROVEEDOR(
 	Imagen				NVARCHAR(50)		NOT NULL	DEFAULT 'proveedor.png',
     Descripcion			NVARCHAR(200)		NULL,
     NombreRepresentante NVARCHAR(100)		NOT NULL,
-	Telefono1			NVARCHAR(20)		NOT NULL,
-	Telefono2			NVARCHAR(20)		NULL,
 	IdTipoDocumento		INT					NOT NULL,  -- Foraneo
 	Documento			NVARCHAR(50)		NOT NULL,
     Retencion2			Bit					NOT NULL	DEFAULT 0,
+	Mercado				BIT					NOT NULL	DEFAULT 0,
 	Habilitado			Bit					NOT NULL	DEFAULT 1,
     CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE(),
     UpdateAt			SMALLDATETIME		NULL,
@@ -119,6 +118,20 @@ CREATE TABLE dbo.PROVEEDOR(
 	CONSTRAINT FK_TIPO_DOCUMENTO_PROVEEDOR FOREIGN KEY(IdTipoDocumento) REFERENCES TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento)
 );
 GO
+CREATE TABLE dbo.TELEFONOS_PROVEEDOR (
+	IdTelefono INT IDENTITY(1,1)
+	, IdProveedor INT NOT NULL
+	, Telefono NVARCHAR(15) NOT NULL
+	, Nombre NVARCHAR(20) NOT NULL
+	, Cargo NVARCHAR(15) NULL
+	, CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE()
+    , UpdateAt			SMALLDATETIME		NULL
+
+	CONSTRAINT PK_IdTelefono PRIMARY KEY(IdTelefono),
+	CONSTRAINT FK_IdTelefonoProveedor FOREIGN KEY(IdProveedor) REFERENCES PROVEEDOR(IdProveedor)
+)
+GO
+
 --Por default es 2 por que hasta el momento es 2 el id del tipo numero RUC
 ALTER TABLE PROVEEDOR
 	ADD CONSTRAINT DF_IdTipoNumeroRUC_Proveedor DEFAULT 2 FOR IdTipoDocumento
@@ -311,8 +324,29 @@ VALUES ('Sin Procesar','Producto que no se ha procesado')
 		,('Semiterminado','Producto que se esta procesando.')
         ,('Terminado','Producto terminado.');
 GO
+
+--IF OBJECT_ID('dbo.TIPO_INSUMO') IS NOT NULL
+--	DROP TABLE dbo.TIPO_INSUMO
+
+CREATE TABLE dbo.TIPO_INSUMO (
+	IdTipoInsumo INT IDENTITY(1,1),
+	Descripcion VARCHAR(200),
+	Habilitado	BIT DEFAULT 1,
+	CreatedAt			SMALLDATETIME		NOT NULL DEFAULT GETDATE(),
+    UpdateAt			SMALLDATETIME		NULL,
+
+	CONSTRAINT PK_ID_TIPO_INSUMO PRIMARY KEY (IdTipoInsumo)
+)
+GO
+
+INSERT INTO dbo.TIPO_INSUMO(Descripcion) VALUES ('Consumo')
+INSERT INTO dbo.TIPO_INSUMO(Descripcion) VALUES('Limpieza')
+
+GO
+
 CREATE TABLE dbo.PRODUCTO (
     IdProducto			INT IDENTITY(1,1),
+	IdProveedor			INT NOT NULL,
     IdSubClasificacion	INT					NOT NULL,
     IdEstado			int					NOT NULL,
 	IdEnvase			INT					NULL, --id del envase si es que tiene
@@ -320,9 +354,13 @@ CREATE TABLE dbo.PRODUCTO (
 	IdUnidadMedida		INT					NOT NULL,
     ValorUnidadMedida	NUMERIC(10,5)		NOT NULL,
 	CantidadEmpaque		INT					NULL, --si tiene empaque 
-	DiasCaducidad		INT					NOT NULL,
+	DiasRotacion		INT					NOT NULL,
     NombreProducto		NVARCHAR(50)		NOT NULL,
     Descripcion			NVARCHAR(200)		NOT NULL,
+	CodigoProducto		NVARCHAR(100)		NOT NULL,
+	CodigoInterno		NVARCHAR(100)		NULL,
+	CodigoBarra			NVARCHAR(100)		NULL,
+	TipoInsumo			INT					NOT NULL, 
     Imagen				NVARCHAR(100)		NOT NULL	DEFAULT 'nodisponible.png', --	
 	Habilitado			Bit DEFAULT 1		NOT NULL,
     CreatedAt			SMALLDATETIME		NOT NULL DEFAULT GETDATE(),
@@ -340,7 +378,21 @@ CREATE TABLE dbo.PRODUCTO (
 		REFERENCES dbo.UNIDAD_MEDIDA (IdUnidadMedida),
 	CONSTRAINT FK_Empaque_Producto FOREIGN KEY(IdEmpaque)  
 		REFERENCES dbo.EMPAQUE(IdEmpaque),
+		CONSTRAINT FL_Proveedor FOREIGN KEY(IdProveedor)  
+		REFERENCES dbo.PROVEEDOR(IdProveedor),
+	CONSTRAINT FL_TipoInsumoProducto FOREIGN KEY(TipoInsumo)  
+		REFERENCES dbo.TIPO_INSUMO(IdTipoInsumo),
+	CONSTRAINT UC_CodigoProducto UNIQUE (CodigoProducto),	
 );
+
+CREATE UNIQUE NONCLUSTERED INDEX idx_CodigoBarra
+ON dbo.Producto(CodigoBarra)
+WHERE CodigoBarra IS NOT NULL;
+
+CREATE UNIQUE NONCLUSTERED INDEX idx_CodigoInterno
+ON dbo.Producto(CodigoInterno)
+WHERE CodigoInterno IS NOT NULL;
+
 GO
 CREATE TABLE PRODUCTO_PROVEEDOR (
 	IdProductoProveedor		INT IDENTITY(1,1) PRIMARY KEY,

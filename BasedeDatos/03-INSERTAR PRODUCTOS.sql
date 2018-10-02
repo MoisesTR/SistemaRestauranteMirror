@@ -1,43 +1,25 @@
 USE pruebas_node;
 
 
-INSERT INTO PRODUCTO(IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasCaducidad,NombreProducto,Descripcion,Imagen)
-VALUES(1,1,1,1,1,20,1,30,'Filete de pollo','Filetes de pollo','null')
-
-INSERT INTO PRODUCTO(IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasCaducidad,NombreProducto,Descripcion,Imagen)
-VALUES(1,1,1,1,1,20,1,30,'Tallarin','Bolsa de tallarines','null')
-
-INSERT INTO PRODUCTO(IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasCaducidad,NombreProducto,Descripcion,Imagen)
-VALUES(1,1,1,1,1,20,1,30,'Camaron','Bolsa de camarones','null')
-
-INSERT INTO PRODUCTO(IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasCaducidad,NombreProducto,Descripcion,Imagen)
-VALUES(1,1,1,1,1,20,1,30,'Arroz','Bolsa de arroz','null')
-
-INSERT INTO PRODUCTO(IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasCaducidad,NombreProducto,Descripcion,Imagen)
-VALUES(1,1,1,1,1,20,1,30,'Hongos','Bolsa de hongos','null')
+INSERT INTO PROVEEDOR(IdPais,NombreProveedor,Direccion,Email,Imagen,Descripcion,NombreRepresentante,IdTipoDocumento,Documento,Retencion2,Mercado,CreatedAt)
+VALUES (1,'Fensa','De donde fue el cine salinas 2 cuadras abajo 1/2 al lago','moisestrigueros@hotmail.com','ninguna','ninguna','Moises',1,'1231231U',0,1,GETDATE())
 
 
+DECLARE @IdProveedor INT;
+SET @IdProveedor = (SELECT TOP 1 IdProveedor  FROM PROVEEDOR)
 
---INSERT INTO PRODUCTO(NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,Imagen,IdEstado)
---select NombreProducto,Descripcion,IdCategoria,IdSubClasificacion,Imagen,IdEstado from PRODUCTO
---VALUES('Res','Bolsa de Res.',2,3,NULL,1);
+INSERT INTO PRODUCTO(IdProveedor,IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasRotacion,TipoInsumo,CodigoProducto,NombreProducto,Descripcion,Imagen)
+VALUES(@IdProveedor,1,1,1,1,1,20,1,30,1,'COD12','Filete de pollo','Filetes de pollo','null')
 
--- INSERT INTO BodegaSucursal(Nombre,DescripcionLocal)
--- VALUES('Bodega de Rubenia','');
--- 
--- INSERT INTO Sucursal(Principal,NombreSucursal,Direccion,IdBodega,TelefonoPrincipal)
--- VALUES(1,'Sucursal Rubenia','Frente al paso desnivel Rubenia',1,'255-12323');
--- 
--- INSERT INTO Trabajador(IdSucursal,Nombres,Apellidos,NumeroCedula,FechaNacimiento,Direccion,FechaIngreso,IdCargo,Activo)
--- VALUES(1,'Cristhian','Chang','001-12121-121G','1992/04/12','Rubenia',curdate(),1,1);
--- 
--- INSERT INTO BodegaCentral(Nombre,Descripcion)
--- VALUES('Bodega Central','Bodega de la planta de produccion.');
--- 
--- INSERT INTO EntradaBodegaCentral(IdBodega,FechaHora,IdTrabajador) 
--- VALUES(1,now(),1); 
--- 
--- INSERT INTO DetalleEntradaBodegaCentral(IdEntrada,IdProducto,Cantidad,IdProcedencia)
--- VALUES(1,2,2,2);#cambiar a 1
--- 
---SELECT * FROM CLASIFICACION_PRODUCTO 
+INSERT INTO PRODUCTO(IdProveedor,IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasRotacion,TipoInsumo,CodigoProducto,NombreProducto,Descripcion,Imagen)
+VALUES(@IdProveedor,1,1,1,1,1,20,1,30,1,'COD13','Tallarin','Bolsa de tallarines','null')
+
+INSERT INTO PRODUCTO(IdProveedor,IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasRotacion,TipoInsumo,CodigoProducto,NombreProducto,Descripcion,Imagen)
+VALUES(@IdProveedor,1,1,1,1,1,20,1,30,1,'COD14','Camaron','Bolsa de camarones','null')
+
+INSERT INTO PRODUCTO(IdProveedor,IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasRotacion,TipoInsumo,CodigoProducto,NombreProducto,Descripcion,Imagen)
+VALUES(@IdProveedor,1,1,1,1,1,20,1,30,1,'COD15','Arroz','Bolsa de arroz','null')
+
+INSERT INTO PRODUCTO(IdProveedor,IdSubClasificacion,IdEstado,IdEnvase,IdEmpaque,IdUnidadMedida,ValorUnidadMedida,CantidadEmpaque,DiasRotacion,TipoInsumo,CodigoProducto,NombreProducto,Descripcion,Imagen)
+VALUES(@IdProveedor,1,1,1,1,1,20,1,30,1,'COD16','Hongos','Bolsa de hongos','null')
+

@@ -313,12 +313,13 @@ CREATE PROCEDURE USP_CREATE_PROVEEDOR(
 	@Documento			NVARCHAR(20), --Por defecto sera el numero ruc
 	@Telefono1			NVARCHAR(20),
 	@Telefono2			NVARCHAR(20) NULL,
-	@Retencion2			BIT NULL
+	@Retencion2			BIT NULL,
+	@Mercado			BIT NULL
 ) AS BEGIN
 	BEGIN TRANSACTION myTran
 	BEGIN TRY
-		INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento, Telefono1,Telefono2,Retencion2)
-		VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento, @Telefono1,@Telefono2,@Retencion2);
+		INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento,Retencion2,Mercado)
+		VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento,@Retencion2,@Mercado);
 		SELECT @@IDENTITY AS IdProveedor
 		COMMIT TRANSACTION myTran;
 	END TRY
@@ -341,13 +342,13 @@ CREATE PROCEDURE USP_UPDATE_PROVEEDOR(
 	@Documento		NVARCHAR(20),
 	@Telefono1		NVARCHAR(20), 
 	@Telefono2		NVARCHAR(20),
-	@Retencion2		BIT NULL
+	@Retencion2		BIT NULL,
+	@Mercado		BIT NULL
 ) AS BEGIN
 	UPDATE dbo.	PROVEEDOR SET NombreProveedor=@NombreProveedor,Direccion=@Direccion,Email=@Email,Descripcion=@Descripcion,
 					NombreRepresentante=ISNULL(@NombreRepresentante, NombreRepresentante),
 					Retencion2 = ISNULL(@Retencion2, Retencion2),Documento=ISNULL(@Documento,Documento),
-					Telefono1 = ISNULL(@Telefono1, Telefono1),Telefono2 = ISNULL(@Telefono2, Telefono2),
-					UpdateAt=GETDATE() 
+					UpdateAt=GETDATE() , Mercado = ISNULL(@Mercado, Mercado)
 					WHERE IdProveedor = @IdProveedor;
 END 
 GO
@@ -377,9 +378,8 @@ AS BEGIN
 				, Descripcion
 				, NombreRepresentante
 				, Documento
-				, Telefono1
-				, Telefono2
 				, Retencion2 
+				, Mercado
 			FROM	dbo.PROVEEDOR;
 		END
 	ELSE
@@ -391,9 +391,8 @@ AS BEGIN
 				, Descripcion
 				, NombreRepresentante
 				, Documento
-				, Telefono1
-				, Telefono2
 				, Retencion2 
+				, Mercado
 			FROM	dbo.PROVEEDOR
 			WHERE Habilitado = @Habilitado;
 		END
@@ -413,9 +412,8 @@ CREATE PROCEDURE USP_GET_PROVEEDOR(
 		, NombreRepresentante
 		, IdTipoDocumento
 		, Documento
-		, Telefono1
-		, Telefono2
-		, Retencion2 
+		, Retencion2
+		, Mercado 
 	FROM	dbo.PROVEEDOR
 	WHERE IdProveedor = @IdProveedor;
 END

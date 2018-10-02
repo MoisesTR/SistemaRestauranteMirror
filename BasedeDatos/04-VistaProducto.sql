@@ -5,32 +5,35 @@ IF OBJECT_ID('dbo.V_ProductosDetallados','V') IS NOT NULL
 GO
 CREATE VIEW dbo.V_ProductosDetallados
 AS
-SELECT	
-	p.IdProducto
-	, p.IdProveedor
-	, p.NombreProducto
-	, p.Descripcion
-	, cl.IdCategoria
-	, cp.NombreCategoria
-	, p.IdSubClasificacion
-	, sp.NombreSubClasificacion
-	, cl.IdClasificacion
-	, cl.NombreClasificacion
-	, p.IdEnvase
-	, e.NombreEnvase
-	, p.IdEmpaque
-	, em.NombreEmpaque
-	, p.CantidadEmpaque
-	, p.Imagen
-	, p.IdUnidadMedida
-	, um.NombreUnidad
-	, p.ValorUnidadMedida
-	, p.IdEstado
-	, ep.Nombre
-	, p.Habilitado
-	, P.DiasCaducidad
-	, P.CreatedAt
-	, P.UpdateAt
+SELECT	p.IdProducto
+		, p.IdProveedor
+		, p.NombreProducto
+		, p.Descripcion
+		, cl.IdCategoria
+		, cp.NombreCategoria
+		, p.IdSubClasificacion
+		, sp.NombreSubClasificacion
+		, cl.IdClasificacion
+		, cl.NombreClasificacion
+		, p.IdEnvase
+		, e.NombreEnvase
+		, p.IdEmpaque
+		, em.NombreEmpaque
+		, p.CantidadEmpaque
+		, p.Imagen
+		, p.IdUnidadMedida
+		, um.NombreUnidad
+		, p.ValorUnidadMedida
+		, p.IdEstado
+		, ep.Nombre
+		, p.Habilitado
+		, P.DiasRotacion
+		, p.TipoInsumo 
+		, p.CodigoProducto
+		, p.CodigoInterno
+		, p.CodigoBarra
+		, P.CreatedAt
+		, P.UpdateAt
     FROM Producto p 
     INNER JOIN SUBCLASIFICACION_PRODUCTO sp 
 		ON	p.IdSubClasificacion = sp.IdSubClasificacion
@@ -53,13 +56,14 @@ GO
 CREATE VIEW V_SUBCLASIFICACIONES
 AS
 SELECT 
-	s.IdSubClasificacion
-	, s.NombreSubClasificacion
-	, s.DescripcionSubClasificacion
-	, s.IdClasificacion
-	, c.NombreClasificacion
-	, s.Habilitado 
+		s.IdSubClasificacion
+		, s.NombreSubClasificacion
+		, s.DescripcionSubClasificacion
+		, s.IdClasificacion
+		, c.NombreClasificacion
+		, s.Habilitado 
 FROM	SUBCLASIFICACION_PRODUCTO s
 		INNER JOIN CLASIFICACION_PRODUCTO c 
 			ON s.IdClasificacion = c.IdClasificacion;
 GO
+

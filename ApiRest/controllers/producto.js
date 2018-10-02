@@ -36,6 +36,7 @@ function getProductos(req, res) {
 function createProducto(req, res) {
     var data = matchedData(req, {locations:['body']});
     var aoj = [];
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int,     data.IdProveedor)
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int,     data.IdSubClasificacion)
     db.pushAOJParam(aoj, 'IdEstado',        sql.Int,        data.IdEstado)
     db.pushAOJParam(aoj, 'NombreProducto',  sql.NVarChar(50), data.NombreProducto)
@@ -46,7 +47,11 @@ function createProducto(req, res) {
     db.pushAOJParam(aoj, 'IdUnidadMedida',  sql.Int,        data.IdUnidadMedida);
     db.pushAOJParam(aoj, 'ValorUnidadMedida', sql.Numeric(10, 5), data.ValorUnidadMedida)
     db.pushAOJParam(aoj, 'CantidadEmpaque', sql.Int, data.CantidadEmpaque);
-    db.pushAOJParam(aoj, 'DiasCaducidad',   sql.Int, data.DiasCaducidad);
+    db.pushAOJParam(aoj, 'DiasRotacion',   sql.Int, data.DiasRotacion);
+    db.pushAOJParam(aoj, 'TipoInsumo',   sql.Int, data.TipoInsumo);
+    db.pushAOJParam(aoj, 'CodigoProducto',   sql.NVarChar(200), data.CodigoProducto);
+    db.pushAOJParam(aoj, 'CodigoInterno',   sql.NVarChar(200), data.CodigoInterno);
+    db.pushAOJParam(aoj, 'CodigoBarra',   sql.NVarChar(200), data.CodigoBarra);
     db.storedProcExecute('dbo.USP_CREATE_PRODUCTO', aoj)
         .then((results) => {
             res.status(200).json(results.recordset[0])
@@ -58,6 +63,7 @@ function createProducto(req, res) {
 function updateProducto(req, res) {
     var data = matchedData(req,{locations: ['body', 'params']});
     var aoj = [];
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int,     data.IdProveedor)
     db.pushAOJParam(aoj, 'IdProducto', sql.Int, data.IdProducto)
     db.pushAOJParam(aoj, 'IdCategoria', sql.Int, data.IdCategoria)
     db.pushAOJParam(aoj, 'IdSubClasificacion', sql.Int, data.IdSubClasificacion)
@@ -70,7 +76,11 @@ function updateProducto(req, res) {
     db.pushAOJParam(aoj, 'IdUnidadMedida',  sql.Int, data.IdUnidadMedida);
     db.pushAOJParam(aoj, 'ValorUnidadMedida', sql.Numeric(10, 5), data.ValorUnidadMedida);
     db.pushAOJParam(aoj, 'CantidadEmpaque',   sql.Int, data.CantidadEmpaque);
-    db.pushAOJParam(aoj, 'DiasCaducidad',   sql.Int, data.DiasCaducidad);
+    db.pushAOJParam(aoj, 'DiasRotacion',   sql.Int, data.DiasCaducidad);
+    db.pushAOJParam(aoj, 'TipoInsumo',   sql.Int, data.TipoInsumo);
+    db.pushAOJParam(aoj, 'CodigoProducto',   sql.NVarChar(200), data.CodigoProducto);
+    db.pushAOJParam(aoj, 'CodigoInterno',   sql.NVarChar(200), data.CodigoInterno);
+    db.pushAOJParam(aoj, 'CodigoBarra',   sql.NVarChar(200), data.CodigoBarra);
     db.storedProcExecute('USP_UPDATE_PRODUCTO', aoj)
         .then((results) => {
             console.dir(results)

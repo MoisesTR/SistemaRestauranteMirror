@@ -89,7 +89,7 @@ var createProveedor = [
     body('NombreRepresentante','Ingrese el Nombre del representante.').exists(),
     body('Documento','El campo de Ruc es requerido!.').exists(),
     body('Retencion2','El campo de retencion es requerido.').exists(),
-    body('Mercado','El campo de retencion es requerido.')
+    body('Mercado','El campo de mercado es requerido.').exists()
     
 ];
 exports.createProveedor = createProveedor;
@@ -276,8 +276,8 @@ var createProducto = [
     body('DiasRotacion').isInt(),
     body('TipoInsumo').isInt(),
     body('CodigoProducto').isAscii(),
-    body('CodigoInterno').isAscii().optional({nullable:true}),
-    body('CodigoBarra').isAscii().optional({nullable:true}),
+    body('CodigoInterno').optional({nullable:true}),
+    body('CodigoBarra').optional({nullable:true}),
     sanitize('ValorUnidadMedida').toFloat(),
     sanitize('DiasRotacion').toInt(),
     sanitize('CodigoProducto').toString()
@@ -398,3 +398,16 @@ exports.obtenerFacturasC = [
 exports.getMenuesByRol = [
     check('IdRol').isInt()
 ];
+
+
+var createTelefonoProveedor = [
+    body('IdProveedor', 'Selecciona Un proveedor.').isInt(),
+    body('Telefono', 'Ingresa un telefono.').isAscii(),
+    body('Nombre','Ingresar un nombre.').isAscii(),
+    body('Cargo').optional({nullable:true}),
+    sanitize('IdProveedor').toInt(),
+    sanitize('Telefono').toString(),
+    sanitize('Nombre').toString()
+];
+
+exports.createTelefonoProveedor = createTelefonoProveedor;

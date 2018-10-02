@@ -4,7 +4,7 @@ import {ProductoService} from '../../../services/shared/producto.service';
 import {Proveedor} from '../../../models/Proveedor';
 import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CARPETA_FACTURA, CARPETA_PRODUCTOS, Global, idioma_espanol, opcionesDatePicker} from '../../../services/shared/global';
+import {CARPETA_FACTURA, Global, opcionesDatePicker} from '../../../services/shared/global';
 import {IMyOptions, ModalDirective, ToastService} from 'ng-uikit-pro-standard';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Usuario} from '../../../models/Usuario';
@@ -14,8 +14,6 @@ import {FacturaService} from '../../../services/shared/factura.service';
 import {Utils} from '../../Utils';
 import {DetalleFactura} from '../../../models/DetalleFactura';
 import {ProductoFactura} from '../../../models/ProductoFactura';
-import {DataTableDirective} from 'angular-datatables';
-import {Subject} from 'rxjs/Subject';
 import {ProveedorService, UploadService} from '../../../services/service.index';
 
 declare var $: any;
@@ -189,6 +187,7 @@ export class AddfacturaComponent implements OnInit {
         this.factura.Retencion = this.tieneRetencion === true ? 1 : 0;
         this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
         this.factura.FormaPago = 'contado';
+        this.factura.IdFormaPago = 1;
         this.factura.NombVendedor = this.proveedores.filter(
             item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombreRepresentante;
     }
@@ -530,7 +529,7 @@ export class AddfacturaComponent implements OnInit {
             }, 100);
         } else {
             if (this.buscando !== '' && this.buscando !== undefined)  {
-                this.productosFiltrados = this.productosProveedor.filter( item => item.NombreProducto.toUpperCase() === this.buscando.toUpperCase());
+                this.productosFiltrados = this.productosProveedor.filter( item => item.CodigoProducto.toUpperCase() === this.buscando.toUpperCase());
 
                 if (this.productosFiltrados.length === 0) {
                     setTimeout(() => {

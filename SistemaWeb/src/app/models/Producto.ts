@@ -25,12 +25,16 @@ export class Producto {
   public Visualizar: boolean;
   public CreatedAt: string;
   public UpdateAt: string;
+  public TipoInsumo: number;
   public Proveedores: Proveedor[];
   public CodigoProducto: string;
   public CodigoBarra: string;
-  public CodigoAlterno: string;
-  public diasRotacion: number;
+  public CodigoInterno: string;
+  public DiasRotacion: number;
 
-  constructor() {}
+  constructor() {
+    this.CodigoBarra = null;
+    this.CodigoInterno = null;
+  }
 
 }

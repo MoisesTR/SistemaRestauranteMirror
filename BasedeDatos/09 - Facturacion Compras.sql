@@ -1,5 +1,7 @@
 USE pruebas_node
 GO
+IF OBJECT_ID('dbo.BITACORA_CAMBIOS_FACTURA') IS NOT NULL DROP TABLE dbo.BITACORA_CAMBIOS_FACTURA
+GO
 IF OBJECT_ID('dbo.DETALLE_FACTURA_COMPRA') is not null drop table dbo.DETALLE_FACTURA_COMPRA
 go
 
@@ -36,9 +38,11 @@ CREATE TABLE FACTURA_COMPRA(
 	NumRefFactura	NVARCHAR(50) NOT NULL UNIQUE,
 	IdProveedor		INT NOT NULL, --
 	IdTrabajador	INT NOT NULL,
+	IdTipoMoneda		INT NOT NULL DEFAULT 1,
+	IdFormaPago		INT NOT NULL DEFAULT 1,
 	IdEstadoFactura INT NOT NULL DEFAULT 2, --Abierta por default
 	NombVendedor	NVARCHAR(100) NULL,
-	FechaIngreso	SMALLDATETIME NOT NULL,
+	FechaFactura	SMALLDATETIME NOT NULL,
 	FechaRecepcion	DATETIME NOT NULL,
 	SubTotal		NUMERIC(7,3) DEFAULT 0 CHECK(SubTotal >= 0) NOT NULL,
 	TotalIva		NUMERIC(7,3) DEFAULT 0 CHECK(TotalIva >= 0) NOT NULL,
@@ -46,6 +50,7 @@ CREATE TABLE FACTURA_COMPRA(
 	TotalDescuento	NUMERIC(7,3) DEFAULT 0 CHECK(TotalDescuento >= 0) NOT NULL,
 	TotalCordobas	NUMERIC(7,3) DEFAULT 0 CHECK(TotalCordobas >= 0) NOT NULL,
 	Retencion		BIT NOT NULL,
+	Respaldo		NVARCHAR(200) NULL DEFAULT 'noimage.png',
 	Habilitado	BIT DEFAULT 1 NOT NULL,
 	CreatedAt	SMALLDATETIME DEFAULT GETDATE() NOT NULL,
 	UpdateAt	SMALLDATETIME NULL,
@@ -90,8 +95,11 @@ CREATE PROCEDURE USP_CREATE_FACTURA_COMPRA(
 	@NumRefFactura  NVARCHAR(50),
 	@IdProveedor	INT,
 	@IdTrabajador	 INT,
+	@IdTipoMoneda		 INT,
+	@IdFormaPago	 INT,
 	@NombVendedor	NVARCHAR(100),
-	@FechaIngreso	SMALLDATETIME,
+	@FechaFactura	SMALLDATETIME,
+	@FechaRecepcion	SMALLDATETIME,
 	@SubTotal		NUMERIC(7,3),
 	@TotalIva		NUMERIC(7,3),	
 	@CambioActual	NUMERIC(7,3),
@@ -101,9 +109,9 @@ CREATE PROCEDURE USP_CREATE_FACTURA_COMPRA(
 	@IdFactura		INT OUTPUT
 )
 AS BEGIN
-	INSERT INTO dbo.FACTURA_COMPRA(IdProveedor,NumRefFactura, IdTrabajador, NombVendedor,
-		FechaIngreso, SubTotal, TotalIva,CambioActual, TotalDescuento, TotalCordobas,Retencion)
-	VALUES(@IdProveedor,@NumRefFactura, @IdTrabajador, @NombVendedor, @FechaIngreso, @Subtotal,
+	INSERT INTO dbo.FACTURA_COMPRA(IdProveedor,NumRefFactura, IdTrabajador,IdTipoMoneda, IdFormaPago, NombVendedor,
+		FechaFactura,FechaRecepcion, SubTotal, TotalIva,CambioActual, TotalDescuento, TotalCordobas,Retencion)
+	VALUES(@IdProveedor,@NumRefFactura, @IdTrabajador,@IdTipoMoneda, @IdFormaPago, @NombVendedor, @FechaFactura,@FechaRecepcion, @Subtotal,
 			@TotalIva, @CambioActual, @TotalDescuento, @TotalCordobas, @Retencion)
 	SET @IdFactura = @@IDENTITY
 END
@@ -144,15 +152,29 @@ CREATE PROCEDURE dbo.USP_GET_FACTURAS_COMPRA (
 	@IdEstadoFactura	INT NULL
 )
 AS BEGIN
-	SELECT IdFactura, NumRefFactura, FC.IdProveedor,PRO.NombreProveedor, TRA.IdTrabajador,TRA.Nombres +' ' + TRA.Apellidos AS [TrabajadorIngreso], FC.IdEstadoFactura, NombVendedor,  FC.FechaIngreso,FC.SubTotal,
-			FC.TotalIva, FC.CambioActual, FC.TotalDescuento, FC.TotalCordobas,FC.Habilitado, FC.CreatedAt
-	FROM dbo.FACTURA_COMPRA FC
-	INNER JOIN dbo.ESTADO_FACTURA EF
-	ON FC.IdEstadoFactura = EF.IdEstadoFactura
-	INNER JOIN dbo.PROVEEDOR PRO
-	ON FC.IdProveedor = PRO.IdProveedor
-	INNER JOIN dbo.TRABAJADOR TRA
-	ON FC.IdTrabajador = TRA.IdTrabajador
-	WHERE FC.FechaIngreso BETWEEN @FechaInicio AND @FechaFin AND FC.IdProveedor = ISNULL(@IdProveedor,FC.IdProveedor) 
-	AND FC.IdEstadoFactura = ISNULL(@IdEstadoFactura,FC.IdEstadoFactura)
+	SELECT IdFactura
+			, NumRefFactura
+			, FC.IdProveedor
+			, PRO.NombreProveedor
+			, TRA.IdTrabajador
+			, TRA.Nombres +' ' + TRA.Apellidos AS [TrabajadorIngreso]
+			, FC.IdEstadoFactura
+			, NombVendedor
+			, FC.FechaFactura
+			, FC.SubTotal
+			, FC.TotalIva
+			, FC.CambioActual
+			, FC.TotalDescuento
+			, FC.TotalCordobas
+			, FC.Habilitado
+			, FC.CreatedAt
+	FROM	dbo.FACTURA_COMPRA FC
+			INNER JOIN dbo.ESTADO_FACTURA EF
+				ON FC.IdEstadoFactura = EF.IdEstadoFactura
+			INNER JOIN dbo.PROVEEDOR PRO
+				ON FC.IdProveedor = PRO.IdProveedor
+			INNER JOIN dbo.TRABAJADOR TRA
+				ON FC.IdTrabajador = TRA.IdTrabajador
+	WHERE	FC.FechaFactura BETWEEN @FechaInicio AND @FechaFin AND FC.IdProveedor = ISNULL(@IdProveedor,FC.IdProveedor) 
+			AND FC.IdEstadoFactura = ISNULL(@IdEstadoFactura,FC.IdEstadoFactura)
 END

@@ -70,7 +70,7 @@ export class ModalUnidadMedidaComponent implements OnInit {
 
             'nombreUnidadMedida': new FormControl('', [
                 Validators.required
-                , Validators.minLength(5)
+                , Validators.minLength(2)
                 , Validators.maxLength(100)
                 , CustomValidators.nospaceValidator
             ]) ,

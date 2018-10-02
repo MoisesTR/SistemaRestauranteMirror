@@ -1,13 +1,20 @@
 export class TelefonoProveedor {
 
-    public Id: number;
+    public IdTelefono: number;
+    public IdProveedor: number;
     public Telefono: string;
-    public NombrePersona: string;
+    public Nombre: string;
     public Cargo: string;
+    public CreateAt: string;
+    public UpdateAt: string;
 
     constructor() {
-        this.Telefono = '';
-        this.NombrePersona = '';
-        this.Cargo = '';
+        this.IdTelefono = null;
+        this.IdProveedor = null;
+        this.Telefono = null;
+        this.Nombre = null;
+        this.Cargo = null;
+        this.CreateAt = null;
+        this.UpdateAt = null;
     }
 }

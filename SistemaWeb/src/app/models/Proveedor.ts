@@ -16,9 +16,11 @@ export class Proveedor {
     public Telefono2: string;
     public Retencion2: number;
     public Habilitado: boolean;
-    public IsMercado: number;
+    public Mercado: number;
     public disabled: number;
     public TelefonosProveedor: TelefonoProveedor[];
 
-    constructor() {}
+    constructor() {
+        this.TelefonosProveedor = [];
+    }
 }

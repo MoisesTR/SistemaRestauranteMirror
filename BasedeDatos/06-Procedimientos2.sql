@@ -25,11 +25,20 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
 	IF EXISTS (SELECT NombreProducto FROM dbo.PRODUCTO WHERE IdProveedor = @IdProveedor 
 				AND @NombreProducto = NombreProducto AND IdEnvase = @IdEnvase 
 				AND IdUnidadMedida = @IdUnidadMedida AND ValorUnidadMedida = @ValorUnidadMedida)
-		RAISERROR('Ya existe un Producto con las mismas caracteristicas que "%s"',16,1,@NombreProducto)
-	ELSE
 	BEGIN
-		BEGIN TRANSACTION
-		BEGIN TRY
+		RAISERROR('Ya existe un Producto con las mismas caracteristicas que "%s"',16,1,@NombreProducto)
+		RETURN	
+	END
+		
+	IF EXISTS (SELECT CodigoProducto FROM dbo.PRODUCTO WHERE CodigoProducto = @CodigoProducto)
+	BEGIN
+		RAISERROR('Ya existe un Producto con el mismo codigo ingresado',16,1)
+		RETURN	
+	END
+	
+	
+		--BEGIN TRANSACTION
+		--BEGIN TRY
 			INSERT INTO dbo.PRODUCTO(
 			IdProveedor
 			, IdSubClasificacion
@@ -64,13 +73,13 @@ CREATE PROCEDURE USP_CREATE_PRODUCTO(
 			, @CodigoBarra
 			)
 			SELECT @@IDENTITY AS IdProducto
-			COMMIT TRANSACTION
-		END TRY
-		BEGIN CATCH
-			ROLLBACK TRANSACTION
-			THROW;
-		END CATCH
-	END
+		--	COMMIT TRANSACTION
+		--END TRY
+		--BEGIN CATCH
+		--	ROLLBACK TRANSACTION
+		--	THROW;
+		--END CATCH
+
 END 
 GO
 IF OBJECT_ID('USP_UPDATE_PRODUCTO','P') IS NOT NULL

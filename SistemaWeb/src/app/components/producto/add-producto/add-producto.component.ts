@@ -42,7 +42,6 @@ export class AddProductoComponent implements OnInit {
 
     public producto: Producto;
     public productoProveedor: ProductoProveedor;
-    public proveedoresSeleccionados: Proveedor[];
     formAddProducto: FormGroup;
     public proveedores: Proveedor [];
     public categorias: CategoriaProducto[];
@@ -288,10 +287,9 @@ export class AddProductoComponent implements OnInit {
     onChangeProveedor(event) {
 
         if (event === null) {
-            this.productoProveedor.IdProveedor = null;
-            this.proveedoresSeleccionados = [];
+            this.producto.IdProveedor = event.IdProveedor;
         } else {
-            this.productoProveedor.IdProveedor = event.IdProveedor;
+            this.producto.IdProveedor = event.IdProveedor;
         }
     }
 
@@ -366,9 +364,11 @@ export class AddProductoComponent implements OnInit {
     this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque;
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
     this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso;
-    this.producto.CodigoProducto = this.formAddProducto.value.codigoProducto;
-    this.producto.CodigoBarra = this.formAddProducto.value.codigoBarra;
-    this.producto.CodigoAlterno = this.formAddProducto.value.codigoAlterno;
+    this.producto.DiasRotacion = this.formAddProducto.value.diasDeUso;
+    this.producto.CodigoProducto = this.formAddProducto.value.codigoProducto ;
+    this.producto.CodigoBarra = this.formAddProducto.value.codigoBarra === '' ? null : this.formAddProducto.value.codigoBarra ;
+    this.producto.CodigoInterno = this.formAddProducto.value.codigoInterno === '' ? null : this.formAddProducto.value.codigoInterno;
+    this.producto.TipoInsumo = 1;
   }
 
   crearProducto() {
@@ -376,50 +376,34 @@ export class AddProductoComponent implements OnInit {
     this._productoService.createProducto(this.producto).subscribe(
       response => {
         if (response.IdProducto) {
-            this.createProductoProveedor(response.IdProducto);
+            swal({
+                title: 'El producto se ha creado exitosamente!',
+                text: 'Deseas agregar otro producto?',
+                type: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'SI',
+                cancelButtonText: 'NO'
+            }).then((result) => {
+                if (result.value) {
+                    this.formAddProducto.reset();
+                    this.producto = new Producto();
+                    this.filesToUpload = null;
+                    $('.dropify-clear').click();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    if (this.previousUrl === '/proveedor/add') {
+                        this._router.navigate(['/factura/add']);
+                    } else {
+                        this._router.navigate(['/producto']);
+                    }
+                }
+            });
         }
       }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     );
-  }
-
-  createProductoProveedor(idProducto) {
-      this.productoProveedor.IdProducto = idProducto;
-      this._productoProveedorService.createProductoProveedor(this.productoProveedor).subscribe(
-            response => {
-                if (response.IdProductoProveedor) {
-                    swal({
-                        title: 'El producto se ha creado y relacionado exitosamente con el proveedor!',
-                        text: 'Deseas agregar otro producto?',
-                        type: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'SI',
-                        cancelButtonText: 'NO'
-                    }).then((result) => {
-                        if (result.value) {
-                            this.formAddProducto.reset();
-                            this.producto = new Producto();
-                            this.filesToUpload = null;
-                            $('.dropify-clear').click();
-                        } else if (result.dismiss === swal.DismissReason.cancel) {
-                            if (this.previousUrl === '/proveedor/add') {
-                                this._router.navigate(['/factura/add']);
-                            } else {
-                                this._router.navigate(['/producto']);
-                            }
-                        }
-                    });
-                } else {
-
-                }
-          }, error => {
-
-          }, () => {
-      }
-      );
   }
 
   fileChangeEvent(fileInput: any) {
@@ -472,12 +456,13 @@ export class AddProductoComponent implements OnInit {
         'diasDeUso': new FormControl('', [
             Validators.required
         ]),
-        'codigoBarra': new FormControl('', [
-            Validators.required
+        'codigoBarra': new FormControl(null, [
+
         ]),
-        'codigoAlterno': new FormControl('', [
+        'codigoInterno': new FormControl(null, [
         ]),
         'codigoProducto': new FormControl('', [
+            Validators.required
         ])
     });
   }

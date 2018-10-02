@@ -318,6 +318,19 @@ CREATE PROCEDURE USP_CREATE_PROVEEDOR(
 ) AS BEGIN
 	BEGIN TRANSACTION myTran
 	BEGIN TRY
+
+		IF EXISTS (SELECT NombreProveedor FROM PROVEEDOR WHERE NombreProveedor = @NombreProveedor)
+		BEGIN
+			RAISERROR('El nombre del proveedor ya existe.',16,1);
+			RETURN
+		END
+
+		IF EXISTS (SELECT Documento FROM PROVEEDOR WHERE Documento = @Documento)
+		BEGIN
+			RAISERROR('El Numero Ruc del proveedor ya existe.',16,1);
+			RETURN
+		END
+
 		INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento,Retencion2,Mercado)
 		VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento,@Retencion2,@Mercado);
 		SELECT @@IDENTITY AS IdProveedor

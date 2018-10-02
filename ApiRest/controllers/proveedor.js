@@ -40,6 +40,7 @@ function createProveedor(req, res) {
     db.pushAOJParam(aoj, 'Telefono1', sql.NVarChar(20), data.Telefono1)
     db.pushAOJParam(aoj, 'Telefono2', sql.NVarChar(20), data.Telefono2)
     db.pushAOJParam(aoj, 'Retencion2', sql.Bit, data.Retencion2)
+    db.pushAOJParam(aoj, 'Mercado', sql.Bit, data.Mercado)
     db.storedProcExecute('USP_CREATE_PROVEEDOR', aoj)
         .then((results) => {
             res.status(200).json(results.recordset[0])
@@ -87,10 +88,46 @@ function changeStateProveedor(req, res) {
         console.log('Error:', err)
     });
 }
+
+function createTelefonoProveedor(req,res) {
+    let data = matchedData(req, {locations:['query','params','body']});
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdProveedor', sql.Int(), data.IdProveedor);
+    db.pushAOJParam(aoj, 'Nombre', sql.NVarChar(50), data.Nombre);
+    db.pushAOJParam(aoj, 'Cargo', sql.NVarChar(50), data.Cargo);
+    db.pushAOJParam(aoj, 'Telefono', sql.NVarChar(15), data.Telefono);
+    db.storedProcExecute('USP_CREATE_TELEFONO_PROVEEDOR', aoj)
+        .then((results) => {
+            res.status(200).json(results.recordset[0])
+        }).catch((err) => {
+            res.status(500).json(mssqlErrors(err));
+        });
+}
+
+function changeStateTelefonoProveedor(req, res) {
+    let data = matchedData(req, {locations:['query','params','body']});
+    var aoj = [];
+    db.pushAOJParam(aoj, 'IdTelefono', sql.Int(), data.IdProveedor);
+    db.pushAOJParam(aoj, 'Habilitado', sql.Bit(), +data.Habilitado);
+    db.storedProcExecute('USP_DISP_TELEFONO_PROVEEDOR', aoj).then((results) => {
+        console.log(results)
+        let afectadas = results.rowsAffected[0]
+        let accion = (data.Habilitado == 0) ? 'Deshabilitado' : 'Habilitado';
+        res.status(200).json((afectadas > 0) ? { success: 'Telefono ' + accion + ' con exito!' } : { failed: 'No se encontro el telefono solicitado!' })
+        console.log('Proveedor cambiado de estado con exito!')
+    }).catch((err) => {
+        res.status(500).json(mssqlErrors(err));
+        console.log('Error:', err)
+    });
+}
+
+
 module.exports = {
     createProveedor,
     getProveedorById,
     getProveedores,
     updateProveedor,
-    changeStateProveedor
+    changeStateProveedor,
+    createTelefonoProveedor,
+    changeStateTelefonoProveedor
 }

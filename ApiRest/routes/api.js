@@ -62,8 +62,10 @@ Router
     .get('/proveedor/:IdProveedor(\\d+)', ProveedorController.getProveedorById)
     .get('/proveedores',validations.Habilitado, validations.validsParams, ProveedorController.getProveedores)
     .post('/proveedor',validations.createProveedor, validations.validsParams, ProveedorController.createProveedor)
+    .post('/proveedor/telefono',validations.createTelefonoProveedor, validations.validsParams, ProveedorController.createTelefonoProveedor)
     .put('/proveedor/:IdProveedor(\\d+)',validations.updateProveedor,validations.validsParams, ProveedorController.updateProveedor)
     .delete('/proveedor/:IdProveedor(\\d+)',validations.changeStateGeneric('IdProveedor'), validations.validsParams, ProveedorController.changeStateProveedor)
+    .delete('/proveedor/telefono/:IdTelefono(\\d+)',validations.changeStateGeneric('IdTelefono'), validations.validsParams, ProveedorController.changeStateTelefonoProveedor)
     //Rutas subclasificacion Controller
     .get('/subclasificacion/:IdSubClasificacion(\\d+)', SubclasificacionController.getSubclasificacionById)
     .get('/subclasificaciones',validations.Habilitado, validations.validsParams, SubclasificacionController.getSubclasificaciones)

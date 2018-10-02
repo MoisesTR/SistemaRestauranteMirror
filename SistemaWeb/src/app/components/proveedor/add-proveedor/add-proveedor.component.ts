@@ -87,44 +87,11 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   agregarTelefono() {
       if (this.telefonosValidos()) {
           const inputsTelefono = $('#inputs-telefono');
-          // let index = 0;
           const telefonoProveedor: TelefonoProveedor = new TelefonoProveedor();
           this.telefonos.push(telefonoProveedor);
       } else {
           Utils.showMsgInfo('Completa correctamente el formulario de telefonos');
       }
-    //   const getInputs = (i) => {
-    //     return $('\
-    //         <div class="row justify-content-md-center">\
-    //             <div class="col-md-3">\
-    //                 <div class="md-form">\
-    //                     <h6 class="orange-chang-text">Nombre</h6>\
-    //                     <input type="text" formControlName="nombre" id="nombre' + i + '" class="input-modal-sm">\
-    //                 </div>\
-    //             </div>\
-    //             <div class="col-md-3">\
-    //                 <div class="md-form">\
-    //                     <h6 class="orange-chang-text">Cargo</h6>\
-    //                     <input type="text" formControlName="cargo" id="cargo' + i + '" class="input-modal-sm">\
-    //                 </div>\
-    //             </div>\
-    //             <div class="col-md-3">\
-    //                 <div class="md-form">\
-    //                     <h6 class="orange-chang-text">Télefono</h6>\
-    //                     <input type="number" formControlName="telefono" id="telefono' + i + '"  class="input-modal-sm">\
-    //                 </div>\
-    //             </div>\
-    //             <a class="btn red-chang white-text btn-sm ml-3 mb-5" id="remove" role="button" style="margin-top: 7%;">Eliminar</a>\
-    //         </div>\
-    //     ');
-    // };
-
-
-    // const form = getInputs(++index);
-    // form.find('#remove').on('click', function() {
-    //     $(this).parent().remove();
-    // });
-    // inputsTelefono.append(form);
   }
 
   createProveedor() {
@@ -134,6 +101,10 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
           this._proveedorService.createProveedor(this.proveedor).subscribe(
               response => {
                   if (response.IdProveedor) {
+                      this.telefonos.forEach( (value, index) => {
+                          value.IdProveedor = response.IdProveedor;
+                           this.createTelefonoProveedor(value);
+                      });
                       swal(
                           'Proveedor',
                           'El proveedor ha sido creado exitosamente!',
@@ -141,7 +112,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
                       ).then(() => {
                           this.formAddProveedor.reset();
                           this.proveedor = new Proveedor();
-
                           if (this.previousUrl === '/factura/add') {
                               this._router.navigate(['/producto/add']);
                           } else if (this.previousUrl === '/producto/add') {
@@ -162,6 +132,22 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       }
   }
 
+  createTelefonoProveedor(telefono: TelefonoProveedor) {
+      this._proveedorService.createTelefonoProveedor(telefono).subscribe(
+          response => {
+              console.log(response);
+              if (response.IdTelefono) {
+              } else {
+                  Utils.showMsgInfo('Ha ocurrido un error al insertar el telefono del proveedor');
+              }
+
+          }, error => {
+            Utils.showMsgError(Utils.msgError(error));
+          }, () => {
+          }
+      );
+  }
+
   capturarDadosProveedor() {
       this.proveedor.NombreProveedor = this.formAddProveedor.value.nombreProveedor;
       this.proveedor.NombreRepresentante = this.formAddProveedor.value.nombreRepresentante;
@@ -171,7 +157,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       this.proveedor.Telefono1 = '87792956';
       this.proveedor.Email = this.formAddProveedor.value.email;
       this.proveedor.Retencion2 = this.formAddProveedor.value.retencion === true ? 1 : 0;
-      this.proveedor.IsMercado = this.formAddProveedor.value.isMercado === true ? 1 : 0;
+      this.proveedor.Mercado = this.formAddProveedor.value.isMercado === true ? 1 : 0;
 
   }
 
@@ -238,7 +224,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   telefonosValidos() {
       let valido = true;
       this.telefonos.forEach( (value , index) => {
-          if (value.Telefono === '' || value.Cargo === '' || value.NombrePersona === '') {
+          if (value.Telefono === '' || value.Cargo === '' || value.Nombre === '') {
               valido = false;
           }
       });

@@ -118,12 +118,18 @@ CREATE TABLE dbo.PROVEEDOR(
 	CONSTRAINT FK_TIPO_DOCUMENTO_PROVEEDOR FOREIGN KEY(IdTipoDocumento) REFERENCES TIPO_DOCUMENTO_IDENTIFICACION(IdTipoDocumento)
 );
 GO
+
+IF OBJECT_ID('dbo.TELEFONOS_PROVEEDOR') IS NOT NULL 
+	DROP TABLE dbo.TELEFONOS_PROVEEDOR
+
+GO
 CREATE TABLE dbo.TELEFONOS_PROVEEDOR (
 	IdTelefono INT IDENTITY(1,1)
 	, IdProveedor INT NOT NULL
 	, Telefono NVARCHAR(15) NOT NULL
 	, Nombre NVARCHAR(20) NOT NULL
 	, Cargo NVARCHAR(15) NULL
+	, Habilitado	BIT NOT NULL DEFAULT 1
 	, CreatedAt			SMALLDATETIME		NOT NULL	DEFAULT GETDATE()
     , UpdateAt			SMALLDATETIME		NULL
 
@@ -370,8 +376,8 @@ CREATE TABLE dbo.PRODUCTO (
         REFERENCES dbo.SUBCLASIFICACION_PRODUCTO (IdSubClasificacion),
 	constraint fk_Estado_Producto foreign key(IdEstado)
 		references dbo.ESTADO_PRODUCTO(IdEstado),
-	constraint U_ProductoUnico 
-		UNIQUE(NombreProducto),
+	--constraint U_ProductoUnico 
+	--	UNIQUE(NombreProducto),
 	CONSTRAINT FK_Envase_PRODUCT FOREIGN KEY (IdEnvase) 
 		REFERENCES dbo.ENVASE (IdEnvase),
     CONSTRAINT FK_UDM_Producto FOREIGN KEY (IdUnidadMedida) 

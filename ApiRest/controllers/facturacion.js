@@ -9,8 +9,11 @@ function createFacturaCompra(req, res) {
     db.pushAOJParam(aoj, 'NumRefFactura', sql.NVarChar(50),data.NumRefFactura);
     db.pushAOJParam(aoj, 'IdProveedor', sql.Int,data.IdProveedor);
     db.pushAOJParam(aoj, 'IdTrabajador', sql.Int,data.IdTrabajador);
+    db.pushAOJParam(aoj, 'IdTipoMoneda', sql.Int,data.IdTipoMoneda);
+    db.pushAOJParam(aoj, 'IdFormaPago', sql.Int,data.IdFormaPago);
     db.pushAOJParam(aoj, 'NombVendedor', sql.NVarChar(100),data.NombVendedor);
-    db.pushAOJParam(aoj, 'FechaIngreso', sql.Date,data.FechaIngreso);
+    db.pushAOJParam(aoj, 'FechaFactura', sql.Date,data.FechaFactura);
+    db.pushAOJParam(aoj, 'FechaRecepcion', sql.Date,data.FechaRecepcion);
     db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(7,3),data.SubTotal);
     db.pushAOJParam(aoj, 'TotalIva', sql.Numeric(7,3),data.TotalIva);
     db.pushAOJParam(aoj, 'CambioActual', sql.Numeric(7,3),data.CambioActual);

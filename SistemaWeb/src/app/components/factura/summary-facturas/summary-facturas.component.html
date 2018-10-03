@@ -1,0 +1,242 @@
+<section>
+  <div class="row">
+
+    <div class="col-lg-3 col-md-3 col-sm-12 mt-4">
+      <div class="card card-cascade">
+        <div class="center-card">
+          <i class="fa fa-money orange-chang icono-card"></i>
+          <div class="mb-3 right-card-align">
+            <p class="gray-text">Total</p>
+            <h4><strong>C$20,000</strong></h4>
+          </div>
+
+          <hr class="mt-4">
+
+          <div class="col-xs-12 col-md-12 col-lg-12 mb-4 mt-2">
+            <label class="" for="proveedor" class="gray-text">Proveedor</label>
+            <ng-select id="proveedor" placeholder="Selecciona un proveedor">
+            </ng-select>
+          </div>
+
+          <div class="col-xs-12 col-md-12 col-lg-12 mb-4 mt-3">
+            <mdb-date-picker [options]="startDate" formControlName="fechaInicio" name="fechaInicio" id="FechaInicio"
+              [placeholder]="'Seleccione la fecha'" [label]="'Fecha Inicio'" required></mdb-date-picker>
+          </div>
+
+          <div class="col-xs-12 col-md-12 col-lg-12 mb-4 mt-3">
+            <mdb-date-picker [options]="finalDate" formControlName="fechaFin" name="fechaFin" id="FechaFin"
+              [placeholder]="'Seleccione la fecha'" [label]="'Fecha Fin'" required></mdb-date-picker>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-12">
+
+      <div class="card card-cascade narrower">
+        <!--Titulo-->
+        <div class="view view-cascade gradient-card-header orange-chang">
+          <h2 class="h2-responsive">Total Facturas</h2>
+        </div>
+        <!--/Titulo-->
+        <div class="card-body">
+
+          <div class="col-12 col-sm-12 col-md-12 mt-3">
+            <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+              <i class="fa fa-search mt-2" aria-hidden="true"></i>
+              <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
+            </div>
+          </div>
+
+          <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+              <tr class="">
+                <th class="header-negrita">#</th>
+                <th class="header-negrita"># Factura</th>
+                <th class="header-negrita">Proveedor</th>
+                <th class="header-negrita">Descripción</th>
+                <th class="header-negrita">Hora y Fecha </th>
+                <th class="header-negrita">Total</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td class="body-negrita"> 1234</td>
+                <td class="body-negrita"> Cainsa</td>
+                <td class="body-negrita">filete,Posta,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>2</td>
+                <td class="body-negrita">3342335</td>
+                <td class="body-negrita"> Pollo Rico</td>
+                <td class="body-negrita">filete,carne,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>3</td>
+                <td class="body-negrita">243423412</td>
+                <td class="body-negrita">Tip-Top</td>
+                <td class="body-negrita">filete,Posta,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>4</td>
+                <td class="body-negrita">23f342dw3424</td>
+                <td class="body-negrita">El grangero</td>
+                <td class="body-negrita">Huevo</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  s <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>5</td>
+                <td class="body-negrita">235232632</td>
+                <td class="body-negrita"> Carnic</td>
+                <td class="body-negritas">res</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="10%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>6</td>
+                <td class="body-negrita"> 1234</td>
+                <td class="body-negrita"> Cainsa</td>
+                <td class="body-negrita">filete,Posta,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>7</td>
+                <td class="body-negrita"> 1234</td>
+                <td class="body-negrita"> Cainsa</td>
+                <td class="body-negrita">filete,Posta,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>8</td>
+                <td class="body-negrita"> 1234</td>
+                <td class="body-negrita"> Cainsa</td>
+                <td class="body-negrita">filete,Posta,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>9</td>
+                <td class="body-negrita"> 1234</td>
+                <td class="body-negrita"> Cainsa</td>
+                <td class="body-negrita">filete,Posta,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+              <tr>
+                <td>10</td>
+                <td class="body-negrita"> 1234</td>
+                <td class="body-negrita"> Cainsa</td>
+                <td class="body-negrita">filete,Posta,Pierna</td>
+                <td class="body-negrita">
+
+                  <span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hora</small></span>
+                  <br>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i> 12/10/2017</small></span>
+                </td>
+                <td width="15%" class="body-negrita">C$4,000</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <nav>
+            <ul class="pagination pg-amber justify-content-center">
+              <!--Arrow left-->
+              <li class="page-item">
+                <a class="page-link" mdbWavesEffect aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+              </li>
+
+              <!--Numbers-->
+              <li class="page-item active"><a class="page-link" mdbWavesEffect>1</a></li>
+              <li class="page-item"><a class="page-link" mdbWavesEffect>2</a></li>
+              <li class="page-item"><a class="page-link" mdbWavesEffect>3</a></li>
+              <li class="page-item"><a class="page-link" mdbWavesEffect>4</a></li>
+              <li class="page-item"><a class="page-link" mdbWavesEffect>5</a></li>
+
+              <!--Arrow right-->
+              <li class="page-item">
+                <a class="page-link" mdbWavesEffect aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

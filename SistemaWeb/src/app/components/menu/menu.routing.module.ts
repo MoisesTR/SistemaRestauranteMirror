@@ -25,6 +25,7 @@ import {DeleteFacturaComponent} from '../factura/delete-factura/delete-factura.c
 import {BusquedafacturasComponent} from '../factura/busquedafacturas/busquedafacturas.component';
 import {ShowFacturaComponent} from '../factura/show-factura/show-factura.component';
 import {UpdateFacturaComponent} from '../factura/update-factura/update-factura.component';
+import {SummaryFacturasComponent} from '../factura/summary-facturas/summary-facturas.component'
 import {DashBoardComponent} from '../dash-board/dash-board.component';
 import {SalidaProductoComponent} from '../salida-producto/salida-producto.component';
 import {AddTrabajadorComponent} from '../trabajador/add-trabajador/add-trabajador.component';
@@ -89,6 +90,7 @@ const menuRoutes: Routes = [
         , {path: 'factura/busquedafacturas', component: BusquedafacturasComponent, data: { titulo : 'Factura'}}
         , {path: 'factura/showFactura/:id', component: ShowFacturaComponent, data: {titulo : 'Factura'}}
         , {path: 'factura/updateFactura/:id', component: UpdateFacturaComponent, data: {titulo: 'Factura'}}
+        , {path: 'factura/summaryFactura', component: SummaryFacturasComponent, data: {titulo: 'Factura'}}
 
         /*TRABAJADOR MODULO*/
         , {path: 'trabajador/add', component: AddTrabajadorComponent, data : { titulo : 'Trabajador'}}

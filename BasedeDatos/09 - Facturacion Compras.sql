@@ -38,17 +38,17 @@ CREATE TABLE FACTURA_COMPRA(
 	NumRefFactura	NVARCHAR(50) NOT NULL UNIQUE,
 	IdProveedor		INT NOT NULL, --
 	IdTrabajador	INT NOT NULL,
-	IdTipoMoneda		INT NOT NULL DEFAULT 1,
+	IdTipoMoneda	INT NOT NULL DEFAULT 1,
 	IdFormaPago		INT NOT NULL DEFAULT 1,
 	IdEstadoFactura INT NOT NULL DEFAULT 2, --Abierta por default
 	NombVendedor	NVARCHAR(100) NULL,
 	FechaFactura	SMALLDATETIME NOT NULL,
 	FechaRecepcion	DATETIME NOT NULL,
-	SubTotal		NUMERIC(7,3) DEFAULT 0 CHECK(SubTotal >= 0) NOT NULL,
-	TotalIva		NUMERIC(7,3) DEFAULT 0 CHECK(TotalIva >= 0) NOT NULL,
-	CambioActual	NUMERIC(7,3) CHECK(CambioActual > 0) NOT NULL,
-	TotalDescuento	NUMERIC(7,3) DEFAULT 0 CHECK(TotalDescuento >= 0) NOT NULL,
-	TotalCordobas	NUMERIC(7,3) DEFAULT 0 CHECK(TotalCordobas >= 0) NOT NULL,
+	SubTotal		NUMERIC(14,2) DEFAULT 0 CHECK(SubTotal >= 0) NOT NULL,
+	TotalIva		NUMERIC(14,2) DEFAULT 0 CHECK(TotalIva >= 0) NOT NULL,
+	CambioActual	NUMERIC(14,2) CHECK(CambioActual > 0) NOT NULL,
+	TotalDescuento	NUMERIC(14,2) DEFAULT 0 CHECK(TotalDescuento >= 0) NOT NULL,
+	TotalCordobas	NUMERIC(14,2) DEFAULT 0 CHECK(TotalCordobas >= 0) NOT NULL,
 	Retencion		BIT NOT NULL,
 	Respaldo		NVARCHAR(200) NULL DEFAULT 'noimage.png',
 	Habilitado	BIT DEFAULT 1 NOT NULL,
@@ -69,16 +69,16 @@ CREATE TABLE DETALLE_FACTURA_COMPRA(
 	IdDetalle			INT IDENTITY(1,1) NOT NULL,
 	IdFactura			INT NOT NULL,
 	IdProducto			INT NOT NULL,
-	PrecioUnitario		NUMERIC(7,3) NOT NULL CHECK(PrecioUnitario >= 0),
+	PrecioUnitario		NUMERIC(14,2) NOT NULL CHECK(PrecioUnitario >= 0),
 	Cantidad			INT NOT NULL CHECK(Cantidad > 0),
 	GravadoIva			BIT NOT NULL,
-	SubTotal			NUMERIC(7,3),
-	SubTotal_Cal		AS CAST(ROUND((Cantidad * PrecioUnitario),3) AS NUMERIC(7,3)),
-	Iva					NUMERIC(7,3),
-	Iva_Cal				AS CAST(ROUND(((Cantidad * PrecioUnitario) * GravadoIva * 0.15),3) AS NUMERIC(7,3)),
-	Descuento			Numeric(7,3) NOT NULL CHECK(Descuento >= 0),
-	TotalDetalle		NUMERIC(7,3) NOT NULL,
-	Total_Cal			AS CAST(ROUND((((Cantidad * PrecioUnitario) + (Cantidad * PrecioUnitario * GravadoIva * 0.15)) - Descuento),3) AS NUMERIC(7,3)),
+	SubTotal			NUMERIC(14,2),
+	SubTotal_Cal		AS CAST(ROUND((Cantidad * PrecioUnitario),2) AS NUMERIC(14,2)),
+	Iva					NUMERIC(14,2),
+	Iva_Cal				AS CAST(ROUND(((Cantidad * PrecioUnitario) * GravadoIva * 0.15),2) AS NUMERIC(14,2)),
+	Descuento			Numeric(14,2) NOT NULL CHECK(Descuento >= 0),
+	TotalDetalle		NUMERIC(14,2) NOT NULL,
+	Total_Cal			AS CAST(ROUND((((Cantidad * PrecioUnitario) + (Cantidad * PrecioUnitario * GravadoIva * 0.15)) - Descuento),2) AS NUMERIC(14,2)),
 	Bonificacion		BIT DEFAULT 0 NOT NULL,
 	Habilitado			BIT DEFAULT 1 NOT NULL,
 	CreatedAt			DATE NOT NULL DEFAULT GETDATE(),
@@ -94,17 +94,17 @@ GO
 CREATE PROCEDURE USP_CREATE_FACTURA_COMPRA(
 	@NumRefFactura  NVARCHAR(50),
 	@IdProveedor	INT,
-	@IdTrabajador	 INT,
-	@IdTipoMoneda		 INT,
-	@IdFormaPago	 INT,
+	@IdTrabajador	INT,
+	@IdTipoMoneda	INT,
+	@IdFormaPago	INT,
 	@NombVendedor	NVARCHAR(100),
 	@FechaFactura	SMALLDATETIME,
 	@FechaRecepcion	SMALLDATETIME,
-	@SubTotal		NUMERIC(7,3),
-	@TotalIva		NUMERIC(7,3),	
-	@CambioActual	NUMERIC(7,3),
-	@TotalDescuento	NUMERIC(7,3),
-	@TotalCordobas	NUMERIC(7,3),
+	@SubTotal		NUMERIC(14,2),
+	@TotalIva		NUMERIC(14,2),	
+	@CambioActual	NUMERIC(14,2),
+	@TotalDescuento	NUMERIC(14,2),
+	@TotalCordobas	NUMERIC(14,2),
 	@Retencion		BIT,
 	@IdFactura		INT OUTPUT
 )
@@ -123,13 +123,13 @@ CREATE PROCEDURE USP_CREATE_DETALLE_FACTURA_COMPRA(
 	@IdDetalle		INT OUTPUT,
 	@IdFactura		INT ,
 	@IdProducto		INT ,
-	@PrecioUnitario NUMERIC(7,3),
+	@PrecioUnitario NUMERIC(14,2),
 	@Cantidad		INT,
 	@GravadoIva		BIT ,
-	@SubTotal		NUMERIC(7,3),
-	@Iva			NUMERIC(7,3),
-	@Descuento		NUMERIC(7,3),
-	@TotalDetalle	NUMERIC(7,3),
+	@SubTotal		NUMERIC(14,2),
+	@Iva			NUMERIC(14,2),
+	@Descuento		NUMERIC(14,2),
+	@TotalDetalle	NUMERIC(14,2),
 	@Bonificacion	BIT NULL
 )
 AS BEGIN
@@ -155,12 +155,15 @@ AS BEGIN
 	SELECT IdFactura
 			, NumRefFactura
 			, FC.IdProveedor
+			, FC.IdTipoMoneda
+			, FC.IdFormaPago
 			, PRO.NombreProveedor
 			, TRA.IdTrabajador
 			, TRA.Nombres +' ' + TRA.Apellidos AS [TrabajadorIngreso]
 			, FC.IdEstadoFactura
 			, NombVendedor
 			, FC.FechaFactura
+			, FC.FechaRecepcion
 			, FC.SubTotal
 			, FC.TotalIva
 			, FC.CambioActual

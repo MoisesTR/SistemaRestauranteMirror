@@ -132,13 +132,8 @@
                 <div class="container-fluid mt-3">
                     <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                         <i class="fa fa-search" aria-hidden="true"></i>
-                        <<<<<<< Updated upstream <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
-                            [(ngModel)]="buscando" aria-label="Buscar">
-                            =======
-                            <input (keydown.Tab)="onTabFiltrarProducto($event)" (keydown.Enter)="onEnterFiltrarProducto($event)"
-                                class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
-                                aria-label="Buscar">
-                            >>>>>>> Stashed changes
+                        <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
+                            aria-label="Buscar">
                     </div>
                 </div>
 
@@ -163,6 +158,7 @@
                                 <tbody>
 
                                     <tr *ngFor="let producto of productosFiltrados  | buscar: buscando; let i = index">
+                                        <th scope="row" class="align-middle" width="5%">1</th>
                                         <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto}}</th>
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
                                         <td width="12%">

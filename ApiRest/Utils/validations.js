@@ -326,6 +326,8 @@ exports.createFacturaCompra  = [
     body('NumRefFactura').exists(),
     body('IdProveedor').exists(),
     body('IdTrabajador').exists(),
+    body('IdTipoMoneda').exists(),
+    body('IdFormaPago').exists(),
     body('NombVendedor').exists(),
     isDate('FechaFactura'),
     isDate('FechaRecepcion'),

@@ -131,7 +131,7 @@
                 <div class="container-fluid mt-3">
                     <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                         <i class="fa fa-search" aria-hidden="true"></i>
-                        <input (keydown.Tab)="onTabFiltrarProducto($event)" (keydown.Enter)="onEnterFiltrarProducto($event)"  class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
+                        <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
                     </div>
                 </div>
 
@@ -150,15 +150,15 @@
                                             Tipo Descuento
                                         </th>
                                         <th>Descuento</th>
-                                        <th class="text-center">Exento Iva</th>
+                                        <th class="text-center">IVA</th>
                                         <th class="text-center">Fecha vencimiento</th>
                                         <th class="text-center">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    <tr *ngFor="let producto of productosFiltrados ; let i = index">
-                                        <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
+                                    <tr *ngFor="let producto of productosFiltrados  | buscar: buscando; let i = index">
+                                        <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto}}</th>
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
                                         <td width="10%">
                                             <div class="md-form">
@@ -183,15 +183,15 @@
                                         </td>
                                         <td width="10%">
                                             <div class="md-form">
-                                                <input mdbInputDirective type="number" id="valorDescuento" name="valorDescuento"
+                                                <input (input)="onSearchChangeDescuentoProducto($event.target.value,producto.IdProducto)" mdbInputDirective type="number" id="valorDescuento" name="valorDescuento"
                                                     min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
 
                                         <td class="text-center align-middle">
                                             <div class="form-check">
-                                                <input (change)="changeExentoIva($event, producto.IdProducto)" class="form-check-input" type="checkbox" id="ei{{i}}"
-                                                    mdbInputDirective>
+                                                <input (change)="changeIva($event, producto.IdProducto)" class="form-check-input" type="checkbox" id="ei{{i}}"
+                                                       mdbInputDirective>
                                                 <label class="form-check-label" for="ei{{i}}"></label>
                                             </div>
                                         </td>
@@ -234,7 +234,7 @@
                                     <th class="header-negrita">Cantidad</th>
                                     <th class="header-negrita">Precio unitario</th>
                                     <th class="header-negrita">Descuento</th>
-                                    <th class="header-negrita text-center">Exento IVA</th>
+                                    <th class="header-negrita text-center">IVA</th>
                                     <th class="header-negrita">Total</th>
                                     <th class="text-center">
                                         <img src="./assets/img/icon/regalo.png">
@@ -255,7 +255,7 @@
                                         <strong>{{productoFactura.Descuento}}%</strong>
                                     </td>
                                     <td class="body-negrita align-middle text-center">
-                                        <strong>{{productoFactura.ExentoIva == 1 ? 'SI' : 'NO' }}</strong>
+                                        <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                                     </td>
                                     <td width="10%" class="body-negrita align-middle">{{productoFactura.TotalDetalle |
                                         number

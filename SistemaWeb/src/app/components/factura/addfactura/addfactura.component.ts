@@ -285,6 +285,8 @@ export class AddfacturaComponent implements OnInit {
                        this.productosProveedor[index].FechaVencimiento = '';
                     });
                 }
+
+                this.productosFiltrados = this.productosProveedor;
             }, error => {
 
             }, () => {
@@ -341,7 +343,7 @@ export class AddfacturaComponent implements OnInit {
             this.detalleFactura.Cantidad = value.Cantidad;
             this.detalleFactura.GravadoIva = value.GravadoIva;
             this.detalleFactura.SubTotal = value.Costo * value.Cantidad;
-            this.detalleFactura.Iva = value.GravadoIva === 1 ? value.Costo * 0.15 : 0;
+            this.detalleFactura.Iva = value.GravadoIva === 1 ? value.Costo * this.valorIva : 0;
             this.detalleFactura.Descuento = value.Descuento;
             this.detalleFactura.TotalDetalle = this.calcularPrecioTotalxProducto(value);
             this.detalleFactura.Bonificacion = 0;
@@ -513,13 +515,13 @@ export class AddfacturaComponent implements OnInit {
 
     }
 
-    onTabFiltrarProducto(event) {
-        this.filtrarProducto();
-    }
-
-    onEnterFiltrarProducto(event) {
-        this.filtrarProducto();
-    }
+    // onTabFiltrarProducto(event) {
+    //     this.filtrarProducto();
+    // }
+    //
+    // onEnterFiltrarProducto(event) {
+    //     this.filtrarProducto();
+    // }
 
     filtrarProducto() {
 
@@ -568,11 +570,18 @@ export class AddfacturaComponent implements OnInit {
         });
     }
 
-    changeExentoIva(event, IdProducto) {
+    onSearchChangeDescuentoProducto(descuento, IdProducto) {
         this.productosFiltrados.forEach( (value, index) => {
             if (value.IdProducto === IdProducto) {
-                this.productosFiltrados[index].GravadoIva = event.path[0].checked === true ? 0 : 1;
-                this.productosFiltrados[index].ExentoIva = event.path[0].checked === true ? 1 : 0;
+                this.productosFiltrados[index].Descuento = descuento;
+            }
+        });
+    }
+
+    changeIva(event, IdProducto) {
+        this.productosFiltrados.forEach( (value, index) => {
+            if (value.IdProducto === IdProducto) {
+                this.productosFiltrados[index].GravadoIva = event.path[0].checked === true ? 1 : 0;
             }
         });
     }

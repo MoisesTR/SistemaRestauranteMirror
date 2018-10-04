@@ -190,6 +190,7 @@ export class AddfacturaComponent implements OnInit {
         this.factura.IdFormaPago = 1;
         this.factura.NombVendedor = this.proveedores.filter(
             item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombreRepresentante;
+        console.log(this.factura);
     }
 
     onChangeProveedor(event) {
@@ -280,9 +281,11 @@ export class AddfacturaComponent implements OnInit {
                     this.productosProveedor.forEach( (value, index) => {
                        this.productosProveedor[index].Costo = 0;
                        this.productosProveedor[index].TotalDetalle = 0;
+                       this.productosProveedor[index].GravadoIva = 0;
                        this.productosProveedor[index].ExentoIva = 0;
                        this.productosProveedor[index].Cantidad = 0;
                        this.productosProveedor[index].FechaVencimiento = '';
+                       this.productosProveedor[index].Descuento = 0;
                     });
                 }
 
@@ -495,6 +498,9 @@ export class AddfacturaComponent implements OnInit {
             this.retencionCalculoFactura = retencion;
             this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
         } else {
+            console.log(this.subTotalFactura)
+            console.log(this.ivaCalculoFactura)
+            console.log(this.descuentoCalculoFactura)
             this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
         }
     }

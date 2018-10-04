@@ -14,11 +14,11 @@ function createFacturaCompra(req, res) {
     db.pushAOJParam(aoj, 'NombVendedor', sql.NVarChar(100),data.NombVendedor);
     db.pushAOJParam(aoj, 'FechaFactura', sql.Date,data.FechaFactura);
     db.pushAOJParam(aoj, 'FechaRecepcion', sql.Date,data.FechaRecepcion);
-    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(7,3),data.SubTotal);
-    db.pushAOJParam(aoj, 'TotalIva', sql.Numeric(7,3),data.TotalIva);
-    db.pushAOJParam(aoj, 'CambioActual', sql.Numeric(7,3),data.CambioActual);
-    db.pushAOJParam(aoj, 'TotalDescuento', sql.Numeric(7,3),data.TotalDescuento);
-    db.pushAOJParam(aoj, 'TotalCordobas', sql.Numeric(7,3),data.TotalCordobas);
+    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(14,2),data.SubTotal);
+    db.pushAOJParam(aoj, 'TotalIva', sql.Numeric(14,2),data.TotalIva);
+    db.pushAOJParam(aoj, 'CambioActual', sql.Numeric(14,2),data.CambioActual);
+    db.pushAOJParam(aoj, 'TotalDescuento', sql.Numeric(14,2),data.TotalDescuento);
+    db.pushAOJParam(aoj, 'TotalCordobas', sql.Numeric(14,2),data.TotalCordobas);
     db.pushAOJParam(aoj, 'Retencion', sql.Bit,data.Retencion);
     db.pushOutParam(aoj, 'IdFactura', sql.Int);
     db.storedProcExecute('USP_CREATE_FACTURA_COMPRA',aoj)
@@ -38,11 +38,11 @@ function updateFacturaCompra(req, res) {
     db.pushAOJParam(aoj, 'IdTrabajador', sql.Int,data.IdTrabajador);
     db.pushAOJParam(aoj, 'NombVendedor', sql.NVarChar(100),data.NombVendedor);
     db.pushAOJParam(aoj, 'FechaIngreso', sql.Date,data.FechaIngreso);
-    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(7,3),data.SubTotal);
-    db.pushAOJParam(aoj, 'TotalIva', sql.Numeric(7,3),data.TotalIva);
-    db.pushAOJParam(aoj, 'CambioActual', sql.Numeric(7,3),data.CambioActual);
-    db.pushAOJParam(aoj, 'TotalDescuento', sql.Numeric(7,3),data.TotalDescuento);
-    db.pushAOJParam(aoj, 'TotalCordobas', sql.Numeric(7,3),data.TotalCordobas);
+    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(14,2),data.SubTotal);
+    db.pushAOJParam(aoj, 'TotalIva', sql.Numeric(14,2),data.TotalIva);
+    db.pushAOJParam(aoj, 'CambioActual', sql.Numeric(14,2),data.CambioActual);
+    db.pushAOJParam(aoj, 'TotalDescuento', sql.Numeric(14,2),data.TotalDescuento);
+    db.pushAOJParam(aoj, 'TotalCordobas', sql.Numeric(14,2),data.TotalCordobas);
     db.pushAOJParam(aoj, 'Retencion', sql.Bit,data.Retencion);
     db.pushOutParam(aoj, 'IdFactura', sql.Int);
     db.storedProcExecute('USP_CREATE_FACTURA_COMPRA',aoj)
@@ -61,13 +61,13 @@ function createDetalleFacturaCompra(req, res) {
     db.pushOutParam(aoj, 'IdDetalle', sql.Int);
     db.pushAOJParam(aoj, 'IdFactura', sql.Int,data.IdFactura);
     db.pushAOJParam(aoj, 'IdProducto', sql.Int,data.IdProducto);
-    db.pushAOJParam(aoj, 'PrecioUnitario', sql.Numeric(7,3),data.PrecioUnitario);
+    db.pushAOJParam(aoj, 'PrecioUnitario', sql.Numeric(14,2),data.PrecioUnitario);
     db.pushAOJParam(aoj, 'Cantidad', sql.Int,data.Cantidad);
     db.pushAOJParam(aoj, 'GravadoIva', sql.Bit,data.GravadoIva);
-    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(7,3),data.SubTotal);
-    db.pushAOJParam(aoj, 'Iva', sql.Numeric(7,3),data.Iva);
-    db.pushAOJParam(aoj, 'Descuento', sql.Numeric(7,3),data.Descuento);
-    db.pushAOJParam(aoj, 'TotalDetalle', sql.Numeric(7,3),data.TotalDetalle);
+    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(14,2),data.SubTotal);
+    db.pushAOJParam(aoj, 'Iva', sql.Numeric(14,2),data.Iva);
+    db.pushAOJParam(aoj, 'Descuento', sql.Numeric(14,2),data.Descuento);
+    db.pushAOJParam(aoj, 'TotalDetalle', sql.Numeric(14,2),data.TotalDetalle);
     db.pushAOJParam(aoj, 'Bonificacion', sql.Bit,data.Bonificacion);
     db.storedProcExecute('USP_CREATE_DETALLE_FACTURA_COMPRA',aoj)
     .then((result) => {
@@ -83,13 +83,13 @@ function updateDetalleFacturaCompra(req, res) {
     let aoj = [];
     db.pushAOJParam(aoj, 'IdFactura', sql.Int,data.IdFactura);
     db.pushAOJParam(aoj, 'IdProducto', sql.Int,data.IdProducto);
-    db.pushAOJParam(aoj, 'PrecioUnitario', sql.Numeric(7,3),data.PrecioUnitario);
+    db.pushAOJParam(aoj, 'PrecioUnitario', sql.Numeric(14,2),data.PrecioUnitario);
     db.pushAOJParam(aoj, 'Cantidad', sql.Int,data.Cantidad);
     db.pushAOJParam(aoj, 'GravadoIva', sql.Bit,data.GravadoIva);
-    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(7,3),data.SubTotal);
-    db.pushAOJParam(aoj, 'Iva', sql.Numeric(7,3),data.Iva);
-    db.pushAOJParam(aoj, 'Descuento', sql.Numeric(7,3),data.Descuento);
-    db.pushAOJParam(aoj, 'TotalDetalle', sql.Numeric(7,3),data.TotalDetalle);
+    db.pushAOJParam(aoj, 'SubTotal', sql.Numeric(14,2),data.SubTotal);
+    db.pushAOJParam(aoj, 'Iva', sql.Numeric(14,2),data.Iva);
+    db.pushAOJParam(aoj, 'Descuento', sql.Numeric(14,2),data.Descuento);
+    db.pushAOJParam(aoj, 'TotalDetalle', sql.Numeric(14,2),data.TotalDetalle);
     db.pushAOJParam(aoj, 'Bonificacion', sql.Bit,data.Bonificacion);
     db.storedProcExecute('USP_CREATE_DETALLE_FACTURA_COMPRA',aoj)
     .then((result) => {

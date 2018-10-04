@@ -152,6 +152,7 @@ CREATE PROCEDURE dbo.USP_GET_FACTURAS_COMPRA (
 	@IdEstadoFactura	INT NULL
 )
 AS BEGIN
+
 	SELECT IdFactura
 			, NumRefFactura
 			, FC.IdProveedor
@@ -178,6 +179,8 @@ AS BEGIN
 				ON FC.IdProveedor = PRO.IdProveedor
 			INNER JOIN dbo.TRABAJADOR TRA
 				ON FC.IdTrabajador = TRA.IdTrabajador
-	WHERE	FC.FechaFactura BETWEEN @FechaInicio AND @FechaFin AND FC.IdProveedor = ISNULL(@IdProveedor,FC.IdProveedor) 
+	WHERE	FC.FechaFactura BETWEEN ISNULL(@FechaInicio,FC.FechaFactura)  AND ISNULL(@FechaFin,FC.FechaFactura)  AND FC.IdProveedor = ISNULL(@IdProveedor,FC.IdProveedor) 
 			AND FC.IdEstadoFactura = ISNULL(@IdEstadoFactura,FC.IdEstadoFactura)
 END
+
+

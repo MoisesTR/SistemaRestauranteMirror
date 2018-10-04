@@ -73,8 +73,9 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <mdb-date-picker [options]="myDatePickerOptions" id="fechaRecepcion" formControlName="fechaRecepcion" [placeholder]="'Seleccione la fecha'"
-                                        [label]="'Fecha de Recepción'" required></mdb-date-picker>
+                                    <mdb-date-picker [options]="myDatePickerOptions" id="fechaRecepcion"
+                                        formControlName="fechaRecepcion" [placeholder]="'Seleccione la fecha'" [label]="'Fecha de Recepción'"
+                                        required></mdb-date-picker>
                                 </div>
 
                                 <div class="col-md-6">
@@ -131,7 +132,13 @@
                 <div class="container-fluid mt-3">
                     <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                         <i class="fa fa-search" aria-hidden="true"></i>
-                        <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
+                        <<<<<<< Updated upstream <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
+                            [(ngModel)]="buscando" aria-label="Buscar">
+                            =======
+                            <input (keydown.Tab)="onTabFiltrarProducto($event)" (keydown.Enter)="onEnterFiltrarProducto($event)"
+                                class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
+                                aria-label="Buscar">
+                            >>>>>>> Stashed changes
                     </div>
                 </div>
 
@@ -139,16 +146,14 @@
                     <div class="card-body">
 
                         <div class="table-responsive">
-                            <table id = "tabla" class="table table-hover">
+                            <table id="tabla" class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th>No. Registro</th>
                                         <th>Cód. Producto</th>
                                         <th>Nombre del producto</th>
                                         <th>Cantidad</th>
                                         <th>Precio</th>
-                                        <th class="text-center">
-                                            Tipo Descuento
-                                        </th>
                                         <th>Descuento</th>
                                         <th class="text-center">IVA</th>
                                         <th class="text-center">Fecha vencimiento</th>
@@ -160,46 +165,42 @@
                                     <tr *ngFor="let producto of productosFiltrados  | buscar: buscando; let i = index">
                                         <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto}}</th>
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
-                                        <td width="10%">
+                                        <td width="12%">
                                             <div class="md-form">
-                                                <input mdbInputDirective (input)="onSearchChangeCantidadProducto($event.target.value,producto.IdProducto)" type="number" id="cantidadProductoIngresado" name="cantidadProducto"
+                                                <input mdbInputDirective (input)="onSearchChangeCantidadProducto($event.target.value,producto.IdProducto)"
+                                                    type="text" id="cantidadProductoIngresado" name="cantidadProducto"
                                                     min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
-                                        <td width="10%">
+                                        <td width="12%">
                                             <div class="md-form">
-                                                <input mdbInputDirective (input)="onSearchChangePrecioProducto($event.target.value,producto.IdProducto)" type="number" id="precioProductoIngresado" name="precioProducto"
-                                                       min="0" class="input-modal-sm" style="width: 60% !important;">
+                                                <input mdbInputDirective (input)="onSearchChangePrecioProducto($event.target.value,producto.IdProducto)"
+                                                    type="text" id="precioProductoIngresado" name="precioProducto" min="0"
+                                                    class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
-                                        <td class="text-center align-middle" width="12%">
-                                            <span id="span-porcentual{{i}}"><b class="orange-chang-text">Porcentual</b></span>
-                                            <span id="span-efectivo{{i}}" style="display:none;"><b class="orange-chang-text">Efectivo</b></span>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="td{{i}}" (change)="eventTipoDescuento($event, i)"
-                                                    mdbInputDirective>
-                                                <label class="form-check-label" for="td{{i}}"></label>
-                                            </div>
-                                        </td>
-                                        <td width="10%">
+                                        <td width="12%">
                                             <div class="md-form">
-                                                <input (input)="onSearchChangeDescuentoProducto($event.target.value,producto.IdProducto)" mdbInputDirective type="number" id="valorDescuento" name="valorDescuento"
+                                                <input (input)="onSearchChangeDescuentoProducto($event.target.value,producto.IdProducto)"
+                                                    mdbInputDirective type="number" id="valorDescuento" name="valorDescuento"
                                                     min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
 
                                         <td class="text-center align-middle">
                                             <div class="form-check">
-                                                <input (change)="changeIva($event, producto.IdProducto)" class="form-check-input" type="checkbox" id="ei{{i}}"
-                                                       mdbInputDirective>
+                                                <input (change)="changeIva($event, producto.IdProducto)" class="form-check-input"
+                                                    type="checkbox" id="ei{{i}}" mdbInputDirective>
                                                 <label class="form-check-label" for="ei{{i}}"></label>
                                             </div>
                                         </td>
                                         <td width="10%">
-                                            <mdb-date-picker (inputFieldChanged)="fechaVencimientoInputFieldChanged($event,producto.IdProducto)" [options]="myDatePickerOptions"  required></mdb-date-picker>
+                                            <mdb-date-picker (inputFieldChanged)="fechaVencimientoInputFieldChanged($event,producto.IdProducto)"
+                                                [options]="myDatePickerOptions" required></mdb-date-picker>
                                         </td>
                                         <td class="text-center align-middle">
-                                            <button type="button" class="btn btn-sm orange-chang" (click)="agregarProductoAFactura(producto)" mdbWavesEffect>
+                                            <button type="button" class="btn btn-sm orange-chang" (click)="agregarProductoAFactura(producto)"
+                                                mdbWavesEffect>
                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                             </button>
                                             <button type="button" class="btn btn-sm orange-chang" (click)="mostrarProducto(producto)"
@@ -236,9 +237,6 @@
                                     <th class="header-negrita">Descuento</th>
                                     <th class="header-negrita text-center">IVA</th>
                                     <th class="header-negrita">Total</th>
-                                    <th class="text-center">
-                                        <img src="./assets/img/icon/regalo.png">
-                                    </th>
                                     <th class="header-negrita centrar-texto">Accion</th>
                                 </tr>
                             </thead>
@@ -261,19 +259,13 @@
                                         number
                                         : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>
-                                    <td class="align-middle text-center">
-                                        <div class="form-check checkbox-chang-filled">
-                                            <input class="form-check-input" disabled type="checkbox" class="form-check-input" id="{{i}}">
-                                            <label class="form-check-label" for="{{i}}"></label>
-                                        </div>
-                                    </td>
                                     <td width="25%">
                                         <div class="text-center">
                                             <!--<button type="button" (click)="getProducto()" class="btn btn-sm orange-chang" id="btnverproductos" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
                                             <!--<button type="button" class="btn btn-sm orange-chang" id="btneditarproductos"-->
-                                                <!--(click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip"-->
-                                                <!--data-placement="bottom" title="Editar">-->
-                                                <!--<i class="fa fa-pencil"></i>-->
+                                            <!--(click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip"-->
+                                            <!--data-placement="bottom" title="Editar">-->
+                                            <!--<i class="fa fa-pencil"></i>-->
                                             <!--</button>-->
                                             <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos"
                                                 (click)="eliminarProductoDeFactura(productoFactura, index)" data-toggle="tooltip"
@@ -399,75 +391,97 @@
                     <form>
                         <div class="row">
 
-                            <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5">
-                                <div class="card card-cascade narrower">
-                                    <div class="view view-cascade gradient-card-header orange-chang">
-                                        <h4 class="mb-0">Imagen</h4>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}"
-                                            alt="..." class="img-thumbnail height-card-usuario">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="container-fluid">
                                     <div class="row">
 
-                                        <div class="col-md-12">
-                                            <div class="md-form">
-                                                <h6 class="orange-chang-text">Nombre</h6>
-                                                <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm"
-                                                    name="nombreenvase" value={{productoSeleccionado.NombreProducto}}
-                                                    readonly>
+                                        <div class="col-md-6 mt-4">
+                                            <div class="card card-cascade narrower">
+                                                <div class="view view-cascade gradient-card-header orange-chang">
+                                                    <h4 class="mb-0">Imagen</h4>
+                                                </div>
+                                                <div class="card-body text-center">
+                                                    <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}"
+                                                        alt="..." class="img-thumbnail height-card-usuario">
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
-                                            <div class="md-form">
-                                                <h6 class="orange-chang-text">Codigo Producto</h6>
-                                                <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm"
-                                                       name="codigoproducto" value={{productoSeleccionado.CodigoProducto}}
-                                                       readonly>
+                                        <div class="col-md-6 margin-bottom-inputs-outside">
+                                            <div class="col-md-12 margin-bottom-inputs">
+                                                <div class="md-form">
+                                                    <h6 class="orange-chang-text">Nombre</h6>
+                                                    <input type="text" id="nombreProducto" minlength="4" maxlength="50"
+                                                        class="input-modal-sm" name="nombreProducto" value={{productoSeleccionado.NombreProducto}}
+                                                        readonly>
+                                                </div>
                                             </div>
+
+                                            <div class="col-md-12 margin-bottom-inputs">
+                                                <div class="md-form">
+                                                    <h6 class="orange-chang-text">Tipo de Insumo</h6>
+                                                    <input type="text" id="tipoInsumo" minlength="4" maxlength="50"
+                                                        class="input-modal-sm" name="tipoInsumo" value="Insumo Test"
+                                                        readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 margin-bottom-inputs">
+                                                <div class="md-form">
+                                                    <h6 class="orange-chang-text">Código Producto</h6>
+                                                    <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm"
+                                                        name="codigoproducto" value={{productoSeleccionado.CodigoProducto}}
+                                                        readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 margin-bottom-inputs">
+                                                <div class="md-form">
+                                                    <h6 class="orange-chang-text">Código Interno</h6>
+                                                    <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm"
+                                                        name="codigoInterno" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 margin-bottom-inputs">
+                                                <div class="md-form">
+                                                    <h6 class="orange-chang-text">Categoria</h6>
+                                                    <input type="text" id="categoria" class="input-modal-sm" readonly
+                                                        value={{productoSeleccionado.NombreCategoria}}>
+                                                </div>
+                                            </div>
+
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <div class="md-form">
-                                                <h6 class="orange-chang-text">Categoria</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 margin-bottom-inputs-outside">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Clasificación</h6>
                                                 <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreClasificacion}}>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 margin-bottom-inputs-outside">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Subclasificación</h6>
                                                 <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreSubClasificacion}}>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 margin-bottom-inputs-outside">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Empaque</h6>
                                                 <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEmpaque}}>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 margin-bottom-inputs-outside">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Cantidad por Empaque</h6>
                                                 <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.CantidadEmpaque}}>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 margin-bottom-inputs-outside">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Envase</h6>
                                                 <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEnvase}}>
@@ -520,7 +534,7 @@
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
-                                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto" >
+                                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -578,8 +592,8 @@
                 <form [formGroup]="" novalidate>
 
                     <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
-                        <input type="file" (change)="fileChangeEvent($event)" id="imageRespaldoFactura" class="dropify" data-height="300"
-                            data-allowed-file-extensions="jpg png jpeg" />
+                        <input type="file" (change)="fileChangeEvent($event)" id="imageRespaldoFactura" class="dropify"
+                            data-height="300" data-allowed-file-extensions="jpg png jpeg" />
                     </div>
 
                     <div class="text-center mt-1-half">

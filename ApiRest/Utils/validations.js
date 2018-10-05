@@ -272,7 +272,7 @@ var createProducto = [
     body('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
     body('CantidadEmpaque').isInt().optional({nullable:true}),
     body('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
-    body('ValorUnidadMedida').isNumeric(),
+    body('ValorUnidadMedida').exists(),
     body('DiasRotacion').isInt(),
     body('TipoInsumo').isInt(),
     body('CodigoProducto').isAscii(),

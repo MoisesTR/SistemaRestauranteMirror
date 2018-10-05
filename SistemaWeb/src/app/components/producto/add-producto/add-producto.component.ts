@@ -63,6 +63,11 @@ export class AddProductoComponent implements OnInit {
     public mensajesError: MensajesError;
     public error = 'nada';
     public previousUrl: string;
+    public tipoInsumoSeleccionado = 1;
+    Insumo = [
+        {Id: 1, TipoInsumo: 'Alimento'}
+        , {Id: 2, TipoInsumo: 'Limpieza'},
+    ];
     groupByFn = (item) => item.Habilitado;
 
     constructor(private _route: ActivatedRoute
@@ -463,6 +468,9 @@ export class AddProductoComponent implements OnInit {
         ]),
         'codigoProducto': new FormControl('', [
             Validators.required
+        ]),
+        'tipoInsumo': new FormControl('', [
+            Validators.required
         ])
     });
   }
@@ -556,6 +564,14 @@ resultadoConsultaCategoria(event) {
                     Utils.showMsgError(Utils.msgError(error));
                 }
             );
+        }
+    }
+
+    changeInsumo(event) {
+        if (event === null || event === undefined) {
+            this.tipoInsumoSeleccionado = null;
+        } else {
+            this.tipoInsumoSeleccionado = event.Id;
         }
     }
 

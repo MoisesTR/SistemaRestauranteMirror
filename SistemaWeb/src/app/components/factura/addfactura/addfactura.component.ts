@@ -186,11 +186,10 @@ export class AddfacturaComponent implements OnInit {
         this.factura.TotalCordobas = this.totalFactura;
         this.factura.Retencion = this.tieneRetencion === true ? 1 : 0;
         this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
-        this.factura.FormaPago = 'contado';
+        this.factura.FormaPago = 'Contado';
         this.factura.IdFormaPago = 1;
         this.factura.NombVendedor = this.proveedores.filter(
             item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombreRepresentante;
-        console.log(this.factura);
     }
 
     onChangeProveedor(event) {
@@ -222,7 +221,7 @@ export class AddfacturaComponent implements OnInit {
 
         if (event === null || event === undefined) {
             this.IdMonedaSeleccionada = null;
-            this.simboloMonedaUtilizado =  'C$';
+            this.simboloMonedaUtilizado = 'C$';
             this.mostrarComboTipoMoneda = false;
         } else {
             this.IdMonedaSeleccionada = event.Id;
@@ -258,7 +257,18 @@ export class AddfacturaComponent implements OnInit {
         if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0
             && (productoFiltrado.FechaVencimiento !== '' && productoFiltrado.FechaVencimiento !== undefined)) {
 
-            productoFiltrado.TotalDetalle = productoFiltrado.Cantidad * productoFiltrado.Costo;
+            productoFiltrado.Subtotal = productoFiltrado.Cantidad * productoFiltrado.Costo;
+            productoFiltrado.Descuento = productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento;
+            productoFiltrado.DetalleMenosDescuento = productoFiltrado.Subtotal - productoFiltrado.Descuento;
+
+            if (productoFiltrado.GravadoIva === 1) {
+                productoFiltrado.CalculoIva = productoFiltrado.Subtotal * this.valorIva;
+                productoFiltrado.Iva = productoFiltrado.Subtotal + productoFiltrado.CalculoIva;
+                productoFiltrado.TotalDetalle = productoFiltrado.Iva - productoFiltrado.Descuento;
+            } else {
+                productoFiltrado.TotalDetalle = productoFiltrado.Subtotal - productoFiltrado.Descuento;
+            }
+
             this.productosFactura.push(productoFiltrado);
             this.calcularSubtotalFactura(productoFiltrado, 'SUMA');
             this.showSuccess();
@@ -278,14 +288,18 @@ export class AddfacturaComponent implements OnInit {
             response => {
                 if (response.productos) {
                     this.productosProveedor = response.productos;
-                    this.productosProveedor.forEach( (value, index) => {
-                       this.productosProveedor[index].Costo = 0;
-                       this.productosProveedor[index].TotalDetalle = 0;
-                       this.productosProveedor[index].GravadoIva = 0;
-                       this.productosProveedor[index].ExentoIva = 0;
-                       this.productosProveedor[index].Cantidad = 0;
-                       this.productosProveedor[index].FechaVencimiento = '';
-                       this.productosProveedor[index].Descuento = 0;
+                    this.productosProveedor.forEach((value, index) => {
+                        this.productosProveedor[index].Costo = 0;
+                        this.productosProveedor[index].TotalDetalle = 0;
+                        this.productosProveedor[index].GravadoIva = 0;
+                        this.productosProveedor[index].ExentoIva = 0;
+                        this.productosProveedor[index].Cantidad = 0;
+                        this.productosProveedor[index].FechaVencimiento = '';
+                        this.productosProveedor[index].Descuento = 0;
+                        this.productosProveedor[index].PorcentajeDescuento = 0;
+                        this.productosProveedor[index].Subtotal = 0;
+                        this.productosProveedor[index].Iva = 0;
+                        this.productosProveedor[index].CalculoIva = 0;
                     });
                 }
 
@@ -312,11 +326,9 @@ export class AddfacturaComponent implements OnInit {
     }
 
     crearFactura() {
-        this.existenMontosMenorIgualaCero();
-
         if (this.productosFactura.length < 1) {
             Utils.showMsgInfo('Selecciona al menos un producto para crear la factura', 'Factura');
-        }  else if (this.totalFactura === 0) {
+        } else if (this.totalFactura === 0) {
             Utils.showMsgInfo('El total de la factura no puede ser igual a cero!', 'Factura');
         } else if (this.existenMontosMenorIgualaCero()) {
             Utils.showMsgInfo('El costo total de cada producto en la factura debe ser mayor cero', 'Factura');
@@ -345,10 +357,10 @@ export class AddfacturaComponent implements OnInit {
             this.detalleFactura.PrecioUnitario = value.Costo;
             this.detalleFactura.Cantidad = value.Cantidad;
             this.detalleFactura.GravadoIva = value.GravadoIva;
-            this.detalleFactura.SubTotal = value.Costo * value.Cantidad;
-            this.detalleFactura.Iva = value.GravadoIva === 1 ? value.Costo * this.valorIva : 0;
-            this.detalleFactura.Descuento = value.Descuento;
-            this.detalleFactura.TotalDetalle = this.calcularPrecioTotalxProducto(value);
+            this.detalleFactura.SubTotal = value.Subtotal;
+            this.detalleFactura.Iva = value.Iva;
+            this.detalleFactura.Descuento = value.PorcentajeDescuento;
+            this.detalleFactura.TotalDetalle = value.TotalDetalle;
             this.detalleFactura.Bonificacion = 0;
 
             this._facturaService.createDetailFactura(this.detalleFactura).subscribe(
@@ -368,6 +380,21 @@ export class AddfacturaComponent implements OnInit {
                 this._router.navigate(['/factura/busquedafacturas']);
             }
         });
+    }
+
+    calcularPrecioTotalxProducto(producto: ProductoFactura) {
+        let precioTotal = 0;
+        const precioProducto = producto.Cantidad * producto.Costo;
+        const ivaProducto = precioProducto * this.valorIva;
+        const descuentoProducto = precioProducto * (producto.Descuento / 100);
+
+        if (producto.GravadoIva) {
+            precioTotal = precioProducto + ivaProducto - descuentoProducto;
+        } else {
+            precioTotal = precioProducto - descuentoProducto;
+        }
+
+        return isNaN(precioTotal) ? 0 : precioTotal;
     }
 
     aplicarRetencion() {
@@ -404,7 +431,7 @@ export class AddfacturaComponent implements OnInit {
                 [],
                 this.filesToUpload,
                 'token',
-                'image').then((result: any ) => {
+                'image').then((result: any) => {
                 this.factura.respaldoFactura = result.image;
                 this.crearFactura();
             }, error => {
@@ -434,61 +461,19 @@ export class AddfacturaComponent implements OnInit {
         this.modalAgregarDetalleProducto.show();
     }
 
-    calcularPrecioTotalxProducto(producto: ProductoFactura) {
-        let precioTotal = 0;
-        const precioProducto = producto.Cantidad * producto.Costo;
-        const ivaProducto = precioProducto * this.valorIva;
-        const descuentoProducto = precioProducto * (producto.Descuento / 100);
-
-        if (producto.GravadoIva) {
-            precioTotal = precioProducto + ivaProducto - descuentoProducto;
-        } else {
-            precioTotal = precioProducto - descuentoProducto;
-        }
-
-        return isNaN(precioTotal) ? 0 : precioTotal;
-    }
-
     calcularSubtotalFactura(productoFactura: ProductoFactura, operacion: string) {
-        let productoConIva = 0;
-        let productoConDescuento = 0;
-        const costoProducto = productoFactura.Costo * productoFactura.Cantidad;
-        const ivaDelProducto = costoProducto * this.valorIva;
-        const descuentoProducto = costoProducto * (productoFactura.Descuento / 100);
-
         if (operacion === 'SUMA') {
-
-            if (productoFactura.GravadoIva) {
-                productoConIva = costoProducto + costoProducto * this.valorIva;
-                productoConDescuento = productoConIva - (costoProducto * (productoFactura.Descuento / 100));
-                this.subTotalFactura += costoProducto;
-                this.subtotalFacturaConDescuento += costoProducto - (costoProducto * (productoFactura.Descuento / 100));
-                this.ivaCalculoFactura += ivaDelProducto;
-                this.descuentoCalculoFactura += descuentoProducto;
-                this.subTotalConIvaFactura += productoConDescuento;
-            } else {
-                productoConDescuento = costoProducto - (costoProducto * (productoFactura.Descuento / 100));
-                this.descuentoCalculoFactura += descuentoProducto;
-                this.subTotalFactura += costoProducto;
-                this.subtotalFacturaConDescuento += productoConDescuento;
-                this.subTotalConIvaFactura += productoConDescuento;
-            }
+            this.subTotalFactura += productoFactura.Subtotal;
+            this.descuentoCalculoFactura += productoFactura.Descuento;
+            this.ivaCalculoFactura += productoFactura.CalculoIva;
+            this.subTotalConIvaFactura += productoFactura.TotalDetalle;
+            this.subtotalFacturaConDescuento += productoFactura.DetalleMenosDescuento;
         } else {
-            if (productoFactura.GravadoIva) {
-                productoConIva = costoProducto + costoProducto * this.valorIva;
-                productoConDescuento = productoConIva - (costoProducto * (productoFactura.Descuento / 100));
-                this.subtotalFacturaConDescuento -= costoProducto - (costoProducto * (productoFactura.Descuento / 100));
-                this.subTotalFactura -= costoProducto;
-                this.descuentoCalculoFactura -= descuentoProducto;
-                this.ivaCalculoFactura -= ivaDelProducto;
-                this.subTotalConIvaFactura -= productoConDescuento;
-            } else {
-                productoConDescuento = costoProducto - (costoProducto * (productoFactura.Descuento / 100));
-                this.subTotalFactura -= costoProducto;
-                this.subTotalConIvaFactura -= productoConDescuento;
-                this.descuentoCalculoFactura -= descuentoProducto;
-                this.subtotalFacturaConDescuento -= productoConDescuento;
-            }
+            this.subTotalFactura -= productoFactura.Subtotal;
+            this.descuentoCalculoFactura -= productoFactura.Descuento;
+            this.ivaCalculoFactura -= productoFactura.CalculoIva;
+            this.subTotalConIvaFactura -= productoFactura.TotalDetalle;
+            this.subtotalFacturaConDescuento -= productoFactura.DetalleMenosDescuento;
         }
 
         let retencion = 0;
@@ -498,98 +483,28 @@ export class AddfacturaComponent implements OnInit {
             this.retencionCalculoFactura = retencion;
             this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
         } else {
-            console.log(this.subTotalFactura)
-            console.log(this.ivaCalculoFactura)
-            console.log(this.descuentoCalculoFactura)
             this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
         }
     }
 
-
-    eventTipoDescuento(event, i) {
-
-        const porcentual = document.getElementById('span-porcentual' +  i);
-        const efectivo = document.getElementById('span-efectivo' + i);
-
-        if ( event.target.checked ) {
-            efectivo.style.display = 'block';
-            porcentual.style.display = 'none';
-        } else {
-            efectivo.style.display = 'none';
-            porcentual.style.display = 'block';
-        }
-
+    fechaVencimientoInputFieldChanged (event, producto: ProductoFactura) {
+        producto.FechaVencimiento = event.value;
     }
 
-    // onTabFiltrarProducto(event) {
-    //     this.filtrarProducto();
-    // }
-    //
-    // onEnterFiltrarProducto(event) {
-    //     this.filtrarProducto();
-    // }
-
-    filtrarProducto() {
-
-        if (this.factura.IdProveedor === null || this.factura.IdProveedor === undefined) {
-            setTimeout(() => {
-                Utils.showMsgInfo('Selecciona un proveedor para poder filtrar productos!', this.tituloPantalla);
-            }, 100);
-        } else {
-            if (this.buscando !== '' && this.buscando !== undefined)  {
-                this.productosFiltrados = this.productosProveedor.filter( item => item.CodigoProducto.toUpperCase() === this.buscando.toUpperCase());
-
-                if (this.productosFiltrados.length === 0) {
-                    setTimeout(() => {
-                        Utils.showMsgInfo('No se han encontrado resultados!', this.tituloPantalla);
-                    }, 100);
-                }
-            } else {
-                setTimeout(() => {
-                    Utils.showMsgInfo('Debes digitar un codigo para filtrar el producto!', this.tituloPantalla);
-                }, 100);
-            }
-        }
+    onSearchChangePrecioProducto(precioProducto, producto: ProductoFactura) {
+        producto.Costo = precioProducto;
     }
 
-    fechaVencimientoInputFieldChanged (event, IdProducto) {
-        this.productosFiltrados.forEach( (value, index) => {
-            if (value.IdProducto === IdProducto) {
-                value.FechaVencimiento = event.value;
-            }
-        });
+    onSearchChangeCantidadProducto(cantidadProducto, producto: ProductoFactura) {
+        producto.Cantidad = cantidadProducto;
     }
 
-    onSearchChangePrecioProducto(precioProducto, IdProducto) {
-        this.productosFiltrados.forEach( (value, index) => {
-            if (value.IdProducto === IdProducto) {
-                this.productosFiltrados[index].Costo = precioProducto;
-            }
-        });
+    onSearchChangeDescuentoProducto(descuento, producto) {
+        producto.PorcentajeDescuento = descuento / 100;
     }
 
-    onSearchChangeCantidadProducto(cantidadProducto, IdProducto) {
-        this.productosFiltrados.forEach( (value, index) => {
-            if (value.IdProducto === IdProducto) {
-                this.productosFiltrados[index].Cantidad = cantidadProducto;
-            }
-        });
-    }
-
-    onSearchChangeDescuentoProducto(descuento, IdProducto) {
-        this.productosFiltrados.forEach( (value, index) => {
-            if (value.IdProducto === IdProducto) {
-                this.productosFiltrados[index].Descuento = descuento;
-            }
-        });
-    }
-
-    changeIva(event, IdProducto) {
-        this.productosFiltrados.forEach( (value, index) => {
-            if (value.IdProducto === IdProducto) {
-                this.productosFiltrados[index].GravadoIva = event.path[0].checked === true ? 1 : 0;
-            }
-        });
+    changeIva(event, producto: ProductoFactura) {
+        producto.GravadoIva = event.path[0].checked === true ? 1 : 0;
     }
 
     showSuccess() {

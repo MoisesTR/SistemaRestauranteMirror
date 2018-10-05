@@ -377,7 +377,7 @@ export class AddfacturaComponent implements OnInit {
 
             if (index === (this.productosFactura.length - 1)) {
                 Utils.showMsgSucces('La factura se ha creado exitosamente');
-                this._router.navigate(['/factura/busquedafacturas']);
+                this._router.navigate(['factura/summaryFactura']);
             }
         });
     }

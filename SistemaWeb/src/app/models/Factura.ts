@@ -23,7 +23,7 @@ export class Factura {
   public TotalCordobas: number;
   public Habilitado: number;
   public Detalle: DetalleFactura[];
-  public Hora: string;
+  public HoraIngreso: string;
   public FechaRecepcion: string;
   public FechaFactura: string;
   public ProductoFactura: ProductoFactura[];

@@ -84,7 +84,7 @@ export class BusquedafacturasComponent implements OnInit {
       }
   }
 
-  finFacturas() {
+  findFacturas() {
     this.getDataFactura();
 
     if (this.idProveedor === null && this.fechaInicio === null && this.fechaFin === null) {

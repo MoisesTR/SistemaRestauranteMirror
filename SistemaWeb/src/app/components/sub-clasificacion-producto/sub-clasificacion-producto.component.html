@@ -79,14 +79,14 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="addnombresubclasificacion" minlength="5" maxlength="100" class="input-modal-sm" name="nombresubclasificacion"
+            <input type="text" id="addnombresubclasificacion" maxlength="100" class="input-modal-sm" name="nombresubclasificacion"
               formControlName="nombreSubClasificacion" required>
             <show-errors [control]="formAddSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
           </div>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="adddescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion" minlength="5"
+            <textarea type="text" id="adddescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
               formControlName="descripcionSubClasificacion" required></textarea>
             <show-errors [control]="formAddSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
           </div>
@@ -136,7 +136,7 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input mdbInputDirective type="text" id="upnombresubclasificacion" minlength="5" class="input-modal-sm" name="nombresubclasificacion"
+            <input mdbInputDirective type="text" id="upnombresubclasificacion" class="input-modal-sm" name="nombresubclasificacion"
               formControlName="nombreSubClasificacion" required>
             <show-errors [control]="formUpdateSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
           </div>
@@ -144,7 +144,7 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea mdbInputDirective type="text" minlength="5" id="updescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
+            <textarea mdbInputDirective type="text" id="updescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
               formControlName="descripcionSubClasificacion" required>
                   </textarea>
             <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>

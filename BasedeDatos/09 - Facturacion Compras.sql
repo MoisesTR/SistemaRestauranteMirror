@@ -109,6 +109,13 @@ CREATE PROCEDURE USP_CREATE_FACTURA_COMPRA(
 	@IdFactura		INT OUTPUT
 )
 AS BEGIN
+
+	IF EXISTS(SELECT NumRefFactura FROM dbo.FACTURA_COMPRA WHERE NumRefFactura = @NumRefFactura) 
+	BEGIN 
+		RAISERROR('El codigo de la factura ya se encuentra registrado!',16,1)
+		RETURN	
+	END
+
 	INSERT INTO dbo.FACTURA_COMPRA(IdProveedor,NumRefFactura, IdTrabajador,IdTipoMoneda, IdFormaPago, NombVendedor,
 		FechaFactura,FechaRecepcion, SubTotal, TotalIva,CambioActual, TotalDescuento, TotalCordobas,Retencion)
 	VALUES(@IdProveedor,@NumRefFactura, @IdTrabajador,@IdTipoMoneda, @IdFormaPago, @NombVendedor, @FechaFactura,@FechaRecepcion, @Subtotal,

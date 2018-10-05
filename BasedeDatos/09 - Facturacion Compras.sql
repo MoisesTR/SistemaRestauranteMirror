@@ -171,7 +171,8 @@ AS BEGIN
 			, FC.TotalDescuento
 			, FC.TotalCordobas
 			, FC.Habilitado
-			, FC.CreatedAt
+			, FechaIngreso = FC.CreatedAt 
+			, HoraIngreso = CONVERT(VARCHAR(10),FC.CreatedAt,108) + ' ' + RIGHT(CONVERT(VARCHAR(30), FC.CreatedAt , 9), 2) 
 	FROM	dbo.FACTURA_COMPRA FC
 			INNER JOIN dbo.ESTADO_FACTURA EF
 				ON FC.IdEstadoFactura = EF.IdEstadoFactura
@@ -179,8 +180,10 @@ AS BEGIN
 				ON FC.IdProveedor = PRO.IdProveedor
 			INNER JOIN dbo.TRABAJADOR TRA
 				ON FC.IdTrabajador = TRA.IdTrabajador
-	WHERE	FC.FechaFactura BETWEEN ISNULL(@FechaInicio,FC.FechaFactura)  AND ISNULL(@FechaFin,FC.FechaFactura)  AND FC.IdProveedor = ISNULL(@IdProveedor,FC.IdProveedor) 
+	WHERE	FC.CreatedAt BETWEEN ISNULL(@FechaInicio,FC.CreatedAt) AND ISNULL(@FechaFin,FC.CreatedAt)  AND FC.IdProveedor = ISNULL(@IdProveedor,FC.IdProveedor) 
 			AND FC.IdEstadoFactura = ISNULL(@IdEstadoFactura,FC.IdEstadoFactura)
 END
 
 
+
+SELECT * FROM FACTURA_COMPRA

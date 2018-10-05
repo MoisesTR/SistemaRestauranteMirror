@@ -136,7 +136,7 @@
 
               <div class="col-12 col-sm-12 col-md-4 mt-4">
                 <div class="md-form">
-                  <input mdbInputDirective [mdbValidate]=false type="text" id="cantidadEmpaque" formControlName="cantidadEmpaque"
+                  <input onlyNumbers="int" mdbInputDirective [mdbValidate]=false type="text" id="cantidadEmpaque" formControlName="cantidadEmpaque"
                     class="form-control" autocomplete="off">
                   <label for="cantidadEmpaque">Cantidad por Empaque</label>
                   <show-errors [control]="formAddProducto.controls['cantidadEmpaque']"></show-errors>
@@ -178,7 +178,7 @@
               <div class="col-12 col-sm-12 col-md-4 mt-4">
 
                 <div class="md-form">
-                  <input mdbInputDirective [mdbValidate]=false min="0" type="text" id="valorunidadmedida"
+                  <input onlyNumbers="decimal" mdbInputDirective [mdbValidate]=false min="0" type="text" id="valorunidadmedida"
                     formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                   <label for="valorunidadmedida">Valor unidad de medida</label>
                   <show-errors [control]="formAddProducto.controls['valorunidadmedida']"></show-errors>
@@ -201,7 +201,7 @@
 
               <div class="col-3 col-sm-3 col-md-3 mt-4">
                 <div class="md-form">
-                  <input mdbInputDirective [mdbValidate]=false type="text" id="diasDeUso" formControlName="diasDeUso"
+                  <input onlyNumbers="int" mdbInputDirective [mdbValidate]=false type="text" id="diasDeUso" formControlName="diasDeUso"
                     class="form-control" autocomplete="off">
                   <label for="diasDeUso">Días de uso</label>
                   <show-errors [control]="formAddProducto.controls['diasDeUso']"></show-errors>
@@ -221,14 +221,14 @@
                 <div class="md-form">
                   <input mdbInputDirective [mdbValidate]=false formControlName="codigoInterno" type="text" id="codigoInterno"
                     class="form-control">
-                  <label for="codigoInterno" class="">Código alterno</label>
+                  <label for="codigoInterno" class="">Código interno</label>
                   <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
                 </div>
               </div>
 
               <div class="col-md-6 mt-6">
                 <div class="md-form">
-                  <input mdbInputDirective [mdbValidate]=false type="text" formControlName="codigoBarra" id="codigoBarra"
+                  <input onlyNumbers="int" mdbInputDirective [mdbValidate]=false type="text" formControlName="codigoBarra" id="codigoBarra"
                     class="form-control">
                   <label for="codigoBarra" class="">Código barra</label>
                   <show-errors [control]="formAddProducto.controls['codigoBarra']"></show-errors>

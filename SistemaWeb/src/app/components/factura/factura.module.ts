@@ -10,11 +10,11 @@ import {FacturaRoutingModule} from './factura.routing.module';
 import {SharedModuleModule} from '../shared-module/shared-module.module';
 import {FacturaService} from '../../services/shared/factura.service';
 import {HttpClientModule} from '@angular/common/http';
-import { UpdateFacturaComponent } from './update-factura/update-factura.component';
-import { ShowFacturaComponent } from './show-factura/show-factura.component';
-import { InformacionFacturaComponent } from '../informacion-factura/informacion-factura.component';
-import { BuscarGeneralFacturaComponent } from '../buscar-general-factura/buscar-general-factura.component';
-import { SummaryFacturasComponent } from './summary-facturas/summary-facturas.component';
+import {UpdateFacturaComponent} from './update-factura/update-factura.component';
+import {ShowFacturaComponent} from './show-factura/show-factura.component';
+import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
+import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
+import {SummaryFacturasComponent} from './summary-facturas/summary-facturas.component';
 
 
 @NgModule({

@@ -21,6 +21,7 @@ import {BuscarTrabajadorPipe} from '../../pipe/buscar-trabajador.pipe';
 import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
 import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-clasificacion.component';
 import {MDBBootstrapModulesPro, ToastModule} from 'ng-uikit-pro-standard';
+import {NumberOnlyDirective} from '../../directives/onlynumber.directive';
 
 @NgModule({
   imports: [
@@ -60,6 +61,8 @@ import {MDBBootstrapModulesPro, ToastModule} from 'ng-uikit-pro-standard';
       , FormsModule
       , DataTablesModule
       , NgxSpinnerModule
+      , NumberOnlyDirective
+
   ],
     declarations: [
     ShowErrorsComponent
@@ -77,6 +80,7 @@ import {MDBBootstrapModulesPro, ToastModule} from 'ng-uikit-pro-standard';
     , BuscarTrabajadorPipe
     , BuscarProveedorPipe
     , FormatoComaDineroPipe
+    , NumberOnlyDirective
     ]
   , providers  : [{
     provide: NG_SELECT_DEFAULT_CONFIG,

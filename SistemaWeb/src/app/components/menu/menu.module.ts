@@ -23,12 +23,7 @@ import {RolusuarioComponent} from '../rolusuario/rolusuario.component';
 import {HabilitadosComponent} from '../habilitados/habilitados.component';
 import {UnidadmedidaComponent} from '../unidadmedida/unidadmedida.component';
 import {DashBoardComponent} from '../dash-board/dash-board.component';
-import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
-import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
-import {ShowFacturaComponent} from '../factura/show-factura/show-factura.component';
 import {SalidaProductoComponent} from '../salida-producto/salida-producto.component';
-import {UpdateFacturaComponent} from '../factura/update-factura/update-factura.component';
-
 // Directivas
 import {TelephoneNumberFormatValidatorDirective} from '../../validadores/telephoneNumber';
 import {BirthYearValidatorDirective} from '../../validadores/birthYear';
@@ -38,6 +33,7 @@ import {ReportesComponent} from '../reportes/reportes.component';
 import {MDBBootstrapModulesPro} from 'ng-uikit-pro-standard';
 import {ServiceModule} from '../../services/service.module';
 import {ConfiguracionComponent} from '../configuracion/configuracion.component';
+import {OnlynumberDirective} from '../../directives/onlynumber.directive';
 
 @NgModule({
   declarations: [

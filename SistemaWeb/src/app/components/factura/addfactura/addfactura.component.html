@@ -59,7 +59,7 @@
 
                                 <div class="col-md-4 mt-codigo-factura">
                                     <div class="md-form">
-                                        <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura"
+                                        <input [mdbValidate]=false mdbInputDirective myNumberOnly type="text" id="numeroFactura"
                                             placeholder="BD200" class="form-control" autocomplete="off" formControlName="codigoFactura">
                                         <label for="nombreproveedor">Código de factura</label>
                                         <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
@@ -164,21 +164,20 @@
                                         <td width="13%">
                                             <div class="md-form">
                                                 <input mdbInputDirective (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
-                                                    type="text" id="cantidadProductoIngresado" name="cantidadProducto"
+                                                    type="text" name="cantidadProducto" onlyNumbers = "int"
                                                     min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="13%">
                                             <div class="md-form">
-                                                <input mdbInputDirective (input)="onSearchChangePrecioProducto($event.target.value,producto)"
-                                                    type="text" id="precioProductoIngresado" name="precioProducto" min="0"
-                                                    class="input-modal-sm" style="width: 60% !important;">
+                                                <input mdbInputDirective (input)="onSearchChangePrecioProducto($event.target.value,producto)" name="precioProducto"
+                                                    class="input-modal-sm" onlyNumbers = "decimal" style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="13%">
                                             <div class="md-form">
                                                 <input (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
-                                                    mdbInputDirective type="text" id="valorDescuento" name="valorDescuento"
+                                                    mdbInputDirective type="text" onlyNumbers = "int" id="valorDescuento" name="valorDescuento"
                                                     min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>

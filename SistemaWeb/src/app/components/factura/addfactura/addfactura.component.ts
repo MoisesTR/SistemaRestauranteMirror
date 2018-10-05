@@ -326,14 +326,16 @@ export class AddfacturaComponent implements OnInit {
     }
 
     crearFactura() {
+        this.getValueFromFormFactura();
         if (this.productosFactura.length < 1) {
             Utils.showMsgInfo('Selecciona al menos un producto para crear la factura', 'Factura');
         } else if (this.totalFactura === 0) {
             Utils.showMsgInfo('El total de la factura no puede ser igual a cero!', 'Factura');
         } else if (this.existenMontosMenorIgualaCero()) {
             Utils.showMsgInfo('El costo total de cada producto en la factura debe ser mayor cero', 'Factura');
+        } else if (this.factura.FechaRecepcion < this.factura.FechaFactura) {
+            Utils.showMsgInfo('La fecha de recepción no puede ser menor a la fecha de la factura!', 'Factura');
         } else {
-            this.getValueFromFormFactura();
             this._facturaService.createFactura(this.factura).subscribe(
                 response => {
                     if (response.IdFactura) {

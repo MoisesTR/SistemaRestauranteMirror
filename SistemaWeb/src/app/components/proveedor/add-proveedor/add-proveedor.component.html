@@ -35,8 +35,8 @@
 
               <div class="col-sm-3 col-md-3 mt-3">
                 <div class="form-check mt-5 checkbox-chang-filled">
-                  <input [mdbValidate]=false type="checkbox" formControlName="isMercado" class="form-check-input" name="chkMercado" id="chkMercado"
-                    mdbInputDirective>
+                  <input [mdbValidate]=false type="checkbox" formControlName="isMercado" class="form-check-input" name="chkMercado"
+                    id="chkMercado" mdbInputDirective>
                   <label class="form-check-label" for="chkMercado">Mercado</label>
                 </div>
               </div>
@@ -135,48 +135,61 @@
               <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                 <i class="fa fa-search mt-3" aria-hidden="true"></i>
                 <input class="form-control w-50 ml-3" type="search" placeholder="Buscar" aria-label="Buscar">
-                <a class="btn orange-chang my-0 ml-3 white-text" role="button" (click)="agregarTelefono()">Agregar</a>
+                <!-- <a class="btn orange-chang my-0 ml-3 white-text" role="button" (click)="agregarTelefono()">Agregar</a> -->
               </div>
             </div>
 
             <div class="scrollbar-card scrollbar-ripe-malinka">
-              <fieldset *ngFor="let telefono of telefonos; let i = index">
-              <div class="container pl-4 pr-4">
+              <fieldset *ngFor="let telefono of telefonos; let i = index" class="mb-fieldset">
+                <div class="container pl-4 pr-4">
 
-                <div class="row justify-content-md-center">
+                  <div class="row justify-content-md-center">
 
-                  <div [ngClass]="(i === 0) ? 'col-md-4':'col-md-3'">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text">Nombre</h6>
-                      <input type="text" id = "n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]= "telefono.Nombre" class="input-modal-sm">
+                    <div [ngClass]="(i === 0) ? 'col-md-3':'col-md-3'">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text" *ngIf="i===0">Nombre</h6>
+                        <input type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Nombre"
+                          class="input-modal-sm">
+                      </div>
                     </div>
-                  </div>
 
-                  <div [ngClass]="(i === 0) ? 'col-md-4':'col-md-3'">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text">Cargo</h6>
-                      <input type="text" id = "c{{i}}"  [ngModelOptions]="{standalone: true}" [(ngModel)]= "telefono.Cargo" class="input-modal-sm">
+                    <div [ngClass]="(i === 0) ? 'col-md-3':'col-md-3'">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text" *ngIf="i===0">Cargo</h6>
+                        <input type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
+                          class="input-modal-sm">
+                      </div>
                     </div>
-                  </div>
 
-                  <div [ngClass]="(i === 0) ? 'col-md-4':'col-md-3'">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text">Télefono</h6>
-                      <input type="number" id = "t{{i}}"   [ngModelOptions]="{standalone: true}" [(ngModel)]= "telefono.Telefono" class="input-modal-sm">
+                    <div [ngClass]="(i === 0) ? 'col-md-3':'col-md-3'">
+                      <div class="md-form">
+                        <h6 class="orange-chang-text" *ngIf="i===0">Télefono</h6>
+                        <input type="text" id="t{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Telefono"
+                          class="input-modal-sm">
+                      </div>
                     </div>
-                  </div>
 
-                  <div *ngIf="i !== 0" class="col-md-3">
-                    <div class="md-form">
-                      <a class="btn red-chang white-text btn-sm ml-3 mb-5 " id="remove" (click)="eliminarTelefono(telefono,i)"  role="button">Eliminar</a>
+                    <div *ngIf="i !== 0" class="col-md-1 mr-2">
+                      <div class="md-form">
+                        <a class="btn red-chang white-text btn-sm ml-3 mb-5 " id="remove" (click)="eliminarTelefono(telefono,i)"
+                          mdbTooltip="Eliminar Telefóno" placement="bottom" role="button"><i class="fa fa-close"
+                            aria-hidden="true"></i></a>
+                      </div>
                     </div>
-                  </div>
 
-                  <div id="inputs-telefono"></div>
+                    <div [ngClass]="(i === 0) ? 'col-md-2 mt-4':'col-md-1'">
+                      <div class="md-form">
+                        <a class="btn white-text btn-sm ml-3 mb-5 color-add" id="add" (click)="agregarTelefono(telefono,i)"
+                          mdbTooltip="Agregar Telefóno" placement="bottom" role="button"><i class="fa fa-plus"
+                            aria-hidden="true"></i></a>
+                      </div>
+                    </div>
+
+                    <div id="inputs-telefono"></div>
+
+                  </div>
 
                 </div>
-
-              </div>
               </fieldset>
             </div>
 

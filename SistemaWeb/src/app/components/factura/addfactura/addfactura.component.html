@@ -157,7 +157,7 @@
                                 </thead>
                                 <tbody>
 
-                                    <tr *ngFor="let producto of productosFiltrados  | buscar: buscando; let i = index">
+                                    <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
                                         <th scope="row" class="align-middle" width="5%">1</th>
                                         <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto}}</th>
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
@@ -408,7 +408,7 @@
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Tipo de Insumo</h6>
                                                 <input type="text" id="tipoInsumo" minlength="4" maxlength="50" class="input-modal-sm"
-                                                    name="tipoInsumo" value="Insumo Test" readonly>
+                                                    name="tipoInsumo" value="Insumo Test" readonly value={{productoSeleccionado.TipoInsumo}}>
                                             </div>
                                         </div>
 
@@ -424,15 +424,15 @@
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Interno</h6>
-                                                <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm"
-                                                    name="codigoInterno" readonly>
+                                                <input type="text" id="codigoInterno" minlength="4" maxlength="50" class="input-modal-sm"
+                                                    name="codigoInterno" readonly value={{productoSeleccionado.CodigoInterno}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Categoria</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
+                                                <input type="text"  class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
                                             </div>
                                         </div>
 

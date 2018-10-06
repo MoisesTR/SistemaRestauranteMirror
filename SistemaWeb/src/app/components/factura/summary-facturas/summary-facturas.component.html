@@ -93,13 +93,13 @@
                 <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
                 <td class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>
                 <td class="body-negrita text-center align-middle">
-                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaRecepcion | date: 'dd/MM/yyyy'}}</small></span>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaRecepcion}}</small></span>
                 </td>
                 <td class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>
                 <td class="body-negrita text-center align-middle">
                   <span class="grey-text"><small><i class="fa fa-clock-o"></i>{{factura.HoraIngreso}}</small></span>
                   <br>
-                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaIngreso | date: 'dd/MM/yyyy'}}</small></span>
+                  <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaIngreso | date:'yyyy-MM-dd'}}</small></span>
                 </td>
                 <td width="15%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number : '1.2-2'}}</td>
                 <td class="text-center align-middle">

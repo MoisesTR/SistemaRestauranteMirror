@@ -360,7 +360,7 @@ export class AddfacturaComponent implements OnInit {
             this.detalleFactura.GravadoIva = value.GravadoIva;
             this.detalleFactura.SubTotal = value.Subtotal;
             this.detalleFactura.Iva = value.Iva;
-            this.detalleFactura.Descuento = value.PorcentajeDescuento;
+            this.detalleFactura.Descuento = value.PorcentajeDescuento * 100;
             this.detalleFactura.TotalDetalle = value.TotalDetalle;
             this.detalleFactura.Bonificacion = 0;
 

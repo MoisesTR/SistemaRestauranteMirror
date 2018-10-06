@@ -10,12 +10,12 @@ CREATE PROCEDURE dbo.USP_CREATE_TELEFONO_PROVEEDOR (
 AS	
 BEGIN
 
-	IF EXISTS (SELECT TOP 1 1 FROM dbo.TELEFONOS_PROVEEDOR WHERE	IdProveedor = @IdProveedor AND Telefono = @Telefono)
-	BEGIN
-		RAISERROR('Este telefono ya se encuentra registrado!', 16, 1)
-		RETURN
-	END
-	ELSE 
+	--IF EXISTS (SELECT TOP 1 1 FROM dbo.TELEFONOS_PROVEEDOR WHERE	IdProveedor = @IdProveedor AND Telefono = @Telefono)
+	--BEGIN
+	--	RAISERROR('Este telefono ya se encuentra registrado!', 16, 1)
+	--	RETURN
+	--END
+	
 	BEGIN 
 		INSERT INTO dbo.TELEFONOS_PROVEEDOR(IdProveedor, Nombre, Cargo, Telefono) 
 		VALUES(@IdProveedor, @Nombre, @Cargo, @Telefono)

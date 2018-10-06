@@ -81,6 +81,8 @@ export class SummaryFacturasComponent implements OnInit {
           Utils.showMsgInfo('Debes digitar la fecha fin', 'Busqueda Facturas');
       } else if (this.fechaInicio === null && this.fechaFin !== null) {
           Utils.showMsgInfo('Debes digitar la fecha inicio', 'Busqueda Facturas');
+      } else if (this.fechaInicio > this.fechaFin ) {
+          Utils.showMsgInfo('La fecha de inicio no puede ser mayor a la fecha fin!', 'Busqueda Facturas');
       } else {
           this._facturaService.getFacturas(true, this.fechaInicio, this.fechaFin, this.idProveedor, 2).subscribe(
               response => {

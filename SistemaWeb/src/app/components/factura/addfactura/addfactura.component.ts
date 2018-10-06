@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductoService} from '../../../services/shared/producto.service';
 import {Proveedor} from '../../../models/Proveedor';
@@ -21,7 +21,8 @@ declare var $: any;
 @Component({
     selector: 'app-addfactura',
     templateUrl: './addfactura.component.html',
-    styleUrls: ['./addfactura.component.scss']
+    styleUrls: ['./addfactura.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddfacturaComponent implements OnInit {
 
@@ -91,6 +92,7 @@ export class AddfacturaComponent implements OnInit {
         , private _facturaService: FacturaService
         , private toastrService: ToastService
         , private _uploadService: UploadService
+        , private cdr: ChangeDetectorRef
     ) {
         this.proveedor = new Proveedor();
         this.productoSeleccionado = new ProductoFactura();
@@ -200,13 +202,11 @@ export class AddfacturaComponent implements OnInit {
             this.productos = null;
             this.productosFactura = [];
             this.productosFiltrados = [];
-            this.productosProveedor = [];
             this.buscando = '';
             this.subtotalFacturaConDescuento = 0;
             this.tieneRetencion = false;
         } else {
             this.buscando = '';
-            this.productosProveedor = [];
             this.productosFiltrados = [];
             this.productosFactura = [];
             this.proveedor.IdProveedor = event.IdProveedor;
@@ -287,23 +287,22 @@ export class AddfacturaComponent implements OnInit {
         this._productoProveedorService.getProductosOfProveedor(IdProveedor).subscribe(
             response => {
                 if (response.productos) {
-                    this.productosProveedor = response.productos;
-                    this.productosProveedor.forEach((value, index) => {
-                        this.productosProveedor[index].Costo = 0;
-                        this.productosProveedor[index].TotalDetalle = 0;
-                        this.productosProveedor[index].GravadoIva = 0;
-                        this.productosProveedor[index].ExentoIva = 0;
-                        this.productosProveedor[index].Cantidad = 0;
-                        this.productosProveedor[index].FechaVencimiento = '';
-                        this.productosProveedor[index].Descuento = 0;
-                        this.productosProveedor[index].PorcentajeDescuento = 0;
-                        this.productosProveedor[index].Subtotal = 0;
-                        this.productosProveedor[index].Iva = 0;
-                        this.productosProveedor[index].CalculoIva = 0;
+                    this.productosFiltrados = response.productos;
+                    this.productosFiltrados.forEach((value, index) => {
+                        this.productosFiltrados[index].Costo = 0;
+                        this.productosFiltrados[index].TotalDetalle = 0;
+                        this.productosFiltrados[index].GravadoIva = 0;
+                        this.productosFiltrados[index].ExentoIva = 0;
+                        this.productosFiltrados[index].Cantidad = 0;
+                        this.productosFiltrados[index].FechaVencimiento = '';
+                        this.productosFiltrados[index].Descuento = 0;
+                        this.productosFiltrados[index].PorcentajeDescuento = 0;
+                        this.productosFiltrados[index].Subtotal = 0;
+                        this.productosFiltrados[index].Iva = 0;
+                        this.productosFiltrados[index].CalculoIva = 0;
                     });
+                    this.cdr.detectChanges();
                 }
-
-                this.productosFiltrados = this.productosProveedor;
             }, error => {
 
             }, () => {
@@ -512,6 +511,10 @@ export class AddfacturaComponent implements OnInit {
     showSuccess() {
         const options = { enableHtml: false,  positionClass: 'toast-top-right', toastClass: 'opacity'};
         this.toastrService.success('El producto ha sido agregado a la factura', 'Factura', options);
+    }
+
+    trackById(index, producto: ProductoFactura) {
+        return producto.CodigoProducto;
     }
 
 }

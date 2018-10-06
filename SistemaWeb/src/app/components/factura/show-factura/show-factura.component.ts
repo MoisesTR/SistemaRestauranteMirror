@@ -80,7 +80,7 @@ export class ShowFacturaComponent implements OnInit {
   setDataFormFactura() {
       this.IdProveedorSeleccionado = this.factura.IdProveedor;
       this.formFactura.controls['mumeroFactura'].setValue(this.factura.NumRefFactura);
-      this.formFactura.controls['hora'].setValue(this.factura.Hora);
+      this.formFactura.controls['hora'].setValue(this.factura.HoraIngreso);
       this.formFactura.controls['fechaFactura'].setValue(this.factura.FechaIngreso);
       this.formFactura.controls['usuario'].setValue(this.factura.TrabajadorIngreso);
       this.formFactura.controls['nombreVendedor'].setValue(this.factura.NombVendedor);

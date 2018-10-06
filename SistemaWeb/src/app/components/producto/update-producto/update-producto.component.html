@@ -46,7 +46,7 @@
                 <br>
                 <label for="proveedor">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
-                  formControlName="proveedor" id="proveedor" (add)="addProveedor($event)" (remove)="removeProveedor($event)"
+                  formControlName="proveedor" id="proveedor"
                   [(ngModel)]="proveedoresProducto" [multiple]="true">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">

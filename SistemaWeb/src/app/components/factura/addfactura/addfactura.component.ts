@@ -463,6 +463,10 @@ export class AddfacturaComponent implements OnInit {
         this.modalAgregarDetalleProducto.show();
     }
 
+    editarDatosProducto () {
+
+    }
+
     calcularSubtotalFactura(productoFactura: ProductoFactura, operacion: string) {
         if (operacion === 'SUMA') {
             this.subTotalFactura += productoFactura.Subtotal;

@@ -35,7 +35,7 @@
 
               <div class="col-sm-3 col-md-3 mt-3">
                 <div class="form-check mt-5 checkbox-chang-filled">
-                  <input [mdbValidate]=false type="checkbox" formControlName="isMercado" class="form-check-input" name="chkMercado"
+                  <input [mdbValidate]=false type="checkbox" (change)="changeMercado($event)" formControlName="isMercado" class="form-check-input" name="chkMercado"
                     id="chkMercado" mdbInputDirective>
                   <label class="form-check-label" for="chkMercado">Mercado</label>
                 </div>
@@ -140,7 +140,8 @@
             </div>
 
             <div class="scrollbar-card scrollbar-ripe-malinka">
-              <fieldset *ngFor="let telefono of telefonos; let i = index" class="mb-fieldset">
+              <fieldset *ngFor="let telefono of telefonos; let i = index;" class="mb-fieldset">
+
                 <div class="container pl-4 pr-4">
 
                   <div class="row justify-content-md-center">
@@ -164,7 +165,7 @@
                     <div [ngClass]="(i === 0) ? 'col-md-3':'col-md-3'">
                       <div class="md-form">
                         <h6 class="orange-chang-text" *ngIf="i===0">Télefono</h6>
-                        <input type="text" id="t{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Telefono"
+                        <input type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Telefono"
                           class="input-modal-sm">
                       </div>
                     </div>
@@ -177,7 +178,7 @@
                       </div>
                     </div>
 
-                    <div [ngClass]="(i === 0) ? 'col-md-2 mt-4':'col-md-1'">
+                    <div *ngIf="1 === 1" [ngClass]="(i === 0) ? 'col-md-2 mt-4':'col-md-1'">
                       <div class="md-form">
                         <a class="btn white-text btn-sm ml-3 mb-5 color-add" id="add" (click)="agregarTelefono(telefono,i)"
                           mdbTooltip="Agregar Telefóno" placement="bottom" role="button"><i class="fa fa-plus"

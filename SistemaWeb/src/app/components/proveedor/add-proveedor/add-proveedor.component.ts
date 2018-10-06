@@ -9,6 +9,7 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
 import {PreviousRouteService} from '../../../services/service.index';
 import {TelefonoProveedor} from '../../../models/TelefonoProveedor';
 import {ModalDirective} from 'ng-uikit-pro-standard';
+import {ProductoFactura} from '../../../models/ProductoFactura';
 
 
 declare var $: any;
@@ -234,5 +235,25 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
   eliminarTelefono (telefono: TelefonoProveedor, index: any) {
       this.telefonos.splice(index, 1);
+  }
+
+  changeMercado(event) {
+        const isMercado = event.path[0].checked === true ? 1 : 0;
+
+        if (isMercado) {
+            this.formAddProveedor.controls['numeroRuc'].clearValidators();
+            this.formAddProveedor.controls['numeroRuc'].setValue('');
+            this.formAddProveedor.controls['numeroRuc'].disable();
+            this.formAddProveedor.controls['numeroRuc'].updateValueAndValidity();
+        } else {
+            this.formAddProveedor.controls['numeroRuc'].setValidators([
+                Validators.required,
+                Validators.minLength(6),
+                Validators.maxLength(20),
+                CustomValidators.nospaceValidator
+            ]);
+            this.formAddProveedor.controls['numeroRuc'].enable();
+            this.formAddProveedor.controls['numeroRuc'].updateValueAndValidity();
+        }
   }
 }

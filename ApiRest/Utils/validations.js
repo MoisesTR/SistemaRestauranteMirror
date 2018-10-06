@@ -87,7 +87,7 @@ var createProveedor = [
     body('Email','Ingrese el Email del Proveedor.').isEmail(),
     body('Descripcion').optional({nullable:true}),
     body('NombreRepresentante','Ingrese el Nombre del representante.').exists(),
-    body('Documento','El campo de Ruc es requerido!.').exists(),
+    body('Documento','El campo de Ruc es requerido!.'),
     body('Retencion2','El campo de retencion es requerido.').exists(),
     body('Mercado','El campo de mercado es requerido.').exists()
     

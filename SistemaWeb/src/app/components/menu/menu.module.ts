@@ -33,7 +33,6 @@ import {ReportesComponent} from '../reportes/reportes.component';
 import {MDBBootstrapModulesPro} from 'ng-uikit-pro-standard';
 import {ServiceModule} from '../../services/service.module';
 import {ConfiguracionComponent} from '../configuracion/configuracion.component';
-import {OnlynumberDirective} from '../../directives/onlynumber.directive';
 
 @NgModule({
   declarations: [

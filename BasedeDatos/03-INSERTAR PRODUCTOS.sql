@@ -2,7 +2,7 @@ USE pruebas_node;
 
 
 INSERT INTO PROVEEDOR(IdPais,NombreProveedor,Direccion,Email,Imagen,Descripcion,NombreRepresentante,IdTipoDocumento,Documento,Retencion2,Mercado,CreatedAt)
-VALUES (1,'Fensa','De donde fue el cine salinas 2 cuadras abajo 1/2 al lago','moisestrigueros@hotmail.com','ninguna','ninguna','Moises',1,'1231231U',0,1,GETDATE())
+VALUES (1,'Fensa','De donde fue el cine salinas 2 cuadras abajo 1/2 al lago','moisestrigueros@hotmail.com','ninguna','ninguna','Moises',1,'1231231',0,0,GETDATE())
 
 
 DECLARE @IdProveedor INT;

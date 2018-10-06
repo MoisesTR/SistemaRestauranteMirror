@@ -331,6 +331,12 @@ CREATE PROCEDURE USP_CREATE_PROVEEDOR(
 			RETURN
 		END
 
+		IF (@Documento IS NULL AND @Mercado = 0)
+		BEGIN
+			RAISERROR('El Numero Ruc ES requerido.',16,1);
+			RETURN
+		END
+
 		INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Documento,Retencion2,Mercado)
 		VALUES(@NombreProveedor,@Direccion,@Email,@Descripcion,@NombreRepresentante,@Documento,@Retencion2,@Mercado);
 		SELECT @@IDENTITY AS IdProveedor

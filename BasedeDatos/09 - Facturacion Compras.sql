@@ -170,8 +170,8 @@ AS BEGIN
 			, TRA.Nombres +' ' + TRA.Apellidos AS [TrabajadorIngreso]
 			, FC.IdEstadoFactura
 			, NombVendedor
-			, FC.FechaFactura
-			, FC.FechaRecepcion
+			, FechaFactura = CONVERT(VARCHAR(10),FC.FechaFactura,126)
+			, FechaRecepcion = CONVERT(VARCHAR(10),FC.FechaRecepcion,126)
 			, FC.SubTotal
 			, FC.TotalIva
 			, FC.CambioActual
@@ -193,4 +193,3 @@ END
 
 
 
-SELECT * FROM FACTURA_COMPRA

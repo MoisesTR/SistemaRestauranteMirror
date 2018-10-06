@@ -107,7 +107,7 @@ CREATE TABLE dbo.PROVEEDOR(
     Descripcion			NVARCHAR(200)		NULL,
     NombreRepresentante NVARCHAR(100)		NOT NULL,
 	IdTipoDocumento		INT					NOT NULL,  -- Foraneo
-	Documento			NVARCHAR(50)		NOT NULL,
+	Documento			NVARCHAR(50)		NULL,
     Retencion2			Bit					NOT NULL	DEFAULT 0,
 	Mercado				BIT					NOT NULL	DEFAULT 0,
 	Habilitado			Bit					NOT NULL	DEFAULT 1,
@@ -143,7 +143,11 @@ ALTER TABLE PROVEEDOR
 	ADD CONSTRAINT DF_IdTipoNumeroRUC_Proveedor DEFAULT 2 FOR IdTipoDocumento
 GO
 ALTER TABLE PROVEEDOR
- ADD CONSTRAINT U_NumeroRuc UNIQUE(Documento)
+
+ --ADD CONSTRAINT U_NumeroRuc UNIQUE(Documento)
+CREATE UNIQUE NONCLUSTERED INDEX idx_NumeroRuc
+ON dbo.PROVEEDOR(Documento)
+WHERE Documento IS NOT NULL;
 --INSERT INTO PROVEEDOR(NombreProveedor,Direccion,Email,Descripcion,NombreRepresentante,Telefono) 
 --VALUES	('Cargil','de la uni 2c al sas','esteesun@correo.com','descripcion','Representante','87792956')
 --		,('Monisa','Managua, asdasd asdas ','esteesun@correo.com','descripcion','Representante','87603420')

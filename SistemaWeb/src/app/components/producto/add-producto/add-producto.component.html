@@ -32,7 +32,7 @@
               <div class="col-12">
                 <div class="md-form input-group margin-input-message">
                   <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" formControlName="nombreProducto"
-                    [(ngModel)]="formAddProducto.value.nombreProducto" class="form-control letras" autocomplete="off"
+                    [(ngModel)]="formAddProducto.value.nombreProducto" class="form-control" autocomplete="off"
                     placeholder="Nombre del Producto" style="margin-right: 5%;">
                   <div class="input-group-btn">
                     <button type="button" class="btn orange-chang px-3 add-img-position" (click)="showCardImg()"
@@ -49,7 +49,7 @@
                 <br>
                 <label for="proveedor">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
+                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" [(ngModel)]="proveedorSelecionado" formControlName="proveedor">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
                       <div class="card-body">
@@ -240,7 +240,7 @@
                 <div class="md-form">
                   <textarea mdbInputDirective [mdbValidate]=false type="text" id="descripcionproducto" formControlName="descripcionProducto"
                     [(ngModel)]="formAddProducto.value.descripcionProducto" class="md-textarea form-control"
-                    autocomplete="off" required></textarea>
+                    autocomplete="off"></textarea>
                   <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
                 </div>

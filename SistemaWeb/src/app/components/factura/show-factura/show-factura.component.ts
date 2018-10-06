@@ -66,7 +66,7 @@ export class ShowFacturaComponent implements OnInit {
         , 'FormaPago': new FormControl('', [])
         , 'Proveedor': new FormControl('', [])
         , 'usuario': new FormControl('', [])
-        , 'nombrevendedor': new FormControl('', [])
+        , 'nombrevendedor': new FormControl('')
         , 'hora': new FormControl('', [])
     });
   }
@@ -83,7 +83,7 @@ export class ShowFacturaComponent implements OnInit {
       this.formFactura.controls['hora'].setValue(this.factura.HoraIngreso);
       this.formFactura.controls['fechaFactura'].setValue(this.factura.FechaIngreso);
       this.formFactura.controls['usuario'].setValue(this.factura.TrabajadorIngreso);
-      this.formFactura.controls['nombreVendedor'].setValue(this.factura.NombVendedor);
+      this.formFactura.controls['nombrevendedor'].setValue('Vendedor no registrado');
   }
 
   setDataFormDetailFactura() {

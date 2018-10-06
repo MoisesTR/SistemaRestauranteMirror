@@ -26,6 +26,7 @@ export class Producto {
   public CreatedAt: string;
   public UpdateAt: string;
   public TipoInsumo: number;
+  public DescripcionInsumo: string;
   public Proveedores: Proveedor[];
   public CodigoProducto: string;
   public CodigoBarra: string;
@@ -35,6 +36,7 @@ export class Producto {
   constructor() {
     this.CodigoBarra = null;
     this.CodigoInterno = null;
+    this.DescripcionInsumo = '';
   }
 
 }

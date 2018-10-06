@@ -270,7 +270,7 @@ var createProducto = [
     body('Imagen','Ingresa el nombre de la Imagen.').optional({nullable:true}),
     body('IdEnvase').isInt().optional({nullable:true}),
     body('IdEmpaque', 'Debes seleccionar un empaque.').isInt().optional({nullable:true}),
-    body('CantidadEmpaque').isInt().optional({nullable:true}),
+    body('CantidadEmpaque').optional({nullable:true}),
     body('IdUnidadMedida','Debes seleccionar una unidad de medida.').isInt(),
     body('ValorUnidadMedida').exists(),
     body('DiasRotacion').isInt(),

@@ -250,7 +250,7 @@
                                     <td class="body-negrita align-middle text-center">
                                         <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                                     </td>
-                                    <td width="10%" class="body-negrita align-middle">{{productoFactura.TotalDetalle |
+                                    <td width="10%" class="body-negrita align-middle">{{productoFactura.Subtotal |
                                         number
                                         : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>
@@ -408,7 +408,7 @@
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Tipo de Insumo</h6>
                                                 <input type="text" id="tipoInsumo" minlength="4" maxlength="50" class="input-modal-sm"
-                                                    name="tipoInsumo" value="Insumo Test" readonly value={{productoSeleccionado.TipoInsumo}}>
+                                                    name="tipoInsumo" value="Insumo Test" readonly value={{productoSeleccionado.DescripcionInsumo}}>
                                             </div>
                                         </div>
 

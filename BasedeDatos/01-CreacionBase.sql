@@ -142,7 +142,7 @@ GO
 ALTER TABLE PROVEEDOR
 	ADD CONSTRAINT DF_IdTipoNumeroRUC_Proveedor DEFAULT 2 FOR IdTipoDocumento
 GO
-ALTER TABLE PROVEEDOR
+--ALTER TABLE PROVEEDOR
 
  --ADD CONSTRAINT U_NumeroRuc UNIQUE(Documento)
 CREATE UNIQUE NONCLUSTERED INDEX idx_NumeroRuc
@@ -186,7 +186,8 @@ VALUES	(1,'Libra','Lb', 1)
 		,(1,'Kilogramo','Kg',1)
 		,(2,'Litro','Lt', 2)
 		,(2,'Mililitro','Ml', 2)
-		,(1,'Miligramo','Mg', 3);
+		,(1,'Miligramo','Mg', 3)
+		,(2,'Onza','Oz', 4);
 GO
 CREATE TABLE CLASIFICACION_UNIDAD_MEDIDA_FUNCIONAL(
 	IdClasificacionUdmF		INT IDENTITY(1,1),
@@ -261,6 +262,7 @@ INSERT INTO CLASIFICACION_PRODUCTO(IdCategoria, NombreClasificacion, Descripcion
 VALUES	(2, 'Pollo','Las distintas cortes de pollo.')
 		,(1,'Pastas','Distintos tipos de pasta')
 		,(1, 'Granos Basicos',NULL)
+		,(4, 'Bebidas Artificiales',NULL)
 GO
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     IdSubClasificacion			INT IDENTITY(1,1),
@@ -279,7 +281,8 @@ GO
 INSERT INTO SUBCLASIFICACION_PRODUCTO(IdClasificacion,NombreSubClasificacion,DescripcionSubclasificacion) 
 VALUES (1,'Filete','Filete de pollo entero.')
 		,(1,'Tira','Pollo Cortado en tiras.')
-        ,(2,'Tallarin','Tallarin');
+        ,(2,'Tallarin','Tallarin')
+		,(4, 'Gaseosas',NULL)
 GO
 CREATE TABLE ENVASE (
     IdEnvase			INT IDENTITY(1,1),

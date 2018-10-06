@@ -64,6 +64,7 @@ export class AddProductoComponent implements OnInit {
     public error = 'nada';
     public previousUrl: string;
     public tipoInsumoSeleccionado = 1;
+    public proveedorSelecionado: number;
     Insumo = [
         {Id: 1, TipoInsumo: 'Alimento'}
         , {Id: 2, TipoInsumo: 'Limpieza'},
@@ -292,9 +293,11 @@ export class AddProductoComponent implements OnInit {
     onChangeProveedor(event) {
 
         if (event === null) {
-            this.producto.IdProveedor = event.IdProveedor;
+            this.producto.IdProveedor = null;
+            this.proveedorSelecionado = this.producto.IdProveedor;
         } else {
             this.producto.IdProveedor = event.IdProveedor;
+            this.proveedorSelecionado = this.producto.IdProveedor;
         }
     }
 
@@ -363,13 +366,13 @@ export class AddProductoComponent implements OnInit {
 
   getValueForm() {
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
-    this.producto.Descripcion = this.formAddProducto.value.descripcionProducto;
+    this.producto.Descripcion = this.formAddProducto.value.descripcionProducto === '' ? 'Ninguna' : this.formAddProducto.value.descripcionProducto;
     this.producto.IdEstado = 1;
     this.producto.DiasCaducidad = this.formAddProducto.value.diasDeUso;
-    this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque;
+    this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque === '' ? null : this.formAddProducto.value.cantidadEmpaque ;
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
-    this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso;
-    this.producto.DiasRotacion = this.formAddProducto.value.diasDeUso;
+    this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso === '' ? 0 : this.formAddProducto.value.diasDeUso;
+    this.producto.DiasRotacion = this.formAddProducto.value.diasDeUso === '' ? 0 : this.formAddProducto.value.diasDeUso;
     this.producto.CodigoProducto = this.formAddProducto.value.codigoProducto ;
     this.producto.CodigoBarra = this.formAddProducto.value.codigoBarra === '' ? null : this.formAddProducto.value.codigoBarra ;
     this.producto.CodigoInterno = this.formAddProducto.value.codigoInterno === '' ? null : this.formAddProducto.value.codigoInterno;
@@ -428,7 +431,6 @@ export class AddProductoComponent implements OnInit {
           , CustomValidators.nospaceValidator
         ]),
         'descripcionProducto': new FormControl('', [
-        Validators.required
         , Validators.minLength(3)
         , Validators.maxLength(400)
         , CustomValidators.nospaceValidator
@@ -459,7 +461,6 @@ export class AddProductoComponent implements OnInit {
             Validators.required
         ]),
         'diasDeUso': new FormControl('', [
-            Validators.required
         ]),
         'codigoBarra': new FormControl(null, [
 

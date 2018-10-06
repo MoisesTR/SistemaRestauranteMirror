@@ -262,7 +262,7 @@ INSERT INTO CLASIFICACION_PRODUCTO(IdCategoria, NombreClasificacion, Descripcion
 VALUES	(2, 'Pollo','Las distintas cortes de pollo.')
 		,(1,'Pastas','Distintos tipos de pasta')
 		,(1, 'Granos Basicos',NULL)
-		,(3, 'Bebidas Artificiales',NULL)
+		,(4, 'Bebidas Artificiales',NULL)
 GO
 CREATE TABLE SUBCLASIFICACION_PRODUCTO (
     IdSubClasificacion			INT IDENTITY(1,1),

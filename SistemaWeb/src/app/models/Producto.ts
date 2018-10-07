@@ -15,8 +15,11 @@ export class Producto {
   public Descripcion: string;
   public Imagen: string;
   public Habilitado: number;
+  public NombreCategoria: string;
   public NombreClasificacion?: string;
   public NombreSubClasificacion?: string;
+  public NombreEmpaque: string;
+  public NombreEnvase: string;
   public IdClasificacion?: number;
   public DiasCaducidad?: number;
   public DiasDeUso: number;

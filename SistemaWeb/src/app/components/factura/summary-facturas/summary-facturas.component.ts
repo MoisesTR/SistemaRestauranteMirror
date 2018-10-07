@@ -25,6 +25,7 @@ export class SummaryFacturasComponent implements OnInit {
   public fechaInicio: string = null;
   public fechaFin: string = null;
   public totalCordobasFacturas = 0;
+  public buscando: string;
 
   constructor(private _route: ActivatedRoute
       , private _router: Router

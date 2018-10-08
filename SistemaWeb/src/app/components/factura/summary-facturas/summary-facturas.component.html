@@ -1,16 +1,58 @@
 <section>
   <div class="row">
 
-
-    <div class="col-lg-4 col-md-12 col-sm-12 mt-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-5">
       <form [formGroup]="formBusquedaFactura" novalidate>
         <div class="card card-cascade">
           <div class="center-card">
             <i class="fa fa-money orange-chang icono-card"></i>
             <div class="mb-3 right-card-align">
-              <p class="grey-text-card">Total</p>
+              <p class="grey-text-card">Total Calculado</p>
               <h4><strong>C$ {{totalCordobasFacturas | number : '1.2-2' }}</strong></h4>
             </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-5">
+      <form [formGroup]="formBusquedaFactura" novalidate>
+        <div class="card card-cascade">
+          <div class="center-card">
+            <i class="fa fa-user orange-chang icono-card"></i>
+            <div class="mb-3 right-card-align">
+              <p class="grey-text-card">Total Factura</p>
+              <h4><strong>C$ {{totalCordobasFacturas | number : '1.2-2' }}</strong></h4>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-5">
+      <form [formGroup]="formBusquedaFactura" novalidate>
+        <div class="card card-cascade">
+          <div class="center-card">
+            <i class="fa fa-exchange orange-chang icono-card"></i>
+            <div class="mb-3 right-card-align">
+              <p class="grey-text-card">Diferencia</p>
+              <h4><strong>C$ {{totalCordobasFacturas | number : '1.2-2' }}</strong></h4>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <form [formGroup]="formBusquedaFactura" novalidate>
+        <div class="card card-cascade narrower">
+          <!--Titulo-->
+          <div class="view view-cascade gradient-card-header orange-chang">
+            <h2 class="h2-responsive">Búsqueda</h2>
+          </div>
+          <!--/Titulo-->
+          <div class="card-body">
 
             <div class="col-xs-12 col-md-12 col-lg-12 mb-4 mt-2">
               <label class="" for="proveedor" class="grey-text-card">Proveedor</label>
@@ -33,6 +75,12 @@
                     </div>
                   </div>
                 </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="col-xs-12 col-md-12 col-lg-12 mb-4 mt-3">
+              <label class="" for="proveedor" class="grey-text-card">Fecha de búsqueda</label>
+              <ng-select [items]="proveedores" placeholder="Selecciona la fecha de búsqueda">
               </ng-select>
             </div>
 
@@ -73,7 +121,7 @@
             </div>
           </div>
 
-          <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+          <table class="table table-sm table-striped table-bordered table-hover" cellspacing="0" width="100%">
             <thead>
               <tr class="">
                 <th class="header-negrita">#</th>
@@ -81,7 +129,9 @@
                 <th class="header-negrita text-center align-middle">Fecha Recepción</th>
                 <th class="header-negrita text-center align-middle">Trabajador Ingreso</th>
                 <th class="header-negrita text-center align-middle">Hora y Fecha Ingreso</th>
-                <th class="header-negrita text-center align-middle">Total</th>
+                <th class="header-negrita text-center align-middle">Total Calculado</th>
+                <th class="header-negrita text-center align-middle">Total Factura</th>
+                <th class="header-negrita text-center align-middle">Diferencia</th>
                 <th class="header-negrita text-center align-middle">Acción</th>
 
               </tr>
@@ -100,7 +150,11 @@
                   <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaIngreso |
                       date:'yyyy-MM-dd'}}</small></span>
                 </td>
-                <td width="15%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number :
+                <td width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number :
+                  '1.2-2'}}</td>
+                <td width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number :
+                  '1.2-2'}}</td>
+                <td width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number :
                   '1.2-2'}}</td>
                 <td class="text-center align-middle">
                   <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" (click)="mostrarFactura(factura.IdFactura)"

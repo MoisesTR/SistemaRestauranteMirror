@@ -52,6 +52,7 @@ export class AddfacturaComponent implements OnInit {
     public valorIva: number;
     public valorRetencion = 0.02;
     public totalFactura = 0;
+    public totalFacturaOrigen = 0;
     public formatoComaDinero;
     public aplicaRetencion = false;
     public url: string;
@@ -143,6 +144,7 @@ export class AddfacturaComponent implements OnInit {
         this.formAddFactura = this._formBuilderFactura.group({
             'proveedor': new FormControl('', Validators.required)
             , 'codigoFactura': new FormControl('', Validators.required)
+            , 'totalFacturaOrigen': new FormControl('', Validators.required)
             , 'fechaFactura': new FormControl('', [
                 Validators.required
             ])
@@ -189,6 +191,7 @@ export class AddfacturaComponent implements OnInit {
         this.factura.CambioActual = 32;
         this.factura.TotalDescuento = this.descuentoCalculoFactura;
         this.factura.TotalCordobas = this.totalFactura;
+        this.factura.TotalOrigenFactura = this.formAddFactura.value.totalFacturaOrigen;
         this.factura.Retencion = this.tieneRetencion === true ? 1 : 0;
         this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
         this.factura.FormaPago = 'Contado';
@@ -257,8 +260,7 @@ export class AddfacturaComponent implements OnInit {
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
-        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0
-            && (productoFiltrado.FechaVencimiento !== '' && productoFiltrado.FechaVencimiento !== undefined)) {
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0) {
 
             productoFiltrado.Subtotal = productoFiltrado.Cantidad * productoFiltrado.Costo;
             productoFiltrado.Descuento = productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento;
@@ -280,8 +282,6 @@ export class AddfacturaComponent implements OnInit {
                 Utils.showMsgInfo('La cantidad debe ser mayor a cero!');
             } else if (productoFiltrado.Costo <= 0) {
                 Utils.showMsgInfo('El precio debe ser mayor a cero!');
-            } else if (productoFiltrado.FechaVencimiento === '') {
-                Utils.showMsgInfo('La fecha de vencimiento es requerida!');
             }
         }
     }
@@ -521,8 +521,29 @@ export class AddfacturaComponent implements OnInit {
         this.toastrService.success('El producto ha sido agregado a la factura', 'Factura', options);
     }
 
+    showActualizacionProductos(nuevos: number) {
+        const options = { enableHtml: false,  positionClass: 'toast-top-right', toastClass: 'opacity'};
+        this.toastrService.success('Se han encontrado un total de: ' + nuevos + ' productos nuevos!', 'Factura', options);
+    }
+
     trackById(index, producto: ProductoFactura) {
         return producto.CodigoProducto;
+    }
+
+    agregarNuevoProducto() {
+        window.open('http://localhost:4200/producto/add', '_blank');
+    }
+
+    actualizarListaProductos() {
+        if (this.factura.IdProveedor === null || this.factura.IdProveedor === undefined) {
+            Utils.showMsgInfo('Selecciona un proveedor');
+        } else {
+            const totalAnterior = this.productosFiltrados.length;
+            this.getProductosOfProveedor(this.factura.IdProveedor);
+            const totalActual = this.productosFiltrados.length;
+            const encontrados = totalActual - totalAnterior;
+            this.showActualizacionProductos(encontrados);
+        }
     }
 
 }

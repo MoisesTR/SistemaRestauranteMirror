@@ -69,7 +69,7 @@ export class ListFacturaComponent implements OnInit {
   }
 
   getFacturas() {
-      this._facturaService.getFacturas(true, this.fechaActual, this.fechaActual, 1, 2).subscribe(
+      this._facturaService.getFacturas(null, true, this.fechaActual, this.fechaActual, 1, 2).subscribe(
           response => {
               if (response.facturas) {
                   this.facturas = response.facturas;

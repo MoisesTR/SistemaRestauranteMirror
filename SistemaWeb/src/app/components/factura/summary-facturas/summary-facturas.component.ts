@@ -25,7 +25,14 @@ export class SummaryFacturasComponent implements OnInit {
   public fechaInicio: string = null;
   public fechaFin: string = null;
   public totalCordobasFacturas = 0;
+  public totalOrigenFactura = 0;
   public buscando: string;
+  public idFechaBusqueda = 1;
+
+  filtroFechas = [
+        {Id: 1, Fecha: 'Fecha recepción'}
+        , {Id: 2, Fecha: 'Fecha ingreso'}
+  ];
 
   constructor(private _route: ActivatedRoute
       , private _router: Router
@@ -41,6 +48,7 @@ export class SummaryFacturasComponent implements OnInit {
   initFormBusquedaFactura() {
       this.formBusquedaFactura = this._formBuilderBusquedaFactura.group({
           'proveedor' : new FormControl('', Validators.required)
+          , 'fechaBusqueda' : new FormControl('', Validators.required)
           , 'fechaInicio' : new FormControl('', Validators.required)
           , 'fechaFin' : new FormControl('', Validators.required)
       });
@@ -76,8 +84,12 @@ export class SummaryFacturasComponent implements OnInit {
   findFacturas() {
       this.getDataFactura();
 
-      if (this.idProveedor === null && this.fechaInicio === null && this.fechaFin === null) {
+      if (this.idProveedor === null && this.fechaInicio === null && this.fechaFin === null && this.idFechaBusqueda === null) {
           Utils.showMsgInfo('Debes digitar al menos uno de los parametros de busqueda', 'Busqueda Facturas');
+      } else if (this.idProveedor === null) {
+          Utils.showMsgInfo('El proveedor es requerido para la busqueda', 'Busqueda Facturas');
+      } else if (this.idProveedor !== null && (this.idFechaBusqueda !== null && this.idFechaBusqueda !== undefined) && (this.fechaInicio === null || this.fechaFin === null) ) {
+          Utils.showMsgInfo('Debes digitar el rango de fechas!', 'Busqueda Facturas');
       } else if (this.fechaInicio !== null && this.fechaFin === null ) {
           Utils.showMsgInfo('Debes digitar la fecha fin', 'Busqueda Facturas');
       } else if (this.fechaInicio === null && this.fechaFin !== null) {
@@ -85,7 +97,7 @@ export class SummaryFacturasComponent implements OnInit {
       } else if (this.fechaInicio > this.fechaFin ) {
           Utils.showMsgInfo('La fecha de inicio no puede ser mayor a la fecha fin!', 'Busqueda Facturas');
       } else {
-          this._facturaService.getFacturas(true, this.fechaInicio, this.fechaFin, this.idProveedor, 2).subscribe(
+          this._facturaService.getFacturas(this.idFechaBusqueda, true, this.fechaInicio, this.fechaFin, this.idProveedor, 2).subscribe(
               response => {
                   this.facturas = response.facturas;
                   this.sumarFacturas();
@@ -102,13 +114,23 @@ export class SummaryFacturasComponent implements OnInit {
 
   sumarFacturas() {
     this.totalCordobasFacturas = 0;
+    this.totalOrigenFactura = 0;
     this.facturas.forEach( (value, index) => {
       this.totalCordobasFacturas += value.TotalCordobas;
+      this.totalOrigenFactura += value.TotalOrigenFactura;
     });
   }
 
   mostrarFactura(idFactura: number) {
-        this._router.navigate(['factura/showFactura/' + idFactura]);
+      this._router.navigate(['factura/showFactura/' + idFactura]);
+  }
+
+  changeFechaBusqueda(event) {
+      if (event === null || event === undefined) {
+          this.idFechaBusqueda = null;
+      } else {
+          this.idFechaBusqueda = event.Id;
+      }
   }
 
 }

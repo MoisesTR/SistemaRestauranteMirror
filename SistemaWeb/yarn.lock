@@ -101,6 +101,12 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/cdk@^6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.4.7.tgz#1549b304dd412e82bd854cc55a7d5c6772ee0411"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@^6.0.8":
   version "6.0.8"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-6.0.8.tgz#65070958b944be30053232c51f8449b7ddd4d92a"
@@ -5801,6 +5807,10 @@ ng-html-util@2.0.2:
   resolved "https://registry.yarnpkg.com/ng-html-util/-/ng-html-util-2.0.2.tgz#0f4c8d8e855ae385404d5db051290a492d8844c9"
   dependencies:
     tslib "^1.9.0"
+
+ng-pick-datetime@^6.0.16:
+  version "6.0.16"
+  resolved "https://registry.yarnpkg.com/ng-pick-datetime/-/ng-pick-datetime-6.0.16.tgz#82a400f0aba5cc905bb443616f5ac4b9bfcc88e1"
 
 ng2-select2@^1.0.0-beta.11:
   version "1.0.0-beta.11"

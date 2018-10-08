@@ -22,6 +22,10 @@ import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
 import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-clasificacion.component';
 import {MDBBootstrapModulesPro, ToastModule} from 'ng-uikit-pro-standard';
 import {NumberOnlyDirective} from '../../directives/onlynumber.directive';
+import {DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {NativeDateTimeAdapter} from 'ng-pick-datetime/date-time/adapter/native-date-time-adapter.class';
+import {Platform} from '@angular/cdk/platform';
+
 
 @NgModule({
   imports: [
@@ -35,6 +39,8 @@ import {NumberOnlyDirective} from '../../directives/onlynumber.directive';
       , FormsModule
       , DataTablesModule
       , NgxSpinnerModule
+      , OwlDateTimeModule
+      , OwlNativeDateTimeModule
   ],
   exports: [
       CommonModule
@@ -62,6 +68,8 @@ import {NumberOnlyDirective} from '../../directives/onlynumber.directive';
       , DataTablesModule
       , NgxSpinnerModule
       , NumberOnlyDirective
+      , OwlDateTimeModule
+      , OwlNativeDateTimeModule
 
   ],
     declarations: [
@@ -87,7 +95,8 @@ import {NumberOnlyDirective} from '../../directives/onlynumber.directive';
     useValue: {
       notFoundText: 'No se encontraron resultados'
         }
-    }
+    },  {provide: OWL_DATE_TIME_LOCALE, useValue: 'es'},
+        {provide: DateTimeAdapter, useClass: NativeDateTimeAdapter, deps: [OWL_DATE_TIME_LOCALE, Platform]}
     ]
 })
 export class SharedModuleModule { }

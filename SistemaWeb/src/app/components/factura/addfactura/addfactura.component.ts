@@ -303,7 +303,7 @@ export class AddfacturaComponent implements OnInit {
                         this.productosFiltrados[index].Subtotal = 0;
                         this.productosFiltrados[index].Iva = 0;
                         this.productosFiltrados[index].CalculoIva = 0;
-                        this.productosFiltrados[index].DescripcionInsumo = this.productosFiltrados[index].TipoInsumo === 1 ? 'Alimento' : 'Limpieza';
+                        this.productosFiltrados[index].DescripcionInsumo = this.productosFiltrados[index].IdTipoInsumo === 1 ? 'Alimento' : 'Limpieza';
                     });
                     this.cdr.detectChanges();
                 }

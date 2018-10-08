@@ -78,6 +78,14 @@ export class Utils{
     return moment(myDate).format('YYYY-MM-DD');
   }
 
+  static valorCampoEsValido(valor: any): any {
+      let resultado = false;
+      if (!(valor === '' || valor === null || valor === undefined)) {
+          resultado = true;
+      }
+      return resultado;
+  }
+
   static getYearDate(myDate) {
       return moment(myDate, 'YYYY-MM-DD').year();
   }

@@ -5,6 +5,8 @@ export class TelefonoProveedor {
     public Telefono: string;
     public Nombre: string;
     public Cargo: string;
+    public IsTitular: boolean;
+    public Titular: number;
     public CreateAt: string;
     public UpdateAt: string;
 
@@ -16,5 +18,7 @@ export class TelefonoProveedor {
         this.Cargo = null;
         this.CreateAt = null;
         this.UpdateAt = null;
+        this.IsTitular = false;
+        this.Titular = 0;
     }
 }

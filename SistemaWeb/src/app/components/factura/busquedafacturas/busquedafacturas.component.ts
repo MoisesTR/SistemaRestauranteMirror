@@ -94,7 +94,7 @@ export class BusquedafacturasComponent implements OnInit {
     } else if (this.fechaInicio === null && this.fechaFin !== null) {
         Utils.showMsgInfo('Debes digitar la fecha inicio', 'Busqueda Facturas');
     } else {
-        this._facturaService.getFacturas(true, this.fechaInicio, this.fechaFin, this.idProveedor, 2).subscribe(
+        this._facturaService.getFacturas(null, true, this.fechaInicio, this.fechaFin, this.idProveedor, 2).subscribe(
             response => {
                 this.facturas = response.facturas;
 

@@ -49,7 +49,7 @@
                                         mdbWavesEffect>Agregar</button>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3 mt-btn-factura">
                                     <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-factura"
                                         tabindex="-1" mdbTooltip="Ingresar foto de factura física" placement="bottom"
                                         (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
@@ -138,19 +138,19 @@
 
                 <div class="container-fluid mt-3">
                     <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-12 mb-0">
+                        <div class="col-lg-8 col-md-12 col-sm-12 mb-0">
                             <div class="input-group md-form form-inline form-sm pl-0">
                                 <i class="fa fa-search mt-2" aria-hidden="true"></i>
                                 <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
                                     aria-label="Buscar">
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-12 mt-3 ml-0 pt-0">
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
                             <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" mdbWavesEffect>Agregar
                                 Producto
                             </button>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-12 mt-3 ml-0 pt-0">
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
                             <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" mdbWavesEffect>Actualizar
                                 Lista
                             </button>
@@ -292,7 +292,7 @@
                     </div>
 
                     <div class="row mt-5">
-                        <div class="col-lg-10 col-md-10 col-sm-10 text-lg-right text-md-right text-sm-right">
+                        <div class="col-lg-10 col-md-10 col-sm-6 col-6 text-lg-right text-md-right text-sm-center text-center">
                             <form [formGroup]="formDetallesFactura" novalidate>
 
                                 <div class="col-lg-12 col-md-12">
@@ -349,7 +349,7 @@
                             </form>
                         </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-2 text-lg-right text-md-right text-sm-right">
+                        <div class="col-lg-2 col-md-2 col-sm-6 col-6 text-lg-right text-md-right text-sm-center text-center">
                             <form>
                                 <div class="">
                                     <label>{{subTotalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>

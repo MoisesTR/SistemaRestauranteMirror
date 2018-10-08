@@ -2,6 +2,18 @@
   height: 68% !important;
 }
 
+@media (max-width: 970px) {
+  .height-card-productos {
+    height: calc(68% + 150px) !important;
+  }
+}
+
+@media (max-width: 750px) {
+  .height-card-productos {
+    height: calc(68% + 400px) !important;
+  }
+}
+
 input[type="checkbox"][readonly] {
   pointer-events: none;
 }
@@ -44,7 +56,7 @@ input[type="checkbox"][readonly] {
 }
 
 .opacity {
-  opacity: 1.0 !important;
+  opacity: 1 !important;
 }
 
 .margin-bottom-inputs {
@@ -53,4 +65,16 @@ input[type="checkbox"][readonly] {
 
 .margin-bottom-inputs-outside {
   margin-bottom: -30px;
+}
+
+@media (max-width: 970px) {
+  .mt-btn-factura {
+    margin-top: 7% !important;
+  }
+}
+
+@media (max-width: 750px) {
+  .mt-btn-factura {
+    margin-top: 12% !important;
+  }
 }

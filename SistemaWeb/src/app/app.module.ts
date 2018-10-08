@@ -35,7 +35,7 @@ const routes: Routes = [
     , MenuModule
     , ToastModule.forRoot({maxOpened : 1, timeOut : 2000, preventDuplicates : true})
     , MDBBootstrapModulesPro.forRoot()
-    , UserIdleModule.forRoot({idle: 600, timeout: 1, ping: 600})
+    , UserIdleModule.forRoot({idle: 2400, timeout: 1, ping: 2400})
     , AgmCoreModule.forRoot({
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: 'Your_api_key'

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoriaProducto} from '../../../models/CategoriaProducto';
@@ -15,7 +15,7 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
   templateUrl: './modal-clasificacion.component.html',
   styleUrls: ['./modal-clasificacion.component.scss']
 })
-export class ModalClasificacionComponent implements OnInit {
+export class ModalClasificacionComponent implements OnInit, AfterViewInit{
 
   public clasificacion: ClasificacionProducto;
   public formAddClasificacion: FormGroup;

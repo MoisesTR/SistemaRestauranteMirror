@@ -21,6 +21,7 @@ export class Factura {
   public TrabajadorIngreso: string;
   public TotalDescuento: number;
   public TotalCordobas: number;
+  public TotalOrigenFactura: number;
   public Habilitado: number;
   public Detalle: DetalleFactura[];
   public HoraIngreso: string;

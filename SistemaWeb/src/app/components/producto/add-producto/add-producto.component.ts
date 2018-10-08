@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import swal from 'sweetalert2';
 import {Proveedor} from '../../../models/Proveedor';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -84,6 +84,7 @@ export class AddProductoComponent implements OnInit {
         , private _unidadService: UnidadMedidaService
         , private _productoService: ProductoService
         , private _productoProveedorService: ProductoProveedorService
+        , private cdr: ChangeDetectorRef
         , private _fAddProducto: FormBuilder) {
         this.url = Global.url;
         this.producto = new Producto();
@@ -366,17 +367,18 @@ export class AddProductoComponent implements OnInit {
 
   getValueForm() {
     this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
-    this.producto.Descripcion = this.formAddProducto.value.descripcionProducto === '' ? 'Ninguna' : this.formAddProducto.value.descripcionProducto;
+    this.producto.Descripcion =  Utils.valorCampoEsValido(this.formAddProducto.value.descripcionProducto) ? this.formAddProducto.value.descripcionProducto : 'Ninguna';
     this.producto.IdEstado = 1;
     this.producto.DiasCaducidad = this.formAddProducto.value.diasDeUso;
     this.producto.CantidadEmpaque = this.formAddProducto.value.cantidadEmpaque === '' ? null : this.formAddProducto.value.cantidadEmpaque ;
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
     this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso === '' ? 0 : this.formAddProducto.value.diasDeUso;
-    this.producto.DiasRotacion = this.formAddProducto.value.diasDeUso === '' ? 0 : this.formAddProducto.value.diasDeUso;
+    this.producto.DiasRotacion = Utils.valorCampoEsValido(this.formAddProducto.value.diasDeUso) ? this.formAddProducto.value.diasDeUso : 0;
     this.producto.CodigoProducto = this.formAddProducto.value.codigoProducto ;
     this.producto.CodigoBarra = this.formAddProducto.value.codigoBarra === '' ? null : this.formAddProducto.value.codigoBarra ;
     this.producto.CodigoInterno = this.formAddProducto.value.codigoInterno === '' ? null : this.formAddProducto.value.codigoInterno;
-    this.producto.TipoInsumo = 1;
+    this.producto.IdTipoInsumo = 1;
+    this.producto.IdProveedor = this.proveedorSelecionado;
   }
 
   crearProducto() {
@@ -395,10 +397,11 @@ export class AddProductoComponent implements OnInit {
                 cancelButtonText: 'NO'
             }).then((result) => {
                 if (result.value) {
-                    this.formAddProducto.reset();
+                    this.resetFormProducto();
                     this.producto = new Producto();
                     this.filesToUpload = null;
                     $('.dropify-clear').click();
+                    window.scrollTo(0, 0);
                 } else if (result.dismiss === swal.DismissReason.cancel) {
                     if (this.previousUrl === '/proveedor/add') {
                         this._router.navigate(['/factura/add']);
@@ -435,7 +438,7 @@ export class AddProductoComponent implements OnInit {
         , Validators.maxLength(400)
         , CustomValidators.nospaceValidator
         ]),
-        'proveedor': new FormControl('', [
+        'proveedor': new FormControl(this.proveedorSelecionado, [
             Validators.required
         ]),
         'categoria': new FormControl('', [
@@ -576,4 +579,11 @@ resultadoConsultaCategoria(event) {
         }
     }
 
+    resetFormProducto() {
+        Object.keys(this.formAddProducto.controls).forEach( (value, index) => {
+            if (value !== 'proveedor') {
+                this.formAddProducto.controls[value].reset();
+            }
+        });
+    }
 }

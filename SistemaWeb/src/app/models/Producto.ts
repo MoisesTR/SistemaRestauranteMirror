@@ -28,7 +28,7 @@ export class Producto {
   public Visualizar: boolean;
   public CreatedAt: string;
   public UpdateAt: string;
-  public TipoInsumo: number;
+  public IdTipoInsumo: number;
   public DescripcionInsumo: string;
   public Proveedores: Proveedor[];
   public CodigoProducto: string;

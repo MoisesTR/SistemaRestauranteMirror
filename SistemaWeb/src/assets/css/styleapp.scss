@@ -535,3 +535,10 @@ h6 {
 .z-index-0h {  
   z-index: 0;
 }
+
+.switch.chang-switch label input[type=checkbox]:checked + .lever {
+  background-color: #E67E22;
+}
+.switch.chang-switch label input[type=checkbox]:checked + .lever:after {
+  background-color: #E67E22;
+}

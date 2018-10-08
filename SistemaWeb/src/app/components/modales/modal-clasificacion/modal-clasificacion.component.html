@@ -1,6 +1,6 @@
 
 <!-- Modal añadir clasificación -->
-<div mdbModal (click)="eventoClick($event)" #modalAddClasificacion="mdb-modal" class="modal fade" id="modalAddClasificacion" tabindex="-1" role="dialog"
+<div mdbModal (click)="eventoClick($event)" [config]="{ignoreBackdropClick: true}" #modalAddClasificacion="mdb-modal" class="modal fade" id="modalAddClasificacion" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal " role="document">
     <!--Contenido-->

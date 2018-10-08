@@ -79,7 +79,10 @@ export class AddfacturaComponent implements OnInit {
     @ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto: ModalDirective;
     @ViewChild('modalAddDescuento') modalAddDescuento: ModalDirective;
 
-    public myDatePickerOptions: IMyOptions = opcionesDatePicker;
+    // public myDatePickerOptions: IMyOptions = opcionesDatePicker;
+
+    public dateFactura: IMyOptions = opcionesDatePicker;
+    public dateRecepcion: IMyOptions = opcionesDatePicker;
 
     constructor(
         private _route: ActivatedRoute

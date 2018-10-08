@@ -14,7 +14,7 @@
 
                             <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-1">
                                     <label class="margin-label-proveedor">Proveedor</label>
                                     <div class="md-form">
                                         <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor"
@@ -43,36 +43,43 @@
                                     <br>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2">
-                                    <br>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3">
                                     <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-factura"
                                         tabindex="-1" mdbTooltip="Proveedor" placement="bottom" (click)="agregarProveedor()"
                                         mdbWavesEffect>Agregar</button>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2">
-                                    <br>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3">
                                     <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-factura"
                                         tabindex="-1" mdbTooltip="Ingresar foto de factura física" placement="bottom"
                                         (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
                                 </div>
 
-                                <div class="col-md-4 mt-codigo-factura">
+                                <div class="col-md-3 mt-codigo-factura">
                                     <div class="md-form">
                                         <input [mdbValidate]=false mdbInputDirective myNumberOnly type="text" id="numeroFactura"
-                                            placeholder="BD200" class="form-control" autocomplete="off" formControlName="codigoFactura">
-                                        <label for="nombreproveedor">Código de factura</label>
+                                            placeholder="Ej: BD200" class="form-control" autocomplete="off"
+                                            formControlName="codigoFactura">
+                                        <label for="nombreproveedor">Código de Factura</label>
                                         <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3 mt-codigo-factura">
+                                    <div class="md-form">
+                                        <input [mdbValidate]=false mdbInputDirective myNumberOnly type="text"
+                                            placeholder="Ej: 1200" class="form-control" autocomplete="off">
+                                        <label for="nombreproveedor">Total Factura Impresa</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
                                     <mdb-date-picker [options]="myDatePickerOptions" formControlName="fechaFactura"
                                         name="FechaFactura" id="FechaFactura" [placeholder]="'Seleccione la fecha'"
                                         [label]="'Fecha de Factura'" required></mdb-date-picker>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <mdb-date-picker [options]="myDatePickerOptions" id="fechaRecepcion"
                                         formControlName="fechaRecepcion" [placeholder]="'Seleccione la fecha'" [label]="'Fecha de Recepción'"
                                         required></mdb-date-picker>
@@ -130,12 +137,27 @@
                 </div>
 
                 <div class="container-fluid mt-3">
-                    <div class="in input-group md-form form-inline form-sm form-2 pl-0">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
-                            aria-label="Buscar">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12 mb-0">
+                            <div class="input-group md-form form-inline form-sm pl-0">
+                                <i class="fa fa-search mt-2" aria-hidden="true"></i>
+                                <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
+                                    aria-label="Buscar">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 mt-3 ml-0 pt-0">
+                            <button class="btn orange-chang btn-sm btn-block waves-light" mdbWavesEffect>Agregar
+                                Producto
+                            </button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 mt-3 ml-0 pt-0">
+                            <button class="btn orange-chang btn-sm btn-block waves-light" mdbWavesEffect>Actualizar
+                                Lista
+                            </button>
+                        </div>
                     </div>
                 </div>
+
 
                 <div class="scrollbar-card scrollbar-ripe-malinka">
                     <div class="card-body">
@@ -151,34 +173,35 @@
                                         <th>Precio</th>
                                         <th>Descuento</th>
                                         <th class="text-center">IVA</th>
-                                        <th class="text-center">Fecha vencimiento</th>
+                                        <!-- <th class="text-center">Fecha vencimiento</th> -->
                                         <th class="text-center">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
-                                        <th scope="row" class="align-middle" width="5%">1</th>
+                                        <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
                                         <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto}}</th>
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
                                         <td width="13%">
                                             <div class="md-form">
                                                 <input mdbInputDirective (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
-                                                    type="text" name="cantidadProducto" onlyNumbers = "int"
-                                                    min="0" class="input-modal-sm" style="width: 60% !important;">
+                                                    type="text" name="cantidadProducto" onlyNumbers="int" min="0" class="input-modal-sm"
+                                                    style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="13%">
                                             <div class="md-form">
-                                                <input mdbInputDirective (input)="onSearchChangePrecioProducto($event.target.value,producto)" name="precioProducto"
-                                                    class="input-modal-sm" onlyNumbers = "decimal" style="width: 60% !important;">
+                                                <input mdbInputDirective (input)="onSearchChangePrecioProducto($event.target.value,producto)"
+                                                    name="precioProducto" class="input-modal-sm" onlyNumbers="decimal"
+                                                    style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="13%">
                                             <div class="md-form">
                                                 <input (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
-                                                    mdbInputDirective type="text" onlyNumbers = "int" id="valorDescuento" name="valorDescuento"
-                                                    min="0" class="input-modal-sm" style="width: 60% !important;">
+                                                    mdbInputDirective type="text" onlyNumbers="int" id="valorDescuento"
+                                                    name="valorDescuento" min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
 
@@ -189,10 +212,10 @@
                                                 <label class="form-check-label" for="ei{{i}}"></label>
                                             </div>
                                         </td>
-                                        <td width="10%">
-                                            <mdb-date-picker (inputFieldChanged)="fechaVencimientoInputFieldChanged($event,producto)"
-                                                [options]="myDatePickerOptions" required></mdb-date-picker>
-                                        </td>
+                                        <!-- <td width="10%">
+                                                <mdb-date-picker (inputFieldChanged)="fechaVencimientoInputFieldChanged($event,producto)"
+                                                    [options]="myDatePickerOptions" required></mdb-date-picker>
+                                            </td> -->
                                         <td class="text-center align-middle">
                                             <button type="button" class="btn btn-sm orange-chang" (click)="agregarProductoAFactura(producto)"
                                                 mdbWavesEffect>
@@ -201,6 +224,9 @@
                                             <button type="button" class="btn btn-sm orange-chang" (click)="mostrarProducto(producto)"
                                                 mdbWavesEffect>
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm orange-chang" mdbWavesEffect>
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -311,6 +337,18 @@
                                         <strong>Total</strong>
                                     </label>
                                 </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="Total">
+                                        <strong>Total Factura</strong>
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="Total">
+                                        <strong>Diferencia</strong>
+                                    </label>
+                                </div>
                             </form>
                         </div>
 
@@ -334,6 +372,16 @@
                                 </div>
                                 <div class="">
                                     <label>{{totalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
+                                </div>
+                                <div class="">
+                                    <label>
+                                        0 C$
+                                    </label>
+                                </div>
+                                <div class="">
+                                    <label>
+                                        0 C$
+                                    </label>
                                 </div>
                             </form>
                         </div>
@@ -384,16 +432,16 @@
                                     <div class="row">
 
                                         <!-- <div class="col-md-6 mt-4">
-                                            <div class="card card-cascade narrower">
-                                                <div class="view view-cascade gradient-card-header orange-chang">
-                                                    <h4 class="mb-0">Imagen</h4>
+                                                <div class="card card-cascade narrower">
+                                                    <div class="view view-cascade gradient-card-header orange-chang">
+                                                        <h4 class="mb-0">Imagen</h4>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}"
+                                                             alt="..." class="img-thumbnail height-card-usuario">
+                                                    </div>
                                                 </div>
-                                                <div class="card-body text-center">
-                                                    <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}"
-                                                         alt="..." class="img-thumbnail height-card-usuario">
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                            </div> -->
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
@@ -424,15 +472,15 @@
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Interno</h6>
-                                                <input type="text" id="codigoInterno" minlength="4" maxlength="50" class="input-modal-sm"
-                                                    name="codigoInterno" readonly value={{productoSeleccionado.CodigoInterno}}>
+                                                <input type="text" id="codigoInterno" minlength="4" maxlength="50"
+                                                    class="input-modal-sm" name="codigoInterno" readonly value={{productoSeleccionado.CodigoInterno}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Categoria</h6>
-                                                <input type="text"  class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
+                                                <input type="text" class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
                                             </div>
                                         </div>
 

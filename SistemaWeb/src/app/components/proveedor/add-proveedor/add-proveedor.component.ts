@@ -9,7 +9,6 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
 import {PreviousRouteService} from '../../../services/service.index';
 import {TelefonoProveedor} from '../../../models/TelefonoProveedor';
 import {ModalDirective} from 'ng-uikit-pro-standard';
-import {ProductoFactura} from '../../../models/ProductoFactura';
 
 
 declare var $: any;
@@ -87,7 +86,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
   agregarTelefono() {
       if (this.telefonosValidos()) {
-          const inputsTelefono = $('#inputs-telefono');
           const telefonoProveedor: TelefonoProveedor = new TelefonoProveedor();
           this.telefonos.push(telefonoProveedor);
       } else {
@@ -225,6 +223,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   telefonosValidos() {
       let valido = true;
       this.telefonos.forEach( (value , index) => {
+          this.telefonos[index].Titular = value.IsTitular === true ? 1 : 0;
           if (value.Telefono === '' || value.Cargo === '' || value.Nombre === '') {
               valido = false;
           }

@@ -172,9 +172,9 @@
 
                     <div class="col-md-1 mt-4 ml-0">
                       <div class="switch chang-switch font-small">
-                        <h6 class="orange-chang-text" *ngIf="i===0">Titular</h6>
+                        <h6 class="orange-chang-text" >Titular</h6>
                         <label class="mt-2" id="align-input">
-                          <input type="checkbox">
+                          <input [(ngModel)]="telefono.IsTitular" [ngModelOptions]="{standalone: true}" type="checkbox"name="element_name">
                           <span class="lever"></span>
                         </label>
                       </div>

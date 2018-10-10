@@ -267,8 +267,8 @@ export class AddfacturaComponent implements OnInit {
             productoFiltrado.DetalleMenosDescuento = productoFiltrado.Subtotal - productoFiltrado.Descuento;
 
             if (productoFiltrado.GravadoIva === 1) {
-                productoFiltrado.CalculoIva = productoFiltrado.Subtotal * this.valorIva;
-                productoFiltrado.Iva = productoFiltrado.Subtotal + productoFiltrado.CalculoIva;
+                productoFiltrado.CalculoIva = productoFiltrado.DetalleMenosDescuento * this.valorIva;
+                productoFiltrado.Iva = productoFiltrado.DetalleMenosDescuento + productoFiltrado.CalculoIva;
                 productoFiltrado.TotalDetalle = productoFiltrado.Iva - productoFiltrado.Descuento;
             } else {
                 productoFiltrado.TotalDetalle = productoFiltrado.Subtotal - productoFiltrado.Descuento;

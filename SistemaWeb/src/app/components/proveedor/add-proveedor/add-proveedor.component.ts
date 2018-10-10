@@ -54,6 +54,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
               if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
                   && (key.charCode < 65 || key.charCode > 90) // letras minusculas
                   && (key.charCode !== 45) // retroceso
+                  && (key.charCode !== 46) // retroceso
                   && (key.charCode !== 241) // ñ
                   && (key.charCode !== 209) // Ñ
                   && (key.charCode !== 32) // espacio

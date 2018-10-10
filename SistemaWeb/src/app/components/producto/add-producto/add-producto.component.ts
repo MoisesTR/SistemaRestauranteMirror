@@ -343,25 +343,30 @@ export class AddProductoComponent implements OnInit {
  }
 
   guardarImagenProducto() {
+    this.getValueForm();
 
-    if (this.filesToUpload != null) {
-      this._uploadService.makeFileRequest(
-        this.url + 'uploadImage/',
-        CARPETA_PRODUCTOS,
-          '',
-        false,
-        [],
-        this.filesToUpload,
-        'token',
-        'image').then((result: any ) => {
-        this.producto.Imagen = result.image;
-        this.crearProducto();
-      }, error => {
-         Utils.msgErrorImage(error);
-      });
+    if (!Utils.valorCampoEsValido(this.producto.CodigoProducto) && !Utils.valorCampoEsValido(this.producto.CodigoInterno)) {
+        Utils.showMsgInfo('El codigo producto o codigo interno es requerido!', 'Producto');
     } else {
-      this.producto.Imagen = '';
-      this.crearProducto();
+        if (this.filesToUpload != null) {
+            this._uploadService.makeFileRequest(
+                this.url + 'uploadImage/',
+                CARPETA_PRODUCTOS,
+                '',
+                false,
+                [],
+                this.filesToUpload,
+                'token',
+                'image').then((result: any ) => {
+                this.producto.Imagen = result.image;
+                this.crearProducto();
+            }, error => {
+                Utils.msgErrorImage(error);
+            });
+        } else {
+            this.producto.Imagen = '';
+            this.crearProducto();
+        }
     }
   }
 
@@ -382,7 +387,6 @@ export class AddProductoComponent implements OnInit {
   }
 
   crearProducto() {
-    this.getValueForm();
     this._productoService.createProducto(this.producto).subscribe(
       response => {
         if (response.IdProducto) {
@@ -471,7 +475,6 @@ export class AddProductoComponent implements OnInit {
         'codigoInterno': new FormControl(null, [
         ]),
         'codigoProducto': new FormControl('', [
-            Validators.required
         ]),
         'tipoInsumo': new FormControl('', [
             Validators.required

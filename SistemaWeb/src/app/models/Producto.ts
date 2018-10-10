@@ -39,6 +39,7 @@ export class Producto {
   constructor() {
     this.CodigoBarra = null;
     this.CodigoInterno = null;
+    this.CodigoProducto = null;
     this.DescripcionInsumo = '';
   }
 

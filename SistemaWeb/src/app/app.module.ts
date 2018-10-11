@@ -8,9 +8,7 @@ import {MenuModule} from './components/menu/menu.module';
 import {SharedModuleModule} from './components/shared-module/shared-module.module';
 import {LoginComponent} from './components/login/login.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
-import {UserIdleModule} from 'angular-user-idle';
 import {MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule} from 'ng-uikit-pro-standard';
-import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './services/auth/token.interceptor';
 
@@ -35,7 +33,6 @@ const routes: Routes = [
     , MenuModule
     , ToastModule.forRoot({maxOpened : 1, timeOut : 2000, preventDuplicates : true})
     , MDBBootstrapModulesPro.forRoot()
-    , UserIdleModule.forRoot({idle: 2400, timeout: 1, ping: 2400})
     , AgmCoreModule.forRoot({
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: 'Your_api_key'

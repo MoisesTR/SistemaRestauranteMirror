@@ -17,7 +17,7 @@ import {ToastService} from 'ng-uikit-pro-standard';
 
 export class LoginComponent implements OnInit {
 
-  public usuario : Usuario;
+  public usuario: Usuario;
   public identity: Usuario;
   public title: String;
   public token;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private usuarioServicio: UsuarioService,
-    private formBuilderUser : FormBuilder
+    private formBuilderUser: FormBuilder
     , private toastr: ToastService
     , private userIdle: UserIdleService
   ) {
@@ -40,73 +40,73 @@ export class LoginComponent implements OnInit {
     this.initFormLogin();
   }
 
-  initFormLogin(){
+  initFormLogin() {
 
     this.formLoginUser = this.formBuilderUser.group({
-      'nombre' : new FormControl('',[
+      'nombre' : new FormControl('', [
         Validators.required
         , CustomValidators.nospaceValidator
       ]),
-      'password' : new FormControl('',[
+      'password' : new FormControl('', [
         Validators.required
         , CustomValidators.nospaceValidator
       ])
-    })
+    });
   }
-  obtenerValoresFormLogin(){
+  obtenerValoresFormLogin() {
     this.usuario.Username = this.formLoginUser.value.nombre;
     this.usuario.Password = this.formLoginUser.value.password;
 
   }
-  onSubmit(){
+  onSubmit() {
 
     this.obtenerValoresFormLogin();
 
-    //Logear al usuario y conseguir el objeto
+    // Logear al usuario y conseguir el objeto
     this.usuarioServicio.login2(this.usuario).subscribe(
 
-      response =>{
+      response => {
         this.identity = response;
-        if(!this.identity || !this.identity.IdUsuario){
+        if (!this.identity || !this.identity.IdUsuario) {
           this.toastr.error('Error', 'El nombre de usuario o la contraseña son erroneos!');
         } else {
 
           this.identity.Password = '';
 
-          //Local storage solo deja guardar numeros o string
-          localStorage.setItem('identity',JSON.stringify(this.identity));
+          // Local storage solo deja guardar numeros o string
+          localStorage.setItem('identity', JSON.stringify(this.identity));
 
-          //Conseguir el token
-          this.usuarioServicio.login2(this.usuario,true).subscribe(
-            response =>{
+          // Conseguir el token
+          this.usuarioServicio.login2(this.usuario, true).subscribe(
+            response => {
               this.token = response.token;
-              localStorage.setItem('token',JSON.stringify(this.token));
-              if(this.token.length <= 0){
+              localStorage.setItem('token', JSON.stringify(this.token));
+              if (this.token.length <= 0) {
                 console.log('El token no se ha generado');
               } else {
-                  // Start watching for user inactivity.
-                  this.userIdle.startWatching();
-
-                  // Start watching when user idle is starting.
-                  this.userIdle.onTimerStart().subscribe(count => console.log(count));
-
-                  // Start watch when time is up.
-                  this.userIdle.onTimeout().subscribe(() => {
-                      this._router.navigate(['/login']);
-                  });
+                  // // Start watching for user inactivity.
+                  // this.userIdle.startWatching();
+                  //
+                  // // Start watching when user idle is starting.
+                  // this.userIdle.onTimerStart().subscribe(count => console.log(count));
+                  //
+                  // // Start watch when time is up.
+                  // this.userIdle.onTimeout().subscribe(() => {
+                  //     this._router.navigate(['/login']);
+                  // });
                 this.status = 'success';
                 this._router.navigate(['/dashboard']);
               }
             },
             error => {
-                this.toastr.error(Utils.msgError(<any>error),'Error')
+                this.toastr.error(Utils.msgError(<any>error), 'Error');
 
             }
           );
         }
       },
       error => {
-        this.toastr.error(Utils.msgError(<any>error),'Error')
+        this.toastr.error(Utils.msgError(<any>error), 'Error');
       }
     );
   }

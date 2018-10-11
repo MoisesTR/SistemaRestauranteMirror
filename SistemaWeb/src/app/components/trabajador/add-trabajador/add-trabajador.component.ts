@@ -79,6 +79,7 @@ export class AddTrabajadorComponent implements OnInit {
                   return false;
               }
           });
+          $('.dropify').dropify();
       });
 
     $('.telefono').mask('0000-0000');

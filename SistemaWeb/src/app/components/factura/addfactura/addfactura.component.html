@@ -60,7 +60,7 @@
                                         <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura"
                                             placeholder="Ej: BD200" class="form-control" autocomplete="off"
                                             formControlName="codigoFactura">
-                                        <label for="nombreproveedor">Código de Factura</label>
+                                        <label for="codigoFactura">Código de Factura</label>
                                         <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
                                     </div>
                                 </div>
@@ -68,35 +68,32 @@
                                 <div class="col-md-3 mt-codigo-factura">
                                     <div class="md-form">
                                         <input [mdbValidate]=false mdbInputDirective onlyNumbers="decimal" type="text"
-                                            placeholder="Ej: 1200" class="form-control" autocomplete="off" formControlName="totalFacturaOrigen">
-                                        <label for="nombreproveedor">Total Factura Impresa</label>
+                                            placeholder="Ej: 1200" class="form-control" autocomplete="off"
+                                            formControlName="totalFacturaOrigen">
+                                        <label for="totalFacturaImpresa">Total Factura Impresa</label>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <label>Fecha factura</label>
-                                    <br>
-                                    <input placeholder="Fecha factura:"
-                                           formControlName="fechaFactura"
-                                           name="FechaFactura"
-                                           [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1">
-                                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-                                    <!--<mdb-date-picker [options]="myDatePickerOptions" formControlName="fechaFactura"-->
-                                        <!--name="FechaFactura" id="FechaFactura" [placeholder]="'Seleccione la fecha'"-->
-                                        <!--[label]="'Fecha de Factura'" required></mdb-date-picker>-->
+                                <div class="col-md-3 mt-2">
+                                    <div class="md-form">
+                                        <input formControlName="fechaFactura" name="FechaFactura" [owlDateTimeTrigger]="dt1"
+                                            [owlDateTime]="dt1" class="input-picker form-control" [mdbValidate]=false
+                                            id="fechaFactura" placeholder="Seleccioné" mdbInputDirective>
+                                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                        <label for="fechaFactura">Fecha factura</label>
+                                    </div>
+
                                 </div>
 
-                                <div class="col-md-3">
-                                    <label>Fecha recepción</label>
-                                    <br>
-                                    <input placeholder="Fecha recepción:"
-                                           formControlName="fechaRecepcion"
-                                           name="FechaRecepcion"
-                                           [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
-                                    <owl-date-time  [pickerType]="'calendar'" #dt2></owl-date-time>
-                                    <!--<mdb-date-picker [options]="myDatePickerOptions" id="fechaRecepcion"-->
-                                        <!--formControlName="fechaRecepcion" [placeholder]="'Seleccione la fecha'" [label]="'Fecha de Recepción'"-->
-                                        <!--required></mdb-date-picker>-->
+                                <div class="col-md-3 mt-2">
+                                    <div class="md-form">
+                                        <input formControlName="fechaRecepcion" name="FechaRecepcion"
+                                            [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
+                                            [mdbValidate]=false id="fechaRecepcion" placeholder="Seleccioné"
+                                            mdbInputDirective>
+                                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                                        <label for="fechaRecepcion">Fecha recepción</label>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6">
@@ -160,12 +157,14 @@
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" (click)="agregarNuevoProducto()" mdbWavesEffect>Agregar
+                            <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" (click)="agregarNuevoProducto()"
+                                mdbWavesEffect>Agregar
                                 Producto
                             </button>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" (click)="actualizarListaProductos()" mdbWavesEffect>Actualizar
+                            <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" (click)="actualizarListaProductos()"
+                                mdbWavesEffect>Actualizar
                                 Lista
                             </button>
                         </div>
@@ -386,12 +385,14 @@
                                 </div>
                                 <div class="">
                                     <label>
-                                        {{formAddFactura.controls['totalFacturaOrigen'].value | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                                        {{formAddFactura.controls['totalFacturaOrigen'].value | number : '1.2-2'}}
+                                        {{simboloMonedaUtilizado}}
                                     </label>
                                 </div>
                                 <div class="">
                                     <label>
-                                        {{totalFactura - formAddFactura.controls['totalFacturaOrigen'].value | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                                        {{totalFactura - formAddFactura.controls['totalFacturaOrigen'].value | number :
+                                        '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </label>
                                 </div>
                             </form>

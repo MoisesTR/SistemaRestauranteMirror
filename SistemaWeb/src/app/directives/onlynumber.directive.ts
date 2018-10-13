@@ -9,7 +9,8 @@ export class NumberOnlyDirective {
     private regexInt: RegExp = new RegExp(/^[0-9]*$/g);
     // Allow key codes for special events. Reflect :
     // Backspace, tab, end, home
-    private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home', '-' ];
+    // private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home', '-' ];
+    private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home' ];
     @Input() onlyNumbers: string;
     constructor(private el: ElementRef) {
     }

@@ -11,13 +11,13 @@
         <!--/Titulo-->
         <div class="card-body">
 
-          <div class="row" *ngIf="productos">
+          <div class="row">
 
             <div class="col-12 col-sm-12 col-md-5">
               <br>
               <label for="proveedor">Proveedor</label>
               <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
+                placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)">
                 <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                   <div style="margin: 10px 0;" class="card">
                     <div class="card-body">
@@ -53,7 +53,7 @@
             </div>
 
 
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xs-4 mt-4" *ngFor="let producto of productos | buscar: buscando ">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xs-4 mt-4" *ngFor="let producto of productos | buscarProductoxNombre: buscando ">
 
               <mdb-card>
                 <div class="view overlay">
@@ -72,14 +72,14 @@
 
                   <p class="mb-2">{{producto.Descripcion}}</p>
                   <!-- Text -->
-                  <p class="card-text">22/08/2018</p>
+                  <p class="card-text">Dias de uso: {{producto.DiasRotacion}}</p>
                   <hr class="my-1">
 
                   <div class="chip white-text mr-2 text-center" mdbTooltip="Categoría" placement="bottom" style="background-color:#FF5722;">{{producto.NombreCategoria}}</div>
-                  <div class="chip white-text text-center" mdbTooltip="Clasificación" placement="bottom" style="background-color:#F44336;">{{producto.NombreClasificacion}}</div>
+                  <div class="chip  white-text text-center" mdbTooltip="Clasificación" placement="bottom" style="background-color:#F44336;">{{producto.NombreClasificacion}}</div>
                   <br>
-                  <div class="chip white-text mr-2 text-center" mdbTooltip="SubClasificación" placement="bottom" style="background-color:#D32F2F;">Filete</div>
-                  <div class="chip white-text text-center" mdbTooltip="Tipo Insumo" placement="bottom" style="background-color:#C0392B;">Alimento</div>
+                  <div class="chip white-text mr-2 text-center" mdbTooltip="SubClasificación" placement="bottom" style="background-color:#D32F2F;">{{producto.NombreSubClasificacion}}</div>
+                  <div class="chip white-text text-center" mdbTooltip="Tipo Insumo" placement="bottom" style="background-color:#C0392B;">{{producto.DescripcionInsumo}}</div>
 
 
                 </mdb-card-body>
@@ -88,13 +88,13 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="productos==null">
-            <div class="container text-center">
-              <br>
-              <h1>PRODUCTOS</h1>
-              <p>No se encontraron productos registrados</p>
-            </div>
-          </div>
+          <!--<div class="row" *ngIf="productos==null">-->
+            <!--<div class="container text-center">-->
+              <!--<br>-->
+              <!--<h1>PRODUCTOS</h1>-->
+              <!--<p>No se encontraron productos registrados</p>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ import {NumberOnlyDirective} from '../../directives/onlynumber.directive';
 import {DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {NativeDateTimeAdapter} from 'ng-pick-datetime/date-time/adapter/native-date-time-adapter.class';
 import {Platform} from '@angular/cdk/platform';
+import {BuscarProductoNombre} from '../../pipe/buscar-nombre-producto.pipe';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import {Platform} from '@angular/cdk/platform';
       , BuscarPipe
       , BuscarTrabajadorPipe
       , BuscarProveedorPipe
+      , BuscarProductoNombre
       , FormatoComaDineroPipe
       , NgSelectModule
       , MDBBootstrapModulesPro
@@ -87,6 +89,7 @@ import {Platform} from '@angular/cdk/platform';
     , BuscarPipe
     , BuscarTrabajadorPipe
     , BuscarProveedorPipe
+    , BuscarProductoNombre
     , FormatoComaDineroPipe
     , NumberOnlyDirective
     ]

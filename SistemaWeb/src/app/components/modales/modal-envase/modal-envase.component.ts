@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {EnvaseService} from '../../../services/shared/envase.service';
 import {Envase} from '../../../models/Envase';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,7 +13,7 @@ declare var $: any;
   selector: 'modal-envase',
   templateUrl: './modal-envase.component.html'
 })
-export class ModalEnvaseComponent implements OnInit {
+export class ModalEnvaseComponent implements OnInit, AfterViewInit {
 
     public envase: Envase;
     public tituloPantalla = 'Envase';
@@ -63,13 +63,13 @@ export class ModalEnvaseComponent implements OnInit {
         this.formAddEnvase = this._formBuilderEnvase.group({
             'nombreEnvase': new FormControl('', [
                 Validators.required,
-                Validators.minLength(5),
+                Validators.minLength(2),
                 Validators.maxLength(100),
                 CustomValidators.nospaceValidator
             ])
             , 'descripcionEnvase': new FormControl('', [
                     Validators.required,
-                    Validators.minLength(5),
+                    Validators.minLength(3),
                     Validators.maxLength(100),
                     CustomValidators.nospaceValidator
                 ]

@@ -75,14 +75,14 @@
 
           <div class="md-form ">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="addnombreEmpaque" minlength="4" maxlength="50" class="input-modal-sm" name="nombreempaque" formControlName="nombreEmpaque"
+            <input type="text" id="addnombreEmpaque" class="input-modal-sm" name="nombreempaque" formControlName="nombreEmpaque"
               required>
             <show-errors [control]="formAddEmpaque.controls['nombreEmpaque']"></show-errors>
           </div>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" minlength="3" maxlength="150" id="adddescripcionempaque" formControlName="descripcionEmpaque" class="text-area-modal"
+            <textarea type="text" id="adddescripcionempaque" formControlName="descripcionEmpaque" class="text-area-modal"
               name="descripcionempaque" required></textarea>
             <show-errors [control]="formAddEmpaque.controls['descripcionEmpaque']"></show-errors>
           </div>
@@ -123,13 +123,13 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="upNombreEmpaque" minlength="4" maxlength="50" class="input-modal-sm" name="nombreempaque" formControlName="nombreEmpaque">
+            <input type="text" id="upNombreEmpaque" class="input-modal-sm" name="nombreempaque" formControlName="nombreEmpaque">
             <show-errors [control]="formUpdateEmpaque.controls['nombreEmpaque']"></show-errors>
           </div>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" minlength="3" maxlength="150" id="upDescripcionEmpaque" formControlName="descripcionEmpaque" class="text-area-modal"
+            <textarea type="text" id="upDescripcionEmpaque" formControlName="descripcionEmpaque" class="text-area-modal"
               name="descripcionempaque" required></textarea>
             <show-errors [control]="formUpdateEmpaque.controls['descripcionEmpaque']"></show-errors>
           </div>

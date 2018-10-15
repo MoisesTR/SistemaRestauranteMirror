@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {UnidadMedidaService} from '../../../services/shared/unidad-medida.service';
 import {UnidadMedida} from '../../../models/UnidadMedida';
 import {ModalDirective} from 'ng-uikit-pro-standard';
@@ -16,7 +16,7 @@ declare var $: any;
   selector: 'modal-unidad-medida',
   templateUrl: './modal-unidad-medida.component.html'
 })
-export class ModalUnidadMedidaComponent implements OnInit {
+export class ModalUnidadMedidaComponent implements OnInit, AfterViewInit {
 
     public unidadMedida: UnidadMedida;
     public clasificaciones: ClasificacionProducto[];

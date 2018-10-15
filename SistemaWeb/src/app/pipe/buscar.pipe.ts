@@ -12,9 +12,16 @@ export class BuscarPipe implements PipeTransform {
 			return valor;
 		}
 
-		if (valor !== null && valor !== undefined) {
+		if (valor !== null && valor !== undefined ) {
+			console.log('valor')
+			console.log(valor)
             return valor.filter( (item) => {
-                return item.CodigoProducto.toLowerCase().includes(term.toLowerCase());
+            	if (item.CodigoProducto !== null) {
+                    return item.CodigoProducto.toLowerCase().includes(term.toLowerCase());
+				} else {
+                    return item.CodigoInterno.toLowerCase().includes(term.toLowerCase());
+				}
+
             });
 		}
 

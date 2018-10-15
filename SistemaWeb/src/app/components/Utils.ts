@@ -86,6 +86,14 @@ export class Utils{
       return resultado;
   }
 
+  static notNullOrUndefined(valor: any) {
+      let resultado = false;
+      if (!(valor === null || valor === undefined)) {
+          resultado = true;
+      }
+      return resultado;
+  }
+
   static getYearDate(myDate) {
       return moment(myDate, 'YYYY-MM-DD').year();
   }

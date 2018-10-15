@@ -21,6 +21,7 @@ export class NumberOnlyDirective {
         if (this.specialKeys.indexOf(event.key) !== -1) {
             return;
         }
+
         const current: string = this.el.nativeElement.value;
         const next: string = current.concat(event.key);
         let regex;

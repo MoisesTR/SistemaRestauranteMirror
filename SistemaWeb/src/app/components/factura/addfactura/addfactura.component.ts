@@ -260,14 +260,15 @@ export class AddfacturaComponent implements OnInit {
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
-        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0) {
-
-            productoFiltrado.Subtotal = productoFiltrado.Cantidad * productoFiltrado.Costo;
-            productoFiltrado.Descuento = productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento;
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.PorcentajeDescuento <= 1) {
+            productoFiltrado.Cantidad = Utils.round(productoFiltrado.Cantidad, 2);
+            productoFiltrado.Costo = Utils.round(productoFiltrado.Costo, 2);
+            productoFiltrado.Subtotal = Utils.round(productoFiltrado.Cantidad * productoFiltrado.Costo, 2);
+            productoFiltrado.Descuento = Utils.round(productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento, 2);
             productoFiltrado.DetalleMenosDescuento = productoFiltrado.Subtotal - productoFiltrado.Descuento;
 
             if (productoFiltrado.GravadoIva === 1) {
-                productoFiltrado.CalculoIva = productoFiltrado.DetalleMenosDescuento * this.valorIva;
+                productoFiltrado.CalculoIva = Utils.round(productoFiltrado.DetalleMenosDescuento * this.valorIva, 2);
                 productoFiltrado.Iva = productoFiltrado.DetalleMenosDescuento + productoFiltrado.CalculoIva;
                 productoFiltrado.TotalDetalle = productoFiltrado.Iva - productoFiltrado.Descuento;
             } else {
@@ -282,6 +283,8 @@ export class AddfacturaComponent implements OnInit {
                 Utils.showMsgInfo('La cantidad debe ser mayor a cero!');
             } else if (productoFiltrado.Costo <= 0) {
                 Utils.showMsgInfo('El precio debe ser mayor a cero!');
+            } else if (productoFiltrado.PorcentajeDescuento > 1) {
+                Utils.showMsgInfo('EL porcentaje de descuento debe ser menor o igual a 100!');
             }
         }
     }
@@ -488,7 +491,7 @@ export class AddfacturaComponent implements OnInit {
         let retencion = 0;
 
         if (this.factura.aplicaRetencion && this.subTotalFactura > 1000) {
-            retencion = this.subTotalFactura * this.valorRetencion;
+            retencion = Utils.round(this.subTotalFactura * this.valorRetencion, 2);
             this.retencionCalculoFactura = retencion;
             this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
         } else {

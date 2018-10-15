@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto';
 import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -14,7 +14,7 @@ import {ModalDirective} from 'ng-uikit-pro-standard';
   selector: 'modal-subclasificacion',
   templateUrl: './modal-subclasificacion.component.html'
 })
-export class ModalSubclasificacionComponent implements OnInit {
+export class ModalSubclasificacionComponent implements OnInit, AfterViewInit {
 
   public subclasificacion: SubClasificacionProducto;
   public clasificaciones: ClasificacionProducto;
@@ -70,13 +70,13 @@ export class ModalSubclasificacionComponent implements OnInit {
       this.formAddSubClasificacion = this.formBuilderSubClasificacion.group({
           'nombreSubClasificacion' : new FormControl('', [
               Validators.required
-              , Validators.minLength(5)
+              , Validators.minLength(2)
               , Validators.maxLength(100)
               , CustomValidators.nospaceValidator
           ])
           , 'descripcionSubClasificacion' : new FormControl('', [
               Validators.required
-              , Validators.minLength(5)
+              , Validators.minLength(3)
               , Validators.maxLength(300)
               , CustomValidators.nospaceValidator
           ])

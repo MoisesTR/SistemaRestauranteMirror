@@ -15,7 +15,7 @@ import {CustomValidators} from '../../../validadores/CustomValidators';
   templateUrl: './modal-clasificacion.component.html',
   styleUrls: ['./modal-clasificacion.component.scss']
 })
-export class ModalClasificacionComponent implements OnInit, AfterViewInit{
+export class ModalClasificacionComponent implements OnInit, AfterViewInit {
 
   public clasificacion: ClasificacionProducto;
   public formAddClasificacion: FormGroup;
@@ -73,13 +73,13 @@ export class ModalClasificacionComponent implements OnInit, AfterViewInit{
       this.formAddClasificacion = this.formBuilderClasificacion.group({
           'nombreClasificacion': new FormControl('', [
               Validators.required
-              , Validators.minLength(5)
+              , Validators.minLength(3)
               , Validators.maxLength(100)
               , CustomValidators.nospaceValidator
           ])
           , 'descripcionClasificacion': new FormControl('', [
               Validators.required
-              , Validators.minLength(5)
+              , Validators.minLength(3)
               , Validators.maxLength(300)
               , CustomValidators.nospaceValidator
           ])

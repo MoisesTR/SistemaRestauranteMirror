@@ -67,7 +67,8 @@ export class AddProductoComponent implements OnInit {
     public proveedorSelecionado: number;
     Insumo = [
         {Id: 1, TipoInsumo: 'Alimento'}
-        , {Id: 2, TipoInsumo: 'Limpieza'},
+        , {Id: 2, TipoInsumo: 'Limpieza'}
+        , {Id: 3, TipoInsumo: 'Utensilios'},
     ];
     groupByFn = (item) => item.Habilitado;
 
@@ -99,7 +100,7 @@ export class AddProductoComponent implements OnInit {
             $('.letras').keypress(function (key) {
                 if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
                     && (key.charCode < 65 || key.charCode > 90) // letras minusculas
-                    && (key.charCode !== 45) // retroceso
+                    && (key.charCode < 48 || key.charCode > 57) // numeros permitidos
                     && (key.charCode !== 241) // ñ
                     && (key.charCode !== 209) // Ñ
                     && (key.charCode !== 32) // espacio
@@ -587,6 +588,23 @@ resultadoConsultaCategoria(event) {
             if (value !== 'proveedor') {
                 this.formAddProducto.controls[value].reset();
             }
+        });
+    }
+
+    agregarProveedor() {
+        swal({
+            title: 'Agregar proveedor',
+            text: 'Si seleccionas la opcion "SI", perderas los cambios digitados hasta el momento!',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI',
+            cancelButtonText: 'NO'
+        }).then((result) => {
+            if (result.value) {
+                this._router.navigate(['/proveedor/add']);
+            } else if (result.dismiss === swal.DismissReason.cancel) {}
         });
     }
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmpaqueService} from '../../../services/shared/empaque.service';
@@ -13,7 +13,7 @@ import {Utils} from '../../Utils';
   styleUrls: ['./modal-empaque.component.scss'],
     exportAs: 'modalEmpaque'
 })
-export class ModalEmpaqueComponent implements OnInit {
+export class ModalEmpaqueComponent implements OnInit, AfterViewInit {
 
   @ViewChild('modalAddEmpaque') modalAddEmpaque: ModalDirective;
 
@@ -67,14 +67,14 @@ export class ModalEmpaqueComponent implements OnInit {
           'nombreEmpaque': new FormControl('', [
 
               Validators.required,
-              Validators.minLength(5),
+              Validators.minLength(2),
               Validators.maxLength(100),
               CustomValidators.nospaceValidator
           ])
 
           , 'descripcionEmpaque': new FormControl('', [
               Validators.required,
-              Validators.minLength(5),
+              Validators.minLength(3),
               Validators.maxLength(100),
               CustomValidators.nospaceValidator
           ])

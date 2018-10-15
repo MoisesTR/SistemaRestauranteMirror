@@ -26,6 +26,8 @@ import {DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeIntl, OwlDateTimeModul
 import {NativeDateTimeAdapter} from 'ng-pick-datetime/date-time/adapter/native-date-time-adapter.class';
 import {Platform} from '@angular/cdk/platform';
 import {BuscarProductoNombre} from '../../pipe/buscar-nombre-producto.pipe';
+import {NumberDirective} from '../../directives/onlypositivenumber.directive';
+import {AlphanumericDirective} from '../../directives/alphanumeric.directive';
 
 
 @NgModule({
@@ -72,6 +74,8 @@ import {BuscarProductoNombre} from '../../pipe/buscar-nombre-producto.pipe';
       , NumberOnlyDirective
       , OwlDateTimeModule
       , OwlNativeDateTimeModule
+      , NumberDirective
+      , AlphanumericDirective
 
   ],
     declarations: [
@@ -92,6 +96,8 @@ import {BuscarProductoNombre} from '../../pipe/buscar-nombre-producto.pipe';
     , BuscarProductoNombre
     , FormatoComaDineroPipe
     , NumberOnlyDirective
+    , NumberDirective
+    , AlphanumericDirective
     ]
   , providers  : [{
     provide: NG_SELECT_DEFAULT_CONFIG,

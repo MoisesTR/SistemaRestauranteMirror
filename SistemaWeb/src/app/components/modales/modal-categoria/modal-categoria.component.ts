@@ -1,31 +1,30 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoriaProducto} from '../../../models/CategoriaProducto';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {isNull, isUndefined} from 'util';
 import {Utils} from '../../Utils';
 
 @Component({
   selector: 'modal-categoria',
   templateUrl: './modal-categoria.component.html'
 })
-export class ModalCategoriaComponent implements OnInit {
+export class ModalCategoriaComponent implements OnInit, AfterViewInit {
 
   public categoriaProducto: CategoriaProducto;
-  @ViewChild('modalAddCategoria') modalAddCategoria  : ModalDirective;
-  @Input() mostrarModal : boolean;
-  @Output() resultadoModal : EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
-  @Output() resultadoConsulta : EventEmitter<boolean> = new EventEmitter<boolean>();
-  public isVisible: boolean = false;
-  public isModalShown:boolean = false;
+  @ViewChild('modalAddCategoria') modalAddCategoria: ModalDirective;
+  @Input() mostrarModal: boolean;
+  @Output() resultadoModal: EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
+  @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public isVisible = false;
+  public isModalShown = false;
   public formAddCategoria: FormGroup;
 
 
   constructor(
-      private _categoriaProductoServicio : CategoriaProductoService
+      private _categoriaProductoServicio: CategoriaProductoService
       , private _formBuilderCategoria: FormBuilder
   ) {
       this.categoriaProducto = new CategoriaProducto();
@@ -48,35 +47,34 @@ export class ModalCategoriaComponent implements OnInit {
       this.isVisible = true;
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
         this.modalAddCategoria.show();
   }
 
 
-    eventoClick(event){
-
-        if( !isNull(event.dismissReason) && !isUndefined(event.dismissReason) )
-            if( (event.dismissReason).toString() == ( 'backdrop-click')) {
+    eventoClick(event) {
+        if (!Utils.notNullOrUndefined(event.dismissReason) ) {
+            if ( (event.dismissReason).toString() === ( 'backdrop-click')) {
                 this.hideModal();
-
+            }
         }
   }
 
     /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddCategoria(){
+  initFormAddCategoria() {
 
       this.formAddCategoria = this._formBuilderCategoria.group({
           'nombreCategoria': new FormControl('',
               [
                   Validators.required,
-                  Validators.minLength(5),
+                  Validators.minLength(2),
                   Validators.maxLength(100),
                   CustomValidators.nospaceValidator
               ])
           , 'descripcionCategoria': new FormControl('',
               [
                   Validators.required,
-                  Validators.minLength(5),
+                  Validators.minLength(3),
                   Validators.maxLength(300),
                   CustomValidators.nospaceValidator
               ])
@@ -84,12 +82,12 @@ export class ModalCategoriaComponent implements OnInit {
 
   }
 
-  getValuesFormAddCategoria(){
+  getValuesFormAddCategoria() {
       this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
       this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
   }
 
-  createCategoriaProducto(){
+  createCategoriaProducto() {
       this.getValuesFormAddCategoria();
 
       this._categoriaProductoServicio.createCategoriaProducto(this.categoriaProducto).subscribe(
@@ -105,10 +103,10 @@ export class ModalCategoriaComponent implements OnInit {
                       this.modalAddCategoria.hide();
                       this.formAddCategoria.reset();
                       this.resultadoConsulta.emit(true);
-                  })
+                  });
 
               } else {
-                  Utils.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente','Categoria')
+                  Utils.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente', 'Categoria');
 
 
               }
@@ -117,13 +115,11 @@ export class ModalCategoriaComponent implements OnInit {
               Utils.showMsgError(Utils.msgError(error));
 
           }
-      )
-
-
+      );
   }
 
 
-  public showModal():void {
+  public showModal(): void {
       this.isModalShown = true;
   }
 
@@ -131,6 +127,5 @@ export class ModalCategoriaComponent implements OnInit {
       this.modalAddCategoria.hide();
       this.resultadoConsulta.emit(false);
   }
-
 
 }

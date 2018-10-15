@@ -165,7 +165,7 @@
                     <div [ngClass]="(i === 0) ? 'col-md-3':'col-md-3'" class="mr-0">
                       <div class="md-form">
                         <h6 class="orange-chang-text" *ngIf="i===0">Télefono</h6>
-                        <input type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
+                        <input type="text" onlyPositiveNumber id="t{{i}}" [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="telefono.Telefono" class="input-modal-sm">
                       </div>
                     </div>

@@ -110,4 +110,9 @@ export class Utils{
       nativeWindow.open('http://localhost:3000/reports?shortid=' + idReporte + '&preview=' + preview + '&catalogoApi=' + catalogo + '&IdFactura=' + idFactura + '&IdEstadoFactura' + idEstadoFactura );
   }
 
+  static round(value, decimals) {
+      return Number(Math.round(Number(value + 'e' + decimals)) + 'e-'+ decimals);
+  }
+
+
 }

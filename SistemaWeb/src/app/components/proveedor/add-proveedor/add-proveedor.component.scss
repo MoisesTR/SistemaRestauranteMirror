@@ -13,3 +13,21 @@
 #align-input {
   margin-left: -40%;
 }
+
+@media only screen and (max-width: 992px) {
+  #align-input {
+    margin-left: 0%;
+  }
+}
+
+#mg-labels {
+  margin-bottom: -3% !important;
+}
+
+.mgl-labels {
+  margin-left: -12px;
+}
+
+#mgl-label-acciones {
+  margin-left: -40px;
+}

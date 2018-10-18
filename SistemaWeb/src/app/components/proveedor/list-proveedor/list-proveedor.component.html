@@ -18,7 +18,7 @@
             <tr>
               <th class="header-negrita">#</th>
               <th class="header-negrita">Nombre</th>
-              <th class="header-negrita">Telefono</th>
+              <th class="header-negrita">Telefono titular</th>
               <th class="header-negrita">Direccion</th>
               <th class="header-negrita">Descripcion</th>
               <th class="header-negrita">Representante</th>
@@ -29,7 +29,7 @@
             <tr *ngFor="let proveedor of proveedores">
               <td class="body-negrita">{{ proveedor.IdProveedor }}</td>
               <td class="body-negrita">{{ proveedor.NombreProveedor }}</td>
-              <td class="body-negrita">{{ proveedor.Telefono }}</td>
+              <td class="body-negrita">{{ proveedor.Telefonos != undefined ? proveedor.Telefonos[0].Telefono : ''}}</td>
               <td width="10%" class="body-negrita">{{ proveedor.Direccion }}</td>
               <td width="10%" class="body-negrita">{{ proveedor.Descripcion }}</td>
               <td width="10%" class="body-negrita">{{ proveedor.NombreRepresentante}}</td>

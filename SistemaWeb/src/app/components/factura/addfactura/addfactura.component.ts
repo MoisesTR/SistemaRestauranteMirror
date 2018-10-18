@@ -144,7 +144,7 @@ export class AddfacturaComponent implements OnInit {
         this.formAddFactura = this._formBuilderFactura.group({
             'proveedor': new FormControl('', Validators.required)
             , 'codigoFactura': new FormControl('', Validators.required)
-            , 'totalFacturaOrigen': new FormControl('', Validators.required)
+            , 'totalFacturaOrigen': new FormControl(0 , Validators.required)
             , 'fechaFactura': new FormControl('', [
                 Validators.required
             ])
@@ -277,6 +277,7 @@ export class AddfacturaComponent implements OnInit {
 
             this.productosFactura.push(productoFiltrado);
             this.calcularSubtotalFactura(productoFiltrado, 'SUMA');
+            this.resetProductoFiltrado(producto);
             this.showSuccess();
         } else {
             if (productoFiltrado.Cantidad <= 0) {
@@ -287,6 +288,12 @@ export class AddfacturaComponent implements OnInit {
                 Utils.showMsgInfo('EL porcentaje de descuento debe ser menor o igual a 100!');
             }
         }
+    }
+
+    resetProductoFiltrado(producto: ProductoFactura) {
+        producto.Costo = 0;
+        producto.Cantidad = 0;
+        producto.PorcentajeDescuento = 0;
     }
 
     getProductosOfProveedor(IdProveedor) {

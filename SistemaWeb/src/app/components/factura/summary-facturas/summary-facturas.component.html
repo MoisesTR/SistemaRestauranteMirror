@@ -139,25 +139,25 @@
             </thead>
             <tbody>
               <tr *ngFor="let factura of facturas; let i = index">
-                <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
-                <td class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>
-                <td class="body-negrita text-center align-middle">
+                <th *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" scope="row" class="align-middle" width="5%">{{i + 1}}</th>
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">
                   <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaRecepcion}}</small></span>
                 </td>
-                <td class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>
-                <td class="body-negrita text-center align-middle">
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">
                   <span class="grey-text"><small><i class="fa fa-clock-o"></i>{{factura.HoraIngreso}}</small></span>
                   <br>
                   <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaIngreso |
                       date:'yyyy-MM-dd'}}</small></span>
                 </td>
-                <td width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number :
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number :
                   '1.2-2'}}</td>
-                <td width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalOrigenFactura | number :
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalOrigenFactura | number :
                   '1.2-2'}}</td>
-                <td width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas - factura.TotalOrigenFactura  | number :
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas - factura.TotalOrigenFactura  | number :
                   '1.2-2'}}</td>
-                <td class="text-center align-middle">
+                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="text-center align-middle">
                   <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" (click)="mostrarFactura(factura.IdFactura)"
                     mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect><i class="fa fa-eye"></i></button>
                 </td>
@@ -168,8 +168,14 @@
 
           <nav>
             <ul class="pagination pg-amber justify-content-center">
+
+              <!--First-->
+              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+                <a class="page-link">Primera</a>
+              </li>
+
               <!--Arrow left-->
-              <li class="page-item">
+              <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
                 <a class="page-link" mdbWavesEffect aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
@@ -177,18 +183,21 @@
               </li>
 
               <!--Numbers-->
-              <li class="page-item active z-index-0h"><a class="page-link" mdbWavesEffect>1</a></li>
-              <li class="page-item"><a class="page-link" mdbWavesEffect>2</a></li>
-              <li class="page-item"><a class="page-link" mdbWavesEffect>3</a></li>
-              <li class="page-item"><a class="page-link" mdbWavesEffect>4</a></li>
-              <li class="page-item"><a class="page-link" mdbWavesEffect>5</a></li>
+              <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index" class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
+                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+              </li>
 
               <!--Arrow right-->
-              <li class="page-item">
+              <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
                 <a class="page-link" mdbWavesEffect aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
+              </li>
+
+              <!--LAST PAGE-->
+              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                <a class="page-link">Ultima</a>
               </li>
             </ul>
           </nav>

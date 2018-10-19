@@ -185,6 +185,9 @@
                                         <th>Cantidad</th>
                                         <th>Precio</th>
                                         <th>Descuento</th>
+                                        <th class="text-center">
+                                            Tipo Descuento
+                                        </th>
                                         <th class="text-center">IVA</th>
                                         <!-- <th class="text-center">Fecha vencimiento</th> -->
                                         <th class="text-center">Acción</th>
@@ -194,13 +197,14 @@
 
                                     <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
                                         <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
-                                        <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto !== null ? producto.CodigoProducto : producto.CodigoInterno}}</th>
+                                        <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto !==
+                                            null ? producto.CodigoProducto : producto.CodigoInterno}}</th>
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
                                         <td width="13%">
                                             <div class="md-form">
                                                 <input mdbInputDirective (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
-                                                    type="text" name="cantidadProducto" onlyNumbers="decimal" min="0" class="input-modal-sm"
-                                                    style="width: 60% !important;">
+                                                    type="text" name="cantidadProducto" onlyNumbers="decimal" min="0"
+                                                    class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="13%">
@@ -215,6 +219,17 @@
                                                 <input (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
                                                     mdbInputDirective type="text" onlyPositiveNumber id="valorDescuento"
                                                     name="valorDescuento" min="0" class="input-modal-sm" style="width: 60% !important;">
+                                            </div>
+                                        </td>
+
+                                        <td class="text-center align-middle" width="15%">
+                                            <div class="switch chang-switch">
+                                                <label>
+                                                    <i class="fa fa-percent" aria-hidden="true"></i>
+                                                    <input type="checkbox" checked>
+                                                    <span class="lever"></span>
+                                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                                </label>
                                             </div>
                                         </td>
 
@@ -274,7 +289,8 @@
                             <tbody>
                                 <tr *ngFor="let productoFactura of productosFactura;let i = index">
                                     <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
-                                    <td class="body-negrita align-middle text-center">{{productoFactura.CodigoProducto !== null ? productoFactura.CodigoProducto : productoFactura.CodigoInterno}}</td>
+                                    <td class="body-negrita align-middle text-center">{{productoFactura.CodigoProducto
+                                        !== null ? productoFactura.CodigoProducto : productoFactura.CodigoInterno}}</td>
                                     <td class="body-negrita align-middle">{{productoFactura.NombreProducto}}</td>
                                     <td class="body-negrita align-middle  text-center">{{productoFactura.NombreUnidad}}</td>
                                     <td class="body-negrita align-middle">{{productoFactura.Cantidad}}</td>

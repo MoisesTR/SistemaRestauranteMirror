@@ -9,6 +9,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {ProveedorService} from '../../../services/shared/proveedor.service';
 import {idioma_espanol} from '../../../services/shared/global';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 declare var $:any;
 @Component({
   selector: 'list-proveedor',
@@ -17,6 +18,7 @@ declare var $:any;
 })
 export class ListProveedorComponent implements OnInit {
 
+    @ViewChild('modalTelefonos') modalTelefonos: ModalDirective;
     public proveedor: Proveedor;
     public proveedores: Proveedor[];
     public tituloPantalla : string = 'Proveedor';
@@ -313,6 +315,10 @@ export class ListProveedorComponent implements OnInit {
             ])
 
         });
+    }
+
+    showModalTelefonos () {
+        this.modalTelefonos.show();
     }
 
 

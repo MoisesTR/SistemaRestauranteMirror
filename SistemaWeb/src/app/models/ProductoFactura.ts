@@ -12,6 +12,7 @@ export class ProductoFactura extends Producto {
     public DetalleMenosDescuento: number;
     public GravadoIva: number;
     public FechaVencimiento: string;
+    public DescuentoIngresado: number;
     public PorcentajeDescuento: number;
     public Subtotal: number;
     public TotalDetalle: number;

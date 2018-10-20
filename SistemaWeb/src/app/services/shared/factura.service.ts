@@ -22,12 +22,13 @@ export class FacturaService {
       return this._http.get(this.url + 'getCambiosFactura?IdFactura=' + idFactura );
   }
 
-  getFacturas(IdFechaFiltro = null, Habilitado = true, FechaInicio = null, FechaFin = null, IdProveedor , IdEstadoFactura): Observable<any> {
+  getFacturas(IdFechaFiltro = null, Habilitado = true, FechaInicio = null, FechaFin = null, IdProveedor , IdEstadoFactura, CodFactura): Observable<any> {
       const params = new HttpParams().set('IdFechaFiltro', IdFechaFiltro)
           .set('FechaInicio', FechaInicio)
           .set('FechaFin', FechaFin)
           .set('IdProveedor', IdProveedor)
-          .set('IdEstadoFactura', IdEstadoFactura);
+          .set('IdEstadoFactura', IdEstadoFactura)
+          .set('CodFactura', CodFactura);
       return this._http.get(this.url + 'listarfacturas?Habilitado=' + Habilitado, {params: params} );
   }
 

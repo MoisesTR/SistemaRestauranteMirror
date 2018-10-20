@@ -260,7 +260,8 @@ export class AddfacturaComponent implements OnInit {
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
-        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.PorcentajeDescuento <= 1) {
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.DescuentoIngresado <= 100) {
+            productoFiltrado.PorcentajeDescuento = Utils.round(productoFiltrado.DescuentoIngresado / 100, 2);
             productoFiltrado.Cantidad = Utils.round(productoFiltrado.Cantidad, 2);
             productoFiltrado.Costo = Utils.round(productoFiltrado.Costo, 2);
             productoFiltrado.Subtotal = Utils.round(productoFiltrado.Cantidad * productoFiltrado.Costo, 2);
@@ -284,7 +285,7 @@ export class AddfacturaComponent implements OnInit {
                 Utils.showMsgInfo('La cantidad debe ser mayor a cero!');
             } else if (productoFiltrado.Costo <= 0) {
                 Utils.showMsgInfo('El precio debe ser mayor a cero!');
-            } else if (productoFiltrado.PorcentajeDescuento > 1) {
+            } else if (productoFiltrado.DescuentoIngresado > 100) {
                 Utils.showMsgInfo('EL porcentaje de descuento debe ser menor o igual a 100!');
             }
         }
@@ -293,7 +294,8 @@ export class AddfacturaComponent implements OnInit {
     resetProductoFiltrado(producto: ProductoFactura) {
         producto.Costo = 0;
         producto.Cantidad = 0;
-        producto.PorcentajeDescuento = 0;
+        producto.DescuentoIngresado = 0;
+        producto.GravadoIva = 0;
     }
 
     getProductosOfProveedor(IdProveedor) {
@@ -309,6 +311,7 @@ export class AddfacturaComponent implements OnInit {
                         this.productosFiltrados[index].Cantidad = 0;
                         this.productosFiltrados[index].FechaVencimiento = '';
                         this.productosFiltrados[index].Descuento = 0;
+                        this.productosFiltrados[index].DescuentoIngresado = 0;
                         this.productosFiltrados[index].PorcentajeDescuento = 0;
                         this.productosFiltrados[index].Subtotal = 0;
                         this.productosFiltrados[index].Iva = 0;
@@ -519,7 +522,7 @@ export class AddfacturaComponent implements OnInit {
     }
 
     onSearchChangeDescuentoProducto(descuento, producto) {
-        producto.PorcentajeDescuento = descuento / 100;
+        producto.DescuentoIngresado = descuento;
     }
 
     changeIva(event, producto: ProductoFactura) {

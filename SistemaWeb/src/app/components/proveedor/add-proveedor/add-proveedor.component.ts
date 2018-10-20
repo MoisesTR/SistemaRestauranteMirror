@@ -215,7 +215,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   agregarTelefonosProveedor() {
       if (this.telefonosValidos()) {
           this.modalTelefonos.hide();
-          console.log(this.telefonos);
       } else {
           Utils.showMsgInfo('Completa correctamente el formulario de telefonos');
       }

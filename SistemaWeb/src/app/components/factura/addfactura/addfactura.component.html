@@ -202,22 +202,22 @@
                                         <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
                                         <td width="13%">
                                             <div class="md-form">
-                                                <input mdbInputDirective (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
+                                                <input mdbInputDirective  [mdbValidate]=false [(ngModel)]="producto.Cantidad" (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
                                                     type="text" name="cantidadProducto" onlyNumbers="decimal" min="0"
                                                     class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="13%">
                                             <div class="md-form">
-                                                <input mdbInputDirective (input)="onSearchChangePrecioProducto($event.target.value,producto)"
+                                                <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Costo" (input)="onSearchChangePrecioProducto($event.target.value,producto)"
                                                     name="precioProducto" class="input-modal-sm" onlyNumbers="decimal"
                                                     style="width: 60% !important;">
                                             </div>
                                         </td>
                                         <td width="13%">
                                             <div class="md-form">
-                                                <input (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
-                                                    mdbInputDirective type="text" onlyPositiveNumber id="valorDescuento"
+                                                <input [mdbValidate]=false (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
+                                                    mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text" onlyPositiveNumber id="valorDescuento"
                                                     name="valorDescuento" min="0" class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
@@ -235,7 +235,7 @@
 
                                         <td class="text-center align-middle">
                                             <div class="form-check">
-                                                <input (change)="changeIva($event, producto)" class="form-check-input"
+                                                <input [mdbValidate]=false [(ngModel)]="producto.GravadoIva" (change)="changeIva($event, producto)" class="form-check-input"
                                                     type="checkbox" id="ei{{i}}" mdbInputDirective>
                                                 <label class="form-check-label" for="ei{{i}}"></label>
                                             </div>

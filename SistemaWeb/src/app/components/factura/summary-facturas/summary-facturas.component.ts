@@ -212,6 +212,10 @@ export class SummaryFacturasComponent implements OnInit {
           this._facturaService.getFacturas(this.idFechaBusqueda, true, this.fechaInicio, this.fechaFin, this.idProveedor, 2, this.codFactura).subscribe(
               response => {
                   this.facturas = response.facturas;
+                  this.paginators = [];
+                  this.activePage = 1;
+                  this.firstVisibleIndex = 1;
+                  this.firstVisiblePaginator = 0;
                   this.addPaginators();
                   this.sumarFacturas();
 

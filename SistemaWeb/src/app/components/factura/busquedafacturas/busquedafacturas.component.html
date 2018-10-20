@@ -15,9 +15,9 @@
               <div class="row">
 
                 <div class="col-xs-12 col-md-4 col-lg-4 mb-2 mt-2">
-                  <label for="proveedor">Proveedor</label>
-                  <ng-select [items]="proveedores" formControlName="proveedor" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                    placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)">
+                  <label for="proveedor" class="grey-text-card">Proveedor</label>
+                  <ng-select [items]="proveedores" formControlName="proveedor" bindLabel="NombreProveedor" bindValue="IdProveedor"
+                    id="proveedor" placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)">
                     <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                       <div style="margin: 10px 0;" class="card">
                         <div class="card-body">
@@ -39,12 +39,12 @@
                 </div>
 
                 <div class="col-xs-12 col-md-3 col-lg-3 mb-2 mt-2">
-                  <mdb-date-picker [options]="startDate" formControlName="fechaInicio" name="fechaInicio" id="FechaInicio" [placeholder]="'Seleccione la fecha'"
-                    [label]="'Fecha Inicio'" required></mdb-date-picker>
+                  <mdb-date-picker [options]="startDate" formControlName="fechaInicio" name="fechaInicio" id="FechaInicio"
+                    [placeholder]="'Seleccione la fecha'" [label]="'Fecha Inicio'" required></mdb-date-picker>
                 </div>
                 <div class="col-xs-12 col-md-3 col-lg-3 mt-2">
-                  <mdb-date-picker [options]="finalDate" formControlName="fechaFin" name="fechaFin" id="FechaFin" [placeholder]="'Seleccione la fecha'"
-                    [label]="'Fecha Fin'" required></mdb-date-picker>
+                  <mdb-date-picker [options]="finalDate" formControlName="fechaFin" name="fechaFin" id="FechaFin"
+                    [placeholder]="'Seleccione la fecha'" [label]="'Fecha Fin'" required></mdb-date-picker>
                 </div>
                 <div class="col-xs-12 col-md-2 col-lg-2 mb-4 mt-4">
                   <button class="btn orange-chang btn-sm btn-block waves-light" mdbWavesEffect (click)="findFacturas()">Buscar
@@ -69,16 +69,19 @@
                         <br>
                         <strong>Total factura: </strong>C${{factura.TotalCordobas}}
                       </mdb-card-text>
-                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="mostrarFactura(factura.IdFactura)" mdbWavesEffect>
+                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="mostrarFactura(factura.IdFactura)"
+                        mdbWavesEffect>
                         <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
                       </a>
                       <!--<a mdbBtn size="sm" class="waves-light orange-chang white-text" mdbWavesEffect (click)="editarFactura(factura.IdFactura)">-->
-                        <!--<i class="fa fa-pencil" aria-hidden="true"></i> Editar-->
+                      <!--<i class="fa fa-pencil" aria-hidden="true"></i> Editar-->
                       <!--</a>-->
-                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="imprimirFactura(factura.IdFactura)" mdbWavesEffect>
+                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="imprimirFactura(factura.IdFactura)"
+                        mdbWavesEffect>
                         <i class="fa fa-print" aria-hidden="true"></i> Imprimir
                       </a>
-                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="mostrarModalCambiosFactura(factura.IdFactura)" mdbWavesEffect>
+                      <a mdbBtn size="sm" class="waves-light orange-chang white-text" (click)="mostrarModalCambiosFactura(factura.IdFactura)"
+                        mdbWavesEffect>
                         <i class="fa fa-file-text-o" aria-hidden="true"></i> Historial
                       </a>
                     </mdb-card-body>

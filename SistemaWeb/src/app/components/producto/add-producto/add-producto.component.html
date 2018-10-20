@@ -47,9 +47,10 @@
 
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
-                <label for="proveedor">Proveedor</label>
+                <label for="proveedor" class="grey-text-card">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" [(ngModel)]="proveedorSelecionado" formControlName="proveedor">
+                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" [(ngModel)]="proveedorSelecionado"
+                  formControlName="proveedor">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
                       <div class="card-body">
@@ -80,7 +81,7 @@
 
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
-                <label for="categoria">Categoria</label>
+                <label for="categoria" class="grey-text-card">Categoria</label>
                 <ng-select [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria"
                   formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
                 </ng-select>
@@ -95,7 +96,7 @@
 
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
-                <label for="clasificacion">Clasificación</label>
+                <label for="clasificacion" class="grey-text-card">Clasificación</label>
                 <ng-select [items]="clasificaciones" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
                   placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="clasificacion"
                   (change)="onChangeClasificacion($event)">
@@ -111,7 +112,7 @@
 
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
-                <label for="subclasificacion">Subclasificación</label>
+                <label for="subclasificacion" class="grey-text-card">Subclasificación</label>
                 <ng-select [items]="subclasificaciones" bindLabel="NombreSubClasificacion" bindValue="IdSubClasificacion"
                   placeholder="Selecciona una subclasificacion" [searchFn]="customSearchFn" formControlName="subclasificacion"
                   id="subclasificacion" (change)="onChangeSubclasificacion($event)">
@@ -127,7 +128,7 @@
 
               <div class="col-12 col-sm-12 col-md-5">
                 <br>
-                <label>Empaque</label>
+                <label class="grey-text-card">Empaque</label>
                 <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque"
                   formControlName="empaque" id="empaque" (change)="onChangeEmpaque($event)">
                 </ng-select>
@@ -136,8 +137,8 @@
 
               <div class="col-12 col-sm-12 col-md-4 mt-4">
                 <div class="md-form">
-                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="cantidadEmpaque" formControlName="cantidadEmpaque"
-                    class="form-control" autocomplete="off">
+                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="cantidadEmpaque"
+                    formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
                   <label for="cantidadEmpaque">Cantidad por Empaque</label>
                   <show-errors [control]="formAddProducto.controls['cantidadEmpaque']"></show-errors>
                 </div>
@@ -151,7 +152,7 @@
 
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
-                <label>Envase</label>
+                <label class="grey-text-card">Envase</label>
                 <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
                   formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
                 </ng-select>
@@ -167,7 +168,7 @@
 
               <div class="col-12 col-sm-12 col-md-5">
                 <br>
-                <label>Unidad de Medida</label>
+                <label class="grey-text-card">Unidad de Medida</label>
                 <ng-select [items]="unidades" dropdownPosition="top" bindLabel="NombreUnidad" bindValue="IdUnidadMedida"
                   placeholder="Selecciona una unidad de medida" formControlName="unidadmedida" id="unidadmedida"
                   (change)="onChangeUnidadMedida($event)">
@@ -193,17 +194,17 @@
 
               <div class="col-9 col-sm-9 col-md-9">
                 <br>
-                <label>Tipo de Insumo</label>
-                <ng-select dropdownPosition="top" [items]="Insumo" (change)="changeInsumo($event)"
-                           formControlName="tipoInsumo" [(ngModel)]="tipoInsumoSeleccionado" bindLabel="TipoInsumo"
-                           bindValue="Id"  placeholder="Selecciona un tipo de insumo" id="TipoInsumo">
+                <label class="grey-text-card">Tipo de Insumo</label>
+                <ng-select dropdownPosition="top" [items]="Insumo" (change)="changeInsumo($event)" formControlName="tipoInsumo"
+                  [(ngModel)]="tipoInsumoSeleccionado" bindLabel="TipoInsumo" bindValue="Id" placeholder="Selecciona un tipo de insumo"
+                  id="TipoInsumo">
                 </ng-select>
               </div>
 
               <div class="col-3 col-sm-3 col-md-3 mt-4">
                 <div class="md-form">
-                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="diasDeUso" formControlName="diasDeUso"
-                    class="form-control" autocomplete="off">
+                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="diasDeUso"
+                    formControlName="diasDeUso" class="form-control" autocomplete="off">
                   <label for="diasDeUso">Días de uso</label>
                   <show-errors [control]="formAddProducto.controls['diasDeUso']"></show-errors>
                 </div>
@@ -211,8 +212,8 @@
 
               <div class="col-md-6 mt-4">
                 <div class="md-form">
-                  <input Alphanumeric mdbInputDirective [mdbValidate]=false type="text" id="codigoProducto" formControlName="codigoProducto"
-                    class="form-control">
+                  <input Alphanumeric mdbInputDirective [mdbValidate]=false type="text" id="codigoProducto"
+                    formControlName="codigoProducto" class="form-control">
                   <label for="codigoProducto" class="">Código producto</label>
                   <show-errors [control]="formAddProducto.controls['codigoProducto']"></show-errors>
                 </div>
@@ -220,8 +221,8 @@
 
               <div class="col-md-6 mt-4">
                 <div class="md-form">
-                  <input Alphanumeric mdbInputDirective [mdbValidate]=false formControlName="codigoInterno" type="text" id="codigoInterno"
-                    class="form-control">
+                  <input Alphanumeric mdbInputDirective [mdbValidate]=false formControlName="codigoInterno" type="text"
+                    id="codigoInterno" class="form-control">
                   <label for="codigoInterno" class="">Código interno</label>
                   <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
                 </div>
@@ -229,8 +230,8 @@
 
               <div class="col-md-6 mt-6">
                 <div class="md-form">
-                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" formControlName="codigoBarra" id="codigoBarra"
-                    class="form-control">
+                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" formControlName="codigoBarra"
+                    id="codigoBarra" class="form-control">
                   <label for="codigoBarra" class="">Código barra</label>
                   <show-errors [control]="formAddProducto.controls['codigoBarra']"></show-errors>
                 </div>

@@ -152,31 +152,31 @@
             </thead>
             <tbody>
               <tr *ngFor="let factura of facturas; let i = index">
-                <th *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" scope="row"
+                <th *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" scope="row"
                   class="align-middle" width="5%">{{i + 1}}</th>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
                   <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaRecepcion}}</small></span>
                 </td>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
                   <span class="grey-text"><small><i class="fa fa-clock-o"></i>{{factura.HoraIngreso}}</small></span>
                   <br>
                   <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{factura.FechaIngreso |
                       date:'yyyy-MM-dd'}}</small></span>
                 </td>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" width="10%"
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" width="10%"
                   class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number :
                   '1.2-2'}}</td>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" width="10%"
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" width="10%"
                   class="body-negrita text-center align-middle">C$ {{factura.TotalOrigenFactura | number :
                   '1.2-2'}}</td>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" width="10%"
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" width="10%"
                   class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas - factura.TotalOrigenFactura
                   | number :
                   '1.2-2'}}</td>
-                <td *ngIf="factura.IdFactura >= firstVisibleIndex && factura.IdFactura <= lastVisibleIndex" class="text-center align-middle">
-                  <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" (click)="mostrarFactura(factura.IdFactura)"
+                <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="text-center align-middle">
+                  <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" (click)="mostrarFactura(factura.IdPaginacion)"
                     mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect><i class="fa fa-eye"></i></button>
                 </td>
               </tr>

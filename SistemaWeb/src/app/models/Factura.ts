@@ -3,6 +3,7 @@ import {ProductoFactura} from './ProductoFactura';
 
 export class Factura {
 
+  public IdPaginacion: number;
   public IdFactura: number;
   public NumRefFactura: string;
   public CodFactura: string;

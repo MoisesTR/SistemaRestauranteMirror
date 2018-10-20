@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Proveedor} from '../../../models/Proveedor';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ProveedorService} from '../../../services/shared/proveedor.service';
@@ -12,6 +12,7 @@ import {Utils} from '../../Utils';
   styleUrls: ['./update-proveedor.component.scss']
 })
 export class UpdateProveedorComponent  implements  OnInit {
+  @ViewChild('modalTelefonos') modalTelefonos: ModalDirective;
   public proveedor: Proveedor;
   public tituloPantalla = 'Proveedor';
   public formUpdateProveedor: FormGroup;
@@ -129,6 +130,10 @@ export class UpdateProveedorComponent  implements  OnInit {
 
           }
       );
+    }
+
+    showModalTelefonos () {
+        this.modalTelefonos.show();
     }
 
     getValuesFormUpdate() {

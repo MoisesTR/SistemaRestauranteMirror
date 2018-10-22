@@ -31,7 +31,7 @@
                 <td width="15%" class="align-middle body-negrita">{{ proveedor.NombreProveedor }}</td>
                 <td width="10%" class="align-middle body-negrita text-center">
                   {{ proveedor.Telefonos != undefined ? proveedor.Telefonos[0].Telefono : ''}}
-                  <a class="ml-3 btn orange-chang btn-sm white-text" role="button" (click)="showModalTelefonos()">
+                  <a class="ml-3 btn orange-chang btn-sm white-text" role="button" (click)="showModalTelefonos(proveedor)">
                     <i class="fa fa-phone"></i>
                   </a>
                 </td>
@@ -84,7 +84,7 @@
       <!--Cuerpo Modal-->
       <div class="modal-body mb-0">
 
-        <form [formGroup]="formAddTelefonos" (ngSubmit)="agregarTelefonosProveedor()" novalidate>
+        <form novalidate>
 
           <div class="container d-none d-lg-block d-xl-block" id="mg-labels">
             <div class="row">
@@ -113,19 +113,13 @@
                 </div>
               </div>
 
-              <div class="col-lg-1" id="mgl-label-acciones">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Acciones</h6>
-                </div>
-              </div>
-
             </div>
           </div>
 
           <hr class="d-none d-lg-block d-xl-block">
 
           <div class="scrollbar-card scrollbar-ripe-malinka">
-            <fieldset *ngFor="let telefono of telefonos; let i = index;" class="mb-fieldset">
+            <fieldset *ngFor="let telefono of proveedorSeleccionado.Telefonos; let i = index;" class="mb-fieldset">
 
               <div class="container">
 
@@ -134,7 +128,7 @@
                   <div class="col-md-12 col-lg-3">
                     <div class="md-form">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Nombre</h6>
-                      <input type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Nombre"
+                      <input disabled type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Nombre"
                         class="input-modal-sm">
                     </div>
                   </div>
@@ -142,7 +136,7 @@
                   <div class="col-md-12 col-lg-3">
                     <div class="md-form">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Cargo</h6>
-                      <input type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
+                      <input disabled type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
                         class="input-modal-sm">
                     </div>
                   </div>
@@ -150,7 +144,7 @@
                   <div class="col-md-12 col-lg-3 mr-0">
                     <div class="md-form">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Télefono</h6>
-                      <input type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
+                      <input disabled type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
                         [(ngModel)]="telefono.Telefono" class="input-modal-sm">
                     </div>
                   </div>
@@ -159,28 +153,10 @@
                     <div class="switch chang-switch font-small">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Titular</h6>
                       <label class="mt-3" id="align-input">
-                        <input [(ngModel)]="telefono.IsTitular" [ngModelOptions]="{standalone: true}" type="checkbox"
+                        <input disabled [(ngModel)]="telefono.Titular " [ngModelOptions]="{standalone: true}" type="checkbox"
                           name="element_name">
                         <span class="lever"></span>
                       </label>
-                    </div>
-                  </div>
-
-                  <div *ngIf="i !== 0" class="col-3 col-sm-3 col-md-3 col-lg-1">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-2" *ngIf="i!==0">Eliminar</h6>
-                      <a class="btn red-chang white-text btn-sm mb-5" id="remove" (click)="eliminarTelefono(telefono,i)"
-                        mdbTooltip="Eliminar Telefóno" placement="bottom" role="button"><i class="fa fa-close"
-                          aria-hidden="true"></i></a>
-                    </div>
-                  </div>
-
-                  <div *ngIf="1 === 1" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2':'col-3 col-sm-3 col-md-3 col-lg-1'">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-3">Agregar</h6>
-                      <a class="btn white-text btn-sm ml-3 mb-5 orange-chang" id="add" (click)="agregarTelefono(telefono,i)"
-                        mdbTooltip="Agregar Telefóno" placement="bottom" role="button"><i class="fa fa-plus"
-                          aria-hidden="true"></i></a>
                     </div>
                   </div>
 
@@ -193,7 +169,7 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1">Ingresar
+            <button class="btn orange-chang mb-1" (click)="modalTelefonos.hide()">CERRAR
               <i class="fa fa-check ml-1"></i>
             </button>
           </div>

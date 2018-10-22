@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import swal from 'sweetalert2';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs/Rx';
@@ -16,12 +16,12 @@ declare var $:any;
   templateUrl: './list-proveedor.component.html',
   styleUrls: ['./list-proveedor.component.scss']
 })
-export class ListProveedorComponent implements OnInit {
+export class ListProveedorComponent implements OnInit, AfterViewInit {
 
     @ViewChild('modalTelefonos') modalTelefonos: ModalDirective;
-    public proveedor: Proveedor;
+    public proveedorSeleccionado: Proveedor;
     public proveedores: Proveedor[];
-    public tituloPantalla : string = 'Proveedor';
+    public tituloPantalla = 'Proveedor';
 
     @ViewChild(DataTableDirective)
     dtElement: DataTableDirective;
@@ -34,11 +34,11 @@ export class ListProveedorComponent implements OnInit {
     constructor(private _route: ActivatedRoute
         , private _router: Router
         , private _proveedorService: ProveedorService
-        , private _formBuilderProveedor  : FormBuilder
+        , private _formBuilderProveedor: FormBuilder
 
     ) {
 
-        this.proveedor = new Proveedor();
+        this.proveedorSeleccionado = new Proveedor();
     }
 
 
@@ -72,9 +72,7 @@ export class ListProveedorComponent implements OnInit {
         this.settingsDatatable();
         this.getProveedores();
         this.initFormAdd();
-        this.initFormUpdate()
-
-        $('.telefono').mask('0000-0000');
+        this.initFormUpdate();
     }
 
     settingsDatatable() {
@@ -93,7 +91,7 @@ export class ListProveedorComponent implements OnInit {
                     key: '1',
                     className: 'btn orange-chang float-right-dt',
                     action: (e, dt, node, config) => {
-                        this._router.navigate(['proveedor/add'])
+                        this._router.navigate(['proveedor/add']);
                     }
                 }
             ]
@@ -126,83 +124,6 @@ export class ListProveedorComponent implements OnInit {
 
     }
 
-    createProveedor(Modal) {
-
-        this.capturarDadosProveedor();
-        this._proveedorService.createProveedor(this.proveedor).subscribe(
-            response => {
-
-                if (response.IdProveedor) {
-                    swal(
-                        'Proveedor',
-                        'El proveedor ha sido creado exitosamente!',
-                        'success'
-                    ).then(() => {
-                        Modal.hide();
-                        this.formAddProveedor.reset();
-                        this.getProveedores();
-                        this.proveedor = new Proveedor();
-                    })
-
-                } else {
-                    Utils.showMsgInfo('Ha ocurrido un error al insertar el proveedor, intentalo nuevamente',this.tituloPantalla);
-                }
-            }, error => {
-                Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
-
-            }
-        )
-
-    }
-
-    capturarDadosProveedor() {
-        this.proveedor.NombreProveedor = this.formAddProveedor.value.nombreProveedor;
-        this.proveedor.NombreRepresentante = this.formAddProveedor.value.nombreRepresentante;
-        this.proveedor.Descripcion = this.formAddProveedor.value.descripcionProveedor;
-        this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
-        // this.proveedor.Telefono = this.formAddProveedor.value.telefonoProveedor.toString().replace("-","");
-        this.proveedor.Retencion2 = 1;
-        this.proveedor.Email = this.formAddProveedor.value.email;
-    }
-
-    capturarDatosActualizados(){
-        this.proveedor.NombreProveedor = this.formUpdateProveedor.value.nombreProveedor;
-        this.proveedor.NombreRepresentante = this.formUpdateProveedor.value.nombreRepresentante;
-        this.proveedor.Descripcion = this.formUpdateProveedor.value.descripcionProveedor;
-        this.proveedor.Direccion = this.formUpdateProveedor.value.direccionProveedor;
-        // this.proveedor.Telefono = this.formUpdateProveedor.value.telefonoProveedor.toString().replace("-","");
-        this.proveedor.Retencion2 = 1;
-        this.proveedor.Email = this.formUpdateProveedor.value.email;
-
-    }
-    updateProveedor(Modal) {
-
-        this.capturarDatosActualizados();
-        this._proveedorService.updateProveedor(this.proveedor).subscribe(
-            response =>{
-                if(response.success){
-                    swal(
-                        'Proveedor',
-                        'El proveedor ha sido actualizado exitosamente!',
-                        'success'
-                    ).then( () => {
-                        Modal.hide();
-                        this.formUpdateProveedor.reset();
-                        this.getProveedores();
-                    })
-                } else {
-                    Utils.showMsgInfo('Ha ocurrido un error al actualizar',this.tituloPantalla);
-                }
-            }, error =>{
-                Utils.showMsgError(Utils.msgError(error),this.tituloPantalla);
-
-            }
-        )
-
-        this.proveedor = new Proveedor();
-
-    }
-
     deleteProveedor(IdProveedor) {
         swal({
             title: 'Estas seguro(a)?',
@@ -229,7 +150,7 @@ export class ListProveedorComponent implements OnInit {
                         } else {
                             console.log('Ha ocurrido un error, intenta nuevamente');
                         }
-                    }, error =>{
+                    }, error => {
                         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
                     }
                 );
@@ -249,12 +170,12 @@ export class ListProveedorComponent implements OnInit {
                 [
                     Validators.maxLength(400)
                 ])
-            , 'email': new FormControl('',[
+            , 'email': new FormControl('', [
                 Validators.minLength(5),
                 Validators.maxLength(200),
                 CustomValidators.nospaceValidator
             ])
-            , 'direccionProveedor': new FormControl('',[
+            , 'direccionProveedor': new FormControl('', [
                 Validators.required,
                 Validators.minLength(5),
                 Validators.maxLength(400),
@@ -267,7 +188,7 @@ export class ListProveedorComponent implements OnInit {
                     Validators.maxLength(200),
                     CustomValidators.nospaceValidator
                 ])
-            , 'telefonoProveedor': new FormControl('',[
+            , 'telefonoProveedor': new FormControl('', [
                 Validators.required,
                 Validators.minLength(5),
                 Validators.maxLength(10),
@@ -277,7 +198,7 @@ export class ListProveedorComponent implements OnInit {
         });
     }
 
-    initFormAdd(){
+    initFormAdd() {
         this.formAddProveedor = this._formBuilderProveedor.group({
             'nombreProveedor': new FormControl('', [
                 Validators.required,
@@ -289,12 +210,12 @@ export class ListProveedorComponent implements OnInit {
                 [
                     Validators.maxLength(400)
                 ])
-            , 'email': new FormControl('',[
+            , 'email': new FormControl('', [
                 Validators.minLength(5),
                 Validators.maxLength(200),
                 CustomValidators.nospaceValidator
             ])
-            , 'direccionProveedor': new FormControl('',[
+            , 'direccionProveedor': new FormControl('', [
                 Validators.required,
                 Validators.minLength(5),
                 Validators.maxLength(400),
@@ -307,7 +228,7 @@ export class ListProveedorComponent implements OnInit {
                     Validators.maxLength(200),
                     CustomValidators.nospaceValidator
                 ])
-            , 'telefonoProveedor': new FormControl('',[
+            , 'telefonoProveedor': new FormControl('', [
                 Validators.required,
                 Validators.minLength(5),
                 Validators.maxLength(10),
@@ -317,32 +238,9 @@ export class ListProveedorComponent implements OnInit {
         });
     }
 
-    showModalTelefonos () {
+    showModalTelefonos (proveedor: Proveedor) {
+        this.proveedorSeleccionado = proveedor;
+        console.log(this.proveedorSeleccionado.Telefonos)
         this.modalTelefonos.show();
     }
-
-
-    invocarModalUpdate(Modal,Proveedor : Proveedor){
-
-        this.formUpdateProveedor.reset();
-
-        this.proveedor.IdProveedor = Proveedor.IdProveedor;
-        this.proveedor.NombreProveedor = Proveedor.NombreProveedor;
-        this.proveedor.Descripcion = Proveedor.Descripcion;
-        this.proveedor.Direccion = Proveedor.Direccion;
-        this.proveedor.NombreRepresentante = Proveedor.NombreRepresentante;
-        // this.proveedor.Telefono = Proveedor.Telefono;
-        this.proveedor.Email = Proveedor.Email;
-
-        // this.formUpdateProveedor.setValue({
-        //     nombreProveedor: Proveedor.NombreProveedor
-        //     , descripcionProveedor: Proveedor.Descripcion
-        //     , email: Proveedor.Email
-        //     , direccionProveedor: Proveedor.Direccion
-        //     , nombreRepresentante: Proveedor.NombreRepresentante
-        //     , telefonoProveedor:  Proveedor.Telefono
-        // })
-
-    }
-
 }

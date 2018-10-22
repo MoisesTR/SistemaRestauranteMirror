@@ -5,6 +5,7 @@ import {ProveedorService} from '../../../services/shared/proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utils} from '../../Utils';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 
 @Component({
   selector: 'update-proveedor',

@@ -104,7 +104,7 @@ const menuRoutes: Routes = [
         , {path: 'configuraciones', component: ConfiguracionComponent, data : { titulo : 'Configuraciones'}}
 
         // Modulo gastos
-        , {path: 'Gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
+        , {path: 'gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
     ]
   },
 ];

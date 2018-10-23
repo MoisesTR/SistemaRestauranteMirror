@@ -11,6 +11,7 @@ import {NotFound404Component} from './components/not-found-404/not-found-404.com
 import {MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule} from 'ng-uikit-pro-standard';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './services/auth/token.interceptor';
+import { GastosComponent } from './components/gastos/gastos.component';
 
 // Rutas principales
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
   declarations: [
     AppComponent
       , LoginComponent
-      , NotFound404Component
+      , NotFound404Component, GastosComponent
   ],
   imports: [
     BrowserModule

@@ -42,6 +42,7 @@ import {AddProveedorComponent} from '../proveedor/add-proveedor/add-proveedor.co
 import {UpdateProveedorComponent} from '../proveedor/update-proveedor/update-proveedor.component';
 import {ReportesComponent} from '../reportes/reportes.component';
 import {ConfiguracionComponent} from '../configuracion/configuracion.component';
+import {GastosComponent} from '../gastos/gastos.component';
 
 const menuRoutes: Routes = [
 
@@ -101,6 +102,9 @@ const menuRoutes: Routes = [
 
         // Configuraciones generales del sistema
         , {path: 'configuraciones', component: ConfiguracionComponent, data : { titulo : 'Configuraciones'}}
+
+        // Modulo gastos
+        , {path: 'Gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
     ]
   },
 ];

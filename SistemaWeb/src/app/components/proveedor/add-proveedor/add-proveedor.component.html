@@ -13,7 +13,7 @@
           <form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor()" novalidate>
             <div class="row justify-content-md-center">
 
-              <div class="col-sm-12 col-md-4">
+              <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <br>
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor"
@@ -23,7 +23,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-9 col-md-4">
+              <div class="col-7 col-sm-8 col-md-4 col-lg-4 col-xl-4">
                 <br>
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="text" id="numeroruc" formControlName="numeroRuc"
@@ -33,7 +33,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-3 col-md-3 mt-3">
+              <div class="col-5 col-sm-4 col-md-3 mt-3 col-lg-3 col-xl-3">
                 <div class="form-check mt-5 checkbox-chang-filled">
                   <input [mdbValidate]=false type="checkbox" (change)="changeMercado($event)" formControlName="isMercado"
                     class="form-check-input" name="chkMercado" id="chkMercado" mdbInputDirective>
@@ -41,7 +41,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-9 col-md-8 mt-4">
+              <div class="col-7 col-sm-8 col-md-8 col-lg-8 col-xl-8 mt-0">
                 <div class="md-form">
                   <textarea [mdbValidate]=false type="text" id="direccionProveedor" formControlName="direccionProveedor"
                     class="md-textarea form-control" autocomplete="off" mdbInputDirective></textarea>
@@ -50,15 +50,15 @@
                 </div>
               </div>
 
-              <div class="col-sm-3 col-md-3 mt-4">
-                <div class="form-check checkbox-chang-filled mtc">
+              <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-5">
+                <div class="form-check checkbox-chang-filled mt-5">
                   <input [mdbValidate]=false class="form-check-input" type="checkbox" value="validando_checkbox1" name="seleccionarcheck"
                     id="segundo2" formControlName="retencion" mdbInputDirective>
                   <label class="form-check-label grey-text-card" for="segundo2">Aplica Retención</label>
                 </div>
               </div>
 
-              <div class="col-sm-12 col-md-4 mt-4">
+              <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-4">
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante"
                     class="form-control letras" autocomplete="off">
@@ -67,7 +67,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-9 col-md-4 mt-4">
+              <div class="col-7 col-sm-8 col-md-4 col-lg-4 col-xl-4 mt-4">
                 <div class="md-form">
                   <input [mdbValidate]=false mdbInputDirective type="email" id="email" formControlName="email" class="form-control"
                     autocomplete="off">
@@ -76,13 +76,13 @@
                 </div>
               </div>
 
-              <div class="col-sm-3 col-md-3 mt-5">
+              <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-5">
                 <a class="btn orange-chang mb-1 ml-4 btn-sm white-text" role="button" (click)="showModalTelefonos()">
                   Telefonos<i class="fa fa-phone ml-1"></i>
                 </a>
               </div>
 
-              <div class="col-sm-12 col-md-8 mt-4">
+              <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-4">
                 <div class="md-form">
                   <textarea [mdbValidate]=false mdbInputDirective type="text" id="descripcionProveedor" formControlName="descripcionProveedor"
                     class="md-textarea form-control" autocomplete="off"></textarea>

@@ -13,14 +13,14 @@ export class DeleteImageService {
         this.url = Global.url;
     }
 
-    deleteImage(tipo : string,img : string) : Observable<any> {
+    deleteImage(tipo: string, img: string): Observable<any> {
 
-        let headers = new HttpHeaders({
+        const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': 'token'
         });
 
-        return this._http.request('delete',this.url+'deleteImage/'+tipo+'/'+img,{headers:headers})
+        return this._http.request('delete', this.url + 'deleteImage/' + tipo + '/' + img, { headers: headers});
     }
 
 

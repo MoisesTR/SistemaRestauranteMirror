@@ -13,36 +13,36 @@ export class RolusuarioService {
     this.url = Global.url;
   }
 
-  createRolUsuario(RolUsuario) : Observable<any> {
-    let params = JSON.stringify(RolUsuario);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+  createRolUsuario(RolUsuario): Observable<any> {
+    const params = JSON.stringify(RolUsuario);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url + 'rol',params,{headers:headers})
+    return this._http.post(this.url + 'rol', params, { headers: headers});
   }
 
-  getRolUsuario(IdRolUsuario) : Observable<any> {
-    return this._http.get(this.url+'rol/',IdRolUsuario)
+  getRolUsuario(IdRolUsuario): Observable<any> {
+    return this._http.get(this.url + 'rol/', IdRolUsuario);
   }
 
-  getRoles() : Observable<any> {
+  getRoles(): Observable<any> {
     return this._http.get(this.url + 'roles');
   }
 
-  updateRol(RolUsuario) : Observable<any> {
+  updateRol(RolUsuario): Observable<any> {
 
-    let params = JSON.stringify(RolUsuario);
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'token'});
+    const params = JSON.stringify(RolUsuario);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'token'});
 
-    return this._http.put(this.url + 'rol/'+RolUsuario.IdRol,params,{headers:headers})
+    return this._http.put(this.url + 'rol/' + RolUsuario.IdRol, params, { headers: headers });
   }
 
-  deleteRol(IdRol) : Observable<any> {
-    let headers =  new HttpHeaders({
+  deleteRol(IdRol): Observable<any> {
+    const headers =  new HttpHeaders({
       'Content-Type' : 'application/json'
       , 'Authorization': 'token'
     });
 
-    return this._http.request('delete',this.url+'rol/'+IdRol,{headers:headers})
+    return this._http.request('delete', this.url + 'rol/' + IdRol, { headers: headers});
   }
 
 }

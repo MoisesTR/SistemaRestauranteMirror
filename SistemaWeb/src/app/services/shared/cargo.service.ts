@@ -9,30 +9,30 @@ export class CargoService {
 
   public url: string;
 
-  constructor(private _http: HttpClient) {
-  	this.url = Global.url;
-   }
+    constructor(private _http: HttpClient) {
+        this.url = Global.url;
+    }
 
-  createCargo(Cargo): Observable<any>{
+  createCargo(Cargo): Observable<any> {
 
-    let params = JSON.stringify(Cargo);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    const params = JSON.stringify(Cargo);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url+'cargo',params,{headers:headers});
+    return this._http.post(this.url + 'cargo', params, { headers: headers });
   }
 
   getCargo(IdCargo): Observable<any> {
-    return this._http.get(this.url + 'cargo'+IdCargo)
+    return this._http.get(this.url + 'cargo' + IdCargo);
   }
 
-  getCargos(Habilitado = 1): Observable<any>{
-    return this._http.get(this.url + 'cargos?Habilitado='+Habilitado);
+  getCargos(Habilitado = 1): Observable<any> {
+    return this._http.get(this.url + 'cargos?Habilitado=' + Habilitado);
   }
 
   updateCargo(Cargo): Observable<any> {
 
-    let params = JSON.stringify(Cargo);
-    let headers = new HttpHeaders({
+    const params = JSON.stringify(Cargo);
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });

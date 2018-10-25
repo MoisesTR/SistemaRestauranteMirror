@@ -13,31 +13,31 @@ export class UnidadMedidaService {
     this.url = Global.url;
   }
 
-  createUnidadMedida(UnidadMedida) : Observable<any> {
+  createUnidadMedida(UnidadMedida): Observable<any> {
 
-    let params = JSON.stringify(UnidadMedida);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    const params = JSON.stringify(UnidadMedida);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url+'unidadMedida',params,{headers:headers});
+    return this._http.post(this.url + 'unidadMedida', params, { headers: headers });
   }
 
-  getUnidadMedida(IdUnidadMedida) : Observable<any> {
-    return this._http.get(this.url + 'unidadmedida/'+IdUnidadMedida);
+  getUnidadMedida(IdUnidadMedida): Observable<any> {
+    return this._http.get(this.url + 'unidadmedida/' + IdUnidadMedida);
   }
 
-  getUnidadesMedida(Habilitado = 1) : Observable<any>{
-    return this._http.get(this.url + 'unidadesmedida?Habilitado='+Habilitado);
+  getUnidadesMedida(Habilitado = 1): Observable<any> {
+    return this._http.get(this.url + 'unidadesmedida?Habilitado=' + Habilitado);
   }
 
-  updateUnidadMedida(UnidadMedida) : Observable<any> {
+  updateUnidadMedida(UnidadMedida): Observable<any> {
 
-      let params = JSON.stringify(UnidadMedida);
-      let headers = new HttpHeaders({
+      const params = JSON.stringify(UnidadMedida);
+      const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
 
-    return this._http.put(this.url+'unidadmedida/'+UnidadMedida.IdUnidadMedida,params,{headers:headers})
+    return this._http.put(this.url + 'unidadmedida/' + UnidadMedida.IdUnidadMedida, params, { headers: headers });
   }
 
   deleteUnidadMedida(IdUnidadMedida): Observable<any> {

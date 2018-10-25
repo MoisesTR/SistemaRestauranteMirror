@@ -16,35 +16,35 @@ export class UsuarioService {
     this.url = Global.url;
   }
 
-  login(usuarioLogin,gettoken=null) : Observable<any> {
+  login(usuarioLogin, gettoken = null): Observable<any> {
 
-    if(gettoken != null){
+    if (gettoken != null) {
       usuarioLogin.gettoken = gettoken;
     }
 
-    let params = JSON.stringify(usuarioLogin);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    const params = JSON.stringify(usuarioLogin);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url+'login',params,{headers:headers})
+    return this._http.post(this.url + 'login', params, { headers: headers });
   }
 
-  login2(usuarioLogin,gettoken=null) : Observable<any> {
+  login2(usuarioLogin, gettoken = null): Observable<any> {
 
-    if(gettoken != null){
+    if (gettoken != null) {
       usuarioLogin.gettoken = gettoken;
     }
 
-    let params = JSON.stringify(usuarioLogin);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    const params = JSON.stringify(usuarioLogin);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url+'signin',params,{headers:headers})
+    return this._http.post(this.url + 'signin', params, { headers: headers});
 
   }
   getIdentity() {
 
-    let identity = JSON.parse(localStorage.getItem('identity'));
+    const identity = JSON.parse(localStorage.getItem('identity'));
 
-    if(identity != "undefined") {
+    if (identity !== 'undefined') {
       this.identity = identity;
     } else {
       this.identity = null;
@@ -55,9 +55,9 @@ export class UsuarioService {
 
   getToken() {
 
-    let token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
-    if(token!="undefined") {
+    if (token !== 'undefined') {
       this.token = token;
     } else {
       this.token = null;
@@ -65,33 +65,33 @@ export class UsuarioService {
     return this.token;
   }
 
-  createUsuario(Usuario) : Observable<any> {
+  createUsuario(Usuario): Observable<any> {
 
-    let params = JSON.stringify(Usuario);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    const params = JSON.stringify(Usuario);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url+'signup',params,{headers:headers});
+    return this._http.post(this.url + 'signup', params, { headers: headers });
   }
 
-  getUsuarios(Habilitado = 1) : Observable<any> {
-    return this._http.get(this.url + 'users?Habilitado='+Habilitado);
+  getUsuarios(Habilitado = 1): Observable<any> {
+    return this._http.get(this.url + 'users?Habilitado=' + Habilitado);
   }
 
-  getPantallasUsuario(IdUsuario) : Observable<any> {
+  getPantallasUsuario(IdUsuario): Observable<any> {
 
-    return this._http.get(this.url + 'pantallas/'+IdUsuario);
+    return this._http.get(this.url + 'pantallas/' + IdUsuario);
   }
 
-  deleteUsuario(IdUsuario) : Observable<any> {
+  deleteUsuario(IdUsuario): Observable<any> {
 
-      let headers = new HttpHeaders({
+      const headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'token'
       });
 
-      let body = JSON.stringify({"Habilitado": 0});
+      const body = JSON.stringify({'Habilitado': 0});
 
-      return this._http.request('delete',this.url+'user/'+IdUsuario,{headers:headers,body:body})
+      return this._http.request('delete', this.url + 'user/' + IdUsuario, { headers: headers, body: body});
   }
 
 

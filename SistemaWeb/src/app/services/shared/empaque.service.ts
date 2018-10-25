@@ -13,43 +13,43 @@ export class EmpaqueService {
     this.url = Global.url;
   }
 
-  createEmpaque(Empaque) : Observable<any> {
+  createEmpaque(Empaque): Observable<any> {
 
-    let params = JSON.stringify(Empaque);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    const params = JSON.stringify(Empaque);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url+'empaque',params,{headers:headers})
+    return this._http.post(this.url + 'empaque', params, { headers: headers });
   }
 
-  getEmpaque(IdEmpaque) : Observable<any> {
-    return this._http.get(this.url + 'empaque/'+IdEmpaque)
+  getEmpaque(IdEmpaque): Observable<any> {
+    return this._http.get(this.url + 'empaque/' + IdEmpaque);
   }
 
-  getEmpaques(Habilitado = 1) : Observable<any> {
-    return this._http.get(this.url + 'empaques?Habilitado='+Habilitado)
+  getEmpaques(Habilitado = 1): Observable<any> {
+    return this._http.get(this.url + 'empaques?Habilitado=' + Habilitado);
   }
 
-  updateEmpaque(Empaque) : Observable<any> {
+  updateEmpaque(Empaque): Observable<any> {
 
-    let params = JSON.stringify(Empaque);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'token'
-    })
-
-    return this._http.put(this.url+'empaque/'+Empaque.IdEmpaque,params,{headers:headers})
-  }
-
-  deleteEmpaque(IdEmpaque) : Observable<any> {
-
-    let headers = new HttpHeaders({
+    const params = JSON.stringify(Empaque);
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
 
-    let body = JSON.stringify({"Habilitado": 0});
+    return this._http.put(this.url + 'empaque/' + Empaque.IdEmpaque, params, { headers: headers });
+  }
 
-    return this._http.request('delete',this.url+'empaque/'+IdEmpaque,{headers:headers,body:body})
+  deleteEmpaque(IdEmpaque): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    });
+
+    const body = JSON.stringify({'Habilitado': 0});
+
+    return this._http.request('delete', this.url + 'empaque/' + IdEmpaque, { headers: headers, body: body});
   }
 
 }

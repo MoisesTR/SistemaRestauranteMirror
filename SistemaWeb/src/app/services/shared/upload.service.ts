@@ -9,38 +9,38 @@ import {isNull, isUndefined} from 'util';
 export class UploadService {
   public url: String;
 
-  constructor(private _http:HttpClient){
+  constructor(private _http: HttpClient) {
     this.url = Global.url;
   }
 
-  makeFileRequest(url: string,tipo : string,nombreImagen : string,removioImagen : boolean = false, params: Array<string>, files:Array<File>,token: String,name: string ){
+  makeFileRequest(url: string, tipo: string, nombreImagen: string, removioImagen: boolean = false, params: Array<string>, files: Array<File>, token: String, name: string ) {
 
-    return new Promise(function(resolve, reject){
-        var formData: any = new FormData();
-        var xhr = new XMLHttpRequest();
+    return new Promise(function(resolve, reject) {
+        const formData: any = new FormData();
+        const xhr = new XMLHttpRequest();
 
-        if(!isUndefined(files) && !isNull(files)) {
-            for(var i = 0; i< files.length; i++){
-                formData.append(name,files[i], files[i].name);
+        if (!isUndefined(files) && !isNull(files)) {
+            for (let i = 0; i < files.length; i++) {
+                formData.append(name, files[i], files[i].name);
             }
         }
 
-        formData.append('tipo',tipo);
-        formData.append('imagenAntigua',nombreImagen);
-        formData.append('removioImagen',removioImagen);
+        formData.append('tipo', tipo);
+        formData.append('imagenAntigua', nombreImagen);
+        formData.append('removioImagen', removioImagen);
 
         xhr.onreadystatechange = function () {
-          if(xhr.readyState == 4) {
-            if(xhr.status == 200) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
               resolve(JSON.parse(xhr.response));
             } else {
               reject(xhr.response);
             }
           }
-        }
+        };
 
-        xhr.open('POST',url,true);
-        xhr.setRequestHeader('Authorization','token');
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Authorization', 'token');
         xhr.send(formData);
     });
 

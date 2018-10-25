@@ -1,11 +1,11 @@
-//CLASE UTILIZADA PARA DECLARACION DE CONSTANTES DEL PROYECTO
+// CLASE UTILIZADA PARA DECLARACION DE CONSTANTES DEL PROYECTO
 
 
 import {IMyOptions} from 'ng-uikit-pro-standard/ng-uikit-pro-standard';
 
 export const Global  = {
     url: 'http://localhost:3000/api/'
-}
+};
 
 export const CARPETA_PRODUCTOS = 'productos';
 export const CARPETA_USUARIOS = 'usuarios';
@@ -66,7 +66,6 @@ export const opcionesDatePicker: IMyOptions = {
 
     // Show Clear date button
     showClearDateBtn: true,
-    
     // Cerrar modal de selección de fecha despues de haber hecho click
     closeAfterSelect: true
 };

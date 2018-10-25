@@ -15,7 +15,7 @@ export class EstadoProductoService {
     this.url = Global.url;
   }
 
-  getEstadosProducto() : Observable<any> {
+  getEstadosProducto(): Observable<any> {
     return this._http.get(this.url + 'estadosproductos/');
   }
 

@@ -8,7 +8,7 @@ export class MenuService {
 
     public url: string;
 
-    constructor(private _http: HttpClient){
+    constructor(private _http: HttpClient) {
         this.url = Global.url;
     }
 

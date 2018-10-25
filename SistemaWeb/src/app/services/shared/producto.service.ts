@@ -13,41 +13,41 @@ export class ProductoService {
     this.url = Global.url;
   }
 
-  createProducto(Producto): Observable<any>{
-    let params = JSON.stringify(Producto);
-    let headers = new HttpHeaders({'Content-Type':'application/json'});
+  createProducto(Producto): Observable<any> {
+    const params = JSON.stringify(Producto);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url+'producto',params,{headers:headers})
+    return this._http.post(this.url + 'producto', params, { headers: headers });
 
   }
-  getProducto(IdProducto): Observable<any>{
+  getProducto(IdProducto): Observable<any> {
     return this._http.get(this.url + 'producto/' + IdProducto);
   }
 
-  getProductos(Habilitado = 1): Observable<any>{
-    return this._http.get(this.url + 'productos?Habilitado='+Habilitado)
+  getProductos(Habilitado = 1): Observable<any> {
+    return this._http.get(this.url + 'productos?Habilitado=' + Habilitado);
   }
 
-  updateProducto(Producto): Observable<any>{
+  updateProducto(Producto): Observable<any> {
 
-    let params = JSON.stringify(Producto);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'token'
-    })
-
-    return this._http.put(this.url+'producto/'+Producto.IdProducto,params,{headers:headers})
-  }
-
-  deleteProducto(IdProducto): Observable<any>{
-    let headers = new HttpHeaders({
+    const params = JSON.stringify(Producto);
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'
     });
 
-        let body = JSON.stringify({"Habilitado": false});
+    return this._http.put(this.url + 'producto/' + Producto.IdProducto, params, { headers: headers });
+  }
 
-    return this._http.request('delete',this.url+'producto/'+IdProducto,{headers:headers,body:body})
+  deleteProducto(IdProducto): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'token'
+    });
+
+        const body = JSON.stringify({'Habilitado': false});
+
+    return this._http.request('delete', this.url + 'producto/' + IdProducto, { headers: headers, body: body });
 
   }
 }

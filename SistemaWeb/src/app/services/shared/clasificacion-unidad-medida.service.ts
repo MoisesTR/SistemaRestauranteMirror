@@ -13,16 +13,16 @@ export class ClasificacionUnidadMedidaService {
     this.url = Global.url;
   }
 
-  createClasficacionUnidadMedida(ClasificacionUnidadMedida) : Observable<any> {
+  createClasficacionUnidadMedida(ClasificacionUnidadMedida): Observable<any> {
 
-    let params = JSON.stringify(ClasificacionUnidadMedida);
-    let headers = new HttpHeaders({'Content-Type':''});
+    const params = JSON.stringify(ClasificacionUnidadMedida);
+    const headers = new HttpHeaders({'Content-Type': ''});
 
-    return this._http.post(this.url+'createClasificacion',params,{headers:headers})
+    return this._http.post(this.url + 'createClasificacion', params, { headers: headers });
   }
 
-  getClasificacionUnidadesMedida(Habilitado = 1) : Observable<any> {
-    return this._http.get(this.url + 'clasificacionesunidadmedida?Habilitado='+Habilitado)
+  getClasificacionUnidadesMedida(Habilitado = 1): Observable<any> {
+    return this._http.get(this.url + 'clasificacionesunidadmedida?Habilitado=' + Habilitado );
   }
 
 

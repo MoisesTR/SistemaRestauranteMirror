@@ -5,7 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class ProductoProveedorService{
+export class ProductoProveedorService {
 
   public url: string;
 
@@ -20,19 +20,19 @@ export class ProductoProveedorService{
         'Authorization': 'token'
     });
 
-    return this._http.post(this.url + 'producto/proveedor', params,{ headers: headers});
+    return this._http.post(this.url + 'producto/proveedor', params, { headers: headers});
   }
 
-  getProductosProveedor(IdProductoProveedor) : Observable<any> {
-    return this._http.get(this.url + 'producto/'+IdProductoProveedor)
+  getProductosProveedor(IdProductoProveedor): Observable<any> {
+    return this._http.get(this.url + 'producto/' + IdProductoProveedor);
   }
 
-  getProductoProveedores() : Observable<any> {
-    return this._http.get(this.url + 'productos/proveedores')
+  getProductoProveedores(): Observable<any> {
+    return this._http.get(this.url + 'productos/proveedores');
   }
 
   getProductosOfProveedor(IdProveedor): Observable<any> {
-    return this._http.get(this.url + 'productos/proveedor/'+IdProveedor);
+    return this._http.get(this.url + 'productos/proveedor/' + IdProveedor);
   }
 
   getProductosOfProveedorFiltrado(IdProveedor, IdFactura): Observable<any> {
@@ -46,7 +46,7 @@ export class ProductoProveedorService{
       'Authorization': 'token'
     });
 
-    return this._http.put(this.url+'productoproveedor'+params,{headers:headers})
+    return this._http.put(this.url + 'productoproveedor' + params, { headers: headers });
   }
 
   deconsteProductoProveedor(IdProductoProveedor): Observable<any> {

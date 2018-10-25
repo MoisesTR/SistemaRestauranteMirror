@@ -549,3 +549,15 @@ h6 {
   color: #999;
   font-size: 16px;
 }
+
+/*** Owl DatePicker ***/
+.input-picker {
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-bottom: 1px solid #ced4da !important;
+  border-radius: 0 !important;
+  box-sizing: content-box !important;
+  background-color: transparent !important;
+}

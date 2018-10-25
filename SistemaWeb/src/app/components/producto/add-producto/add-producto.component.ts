@@ -152,8 +152,6 @@ export class AddProductoComponent implements OnInit {
         });
         f.classList.remove('col-lg-12');
         f.classList.add('col-lg-8');
-        f.classList.remove('col-md-12');
-        f.classList.add('col-md-8');
         proveedor.classList.add('select-no-margin');
         categoria.classList.add('select-no-margin');
         clasificacion.classList.add('select-no-margin');
@@ -172,8 +170,6 @@ export class AddProductoComponent implements OnInit {
         });
         f.classList.remove('col-lg-8');
         f.classList.add('col-lg-12');
-        f.classList.remove('col-md-8');
-        f.classList.add('col-md-12');
         proveedor.classList.remove('select-no-margin');
         categoria.classList.remove('select-no-margin');
         clasificacion.classList.remove('select-no-margin');

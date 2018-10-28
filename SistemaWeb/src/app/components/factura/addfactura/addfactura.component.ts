@@ -6,7 +6,6 @@ import {ProductoProveedorService} from '../../../services/shared/producto-provee
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CARPETA_FACTURA, Global, opcionesDatePicker} from '../../../services/shared/global';
 import {IMyOptions, ModalDirective, ToastService} from 'ng-uikit-pro-standard';
-import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Usuario} from '../../../models/Usuario';
 import {UsuarioService} from '../../../services/shared/usuario.service';
 import {Factura} from '../../../models/Factura';
@@ -129,11 +128,9 @@ export class AddfacturaComponent implements OnInit {
         this.formEditarDetalleProducto = this._formBuilderFactura.group({
             'cantidadProducto': new FormControl('', [
                 Validators.required
-                , CustomValidators.rangeNumber(1, 300)
             ]),
             'precioProducto': new FormControl('', [
                 Validators.required
-                , CustomValidators.rangeNumber(1, 20000)
             ]),
             'descuentoTotalProducto': new FormControl(0, []),
             'gravadoIva': new FormControl(1, [])
@@ -260,34 +257,49 @@ export class AddfacturaComponent implements OnInit {
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
-        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.DescuentoIngresado <= 100) {
-            productoFiltrado.PorcentajeDescuento = Utils.round(productoFiltrado.DescuentoIngresado / 100, 2);
-            productoFiltrado.Cantidad = Utils.round(productoFiltrado.Cantidad, 2);
-            productoFiltrado.Costo = Utils.round(productoFiltrado.Costo, 2);
-            productoFiltrado.Subtotal = Utils.round(productoFiltrado.Cantidad * productoFiltrado.Costo, 2);
-            productoFiltrado.Descuento = Utils.round(productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento, 2);
-            productoFiltrado.DetalleMenosDescuento = productoFiltrado.Subtotal - productoFiltrado.Descuento;
-
-            if (productoFiltrado.GravadoIva === 1) {
-                productoFiltrado.CalculoIva = Utils.round(productoFiltrado.DetalleMenosDescuento * this.valorIva, 2);
-                productoFiltrado.Iva = productoFiltrado.DetalleMenosDescuento + productoFiltrado.CalculoIva;
-                productoFiltrado.TotalDetalle = productoFiltrado.Iva - productoFiltrado.Descuento;
-            } else {
-                productoFiltrado.TotalDetalle = productoFiltrado.Subtotal - productoFiltrado.Descuento;
-            }
-
+        if (this.productoValido(productoFiltrado)) {
+            this.calculoProducto(productoFiltrado);
             this.productosFactura.push(productoFiltrado);
             this.calcularSubtotalFactura(productoFiltrado, 'SUMA');
             this.resetProductoFiltrado(producto);
             this.showSuccess();
+        }
+    }
+
+    productoValido(producto: ProductoFactura): boolean {
+        let productoFiltrado: ProductoFactura = new ProductoFactura();
+        productoFiltrado = Object.assign({}, producto);
+
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.DescuentoIngresado <= 100) {
+            return true;
         } else {
             if (productoFiltrado.Cantidad <= 0) {
                 Utils.showMsgInfo('La cantidad debe ser mayor a cero!');
+                return false;
             } else if (productoFiltrado.Costo <= 0) {
                 Utils.showMsgInfo('El precio debe ser mayor a cero!');
+                return false;
             } else if (productoFiltrado.DescuentoIngresado > 100) {
                 Utils.showMsgInfo('EL porcentaje de descuento debe ser menor o igual a 100!');
+                return false;
             }
+        }
+    }
+
+    calculoProducto(productoFiltrado: ProductoFactura) {
+        productoFiltrado.PorcentajeDescuento = Utils.round(productoFiltrado.DescuentoIngresado / 100, 2);
+        productoFiltrado.Cantidad = Utils.round(productoFiltrado.Cantidad, 2);
+        productoFiltrado.Costo = Utils.round(productoFiltrado.Costo, 2);
+        productoFiltrado.Subtotal = Utils.round(productoFiltrado.Cantidad * productoFiltrado.Costo, 2);
+        productoFiltrado.Descuento = Utils.round(productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento, 2);
+        productoFiltrado.DetalleMenosDescuento = productoFiltrado.Subtotal - productoFiltrado.Descuento;
+
+        if (productoFiltrado.GravadoIva === 1) {
+            productoFiltrado.CalculoIva = Utils.round(productoFiltrado.DetalleMenosDescuento * this.valorIva, 2);
+            productoFiltrado.Iva = productoFiltrado.DetalleMenosDescuento + productoFiltrado.CalculoIva;
+            productoFiltrado.TotalDetalle = productoFiltrado.Iva - productoFiltrado.Descuento;
+        } else {
+            productoFiltrado.TotalDetalle = productoFiltrado.Subtotal - productoFiltrado.Descuento;
         }
     }
 
@@ -296,6 +308,20 @@ export class AddfacturaComponent implements OnInit {
         producto.Cantidad = 0;
         producto.DescuentoIngresado = 0;
         producto.GravadoIva = 0;
+    }
+
+    editarDatosProducto() {
+        this.calcularSubtotalFactura(this.productoEditar, 'RESTA');
+        this.productoEditar.Costo = this.formEditarDetalleProducto.value.precioProducto;
+        this.productoEditar.Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
+        this.productoEditar.DescuentoIngresado = this.formEditarDetalleProducto.value.descuentoTotalProducto;
+        this.productoEditar.GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
+
+        if (this.productoValido(this.productoEditar)) {
+            this.calculoProducto(this.productoEditar);
+            this.calcularSubtotalFactura(this.productoEditar, 'SUMA');
+            this.modalAgregarDetalleProducto.hide();
+        }
     }
 
     getProductosOfProveedor(IdProveedor) {
@@ -468,19 +494,12 @@ export class AddfacturaComponent implements OnInit {
     showModalDetalleProducto(productoFactura: ProductoFactura) {
         this.formEditarDetalleProducto.reset();
         this.productoEditar = productoFactura;
-        this.productoEditar.GravadoIva = productoFactura.GravadoIva;
-        this.formEditarDetalleProducto.setValue({
-            cantidadProducto: undefined === this.productoEditar.Cantidad ? 1 : this.productoEditar.Cantidad
-            , precioProducto: undefined === this.productoEditar.Costo ? 0 : this.productoEditar.Costo
-            , descuentoTotalProducto: undefined === this.productoEditar.Descuento ? 0 : this.productoEditar.Descuento
-            , gravadoIva: undefined === this.productoEditar.GravadoIva ? 0 : this.productoEditar.GravadoIva
-        });
 
+        this.formEditarDetalleProducto.controls['cantidadProducto'].setValue(productoFactura.Cantidad);
+        this.formEditarDetalleProducto.controls['precioProducto'].setValue(productoFactura.Costo);
+        this.formEditarDetalleProducto.controls['descuentoTotalProducto'].setValue(productoFactura.DescuentoIngresado);
+        this.formEditarDetalleProducto.controls['gravadoIva'].setValue(productoFactura.GravadoIva);
         this.modalAgregarDetalleProducto.show();
-    }
-
-    editarDatosProducto () {
-
     }
 
     calcularSubtotalFactura(productoFactura: ProductoFactura, operacion: string) {

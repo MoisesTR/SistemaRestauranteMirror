@@ -180,8 +180,7 @@
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
                 <label class="grey-text-card">Tipo de Insumo</label>
-                <ng-select dropdownPosition="top" [items]="Insumo" (change)="changeInsumo($event)" formControlName="tipoInsumo"
-                  [(ngModel)]="tipoInsumoSeleccionado" bindLabel="TipoInsumo" bindValue="Id" placeholder="Selecciona un tipo de insumo"
+                <ng-select dropdownPosition="top" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id" placeholder="Selecciona un tipo de insumo"
                   id="TipoInsumo">
                 </ng-select>
               </div>
@@ -191,7 +190,7 @@
                   <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="diasDeUso"
                     formControlName="diasDeUso" class="form-control" autocomplete="off">
                   <label for="diasDeUso">Días de uso</label>
-                  <show-errors [control]="formAddProducto.controls['diasDeUso']"></show-errors>
+                  <!--<show-errors [control]="formAddProducto.controls['diasDeUso']"></show-errors>-->
                 </div>
               </div>
 

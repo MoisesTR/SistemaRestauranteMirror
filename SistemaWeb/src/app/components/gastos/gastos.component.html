@@ -10,25 +10,25 @@
         <!-- Contenido -->
         <div class="card-body">
 
-          <form>
+          <form [formGroup]="formAddGasto" (ngSubmit)="createGasto()" novalidate>
 
             <div class="row">
 
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
                 <label for="clasificacionGastos" class="grey-text-card">Clasificación</label>
-                <ng-select id="clasificacionGastos" placeholder="Selecciona una clasificación">
+                <ng-select id="clasificacionGastos" (change) = "changeClasificacion($event)" [items]="clasificaciones" bindValue="IdClasificacionGasto" bindLabel="Nombre" formControlName="clasificacion" placeholder="Selecciona una clasificación">
                 </ng-select>
               </div>
 
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
                 <label for="subclasificacionGastos" class="grey-text-card">Sub - Clasificación</label>
-                <ng-select id="subclasificacionGastos" placeholder="Selecciona una sub - clasificación">
+                <ng-select id="subclasificacionGastos" (change) = "changeSubclasificacion($event)" [items]="subclasificaciones" bindLabel="Nombre" [bindLabel]="IdSubclasificacionGasto" formControlName="subclasificacion" placeholder="Selecciona una sub - clasificación">
                 </ng-select>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
                 <div class="md-form">
-                  <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control" [mdbValidate]=false
+                  <input [owlDateTimeTrigger]="dt1" formControlName="fechaIngreso" [owlDateTime]="dt1" class="input-picker form-control" [mdbValidate]=false
                     id="fechaIngreso" placeholder="Seleccioné" mdbInputDirective>
                   <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                   <label for="fechaIngreso">Fecha ingreso</label>
@@ -37,15 +37,15 @@
 
               <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
                 <div class="md-form">
-                  <input Alphanumeric [mdbValidate]=false mdbInputDirective type="text" id="numeroReferencia" class="form-control"
-                    placeholder="Ej: 001" autocomplete="off">
+                  <input formControlName="numeroReferencia" onlyPositiveNumber [mdbValidate]=false mdbInputDirective type="text" id="numeroReferencia" class="form-control"
+                    placeholder="Ej: 1" autocomplete="off">
                   <label for="numeroReferencia">Número de referencia</label>
                 </div>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
                 <div class="md-form">
-                  <input Alphanumeric [mdbValidate]=false mdbInputDirective type="text" id="codigoFactura" class="form-control"
+                  <input Alphanumeric formControlName="codigoFactura" [mdbValidate]=false mdbInputDirective type="text" id="codigoFactura" class="form-control"
                     placeholder="Ej: BD200" autocomplete="off">
                   <label for="codigoFactura">Código factura</label>
                 </div>
@@ -53,7 +53,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
                 <div class="md-form">
-                  <input Alphanumeric [mdbValidate]=false mdbInputDirective type="text" id="montoTotal" class="form-control"
+                  <input onlyNumbers="decimal" formControlName="montoTotal" [mdbValidate]=false mdbInputDirective type="text" id="montoTotal" class="form-control"
                     placeholder="Ej: 2500" autocomplete="off">
                   <label for="montoTotal">Monto total</label>
                 </div>
@@ -61,7 +61,7 @@
 
               <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-0">
                 <div class="md-form">
-                  <textarea [mdbValidate]=false mdbInputDirective type="text" id="conceptoGasto" class="md-textarea form-control"
+                  <textarea [mdbValidate]=false formControlName="conceptoGasto" mdbInputDirective type="text" id="conceptoGasto" class="md-textarea form-control"
                     autocomplete="off"></textarea>
                   <label for="conceptoGasto">Concepto gastos</label>
                 </div>

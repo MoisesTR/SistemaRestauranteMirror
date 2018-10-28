@@ -26,7 +26,7 @@ export {AuthGuardService} from './auth/auth-guard.service';
 export {AuthService} from './auth/auth.service';
 export {ReporteService} from './shared/reporte.service';
 export {PreviousRouteService} from './shared/previous-route.service';
-export {GastoServiceService} from './shared/gasto-service.service';
+export {GastoService} from './shared/gasto.service';
 
 
 

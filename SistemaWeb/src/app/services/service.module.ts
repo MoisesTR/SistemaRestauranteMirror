@@ -29,7 +29,7 @@ import {
     , AuthGuardService
     , ReporteService
     , PreviousRouteService
-    , GastoServiceService
+    , GastoService
 
 } from './service.index';
 
@@ -68,7 +68,7 @@ import {
       , DatePipe
       , ReporteService
       , PreviousRouteService
-      , GastoServiceService
+      , GastoService
   ],
   declarations: []
 })

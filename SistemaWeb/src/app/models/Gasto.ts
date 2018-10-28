@@ -1,11 +1,12 @@
+export class Gasto {
 
-export class Gastos {
-    public IdClasificacion: string;
-    public IdSubclasificacion: string;
+    public IdClasificacionGasto: number;
+    public IdSubclasificacionGasto: number;
     public DescGasto: string;
     public Fecha: string;
     public Monto: string;
     public NoReferencia: string;
-    public CosFactura: string;
+    public CodFactura: string;
+
     constructor() {}
  }

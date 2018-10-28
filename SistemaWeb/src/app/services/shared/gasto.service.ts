@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
-export class GastoServiceService {
+export class GastoService {
 
   public url: string;
 
@@ -25,6 +25,14 @@ export class GastoServiceService {
     }
 
     getGastos(Habilitado = 1): Observable<any> {
+        return this._http.get(this.url + 'gasto?Habilitado=' + Habilitado);
+    }
+
+    getClasificacionesGasto(Habilitado = 1): Observable<any> {
+        return this._http.get(this.url + 'clasificacionesGastos=' + Habilitado);
+    }
+
+    getSubclasificacionesByIdClasificacion(Habilitado = 1): Observable<any> {
         return this._http.get(this.url + 'gasto?Habilitado=' + Habilitado);
     }
 

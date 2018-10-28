@@ -312,6 +312,13 @@
                                     </td>
                                     <td>
                                         <div class="text-center">
+
+                                            <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos"
+                                                    (click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip"
+                                                    data-placement="bottom" title="Editar">
+                                                    <i class="fa fa-pencil"></i>
+                                            </button>
+
                                             <button type="button" class="btn btn-sm orange-chang" (click)="eliminarProductoDeFactura(productoFactura, i)"
                                                 data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                                                 <i class="fa fa-times"></i>
@@ -591,20 +598,20 @@
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
-                                <input type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto">
+                                <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
-                                <input type="number" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto">
+                                <input type="number" formControlName="precioProducto" onlyNumbers="decimal" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Descuento</h6>
                                 <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto"
-                                    formControlName="descuentoTotalProducto">
+                                    formControlName="descuentoTotalProducto" onlyPositiveNumber>
 
                             </div>
                             <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']"></show-errors>

@@ -4,7 +4,7 @@
 import {IMyOptions} from 'ng-uikit-pro-standard/ng-uikit-pro-standard';
 
 export const Global  = {
-    url: 'http://192.168.1.23:3000/api/'
+    url: 'http://localhost:3000/api/'
 };
 
 export const CARPETA_PRODUCTOS = 'productos';

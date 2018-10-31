@@ -71,7 +71,7 @@
                 <show-errors [control]="formUpdateProducto.controls['proveedor']"></show-errors>
               </div>
 
-              <div class="col-12 col-sm-5 col-md-2 mts">
+              <div class="col-12 col-sm-5 col-md-2 mts-1">
                 <div class="form-check">
                   <input [mdbValidate]=false class="form-check-input" type="checkbox" id="consumodirecto"
                     mdbInputDirective>
@@ -81,7 +81,19 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" mdbWavesEffect>Agregar</button>
+                  tabindex="-1" mdbTooltip="Agregar Proveedor" placement="bottom" mdbWavesEffect>Agregar</button>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-9 mt-3">
+                <label class="grey-text-card">Tipo de Insumo</label>
+                <ng-select dropdownPosition="top" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id"
+                  placeholder="Selecciona un tipo de insumo" id="TipoInsumo">
+                </ng-select>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-3 mt-3">
+                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
+                  tabindex="-1" mdbTooltip="Agregar Insumo" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -94,7 +106,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  mdbWavesEffect>Agregar</button>
+                  mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -108,7 +120,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  mdbWavesEffect>Agregar</button>
+                  mdbTooltip="Agregar Clasificación" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-7 col-md-7 mt-3">
@@ -129,7 +141,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  mdbWavesEffect>Agregar</button>
+                  mdbTooltip="Agregar Subclasificación" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-5 mt-3">
@@ -151,7 +163,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  mdbWavesEffect>Agregar</button>
+                  mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="mt-3 ml-3 mb-0 d-block d-xl-none d-lg-none d-md-none"><label class="grey-text-card">Envase</label></div>
@@ -166,7 +178,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-1">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio mt-2"
-                  mdbWavesEffect>Agregar</button>
+                  mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
 
@@ -190,17 +202,10 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  mdbWavesEffect>Agregar</button>
+                  mdbTooltip="Agregar unidad de medida" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-9 mt-3">
-                <label class="grey-text-card">Tipo de Insumo</label>
-                <ng-select dropdownPosition="top" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id"
-                  placeholder="Selecciona un tipo de insumo" id="TipoInsumo">
-                </ng-select>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
+              <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
                   <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="diasDeUso"
                     formControlName="diasDeUso" class="form-control" autocomplete="off">
@@ -209,28 +214,28 @@
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
+              <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
                   <input mdbInputDirective type="text" id="codigoProducto" class="form-control">
                   <label for="codigoProducto" class="">Código producto</label>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
+              <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
                   <input mdbInputDirective type="text" id="codigoAlterno" class="form-control">
                   <label for="codigoAlterno" class="">Código alterno</label>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
+              <div class="col-12 col-sm-12 col-md-6 mt-3">
                 <div class="md-form">
                   <input mdbInputDirective type="text" id="codigoBarra" class="form-control">
                   <label for="codigoBarra" class="">Código barra</label>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
+              <div class="col-12 col-sm-12 col-md-6 mt-3">
                 <div class="md-form">
                   <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="codigoBarraSistema"
                     class="form-control">

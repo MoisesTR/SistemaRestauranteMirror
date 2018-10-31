@@ -46,7 +46,7 @@
                 <show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-9">
+              <div class="col-12 col-sm-7 col-md-7">
                 <label for="proveedor" class="grey-text-card">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
                   formControlName="proveedor" id="proveedor" [(ngModel)]="proveedoresProducto" [multiple]="true">
@@ -69,6 +69,14 @@
                   </ng-template>
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['proveedor']"></show-errors>
+              </div>
+
+              <div class="col-12 col-sm-5 col-md-2 mts">
+                <div class="form-check">
+                  <input [mdbValidate]=false class="form-check-input" type="checkbox" id="consumodirecto"
+                    mdbInputDirective>
+                  <label class="form-check-label" for="consumodirecto">Consumo directo</label>
+                </div>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
@@ -103,13 +111,20 @@
                   mdbWavesEffect>Agregar</button>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-9 mt-3">
+              <div class="col-12 col-sm-7 col-md-7 mt-3">
                 <label for="upsubclasificacion" class="grey-text-card">Subclasificación</label>
                 <ng-select [items]="subclasificaciones" bindLabel="NombreSubClasificacion" bindValue="IdSubClasificacion"
                   placeholder="Selecciona una subclasificacion" formControlName="subclasificacion" id="upsubclasificacion"
                   (change)="onChangeSubclasificacion($event)" [(ngModel)]="producto.IdSubClasificacion">
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['subclasificacion']"></show-errors>
+              </div>
+
+              <div class="col-12 col-sm-5 col-md-2 mts-2">
+                <div class="form-check">
+                  <input [mdbValidate]=false class="form-check-input" type="checkbox" id="granel" mdbInputDirective>
+                  <label class="form-check-label" for="granel">Granel</label>
+                </div>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
@@ -180,8 +195,8 @@
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
                 <label class="grey-text-card">Tipo de Insumo</label>
-                <ng-select dropdownPosition="top" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id" placeholder="Selecciona un tipo de insumo"
-                  id="TipoInsumo">
+                <ng-select dropdownPosition="top" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id"
+                  placeholder="Selecciona un tipo de insumo" id="TipoInsumo">
                 </ng-select>
               </div>
 
@@ -194,24 +209,32 @@
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-4 mt-3">
+              <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <div class="md-form">
                   <input mdbInputDirective type="text" id="codigoProducto" class="form-control">
                   <label for="codigoProducto" class="">Código producto</label>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-4 mt-3">
+              <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <div class="md-form">
                   <input mdbInputDirective type="text" id="codigoAlterno" class="form-control">
                   <label for="codigoAlterno" class="">Código alterno</label>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-4 mt-3">
+              <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <div class="md-form">
                   <input mdbInputDirective type="text" id="codigoBarra" class="form-control">
                   <label for="codigoBarra" class="">Código barra</label>
+                </div>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-3 mt-3">
+                <div class="md-form">
+                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="codigoBarraSistema"
+                    class="form-control">
+                  <label for="codigoBarraSistema" class="">Código barra sistema</label>
                 </div>
               </div>
 

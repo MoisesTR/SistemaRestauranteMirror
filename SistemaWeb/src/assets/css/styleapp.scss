@@ -450,6 +450,17 @@ h6 {
   height: 100% !important;
 }
 
+/*** Menu ***/
+#btn-back-page {
+  margin-left: 0%;
+}
+
+@media (max-width: 1300px) {
+  #btn-back-page {
+    margin-left: 6%;
+  }
+}
+
 /*** Sidenav ***/
 
 .active-submenu {

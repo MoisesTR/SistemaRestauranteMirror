@@ -5955,6 +5955,10 @@ ng-pick-datetime@^6.0.16:
   version "6.0.16"
   resolved "https://registry.yarnpkg.com/ng-pick-datetime/-/ng-pick-datetime-6.0.16.tgz#82a400f0aba5cc905bb443616f5ac4b9bfcc88e1"
 
+"ng-uikit-pro-standard@git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git":
+  version "6.3.0"
+  resolved "git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git#c813e0f1a8158fa887bdcd039d0cc5959f4425e3"
+
 ng2-select2@^1.0.0-beta.11:
   version "1.0.0-beta.11"
   resolved "https://registry.yarnpkg.com/ng2-select2/-/ng2-select2-1.0.0-beta.11.tgz#75440e6c26b4d797314a9531e4aed49ebaf6da7f"

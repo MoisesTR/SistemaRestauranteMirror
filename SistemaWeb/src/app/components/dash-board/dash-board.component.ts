@@ -14,6 +14,69 @@ import {Global} from '../../services/shared/global';
 })
 export class DashBoardComponent implements OnInit {
 
+
+    public chartType:string = 'line';
+
+    public chartDatasets:Array<any> = [
+        {data: [32.08 , 32.09, 32.10, 32.11, 32.12], label: 'Compra'},
+        {data: [32.76, 32.80, 32.84, 32.88, 32.92], label: 'Venta'}
+    ];
+
+    public chartLabels:Array<any> = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+
+    public chartColors:Array<any> = [
+        {
+            backgroundColor: 'rgba(230, 126, 34,0.2)',
+            borderColor: 'rgba(230, 126, 34,1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(230, 126, 34,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(230, 126, 34,1)'
+        },
+        {
+            backgroundColor: 'rgba(192, 57, 43,0.2)',
+            borderColor: 'rgba(192, 57, 43,1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(192, 57, 43,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(192, 57, 43,1)'
+        }
+    ];
+
+    public chartOptions:any = {
+        responsive: true
+    };
+    public chartClicked(e: any): void { }
+    public chartHovered(e: any): void { }
+
+
+    // Pie chart
+    public pieType:string = 'pie';
+    public pieData:Array<any> = [300, 50];
+    public pieLabels:Array<any> = ['Gusano Entero', 'Coca-Cola'];
+    public pieColors:Array<any> = [{
+        hoverBorderColor: ['rgba(230, 126, 34, 0.1)', 'rgba(192, 57, 43, 0.1)'],
+        hoverBorderWidth: 0,
+        backgroundColor: ["#E67E22", "#C0392B"],
+        hoverBackgroundColor: ["rgba(230, 126, 34, 0.6)", "rgba(192, 57, 43, 0.6)"]
+    }];
+
+    public pieOptions:any = {
+        responsive: true
+    };
+    public pieClicked(e: any): void { }
+    public pieHovered(e: any): void { }
+
+    // Table
+    elements: any = [
+    {id: 1, producto: 'Gusano Entero', proveedor: 'Cargil', cantidad: '300'},
+    {id: 2, producto: 'Coca-Cola', proveedor: 'Fensa', cantidad: '10'},
+    ];
+
+    headElements = ['ID', 'Productos', 'Proveedor', 'Cantidad'];
+
   public fechaActual: string;
   public proveedores: Proveedor[];
   public trabajadores: Trabajador[];

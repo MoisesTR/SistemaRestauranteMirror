@@ -1,14 +1,14 @@
 <section>
     <div class="row">
 
-        <div class="col-lg-4 col-md-12 mb-3">
+        <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
 
             <!--Card-->
             <div class="card card-cascade narrower height-card">
 
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header orange-chang">
-                    <h4 class="mb-0">Proveedores de hoy</h4>
+                    <h4 class="mb-0">Historial de facturas</h4>
                 </div>
                 <!--/Card image-->
 
@@ -40,7 +40,7 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-12 mb-3">
+        <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
 
             <!--Card-->
             <div class="card card-cascade narrower height-card">
@@ -86,7 +86,7 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-12 mb-3">
+        <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
 
             <!--Card-->
             <div class="card card-cascade narrower height-card">
@@ -125,6 +125,115 @@
 
         </div>
 
+        <div class="col-lg-4 col-md-12 col-sm-12 mt-5">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+                <form novalidate>
+                    <div class="card card-cascade">
+                        <div class="center-card">
+                            <i class="fa fa-money orange-chang icono-card"></i>
+                            <div class="mb-3 right-card-align">
+                                <p class="grey-text-card">Compra Dolar</p>
+                                <h4><strong>C$ 32.09</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+                <form novalidate>
+                    <div class="card card-cascade">
+                        <div class="center-card">
+                            <i class="fa fa-dollar orange-chang icono-card"></i>
+                            <div class="mb-3 right-card-align">
+                                <p class="grey-text-card">Venta Dolar</p>
+                                <h4><strong>C$ 32.80</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-12 col-md-12 mb-5 mt-5">
+                <div class="card card-cascade">
+                    <div class="center-card">
+                        <i class="fa fa-line-chart orange-chang icono-card"></i>
+                        <div class="mb-3">
+                            <div style="display: block">
+                                <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels"
+                                    [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)" width="250" height="200">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8 col-md-12 col-sm-12 mb-3">
+
+            <!--Card-->
+            <div class="card card-cascade narrower height-card">
+
+                <!--Card image-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h4 class="mb-0">Productos más comprados</h4>
+                </div>
+                <!--/Card image-->
+
+                <!--Card content-->
+                <div class="scrollbar-card scrollbar-ripe-malinka">
+                    <div class="card-body">
+
+                        <div class="row mt-4">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div style="display: block">
+                                    <canvas mdbChart [chartType]="pieType" [data]="pieData" [labels]="pieLabels"
+                                        [colors]="pieColors" [options]="pieOptions" [legend]="true" (chartHover)="pieHovered($event)"
+                                        (chartClick)="pieClicked($event)" width="380" height="380">
+                                    </canvas>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                <table class="table table-sm table-borderless table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th *ngFor="let head of headElements" scope="col">
+                                                <h5 class="grey-text-card">{{head}}</h5>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr mdbTableCol *ngFor="let el of elements">
+                                            <th scope="row">
+                                                <h6>{{el.id}}</h6>
+                                            </th>
+                                            <td>
+                                                <h6>{{el.producto}}</h6>
+                                            </td>
+                                            <td>
+                                                <h6>{{el.proveedor}}</h6>
+                                            </td>
+                                            <td>
+                                                <h6>{{el.cantidad}}</h6>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+
     </div>
 </section>
 
@@ -145,7 +254,8 @@
                                     <div class="col-12">
                                         <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin"></i>
-                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
+                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
+                                                aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -166,7 +276,8 @@
                                                     <td>{{proveedor.NombreRepresentante}}</td>
                                                     <td>{{proveedor.Email}}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)" mdbTooltip="Visualizar" placement="bottom">
+                                                        <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)"
+                                                            mdbTooltip="Visualizar" placement="bottom">
                                                             <i class="fa fa-eye"></i>
                                                         </button>
                                                     </td>
@@ -185,7 +296,8 @@
                                     <div class="col-12">
                                         <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin" aria-hidden="true"></i>
-                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
+                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
+                                                aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -207,7 +319,8 @@
                                                         <td>{{trabajador.Apellidos}}</td>
                                                         <td>{{trabajador.Telefono1}}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-sm orange-chang" (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar"
+                                                            <button type="button" class="btn btn-sm orange-chang"
+                                                                (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar"
                                                                 placement="bottom">
                                                                 <i class="fa fa-eye"></i>
                                                             </button>
@@ -241,7 +354,8 @@
                     <div class="text-center">
                         <!-- Aca va el nombre de la persona -->
                         <h3 class="mb-3 font-bold">
-                            <strong>{{tabSeleccionado == 'trabajador' ? trabajador.Nombres : proveedor.NombreProveedor}}</strong>
+                            <strong>{{tabSeleccionado == 'trabajador' ? trabajador.Nombres :
+                                proveedor.NombreProveedor}}</strong>
                         </h3>
                         <!-- Si es proveedore aqui va la compañia a la que pertenece en caso que sea empleado aca va la sucursal -->
                         <h6 class="font-bold red-chang-text mb-4">{{trabajador.NombreSucursal}}</h6>
@@ -249,14 +363,17 @@
 
                     <ul class="striped list-unstyled text-center">
                         <li>
-                            <strong>{{tabSeleccionado == 'trabajador' ? 'Documento : ' : 'Nombre representante : ' }} </strong>{{tabSeleccionado
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Documento : ' : 'Nombre representante : ' }}
+                            </strong>{{tabSeleccionado
                             == 'trabajador' ? trabajador.Documento : proveedor.NombreRepresentante}}</li>
                         <hr>
                         <li>
-                            <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 : proveedor.Telefono1}}</li>
+                            <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 :
+                            proveedor.Telefono1}}</li>
                         <hr>
                         <li>
-                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador'
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado
+                            == 'trabajador'
                             ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
 
                     </ul>

@@ -3,11 +3,11 @@
 
         <div class="col-lg-12 col-md-12 col-sm-12">
 
-            <div class="card card-cascade narrower" id="card-info">
+            <mdb-card cascade="true" narrower="true" id="card-info">
                 <div class="view view-cascade gradient-card-header orange-chang height-title">
-                    <h2 class="h2-responsive center-text">Información</h2>
+                    <h3 class="card-header-title mb-2">Información</h3>
                 </div>
-                <div class="card-body">
+                <mdb-card-body cascade="true">
                     <div class="container-fluid">
                         <!-- Inicio form-->
                         <form [formGroup]="formAddFactura" novalidate>
@@ -44,13 +44,13 @@
                                 </div>
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3">
-                                    <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-factura"
+                                    <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura"
                                         tabindex="-1" mdbTooltip="Proveedor" placement="bottom" (click)="agregarProveedor()"
                                         mdbWavesEffect>Agregar</button>
                                 </div>
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3 mt-btn-factura">
-                                    <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-factura"
+                                    <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura"
                                         tabindex="-1" mdbTooltip="Ingresar foto de factura física" placement="bottom"
                                         (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
                                 </div>
@@ -135,16 +135,16 @@
                         </form>
                         <!-- Final form -->
                     </div>
-                </div>
-            </div>
+                </mdb-card-body>
+            </mdb-card>
             <br>
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-12 mb-r">
 
             <div class="card card-cascade narrower height-card-productos">
-                <div class="view view-cascade gradient-card-header orange-chang height-title">
-                    <h2 class="h2-responsive center-text">Productos</h2>
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Productos</h3>
                 </div>
 
                 <div class="container-fluid mt-3">
@@ -157,14 +157,14 @@
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" (click)="agregarNuevoProducto()"
-                                mdbWavesEffect>Agregar
+                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap"
+                                (click)="agregarNuevoProducto()" mdbWavesEffect>Agregar
                                 Producto
                             </button>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button class="btn orange-chang btn-sm btn-block waves-light text-nowrap" (click)="actualizarListaProductos()"
-                                mdbWavesEffect>Actualizar
+                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap"
+                                (click)="actualizarListaProductos()" mdbWavesEffect>Actualizar
                                 Lista
                             </button>
                         </div>
@@ -271,7 +271,7 @@
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-            <div class="card">
+            <mdb-card>
                 <div class="container-fluid mt-3">
                     <div class="table-responsive">
                         <!-- Lista de productos -->
@@ -314,9 +314,9 @@
                                         <div class="text-center">
 
                                             <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos"
-                                                    (click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Editar">
-                                                    <i class="fa fa-pencil"></i>
+                                                (click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip"
+                                                data-placement="bottom" title="Editar">
+                                                <i class="fa fa-pencil"></i>
                                             </button>
 
                                             <button type="button" class="btn btn-sm orange-chang" (click)="eliminarProductoDeFactura(productoFactura, i)"
@@ -432,15 +432,17 @@
 
                         <div class="col-lg-3 col-md-3 col-sm-3">
                             <div class="md-form">
-                                <button type="button" (click)="crearFactura()" [disabled]="!formAddFactura.valid" class="btn orange-chang waves-effect">Guardar
-                                    factura
+                                <button mdbBtn type="button" (click)="crearFactura()" [disabled]="!formAddFactura.valid"
+                                    class="orange-chang" mdbWavesEffect>Guardar
+                                    Factura
                                 </button>
                             </div>
                         </div>
 
                     </div>
+
                 </div>
-            </div>
+            </mdb-card>>
         </div>
     </div>
 </section>
@@ -453,7 +455,7 @@
 
             <!--Titulo-->
             <div class="modal-header orange-chang white-text">
-                <h4 class="title"> Información del producto</h4>
+                <h4 class="title">Información del producto</h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
                     (click)="modalVerProducto.hide()">
                     <span aria-hidden="true">&times;</span>
@@ -598,13 +600,15 @@
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
-                                <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number" id="cantidadProducto" minlength="4" class="input-modal-sm" name="cantidadProducto">
+                                <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number" id="cantidadProducto"
+                                    minlength="4" class="input-modal-sm" name="cantidadProducto">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
-                                <input type="number" formControlName="precioProducto" onlyNumbers="decimal" id="precioProducto" minlength="4" class="input-modal-sm" name="precioProducto">
+                                <input type="number" formControlName="precioProducto" onlyNumbers="decimal" id="precioProducto"
+                                    minlength="4" class="input-modal-sm" name="precioProducto">
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -1,13 +1,14 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {ProveedorService} from '../../../services/shared/proveedor.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FacturaService} from '../../../services/service.index';
+import {FacturaService, PreviousRouteService} from '../../../services/service.index';
 import {Proveedor} from '../../../models/Proveedor';
 import {Factura} from '../../../models/Factura';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../Utils';
 import {opcionesDatePicker} from '../../../services/shared/global';
 import {IMyOptions} from '../../../../ng-uikit-pro-standard';
+import {LocalStorage} from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-summary-facturas',
@@ -50,13 +51,18 @@ export class SummaryFacturasComponent implements OnInit {
   constructor(private _route: ActivatedRoute
       , private _router: Router
       , private el: ElementRef
+      , protected localStorage: LocalStorage
       , private _formBuilderBusquedaFactura: FormBuilder
       , private _facturaService: FacturaService
-      , private _proveedorService: ProveedorService) { }
+      , private _proveedorService: ProveedorService
+      , private _previousRouteService: PreviousRouteService
+  ) {}
 
   ngOnInit() {
       this.initFormBusquedaFactura();
       this.getProveedores();
+      this.validateBeforeUrl();
+
       this.formBusquedaFactura.controls['codFactura'].valueChanges.subscribe(value => {
           if (value === '') {
               this.formBusquedaFactura.controls['fechaBusqueda'].enable();
@@ -179,9 +185,9 @@ export class SummaryFacturasComponent implements OnInit {
   }
 
   getDataFactura() {
-      this.fechaInicio = this.formBusquedaFactura.value.fechaInicio === '' ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaInicio);
-      this.fechaFin = this.formBusquedaFactura.value.fechaFin === '' ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaFin);
-      this.codFactura = this.formBusquedaFactura.value.codFactura === '' ? null : this.formBusquedaFactura.value.codFactura;
+      this.fechaInicio = this.formBusquedaFactura.controls['fechaInicio'].value === null ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.controls['fechaInicio'].value);
+      this.fechaFin = this.formBusquedaFactura.controls['fechaFin'].value === null ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.controls['fechaFin'].value);
+      this.codFactura = this.formBusquedaFactura.value.codFactura === '' ? null : this.formBusquedaFactura.controls['codFactura'].value;
   }
 
     onChangeProveedor(event) {
@@ -189,6 +195,7 @@ export class SummaryFacturasComponent implements OnInit {
           this.idProveedor = null;
       } else {
           this.idProveedor = event.IdProveedor;
+          this.saveItemLocalStorage('idProveedor', event.IdProveedor);
       }
     }
 
@@ -212,12 +219,12 @@ export class SummaryFacturasComponent implements OnInit {
           this._facturaService.getFacturas(this.idFechaBusqueda, true, this.fechaInicio, this.fechaFin, this.idProveedor, 2, this.codFactura).subscribe(
               response => {
                   this.facturas = response.facturas;
-                  this.paginators = [];
-                  this.activePage = 1;
-                  this.firstVisibleIndex = 1;
-                  this.firstVisiblePaginator = 0;
-                  this.addPaginators();
+                  this.inicializarValoresPaginacion();
                   this.sumarFacturas();
+                  this.saveItemLocalStorage('facturas', this.facturas);
+                  this.saveItemLocalStorage('fechaInicio', this.fechaInicio);
+                  this.saveItemLocalStorage('fechaFin', this.fechaFin);
+                  this.saveItemLocalStorage('codFactura', this.codFactura);
 
                   if (this.facturas.length === 0 ) {
                       Utils.showMsgInfo('No se encontraron facturas con los parametros digitados', 'Busqueda Facturas');
@@ -229,6 +236,14 @@ export class SummaryFacturasComponent implements OnInit {
       }
   }
 
+  inicializarValoresPaginacion() {
+      this.paginators = [];
+      this.activePage = 1;
+      this.firstVisibleIndex = 1;
+      this.firstVisiblePaginator = 0;
+      this.addPaginators();
+  }
+
   sumarFacturas() {
     this.totalCordobasFacturas = 0;
     this.totalOrigenFactura = 0;
@@ -236,9 +251,12 @@ export class SummaryFacturasComponent implements OnInit {
       this.totalCordobasFacturas += value.TotalCordobas;
       this.totalOrigenFactura += value.TotalOrigenFactura;
     });
+    this.saveItemLocalStorage('totalCordobaFacturas', this.totalCordobasFacturas);
+    this.saveItemLocalStorage('totalOrigenFactura', this.totalOrigenFactura);
   }
 
   mostrarFactura(idFactura: number) {
+      this.saveItemLocalStorage('idFactura', idFactura);
       this._router.navigate(['factura/showFactura/' + idFactura]);
   }
 
@@ -247,7 +265,55 @@ export class SummaryFacturasComponent implements OnInit {
           this.idFechaBusqueda = null;
       } else {
           this.idFechaBusqueda = event.Id;
+          this.saveItemLocalStorage('idFechaBusqueda', event.id);
       }
+  }
+
+  validateBeforeUrl() {
+      this.localStorage.getItem<number>('idFactura').subscribe((idFactura) => {
+          if (idFactura !== null) {
+              if (this._previousRouteService.getPreviousUrl() === '/factura/showFactura/' + idFactura) {
+                this.readingDataFromLocalStorage();
+              }
+          }
+      });
+  }
+
+  saveItemLocalStorage(key: string, valor: any) {
+      this.localStorage.setItem(key, valor).subscribe(() => {});
+  }
+
+  readingDataFromLocalStorage() {
+
+      this.localStorage.getItem<number>('idProveedor').subscribe((idProveedor) => {
+         this.idProveedor = idProveedor;
+      });
+
+      this.localStorage.getItem<string>('codFactura').subscribe((codFactura) => {
+          this.codFactura = codFactura === null ? '' : codFactura;
+          this.formBusquedaFactura.controls['codFactura'].setValue(this.codFactura);
+      });
+
+      this.localStorage.getItem<string>('fechaInicio').subscribe((fechaInicio) => {
+          this.fechaInicio = fechaInicio;
+          this.formBusquedaFactura.controls['fechaInicio'].setValue(this.fechaInicio);
+      });
+
+      this.localStorage.getItem<string>('fechaFin').subscribe((fechaFin) => {
+          this.fechaFin = fechaFin;
+          this.formBusquedaFactura.controls['fechaFin'].setValue(this.fechaFin);
+      });
+
+      this.localStorage.getItem<number>('idFechaBusqueda').subscribe((idFechaBusqueda) => {
+          this.idFechaBusqueda = idFechaBusqueda;
+      });
+
+      this.localStorage.getItem<Factura[]>('facturas').subscribe((facturas) => {
+        if (this.facturas !== null ) {
+            this.facturas = facturas;
+            this.inicializarValoresPaginacion();
+        }
+      });
   }
 
 }

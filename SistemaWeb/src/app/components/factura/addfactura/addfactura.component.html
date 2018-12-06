@@ -235,8 +235,8 @@
                                         </td>
 
                                         <td class="text-center align-middle">
-                                            <mdb-checkbox class="checkbox-chang-filled" [(ngModel)]="producto.GravadoIva"
-                                                (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
+                                            <mdb-checkbox class="checkbox-chang-filled"
+                                                          [checked]="producto.GravadoIva" (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
                                         </td>
 
                                         <td class="text-center align-middle">
@@ -280,6 +280,7 @@
                                     <th class="header-negrita">Descuento</th>
                                     <th class="header-negrita text-center">IVA</th>
                                     <th class="header-negrita">Total</th>
+                                    <th class="header-negrita">Total neto</th>
                                     <th class="header-negrita centrar-texto">Accion</th>
                                 </tr>
                             </thead>
@@ -300,6 +301,10 @@
                                         <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                                     </td>
                                     <td width="10%" class="body-negrita align-middle">{{productoFactura.Subtotal |
+                                        number
+                                        : '1.2-2'}} {{simboloMonedaUtilizado}}
+                                    </td>
+                                    <td width="10%" class="body-negrita align-middle">{{productoFactura.TotalDetalle |
                                         number
                                         : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>

@@ -547,7 +547,7 @@ export class AddfacturaComponent implements OnInit {
     }
 
     changeIva(event, producto: ProductoFactura) {
-        producto.GravadoIva = event.path[0].checked === true ? 1 : 0;
+        producto.GravadoIva = event.checked === true ? 1 : 0;
     }
 
     showSuccess() {

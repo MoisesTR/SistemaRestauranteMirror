@@ -500,9 +500,8 @@ h6 {
 }
 
 /*** checkbox ***/
-.checkbox-chang-filled [type="checkbox"][class*='filled-in']:checked+label:after {
-  border-color: #E67E22 !important;
-  background-color: #E67E22 !important;
+.checkbox-chang-filled [type="checkbox"]:checked+label:before {
+  border-color: transparent #E67E22 #E67E22 transparent !important;
 }
 
 /*** Producto ***/

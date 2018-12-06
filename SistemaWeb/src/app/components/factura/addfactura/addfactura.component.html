@@ -4,7 +4,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
 
             <mdb-card cascade="true" narrower="true" id="card-info">
-                <div class="view view-cascade gradient-card-header orange-chang height-title">
+                <div class="view view-cascade gradient-card-header orange-chang">
                     <h3 class="card-header-title mb-2">Información</h3>
                 </div>
                 <mdb-card-body cascade="true">
@@ -103,7 +103,6 @@
                                         formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada" bindLabel="Moneda"
                                         bindValue="Id" id="moneda">
                                     </ng-select>
-                                    <!--<show-errors [control]=""></show-errors>-->
                                 </div>
 
                                 <div class="col-md-6">
@@ -113,7 +112,6 @@
                                         formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado" bindLabel="FormaPago"
                                         bindValue="Id" id="pago">
                                     </ng-select>
-                                    <!--<show-errors [control]=""></show-errors>-->
                                 </div>
 
                                 <div class="col-md-6 mt-3">
@@ -228,34 +226,29 @@
                                         <td class="text-center align-middle" width="15%">
                                             <div class="switch chang-switch">
                                                 <label>
-                                                    <i class="fa fa-percent" aria-hidden="true"></i>
+                                                    <mdb-icon icon="percent"></mdb-icon>
                                                     <input type="checkbox" checked>
                                                     <span class="lever"></span>
-                                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                                    <mdb-icon icon="money"></mdb-icon>
                                                 </label>
                                             </div>
                                         </td>
 
                                         <td class="text-center align-middle">
-                                            <div class="form-check">
-                                                <input [mdbValidate]=false [(ngModel)]="producto.GravadoIva" (change)="changeIva($event, producto)"
-                                                    class="form-check-input" type="checkbox" id="ei{{i}}"
-                                                    mdbInputDirective>
-                                                <label class="form-check-label" for="ei{{i}}"></label>
-                                            </div>
+                                            <mdb-checkbox class="checkbox-chang-filled" [(ngModel)]="producto.GravadoIva"
+                                                (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
                                         </td>
-                                        <!-- <td width="10%">
-                                                <mdb-date-picker (inputFieldChanged)="fechaVencimientoInputFieldChanged($event,producto)"
-                                                    [options]="myDatePickerOptions" required></mdb-date-picker>
-                                            </td> -->
+
                                         <td class="text-center align-middle">
-                                            <button type="button" class="btn btn-sm orange-chang" (click)="agregarProductoAFactura(producto)"
+                                            <button mdbBtn type="button" class="orange-chang" (click)="agregarProductoAFactura(producto)"
+                                                size="sm" mdbTooltip="Agregar a factura" placement="bottom"
                                                 mdbWavesEffect>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                <mdb-icon icon="check"></mdb-icon>
                                             </button>
-                                            <button type="button" class="btn btn-sm orange-chang" (click)="mostrarProducto(producto)"
+                                            <button mdbBtn type="button" class="orange-chang" (click)="mostrarProducto(producto)"
+                                                size="sm" mdbTooltip="Visualizar producto" placement="bottom"
                                                 mdbWavesEffect>
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                <mdb-icon icon="eye"></mdb-icon>
                                             </button>
                                         </td>
                                     </tr>
@@ -313,15 +306,15 @@
                                     <td>
                                         <div class="text-center">
 
-                                            <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos"
-                                                (click)="showModalDetalleProducto(productoFactura)" data-toggle="tooltip"
-                                                data-placement="bottom" title="Editar">
-                                                <i class="fa fa-pencil"></i>
+                                            <button mdbBtn type="button" size="sm" class="orange-chang" id="btneditarproductos"
+                                                (click)="showModalDetalleProducto(productoFactura)" mdbTooltip="Editar producto"
+                                                placement="bottom">
+                                                <mdb-icon icon="pencil"></mdb-icon>
                                             </button>
 
-                                            <button type="button" class="btn btn-sm orange-chang" (click)="eliminarProductoDeFactura(productoFactura, i)"
-                                                data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                                                <i class="fa fa-times"></i>
+                                            <button mdbBtn type="button" size="sm" class="orange-chang" (click)="eliminarProductoDeFactura(productoFactura, i)"
+                                                mdbTooltip="Eliminar producto de factura" placement="bottom">
+                                                <mdb-icon icon="times"></mdb-icon>
                                             </button>
                                         </div>
                                     </td>
@@ -360,13 +353,10 @@
                                     </label>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 checkbox-chang-filled">
-                                    <input class="form-check-input" (click)="aplicarRetencion()" [(ngModel)]="tieneRetencion"
-                                        type="checkbox" class="form-check-input filled-in" disabled name="seleccionarcheck"
-                                        id="segundo2" formControlName="retencion" mdbInputDirective>
-                                    <label for="segundo2">
-                                        <strong>Retención</strong>
-                                    </label>
+                                <div class="col-lg-12 col-md-12">
+                                    <mdb-checkbox class="checkbox-chang-filled" (click)="aplicarRetencion()"
+                                        [(ngModel)]="tieneRetencion" name="seleccionarcheck" id="segundo2"
+                                        formControlName="retencion"><strong>Retención</strong></mdb-checkbox>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
@@ -430,10 +420,10 @@
                     <!-- Acciones -->
                     <div class="row justify-content-center mt-3">
 
-                        <div class="col-lg-3 col-md-3 col-sm-3">
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-12">
                             <div class="md-form">
                                 <button mdbBtn type="button" (click)="crearFactura()" [disabled]="!formAddFactura.valid"
-                                    class="orange-chang" mdbWavesEffect>Guardar
+                                    class="orange-chang" block="true" mdbWavesEffect>Guardar
                                     Factura
                                 </button>
                             </div>
@@ -471,18 +461,6 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="container-fluid">
                                     <div class="row">
-
-                                        <!-- <div class="col-md-6 mt-4">
-                                                <div class="card card-cascade narrower">
-                                                    <div class="view view-cascade gradient-card-header orange-chang">
-                                                        <h4 class="mb-0">Imagen</h4>
-                                                    </div>
-                                                    <div class="card-body text-center">
-                                                        <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}"
-                                                             alt="..." class="img-thumbnail height-card-usuario">
-                                                    </div>
-                                                </div>
-                                            </div> -->
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
@@ -583,10 +561,11 @@
 
             <div class="modal-header white-text orange-chang">
                 <h4 class="title">
-                    <i class="fa fa-file-text-o"></i> Editar Detalle Producto<span id="nombreProductoModal"><br>Nombre
+                    <mdb-icon icon="file-text-o"></mdb-icon> Editar Detalle Producto<span id="nombreProductoModal"><br>Nombre
                         del
                         producto
-                    </span></h4>
+                    </span>
+                </h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
                     (click)="modalAgregarDetalleProducto.hide()">
                     <span aria-hidden="true">&times;</span>
@@ -620,20 +599,15 @@
                             </div>
                             <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']"></show-errors>
                         </div>
-                        <div class="col-md-6 mt-4">
-                            <br>
-                            <div class="md-form checkbox-chang-filled">
-                                <input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input"
-                                    name="seleccionarcheck" id="checkbox33" formControlName="gravadoIva"
-                                    mdbInputDirective>
-                                <label class="form-check-label" for="checkbox33">Gravado de Iva</label>
-                                <show-errors [control]="formEditarDetalleProducto.controls['gravadoIva']"></show-errors>
-                            </div>
+                        <div class="col-md-6 mt-5">
+                            <mdb-checkbox class="checkbox-chang-filled" name="seleccionarcheck" formControlName="gravadoIva">Gravado
+                                de Iva</mdb-checkbox>
+                            <show-errors [control]="formEditarDetalleProducto.controls['gravadoIva']"></show-errors>
                         </div>
                     </div>
                     <div class="text-center mt-1-half">
-                        <button class="btn orange-chang mb-1" type="submit" [disabled]="!formEditarDetalleProducto.valid">Ingresar
-                            <i class="fa fa-check ml-1"></i>
+                        <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formEditarDetalleProducto.valid">Ingresar
+                            <mdb-icon class="ml-1" icon="check"></mdb-icon>
                         </button>
                     </div>
                 </form>
@@ -653,7 +627,8 @@
             <!--Header-->
             <div class="modal-header white-text orange-chang">
                 <h4 class="title">
-                    <i class="fa fa-file-text-o"></i> Respaldo de Factura Física</h4>
+                    <mdb-icon icon="file-text-o"></mdb-icon> Respaldo de Factura Física
+                </h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
                     (click)="modalRespaldo.hide()">
                     <span aria-hidden="true">×</span>
@@ -671,8 +646,8 @@
                     </div>
 
                     <div class="text-center mt-1-half">
-                        <button class="btn orange-chang mb-1">Ingresar
-                            <i class="fa fa-check ml-1"></i>
+                        <button mdbBtn type="button" class="orange-chang mb-1">Ingresar
+                            <mdb-icon class="ml-1" icon="check"></mdb-icon>
                         </button>
                     </div>
 

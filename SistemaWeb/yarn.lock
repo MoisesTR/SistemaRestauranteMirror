@@ -259,6 +259,7 @@
 "@ngx-pwa/local-storage@6":
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/@ngx-pwa/local-storage/-/local-storage-6.2.0.tgz#d86ce8421d2646a7b90cc517cb2a10791c0efbb1"
+  integrity sha512-6S0Q/JgL0MqyyVh3rcVglet8rcwrJKF3v4iNZLyMQamJbtDlianHZdlQY5+84rwPt6ScIKz3hU8Jc+wDX2oZGQ==
   dependencies:
     tslib "^1.9.0"
 

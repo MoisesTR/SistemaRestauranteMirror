@@ -55,7 +55,7 @@
                                         (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
                                 </div>
 
-                                <div class="col-md-3 mt-codigo-factura">
+                                <div class="col-md-2 mt-codigo-factura">
                                     <div class="md-form">
                                         <input Alphanumeric [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura"
                                             placeholder="Ej: BD200" class="form-control" autocomplete="off"
@@ -65,12 +65,20 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 mt-codigo-factura">
+                                <div class="col-md-2 mt-codigo-factura">
                                     <div class="md-form">
                                         <input [mdbValidate]=false mdbInputDirective onlyNumbers="decimal" type="text"
                                             placeholder="Ej: 1200" class="form-control" autocomplete="off"
                                             formControlName="totalFacturaOrigen">
                                         <label for="totalFacturaImpresa">Total Factura Impresa</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 mt-codigo-factura">
+                                    <div class="md-form">
+                                        <input [mdbValidate]=false mdbInputDirective onlyNumbers="decimal" type="text"
+                                            placeholder="Ej: 500" class="form-control" autocomplete="off">
+                                        <label for="totalFacturaImpresa">Descuento Total Factura</label>
                                     </div>
                                 </div>
 
@@ -235,8 +243,8 @@
                                         </td>
 
                                         <td class="text-center align-middle">
-                                            <mdb-checkbox class="checkbox-chang-filled"
-                                                          [checked]="producto.GravadoIva" (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
+                                            <mdb-checkbox class="checkbox-chang-filled" [checked]="producto.GravadoIva"
+                                                (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
                                         </td>
 
                                         <td class="text-center align-middle">

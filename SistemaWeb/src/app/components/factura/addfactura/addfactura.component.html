@@ -235,7 +235,7 @@
                                             <div class="switch chang-switch">
                                                 <label>
                                                     <mdb-icon icon="percent"></mdb-icon>
-                                                    <input type="checkbox" checked>
+                                                    <input (change)="changeTipoDescuento($event, producto)" [(ngModel)]="producto.IsDescuentoPorcentual" type="checkbox">
                                                     <span class="lever"></span>
                                                     <mdb-icon icon="money"></mdb-icon>
                                                 </label>
@@ -303,7 +303,7 @@
                                     <td class="body-negrita align-middle">{{productoFactura.Costo}}
                                         {{simboloMonedaUtilizado}}</td>
                                     <td width="10%" class="body-negrita align-middle">
-                                        <strong>{{productoFactura.PorcentajeDescuento * 100}}%</strong>
+                                        <strong>{{productoFactura.IsDescuentoPorcentual ? productoFactura.PorcentajeDescuento * 100 : productoFactura.DescuentoIngresado}} {{productoFactura.IsDescuentoPorcentual ? ' %' : ' C$'}} </strong>
                                     </td>
                                     <td class="body-negrita align-middle text-center">
                                         <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>

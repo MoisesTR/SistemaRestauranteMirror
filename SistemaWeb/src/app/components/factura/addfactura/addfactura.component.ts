@@ -279,19 +279,28 @@ export class AddfacturaComponent implements OnInit {
             } else if (productoFiltrado.Costo <= 0) {
                 Utils.showMsgInfo('El precio debe ser mayor a cero!');
                 return false;
-            } else if (productoFiltrado.DescuentoIngresado > 100) {
-                Utils.showMsgInfo('EL porcentaje de descuento debe ser menor o igual a 100!');
+            } else if (productoFiltrado.DescuentoIngresado > 100 && productoFiltrado.IsDescuentoPorcentual) {
+                Utils.showMsgInfo('El porcentaje de descuento debe ser menor o igual a 100!');
+                return false;
+            }  else if (productoFiltrado.DescuentoIngresado  > (productoFiltrado.Cantidad * productoFiltrado.Costo) && !productoFiltrado.IsDescuentoPorcentual) {
+                Utils.showMsgInfo('El descuento no puede ser mayor al precio neto del producto!');
                 return false;
             }
         }
     }
 
     calculoProducto(productoFiltrado: ProductoFactura) {
-        productoFiltrado.PorcentajeDescuento = Utils.round(productoFiltrado.DescuentoIngresado / 100, 2);
         productoFiltrado.Cantidad = Utils.round(productoFiltrado.Cantidad, 2);
         productoFiltrado.Costo = Utils.round(productoFiltrado.Costo, 2);
         productoFiltrado.Subtotal = Utils.round(productoFiltrado.Cantidad * productoFiltrado.Costo, 2);
-        productoFiltrado.Descuento = Utils.round(productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento, 2);
+
+        if (productoFiltrado.IsDescuentoPorcentual) {
+            productoFiltrado.PorcentajeDescuento = Utils.round(productoFiltrado.DescuentoIngresado / 100, 2);
+            productoFiltrado.Descuento = Utils.round(productoFiltrado.Subtotal * productoFiltrado.PorcentajeDescuento, 2);
+        } else {
+            productoFiltrado.Descuento = Utils.round(productoFiltrado.DescuentoIngresado, 2);
+        }
+
         productoFiltrado.DetalleMenosDescuento = productoFiltrado.Subtotal - productoFiltrado.Descuento;
 
         if (productoFiltrado.GravadoIva === 1) {
@@ -309,6 +318,7 @@ export class AddfacturaComponent implements OnInit {
         producto.Costo = 0;
         producto.Cantidad = 0;
         producto.DescuentoIngresado = 0;
+        producto.IsDescuentoPorcentual =  true;
         producto.GravadoIva = 0;
     }
 
@@ -344,6 +354,7 @@ export class AddfacturaComponent implements OnInit {
                         this.productosFiltrados[index].Subtotal = 0;
                         this.productosFiltrados[index].Iva = 0;
                         this.productosFiltrados[index].CalculoIva = 0;
+                        this.productosFiltrados[index].IsDescuentoPorcentual = true;
                         this.productosFiltrados[index].DescripcionInsumo = this.productosFiltrados[index].IdTipoInsumo === 1 ? 'Alimento' : 'Limpieza';
                     });
                     this.cdr.detectChanges();
@@ -548,6 +559,10 @@ export class AddfacturaComponent implements OnInit {
 
     changeIva(event, producto: ProductoFactura) {
         producto.GravadoIva = event.checked === true ? 1 : 0;
+    }
+
+    changeTipoDescuento(event, producto: ProductoFactura) {
+        producto.IsDescuentoPorcentual = event.path[0].checked;
     }
 
     showSuccess() {

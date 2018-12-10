@@ -64,43 +64,43 @@
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
 
-        <form [formGroup]="formAddSucursal " (ngSubmit)="createSucursal(modalAddSucursal)">
+        <form [formGroup]="formAddSucursal " (ngSubmit)="createSucursal(modalAddSucursal)" class="orange-chang-text">
 
-          <div class="md-form pl-2 pr-3">
-            <h6 class="orange-chang-text">Nombre Sucursal</h6>
+          <div class="md-form">
+            <h6>Nombre Sucursal</h6>
             <input type="text" id="NombreSucursal" class="input-modal-sm letras" name="NombreSucursal" formControlName="nombreSucursal">
             <show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>
           </div>
 
-          <label class="margin-label-sucursal orange-chang-text">Encargado de Sucursal</label>
+          <label class="margin-label-sucursal">Encargado de Sucursal</label>
           <div class="md-form">
-            <ng-select placeholder="Selecciona un empleado">
+            <ng-select class="select-mdl" placeholder="Selecciona un empleado">
             </ng-select>
           </div>
 
-          <div class="md-form pl-2 pr-3">
-            <h6 class="orange-chang-text">Telefóno</h6>
+          <div class="md-form">
+            <h6>Telefóno</h6>
             <input type="text" id="TelefonoPrincipal" class="input-modal-sm telefono" name="TelefonoPrincipal"
               formControlName="telefonoPrincipal">
             <show-errors [control]="formAddSucursal.controls['telefonoPrincipal']"></show-errors>
           </div>
 
-          <div class="md-form pl-2 pr-3">
-            <h6 class="orange-chang-text">Telefóno (Opcional)</h6>
+          <div class="md-form">
+            <h6>Telefóno (Opcional)</h6>
             <input type="text" id="TelefonoSecundario" class="input-modal-sm telefono" name="TelefonoSecundario"
               formControlName="telefonoSecundario">
             <show-errors [control]="formAddSucursal.controls['telefonoSecundario']"></show-errors>
           </div>
 
-          <div class="md-form pl-2 pr-3">
-            <h6 class="orange-chang-text">Dirección</h6>
+          <div class="md-form">
+            <h6>Dirección</h6>
             <textarea type="text" id="Direccion" class="text-area-modal" name="Direccion" formControlName="direccion"></textarea>
             <show-errors [control]="formAddSucursal.controls['direccion']"></show-errors>
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddSucursal.valid">Ingresar
-              <i class="fa fa-check ml-1"></i>
+            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formAddSucursal.valid">Ingresar
+              <mdb-icon icon="check"></mdb-icon>
             </button>
           </div>
 
@@ -128,37 +128,43 @@
       <!--Cuerpo modal-->
       <div class="modal-body mb-0">
 
-        <form [formGroup]="formUpdateSucursal " (ngSubmit)="updateSucursal(modalUpdateSucursal)">
+        <form [formGroup]="formUpdateSucursal " (ngSubmit)="updateSucursal(modalUpdateSucursal)" class="orange-chang-text">
 
           <div class="md-form">
-            <h6 class="orange-chang-text">Nombre Sucursal</h6>
+            <h6>Nombre Sucursal</h6>
             <input type="text" id="UpNombreSucursal" class="input-modal-sm " name="NombreSucursal" formControlName="nombreSucursal">
             <show-errors [control]="formUpdateSucursal.controls['nombreSucursal']"></show-errors>
           </div>
 
+          <label class="margin-label-sucursal">Encargado de Sucursal</label>
           <div class="md-form">
-            <h6 class="orange-chang-text">Telefóno</h6>
+            <ng-select class="select-mdl" placeholder="Selecciona un empleado">
+            </ng-select>
+          </div>
+
+          <div class="md-form">
+            <h6>Telefóno</h6>
             <input type="text" id="UpTelefonoPrincipal" class="input-modal-sm telefono" name="TelefonoPrincipal"
               formControlName="telefonoPrincipal">
             <show-errors [control]="formUpdateSucursal.controls['telefonoPrincipal']"></show-errors>
           </div>
 
           <div class="md-form ">
-            <h6 class="orange-chang-text">Telefóno (Opcional)</h6>
+            <h6>Telefóno (Opcional)</h6>
             <input type="text" id="UpTelefonoSecundario" class="input-modal-sm telefono" name="TelefonoSecundario"
               telefono formControlName="telefonoSecundario">
             <show-errors [control]="formUpdateSucursal.controls['telefonoSecundario']"></show-errors>
           </div>
 
           <div class="md-form">
-            <h6 class="orange-chang-text">Dirección</h6>
+            <h6>Dirección</h6>
             <textarea type="text" id="UpDireccion" class="text-area-modal" name="Direccion" formControlName="direccion"></textarea>
             <show-errors [control]="formUpdateSucursal.controls['direccion']"></show-errors>
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSucursal.valid">Actualizar
-              <i class="fa fa-check ml-1"></i>
+            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formUpdateSucursal.valid">Actualizar
+              <mdb-icon icon="check"></mdb-icon>
             </button>
           </div>
 

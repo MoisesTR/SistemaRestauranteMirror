@@ -54,68 +54,76 @@
           <!--/Titulo-->
           <mdb-card-body cascade="true">
 
-            <div class="row">
+            <div class="container-fluid">
 
-              <div class="col-xs-12 col-md-6 col-lg-12 mb-5 mt-2">
-                <label class="" for="proveedor" class="grey-text-card">Proveedor</label>
-                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
-                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-                    <div style="margin: 10px 0;" class="card">
-                      <div class="card-body">
-                        <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
-                        <p class="card-subtitle mb-2 text-muted">
-                          <b>Nombre del Representante</b>
-                          <br>
-                          <i>{{item.NombreRepresentante}}</i>
-                        </p>
-                        <p class="card-text">
-                          <b>Descripcion</b>
-                          <br>
-                          <i>{{item.Descripcion}}</i>
-                        </p>
+              <div class="row">
+
+                <div class="col-xs-12 col-md-6 col-lg-12 mb-5 mt-2">
+                  <label class="" for="proveedor" class="grey-text-card">Proveedor</label>
+                  <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+                    placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <div style="margin: 10px 0;" class="card">
+                        <div class="card-body">
+                          <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                          <p class="card-subtitle mb-2 text-muted">
+                            <b>Nombre del Representante</b>
+                            <br>
+                            <i>{{item.NombreRepresentante}}</i>
+                          </p>
+                          <p class="card-text">
+                            <b>Descripcion</b>
+                            <br>
+                            <i>{{item.Descripcion}}</i>
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </ng-template>
-                </ng-select>
-              </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
 
-              <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
-                <label class="" for="proveedor" class="grey-text-card">Fecha de búsqueda</label>
-                <ng-select [items]="filtroFechas" bindLabel="Fecha" bindValue="Id" [(ngModel)]="idFechaBusqueda"
-                  formControlName="fechaBus queda" (change)="changeFechaBusqueda($event)" placeholder="Selecciona la fecha de búsqueda">
-                </ng-select>
-              </div>
+                <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
+                  <label class="" for="proveedor" class="grey-text-card">Fecha de búsqueda</label>
+                  <ng-select [items]="filtroFechas" bindLabel="Fecha" bindValue="Id" [(ngModel)]="idFechaBusqueda"
+                    formControlName="fechaBus queda" (change)="changeFechaBusqueda($event)" placeholder="Selecciona la fecha de búsqueda">
+                  </ng-select>
+                </div>
 
-              <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-1">
-                <div class="md-form">
-                  <label for="codigoFactura">Código de Factura</label>
-                  <input Alphanumeric formControlName="codFactura" [mdbValidate]=false mdbInputDirective type="text"
-                    placeholder="Ej: BD200" class="form-control" autocomplete="off">
+                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-1">
+                  <div class="md-form">
+                    <label for="codigoFactura">Código de Factura</label>
+                    <input Alphanumeric formControlName="codFactura" [mdbValidate]=false mdbInputDirective type="text"
+                      placeholder="Ej: BD200" class="form-control" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
+                  <div class="md-form">
+                    <input formControlName="fechaInicio" name="fechaInicio" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
+                      class="input-picker form-control" [mdbValidate]=false id="fechaInicio" placeholder="Seleccioné"
+                      mdbInputDirective>
+                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
+                  <div class="md-form">
+                    <input formControlName="fechaFin" name="fechaFin" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
+                      class="input-picker form-control" [mdbValidate]=false id="fechaFin" placeholder="Seleccioné"
+                      mdbInputDirective>
+                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
+                  </div>
                 </div>
               </div>
 
-              <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
-                <label class="" for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
-                <input formControlName="fechaInicio" name="fechaInicio" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
-                  class="input-picker form-control" [mdbValidate]=false id="fechaInicio" placeholder="Seleccioné"
-                  mdbInputDirective>
-                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+              <div class="text-center mt-1-half mt-3">
+                <button mdbBtn type="button" class="orange-chang mb-1" (click)="findFacturas()">Buscar
+                  <mdb-icon class="ml-1" icon="search"></mdb-icon>
+                </button>
               </div>
 
-              <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
-                <label class="" for="fechaInicio" class="grey-text-card">Fecha Fin</label>
-                <input formControlName="fechaFin" name="fechaFin" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
-                  [mdbValidate]=false id="fechaFin" placeholder="Seleccioné" mdbInputDirective>
-                <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
-              </div>
-
-            </div>
-
-            <div class="text-center mt-1-half mt-3">
-              <button mdbBtn type="button" class="orange-chang mb-1" (click)="findFacturas()">Buscar
-                <mdb-icon class="ml-1" icon="search"></mdb-icon>
-              </button>
             </div>
 
           </mdb-card-body>

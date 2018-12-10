@@ -15,6 +15,7 @@ export class ProductoFactura extends Producto {
     public DescuentoIngresado: number;
     public PorcentajeDescuento: number;
     public Subtotal: number;
+    public IsDescuentoPorcentual: boolean;
     public TotalDetalle: number;
 
     constructor() {
@@ -24,5 +25,6 @@ export class ProductoFactura extends Producto {
         this.PorcentajeDescuento = 0;
         this.Iva = 0;
         this.DetalleMenosDescuento = 0;
+        this.IsDescuentoPorcentual = true;
     }
 }

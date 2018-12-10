@@ -2,14 +2,14 @@
 
   <div class="row">
     <!--Datos del Proveedor-->
-    <div class="col-lg-12">
-      <div class="card card-cascade narrower">
+    <div class="col-lg-12 mb-5">
+      <mdb-card cascade="true" narrower="true">
+
         <div class="view view-cascade gradient-card-header orange-chang">
-          <h4 class="mb-0">Agregar Proveedor</h4>
+          <h3 class="card-header-title mb-2">Agregar Proveedor</h3>
         </div>
         <!-- Contenido -->
-        <div class="card-body">
-
+        <mdb-card-body cascade="true">
           <form [formGroup]="formAddProveedor" (ngSubmit)="createProveedor()" novalidate>
             <div class="row justify-content-md-center">
 
@@ -33,12 +33,10 @@
                 </div>
               </div>
 
-              <div class="col-5 col-sm-4 col-md-3 mt-3 col-lg-3 col-xl-3">
-                <div class="form-check mt-5 checkbox-chang-filled">
-                  <input [mdbValidate]=false type="checkbox" (change)="changeMercado($event)" formControlName="isMercado"
-                    class="form-check-input" name="chkMercado" id="chkMercado" mdbInputDirective>
-                  <label class="form-check-label grey-text-card" for="chkMercado">Mercado</label>
-                </div>
+              <div class="col-5 col-sm-4 col-md-3 mt-6 col-lg-3 col-xl-3">
+                <mdb-checkbox><label class="grey-text-card">Mercado</label></mdb-checkbox>
+                <!-- [checked]="true" name="chkMercado" id="chkMercado" (change)="changeMercado($event)"
+                  formControlName="isMercado" -->
               </div>
 
               <div class="col-7 col-sm-8 col-md-8 col-lg-8 col-xl-8 mt-0">
@@ -50,12 +48,13 @@
                 </div>
               </div>
 
-              <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-5">
-                <div class="form-check checkbox-chang-filled mt-5">
+              <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-8">
+                <mdb-checkbox><label class="grey-text-card">Aplica Retención</label></mdb-checkbox>
+                <!-- <div class="form-check checkbox-chang-filled mt-5">
                   <input [mdbValidate]=false class="form-check-input" type="checkbox" value="validando_checkbox1" name="seleccionarcheck"
                     id="segundo2" formControlName="retencion" mdbInputDirective>
                   <label class="form-check-label grey-text-card" for="segundo2">Aplica Retención</label>
-                </div>
+                </div> -->
               </div>
 
               <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-4">
@@ -77,8 +76,9 @@
               </div>
 
               <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-5">
-                <a class="btn orange-chang mb-1 ml-4 btn-sm white-text" role="button" (click)="showModalTelefonos()">
-                  Telefonos<i class="fa fa-phone ml-1"></i>
+                <a mdbBtn role="button" class="orange-chang mb-1 ml-4 btn-sm white-text" mdbPageScroll href="#agenda-proveedores"
+                  [pageScrollDuration]="750" mdbWavesEffect>
+                  Teléfonos<mdb-icon icon="phone" class="ml-1"></mdb-icon>
                 </a>
               </div>
 
@@ -96,79 +96,78 @@
             </div>
 
             <div class="text-center mt-3">
-              <button class="btn orange-chang mb-1" [disabled]="!formAddProveedor.valid">Ingresar
-                <i class="fa fa-check ml-1"></i>
-              </button>
+
+              <button mdbBtn type="button" class="orange-chang mb-1" [disabled]="!formAddProveedor.valid"
+                mdbWavesEffect>Ingresar<mdb-icon icon="check" class="ml-1"></mdb-icon></button>
+
+              <!-- <button class="btn orange-chang mb-1" [disabled]="!formAddProveedor.valid">Ingresar 
+              <i class="fa fa-check ml-1"></i>
+              </button> -->
             </div>
 
           </form>
-        </div>
+        </mdb-card-body>
         <!-- Contenido -->
-      </div>
+      </mdb-card>
+
     </div>
-  </div>
-</section>
 
-<!-- Modal para agregar telefonos asociados al proveedor -->
-<div mdbModal #modalTelefonos="mdb-modal" class="modal fade" id="modalTelefonos" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal modal-lg" role="document" style="height: 41%;">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+    <!--Agenda-->
+    <div class="col-lg-12">
+      <mdb-card cascade="true" narrower="true">
 
-      <!--Header-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Telefonos del proveedor</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalTelefonos.hide()">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
+        <div class="view view-cascade gradient-card-header orange-chang" id="agenda-proveedores">
+          <h3 class="card-header-title mb-2">Agenda Telefónica</h3>
+        </div>
 
-      <!--Cuerpo Modal-->
-      <div class="modal-body mb-0">
+        <mdb-card-body cascade="true">
 
-        <form [formGroup]="formAddTelefonos" (ngSubmit)="agregarTelefonosProveedor()" novalidate>
+          <form [formGroup]="formAddTelefonos" (ngSubmit)="agregarTelefonosProveedor()" novalidate>
 
-          <div class="container d-none d-lg-block d-xl-block" id="mg-labels">
-            <div class="row">
+            <div class="container d-none d-lg-block d-xl-block" id="mg-labels">
+              <div class="row">
 
-              <div class="col-lg-3">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Nombre</h6>
+                <div class="col-lg-3">
+                  <div class="md-form">
+                    <h6 class="orange-chang-text">Nombre</h6>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-lg-3 mgl-labels">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Cargo</h6>
+                <div class="col-lg-2">
+                  <div class="md-form">
+                    <h6 class="orange-chang-text">Cargo</h6>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-lg-3 mgl-labels">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Télefono</h6>
+                <div class="col-lg-2">
+                  <div class="md-form">
+                    <h6 class="orange-chang-text">Télefono</h6>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-lg-2 mgl-labels">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Titular</h6>
+                <div class="col-lg-2">
+                  <div class="md-form">
+                    <h6 class="orange-chang-text">Extensión</h6>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-lg-1" id="mgl-label-acciones">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Acciones</h6>
+                <div class="col-lg-1">
+                  <div class="md-form">
+                    <h6 class="orange-chang-text">Titular</h6>
+                  </div>
                 </div>
-              </div>
 
+                <div class="col-lg-2">
+                  <div class="md-form">
+                    <h6 class="orange-chang-text">Acciones</h6>
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
 
-          <hr class="d-none d-lg-block d-xl-block">
+            <hr class="d-none d-lg-block d-xl-block mt-4">
 
-          <div class="scrollbar-card scrollbar-ripe-malinka">
             <fieldset *ngFor="let telefono of telefonos; let i = index;" class="mb-fieldset">
 
               <div class="container">
@@ -183,24 +182,31 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-3">
-                    <div class="md-form">
+                  <div class="col-md-12 col-lg-2">
+                    <div class="md-form ml-3">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Cargo</h6>
                       <input type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
                         class="input-modal-sm">
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-3 mr-0">
-                    <div class="md-form">
+                  <div class="col-md-6 col-lg-2 mr-0">
+                    <div class="md-form ml-3">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Télefono</h6>
                       <input type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
                         [(ngModel)]="telefono.Telefono" class="input-modal-sm">
                     </div>
                   </div>
 
+                  <div class="col-md-6 col-lg-2 mr-0">
+                    <div class="md-form ml-3">
+                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Extensión</h6>
+                      <input type="text" onlyNumbers="int" id="ext{{i}}" class="input-modal-sm">
+                    </div>
+                  </div>
+
                   <div class="col-6 col-md-6 col-lg-1 mt-4 ml-0">
-                    <div class="switch chang-switch font-small">
+                    <div class="switch chang-switch font-small ml-4">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Titular</h6>
                       <label class="mt-3" id="align-input">
                         <input [(ngModel)]="telefono.IsTitular" [ngModelOptions]="{standalone: true}" type="checkbox"
@@ -210,19 +216,19 @@
                     </div>
                   </div>
 
-                  <div *ngIf="i !== 0" class="col-3 col-sm-3 col-md-3 col-lg-1">
+                  <div *ngIf="i !== 0" class="col-3 col-sm-3 col-md-3 col-lg-1 text-center">
                     <div class="md-form">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-2" *ngIf="i!==0">Eliminar</h6>
-                      <a class="btn red-chang white-text btn-sm mb-5" id="remove" (click)="eliminarTelefono(telefono,i)"
+                      <a class="btn red-chang white-text btn-sm mb-5 ml-2" id="remove" (click)="eliminarTelefono(telefono,i)"
                         mdbTooltip="Eliminar Telefóno" placement="bottom" role="button"><i class="fa fa-close"
                           aria-hidden="true"></i></a>
                     </div>
                   </div>
 
-                  <div *ngIf="1 === 1" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2':'col-3 col-sm-3 col-md-3 col-lg-1'">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-3">Agregar</h6>
-                      <a class="btn white-text btn-sm ml-3 mb-5 orange-chang" id="add" (click)="agregarTelefono(telefono,i)"
+                  <div *ngIf="1 === 1" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2 text-center':'col-3 col-sm-3 col-md-3 col-lg-1'">
+                    <div class="md-form ml-3">
+                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-3 text-nowrap">Agregar</h6>
+                      <a class="btn white-text btn-sm mb-5 orange-chang" id="add" (click)="agregarTelefono(telefono,i)"
                         mdbTooltip="Agregar Telefóno" placement="bottom" role="button"><i class="fa fa-plus"
                           aria-hidden="true"></i></a>
                     </div>
@@ -231,21 +237,13 @@
                   <div id="inputs-telefono"></div>
 
                 </div>
-
               </div>
             </fieldset>
-          </div>
 
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1">Ingresar
-              <i class="fa fa-check ml-1"></i>
-            </button>
-          </div>
+          </form>
 
-        </form>
-
-      </div>
+        </mdb-card-body>
+      </mdb-card>
     </div>
-    <!--/.Contenido-->
   </div>
-</div>
+</section>

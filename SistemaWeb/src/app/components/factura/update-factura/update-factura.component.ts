@@ -13,7 +13,7 @@ import {Proveedor} from '../../../models/Proveedor';
 import {Usuario} from '../../../models/Usuario';
 import {Factura} from '../../../models/Factura';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
-import {ModalDirective} from '../../../../ng-uikit-pro-standard';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {Utils} from '../../Utils';
 import {Producto} from '../../../models/Producto';

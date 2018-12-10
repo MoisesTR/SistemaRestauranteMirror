@@ -8,7 +8,7 @@ import {Utils} from '../../Utils';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FacturaService} from '../../../services/shared/factura.service';
 import {Factura} from '../../../models/Factura';
-import {ModalDirective} from '../../../../ng-uikit-pro-standard';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 import {Cambio} from '../../../models/Cambio';
 import {WindowRef} from '@agm/core/utils/browser-globals';
 

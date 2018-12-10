@@ -1,7 +1,6 @@
 // CLASE UTILIZADA PARA DECLARACION DE CONSTANTES DEL PROYECTO
 
-
-import {IMyOptions} from 'ng-uikit-pro-standard/ng-uikit-pro-standard';
+import {IMyOptions} from 'ng-uikit-pro-standard';
 
 export const Global  = {
     url: 'http://localhost:3000/api/'

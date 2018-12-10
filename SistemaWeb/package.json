@@ -56,6 +56,7 @@
     "moment": "^2.22.1",
     "ng-html-util": "2.0.2",
     "ng-pick-datetime": "^6.0.16",
+    "ng-uikit-pro-standard": "git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git",
     "ng2-select2": "^1.0.0-beta.11",
     "ngm-cli": "1.0.4",
     "ngx-dropdown": "^0.0.22",

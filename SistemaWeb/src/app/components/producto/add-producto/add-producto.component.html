@@ -5,27 +5,28 @@
       <!--Imagen-->
       <div class="col-12 col-sm-12 col-md-12 col-lg-4 mb-r wow fadeInLeft mb-5" data-wow-delay="0.4s" id="imagen-productos"
         style="display: none;">
-        <div class="card card-cascade narrower">
+
+        <mdb-card cascade="true" narrower="true">
           <div class="view view-cascade gradient-card-header orange-chang">
-            <h4 class="mb-0">Imagen</h4>
+            <h3 class="card-header-title mb-2">Imagen</h3>
           </div>
-          <div class="card-body text-center">
+          <mdb-card-body class=" text-center" cascade="true">
             <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300"
               data-allowed-file-extensions="jpg png jpeg" />
-          </div>
-        </div>
+          </mdb-card-body>
+        </mdb-card>
 
       </div>
       <!-- /.Imagen -->
 
       <!--Datos del producto-->
       <div class="col-12 col-sm-12 col-md-12 col-lg-12" id="formulario-productos">
-        <div class="card card-cascade narrower">
+        <mdb-card cascade="true" narrower="true">
           <div class="view view-cascade gradient-card-header orange-chang">
-            <h4 class="mb-0">Datos del Producto</h4>
+            <h3 class="card-header-title mb-2">Datos del Producto</h3>
           </div>
           <!-- Contenido -->
-          <div class="card-body">
+          <mdb-card-body cascade="true">
 
             <div class="row">
 
@@ -35,7 +36,7 @@
                     [(ngModel)]="formAddProducto.value.nombreProducto" class="form-control letras" autocomplete="off"
                     placeholder="Nombre del Producto" style="margin-right: 5%;">
                   <div class="input-group-btn">
-                    <button tabindex="-1" type="button" class="btn orange-chang px-3 add-img-position" (click)="showCardImg()"
+                    <button tabindex="-1" mdbBtn type="button" class="orange-chang px-3 add-img-position" (click)="showCardImg()"
                       mdbTooltip="Agregar Imagen" placement="bottom" id="btn-animation" style="margin-left: -20%;">
                       <i class="fa fa-file-photo-o" aria-hidden="true"></i>
                     </button>
@@ -72,17 +73,19 @@
               </div>
 
               <div class="col-12 col-sm-5 col-md-2 mts-1">
-                <div class="form-check">
+
+                <mdb-checkbox class="checkbox-chang-filled"><label class="grey-text-card">Consumo directo</label></mdb-checkbox>
+
+                <!-- <div class="form-check">
                   <input [mdbValidate]=false class="form-check-input" type="checkbox" id="consumodirecto"
-                    mdbInputDirective>
-                  <label class="form-check-label" for="consumodirecto">Consumo directo</label>
-                </div>
+                    mdbInputDirective> -->
+                <!-- <label class="form-check-label" for="consumodirecto">Consumo directo</label> -->
+                <!-- </div> -->
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" (click)="agregarProveedor()" mdbTooltip="Agregar Proveedor" placement="bottom"
-                  mdbWavesEffect>Agregar</button>
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  (click)="agregarProveedor()" mdbTooltip="Agregar Proveedor" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -94,8 +97,8 @@
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" mdbTooltip="Agregar Insumo" placement="bottom" mdbWavesEffect>Agregar</button>
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  mdbTooltip="Agregar Insumo" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -107,9 +110,8 @@
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" (click)="showModalCategoria=true" mdbTooltip="Agregar Categoría" placement="bottom"
-                  mdbWavesEffect>Agregar</button>
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  (click)="showModalCategoria=true" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -122,8 +124,8 @@
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" (click)="showModalClasificacion=true" mdbTooltip="Agregar Clasificación" placement="bottom"
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  (click)="showModalClasificacion=true" mdbTooltip="Agregar Clasificación" placement="bottom"
                   mdbWavesEffect>Agregar</button>
               </div>
 
@@ -137,16 +139,17 @@
               </div>
 
               <div class="col-12 col-sm-5 col-md-2 mts-2">
-                <div class="form-check">
+                <mdb-checkbox class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
+                <!-- <div class="form-check">
                   <input [mdbValidate]=false class="form-check-input" type="checkbox" id="granel" mdbInputDirective>
                   <label class="form-check-label" for="granel">Granel</label>
-                </div>
+                </div> -->
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" (click)="showModalSubclasificacion=true" mdbTooltip="Agregar Subclasificación"
-                  placement="bottom" mdbWavesEffect>Agregar</button>
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  (click)="showModalSubclasificacion=true" mdbTooltip="Agregar Subclasificación" placement="bottom"
+                  mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-5 mt-3">
@@ -167,9 +170,8 @@
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" (click)="showModalEmpaque = true" mdbTooltip="Agregar Empaque" placement="bottom"
-                  mdbWavesEffect>Agregar</button>
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  (click)="showModalEmpaque = true" mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="mt-3 ml-3 mb-0 d-block d-xl-none d-lg-none d-md-none"><label class="grey-text-card">Envase</label></div>
@@ -183,9 +185,8 @@
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-1">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio mt-2"
-                  tabindex="-1" (click)="showModalEnvase = true" mdbTooltip="Agregar Envase" placement="bottom"
-                  mdbWavesEffect>Agregar</button>
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  (click)="showModalEnvase = true" mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
 
@@ -208,8 +209,8 @@
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" (click)="showModalUnidadMedida = true" mdbTooltip="Agregar unidad de medida" placement="bottom"
+                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                  (click)="showModalUnidadMedida = true" mdbTooltip="Agregar unidad de medida" placement="bottom"
                   mdbWavesEffect>Agregar</button>
               </div>
 
@@ -270,19 +271,18 @@
             </div>
 
             <div class="text-center mt-3">
-              <button class="btn orange-chang mb-1" [disabled]="!formAddProducto.valid">Ingresar
-                <i class="fa fa-check ml-1"></i>
+              <button mdbBtn type="button" class="orange-chang mb-1" [disabled]="!formAddProducto.valid">Ingresar
+                <mdb-icon icon="check" class="ml-1"></mdb-icon>
               </button>
             </div>
 
-          </div>
+          </mdb-card-body>
           <!-- Contenido -->
-        </div>
-      </div>
+        </mdb-card>
 
+      </div>
     </div>
   </form>
-
 </section>
 
 <modal-categoria *ngIf="showModalCategoria" [mostrarModal]="showModalCategoria" (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>

@@ -22,8 +22,8 @@
             ],
             "styles": [
               "node_modules/font-awesome/scss/font-awesome.scss",
-              "src/ng-uikit-pro-standard/assets/scss/bootstrap/bootstrap.scss",
-              "src/ng-uikit-pro-standard/assets/scss/mdb.scss",
+              "node_modules/ng-uikit-pro-standard/assets/scss/bootstrap/bootstrap.scss",
+              "node_modules/ng-uikit-pro-standard/assets/scss/mdb.scss",
               "node_modules/sweetalert2/dist/sweetalert2.min.css",
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "node_modules/datatables.net-select/js/dataTables.select.js",
@@ -103,8 +103,8 @@
               "node_modules/datatables.net-select/js/dataTables.select.js"
             ],
             "styles": [
-              "scss/bootstrap/bootstrap.scss",
-              "scss/mdb.scss",
+              "node_modules/ng-uikit-pro-standard/assets/scss/bootstrap/bootstrap.scss",
+              "node_modules/ng-uikit-pro-standard/assets/scss/mdb.scss",
               "node_modules/sweetalert2/dist/sweetalert2.min.css",
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "node_modules/datatables.net-select/js/dataTables.select.js",

@@ -7,7 +7,7 @@ import {Factura} from '../../../models/Factura';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../Utils';
 import {opcionesDatePicker} from '../../../services/shared/global';
-import {IMyOptions} from '../../../../ng-uikit-pro-standard';
+import {IMyOptions} from 'ng-uikit-pro-standard';
 
 @Component({
   selector: 'app-summary-facturas',

@@ -3,12 +3,13 @@
   <div class="row">
     <!--Datos del Gastos-->
     <div class="col-lg-12">
-      <div class="card card-cascade narrower">
+
+      <mdb-card cascade="true" narrower="true">
         <div class="view view-cascade gradient-card-header orange-chang">
-          <h4 class="mb-0">Gastos</h4>
+          <h3 class="card-header-title mb-2">Gastos</h3>
         </div>
         <!-- Contenido -->
-        <div class="card-body">
+        <mdb-card-body cascade="true">
 
           <form [formGroup]="formAddGasto" (ngSubmit)="createGasto()" novalidate>
 
@@ -73,16 +74,17 @@
             </div>
 
             <div class="text-center mt-3">
-              <button class="btn orange-chang mb-1">Ingresar
-                <i class="fa fa-check ml-1"></i>
+              <button mdbBtn type="button" class="orange-chang mb-1">Ingresar
+                <mdb-icon icon="check" class="ml-1"></mdb-icon>
               </button>
             </div>
 
           </form>
 
-        </div>
+        </mdb-card-body>
         <!-- Contenido -->
-      </div>
+      </mdb-card>
+
     </div>
   </div>
 </section>

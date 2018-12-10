@@ -8,7 +8,7 @@ import {Utils} from '../../Utils';
 import {CustomValidators} from '../../../validadores/CustomValidators';
 import {PreviousRouteService} from '../../../services/service.index';
 import {TelefonoProveedor} from '../../../models/TelefonoProveedor';
-import {ModalDirective} from 'ng-uikit-pro-standard';
+import {ModalDirective, CheckboxModule, WavesModule, ButtonsModule} from 'ng-uikit-pro-standard';
 
 
 declare var $: any;

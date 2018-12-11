@@ -35,8 +35,6 @@
 
               <div class="col-5 col-sm-4 col-md-3 mt-6 col-lg-3 col-xl-3">
                 <mdb-checkbox><label class="grey-text-card">Mercado</label></mdb-checkbox>
-                <!-- [checked]="true" name="chkMercado" id="chkMercado" (change)="changeMercado($event)"
-                  formControlName="isMercado" -->
               </div>
 
               <div class="col-7 col-sm-8 col-md-8 col-lg-8 col-xl-8 mt-0">
@@ -50,11 +48,6 @@
 
               <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-8">
                 <mdb-checkbox><label class="grey-text-card">Aplica Retención</label></mdb-checkbox>
-                <!-- <div class="form-check checkbox-chang-filled mt-5">
-                  <input [mdbValidate]=false class="form-check-input" type="checkbox" value="validando_checkbox1" name="seleccionarcheck"
-                    id="segundo2" formControlName="retencion" mdbInputDirective>
-                  <label class="form-check-label grey-text-card" for="segundo2">Aplica Retención</label>
-                </div> -->
               </div>
 
               <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-4">
@@ -96,13 +89,8 @@
             </div>
 
             <div class="text-center mt-3">
-
               <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProveedor.valid"
                 mdbWavesEffect>Ingresar<mdb-icon icon="check" class="ml-1"></mdb-icon></button>
-
-              <!-- <button class="btn orange-chang mb-1" [disabled]="!formAddProveedor.valid">Ingresar 
-              <i class="fa fa-check ml-1"></i>
-              </button> -->
             </div>
 
           </form>
@@ -183,7 +171,7 @@
                   </div>
 
                   <div class="col-md-12 col-lg-2">
-                    <div class="md-form ml-3">
+                    <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Cargo</h6>
                       <input type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
                         class="input-modal-sm">
@@ -191,7 +179,7 @@
                   </div>
 
                   <div class="col-md-6 col-lg-2 mr-0">
-                    <div class="md-form ml-3">
+                    <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Télefono</h6>
                       <input type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
                         [(ngModel)]="telefono.Telefono" class="input-modal-sm">
@@ -199,7 +187,7 @@
                   </div>
 
                   <div class="col-md-6 col-lg-2 mr-0">
-                    <div class="md-form ml-3">
+                    <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Extensión</h6>
                       <input type="text" onlyNumbers="int" id="ext{{i}}" class="input-modal-sm">
                     </div>
@@ -226,7 +214,7 @@
                   </div>
 
                   <div *ngIf="1 === 1" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2 text-center':'col-3 col-sm-3 col-md-3 col-lg-1'">
-                    <div class="md-form ml-3">
+                    <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-3 text-nowrap">Agregar</h6>
                       <a class="btn white-text btn-sm mb-5 orange-chang" id="add" (click)="agregarTelefono(telefono,i)"
                         mdbTooltip="Agregar Telefóno" placement="bottom" role="button"><i class="fa fa-plus"
@@ -239,7 +227,6 @@
                 </div>
               </div>
             </fieldset>
-
           </form>
 
         </mdb-card-body>

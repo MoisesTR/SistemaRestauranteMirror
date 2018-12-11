@@ -27,3 +27,13 @@
 #mgl-label-acciones {
   margin-left: -40px;
 }
+
+.ml-chang-agenda {
+  margin-left: 1rem !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .ml-chang-agenda {
+    margin-left: 0 !important;
+  }
+}

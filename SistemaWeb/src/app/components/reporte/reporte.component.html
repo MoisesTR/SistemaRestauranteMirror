@@ -3,13 +3,13 @@
 
     <div class="col-md-12">
 
-      <div class="card card-cascade narrower">
+      <mdb-card cascade="true" narrower="true">
         <!--Titulo-->
         <div class="view view-cascade gradient-card-header orange-chang">
-          <h2 class="h2-responsive">Productos</h2>
+          <h3 class="card-header-title mb-2">Productos</h3>
         </div>
         <!--/Titulo-->
-        <div class="card-body">
+        <mdb-card-body cascade="true">
 
           <div class="row">
 
@@ -52,7 +52,6 @@
 
             </div>
 
-
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xs-4 mt-4" *ngFor="let producto of productos | buscarProductoxNombre: buscando ">
 
               <div class="card-deck">
@@ -87,9 +86,10 @@
                 </div>
               </div>
             </div>
+
           </div>
-        </div>
-      </div>
+        </mdb-card-body>
+      </mdb-card>
     </div>
   </div>
 

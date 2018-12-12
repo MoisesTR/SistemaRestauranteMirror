@@ -1,0 +1,190 @@
+<section>
+  <div class="row">
+
+    <div class="col-lg-4 col-md-12 col-sm-12 mb-5">
+      <form [formGroup]="formBusquedaFactura" novalidate>
+        <mdb-card cascade="true" narrower="true">
+          <!--Titulo-->
+          <div class="view view-cascade gradient-card-header orange-chang">
+            <h3 class="card-header-title mb-2">Búsqueda</h3>
+          </div>
+          <!--/Titulo-->
+          <mdb-card-body cascade="true">
+
+            <div class="container-fluid">
+
+              <div class="row">
+
+                <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-2">
+                  <label for="clasificacion" class="grey-text-card">Clasificación</label>
+                  <ng-select placeholder="Selecciona una clasificación">
+                  </ng-select>
+                </div>
+
+                <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-3">
+                  <label for="subclasificacion" class="grey-text-card">SubClasificación</label>
+                  <ng-select placeholder="Selecciona una subclasificación">
+                  </ng-select>
+                </div>
+
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <div class="md-form">
+                    <label for="codigoFactura">Código de Factura</label>
+                    <input Alphanumeric formControlName="codFactura" [mdbValidate]=false mdbInputDirective type="text"
+                      placeholder="Ej: BD200" class="form-control" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <div class="md-form">
+                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control"
+                      [mdbValidate]=false placeholder="Seleccioné" mdbInputDirective>
+                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <div class="md-form">
+                    <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
+                      [mdbValidate]=false id="fechaFin" placeholder="Seleccioné" mdbInputDirective>
+                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-1-half mt-3">
+                <button mdbBtn type="button" class="orange-chang mb-1">Buscar
+                  <mdb-icon class="ml-1" icon="search"></mdb-icon>
+                </button>
+              </div>
+
+            </div>
+
+          </mdb-card-body>
+        </mdb-card>
+      </form>
+    </div>
+
+    <div class="col-lg-8 col-md-12 col-sm-12">
+
+      <mdb-card cascade="true" narrower="true">
+        <!--Titulo-->
+        <div class="view view-cascade gradient-card-header orange-chang">
+          <h3 class="card-header-title mb-2">Total Facturas</h3>
+        </div>
+        <!--/Titulo-->
+        <mdb-card-body cascade="true">
+
+          <div class="col-12 col-sm-12 col-md-12 mt-3">
+            <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+              <i class="fa fa-search mt-2" aria-hidden="true"></i>
+              <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar">
+            </div>
+          </div>
+
+          <div class="table-responsive-sm">
+            <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0" width="100%">
+              <thead>
+                <tr class="">
+                  <th class="header-negrita">#</th>
+                  <th class="header-negrita text-center align-middle">Clasificación</th>
+                  <th class="header-negrita text-center align-middle">SubClasificación</th>
+                  <th class="header-negrita text-center align-middle">Hora y Fecha Ingreso</th>
+                  <th class="header-negrita text-center align-middle">Número de Refencia</th>
+                  <th class="header-negrita text-center align-middle">Código Factura</th>
+                  <th class="header-negrita text-center align-middle">Monto Total</th>
+                  <th class="header-negrita text-center align-middle">Concepto</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <th scope="row">1</th>
+                  <td class="body-negrita text-center align-middle">Test</td>
+                  <td class="body-negrita text-center align-middle">Test</td>
+                  <td class="body-negrita text-center align-middle">
+                    <span class="grey-text"><small><i class="fa fa-clock-o"></i>10:00 AM</small></span>
+                    <br>
+                    <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>12/12/2018</small></span>
+                  </td>
+                  <td class="body-negrita text-center align-middle">123</td>
+                  <td class="body-negrita text-center align-middle">4567</td>
+                  <td class="body-negrita text-center align-middle">C$ 12000</td>
+                  <td>
+                    <button mdbBtn type="button" size="sm" class="orange-chang" mdbPopover="Concepto Gastos" placement="left"
+                      mdbPopoverHeader="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec massa quis risus rhoncus ultricies eget vitae nisi. Integer sit amet nunc nibh. Donec ac quam vitae ligula lobortis tempus quis quis eros. Proin mi arcu, lacinia vitae elementum sed, consequat sit amet felis. Duis tristique ante a tortor pretium, a commodo lectus laoreet. Suspendisse potenti. "
+                      triggers="focus">
+                      <mdb-icon icon="eye"></mdb-icon>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="row">1</th>
+                  <td class="body-negrita text-center align-middle">Test</td>
+                  <td class="body-negrita text-center align-middle">Test</td>
+                  <td class="body-negrita text-center align-middle">
+                    <span class="grey-text"><small><i class="fa fa-clock-o"></i>10:00 AM</small></span>
+                    <br>
+                    <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>12/12/2018</small></span>
+                  </td>
+                  <td class="body-negrita text-center align-middle">123</td>
+                  <td class="body-negrita text-center align-middle">4567</td>
+                  <td class="body-negrita text-center align-middle">C$ 12000</td>
+                  <td>
+                    <button mdbBtn type="button" size="sm" class="orange-chang" mdbPopover="Concepto Gastos" placement="left"
+                      mdbPopoverHeader="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec massa quis risus rhoncus ultricies eget vitae nisi. Integer sit amet nunc nibh. Donec ac quam vitae ligula lobortis tempus quis quis eros. Proin mi arcu, lacinia vitae elementum sed, consequat sit amet felis. Duis tristique ante a tortor pretium, a commodo lectus laoreet. Suspendisse potenti. "
+                      triggers="focus">
+                      <mdb-icon icon="eye"></mdb-icon>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <nav>
+            <ul class="pagination pg-amber justify-content-center">
+
+              <!--First-->
+              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+                <a class="page-link">Primera</a>
+              </li>
+
+              <!--Arrow left-->
+              <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
+                <a class="page-link" mdbWavesEffect aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+              </li>
+
+              <!--Numbers-->
+              <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
+                class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
+                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+              </li>
+
+              <!--Arrow right-->
+              <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                <a class="page-link" mdbWavesEffect aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+              </li>
+
+              <!--LAST PAGE-->
+              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                <a class="page-link">Ultima</a>
+              </li>
+            </ul>
+          </nav>
+        </mdb-card-body>
+      </mdb-card>
+
+    </div>
+  </div>
+</section>

@@ -43,6 +43,7 @@ import {UpdateProveedorComponent} from '../proveedor/update-proveedor/update-pro
 import {ReportesComponent} from '../reportes/reportes.component';
 import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 import {GastosComponent} from '../gastos/gastos.component';
+import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
 
 const menuRoutes: Routes = [
 
@@ -104,7 +105,8 @@ const menuRoutes: Routes = [
         , {path: 'configuraciones', component: ConfiguracionComponent, data : { titulo : 'Configuraciones'}}
 
         // Modulo gastos
-        , {path: 'gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
+        , {path: 'gasto/gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
+        , {path: 'gastos/summary-gastos', component: SummaryGastosComponent, data : { titulo : 'Gastos'}}
     ]
   },
 ];

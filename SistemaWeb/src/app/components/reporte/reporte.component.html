@@ -55,46 +55,39 @@
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xs-4 mt-4" *ngFor="let producto of productos | buscarProductoxNombre: buscando ">
 
-              <mdb-card>
-                <div class="view overlay">
-                  <!-- Card img -->
-                  <mdb-card-img src="{{url + 'getImagen/productos/' + (producto.Imagen == '' ? 'default.png' : producto.Imagen)}}"
-                    alt="imagen de producto" class="card-img-top"></mdb-card-img>
-                  <a>
-                    <div class="mask rgba-white-slight"></div>
-                  </a>
+              <div class="card-deck">
+                <div class="card mb-4">
+
+                  <!--Card image-->
+                  <div class="view overlay">
+                    <img class="card-img-top" src="{{url + 'getImagen/productos/' + (producto.Imagen == '' ? 'default.png' : producto.Imagen)}}"
+                      alt="Imagen del producto">
+                    <a href="#!">
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+
+                  <!--Card content-->
+                  <div class="card-body background-gray mdl">
+
+                    <!--Title-->
+                    <h4 class="card-title">{{producto.NombreProducto}}</h4>
+                    <!--Text-->
+                    <p class="card-text">{{producto.Descripcion}}</p>
+
+                    <hr class="grey lighten-2">
+
+                    <div class="chip white-text mr-2 text-center orange-chang" mdbTooltip="Categoría" placement="bottom">{{producto.NombreCategoria}}</div>
+                    <div class="chip  white-text text-center orange-chang" mdbTooltip="Clasificación" placement="bottom">{{producto.NombreClasificacion}}</div>
+                    <br>
+                    <div class="chip white-text mr-2 text-center orange-chang" mdbTooltip="SubClasificación" placement="bottom">{{producto.NombreSubClasificacion}}</div>
+                    <div class="chip white-text text-center orange-chang" mdbTooltip="Tipo Insumo" placement="bottom">{{producto.DescripcionInsumo}}</div>
+
+                  </div>
                 </div>
-                <!--Card content-->
-                <mdb-card-body>
-
-                  <!-- Title -->
-                  <h4 class="card-title font-weight-bold"><a>{{producto.NombreProducto}}</a></h4>
-
-                  <p class="mb-2">{{producto.Descripcion}}</p>
-                  <!-- Text -->
-                  <p class="card-text">Dias de uso: {{producto.DiasRotacion}}</p>
-                  <hr class="my-1">
-
-                  <div class="chip white-text mr-2 text-center" mdbTooltip="Categoría" placement="bottom" style="background-color:#FF5722;">{{producto.NombreCategoria}}</div>
-                  <div class="chip  white-text text-center" mdbTooltip="Clasificación" placement="bottom" style="background-color:#F44336;">{{producto.NombreClasificacion}}</div>
-                  <br>
-                  <div class="chip white-text mr-2 text-center" mdbTooltip="SubClasificación" placement="bottom" style="background-color:#D32F2F;">{{producto.NombreSubClasificacion}}</div>
-                  <div class="chip white-text text-center" mdbTooltip="Tipo Insumo" placement="bottom" style="background-color:#C0392B;">{{producto.DescripcionInsumo}}</div>
-
-
-                </mdb-card-body>
-              </mdb-card>
-
+              </div>
             </div>
           </div>
-
-          <!--<div class="row" *ngIf="productos==null">-->
-            <!--<div class="container text-center">-->
-              <!--<br>-->
-              <!--<h1>PRODUCTOS</h1>-->
-              <!--<p>No se encontraron productos registrados</p>-->
-            <!--</div>-->
-          <!--</div>-->
         </div>
       </div>
     </div>

@@ -593,21 +593,38 @@
 
                 <form [formGroup]="formEditarDetalleProducto" (ngSubmit)="editarDatosProducto()" novalidate>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
                                 <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number" id="cantidadProducto"
                                     minlength="4" class="input-modal-sm" name="cantidadProducto">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
                                 <input type="number" formControlName="precioProducto" onlyNumbers="decimal" id="precioProducto"
                                     minlength="4" class="input-modal-sm" name="precioProducto">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4 mt-4 text-center">
+                            <h6 class="orange-chang-text mb-3">Gravado
+                                de Iva</h6>
+                            <mdb-checkbox class="checkbox-chang-filled" name="seleccionarcheck" formControlName="gravadoIva"></mdb-checkbox>
+                            <show-errors [control]="formEditarDetalleProducto.controls['gravadoIva']"></show-errors>
+                        </div>
+                        <div class="col-md-4 mt-4 text-center">
+                            <h6 class="orange-chang-text mb-4">Tipo Descuento</h6>
+                            <div class="switch chang-switch">
+                                <label>
+                                    <mdb-icon icon="percent"></mdb-icon>
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                    <mdb-icon icon="money"></mdb-icon>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Descuento</h6>
                                 <input type="number" id="descuentoTotalProducto" min="0" class="input-modal-sm" name="descuentoTotalProducto"
@@ -616,13 +633,9 @@
                             </div>
                             <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']"></show-errors>
                         </div>
-                        <div class="col-md-6 mt-5">
-                            <mdb-checkbox class="checkbox-chang-filled" name="seleccionarcheck" formControlName="gravadoIva">Gravado
-                                de Iva</mdb-checkbox>
-                            <show-errors [control]="formEditarDetalleProducto.controls['gravadoIva']"></show-errors>
-                        </div>
                     </div>
-                    <div class="text-center mt-1-half">
+
+                    <div class="text-center mt-3">
                         <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formEditarDetalleProducto.valid">Ingresar
                             <mdb-icon class="ml-1" icon="check"></mdb-icon>
                         </button>

@@ -30,6 +30,7 @@ export class Factura {
   public FechaFactura: string;
   public ProductoFactura: ProductoFactura[];
   public respaldoFactura: string;
+  public IdClasificacionGasto: number;
 
   public IdFormaPago: number;
   public IdTipoMoneda: number;

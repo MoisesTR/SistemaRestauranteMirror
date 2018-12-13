@@ -76,9 +76,9 @@
 
                                 <div class="col-md-2 mt-codigo-factura">
                                     <div class="md-form">
-                                        <input [mdbValidate]=false mdbInputDirective onlyNumbers="decimal" type="text"
-                                            placeholder="Ej: 500" class="form-control" autocomplete="off">
-                                        <label for="totalFacturaImpresa">Descuento Total Factura</label>
+                                        <input [mdbValidate]=false [attr.disabled]="existeProductoConDescuento()" mdbInputDirective onlyNumbers="decimal" type="text"
+                                            placeholder="Ej: 500" formControlName="descuentoGlobal" class="form-control" autocomplete="off">
+                                        <label for="descuentTotalFactura">Descuento Total Factura</label>
                                     </div>
                                 </div>
 
@@ -224,10 +224,10 @@
                                         </td>
                                         <td width="13%">
                                             <div class="md-form">
-                                                <input [mdbValidate]=false (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
-                                                    mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text"
-                                                    onlyPositiveNumber id="valorDescuento" name="valorDescuento" min="0"
-                                                    class="input-modal-sm" style="width: 60% !important;">
+                                                <input [mdbValidate]=false [disabled]="deshabilitarDescuentoXItem" (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
+                                                       mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text"
+                                                       onlyPositiveNumber id="valorDescuento" name="valorDescuento" min="0"
+                                                       class="input-modal-sm" style="width: 60% !important;">
                                             </div>
                                         </td>
 
@@ -369,13 +369,6 @@
                                         <strong>IVA(15%)</strong>
                                     </label>
                                 </div>
-
-                                <div class="col-lg-12 col-md-12">
-                                    <mdb-checkbox class="checkbox-chang-filled" (click)="aplicarRetencion()"
-                                        [(ngModel)]="tieneRetencion" name="seleccionarcheck" id="segundo2"
-                                        formControlName="retencion"><strong>Retención</strong></mdb-checkbox>
-                                </div>
-
                                 <div class="col-lg-12 col-md-12">
                                     <label for="Total">
                                         <strong>Total</strong>
@@ -384,7 +377,7 @@
 
                                 <div class="col-lg-12 col-md-12">
                                     <label for="Total">
-                                        <strong>Total Factura</strong>
+                                        <strong>Total Factura Impresa</strong>
                                     </label>
                                 </div>
 
@@ -410,9 +403,6 @@
                                 </div>
                                 <div class="">
                                     <label>{{ivaCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
-                                </div>
-                                <div class="">
-                                    <label>{{retencionCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
                                 </div>
                                 <div class="">
                                     <label>{{totalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>

@@ -4,8 +4,8 @@ import {ProductoService} from '../../../services/shared/producto.service';
 import {Proveedor} from '../../../models/Proveedor';
 import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CARPETA_FACTURA, Global, opcionesDatePicker} from '../../../services/shared/global';
-import {IMyOptions, ModalDirective, ToastService} from 'ng-uikit-pro-standard';
+import {CARPETA_FACTURA, Global} from '../../../services/shared/global';
+import {ModalDirective, ToastService} from 'ng-uikit-pro-standard';
 import {Usuario} from '../../../models/Usuario';
 import {UsuarioService} from '../../../services/shared/usuario.service';
 import {Factura} from '../../../models/Factura';
@@ -39,23 +39,18 @@ export class AddfacturaComponent implements OnInit {
     public productosProveedor: ProductoFactura[];
     public productoEditar: ProductoFactura;
     public buscando = '';
-    public descuentoGeneralFactura = 0;
     public subtotalFacturaConDescuento = 0;
     public subTotalConIvaFactura = 0;
     public subTotalFactura = 0;
     public ivaCalculoFactura = 0;
     public descuentoCalculoFactura = 0;
-    public retencionCalculoFactura = 0;
     public usuario: Usuario;
     public factura: Factura;
     public valorIva: number;
-    public valorRetencion = 0.02;
     public totalFactura = 0;
     public totalFacturaOrigen = 0;
     public formatoComaDinero;
-    public aplicaRetencion = false;
     public url: string;
-    public tieneRetencion = false;
     public IdMonedaSeleccionada: number;
     public IdFormaPagoSeleccionado: number;
     public simboloMonedaUtilizado: string;
@@ -64,6 +59,8 @@ export class AddfacturaComponent implements OnInit {
     public tituloPantalla: 'Factura';
     public fechaVencimiento: string;
     public filesToUpload: Array<File>;
+    public deshabilitarDescuentoXItem = false;
+    public descuentoGlobalHabilitado = false;
 
     Moneda = [
         {Id: 1, Moneda: 'Córdobas'}
@@ -78,11 +75,6 @@ export class AddfacturaComponent implements OnInit {
     @ViewChild('modalVerProducto') modalVerProducto: ModalDirective;
     @ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto: ModalDirective;
     @ViewChild('modalAddDescuento') modalAddDescuento: ModalDirective;
-
-    // public myDatePickerOptions: IMyOptions = opcionesDatePicker;
-
-    public dateFactura: IMyOptions = opcionesDatePicker;
-    public dateRecepcion: IMyOptions = opcionesDatePicker;
 
     constructor(
         private _route: ActivatedRoute
@@ -109,6 +101,7 @@ export class AddfacturaComponent implements OnInit {
         this.IdMonedaSeleccionada = 1;
         this.IdFormaPagoSeleccionado = 1;
         this.simboloMonedaUtilizado = 'C$';
+        this.valorIva = 0.15;
     }
 
     ngOnInit() {
@@ -119,9 +112,9 @@ export class AddfacturaComponent implements OnInit {
         this.getProveedores();
         this.initFormDetailProductoFactura();
         this.initFormAddFactura();
+        this.subscribeValueDescuentoGlobal();
         this.initFormDetailFactura();
         this.usuario = this._usuarioService.getIdentity();
-        this.valorIva = 0.15;
     }
 
     initFormDetailProductoFactura() {
@@ -142,6 +135,7 @@ export class AddfacturaComponent implements OnInit {
             'proveedor': new FormControl('', Validators.required)
             , 'codigoFactura': new FormControl('', Validators.required)
             , 'totalFacturaOrigen': new FormControl(0 , Validators.required)
+            , 'descuentoGlobal': new FormControl(0 , Validators.required)
             , 'fechaFactura': new FormControl('', [
                 Validators.required
             ])
@@ -157,8 +151,7 @@ export class AddfacturaComponent implements OnInit {
 
     initFormDetailFactura() {
         this.formDetallesFactura = this._formBuilderFactura.group({
-            'checkDescuentoGeneral': new FormControl('', []),
-            'retencion': new FormControl(false, [])
+            'checkDescuentoGeneral': new FormControl('', [])
         });
     }
 
@@ -167,9 +160,11 @@ export class AddfacturaComponent implements OnInit {
             response => {
                 if (response.proveedores) {
                     this.proveedores = response.proveedores;
+                } else {
+                    Utils.showMsgInfo('No se han logrado obtener los proveedores', 'Factura');
                 }
             }, error => {
-
+                Utils.showMsgError(Utils.msgError(error), 'Factura');
             }, () => {
 
             }
@@ -189,10 +184,11 @@ export class AddfacturaComponent implements OnInit {
         this.factura.TotalDescuento = this.descuentoCalculoFactura;
         this.factura.TotalCordobas = this.totalFactura;
         this.factura.TotalOrigenFactura = this.formAddFactura.value.totalFacturaOrigen;
-        this.factura.Retencion = this.tieneRetencion === true ? 1 : 0;
+        this.factura.Retencion = 0;
         this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
         this.factura.FormaPago = 'Contado';
         this.factura.IdFormaPago = 1;
+        this.factura.IdClasificacionGasto = 1;
         this.factura.NombVendedor = this.proveedores.filter(
             item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombreRepresentante;
     }
@@ -207,7 +203,6 @@ export class AddfacturaComponent implements OnInit {
             this.productosFiltrados = [];
             this.buscando = '';
             this.subtotalFacturaConDescuento = 0;
-            this.tieneRetencion = false;
         } else {
             this.buscando = '';
             this.productosFiltrados = [];
@@ -215,7 +210,6 @@ export class AddfacturaComponent implements OnInit {
             this.proveedor.IdProveedor = event.IdProveedor;
             this.factura.IdProveedor = event.IdProveedor;
             this.getProductosOfProveedor(event.IdProveedor);
-            this.tieneRetencion = event.Retencion2;
         }
 
     }
@@ -245,6 +239,31 @@ export class AddfacturaComponent implements OnInit {
         }
     }
 
+    subscribeValueDescuentoGlobal() {
+        this.formAddFactura.controls['descuentoGlobal'].valueChanges.subscribe(value => {
+            if (value === '' || value === 0) {
+                this.descuentoCalculoFactura = 0;
+                this.deshabilitarDescuentoXItem = false;
+                this.descuentoGlobalHabilitado = false;
+                this.calcularDescuentoGlobalFactura();
+                this.calcularTotalFactura();
+            } else {
+                this.descuentoCalculoFactura = value;
+                this.descuentoGlobalHabilitado = true;
+                this.deshabilitarDescuentoXItem = true;
+                this.calcularDescuentoGlobalFactura();
+                this.calcularTotalFactura();
+            }
+        });
+    }
+
+    existeProductoConDescuento() {
+        if (this.descuentoCalculoFactura > 0 && (this.formAddFactura.controls['descuentoGlobal'].value === 0 || this.formAddFactura.controls['descuentoGlobal'].value === '')) {
+            return '';
+        }
+        return null;
+    }
+
     mostrarProducto(producto: ProductoFactura) {
         this.productoSeleccionado = producto;
         if (this.productoSeleccionado.Imagen === '') {
@@ -260,7 +279,7 @@ export class AddfacturaComponent implements OnInit {
         if (this.productoValido(productoFiltrado)) {
             this.calculoProducto(productoFiltrado);
             this.productosFactura.push(productoFiltrado);
-            this.calcularSubtotalFactura(productoFiltrado, 'SUMA');
+            this.calculoValoresFactura(productoFiltrado, 'SUMA');
             this.resetProductoFiltrado(producto);
             this.showSuccess();
         }
@@ -270,7 +289,12 @@ export class AddfacturaComponent implements OnInit {
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
-        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.DescuentoIngresado <= 100) {
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.DescuentoIngresado <= 100 ) {
+
+            if (this.descuentoGlobalHabilitado && productoFiltrado.DescuentoIngresado > 0) {
+                Utils.showMsgInfo('No puede agregar productos con descuento, cuando ya existe un descuento total por factura!');
+                return false;
+            }
             return true;
         } else {
             if (productoFiltrado.Cantidad <= 0) {
@@ -306,7 +330,7 @@ export class AddfacturaComponent implements OnInit {
         if (productoFiltrado.GravadoIva === 1) {
             productoFiltrado.CalculoIva = Utils.round(productoFiltrado.DetalleMenosDescuento * this.valorIva, 2);
             productoFiltrado.Iva = productoFiltrado.DetalleMenosDescuento + productoFiltrado.CalculoIva;
-            productoFiltrado.TotalDetalle = productoFiltrado.Iva - productoFiltrado.Descuento;
+            productoFiltrado.TotalDetalle = productoFiltrado.Iva;
         } else {
             productoFiltrado.CalculoIva = 0;
             productoFiltrado.Iva = 0;
@@ -323,7 +347,7 @@ export class AddfacturaComponent implements OnInit {
     }
 
     editarDatosProducto() {
-        this.calcularSubtotalFactura(this.productoEditar, 'RESTA');
+        this.calculoValoresFactura(this.productoEditar, 'RESTA');
         this.productoEditar.Costo = this.formEditarDetalleProducto.value.precioProducto;
         this.productoEditar.Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
         this.productoEditar.DescuentoIngresado = this.formEditarDetalleProducto.value.descuentoTotalProducto;
@@ -331,7 +355,7 @@ export class AddfacturaComponent implements OnInit {
 
         if (this.productoValido(this.productoEditar)) {
             this.calculoProducto(this.productoEditar);
-            this.calcularSubtotalFactura(this.productoEditar, 'SUMA');
+            this.calculoValoresFactura(this.productoEditar, 'SUMA');
             this.modalAgregarDetalleProducto.hide();
         }
     }
@@ -386,6 +410,8 @@ export class AddfacturaComponent implements OnInit {
             Utils.showMsgInfo('Selecciona al menos un producto para crear la factura', 'Factura');
         } else if (this.totalFactura === 0) {
             Utils.showMsgInfo('El total de la factura no puede ser igual a cero!', 'Factura');
+        } else if (this.descuentoCalculoFactura > this.subTotalFactura) {
+            Utils.showMsgInfo('El descuento no puede ser mayor al subtotal de la factura!', 'Factura');
         } else if (this.existenMontosMenorIgualaCero()) {
             Utils.showMsgInfo('El costo total de cada producto en la factura debe ser mayor cero', 'Factura');
         } else if (this.factura.FechaRecepcion < this.factura.FechaFactura) {
@@ -439,38 +465,10 @@ export class AddfacturaComponent implements OnInit {
         });
     }
 
-    calcularPrecioTotalxProducto(producto: ProductoFactura) {
-        let precioTotal = 0;
-        const precioProducto = producto.Cantidad * producto.Costo;
-        const ivaProducto = precioProducto * this.valorIva;
-        const descuentoProducto = precioProducto * (producto.Descuento / 100);
-
-        if (producto.GravadoIva) {
-            precioTotal = precioProducto + ivaProducto - descuentoProducto;
-        } else {
-            precioTotal = precioProducto - descuentoProducto;
-        }
-
-        return isNaN(precioTotal) ? 0 : precioTotal;
-    }
-
-    aplicarRetencion() {
-        let retencion = 0;
-        this.factura.aplicaRetencion = this.formDetallesFactura.value.retencion === false ? 1 : 0;
-
-        if (this.factura.aplicaRetencion && this.subTotalFactura > 1000) {
-            retencion = this.subTotalFactura * this.valorRetencion;
-            this.retencionCalculoFactura = retencion;
-            this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
-        } else {
-            this.retencionCalculoFactura = 0;
-            this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
-        }
-    }
-
     eliminarProductoDeFactura(productoFactura: ProductoFactura, index) {
-        this.calcularSubtotalFactura(productoFactura, 'RESTA');
+        this.calculoValoresFactura(productoFactura, 'RESTA');
         this.productosFactura.splice(index, 1);
+        this.calcularDescuentoGlobalFactura();
     }
 
     agregarProveedor() {
@@ -515,30 +513,46 @@ export class AddfacturaComponent implements OnInit {
         this.modalAgregarDetalleProducto.show();
     }
 
-    calcularSubtotalFactura(productoFactura: ProductoFactura, operacion: string) {
+    calculoValoresFactura(productoFactura: ProductoFactura, operacion: string) {
         if (operacion === 'SUMA') {
             this.subTotalFactura += productoFactura.Subtotal;
-            this.descuentoCalculoFactura += productoFactura.Descuento;
             this.ivaCalculoFactura += productoFactura.CalculoIva;
             this.subTotalConIvaFactura += productoFactura.TotalDetalle;
-            this.subtotalFacturaConDescuento += productoFactura.DetalleMenosDescuento;
+
+            if (!this.deshabilitarDescuentoXItem) {
+                this.descuentoCalculoFactura += productoFactura.Descuento;
+                this.subtotalFacturaConDescuento += productoFactura.DetalleMenosDescuento;
+            }
+
         } else {
             this.subTotalFactura -= productoFactura.Subtotal;
-            this.descuentoCalculoFactura -= productoFactura.Descuento;
             this.ivaCalculoFactura -= productoFactura.CalculoIva;
             this.subTotalConIvaFactura -= productoFactura.TotalDetalle;
-            this.subtotalFacturaConDescuento -= productoFactura.DetalleMenosDescuento;
+
+            if (!this.deshabilitarDescuentoXItem) {
+                this.descuentoCalculoFactura -= productoFactura.Descuento;
+                this.subtotalFacturaConDescuento -= productoFactura.DetalleMenosDescuento;
+            }
         }
 
-        let retencion = 0;
-
-        if (this.factura.aplicaRetencion && this.subTotalFactura > 1000) {
-            retencion = Utils.round(this.subTotalFactura * this.valorRetencion, 2);
-            this.retencionCalculoFactura = retencion;
-            this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura - retencion;
-        } else {
-            this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
+        if (this.deshabilitarDescuentoXItem) {
+            this.calcularDescuentoGlobalFactura();
         }
+
+        this.calcularTotalFactura();
+    }
+
+    calcularDescuentoGlobalFactura() {
+        let sumaProductos = 0;
+        this.productosFactura.forEach( (value, index) => {
+            sumaProductos += value.Subtotal;
+        });
+
+        this.subtotalFacturaConDescuento = sumaProductos - this.descuentoCalculoFactura;
+    }
+
+    calcularTotalFactura() {
+        this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
     }
 
     fechaVencimientoInputFieldChanged (event, producto: ProductoFactura) {

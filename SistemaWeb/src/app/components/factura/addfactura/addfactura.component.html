@@ -568,9 +568,7 @@
 
             <div class="modal-header white-text orange-chang">
                 <h4 class="title">
-                    <mdb-icon icon="file-text-o"></mdb-icon> Editar Detalle Producto<span id="nombreProductoModal"><br>Nombre
-                        del
-                        producto
+                    <mdb-icon icon="file-text-o"></mdb-icon> Editar Detalle Producto<span id="nombreProductoModal"><br>{{productoEditar.NombreProducto}}
                     </span>
                 </h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
@@ -587,14 +585,14 @@
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
                                 <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number" id="cantidadProducto"
-                                    minlength="4" class="input-modal-sm" name="cantidadProducto">
+                                     class="input-modal-sm" name="cantidadProducto">
                             </div>
                         </div>
                         <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
                                 <input type="number" formControlName="precioProducto" onlyNumbers="decimal" id="precioProducto"
-                                    minlength="4" class="input-modal-sm" name="precioProducto">
+                                   class="input-modal-sm" name="precioProducto">
                             </div>
                         </div>
                         <div class="col-md-4 mt-4 text-center">
@@ -608,7 +606,7 @@
                             <div class="switch chang-switch">
                                 <label>
                                     <mdb-icon icon="percent"></mdb-icon>
-                                    <input type="checkbox">
+                                    <input type="checkbox" formControlName="tipoDescuento" >
                                     <span class="lever"></span>
                                     <mdb-icon icon="money"></mdb-icon>
                                 </label>

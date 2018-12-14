@@ -126,7 +126,10 @@ export class AddfacturaComponent implements OnInit {
                 Validators.required
             ]),
             'descuentoTotalProducto': new FormControl(0, []),
-            'gravadoIva': new FormControl(1, [])
+            'gravadoIva': new FormControl(1, []) ,
+            'tipoDescuento': new FormControl('', [
+                Validators.required
+            ]),
         });
     }
 
@@ -289,7 +292,8 @@ export class AddfacturaComponent implements OnInit {
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
-        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 && productoFiltrado.DescuentoIngresado <= 100 ) {
+        if (productoFiltrado.Costo > 0 && productoFiltrado.Cantidad > 0 &&
+            ((productoFiltrado.IsDescuentoPorcentual && productoFiltrado.DescuentoIngresado <= 100) || (!productoFiltrado.IsDescuentoPorcentual && productoFiltrado.DescuentoIngresado <= (productoFiltrado.Cantidad * productoFiltrado.Costo)))) {
 
             if (this.descuentoGlobalHabilitado && productoFiltrado.DescuentoIngresado > 0) {
                 Utils.showMsgInfo('No puede agregar productos con descuento, cuando ya existe un descuento total por factura!');
@@ -344,20 +348,6 @@ export class AddfacturaComponent implements OnInit {
         producto.DescuentoIngresado = 0;
         producto.IsDescuentoPorcentual =  true;
         producto.GravadoIva = 0;
-    }
-
-    editarDatosProducto() {
-        this.calculoValoresFactura(this.productoEditar, 'RESTA');
-        this.productoEditar.Costo = this.formEditarDetalleProducto.value.precioProducto;
-        this.productoEditar.Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
-        this.productoEditar.DescuentoIngresado = this.formEditarDetalleProducto.value.descuentoTotalProducto;
-        this.productoEditar.GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
-
-        if (this.productoValido(this.productoEditar)) {
-            this.calculoProducto(this.productoEditar);
-            this.calculoValoresFactura(this.productoEditar, 'SUMA');
-            this.modalAgregarDetalleProducto.hide();
-        }
     }
 
     getProductosOfProveedor(IdProveedor) {
@@ -510,7 +500,30 @@ export class AddfacturaComponent implements OnInit {
         this.formEditarDetalleProducto.controls['precioProducto'].setValue(productoFactura.Costo);
         this.formEditarDetalleProducto.controls['descuentoTotalProducto'].setValue(productoFactura.DescuentoIngresado);
         this.formEditarDetalleProducto.controls['gravadoIva'].setValue(productoFactura.GravadoIva);
+        this.formEditarDetalleProducto.controls['tipoDescuento'].setValue(productoFactura.IsDescuentoPorcentual);
         this.modalAgregarDetalleProducto.show();
+    }
+
+    editarDatosProducto() {
+        const productoEditarValorAnterior = Object.assign({}, this.productoEditar);
+        const productoEditarTemp = Object.assign({}, this.productoEditar);
+        this.asignarValoresEditarProducto(productoEditarTemp);
+
+        if (this.productoValido(productoEditarTemp)) {
+            this.asignarValoresEditarProducto(this.productoEditar);
+            this.calculoValoresFactura(productoEditarValorAnterior, 'RESTA');
+            this.calculoProducto(this.productoEditar);
+            this.calculoValoresFactura(this.productoEditar, 'SUMA');
+            this.modalAgregarDetalleProducto.hide();
+        }
+    }
+
+    asignarValoresEditarProducto(productoFactura: ProductoFactura) {
+        productoFactura.Costo = this.formEditarDetalleProducto.value.precioProducto;
+        productoFactura.Cantidad = this.formEditarDetalleProducto.value.cantidadProducto;
+        productoFactura.DescuentoIngresado = this.formEditarDetalleProducto.value.descuentoTotalProducto;
+        productoFactura.GravadoIva = this.formEditarDetalleProducto.value.gravadoIva ? 1 : 0;
+        productoFactura.IsDescuentoPorcentual = this.formEditarDetalleProducto.value.tipoDescuento;
     }
 
     calculoValoresFactura(productoFactura: ProductoFactura, operacion: string) {

@@ -7,7 +7,6 @@
 
       <mdb-card cascade="true" narrower="true">
 
-        <!-- <div class="card card-cascade narrower"> -->
         <!--Titulo-->
         <div class="view view-cascade gradient-card-header orange-chang">
           <h3 class="card-header-title mb-2">Proveedores</h3>
@@ -32,7 +31,6 @@
                 <th scope="row" class="align-middle body-negrita" width="5%">{{ proveedor.IdProveedor }}</th>
                 <td width="15%" class="align-middle body-negrita">{{ proveedor.NombreProveedor }}</td>
                 <td width="10%" class="align-middle body-negrita text-center">
-                  {{ proveedor.Telefonos != undefined ? proveedor.Telefonos[0].Telefono : ''}}
                   <a mdbBtn type="button" size="sm" class="ml-3 orange-chang white-text" role="button" (click)="showModalTelefonos(proveedor)">
                     <mdb-icon icon="phone"></mdb-icon>
                   </a>
@@ -92,94 +90,45 @@
 
         <form novalidate>
 
-          <div class="container d-none d-lg-block d-xl-block" id="mg-labels">
-            <div class="row">
-
-              <div class="col-lg-3">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Nombre</h6>
-                </div>
-              </div>
-
-              <div class="col-lg-3 mgl-labels">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Cargo</h6>
-                </div>
-              </div>
-
-              <div class="col-lg-3 mgl-labels">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Télefono</h6>
-                </div>
-              </div>
-
-              <div class="col-lg-2 mgl-labels">
-                <div class="md-form">
-                  <h6 class="orange-chang-text">Titular</h6>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <hr class="d-none d-lg-block d-xl-block">
-
           <div class="scrollbar-card scrollbar-ripe-malinka">
             <fieldset *ngFor="let telefono of proveedorSeleccionado.Telefonos; let i = index;" class="mb-fieldset">
 
               <div class="container">
 
-                <div class="row mr-4">
+                <table mdbTable small="true" hover="true" class="text-center">
+                  <thead class="orange-chang-text">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th>Nombre</th>
+                      <th>Cargo</th>
+                      <th>Télefono</th>
+                      <th>Titular</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{i + 1}}</th>
+                      <th>{{telefono.Nombre}}</th>
+                      <td>{{telefono.Cargo}}</td>
+                      <td>{{telefono.Telefono}}</td>
+                      <td>
 
-                  <div class="col-md-12 col-lg-3">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Nombre</h6>
-                      <input disabled type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Nombre"
-                        class="input-modal-sm">
-                    </div>
-                  </div>
+                        <div class="switch chang-switch">
+                          <label>
+                            <input type="checkbox" disabled [(ngModel)]="telefono.Titular" [ngModelOptions]="{standalone: true}"
+                              name="element_name">
+                            <span class="lever"></span>
+                          </label>
+                        </div>
 
-                  <div class="col-md-12 col-lg-3">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Cargo</h6>
-                      <input disabled type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
-                        class="input-modal-sm">
-                    </div>
-                  </div>
-
-                  <div class="col-md-12 col-lg-3 mr-0">
-                    <div class="md-form">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Télefono</h6>
-                      <input disabled type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="telefono.Telefono" class="input-modal-sm">
-                    </div>
-                  </div>
-
-                  <div class="col-6 col-md-6 col-lg-1 mt-4 ml-0">
-                    <div class="switch chang-switch font-small">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Titular</h6>
-                      <label class="mt-3" id="align-input">
-                        <input disabled [(ngModel)]="telefono.Titular " [ngModelOptions]="{standalone: true}" type="checkbox"
-                          name="element_name">
-                        <span class="lever"></span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div id="inputs-telefono"></div>
-
-                </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
 
               </div>
             </fieldset>
           </div>
-
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" (click)="modalTelefonos.hide()">CERRAR
-              <i class="fa fa-check ml-1"></i>
-            </button>
-          </div>
-
         </form>
 
       </div>

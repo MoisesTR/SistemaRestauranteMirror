@@ -18,14 +18,15 @@
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
                 <label for="clasificacionGastos" class="grey-text-card">Clasificación</label>
                 <ng-select id="clasificacionGastos" (change)="changeClasificacion($event)" [items]="clasificaciones"
-                  bindValue="IdClasificacionGasto" bindLabel="Nombre" formControlName="clasificacion" placeholder="Selecciona una clasificación">
+                  bindValue="IdClasificacion" bindLabel="Descripcion" formControlName="clasificacion" placeholder="Selecciona una clasificación">
                 </ng-select>
+                <show-errors [control]="formAddGasto.controls['clasificacion']"></show-errors>
               </div>
 
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
                 <label for="subclasificacionGastos" class="grey-text-card">Sub - Clasificación</label>
                 <ng-select id="subclasificacionGastos" (change)="changeSubclasificacion($event)" [items]="subclasificaciones"
-                  bindLabel="Nombre" [bindLabel]="IdSubclasificacionGasto" formControlName="subclasificacion"
+                 bindValue="IdSubClasificacion" bindLabel="Descripcion" formControlName="subclasificacion"
                   placeholder="Selecciona una sub - clasificación">
                 </ng-select>
               </div>
@@ -36,6 +37,7 @@
                     [mdbValidate]=false id="fechaIngreso" placeholder="Seleccioné" mdbInputDirective>
                   <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                   <label for="fechaIngreso">Fecha ingreso</label>
+                  <show-errors [control]="formAddGasto.controls['fechaIngreso']"></show-errors>
                 </div>
               </div>
 
@@ -60,6 +62,7 @@
                   <input onlyNumbers="decimal" formControlName="montoTotal" [mdbValidate]=false mdbInputDirective type="text"
                     id="montoTotal" class="form-control" placeholder="Ej: 2500" autocomplete="off">
                   <label for="montoTotal">Monto total</label>
+                  <show-errors [control]="formAddGasto.controls['montoTotal']"></show-errors>
                 </div>
               </div>
 
@@ -67,14 +70,15 @@
                 <div class="md-form">
                   <textarea [mdbValidate]=false formControlName="conceptoGasto" mdbInputDirective type="text" id="conceptoGasto"
                     class="md-textarea form-control" autocomplete="off"></textarea>
-                  <label for="conceptoGasto">Concepto gastos</label>
+                  <label for="conceptoGasto">Concepto gasto</label>
+                  <show-errors [control]="formAddGasto.controls['conceptoGasto']"></show-errors>
                 </div>
               </div>
 
             </div>
 
             <div class="text-center mt-3">
-              <button mdbBtn type="button" class="orange-chang mb-1">Ingresar
+              <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddGasto.valid">Ingresar
                 <mdb-icon icon="check" class="ml-1"></mdb-icon>
               </button>
             </div>

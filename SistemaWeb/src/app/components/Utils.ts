@@ -111,7 +111,7 @@ export class Utils{
   }
 
   static round(value, decimals) {
-      return Number(Math.round(Number(value + 'e' + decimals)) + 'e-'+ decimals);
+      return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals);
   }
 
 

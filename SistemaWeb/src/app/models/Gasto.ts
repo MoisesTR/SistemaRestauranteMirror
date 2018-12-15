@@ -1,12 +1,12 @@
 export class Gasto {
 
-    public IdClasificacionGasto: number;
-    public IdSubclasificacionGasto: number;
-    public DescGasto: string;
-    public Fecha: string;
-    public Monto: string;
+    public IdClasificacion: number;
+    public IdSubClasificacion: number;
+    public ConceptoGasto: string;
+    public FechaIngreso: string;
+    public MontoTotal: string;
     public NoReferencia: string;
-    public CodFactura: string;
+    public CodigoFactura: string;
 
     constructor() {}
  }

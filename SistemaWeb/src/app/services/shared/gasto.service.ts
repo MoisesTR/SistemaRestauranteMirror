@@ -29,11 +29,11 @@ export class GastoService {
     }
 
     getClasificacionesGasto(Habilitado = 1): Observable<any> {
-        return this._http.get(this.url + 'clasificacionesGastos=' + Habilitado);
+        return this._http.get(this.url + 'clasificacionesGastos?Habilitado=' + Habilitado);
     }
 
-    getSubclasificacionesByIdClasificacion(Habilitado = 1): Observable<any> {
-        return this._http.get(this.url + 'gasto?Habilitado=' + Habilitado);
+    getSubclasificacionesByIdClasificacion(IdClasificacion): Observable<any> {
+        return this._http.get(this.url + 'subclasificacionesGastosById/' + IdClasificacion);
     }
 
 }

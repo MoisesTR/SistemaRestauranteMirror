@@ -1,9 +1,9 @@
 export class SubclasificacionGasto {
 
-    public IdSubclasificacionGasto: number;
-    public IdClasificacionGasto: number;
+    public IdSubClasificacion: number;
+    public IdClasificacion: number;
     public Nombre: string;
-    public Desc: string;
+    public Descripcion: string;
     public CreatedAt: string;
     public UpdateAt: string;
 

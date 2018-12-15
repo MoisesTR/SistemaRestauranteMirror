@@ -14,6 +14,8 @@ import {Utils} from '../../Utils';
 import {DetalleFactura} from '../../../models/DetalleFactura';
 import {ProductoFactura} from '../../../models/ProductoFactura';
 import {ProveedorService, UploadService} from '../../../services/service.index';
+import {Gasto} from '../../../models/Gasto';
+import swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -138,7 +140,7 @@ export class AddfacturaComponent implements OnInit {
             'proveedor': new FormControl('', Validators.required)
             , 'codigoFactura': new FormControl('', Validators.required)
             , 'totalFacturaOrigen': new FormControl(0 , Validators.required)
-            , 'descuentoGlobal': new FormControl(0 , Validators.required)
+            , 'descuentoGlobal': new FormControl(0 )
             , 'fechaFactura': new FormControl('', [
                 Validators.required
             ])
@@ -191,7 +193,6 @@ export class AddfacturaComponent implements OnInit {
         this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
         this.factura.FormaPago = 'Contado';
         this.factura.IdFormaPago = 1;
-        this.factura.IdClasificacionGasto = 1;
         this.factura.NombVendedor = this.proveedores.filter(
             item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombreRepresentante;
     }
@@ -432,8 +433,20 @@ export class AddfacturaComponent implements OnInit {
             this.detalleFactura.GravadoIva = value.GravadoIva;
             this.detalleFactura.SubTotal = value.Subtotal;
             this.detalleFactura.Iva = value.Iva;
-            this.detalleFactura.Descuento = value.PorcentajeDescuento * 100;
             this.detalleFactura.TotalDetalle = value.TotalDetalle;
+
+            if (this.descuentoCalculoFactura === 0) {
+                this.detalleFactura.IdTipoDescuento = null;
+            } else if (value.IsDescuentoPorcentual) {
+                this.detalleFactura.IdTipoDescuento = 1;
+            } else {
+                this.detalleFactura.IdTipoDescuento = 2;
+            }
+
+            this.detalleFactura.Descuento = value.Descuento;
+            this.detalleFactura.IsDescuentoPorcentual = value.IsDescuentoPorcentual;
+            this.detalleFactura.PorcentajeDescuento  = value.IsDescuentoPorcentual ? value.PorcentajeDescuento : null;
+            this.detalleFactura.EfectivoDescuento = value.IsDescuentoPorcentual ? null : value.DescuentoIngresado;
             this.detalleFactura.Bonificacion = 0;
 
             this._facturaService.createDetailFactura(this.detalleFactura).subscribe(
@@ -449,8 +462,7 @@ export class AddfacturaComponent implements OnInit {
             );
 
             if (index === (this.productosFactura.length - 1)) {
-                Utils.showMsgSucces('La factura se ha creado exitosamente');
-                this._router.navigate(['factura/summaryFactura']);
+                this.agregarOtraFactura();
             }
         });
     }
@@ -622,4 +634,49 @@ export class AddfacturaComponent implements OnInit {
         }
     }
 
+
+    agregarOtraFactura() {
+        swal({
+            title: 'La factura se ha creado correctamente!',
+            text: 'Deseas crear otra factura?',
+            type: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI',
+            cancelButtonText: 'NO'
+        }).then((result) => {
+            if (result.value) {
+                this.resetFormAddFactura();
+                this.factura = new Factura();
+                this.proveedor = new Proveedor();
+                this.productoSeleccionado = new ProductoFactura();
+                this.productosFactura = [];
+                this.productosFiltrados = [];
+                this.productosProveedor = [];
+                this.productoEditar = new ProductoFactura();
+                this.subtotalFacturaConDescuento = 0;
+                this.subTotalConIvaFactura = 0;
+                this.subTotalFactura = 0;
+                this.ivaCalculoFactura = 0;
+                this.descuentoCalculoFactura = 0;
+                this.totalFactura = 0;
+                this.totalFacturaOrigen = 0;
+                this.deshabilitarDescuentoXItem = false;
+                this.descuentoGlobalHabilitado = false;
+                window.scrollTo(0, 0);
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                this._router.navigate(['factura/summaryFactura']);
+            }
+        });
+    }
+
+
+    resetFormAddFactura() {
+        Object.keys(this.formAddFactura.controls).forEach( (value, index) => {
+            if (value !== 'Moneda' && value !== 'FormaPago' ) {
+                this.formAddFactura.controls[value].reset();
+            }
+        });
+    }
 }

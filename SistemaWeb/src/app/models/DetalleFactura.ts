@@ -13,6 +13,10 @@ export class DetalleFactura extends Producto {
     public Descuento: number;
     public TotalDetalle: number;
     public Bonificacion: number;
+    public IsDescuentoPorcentual: boolean;
+    public IdTipoDescuento: number;
+    public PorcentajeDescuento: number;
+    public EfectivoDescuento: number;
 
     public NombreProducto: string;
     public NombreUnidad: string;

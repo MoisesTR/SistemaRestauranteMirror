@@ -1,6 +1,6 @@
 export class ClasificacionGasto {
 
-    public IdClasificacionGasto: number;
+    public IdClasificacion: number;
     public Nombre: string;
     public Descripcion: string;
     public CreatedAt: string;

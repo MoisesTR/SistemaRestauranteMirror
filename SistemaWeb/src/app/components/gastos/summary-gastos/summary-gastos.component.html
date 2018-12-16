@@ -10,7 +10,7 @@
               <i class="fa fa-money orange-chang icono-card"></i>
               <div class="mb-3 right-card-align">
                 <p class="grey-text-card">Total Gastos</p>
-                <h4><strong>C$ 12345</strong></h4>
+                <h4><strong>{{sumaTotalGastos}} C$</strong></h4>
               </div>
             </div>
           </mdb-card>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-        <form [formGroup]="formBusquedaFactura" novalidate>
+        <form [formGroup]="formBusquedaGasto" novalidate (ngSubmit)="finGastos()">
           <mdb-card cascade="true" narrower="true">
             <!--Titulo-->
             <div class="view view-cascade gradient-card-header orange-chang">
@@ -33,19 +33,21 @@
 
                   <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-2">
                     <label for="clasificacion" class="grey-text-card">Clasificación</label>
-                    <ng-select placeholder="Selecciona una clasificación">
+                    <ng-select placeholder="Selecciona una clasificación" formControlName="clasificacion" (change)="changeClasificacion($event)" [items]="clasificaciones"
+                               bindValue="IdClasificacion" bindLabel="Descripcion">
                     </ng-select>
                   </div>
 
                   <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-3">
                     <label for="subclasificacion" class="grey-text-card">SubClasificación</label>
-                    <ng-select placeholder="Selecciona una subclasificación">
+                    <ng-select placeholder="Selecciona una subclasificación" formControlName="subclasificacion" (change)="changeSubclasificacion($event)" [items]="subclasificaciones"
+                               bindValue="IdSubClasificacion" bindLabel="Descripcion" >
                     </ng-select>
                   </div>
 
                   <div class="col-xs-12 col-md-12 col-lg-12">
                     <div class="md-form">
-                      <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control"
+                      <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="fechaInicio" class="input-picker form-control"
                         [mdbValidate]=false placeholder="Seleccioné" mdbInputDirective>
                       <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                       <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
@@ -54,7 +56,7 @@
 
                   <div class="col-xs-12 col-md-12 col-lg-12">
                     <div class="md-form">
-                      <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
+                      <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="fechaFin" class="input-picker form-control"
                         [mdbValidate]=false id="fechaFin" placeholder="Seleccioné" mdbInputDirective>
                       <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                       <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
@@ -63,7 +65,7 @@
                 </div>
 
                 <div class="text-center mt-1-half mt-3">
-                  <button mdbBtn type="button" class="orange-chang mb-1">Buscar
+                  <button mdbBtn type="submit" [disabled]="!formBusquedaGasto.valid" class="orange-chang mb-1">Buscar
                     <mdb-icon class="ml-1" icon="search"></mdb-icon>
                   </button>
                 </div>
@@ -102,7 +104,7 @@
                   <th class="header-negrita">#</th>
                   <th class="header-negrita text-center align-middle">Clasificación</th>
                   <th class="header-negrita text-center align-middle">SubClasificación</th>
-                  <th class="header-negrita text-center align-middle">Hora y Fecha Ingreso</th>
+                  <th class="header-negrita text-center align-middle">Fecha Ingreso</th>
                   <th class="header-negrita text-center align-middle">Número de Refencia</th>
                   <th class="header-negrita text-center align-middle">Código Factura</th>
                   <th class="header-negrita text-center align-middle">Monto Total</th>
@@ -111,48 +113,31 @@
               </thead>
               <tbody>
 
-                <tr>
-                  <th scope="row">1</th>
-                  <td class="body-negrita text-center align-middle">Test</td>
-                  <td class="body-negrita text-center align-middle">Test</td>
-                  <td class="body-negrita text-center align-middle">
-                    <span class="grey-text"><small><i class="fa fa-clock-o"></i>10:00 AM</small></span>
-                    <br>
-                    <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>12/12/2018</small></span>
+                <tr *ngFor="let gasto of gastos; let i = index">
+                  <th *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" scope="row">
+                    {{i+1}}</th>
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                    {{gasto.Clasificacion}}</td>
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                    {{gasto.SubClasificacion}}
                   </td>
-                  <td class="body-negrita text-center align-middle">123</td>
-                  <td class="body-negrita text-center align-middle">4567</td>
-                  <td class="body-negrita text-center align-middle">C$ 12000</td>
-                  <td>
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                    <!--<span class="grey-text"><small><i class="fa fa-clock-o"></i>10:00 AM</small></span>-->
+                    <!--<br>-->
+                    <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>{{gasto.FechaIngreso}}</small></span>
+                  </td>
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.NoReferencia}}</td>
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.CodigoFactura}}</td>
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.MontoTotal | number :
+                    '1.2-2'}} C$</td>
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex">
                     <button mdbBtn type="button" size="sm" class="orange-chang" mdbPopover="Concepto Gastos" placement="left"
-                      mdbPopoverHeader="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec massa quis risus rhoncus ultricies eget vitae nisi. Integer sit amet nunc nibh. Donec ac quam vitae ligula lobortis tempus quis quis eros. Proin mi arcu, lacinia vitae elementum sed, consequat sit amet felis. Duis tristique ante a tortor pretium, a commodo lectus laoreet. Suspendisse potenti. "
+                      mdbPopoverHeader={{gasto.ConceptoGasto}}
                       triggers="focus">
                       <mdb-icon icon="eye"></mdb-icon>
                     </button>
                   </td>
                 </tr>
-
-                <tr>
-                  <th scope="row">1</th>
-                  <td class="body-negrita text-center align-middle">Test</td>
-                  <td class="body-negrita text-center align-middle">Test</td>
-                  <td class="body-negrita text-center align-middle">
-                    <span class="grey-text"><small><i class="fa fa-clock-o"></i>10:00 AM</small></span>
-                    <br>
-                    <span class="grey-text"><small><i class="fa fa-calendar-times-o"></i>12/12/2018</small></span>
-                  </td>
-                  <td class="body-negrita text-center align-middle">123</td>
-                  <td class="body-negrita text-center align-middle">4567</td>
-                  <td class="body-negrita text-center align-middle">C$ 12000</td>
-                  <td>
-                    <button mdbBtn type="button" size="sm" class="orange-chang" mdbPopover="Concepto Gastos" placement="left"
-                      mdbPopoverHeader="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec massa quis risus rhoncus ultricies eget vitae nisi. Integer sit amet nunc nibh. Donec ac quam vitae ligula lobortis tempus quis quis eros. Proin mi arcu, lacinia vitae elementum sed, consequat sit amet felis. Duis tristique ante a tortor pretium, a commodo lectus laoreet. Suspendisse potenti. "
-                      triggers="focus">
-                      <mdb-icon icon="eye"></mdb-icon>
-                    </button>
-                  </td>
-                </tr>
-
               </tbody>
             </table>
           </div>

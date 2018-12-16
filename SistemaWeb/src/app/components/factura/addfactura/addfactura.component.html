@@ -76,8 +76,9 @@
 
                                 <div class="col-md-2 mt-codigo-factura">
                                     <div class="md-form">
-                                        <input [mdbValidate]=false [attr.disabled]="existeProductoConDescuento()" mdbInputDirective onlyNumbers="decimal" type="text"
-                                            placeholder="Ej: 500" formControlName="descuentoGlobal" class="form-control" autocomplete="off">
+                                        <input [mdbValidate]=false [attr.disabled]="existeProductoConDescuento()"
+                                            mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500"
+                                            formControlName="descuentoGlobal" class="form-control" autocomplete="off">
                                         <label for="descuentTotalFactura">Descuento Total Factura</label>
                                     </div>
                                 </div>
@@ -148,7 +149,7 @@
 
         <div class="col-lg-12 col-md-12 col-sm-12 mb-r">
 
-            <div class="card card-cascade narrower height-card-productos">
+            <div class="card card-cascade narrower">
                 <div class="view view-cascade gradient-card-header orange-chang">
                     <h3 class="card-header-title mb-2">Productos</h3>
                 </div>
@@ -178,95 +179,92 @@
                 </div>
 
 
-                <div class="scrollbar-card scrollbar-ripe-malinka">
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <div class="table-responsive-sm">
-                            <table id="tabla" mdbTable hover="true">
-                                <thead>
-                                    <tr>
-                                        <th>No. Registro</th>
-                                        <th>Cód. Producto</th>
-                                        <th>Nombre del producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio</th>
-                                        <th>Descuento</th>
-                                        <th class="text-center">
-                                            Tipo Descuento
-                                        </th>
-                                        <th class="text-center">IVA</th>
-                                        <!-- <th class="text-center">Fecha vencimiento</th> -->
-                                        <th class="text-center">Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                    <div class="table-responsive-sm">
+                        <table id="tabla" mdbTable hover="true">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-1">No. Registro</th>
+                                    <th class="col-xs-1">Cód. Producto</th>
+                                    <th class="col-xs-2">Nombre del producto</th>
+                                    <th class="col-xs-2">Cantidad</th>
+                                    <th class="col-xs-1">Precio</th>
+                                    <th class="col-xs-1">Descuento</th>
+                                    <th class="text-center col-xs-1">
+                                        Tipo Descuento
+                                    </th>
+                                    <th class="text-center col-xs-1">IVA</th>
+                                    <!-- <th class="text-center">Fecha vencimiento</th> -->
+                                    <th class="text-center col-xs-2">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="scrollbar-ripe-malinka">
 
-                                    <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
-                                        <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
-                                        <th scope="row" class="align-middle" width="5%">{{producto.CodigoProducto !==
-                                            null ? producto.CodigoProducto : producto.CodigoInterno}}</th>
-                                        <td class="align-middle" width="22%">{{producto.NombreProducto}}</td>
-                                        <td width="13%">
-                                            <div class="md-form">
-                                                <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Cantidad"
-                                                    (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
-                                                    type="text" name="cantidadProducto" onlyNumbers="decimal" min="0"
-                                                    class="input-modal-sm" style="width: 60% !important;">
-                                            </div>
-                                        </td>
-                                        <td width="13%">
-                                            <div class="md-form">
-                                                <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Costo"
-                                                    (input)="onSearchChangePrecioProducto($event.target.value,producto)"
-                                                    name="precioProducto" class="input-modal-sm" onlyNumbers="decimal"
-                                                    style="width: 60% !important;">
-                                            </div>
-                                        </td>
-                                        <td width="13%">
-                                            <div class="md-form">
-                                                <input [mdbValidate]=false [disabled]="deshabilitarDescuentoXItem" (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
-                                                       mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text"
-                                                       onlyPositiveNumber id="valorDescuento" name="valorDescuento" min="0"
-                                                       class="input-modal-sm" style="width: 60% !important;">
-                                            </div>
-                                        </td>
+                                <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
+                                    <th scope="row" class="align-middle col-xs-1">{{i + 1}}</th>
+                                    <th scope="row" class="align-middle col-xs-1">{{producto.CodigoProducto !==
+                                        null ? producto.CodigoProducto : producto.CodigoInterno}}</th>
+                                    <td class="align-middle col-xs-2">{{producto.NombreProducto}}</td>
+                                    <td class="col-xs-2">
+                                        <div class="md-form">
+                                            <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Cantidad"
+                                                (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
+                                                type="text" name="cantidadProducto" onlyNumbers="decimal" min="0" class="input-modal-sm"
+                                                style="width: 60% !important;">
+                                        </div>
+                                    </td>
+                                    <td class="col-xs-1">
+                                        <div class="md-form">
+                                            <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Costo"
+                                                (input)="onSearchChangePrecioProducto($event.target.value,producto)"
+                                                name="precioProducto" class="input-modal-sm" onlyNumbers="decimal"
+                                                style="width: 60% !important;">
+                                        </div>
+                                    </td>
+                                    <td class="col-xs-1">
+                                        <div class="md-form">
+                                            <input [mdbValidate]=false [disabled]="deshabilitarDescuentoXItem" (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
+                                                mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text"
+                                                onlyPositiveNumber id="valorDescuento" name="valorDescuento" min="0"
+                                                class="input-modal-sm" style="width: 60% !important;">
+                                        </div>
+                                    </td>
 
-                                        <td class="text-center align-middle" width="15%">
-                                            <div class="switch chang-switch">
-                                                <label>
-                                                    <mdb-icon icon="money"></mdb-icon>
-                                                    <input (change)="changeTipoDescuento($event, producto)" [(ngModel)]="producto.IsDescuentoPorcentual"
-                                                        type="checkbox">
-                                                    <span class="lever"></span>
-                                                    <mdb-icon icon="percent"></mdb-icon>
-                                                </label>
-                                            </div>
-                                        </td>
+                                    <td class="text-center align-middle col-xs-1">
+                                        <div class="switch chang-switch">
+                                            <label>
+                                                <mdb-icon icon="money"></mdb-icon>
+                                                <input (change)="changeTipoDescuento($event, producto)" [(ngModel)]="producto.IsDescuentoPorcentual"
+                                                    type="checkbox">
+                                                <span class="lever"></span>
+                                                <mdb-icon icon="percent"></mdb-icon>
+                                            </label>
+                                        </div>
+                                    </td>
 
-                                        <td class="text-center align-middle">
-                                            <mdb-checkbox class="checkbox-chang-filled" [checked]="producto.GravadoIva"
-                                                (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
-                                        </td>
+                                    <td class="text-center align-middle col-xs-1">
+                                        <mdb-checkbox class="checkbox-chang-filled" [checked]="producto.GravadoIva"
+                                            (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
+                                    </td>
 
-                                        <td class="text-center align-middle">
-                                            <button mdbBtn type="button" class="orange-chang" (click)="agregarProductoAFactura(producto)"
-                                                size="sm" mdbTooltip="Agregar a factura" placement="bottom"
-                                                mdbWavesEffect>
-                                                <mdb-icon icon="check"></mdb-icon>
-                                            </button>
-                                            <button mdbBtn type="button" class="orange-chang" (click)="mostrarProducto(producto)"
-                                                size="sm" mdbTooltip="Visualizar producto" placement="bottom"
-                                                mdbWavesEffect>
-                                                <mdb-icon icon="eye"></mdb-icon>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <td class="text-center align-middle col-xs-2">
+                                        <button mdbBtn type="button" class="orange-chang" (click)="agregarProductoAFactura(producto)"
+                                            size="sm" mdbTooltip="Agregar a factura" placement="bottom" mdbWavesEffect>
+                                            <mdb-icon icon="check"></mdb-icon>
+                                        </button>
+                                        <button mdbBtn type="button" class="orange-chang" (click)="mostrarProducto(producto)"
+                                            size="sm" mdbTooltip="Visualizar producto" placement="bottom"
+                                            mdbWavesEffect>
+                                            <mdb-icon icon="eye"></mdb-icon>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                                </tbody>
-                            </table>
-                        </div>
-
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
 
@@ -585,14 +583,14 @@
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
                                 <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number" id="cantidadProducto"
-                                     class="input-modal-sm" name="cantidadProducto">
+                                    class="input-modal-sm" name="cantidadProducto">
                             </div>
                         </div>
                         <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
                                 <input type="number" formControlName="precioProducto" onlyNumbers="decimal" id="precioProducto"
-                                   class="input-modal-sm" name="precioProducto">
+                                    class="input-modal-sm" name="precioProducto">
                             </div>
                         </div>
                         <div class="col-md-4 mt-4 text-center">
@@ -606,7 +604,7 @@
                             <div class="switch chang-switch">
                                 <label>
                                     <mdb-icon icon="money"></mdb-icon>
-                                    <input type="checkbox" formControlName="tipoDescuento" >
+                                    <input type="checkbox" formControlName="tipoDescuento">
                                     <span class="lever"></span>
                                     <mdb-icon icon="percent"></mdb-icon>
                                 </label>

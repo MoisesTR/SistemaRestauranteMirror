@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Global} from './global';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class GastoService {
@@ -34,6 +34,14 @@ export class GastoService {
 
     getSubclasificacionesByIdClasificacion(IdClasificacion): Observable<any> {
         return this._http.get(this.url + 'subclasificacionesGastosById/' + IdClasificacion);
+    }
+
+    getGastosPorFiltro(IdClasificacion, IdSubClasificacion = null, FechaInicio, FechaFin): Observable<any> {
+        const params = new HttpParams().set('IdClasificacion', IdClasificacion)
+            .set('IdSubClasificacion', IdSubClasificacion)
+            .set('FechaInicio', FechaInicio)
+            .set('FechaFin', FechaFin);
+        return this._http.get(this.url + 'gastosPorFiltro/' , {params: params});
     }
 
 }

@@ -43,7 +43,7 @@ export class GastosComponent implements OnInit {
         , 'subclasificacion': new FormControl('', [ ])
         , 'fechaIngreso': new FormControl('', [ Validators.required])
         , 'numeroReferencia': new FormControl(null, [])
-        , 'codigoFactura': new FormControl('', [])
+        , 'codigoFactura': new FormControl(null, [])
         , 'montoTotal': new FormControl(0, [ Validators.required])
         , 'conceptoGasto': new FormControl('', [ Validators.required, Validators.maxLength(1000), Validators.minLength(5)])
     });

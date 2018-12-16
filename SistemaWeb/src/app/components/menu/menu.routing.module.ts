@@ -44,7 +44,6 @@ import {ReportesComponent} from '../reportes/reportes.component';
 import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 import {GastosComponent} from '../gastos/gastos.component';
 import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
-import {ConsolidatedGastosComponent} from '../gastos/consolidated-gastos/consolidated-gastos.component';
 
 const menuRoutes: Routes = [
 
@@ -108,7 +107,6 @@ const menuRoutes: Routes = [
         // Modulo gastos
         , {path: 'gasto/gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
         , {path: 'gastos/summary-gastos', component: SummaryGastosComponent, data : { titulo : 'Gastos'}}
-        , {path: 'gastos/consolidated-gastos', component: ConsolidatedGastosComponent, data : { titulo : 'Gastos'}}
     ]
   },
 ];

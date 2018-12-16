@@ -144,9 +144,6 @@ export class UnidadmedidaComponent implements OnInit, InvocarFormulario {
       ]),
       'clasificacionesUnidad': new FormControl('', [
         Validators.required
-      ]),
-      'nimportancia' : new FormControl('', [
-        Validators.required
       ])
     });
   }

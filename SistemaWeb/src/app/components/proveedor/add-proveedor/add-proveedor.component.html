@@ -186,7 +186,7 @@
                   <div class="col-md-6 col-lg-2 mr-0">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Extensión</h6>
-                      <input type="text" onlyNumbers="int" id="ext{{i}}" class="input-modal-sm">
+                      <input type="text" [(ngModel)]="telefono.Extension" [ngModelOptions]="{standalone: true}" onlyNumbers="int" id="ext{{i}}" class="input-modal-sm">
                     </div>
                   </div>
 
@@ -210,7 +210,7 @@
                     </div>
                   </div>
 
-                  <div *ngIf="1 === 1" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2 text-center':'col-3 col-sm-3 col-md-3 col-lg-1'">
+                  <div *ngIf="i === (telefonos.length - 1)" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2 text-center':'col-3 col-sm-3 col-md-3 col-lg-1'">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-3 text-nowrap">Agregar</h6>
                       <a class="btn white-text btn-sm mb-5 orange-chang" id="add" (click)="agregarTelefono(telefono,i)"

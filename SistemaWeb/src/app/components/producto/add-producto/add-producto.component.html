@@ -74,7 +74,7 @@
 
               <div class="col-12 col-sm-5 col-md-2 mts-1">
 
-                <mdb-checkbox class="checkbox-chang-filled"><label class="grey-text-card">Consumo directo</label></mdb-checkbox>
+                <mdb-checkbox formControlName="consumoDirecto" class="checkbox-chang-filled"><label class="grey-text-card">Consumo directo</label></mdb-checkbox>
 
                 <!-- <div class="form-check">
                   <input [mdbValidate]=false class="form-check-input" type="checkbox" id="consumodirecto"
@@ -139,7 +139,7 @@
               </div>
 
               <div class="col-12 col-sm-5 col-md-2 mts-2">
-                <mdb-checkbox class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
+                <mdb-checkbox formControlName="granel" class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
                 <!-- <div class="form-check">
                   <input [mdbValidate]=false class="form-check-input" type="checkbox" id="granel" mdbInputDirective>
                   <label class="form-check-label" for="granel">Granel</label>
@@ -238,23 +238,6 @@
                     id="codigoInterno" class="form-control">
                   <label for="codigoInterno" class="">Código interno</label>
                   <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6 mt-3">
-                <div class="md-form">
-                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" formControlName="codigoBarra"
-                    id="codigoBarra" class="form-control">
-                  <label for="codigoBarra" class="">Código barra</label>
-                  <show-errors [control]="formAddProducto.controls['codigoBarra']"></show-errors>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6 mt-3">
-                <div class="md-form">
-                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="codigoBarraSistema"
-                    class="form-control">
-                  <label for="codigoBarraSistema" class="">Código barra sistema</label>
                 </div>
               </div>
 

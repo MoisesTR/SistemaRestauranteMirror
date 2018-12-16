@@ -35,12 +35,16 @@ export class Producto {
   public CodigoBarra: string;
   public CodigoInterno: string;
   public DiasRotacion: number;
+  public ConsumoDirecto: boolean;
+  public Granel: boolean;
 
   constructor() {
     this.CodigoBarra = null;
     this.CodigoInterno = null;
     this.CodigoProducto = null;
     this.DescripcionInsumo = '';
+    this.ConsumoDirecto = false;
+    this.Granel = false;
   }
 
 }

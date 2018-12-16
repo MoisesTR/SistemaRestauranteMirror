@@ -377,10 +377,11 @@ export class AddProductoComponent implements OnInit {
     this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso === '' ? 0 : this.formAddProducto.value.diasDeUso;
     this.producto.DiasRotacion = Utils.valorCampoEsValido(this.formAddProducto.value.diasDeUso) ? this.formAddProducto.value.diasDeUso : 0;
     this.producto.CodigoProducto = this.formAddProducto.value.codigoProducto ;
-    this.producto.CodigoBarra = this.formAddProducto.value.codigoBarra === '' ? null : this.formAddProducto.value.codigoBarra ;
     this.producto.CodigoInterno = this.formAddProducto.value.codigoInterno === '' ? null : this.formAddProducto.value.codigoInterno;
     this.producto.IdTipoInsumo = 1;
     this.producto.IdProveedor = this.proveedorSelecionado;
+    this.producto.ConsumoDirecto = this.formAddProducto.value.consumoDirecto === '' ? false : this.formAddProducto.value.consumoDirecto;
+    this.producto.Granel = this.formAddProducto.value.granel === '' ? false : this.formAddProducto.value.granel;
   }
 
   crearProducto() {
@@ -460,14 +461,12 @@ export class AddProductoComponent implements OnInit {
         ]),
         'cantidadEmpaque': new FormControl('', [
         ]),
-
+        'consumoDirecto': new FormControl(false, []),
+        'granel': new FormControl(false, []),
         'valorunidadmedida': new FormControl('', [
             Validators.required
         ]),
         'diasDeUso': new FormControl('', [
-        ]),
-        'codigoBarra': new FormControl(null, [
-
         ]),
         'codigoInterno': new FormControl(null, [
         ]),

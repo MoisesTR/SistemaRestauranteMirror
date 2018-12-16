@@ -27,7 +27,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   formAddProveedor: FormGroup;
   previousUrl: string;
   public telefonos: TelefonoProveedor[];
-  telefonRequerido: TelefonoProveedor;
+  public telefonoRequerido: TelefonoProveedor;
   public formAddTelefonos: FormGroup;
   public telefonoIngresado = false;
 
@@ -42,11 +42,10 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
       this.previousUrl = this.previousRouteService.getPreviousUrl();
-      console.log(this.previousRouteService.getPreviousUrl());
       this.proveedor = new Proveedor();
-      this.telefonRequerido = new TelefonoProveedor();
+      this.telefonoRequerido = new TelefonoProveedor();
       this.telefonos = [];
-      this.telefonos.push(this.telefonRequerido);
+      this.telefonos.push(this.telefonoRequerido);
 
       $(document).ready(function() {
 
@@ -95,7 +94,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   }
 
   createProveedor() {
-
+      this.agregarTelefonosProveedor();
       if (this.telefonoIngresado) {
           this.capturarDadosProveedor();
           this._proveedorService.createProveedor(this.proveedor).subscribe(
@@ -135,7 +134,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   createTelefonoProveedor(telefono: TelefonoProveedor) {
       this._proveedorService.createTelefonoProveedor(telefono).subscribe(
           response => {
-              console.log(response);
               if (response.IdTelefono) {
               } else {
                   Utils.showMsgInfo('Ha ocurrido un error al insertar el telefono del proveedor');
@@ -154,11 +152,8 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       this.proveedor.Descripcion = this.formAddProveedor.value.descripcionProveedor;
       this.proveedor.Documento = this.formAddProveedor.value.numeroRuc;
       this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
-      this.proveedor.Telefono1 = '87792956';
       this.proveedor.Email = this.formAddProveedor.value.email;
-      this.proveedor.Retencion2 = this.formAddProveedor.value.retencion === true ? 1 : 0;
       this.proveedor.Mercado = this.formAddProveedor.value.isMercado === true ? 1 : 0;
-
   }
 
   initFormAdd() {
@@ -197,8 +192,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
               [
                   Validators.maxLength(400)
               ])
-          , 'retencion': new FormControl('',
-              [])
           , 'isMercado': new FormControl('',
               [])
       });
@@ -208,14 +201,8 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       this.formAddTelefonos = this._formBuilderProveedor.group({});
   }
 
-  showModalTelefonos () {
-      this.modalTelefonos.show();
-  }
-
   agregarTelefonosProveedor() {
-      if (this.telefonosValidos()) {
-          this.modalTelefonos.hide();
-      } else {
+      if (!this.telefonosValidos()) {
           Utils.showMsgInfo('Completa correctamente el formulario de telefonos');
       }
   }
@@ -224,7 +211,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       let valido = true;
       this.telefonos.forEach( (value , index) => {
           this.telefonos[index].Titular = value.IsTitular === true ? 1 : 0;
-          if (value.Telefono === '' || value.Cargo === '' || value.Nombre === '') {
+          if (!Utils.valorCampoEsValido(value.Telefono) || !Utils.valorCampoEsValido(value.Cargo) || !Utils.valorCampoEsValido(value.Nombre)) {
               valido = false;
           }
       });

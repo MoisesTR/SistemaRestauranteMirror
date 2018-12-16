@@ -234,11 +234,11 @@
                                         <td class="text-center align-middle" width="15%">
                                             <div class="switch chang-switch">
                                                 <label>
-                                                    <mdb-icon icon="percent"></mdb-icon>
+                                                    <mdb-icon icon="money"></mdb-icon>
                                                     <input (change)="changeTipoDescuento($event, producto)" [(ngModel)]="producto.IsDescuentoPorcentual"
                                                         type="checkbox">
                                                     <span class="lever"></span>
-                                                    <mdb-icon icon="money"></mdb-icon>
+                                                    <mdb-icon icon="percent"></mdb-icon>
                                                 </label>
                                             </div>
                                         </td>
@@ -605,10 +605,10 @@
                             <h6 class="orange-chang-text mb-4">Tipo Descuento</h6>
                             <div class="switch chang-switch">
                                 <label>
-                                    <mdb-icon icon="percent"></mdb-icon>
+                                    <mdb-icon icon="money"></mdb-icon>
                                     <input type="checkbox" formControlName="tipoDescuento" >
                                     <span class="lever"></span>
-                                    <mdb-icon icon="money"></mdb-icon>
+                                    <mdb-icon icon="percent"></mdb-icon>
                                 </label>
                             </div>
                         </div>
@@ -617,7 +617,6 @@
                                 <h6 class="orange-chang-text">Descuento</h6>
                                 <input type="number" id="descuentoTotalProducto" class="input-modal-sm" name="descuentoTotalProducto"
                                     formControlName="descuentoTotalProducto" onlyPositiveNumber>
-
                             </div>
                             <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']"></show-errors>
                         </div>

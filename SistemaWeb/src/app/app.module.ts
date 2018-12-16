@@ -13,6 +13,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './services/auth/token.interceptor';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { SummaryGastosComponent } from './components/gastos/summary-gastos/summary-gastos.component';
+import { ConsolidatedGastosComponent } from './components/gastos/consolidated-gastos/consolidated-gastos.component';
 
 // Rutas principales
 const routes: Routes = [
@@ -25,7 +26,7 @@ const routes: Routes = [
   declarations: [
     AppComponent
       , LoginComponent
-      , NotFound404Component, GastosComponent, SummaryGastosComponent
+      , NotFound404Component, GastosComponent, SummaryGastosComponent, ConsolidatedGastosComponent
   ],
   imports: [
     BrowserModule

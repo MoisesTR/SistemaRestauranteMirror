@@ -4,7 +4,7 @@ export class Gasto {
     public IdSubClasificacion: number;
     public ConceptoGasto: string;
     public FechaIngreso: string;
-    public MontoTotal: string;
+    public MontoTotal: number;
     public NoReferencia: string;
     public CodigoFactura: string;
 

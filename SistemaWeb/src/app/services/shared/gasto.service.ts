@@ -36,6 +36,10 @@ export class GastoService {
         return this._http.get(this.url + 'subclasificacionesGastosById/' + IdClasificacion);
     }
 
+    getTopProductos(): Observable<any> {
+        return this._http.get(this.url + 'topProductos/');
+    }
+
     getGastosPorFiltro(IdClasificacion, IdSubClasificacion = null, FechaInicio, FechaFin): Observable<any> {
         const params = new HttpParams().set('IdClasificacion', IdClasificacion)
             .set('IdSubClasificacion', IdSubClasificacion)

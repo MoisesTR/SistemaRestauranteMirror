@@ -134,7 +134,7 @@
                             <i class="fa fa-money orange-chang icono-card"></i>
                             <div class="mb-3 right-card-align">
                                 <p class="grey-text-card">Compra Dolar</p>
-                                <h4><strong>C$ 32.09</strong></h4>
+                                <h4><strong>C$ 32.20</strong></h4>
                             </div>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                             <i class="fa fa-dollar orange-chang icono-card"></i>
                             <div class="mb-3 right-card-align">
                                 <p class="grey-text-card">Venta Dolar</p>
-                                <h4><strong>C$ 32.80</strong></h4>
+                                <h4><strong>C$ 32.95</strong></h4>
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                         <div class="row mt-4">
                             <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                                 <div style="display: block">
-                                    <canvas mdbChart [chartType]="pieType" [data]="pieData" [labels]="pieLabels"
+                                    <canvas mdbChart #char id= "char" [chartType]="pieType" [data]="pieData" [labels]="pieLabels"
                                         [colors]="pieColors" [options]="pieOptions" [legend]="true" (chartHover)="pieHovered($event)"
                                         (chartClick)="pieClicked($event)" width="380" height="380">
                                     </canvas>
@@ -208,18 +208,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr mdbTableCol *ngFor="let el of elements">
+                                        <tr mdbTableCol *ngFor="let producto of productosTop">
                                             <th scope="row">
-                                                <h6>{{el.id}}</h6>
+                                                <h6>{{producto.IdProducto}}</h6>
                                             </th>
                                             <td>
-                                                <h6>{{el.producto}}</h6>
+                                                <h6>{{producto.NombreProducto}}</h6>
                                             </td>
                                             <td>
-                                                <h6>{{el.proveedor}}</h6>
+                                                <h6>{{producto.Proveedor}}</h6>
                                             </td>
                                             <td>
-                                                <h6>{{el.cantidad}}</h6>
+                                                <h6>{{producto.Cantidad}}</h6>
                                             </td>
                                         </tr>
                                     </tbody>

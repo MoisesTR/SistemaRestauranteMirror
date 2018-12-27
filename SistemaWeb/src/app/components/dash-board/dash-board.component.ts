@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {ProveedorService} from '../../services/shared/proveedor.service';
 import {TrabajadorService} from '../../services/shared/trabajador.service';
@@ -8,6 +8,7 @@ import {Utils} from '../Utils';
 import {Global} from '../../services/shared/global';
 import {GastoService} from '../../services/service.index';
 import {ProductosTop} from '../../models/ProductosTop';
+
 declare var $: any;
 
 @Component({
@@ -30,7 +31,7 @@ export class DashBoardComponent implements OnInit {
     public productosTop: ProductosTop[];
 
     public chartType: string = 'line';
-    @ViewChild('chart') chart: BaseChartDirective;
+
     public chartDatasets: Array<any> = [
         {data: [32.08 , 32.09, 32.10, 32.11, 32.12], label: 'Compra'},
         {data: [32.76, 32.80, 32.84, 32.88, 32.92], label: 'Venta'}

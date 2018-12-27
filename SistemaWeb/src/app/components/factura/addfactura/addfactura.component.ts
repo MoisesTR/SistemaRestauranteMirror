@@ -14,7 +14,6 @@ import {Utils} from '../../Utils';
 import {DetalleFactura} from '../../../models/DetalleFactura';
 import {ProductoFactura} from '../../../models/ProductoFactura';
 import {ProveedorService, UploadService} from '../../../services/service.index';
-import {Gasto} from '../../../models/Gasto';
 import swal from 'sweetalert2';
 
 declare var $: any;

@@ -1,10 +1,14 @@
 // CLASE UTILIZADA PARA DECLARACION DE CONSTANTES DEL PROYECTO
 
 import {IMyOptions} from 'ng-uikit-pro-standard';
+import {environment} from '../../../environments/environment';
+
+const apiEndpoint: string = environment.apiEndpoint;
 
 export const Global  = {
-    url: 'http://localhost:3000/api/'
+    url: apiEndpoint
 };
+
 
 export const CARPETA_PRODUCTOS = 'productos';
 export const CARPETA_USUARIOS = 'usuarios';

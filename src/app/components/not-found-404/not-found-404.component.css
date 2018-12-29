@@ -1,0 +1,8 @@
+#intro-section
+ {
+  height: 100vh !important;
+}
+
+.view.mask {
+    overflow: auto !important;
+  }

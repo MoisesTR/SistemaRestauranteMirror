@@ -461,6 +461,10 @@ h6 {
   }
 }
 
+dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #E67E22 !important;
+}
+
 /*** Sidenav ***/
 
 .active-submenu {

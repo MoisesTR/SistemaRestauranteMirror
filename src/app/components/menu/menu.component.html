@@ -78,7 +78,7 @@
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
               SIN DATOS
             </a>
-            <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
               <!--<a class="dropdown-item" (click)="verInformacionUsuario()">Mis datos</a>-->
               <!--<a class="dropdown-item" (click)="logout()">Salir</a>-->
             </div>
@@ -88,7 +88,7 @@
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
               {{Usuario.Username}}
             </a>
-            <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
               <a class="dropdown-item " (click)="verInformacionUsuario()">Mis datos</a>
               <a class="dropdown-item " (click)="style.show()">Salir</a>
             </div>
@@ -105,8 +105,9 @@
   <main id="top-panel">
     <div class="container-fluid mt-5">
 
-      <button class="btn btn-floating btn-large orange-chang waves-light" mdbPageScroll href="#top-panel" mdbRippleRadius style="right:1%; bottom:3%; visibility:hidden; z-index: 100 !important;"
-        [pageScrollDuration]="750" id="backToTop">
+      <button class="btn btn-floating btn-large orange-chang waves-light" mdbPageScroll href="#top-panel"
+        mdbRippleRadius style="right:1%; bottom:3%; visibility:hidden; z-index: 100 !important;" [pageScrollDuration]="750"
+        id="backToTop">
         <i class="fa fa-arrow-up"></i>
       </button>
 
@@ -120,8 +121,8 @@
 </div>
 
 <!-- Modal categorias crear -->
-<div mdbModal #style="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div mdbModal #style="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
     <!--Contenido-->
     <div class="modal-content cerrar-sesion">

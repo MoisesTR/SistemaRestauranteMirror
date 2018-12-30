@@ -101,7 +101,7 @@ export class AddTrabajadorComponent implements OnInit {
 
   onChangeSucursal(event) {
 
-      if (event === null) {
+      if (!Utils.notNullOrUndefined(event)) {
         this.trabajador.IdSucursal = null;
       } else {
         this.trabajador.IdSucursal = event.IdSucursal;

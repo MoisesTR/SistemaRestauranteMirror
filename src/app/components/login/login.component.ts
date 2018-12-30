@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import {Utils} from '../Utils';
-import {UserIdleService} from 'angular-user-idle';
 import {ToastService} from 'ng-uikit-pro-standard';
 
 @Component({
@@ -30,7 +29,6 @@ export class LoginComponent implements OnInit {
     private usuarioServicio: UsuarioService,
     private formBuilderUser: FormBuilder
     , private toastr: ToastService
-    , private userIdle: UserIdleService
   ) {
 
     this.usuario = new Usuario();
@@ -82,7 +80,7 @@ export class LoginComponent implements OnInit {
               this.token = response.token;
               localStorage.setItem('token', JSON.stringify(this.token));
               if (this.token.length <= 0) {
-                console.log('El token no se ha generado');
+
               } else {
                   // // Start watching for user inactivity.
                   // this.userIdle.startWatching();

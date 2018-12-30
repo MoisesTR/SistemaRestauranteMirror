@@ -514,8 +514,6 @@ export class UpdateFacturaComponent implements OnInit {
         } else {
             this.totalFactura = (this.subTotalFactura + this.ivaCalculoFactura) - this.descuentoCalculoFactura;
         }
-        console.log('Total factura');
-        console.log(this.totalFactura);
     }
 
 }

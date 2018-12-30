@@ -61,7 +61,7 @@
                 <div class="col-md-6 mt-1">
                   <div class="md-form ">
                     <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoPrincipalTrabajador" minlength="4"
-                      maxlength="50" class="form-control telefono" name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal"
+                      maxlength="50" class="form-control" name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal"
                       autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
@@ -70,8 +70,7 @@
 
                 <div class="col-md-6 mt-1">
                   <div class="md-form ">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoSecundarioTrabajador"
-                      minlength="4" maxlength="50" class="form-control telefono" name="TelefonoSecundarioTrabajador"
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control" name="TelefonoSecundarioTrabajador"
                       formControlName="telefonoSecundario" autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
@@ -126,7 +125,7 @@
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddTrabajador.valid">Ingresar
+                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddTrabajador.valid || !btnIngresarHabilitado">Ingresar
                   <i class="fa fa-check ml-1"></i>
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {Trabajador} from '../../../models/Trabajador';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TrabajadorService} from '../../../services/shared/trabajador.service';
@@ -20,7 +20,8 @@ declare var $: any;
 @Component({
   selector: 'app-add-trabajador',
   templateUrl: './add-trabajador.component.html',
-  styleUrls: ['./add-trabajador.component.css']
+  styleUrls: ['./add-trabajador.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTrabajadorComponent implements OnInit {
 
@@ -34,6 +35,7 @@ export class AddTrabajadorComponent implements OnInit {
   public myDatePickerOptions: IMyOptions = opcionesDatePicker;
   public tituloPantalla = 'Trabajador';
   public filesToUpload: Array<File>;
+  public btnIngresarHabilitado = true;
 
   @ViewChild('modalUsuario') modalUsuario: ModalDirective;
 
@@ -55,12 +57,10 @@ export class AddTrabajadorComponent implements OnInit {
 
   ngOnInit() {
 
-      $(document).ready(function() {
-
+      $(document).ready(() => {
           $('.letras').keypress(function (key) {
               if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
                   && (key.charCode < 65 || key.charCode > 90) // letras minusculas
-                  && (key.charCode !== 45) // retroceso
                   && (key.charCode !== 241) // ñ
                   && (key.charCode !== 209) // Ñ
                   && (key.charCode !== 32) // espacio
@@ -74,20 +74,15 @@ export class AddTrabajadorComponent implements OnInit {
                   && (key.charCode !== 205) // Í
                   && (key.charCode !== 211) // Ó
                   && (key.charCode !== 218) // Ú
-
               ) {
                   return false;
               }
           });
           $('.dropify').dropify();
       });
-
-    $('.telefono').mask('0000-0000');
-
     this.initFormTrabajador();
     this.getSucursales();
     this.getTiposDocumentos();
-
   }
 
 
@@ -134,7 +129,7 @@ export class AddTrabajadorComponent implements OnInit {
               this.formAddTrabajador.controls['documentoTrabajador'].setValidators([
                   Validators.required,
                   CustomValidators.nospaceValidator,
-                  Validators.maxLength(15)
+                  Validators.maxLength(14)
               ]);
           } else {
               this.formAddTrabajador.controls['documentoTrabajador'].setValidators([
@@ -152,14 +147,14 @@ export class AddTrabajadorComponent implements OnInit {
         Validators.required,
         CustomValidators.nospaceValidator
         , Validators.minLength(2)
-        , Validators.maxLength(300)
+        , Validators.maxLength(100)
 
       ])
       , 'apellido' : new FormControl('', [
         Validators.required,
         CustomValidators.nospaceValidator
         , Validators.minLength(3)
-        , Validators.maxLength(300)
+        , Validators.maxLength(100)
 
       ])
       , 'fechaNacimiento' : new FormControl('', [
@@ -175,8 +170,8 @@ export class AddTrabajadorComponent implements OnInit {
       ])
       , 'documentoTrabajador' : new FormControl('', [
           Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(15),
+          Validators.minLength(14),
+          Validators.maxLength(14),
           CustomValidators.nospaceValidator,
 
       ])
@@ -186,13 +181,13 @@ export class AddTrabajadorComponent implements OnInit {
        , 'telefonoPrincipal' : new FormControl('', [
             Validators.required
             , CustomValidators.nospaceValidator
-            , Validators.minLength(9)
-            , Validators.maxLength(9)
+            , Validators.minLength(8)
+            , Validators.maxLength(8)
 
         ])
         , 'telefonoSecundario' : new FormControl('', [
-            Validators.minLength(9)
-            , Validators.maxLength(9)
+            Validators.minLength(8)
+            , Validators.maxLength(8)
         ])
       , 'sucursal' : new FormControl('', [Validators.required])
       , 'cargo' : new FormControl('', [Validators.required])
@@ -211,10 +206,33 @@ export class AddTrabajadorComponent implements OnInit {
     this.trabajador.Apellidos = this.formAddTrabajador.value.apellido;
     this.trabajador.FechaNacimiento =  this.formAddTrabajador.value.fechaNacimiento;
     this.trabajador.FechaIngreso = this.formAddTrabajador.value.fechaIngreso;
-    this.trabajador.Documento = this.formAddTrabajador.value.documentoTrabajador.replace('-', '');
-    this.trabajador.Telefono1 = (this.formAddTrabajador.value.telefonoPrincipal).replace('-', '');
-    this.trabajador.Telefono2 = (this.formAddTrabajador.value.telefonoSecundario).replace('-', '');
+    this.trabajador.Documento = this.formAddTrabajador.value.documentoTrabajador;
+    this.trabajador.Telefono1 = this.formAddTrabajador.value.telefonoPrincipal;
+    this.trabajador.Telefono2 = this.formAddTrabajador.value.telefonoSecundario;
     this.trabajador.Direccion = this.formAddTrabajador.value.direccion;
+  }
+
+  guardarImagenTrabajador() {
+    this.btnIngresarHabilitado = false;
+    if (this.filesToUpload != null) {
+        this._uploadService.makeFileRequest(
+            this.url + 'uploadImage/'
+            , CARPETA_TRABAJADORES
+            , ''
+            , false
+            , []
+            , this.filesToUpload
+            , 'token'
+            , 'image').then((result: any) => {
+            this.trabajador.Imagen = result.image;
+            this.createTrabajador();
+        }, error => {
+            Utils.msgErrorImage(error);
+        });
+    } else {
+        Utils.showMsgInfo('La imagen del trabajador es requerida', this.tituloPantalla);
+    }
+    this.btnIngresarHabilitado = true;
   }
 
   createTrabajador() {
@@ -246,9 +264,9 @@ export class AddTrabajadorComponent implements OnInit {
     this._sucursalService.getSucursales().subscribe(
       response => {
         if (response.sucursales) {
-          this.sucursales = response.sucursales;
+            this.sucursales = response.sucursales;
         } else {
-
+            Utils.showMsgInfo('No se han podido obtener correctamente las sucursales', this.tituloPantalla);
         }
       }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
@@ -266,29 +284,6 @@ export class AddTrabajadorComponent implements OnInit {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     );
-  }
-
-  guardarImagenTrabajador() {
-
-    if (this.filesToUpload != null) {
-      this._uploadService.makeFileRequest(
-        this.url + 'uploadImage/'
-        , CARPETA_TRABAJADORES
-        , ''
-        , false
-        , []
-        , this.filesToUpload
-        , 'token'
-        , 'image').then((result: any) => {
-        this.trabajador.Imagen = result.image;
-        this.createTrabajador();
-      }, error => {
-          Utils.msgErrorImage(error);
-      });
-    } else {
-        Utils.showMsgInfo('La imagen del trabajador es requerida', this.tituloPantalla);
-    }
-
   }
 
   getTiposDocumentos() {

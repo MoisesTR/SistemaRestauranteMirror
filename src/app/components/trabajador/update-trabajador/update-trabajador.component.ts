@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Sucursal} from '../../../models/Sucursal';
 import {Trabajador} from '../../../models/Trabajador';
@@ -20,7 +20,8 @@ declare var $: any;
 @Component({
   selector: 'app-update-trabajador',
   templateUrl: './update-trabajador.component.html',
-  styleUrls: ['./update-trabajador.component.css']
+  styleUrls: ['./update-trabajador.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpdateTrabajadorComponent implements OnInit {
 
@@ -53,39 +54,26 @@ export class UpdateTrabajadorComponent implements OnInit {
   }
 
   ngOnInit() {
-
-      $(document).ready(function() {
-
-          $('.cedula').mask('000-ZX0000-0000A', {'translation': {
-                  A: {pattern: /[A-Za-z]/},
-                  Z: {pattern: /[0-3]/},
-                  X: {pattern: /[0-9]/},
-              }
-          });
-
-      });
-
-      $('.telefono').mask('0000-0000');
       this.initFormTrabajador();
       this.getSucursales();
       this.getTrabajador();
       this.removioImagen = false;
-
   }
+
   initFormTrabajador() {
       this.formUpdateTrabajador = this.formBuilderTrabajador.group({
               'nombreTrabajador' : new FormControl('', [
                   Validators.required,
                   CustomValidators.nospaceValidator
                   , Validators.minLength(2)
-                  , Validators.maxLength(300)
+                  , Validators.maxLength(100)
 
               ])
               , 'apellido' : new FormControl('', [
                   Validators.required,
                   CustomValidators.nospaceValidator
                   , Validators.minLength(3)
-                  , Validators.maxLength(300)
+                  , Validators.maxLength(100)
 
               ])
               , 'fechaNacimiento' : new FormControl('', [
@@ -107,20 +95,20 @@ export class UpdateTrabajadorComponent implements OnInit {
               , 'telefonoPrincipal' : new FormControl('', [
                   Validators.required
                   , CustomValidators.nospaceValidator
-                  , Validators.minLength(9)
-                  , Validators.maxLength(9)
+                  , Validators.minLength(8)
+                  , Validators.maxLength(8)
 
               ])
               , 'telefonoSecundario' : new FormControl('', [
-                  Validators.minLength(9)
-                  , Validators.maxLength(9)
+                  Validators.minLength(8)
+                  , Validators.maxLength(8)
               ])
               , 'sucursal' : new FormControl('', [Validators.required])
               , 'cargo' : new FormControl('', [Validators.required])
               , 'direccion' : new FormControl('', [
                   Validators.required,
                   CustomValidators.nospaceValidator
-                  , Validators.minLength(5)
+                  , Validators.minLength(10)
                   , Validators.maxLength(300)
               ])
           }
@@ -134,8 +122,8 @@ export class UpdateTrabajadorComponent implements OnInit {
       this.trabajador.Direccion = this.formUpdateTrabajador.value.direccion;
       this.trabajador.FechaIngreso = this.formUpdateTrabajador.value.fechaIngreso;
       this.trabajador.FechaNacimiento =  this.formUpdateTrabajador.value.fechaNacimiento;
-      this.trabajador.Telefono1 = this.formUpdateTrabajador.value.telefonoPrincipal != null ? this.formUpdateTrabajador.value.telefonoPrincipal.replace('-', '') : '';
-      this.trabajador.Telefono2 = this.formUpdateTrabajador.value.telefonoSecundario != null ? (this.formUpdateTrabajador.value.telefonoSecundario).replace('-', '') : '';
+      this.trabajador.Telefono1 = this.formUpdateTrabajador.value.telefonoPrincipal;
+      this.trabajador.Telefono2 = this.formUpdateTrabajador.value.telefonoSecundario;
   }
 
   getSucursales() {

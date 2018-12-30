@@ -97,7 +97,7 @@ export class AddUsuarioComponent implements OnInit {
   }
   onChanges(): void {
     this.formularioAddUsuario.valueChanges.subscribe(val => {
-     // console.log(val.correo);
+     
     });
   }
   createUsuario(){

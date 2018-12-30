@@ -13,8 +13,6 @@ export class BuscarPipe implements PipeTransform {
 		}
 
 		if (valor !== null && valor !== undefined ) {
-			console.log('valor')
-			console.log(valor)
             return valor.filter( (item) => {
             	if (item.CodigoProducto !== null) {
                     return item.CodigoProducto.toLowerCase().includes(term.toLowerCase());

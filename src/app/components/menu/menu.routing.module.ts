@@ -13,11 +13,8 @@ import {ListProductosComponent} from '../producto/list-productos/list-productos.
 import {AddProductoComponent} from '../producto/add-producto/add-producto.component';
 import {UpdateProductoComponent} from '../producto/update-producto/update-producto.component';
 import {CargoComponent} from '../cargo/cargo.component';
-import {BodegaSucursalComponent} from '../bodega-sucursal/bodega-sucursal.component';
-import {TrasladoProductoComponent} from '../traslado-producto/traslado-producto.component';
 import {ReporteComponent} from '../reporte/reporte.component';
 import {RolusuarioComponent} from '../rolusuario/rolusuario.component';
-import {HabilitadosComponent} from '../habilitados/habilitados.component';
 import {UnidadmedidaComponent} from '../unidadmedida/unidadmedida.component';
 import {AddfacturaComponent} from '../factura/addfactura/addfactura.component';
 import {ListFacturaComponent} from '../factura/list-factura/list-factura.component';
@@ -33,8 +30,6 @@ import {ListTrabajadorComponent} from '../trabajador/list-trabajador/list-trabaj
 import {UpdateTrabajadorComponent} from '../trabajador/update-trabajador/update-trabajador.component';
 import {ListUsuariosComponent} from '../usuario/list-usuarios/list-usuarios.component';
 import {UpdateUsuarioComponent} from '../usuario/update-usuario/update-usuario.component';
-import {InformacionFacturaComponent} from '../informacion-factura/informacion-factura.component';
-import {BuscarGeneralFacturaComponent} from '../buscar-general-factura/buscar-general-factura.component';
 import {ListUsuarioComponent} from '../usuario/list-usuario/list-usuario.component';
 import {AuthGuardService} from '../../services/auth/auth-guard.service';
 import {ListProveedorComponent} from '../proveedor/list-proveedor/list-proveedor.component';
@@ -75,11 +70,8 @@ const menuRoutes: Routes = [
         , {path: 'empaques', component: EmpaqueComponent, data : { titulo : 'Empaques'} }
         , {path: 'envases', component: EnvaseComponent, data : { titulo : 'Envases'} }
         , {path: 'cargo', component: CargoComponent, data : { titulo : 'Cargos'}}
-        , {path: 'bodega', component: BodegaSucursalComponent, data : { titulo : 'Bodega'}}
-        , {path: 'traslados', component: TrasladoProductoComponent , data : { titulo : 'Traslados'}}
         , {path: 'busqueda-productos', component: ReporteComponent, data : { titulo : 'Busqueda Productos'}}
         , {path: 'rol', component: RolusuarioComponent, data : { titulo : 'Roles'}}
-        , {path: 'habilitados', component: HabilitadosComponent, data : { titulo : 'Habilitados'}}
         , {path: 'unidadmedida', component: UnidadmedidaComponent , data : { titulo : 'Unidad Medida'}}
         // Reportes
         , {path: 'reportes', component: ReportesComponent , data : { titulo : 'Reportes'}}
@@ -87,8 +79,6 @@ const menuRoutes: Routes = [
         , {path: 'factura/add', component: AddfacturaComponent, data : { titulo : 'Factura'}}
         , {path: 'factura/list', component: ListFacturaComponent, data : { titulo : 'Facturas'}}
         , {path: 'factura/delete', component: DeleteFacturaComponent, data : { titulo : 'Factura'} }
-        , {path: 'factura/informacion', component: InformacionFacturaComponent, data : { titulo : 'Factura'}}
-        , {path: 'factura/busqueda', component: BuscarGeneralFacturaComponent, data : { titulo : 'Factura'}}
         , {path: 'factura/busquedafacturas', component: BusquedafacturasComponent, data: { titulo : 'Factura'}}
         , {path: 'factura/showFactura/:id', component: ShowFacturaComponent, data: {titulo : 'Factura'}}
         , {path: 'factura/updateFactura/:id', component: UpdateFacturaComponent, data: {titulo: 'Factura'}}

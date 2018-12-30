@@ -13,20 +13,15 @@ import {SucursalComponent} from '../sucursal/sucursal.component';
 import {CategoriaProductoComponent} from '../categoria-producto/categoria-producto.component';
 import {SubClasificacionProductoComponent} from '../sub-clasificacion-producto/sub-clasificacion-producto.component';
 import {EnvaseComponent} from '../envase/envase.component';
-import {BodegaSucursalComponent} from '../bodega-sucursal/bodega-sucursal.component';
 import {EmpaqueComponent} from '../empaque/empaque.component';
 import {MenuComponent} from './menu.component';
 import {CargoComponent} from '../cargo/cargo.component';
 import {ReporteComponent} from '../reporte/reporte.component';
-import {TrasladoProductoComponent} from '../traslado-producto/traslado-producto.component';
 import {RolusuarioComponent} from '../rolusuario/rolusuario.component';
-import {HabilitadosComponent} from '../habilitados/habilitados.component';
 import {UnidadmedidaComponent} from '../unidadmedida/unidadmedida.component';
 import {DashBoardComponent} from '../dash-board/dash-board.component';
 import {SalidaProductoComponent} from '../salida-producto/salida-producto.component';
 // Directivas
-import {TelephoneNumberFormatValidatorDirective} from '../../validadores/telephoneNumber';
-import {BirthYearValidatorDirective} from '../../validadores/birthYear';
 import {InicioComponent} from '../inicio/inicio.component';
 import {ProveedorModule} from '../proveedor/proveedor.module';
 import {ReportesComponent} from '../reportes/reportes.component';
@@ -42,16 +37,11 @@ import {ConfiguracionComponent} from '../configuracion/configuracion.component';
     , SucursalComponent
     , EnvaseComponent
     , EmpaqueComponent
-    , BodegaSucursalComponent
     , SucursalComponent
     , MenuComponent
-    , TelephoneNumberFormatValidatorDirective
-    , BirthYearValidatorDirective
     , CargoComponent
     , ReporteComponent
-    , TrasladoProductoComponent
     , RolusuarioComponent
-    , HabilitadosComponent
     , UnidadmedidaComponent
     , DashBoardComponent
     , InicioComponent
@@ -72,8 +62,6 @@ import {ConfiguracionComponent} from '../configuracion/configuracion.component';
   ],
   exports: [
     MenuComponent
-    , TelephoneNumberFormatValidatorDirective
-    , BirthYearValidatorDirective
   ],
   providers: [],
   schemas: [ NO_ERRORS_SCHEMA ]

@@ -74,7 +74,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
           });
       });
 
-      $('.telefono').mask('0000-0000');
 
       this.initFormAdd();
       this.initFormTelefonos();

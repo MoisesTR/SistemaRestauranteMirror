@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpClientJsonpModule} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Global} from './global';
 import {Observable} from 'rxjs/Observable';
 

@@ -302,8 +302,6 @@ export class EmpaqueComponent implements OnInit, InvocarFormulario {
       this.empaque.NombreEmpaque = empaque.NombreEmpaque;
       this.empaque.Descripcion = empaque.Descripcion;
 
-      console.log(this.empaque);
-
       this.formUpdateEmpaque.reset();
       this.formUpdateEmpaque.setValue({
           nombreEmpaque: empaque.NombreEmpaque

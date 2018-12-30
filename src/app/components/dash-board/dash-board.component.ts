@@ -151,7 +151,7 @@ export class DashBoardComponent implements OnInit {
 
           }
         }, error => {
-          console.log(Utils.msgError(error));
+
         }, () => {
 
         }

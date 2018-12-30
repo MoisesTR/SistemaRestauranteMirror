@@ -100,7 +100,6 @@ export class GastosComponent implements OnInit {
 
   createGasto() {
     this.getValuesFormAddGasto();
-    console.log(this.gasto);
 
     if (this.gastoValido()) {
       this._gastoService.createGasto(this.gasto).subscribe(

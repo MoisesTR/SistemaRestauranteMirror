@@ -10,7 +10,6 @@ import {UsuarioService} from '../../services/shared/usuario.service';
 import {UsuarioRoutingModule} from './usuario.routing.module';
 import {TrabajadorService} from '../../services/shared/trabajador.service';
 import {RolusuarioService} from '../../services/shared/rolusuario.service';
-import {Select2Module} from 'ng2-select2';
 import {ListUsuarioComponent} from './list-usuario/list-usuario.component';
 import {SharedModuleModule} from '../shared-module/shared-module.module';
 
@@ -22,7 +21,6 @@ import {SharedModuleModule} from '../shared-module/shared-module.module';
     , DataTablesModule
     , UsuarioRoutingModule
     , ReactiveFormsModule
-    , Select2Module
     , SharedModuleModule
   ],
   exports: [],

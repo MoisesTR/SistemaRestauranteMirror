@@ -148,7 +148,7 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
                                 this.getProveedores();
                             });
                         } else {
-                            console.log('Ha ocurrido un error, intenta nuevamente');
+                            Utils.showMsgInfo('Ha ocurrido un error, intenta nuevamente', this.tituloPantalla);
                         }
                     }, error => {
                         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
@@ -240,7 +240,6 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
 
     showModalTelefonos (proveedor: Proveedor) {
         this.proveedorSeleccionado = proveedor;
-        console.log(this.proveedorSeleccionado.Telefonos)
         this.modalTelefonos.show();
     }
 }

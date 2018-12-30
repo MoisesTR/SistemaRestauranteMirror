@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Usuario} from '../../models/Usuario';
 import {UsuarioService} from '../../services/shared/usuario.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Pantalla} from '../../models/Pantalla';
 import {Global} from '../../services/shared/global';
 import {MenuService} from '../../services/shared/menu-service';
 import {Menu} from '../../models/Menu';
@@ -45,7 +44,6 @@ export class MenuComponent implements OnInit {
 
   backtoPage(){
     window.history.back();
-    console.log(document.referrer);
   }
 
   onActivate(event) {

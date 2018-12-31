@@ -10,7 +10,7 @@ import {LoginComponent} from './components/login/login.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
 import {MDBBootstrapModulesPro, MDBSpinningPreloader, ToastModule} from 'ng-uikit-pro-standard';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {TokenInterceptor} from './services/auth/token.interceptor';
+import {TokenInterceptorService} from './services/auth/token.interceptor.service';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { SummaryGastosComponent } from './components/gastos/summary-gastos/summary-gastos.component';
 
@@ -44,7 +44,7 @@ const routes: Routes = [
     schemas: [ NO_ERRORS_SCHEMA ],
   providers: [MDBSpinningPreloader, {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: TokenInterceptorService,
       multi: true
   }],
   bootstrap: [AppComponent],

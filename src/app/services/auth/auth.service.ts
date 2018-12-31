@@ -1,12 +1,16 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-
+import {Router} from '@angular/router';
+import {UsuarioService} from '../shared/usuario.service';
 
 @Injectable()
 export class AuthService {
 
   public jwtHelper;
-  constructor() {}
+  constructor(
+      private _router: Router,
+      private _usuarioService: UsuarioService
+  ) {}
 
   public getToken(): string {
     return localStorage.getItem('token');
@@ -20,6 +24,12 @@ export class AuthService {
     // true or false
     return token != null ? (!this.jwtHelper.isTokenExpired(token)) : false;
     // return true;
+  }
+
+  public logout(): void {
+      localStorage.clear();
+      this._usuarioService.identity = null;
+      this._router.navigate(['/login']);
   }
 
 }

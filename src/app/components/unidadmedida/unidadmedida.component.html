@@ -1,11 +1,7 @@
 <section>
-
   <div class="row">
-
     <div class="col-md-12">
-
       <mdb-card cascade="true" narrower="true">
-
         <!--Titulo-->
         <div class="view view-cascade gradient-card-header orange-chang">
           <h3 class="card-header-title mb-2">Unidad de Medida</h3>
@@ -33,11 +29,11 @@
                 <td width="25%" class="body-negrita">
                   <div class="text-center">
                     <button mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateUnidadMedida,unidadmedida)"
-                      class="orange-chang" id="btnEditUnidadMedida" mdbTooltip="Editar" placement="bottom">
+                      class="orange-chang" id="btnEditUnidadMedida" mdbTooltip="Editar Unidad de Medida" placement="bottom">
                       <mdb-icon icon="pencil"></mdb-icon>
                     </button>
                     <button mdbBtn type="button" size="sm" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)"
-                      class="orange-chang" id="btnDeleteUnidadMedida" mdbTooltip="Eliminar" placement="bottom">
+                      class="orange-chang" id="btnDeleteUnidadMedida" mdbTooltip="Eliminar Unidad de Medida" placement="bottom">
                       <mdb-icon icon="times"></mdb-icon>
                     </button>
                   </div>
@@ -45,13 +41,13 @@
               </tr>
             </tbody>
           </table>
-
         </mdb-card-body>
+
       </mdb-card>
     </div>
   </div>
-
 </section>
+
 
 <!-- Modal Agregar unidad de medida -->
 <div mdbModal #modalAddUnidadMedida="mdb-modal" class="modal fade" id="modalAddUnidadMedida" tabindex="-1" role="dialog"

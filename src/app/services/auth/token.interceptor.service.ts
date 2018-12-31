@@ -1,0 +1,36 @@
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {AuthService} from './auth.service';
+import {Observable} from 'rxjs/Observable';
+import {tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+
+@Injectable()
+export class TokenInterceptorService implements HttpInterceptor {
+
+    constructor(public auth: AuthService,  public router: Router) {}
+    intercept(request: HttpRequest<any>, next: HttpHandler):
+        Observable<HttpEvent<any>> {
+
+        request = request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${this.auth.getToken()}`
+            }
+        });
+
+        return next.handle(request).pipe(
+            tap(
+                (response: HttpEvent<any>) => {},
+                (err: any) => {
+
+                    if (err instanceof HttpErrorResponse) {
+
+                        if (err.status === 401) {
+                            this.auth.logout();
+                        }
+                    }
+                }
+            )
+        );
+    }
+}

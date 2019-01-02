@@ -1,6 +1,6 @@
 import {AbstractControl, AbstractControlDirective} from '@angular/forms';
 
-export class MensajesError {
+export class MsgError {
     private static readonly errorMessages = {
         'required': () => 'Este campo es requerido  ',
         'minlength': (params) => 'El numero minimo permitido de caracteres es ' + params.requiredLength,
@@ -38,6 +38,6 @@ export class MensajesError {
     }
 
     public getMessage(type: string, params: any) {
-        return MensajesError.errorMessages[type](params);
+        return MsgError.errorMessages[type](params);
     }
 }

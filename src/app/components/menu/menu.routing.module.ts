@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 // Componentes
-import {MenuComponent} from './menu.component';
 import {CategoriaProductoComponent} from '../categoria-producto/categoria-producto.component';
 import {ClasificacionProductoComponent} from '../clasificacion-producto/clasificacion-producto.component';
 import {SubClasificacionProductoComponent} from '../sub-clasificacion-producto/sub-clasificacion-producto.component';
@@ -31,7 +30,6 @@ import {UpdateTrabajadorComponent} from '../trabajador/update-trabajador/update-
 import {ListUsuariosComponent} from '../usuario/list-usuarios/list-usuarios.component';
 import {UpdateUsuarioComponent} from '../usuario/update-usuario/update-usuario.component';
 import {ListUsuarioComponent} from '../usuario/list-usuario/list-usuario.component';
-import {AuthGuardService} from '../../services/auth/auth-guard.service';
 import {ListProveedorComponent} from '../proveedor/list-proveedor/list-proveedor.component';
 import {AddProveedorComponent} from '../proveedor/add-proveedor/add-proveedor.component';
 import {UpdateProveedorComponent} from '../proveedor/update-proveedor/update-proveedor.component';
@@ -42,14 +40,8 @@ import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.co
 
 const menuRoutes: Routes = [
 
-  {
-    path: '',
-    component: MenuComponent,
-    canActivate: [AuthGuardService],
-    children: [
-        {path: '', redirectTo: '/dashboard', pathMatch: 'full', data : { titulo : 'Dashboard'} }
         // MODULO PRODUCTO
-        , {path: 'producto', component: ListProductosComponent, data : { titulo : 'Productos'}}
+         {path: 'producto', component: ListProductosComponent, data : { titulo : 'Productos'}}
         , {path: 'producto/add', component: AddProductoComponent, data : { titulo : 'Producto'}}
         , {path: 'producto/update/:id', component: UpdateProductoComponent, data : { titulo : 'Producto'}}
 
@@ -61,20 +53,26 @@ const menuRoutes: Routes = [
 
         , {path: 'categorias', component: CategoriaProductoComponent, data : { titulo : 'Categorias'}}
         , {path: 'clasificacion-productos', component: ClasificacionProductoComponent, data : { titulo : 'Clasificaciones Produtos'}}
-        // modulo de proveedores
+
+        //MODULO PROVEEDORES
         , {path: 'proveedor', component: ListProveedorComponent, data : { titulo : 'Proveedores'}}
         , {path: 'proveedor/add', component: AddProveedorComponent, data : { titulo : 'Proveedor'}}
         , {path: 'proveedor/update/:id', component: UpdateProveedorComponent, data : { titulo : 'Proveedor'}}
+
+        // CATALOGOS
         , {path: 'subclasificacion-productos', component: SubClasificacionProductoComponent, data : { titulo : 'Subclasificaciones Productos'}}
         , {path: 'sucursales', component: SucursalComponent, data : { titulo : 'Sucursales'}}
         , {path: 'empaques', component: EmpaqueComponent, data : { titulo : 'Empaques'} }
         , {path: 'envases', component: EnvaseComponent, data : { titulo : 'Envases'} }
         , {path: 'cargo', component: CargoComponent, data : { titulo : 'Cargos'}}
-        , {path: 'busqueda-productos', component: ReporteComponent, data : { titulo : 'Busqueda Productos'}}
         , {path: 'rol', component: RolusuarioComponent, data : { titulo : 'Roles'}}
         , {path: 'unidadmedida', component: UnidadmedidaComponent , data : { titulo : 'Unidad Medida'}}
+
         // Reportes
         , {path: 'reportes', component: ReportesComponent , data : { titulo : 'Reportes'}}
+
+        , {path: 'busqueda-productos', component: ReporteComponent, data : { titulo : 'Busqueda Productos'}}
+
         /*FACTURA MODULO*/
         , {path: 'factura/add', component: AddfacturaComponent, data : { titulo : 'Factura'}}
         , {path: 'factura/list', component: ListFacturaComponent, data : { titulo : 'Facturas'}}
@@ -97,8 +95,8 @@ const menuRoutes: Routes = [
         // Modulo gastos
         , {path: 'gasto/gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
         , {path: 'gastos/summary-gastos', component: SummaryGastosComponent, data : { titulo : 'Gastos'}}
-    ]
-  },
+
+        , {path: '', redirectTo: '/dashboard', pathMatch: 'full', data : { titulo : 'Dashboard'} }
 ];
 
 @NgModule({

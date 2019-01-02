@@ -2,15 +2,11 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
-  imports: [
-    /*  RouterModule.forChild(produtoRoutes)*/
-
-  ],
+  imports: [],
   exports: [
     RouterModule
   ]
 })
-
 
 export class UsuarioRoutingModule {
 

@@ -8,8 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NotFound404Component implements OnInit {
 
   constructor() { }
-  variable : number;
-  ngOnInit() {
-  }
+
+  ngOnInit() {}
 
 }

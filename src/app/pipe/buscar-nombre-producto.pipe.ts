@@ -5,7 +5,7 @@ import {Injectable, Pipe, PipeTransform} from '@angular/core';
 })
 
 @Injectable()
-export class BuscarProductoNombre implements PipeTransform {
+export class BuscarProductoNombrePipe implements PipeTransform {
 
 	transform(valor: any, term: string): any {
 		if (term === undefined) {

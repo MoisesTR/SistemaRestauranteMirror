@@ -25,7 +25,7 @@ import {ProveedorService} from '../../../services/shared/proveedor.service';
 import {ProductoProveedor} from '../../../models/ProductoProveedor';
 import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
 import {SelectComponent} from 'ng-uikit-pro-standard';
-import {MensajesError} from '../../mensajesError';
+import {MsgError} from '../../../infraestructura/Util/MsgError';
 import {PreviousRouteService} from '../../../services/service.index';
 
 declare var $: any;
@@ -60,7 +60,7 @@ export class AddProductoComponent implements OnInit {
     public showModalEnvase = false;
     public showModalUnidadMedida = false;
     @ViewChild('selectClasificacion') public ngSelect: SelectComponent;
-    public mensajesError: MensajesError;
+    public mensajesError: MsgError;
     public error = 'nada';
     public previousUrl: string;
     public tipoInsumoSeleccionado = 1;
@@ -127,7 +127,7 @@ export class AddProductoComponent implements OnInit {
         this.getEmpaques();
         this.getUnidadesDeMedida();
         this.initFormAddProducto();
-        this.mensajesError = new MensajesError();
+        this.mensajesError = new MsgError();
 
     }
 

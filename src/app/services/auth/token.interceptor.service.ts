@@ -4,11 +4,12 @@ import {AuthService} from './auth.service';
 import {Observable} from 'rxjs/Observable';
 import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
 
-    constructor(public auth: AuthService,  public router: Router) {}
+    constructor(public auth: AuthService,  public router: Router, public logger: NGXLogger) {}
     intercept(request: HttpRequest<any>, next: HttpHandler):
         Observable<HttpEvent<any>> {
 
@@ -18,6 +19,7 @@ export class TokenInterceptorService implements HttpInterceptor {
             }
         });
 
+        this.logger.log(request.url);
         return next.handle(request).pipe(
             tap(
                 (response: HttpEvent<any>) => {},

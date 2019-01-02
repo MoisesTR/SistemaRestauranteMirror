@@ -4,8 +4,6 @@ import * as moment from 'moment';
 export class Utils{
 
   static msgError(mensaje) {
-      console.log('MENSAJE ERROR');
-      console.log(mensaje);
       if (mensaje === undefined) {
         return 'El error esta indefinido';
     } else {
@@ -27,8 +25,6 @@ export class Utils{
   }
 
   static msgErrorImage(mensaje, titulo = 'Error') {
-      console.log('MENSAJE ERROR IMAGEN');
-      console.log(mensaje);
       try {
           if (mensaje === undefined) {
               this.showMsgError('El error esta indefinido', titulo);
@@ -36,8 +32,6 @@ export class Utils{
               this.showMsgError(mensaje.error.message, titulo);
           }
       } catch (e) {
-          console.log(e);
-          console.log(mensaje);
           this.showMsgError(JSON.parse(mensaje).message, titulo);
       }
 

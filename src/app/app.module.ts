@@ -13,6 +13,7 @@ import {TokenInterceptorService} from './services/auth/token.interceptor.service
 import {ServiceModule} from './services/service.module';
 import {MenuComponent} from './components/menu/menu.component';
 import {ROUTES} from './app.routes';
+import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import {ROUTES} from './app.routes';
             // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
             apiKey: 'Your_api_key'
         }),
+        LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG})
 
     ],
     schemas: [NO_ERRORS_SCHEMA],

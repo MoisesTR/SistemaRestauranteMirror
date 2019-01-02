@@ -473,6 +473,8 @@ export class AddProductoComponent implements OnInit {
         'codigoInterno': new FormControl(null, [
         ]),
         'codigoProducto': new FormControl('', [
+            CustomValidators.nospaceValidator
+            
         ]),
         'tipoInsumo': new FormControl('', [
             Validators.required

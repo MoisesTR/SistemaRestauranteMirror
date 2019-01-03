@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {ProveedorService} from '../../services/shared/proveedor.service';
-import {TrabajadorService} from '../../services/shared/trabajador.service';
-import {Proveedor} from '../../models/Proveedor';
-import {Trabajador} from '../../models/Trabajador';
+import {ProveedorService} from '@app/services/service.index';
+import {TrabajadorService} from '@app/services/service.index';
+import {Proveedor} from '@app/models/Proveedor';
+import {Trabajador} from '@app/models/Trabajador';
 import {Utils} from '../Utils';
-import {Global} from '../../services/shared/global';
-import {GastoService} from '../../services/service.index';
-import {ProductosTop} from '../../models/ProductosTop';
+import {Global} from '@app/services/shared/global';
+import {GastoService} from '@app/services/service.index';
+import {ProductosTop} from '@app/models/ProductosTop';
 
 declare var $: any;
 

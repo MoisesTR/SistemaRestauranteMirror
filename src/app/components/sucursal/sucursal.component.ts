@@ -1,15 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SucursalService} from '../../services/shared/sucursal.service';
+import {SucursalService, TelefonosucursalService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Sucursal} from '../../models/Sucursal';
+import {Sucursal} from '@app/models/Sucursal';
 import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
-import {idioma_espanol} from '../../services/shared/global';
+import {idioma_espanol} from '@app/services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '../../validadores/CustomValidators';
-import {TelefonosucursalService} from '../../services/shared/telefonosucursal.service';
-import {TelefonoSucursal} from '../../models/TelefonoSucursal';
+import {CustomValidators} from '@app/validadores/CustomValidators';
+import {TelefonoSucursal} from '@app/models/TelefonoSucursal';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

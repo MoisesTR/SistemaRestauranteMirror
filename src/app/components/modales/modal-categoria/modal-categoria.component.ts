@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
+import {CategoriaProductoService} from '@app/services/service.index';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CategoriaProducto} from '../../../models/CategoriaProducto';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
 import {ModalDirective} from 'ng-uikit-pro-standard';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Utils} from '../../Utils';
 

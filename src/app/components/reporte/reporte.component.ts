@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ClasificacionProducto} from '../../models/ClasificacionProducto';
-import {ClasificacionProductoService} from '../../services/shared/clasificacion-producto.service';
-import {ProductoService} from '../../services/shared/producto.service';
-import {Producto} from '../../models/Producto';
-import {Global} from '../../services/shared/global';
-import {ProductoProveedorService, ProveedorService} from '../../services/service.index';
-import {Proveedor} from '../../models/Proveedor';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
+import {ClasificacionProductoService, ProductoProveedorService, ProductoService, ProveedorService} from '@app/services/service.index';
+import {Producto} from '@app/models/Producto';
+import {Global} from '@app/services/shared/global';
+import {Proveedor} from '@app/models/Proveedor';
 import {Utils} from '../Utils';
 
 declare var $: any;

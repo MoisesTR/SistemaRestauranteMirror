@@ -1,17 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Sucursal} from '../../../models/Sucursal';
-import {Trabajador} from '../../../models/Trabajador';
-import {Cargo} from '../../../models/Cargo';
-import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '../../../services/shared/global';
-import {TrabajadorService} from '../../../services/shared/trabajador.service';
-import {CargoService} from '../../../services/shared/cargo.service';
+import {Sucursal} from '@app/models/Sucursal';
+import {Trabajador} from '@app/models/Trabajador';
+import {Cargo} from '@app/models/Cargo';
+import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '@app/services/shared/global';
+import {CargoService, SucursalService, TrabajadorService, UploadService} from '@app/services/service.index';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {UploadService} from '../../../services/shared/upload.service';
-import {SucursalService} from '../../../services/shared/sucursal.service';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {TipoDocumento} from '../../../models/TipoDocumento';
+import {TipoDocumento} from '@app/models/TipoDocumento';
 import {Utils} from '../../Utils';
 import {IMyOptions} from 'ng-uikit-pro-standard';
 

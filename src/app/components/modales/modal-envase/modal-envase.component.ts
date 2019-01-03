@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {EnvaseService} from '../../../services/shared/envase.service';
-import {Envase} from '../../../models/Envase';
+import {EnvaseService} from '@app/services/service.index';
+import {Envase} from '@app/models/Envase';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
 import swal from 'sweetalert2';
 declare var $: any;

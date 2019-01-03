@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
-import {FacturaService} from '../../../services/shared/factura.service';
+import {FacturaService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Factura} from '../../../models/Factura';
-import {idioma_espanol} from '../../../services/shared/global';
-import {Producto} from '../../../models/Producto';
+import {Factura} from '@app/models/Factura';
+import {idioma_espanol} from '@app/services/shared/global';
+import {Producto} from '@app/models/Producto';
 import {Utils} from '../../Utils';
 import {DatePipe} from '@angular/common';
 

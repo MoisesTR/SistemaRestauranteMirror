@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UsuarioService} from "../../../services/shared/usuario.service";
-import {TrabajadorService} from "../../../services/shared/trabajador.service";
-import {Usuario} from "../../../models/Usuario";
+import {UsuarioService} from '@app/services/service.index';
+import {TrabajadorService} from '@app/services/service.index';
+import {Usuario} from '@app/models/Usuario';
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs/Subject";
-import {idioma_espanol} from "../../../services/shared/global";
+import {idioma_espanol} from '@app/services/shared/global';
 import {Utils} from '../../Utils';
 import swal from "sweetalert2";
 

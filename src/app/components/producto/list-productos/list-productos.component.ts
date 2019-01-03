@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ProductoService} from '../../../services/shared/producto.service';
+import {ProductoService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Producto} from '../../../models/Producto';
+import {Producto} from '@app/models/Producto';
 import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
-import {idioma_espanol} from '../../../services/shared/global';
+import {idioma_espanol} from '@app/services/shared/global';
 import {DataTableDirective} from 'angular-datatables';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';

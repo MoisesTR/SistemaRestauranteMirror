@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Global} from './global';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';

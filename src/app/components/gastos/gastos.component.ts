@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GastoService} from '../../services/service.index';
+import {GastoService} from '@app/services/service.index';
 import {Utils} from '../Utils';
-import {SubclasificacionGasto} from '../../models/SubclasificacionGasto';
-import {ClasificacionGasto} from '../../models/ClasificacionGasto';
-import {Gasto} from '../../models/Gasto';
-import {DateUtil} from '../../infraestructura/Util/DateUtil';
+import {SubclasificacionGasto} from '@app/models/SubclasificacionGasto';
+import {ClasificacionGasto} from '@app/models/ClasificacionGasto';
+import {Gasto} from '@app/models/Gasto';
+import {DateUtil} from '@app/infraestructura/Util/DateUtil';
 import swal from 'sweetalert2';
-import {Producto} from '../../models/Producto';
 
 @Component({
   selector: 'app-gastos',

@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Cargo} from '../../models/Cargo';
+import {Cargo} from '@app/models/Cargo';
 import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CargoService} from '../../services/shared/cargo.service';
+import {CargoService} from '@app/services/service.index';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '../../validadores/CustomValidators';
-import {idioma_espanol} from '../../services/shared/global';
+import {CustomValidators} from '@app/validadores/CustomValidators';
+import {idioma_espanol} from '@app/services/shared/global';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

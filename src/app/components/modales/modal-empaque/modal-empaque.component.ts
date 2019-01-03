@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmpaqueService} from '../../../services/shared/empaque.service';
-import {Empaque} from '../../../models/Empaque';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {EmpaqueService} from '@app/services/service.index';
+import {Empaque} from '@app/models/Empaque';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Utils} from '../../Utils';
 

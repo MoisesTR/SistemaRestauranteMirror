@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {EmpaqueService} from '../../services/shared/empaque.service';
-import {Empaque} from '../../models/Empaque';
+import {EmpaqueService} from '@app/services/service.index';
+import {Empaque} from '@app/models/Empaque';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {idioma_espanol} from '../../services/shared/global';
-import {CustomValidators} from '../../validadores/CustomValidators';
+import {idioma_espanol} from '@app/services/shared/global';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

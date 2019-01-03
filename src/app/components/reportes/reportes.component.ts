@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ReporteService} from '../../services/shared/reporte.service';
+import {ReporteService} from '@app/services/service.index';
 
 @Component({
   selector: 'app-reportes',

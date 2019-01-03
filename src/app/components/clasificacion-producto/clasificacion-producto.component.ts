@@ -1,17 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ClasificacionProductoService} from '../../services/shared/clasificacion-producto.service';
+import {CategoriaProductoService, ClasificacionProductoService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ClasificacionProducto} from '../../models/ClasificacionProducto';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {idioma_espanol} from '../../services/shared/global';
-import {CustomValidators} from '../../validadores/CustomValidators';
+import {idioma_espanol} from '@app/services/shared/global';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
-import {CategoriaProductoService} from '../../services/shared/categoria-producto.service';
-import {CategoriaProducto} from '../../models/CategoriaProducto';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
 
 declare var $: any;
 

@@ -1,15 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IMyOptions} from 'ng-uikit-pro-standard';
-import {opcionesDatePicker} from '../../../services/shared/global';
+import {IMyOptions, ModalDirective} from 'ng-uikit-pro-standard';
+import {opcionesDatePicker} from '@app/services/shared/global';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProveedorService} from '../../../services/shared/proveedor.service';
-import {Proveedor} from '../../../models/Proveedor';
+import {FacturaService, ProveedorService} from '@app/services/service.index';
+import {Proveedor} from '@app/models/Proveedor';
 import {Utils} from '../../Utils';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {FacturaService} from '../../../services/shared/factura.service';
-import {Factura} from '../../../models/Factura';
-import {ModalDirective} from 'ng-uikit-pro-standard';
-import {Cambio} from '../../../models/Cambio';
+import {Factura} from '@app/models/Factura';
+import {Cambio} from '@app/models/Cambio';
 
 @Component({
   selector: 'app-busquedafacturas',

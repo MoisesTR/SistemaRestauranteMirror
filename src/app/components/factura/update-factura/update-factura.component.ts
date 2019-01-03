@@ -1,22 +1,17 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IMyOptions} from 'ng-uikit-pro-standard';
-import {Global, opcionesDatePicker} from '../../../services/shared/global';
+import {IMyOptions, ModalDirective} from 'ng-uikit-pro-standard';
+import {Global, opcionesDatePicker} from '@app/services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UsuarioService} from '../../../services/shared/usuario.service';
-import {ProveedorService} from '../../../services/shared/proveedor.service';
-import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
-import {ProductoService} from '../../../services/shared/producto.service';
+import {FacturaService, ProductoProveedorService, ProductoService, ProveedorService, UsuarioService} from '@app/services/service.index';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {FacturaService} from '../../../services/shared/factura.service';
-import {DetalleFactura} from '../../../models/DetalleFactura';
-import {Proveedor} from '../../../models/Proveedor';
-import {Usuario} from '../../../models/Usuario';
-import {Factura} from '../../../models/Factura';
-import {ProductoProveedor} from '../../../models/ProductoProveedor';
-import {ModalDirective} from 'ng-uikit-pro-standard';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {DetalleFactura} from '@app/models/DetalleFactura';
+import {Proveedor} from '@app/models/Proveedor';
+import {Usuario} from '@app/models/Usuario';
+import {Factura} from '@app/models/Factura';
+import {ProductoProveedor} from '@app/models/ProductoProveedor';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
-import {Producto} from '../../../models/Producto';
+import {Producto} from '@app/models/Producto';
 
 @Component({
   selector: 'app-update-factura',

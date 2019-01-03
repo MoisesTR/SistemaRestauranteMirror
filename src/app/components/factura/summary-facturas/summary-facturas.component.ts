@@ -1,12 +1,11 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {ProveedorService} from '../../../services/shared/proveedor.service';
+import {FacturaService, ProveedorService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FacturaService} from '../../../services/service.index';
-import {Proveedor} from '../../../models/Proveedor';
-import {Factura} from '../../../models/Factura';
+import {Proveedor} from '@app/models/Proveedor';
+import {Factura} from '@app/models/Factura';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../Utils';
-import {opcionesDatePicker} from '../../../services/shared/global';
+import {opcionesDatePicker} from '@app/services/shared/global';
 import {IMyOptions} from 'ng-uikit-pro-standard';
 
 @Component({

@@ -7,7 +7,7 @@ export class AlphanumericDirective {
     private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home' ];
 
     constructor(private el: ElementRef) {}
-    private regexAlphanumeric: RegExp = new RegExp(/^[a-zA-Z0-9]*$/g);
+    private regexAlphanumeric: RegExp = new RegExp(/^[a-zA-Z0-9\-]*$/g);
 
     @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent): boolean {
 

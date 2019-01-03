@@ -14,19 +14,19 @@ import {ModalSucursalComponent} from '../modales/modal-sucursal/modal-sucursal.c
 import {ModalProveedorComponent} from '../modales/modal-proveedor/modal-proveedor.component';
 import {ModalSubclasificacionComponent} from '../modales/modal-subclasificacion/modal-subclasificacion.component';
 import {ModalEmpaqueComponent} from '../modales/modal-empaque/modal-empaque.component';
-import {BuscarPipe} from '../../pipe/buscar.pipe';
-import {FormatoComaDineroPipe} from '../../pipe/formato-coma-dinero.pipe';
-import {BuscarTrabajadorPipe} from '../../pipe/buscar-trabajador.pipe';
-import {BuscarProveedorPipe} from '../../pipe/buscar-proveedor.pipe';
+import {BuscarPipe} from '@app/pipe/buscar.pipe';
+import {FormatoComaDineroPipe} from '@app/pipe/formato-coma-dinero.pipe';
+import {BuscarTrabajadorPipe} from '@app/pipe/buscar-trabajador.pipe';
+import {BuscarProveedorPipe} from '@app/pipe/buscar-proveedor.pipe';
 import {ModalClasificacionComponent} from '../modales/modal-clasificacion/modal-clasificacion.component';
 import {MDBBootstrapModulesPro} from 'ng-uikit-pro-standard';
-import {NumberOnlyDirective} from '../../directives/onlynumber.directive';
+import {NumberOnlyDirective} from '@app/directives/onlynumber.directive';
 import {DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {NativeDateTimeAdapter} from 'ng-pick-datetime/date-time/adapter/native-date-time-adapter.class';
 import {Platform} from '@angular/cdk/platform';
-import {BuscarProductoNombrePipe} from '../../pipe/buscar-nombre-producto.pipe';
-import {NumberDirective} from '../../directives/onlypositivenumber.directive';
-import {AlphanumericDirective} from '../../directives/alphanumeric.directive';
+import {BuscarProductoNombrePipe} from '@app/pipe/buscar-nombre-producto.pipe';
+import {NumberDirective} from '@app/directives/onlypositivenumber.directive';
+import {AlphanumericDirective} from '@app/directives/alphanumeric.directive';
 
 @NgModule({
   imports: [

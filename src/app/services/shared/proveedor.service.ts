@@ -3,7 +3,7 @@ import {Global} from './global';
 import 'rxjs/add/operator/map';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {TelefonoProveedor} from '../../models/TelefonoProveedor';
+import {TelefonoProveedor} from '@app/models/TelefonoProveedor';
 
 @Injectable()
 export class ProveedorService {

@@ -1,14 +1,13 @@
 import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CategoriaProducto} from '../../../models/CategoriaProducto';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
-import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
+import {CategoriaProductoService, ClasificacionProductoService} from '@app/services/service.index';
 import swal from 'sweetalert2';
 import {Utils} from '../../Utils';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 
 @Component({
   selector: 'modal-clasificacion',

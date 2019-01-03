@@ -1,32 +1,34 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import swal from 'sweetalert2';
-import {Proveedor} from '../../../models/Proveedor';
+import {Proveedor} from '@app/models/Proveedor';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
-import {CategoriaProducto} from '../../../models/CategoriaProducto';
-import {Envase} from '../../../models/Envase';
-import {UploadService} from '../../../services/shared/upload.service';
-import {CARPETA_PRODUCTOS, Global} from '../../../services/shared/global';
-import {Producto} from '../../../models/Producto';
+import {
+    CategoriaProductoService,
+    ClasificacionProductoService,
+    EmpaqueService,
+    EnvaseService,
+    PreviousRouteService,
+    ProductoProveedorService,
+    ProductoService,
+    ProveedorService,
+    SubClasificacionProductoService,
+    UnidadMedidaService,
+    UploadService
+} from '@app/services/service.index';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
+import {Envase} from '@app/models/Envase';
+import {CARPETA_PRODUCTOS, Global} from '@app/services/shared/global';
+import {Producto} from '@app/models/Producto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
-import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
-import {SubClasificacionProductoService} from '../../../services/shared/sub-clasificacion-producto.service';
-import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto';
-import {ProductoService} from '../../../services/shared/producto.service';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
+import {SubClasificacionProducto} from '@app/models/SubClasificacionProducto';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
-import {EmpaqueService} from '../../../services/shared/empaque.service';
-import {EnvaseService} from '../../../services/shared/envase.service';
-import {Empaque} from '../../../models/Empaque';
-import {UnidadMedida} from '../../../models/UnidadMedida';
-import {UnidadMedidaService} from '../../../services/shared/unidad-medida.service';
-import {ProveedorService} from '../../../services/shared/proveedor.service';
-import {ProductoProveedor} from '../../../models/ProductoProveedor';
-import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
+import {Empaque} from '@app/models/Empaque';
+import {UnidadMedida} from '@app/models/UnidadMedida';
+import {ProductoProveedor} from '@app/models/ProductoProveedor';
 import {SelectComponent} from 'ng-uikit-pro-standard';
-import {MsgError} from '../../../infraestructura/Util/MsgError';
-import {PreviousRouteService} from '../../../services/service.index';
+import {MsgError} from '@app/infraestructura/Util/MsgError';
 
 declare var $: any;
 

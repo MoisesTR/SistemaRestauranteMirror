@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs/Subject';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TrabajadorService} from '../../../services/shared/trabajador.service';
-import {idioma_espanol} from '../../../services/shared/global';
-import {Trabajador} from '../../../models/Trabajador';
+import {TrabajadorService} from '@app/services/service.index';
+import {idioma_espanol} from '@app/services/shared/global';
+import {Trabajador} from '@app/models/Trabajador';
 import swal from 'sweetalert2';
 import {Utils} from '../../Utils';
 

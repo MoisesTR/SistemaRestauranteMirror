@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {EnvaseService} from '../../services/shared/envase.service';
+import {EnvaseService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import {idioma_espanol} from '../../services/shared/global';
-import {Envase} from '../../models/Envase';
+import {idioma_espanol} from '@app/services/shared/global';
+import {Envase} from '@app/models/Envase';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 declare var $: any;

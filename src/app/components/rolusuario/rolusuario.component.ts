@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {RolUsuario} from '../../models/RolUsuario';
-import {RolusuarioService} from '../../services/shared/rolusuario.service';
+import {RolUsuario} from '@app/models/RolUsuario';
+import {RolusuarioService} from '@app/services/service.index';
 import {Subject} from 'rxjs/Subject';
-import {idioma_espanol} from '../../services/shared/global';
+import {idioma_espanol} from '@app/services/shared/global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

@@ -1,14 +1,13 @@
 import {AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProveedorService} from '../../../services/shared/proveedor.service';
+import {PreviousRouteService, ProveedorService} from '@app/services/service.index';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Proveedor} from '../../../models/Proveedor';
+import {Proveedor} from '@app/models/Proveedor';
 import swal from 'sweetalert2';
 import {Utils} from '../../Utils';
-import {CustomValidators} from '../../../validadores/CustomValidators';
-import {PreviousRouteService} from '../../../services/service.index';
-import {TelefonoProveedor} from '../../../models/TelefonoProveedor';
-import {ModalDirective, CheckboxModule, WavesModule, ButtonsModule} from 'ng-uikit-pro-standard';
+import {CustomValidators} from '@app/validadores/CustomValidators';
+import {TelefonoProveedor} from '@app/models/TelefonoProveedor';
+import {ModalDirective} from 'ng-uikit-pro-standard';
 
 
 declare var $: any;

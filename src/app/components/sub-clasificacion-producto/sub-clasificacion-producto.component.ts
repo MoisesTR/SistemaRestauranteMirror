@@ -1,15 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SubClasificacionProductoService} from '../../services/shared/sub-clasificacion-producto.service';
+import {ClasificacionProductoService, SubClasificacionProductoService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SubClasificacionProducto} from '../../models/SubClasificacionProducto';
+import {SubClasificacionProducto} from '@app/models/SubClasificacionProducto';
 import {Subject} from 'rxjs';
-import {idioma_espanol} from '../../services/shared/global';
+import {idioma_espanol} from '@app/services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '../../validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {ClasificacionProductoService} from '../../services/shared/clasificacion-producto.service';
-import {ClasificacionProducto} from '../../models/ClasificacionProducto';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

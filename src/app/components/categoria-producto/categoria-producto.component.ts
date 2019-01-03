@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CategoriaProductoService} from '../../services/shared/categoria-producto.service';
+import {CategoriaProductoService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CategoriaProducto} from '../../models/CategoriaProducto';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
 import {Subject} from 'rxjs';
-import {idioma_espanol} from '../../services/shared/global';
+import {idioma_espanol} from '@app/services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {Utils} from '../Utils';
 

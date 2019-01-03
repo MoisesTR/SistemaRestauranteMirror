@@ -1,19 +1,15 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProductoService} from '../../../services/shared/producto.service';
-import {Proveedor} from '../../../models/Proveedor';
-import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
+import {FacturaService, ProductoProveedorService, ProductoService, ProveedorService, UploadService, UsuarioService} from '@app/services/service.index';
+import {Proveedor} from '@app/models/Proveedor';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CARPETA_FACTURA, Global} from '../../../services/shared/global';
+import {CARPETA_FACTURA, Global} from '@app/services/shared/global';
 import {ModalDirective, ToastService} from 'ng-uikit-pro-standard';
-import {Usuario} from '../../../models/Usuario';
-import {UsuarioService} from '../../../services/shared/usuario.service';
-import {Factura} from '../../../models/Factura';
-import {FacturaService} from '../../../services/shared/factura.service';
+import {Usuario} from '@app/models/Usuario';
+import {Factura} from '@app/models/Factura';
 import {Utils} from '../../Utils';
-import {DetalleFactura} from '../../../models/DetalleFactura';
-import {ProductoFactura} from '../../../models/ProductoFactura';
-import {ProveedorService, UploadService} from '../../../services/service.index';
+import {DetalleFactura} from '@app/models/DetalleFactura';
+import {ProductoFactura} from '@app/models/ProductoFactura';
 import swal from 'sweetalert2';
 
 declare var $: any;

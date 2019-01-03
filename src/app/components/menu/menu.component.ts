@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Usuario} from '../../models/Usuario';
-import {UsuarioService} from '../../services/shared/usuario.service';
+import {Usuario} from '@app/models/Usuario';
+import {UsuarioService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Global} from '../../services/shared/global';
-import {MenuService} from '../../services/shared/menu-service';
-import {Menu} from '../../models/Menu';
+import {Global} from '@app/services/shared/global';
+import {MenuService} from '@app/services/service.index';
+import {Menu} from '@app/models/Menu';
 
 @Component({
   selector: 'app-menu',

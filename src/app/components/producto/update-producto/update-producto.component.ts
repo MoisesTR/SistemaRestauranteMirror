@@ -1,30 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Proveedor} from '../../../models/Proveedor';
-import {Producto} from '../../../models/Producto';
-import {CategoriaProducto} from '../../../models/CategoriaProducto';
-import {Envase} from '../../../models/Envase';
-import {UnidadMedida} from '../../../models/UnidadMedida';
-import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
-import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto';
+import {Proveedor} from '@app/models/Proveedor';
+import {Producto} from '@app/models/Producto';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
+import {Envase} from '@app/models/Envase';
+import {UnidadMedida} from '@app/models/UnidadMedida';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
+import {SubClasificacionProducto} from '@app/models/SubClasificacionProducto';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {UploadService} from '../../../services/shared/upload.service';
-import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
-import {ProductoService} from '../../../services/shared/producto.service';
-import {CARPETA_PRODUCTOS, Global} from '../../../services/shared/global';
-import {SubClasificacionProductoService} from '../../../services/shared/sub-clasificacion-producto.service';
-import {CategoriaProductoService} from '../../../services/shared/categoria-producto.service';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {
+    CategoriaProductoService,
+    ClasificacionProductoService,
+    DeleteImageService,
+    EmpaqueService,
+    EnvaseService,
+    ProductoProveedorService,
+    ProductoService,
+    ProveedorService,
+    SubClasificacionProductoService,
+    UnidadMedidaService,
+    UploadService
+} from '@app/services/service.index';
+import {CARPETA_PRODUCTOS, Global} from '@app/services/shared/global';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
-import {DeleteImageService} from '../../../services/shared/delete-image-service';
-import {ProductoProveedor} from '../../../models/ProductoProveedor';
-import {ProveedorService} from '../../../services/shared/proveedor.service';
-import {EmpaqueService} from '../../../services/shared/empaque.service';
-import {EnvaseService} from '../../../services/shared/envase.service';
-import {UnidadMedidaService} from '../../../services/shared/unidad-medida.service';
-import {Empaque} from '../../../models/Empaque';
-import {ProductoProveedorService} from '../../../services/shared/producto-proveedor.service';
-import swal from 'sweetalert2';
+import {ProductoProveedor} from '@app/models/ProductoProveedor';
+import {Empaque} from '@app/models/Empaque';
 
 declare var $: any;
 @Component({

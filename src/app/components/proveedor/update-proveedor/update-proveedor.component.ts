@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Proveedor} from '../../../models/Proveedor';
+import {Proveedor} from '@app/models/Proveedor';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ProveedorService} from '../../../services/shared/proveedor.service';
+import {ProveedorService} from '@app/services/service.index';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

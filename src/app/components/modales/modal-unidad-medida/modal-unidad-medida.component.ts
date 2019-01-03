@@ -1,15 +1,14 @@
 import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {UnidadMedidaService} from '../../../services/shared/unidad-medida.service';
-import {UnidadMedida} from '../../../models/UnidadMedida';
+import {ClasificacionProductoService, ClasificacionUnidadMedidaService, UnidadMedidaService} from '@app/services/service.index';
+import {UnidadMedida} from '@app/models/UnidadMedida';
 import {ModalDirective} from 'ng-uikit-pro-standard';
-import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
-import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
-import {ClasificacionUnidadMedidaService} from '../../../services/shared/clasificacion-unidad-medida.service';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
 import swal from 'sweetalert2';
-import {ClasificacionUnidadDeMedida} from '../../../models/ClasificacionUnidadDeMedida';
+import {ClasificacionUnidadDeMedida} from '@app/models/ClasificacionUnidadDeMedida';
+
 declare var $: any;
 
 @Component({

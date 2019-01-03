@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {IMyOptions} from 'ng-uikit-pro-standard';
-import {opcionesDatePicker} from '../../../services/shared/global';
-import {FacturaService, ProveedorService} from '../../../services/service.index';
+import {opcionesDatePicker} from '@app/services/shared/global';
+import {FacturaService, ProveedorService} from '@app/services/service.index';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Factura} from '../../../models/Factura';
+import {Factura} from '@app/models/Factura';
 import {Utils} from '../../Utils';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Proveedor} from '../../../models/Proveedor';
+import {Proveedor} from '@app/models/Proveedor';
 
 @Component({
   selector: 'app-show-factura',

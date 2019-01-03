@@ -1,18 +1,18 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
-import {Trabajador} from '../../../models/Trabajador';
+import {Trabajador} from '@app/models/Trabajador';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TrabajadorService} from '../../../services/shared/trabajador.service';
+import {TrabajadorService} from '@app/services/shared/trabajador.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SucursalService} from '../../../services/shared/sucursal.service';
-import {Sucursal} from '../../../models/Sucursal';
-import {CargoService} from '../../../services/shared/cargo.service';
-import {Cargo} from '../../../models/Cargo';
+import {SucursalService} from '@app/services/shared/sucursal.service';
+import {Sucursal} from '@app/models/Sucursal';
+import {CargoService} from '@app/services/shared/cargo.service';
+import {Cargo} from '@app/models/Cargo';
 import swal from 'sweetalert2';
-import {UploadService} from '../../../services/shared/upload.service';
-import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '../../../services/shared/global';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {UploadService} from '@app/services/shared/upload.service';
+import {CARPETA_TRABAJADORES, Global, opcionesDatePicker} from '@app/services/shared/global';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
-import {TipoDocumento} from '../../../models/TipoDocumento';
+import {TipoDocumento} from '@app/models/TipoDocumento';
 import {IMyOptions, ModalDirective} from 'ng-uikit-pro-standard';
 
 declare var $: any;

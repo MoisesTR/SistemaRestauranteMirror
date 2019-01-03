@@ -1,11 +1,10 @@
 import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {SubClasificacionProducto} from '../../../models/SubClasificacionProducto';
-import {ClasificacionProducto} from '../../../models/ClasificacionProducto';
+import {SubClasificacionProducto} from '@app/models/SubClasificacionProducto';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SubClasificacionProductoService} from '../../../services/shared/sub-clasificacion-producto.service';
-import {ClasificacionProductoService} from '../../../services/shared/clasificacion-producto.service';
-import {CustomValidators} from '../../../validadores/CustomValidators';
+import {ClasificacionProductoService, SubClasificacionProductoService} from '@app/services/service.index';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import swal from 'sweetalert2';
 import {Utils} from '../../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';

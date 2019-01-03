@@ -1,17 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {UnidadMedida} from '../../models/UnidadMedida';
-import {UnidadMedidaService} from '../../services/shared/unidad-medida.service';
+import {UnidadMedida} from '@app/models/UnidadMedida';
+import {ClasificacionProductoService, ClasificacionUnidadMedidaService, UnidadMedidaService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import {idioma_espanol} from '../../services/shared/global';
+import {idioma_espanol} from '@app/services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '../../validadores/CustomValidators';
-import {ClasificacionProducto} from '../../models/ClasificacionProducto';
-import {ClasificacionProductoService} from '../../services/shared/clasificacion-producto.service';
-import {ClasificacionUnidadMedidaService} from '../../services/shared/clasificacion-unidad-medida.service';
-import {ClasificacionUnidadDeMedida} from '../../models/ClasificacionUnidadDeMedida';
+import {CustomValidators} from '@app/validadores/CustomValidators';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
+import {ClasificacionUnidadDeMedida} from '@app/models/ClasificacionUnidadDeMedida';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

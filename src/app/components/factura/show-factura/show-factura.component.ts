@@ -7,7 +7,6 @@ import {Factura} from '../../../models/Factura';
 import {Utils} from '../../Utils';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Proveedor} from '../../../models/Proveedor';
-import {WindowRef} from '@agm/core/utils/browser-globals';
 
 @Component({
   selector: 'app-show-factura',
@@ -43,12 +42,10 @@ export class ShowFacturaComponent implements OnInit {
       , private _facturaService: FacturaService
       , private _proveedorService: ProveedorService
       , private _formBuilderFactura: FormBuilder
-      , private winRef: WindowRef
   ) {
       this.factura = new Factura();
       this.IdMonedaSeleccionada = 1;
       this.IdFormaPagoSeleccionado = 1;
-      this.nativeWindow = winRef.getNativeWindow();
   }
 
   ngOnInit() {
@@ -125,10 +122,6 @@ export class ShowFacturaComponent implements OnInit {
               Utils.showMsgError(Utils.msgError(error), 'Mostrar Factura');
           }
       );
-  }
-
-  imprimirFactura() {
-      Utils.printReportFactura('H1C5H9wDX', true, 'getFactura', this.factura.IdFactura, 2, this.nativeWindow);
   }
 
 }

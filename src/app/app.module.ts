@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-import {AgmCoreModule} from '@agm/core';
 import {AppComponent} from './app.component';
 import {PreloadAllModules, RouterModule} from '@angular/router';
 import {SharedModule} from './components/shared-module/shared.module';
@@ -30,11 +29,7 @@ import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
         , ServiceModule
         , MDBBootstrapModulesPro.forRoot()
         , ToastModule.forRoot({maxOpened: 1, timeOut: 2000, preventDuplicates: true})
-        , AgmCoreModule.forRoot({
-            // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
-            apiKey: 'Your_api_key'
-        }),
-        LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG})
+        , LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG})
 
     ],
     schemas: [NO_ERRORS_SCHEMA],

@@ -237,13 +237,15 @@
 
                                     <td class="text-center align-middle col-xs-1">
                                         <div class="switch chang-switch">
-                                            <label>
+                                            <div class=" form-inline form-check">
+                                                <label>
                                                 <mdb-icon icon="money"></mdb-icon>
                                                 <input (change)="changeTipoDescuento($event, producto)" [(ngModel)]="producto.IsDescuentoPorcentual"
-                                                    type="checkbox">
+                                                        type="checkbox">
                                                 <span class="lever"></span>
                                                 <mdb-icon icon="percent"></mdb-icon>
-                                            </label>
+                                                </label>    
+                                            </div>
                                         </div>
                                     </td>
 

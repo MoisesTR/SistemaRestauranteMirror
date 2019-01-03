@@ -263,6 +263,11 @@ export class AddfacturaComponent implements OnInit {
         return null;
     }
 
+    deshabilitarCampos(){
+        
+        return this.formAddFactura.controls['proveedor'].value?null:true;
+    }
+
     mostrarProducto(producto: ProductoFactura) {
         this.productoSeleccionado = producto;
         if (this.productoSeleccionado.Imagen === '') {

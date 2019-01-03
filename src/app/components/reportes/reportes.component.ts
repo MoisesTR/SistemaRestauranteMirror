@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ReporteService} from '../../services/shared/reporte.service';
-import {WindowRef} from '@agm/core/utils/browser-globals';
-import {Utils} from '../Utils';
 
 @Component({
   selector: 'app-reportes',
@@ -13,9 +11,7 @@ export class ReportesComponent implements OnInit {
   nativeWindow: any;
   constructor(
       private _reporteService: ReporteService,
-      private winRef: WindowRef
   ) {
-      this.nativeWindow = winRef.getNativeWindow();
   }
 
   ngOnInit() {
@@ -28,7 +24,7 @@ export class ReportesComponent implements OnInit {
   }
 
   imprimirReporteProveedores () {
-      Utils.printReport('BkZfjOAUQ', true, 'proveedores', this.nativeWindow);
+
   }
 
 }

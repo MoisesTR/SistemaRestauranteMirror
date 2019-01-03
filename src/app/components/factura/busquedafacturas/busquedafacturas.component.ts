@@ -10,7 +10,6 @@ import {FacturaService} from '../../../services/shared/factura.service';
 import {Factura} from '../../../models/Factura';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {Cambio} from '../../../models/Cambio';
-import {WindowRef} from '@agm/core/utils/browser-globals';
 
 @Component({
   selector: 'app-busquedafacturas',
@@ -37,10 +36,8 @@ export class BusquedafacturasComponent implements OnInit {
       , private _proveedorService: ProveedorService
       , private _formBuilderBusquedaFactura: FormBuilder
       , private _facturaService: FacturaService
-      , private winRef: WindowRef
   ) {
     this.getProveedores();
-    this.nativeWindow = winRef.getNativeWindow();
   }
 
   ngOnInit() {
@@ -130,7 +127,7 @@ export class BusquedafacturasComponent implements OnInit {
   }
 
   imprimirFactura(idFactura) {
-      Utils.printReportFactura('H1C5H9wDX', true, 'getFactura', idFactura, 2, this.nativeWindow);
+
   }
 
 }

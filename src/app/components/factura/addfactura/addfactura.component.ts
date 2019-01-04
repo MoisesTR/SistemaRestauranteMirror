@@ -12,6 +12,7 @@ import {DetalleFactura} from '@app/models/DetalleFactura';
 import {ProductoFactura} from '@app/models/ProductoFactura';
 import swal from 'sweetalert2';
 
+
 declare var $: any;
 
 @Component({
@@ -59,6 +60,7 @@ export class AddfacturaComponent implements OnInit {
     public deshabilitarDescuentoXItem = false;
     public descuentoGlobalHabilitado = false;
     public EstadoCheckTipoDescuento:boolean = true;
+    public SeleccionarFechaFactura = new Date();
    
 
     Moneda = [
@@ -611,8 +613,6 @@ export class AddfacturaComponent implements OnInit {
        
     }
 
-    
-
     showSuccess() {
         const options = { enableHtml: false,  positionClass: 'toast-top-right', toastClass: 'opacity'};
         this.toastrService.success('El producto ha sido agregado a la factura', 'Factura', options);
@@ -621,6 +621,12 @@ export class AddfacturaComponent implements OnInit {
     showActualizacionProductos(nuevos: number) {
         const options = { enableHtml: false,  positionClass: 'toast-top-right', toastClass: 'opacity'};
         this.toastrService.success('Se han encontrado un total de: ' + nuevos + ' productos nuevos!', 'Factura', options);
+    }
+
+
+    ingresoFechaRecepcion(evento){
+
+        this.SeleccionarFechaFactura = evento;
     }
 
     trackById(index, producto: ProductoFactura) {

@@ -119,10 +119,10 @@ export class AddfacturaComponent implements OnInit {
     initFormDetailProductoFactura() {
         this.formEditarDetalleProducto = this._formBuilderFactura.group({
             'cantidadProducto': new FormControl('', [
-                Validators.required
+                Validators.required         
             ]),
             'precioProducto': new FormControl('', [
-                Validators.required
+                Validators.required,
             ]),
             'descuentoTotalProducto': new FormControl(0, []),
             'gravadoIva': new FormControl(1, []) ,

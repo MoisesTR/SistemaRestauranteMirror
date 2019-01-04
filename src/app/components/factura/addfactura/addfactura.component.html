@@ -215,7 +215,7 @@
                                             <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Cantidad"
                                                 (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
                                                 type="text" name="cantidadProducto" onlyNumbers="decimal" min="0" class="input-modal-sm"
-                                                style="width: 60% !important;">
+                                                style="width: 60% !important;" maxlength="7"> 
                                         </div>
                                     </td>
                                     <td class="col-xs-1">
@@ -223,7 +223,7 @@
                                             <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Costo"
                                                 (input)="onSearchChangePrecioProducto($event.target.value,producto)"
                                                 name="precioProducto" class="input-modal-sm" onlyNumbers="decimal"
-                                                style="width: 60% !important;">
+                                                style="width: 60% !important;" maxlength="7">
                                         </div>
                                     </td>
                                     <td class="col-xs-1">

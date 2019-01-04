@@ -35,12 +35,12 @@
                 </div>
 
                 <div class="col-4 col-sm-4 col-md-4 mt-5 col-lg-2 col-xl-2">
-                  <mdb-checkbox><label class="grey-text-card">Mercado</label></mdb-checkbox>
+                  <mdb-checkbox class="checkbox-chang-filled" formControlName="isMercado" (change)="changeMercado($event)"><label class="grey-text-card">Mercado</label></mdb-checkbox>
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante"
+                    <input Alphanumeric [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante"
                       class="form-control letras" autocomplete="off">
                     <show-errors [control]="formAddProveedor.controls['nombreRepresentante']"></show-errors>
                     <label for="nombreRepresentante">Nombre Representante</label>
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 mt-4">
-                  <a mdbBtn role="button" class="orange-chang mb-1 btn-sm white-text" mdbPageScroll href="#agenda-proveedores"
+                  <a tabindex="-1" mdbBtn role="button" class="orange-chang mb-1 btn-sm white-text" mdbPageScroll href="#agenda-proveedores"
                     [pageScrollDuration]="750" mdbWavesEffect>
                     Teléfonos<mdb-icon icon="phone" class="ml-1"></mdb-icon>
                   </a>
@@ -84,7 +84,7 @@
               </div>
 
               <div class="text-center mt-3">
-                <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProveedor.valid"
+                <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProveedor.valid && !peticionEnCurso"
                   mdbWavesEffect>Ingresar<mdb-icon icon="check" class="ml-1"></mdb-icon></button>
               </div>
 
@@ -107,7 +107,7 @@
 
         <mdb-card-body cascade="true">
 
-          <form [formGroup]="formAddTelefonos" (ngSubmit)="agregarTelefonosProveedor()" novalidate>
+          <form [formGroup]="formAddTelefonos" novalidate>
 
             <div class="container d-none d-lg-block d-xl-block" id="mg-labels">
               <div class="row">
@@ -153,7 +153,7 @@
 
             <hr class="d-none d-lg-block d-xl-block mt-4">
 
-            <fieldset *ngFor="let telefono of telefonos; let i = index;" class="mb-fieldset">
+            <fieldset *ngFor="let telefono of contactos; let i = index;" class="mb-fieldset">
 
               <div class="container">
 
@@ -162,23 +162,23 @@
                   <div class="col-md-12 col-lg-3">
                     <div class="md-form">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Nombre</h6>
-                      <input type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Nombre"
-                        class="input-modal-sm">
+                      <input maxlength="40" type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Nombre"
+                        class="input-modal-sm letras">
                     </div>
                   </div>
 
                   <div class="col-md-12 col-lg-2">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Cargo</h6>
-                      <input type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
-                        class="input-modal-sm">
+                      <input maxlength="30" type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"
+                        class="input-modal-sm letras">
                     </div>
                   </div>
 
                   <div class="col-md-6 col-lg-2 mr-0">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Télefono</h6>
-                      <input type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
+                      <input maxlength="8" min type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
                         [(ngModel)]="telefono.Telefono" class="input-modal-sm">
                     </div>
                   </div>
@@ -186,7 +186,7 @@
                   <div class="col-md-6 col-lg-2 mr-0">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Extensión</h6>
-                      <input type="text" [(ngModel)]="telefono.Extension" [ngModelOptions]="{standalone: true}" onlyNumbers="int" id="ext{{i}}" class="input-modal-sm">
+                      <input maxlength="3" type="text" onlyNumbers="int" [(ngModel)]="telefono.Extension" [ngModelOptions]="{standalone: true}" onlyNumbers="int" id="ext{{i}}" class="input-modal-sm">
                     </div>
                   </div>
 
@@ -201,16 +201,16 @@
                     </div>
                   </div>
 
-                  <div *ngIf="i !== 0" class="col-3 col-sm-3 col-md-3 col-lg-1 text-center">
+                  <div *ngIf="contactos.length > 1" class="col-3 col-sm-3 col-md-3 col-lg-1 text-center">
                     <div class="md-form">
-                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-2" *ngIf="i!==0">Eliminar</h6>
+                      <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-2">Eliminar</h6>
                       <a class="btn red-chang white-text btn-sm mb-5 ml-2" id="remove" (click)="eliminarTelefono(telefono,i)"
-                        mdbTooltip="Eliminar Telefóno" placement="bottom" role="button"><i class="fa fa-close"
+                        mdbTooltip="{{i === 0 ? 'Eliminar todo' : 'Eliminar telefono'}}" placement="bottom" role="button"><i class="fa fa-close"
                           aria-hidden="true"></i></a>
                     </div>
                   </div>
 
-                  <div *ngIf="i === (telefonos.length - 1)" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2 text-center':'col-3 col-sm-3 col-md-3 col-lg-1'">
+                  <div *ngIf="i ===(contactos.length - 1)" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2 text-center':'col-3 col-sm-3 col-md-3 col-lg-1'">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-3 text-nowrap">Agregar</h6>
                       <a class="btn white-text btn-sm mb-5 orange-chang" id="add" (click)="agregarTelefono(telefono,i)"

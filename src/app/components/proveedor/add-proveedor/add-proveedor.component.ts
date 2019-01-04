@@ -9,7 +9,6 @@ import {CustomValidators} from '@app/validadores/CustomValidators';
 import {TelefonoProveedor} from '@app/models/TelefonoProveedor';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 
-
 declare var $: any;
 
 @Component({
@@ -18,17 +17,19 @@ declare var $: any;
   styleUrls: ['./add-proveedor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('modalTelefonos') modalTelefonos: ModalDirective;
+
   public proveedor: Proveedor;
   public tituloPantalla = 'Proveedor';
   formAddProveedor: FormGroup;
   previousUrl: string;
-  public telefonos: TelefonoProveedor[];
+  public contactos: TelefonoProveedor[];
   public telefonoRequerido: TelefonoProveedor;
   public formAddTelefonos: FormGroup;
-  public telefonoIngresado = false;
+  public peticionEnCurso = false;
 
   constructor(
       private _route: ActivatedRoute
@@ -43,16 +44,16 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       this.previousUrl = this.previousRouteService.getPreviousUrl();
       this.proveedor = new Proveedor();
       this.telefonoRequerido = new TelefonoProveedor();
-      this.telefonos = [];
-      this.telefonos.push(this.telefonoRequerido);
+      this.contactos = [];
+      this.contactos.push(this.telefonoRequerido);
 
       $(document).ready(function() {
 
           $('.letras').keypress(function (key) {
               if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
                   && (key.charCode < 65 || key.charCode > 90) // letras minusculas
-                  && (key.charCode !== 45) // retroceso
-                  && (key.charCode !== 46) // retroceso
+                  && (key.charCode !== 45) // .
+                  && (key.charCode !== 46) // -
                   && (key.charCode !== 241) // ñ
                   && (key.charCode !== 209) // Ñ
                   && (key.charCode !== 32) // espacio
@@ -73,7 +74,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
           });
       });
 
-
       this.initFormAdd();
       this.initFormTelefonos();
   }
@@ -83,50 +83,55 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   }
 
   agregarTelefono() {
-      if (this.telefonosValidos()) {
+      if (this.validarAgregarNuevoTelefonoFormulario()) {
           const telefonoProveedor: TelefonoProveedor = new TelefonoProveedor();
-          this.telefonos.push(telefonoProveedor);
-      } else {
-          Utils.showMsgInfo('Completa correctamente el formulario de telefonos');
+          this.contactos.push(telefonoProveedor);
       }
   }
 
   createProveedor() {
-      this.agregarTelefonosProveedor();
-      if (this.telefonoIngresado) {
-          this.capturarDadosProveedor();
+      this.peticionEnCurso = false;
+
+      if (this.validarTelefonos()) {
+          this.getDatosProveedor();
           this._proveedorService.createProveedor(this.proveedor).subscribe(
               response => {
                   if (response.IdProveedor) {
-                      this.telefonos.forEach( (value, index) => {
+                      this.contactos.forEach( (value, index) => {
                           value.IdProveedor = response.IdProveedor;
                            this.createTelefonoProveedor(value);
                       });
-                      swal(
-                          'Proveedor',
-                          'El proveedor ha sido creado exitosamente!',
-                          'success'
-                      ).then(() => {
-                          this.formAddProveedor.reset();
-                          this.proveedor = new Proveedor();
-                          if (this.previousUrl === '/factura/add') {
-                              this._router.navigate(['/producto/add']);
-                          } else if (this.previousUrl === '/producto/add') {
-                              this._router.navigate([this.previousUrl]);
-                          } else {
-                              this._router.navigate(['/proveedor']);
-                          }
-                      });
+                    this.mensajeCreacionProveedor();
                   } else {
                       Utils.showMsgInfo('Ha ocurrido un error al insertar el proveedor, intentalo nuevamente', this.tituloPantalla);
                   }
               }, error => {
                   Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+              }, () => {
+                  this.peticionEnCurso = false;
               }
           );
       } else {
-        Utils.showMsgInfo('Debes registrar al menos un telefono al proveedor');
+        this.peticionEnCurso = false;
       }
+  }
+
+  mensajeCreacionProveedor() {
+      swal(
+          'Proveedor',
+          'El proveedor ha sido creado exitosamente!',
+          'success'
+      ).then(() => {
+          this.formAddProveedor.reset();
+          this.proveedor = new Proveedor();
+          if (this.previousUrl === '/factura/add') {
+              this._router.navigate(['/producto/add']);
+          } else if (this.previousUrl === '/producto/add') {
+              this._router.navigate([this.previousUrl]);
+          } else {
+              this._router.navigate(['/proveedor']);
+          }
+      });
   }
 
   createTelefonoProveedor(telefono: TelefonoProveedor) {
@@ -144,7 +149,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       );
   }
 
-  capturarDadosProveedor() {
+  getDatosProveedor() {
       this.proveedor.NombreProveedor = this.formAddProveedor.value.nombreProveedor;
       this.proveedor.NombreRepresentante = this.formAddProveedor.value.nombreRepresentante;
       this.proveedor.Descripcion = this.formAddProveedor.value.descripcionProveedor;
@@ -199,30 +204,63 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
       this.formAddTelefonos = this._formBuilderProveedor.group({});
   }
 
-  agregarTelefonosProveedor() {
-      if (!this.telefonosValidos()) {
-          Utils.showMsgInfo('Completa correctamente el formulario de telefonos');
+  validarTelefonos() {
+      let valido = true;
+      let indiceNoValido = 0;
+
+      this.contactos.forEach( (value , index) => {
+          this.contactos[index].Titular = value.IsTitular === true ? 1 : 0;
+          if (!Utils.valorCampoEsValido(value.Telefono) || !Utils.valorCampoEsValido(value.Cargo) || !Utils.valorCampoEsValido(value.Nombre)) {
+              valido = false;
+              indiceNoValido = index;
+          }
+      });
+
+      if (!valido) {
+          if (indiceNoValido === 0) {
+              Utils.showMsgInfo('Debes registrar al menos un contacto telefonico válido!');
+              return false;
+          } else {
+              Utils.showMsgInfo('Debes registrar todas las filas de contactos agregadas al formulario correctamente!');
+              return false;
+          }
       }
+
+      return true;
   }
 
-  telefonosValidos() {
+  validarAgregarNuevoTelefonoFormulario() {
       let valido = true;
-      this.telefonos.forEach( (value , index) => {
-          this.telefonos[index].Titular = value.IsTitular === true ? 1 : 0;
+
+      this.contactos.forEach( (value , index) => {
+          this.contactos[index].Titular = value.IsTitular === true ? 1 : 0;
           if (!Utils.valorCampoEsValido(value.Telefono) || !Utils.valorCampoEsValido(value.Cargo) || !Utils.valorCampoEsValido(value.Nombre)) {
               valido = false;
           }
       });
-      this.telefonoIngresado = valido;
-      return valido;
+
+      if (!valido) {
+          Utils.showMsgInfo('Debes registrar todas las filas de contactos agregadas al formulario correctamente!');
+          return false;
+      }
+
+      return true;
   }
 
-  eliminarTelefono (telefono: TelefonoProveedor, index: any) {
-      this.telefonos.splice(index, 1);
+  eliminarTelefono (telefono: TelefonoProveedor, indice: any) {
+      // Si es el primer registro, elimina todos los contactos a excepcion de el mismo
+      if (indice === 0 && this.contactos.length > 1) {
+          let telefonoProveedor = this.contactos[0];
+          this.contactos = [];
+          this.contactos.push(telefonoProveedor);
+      } else {
+          this.contactos.splice(indice, 1);
+      }
   }
 
   changeMercado(event) {
-        const isMercado = event.path[0].checked === true ? 1 : 0;
+
+        const isMercado = event.checked;
 
         if (isMercado) {
             this.formAddProveedor.controls['numeroRuc'].clearValidators();

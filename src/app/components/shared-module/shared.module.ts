@@ -28,7 +28,7 @@ import {BuscarProductoNombrePipe} from '@app/pipe/buscar-nombre-producto.pipe';
 import {NumberDirective} from '@app/directives/onlypositivenumber.directive';
 import {AlphanumericDirective} from '@app/directives/alphanumeric.directive';
 import {AcceptCharactersDirective} from '@app/directives/acceptcaracter.directive'
-
+import {NegOrPosNumbergDirective} from '@app/directives/negorposnumber.directive'
 
 @NgModule({ 
   imports: [
@@ -72,6 +72,7 @@ import {AcceptCharactersDirective} from '@app/directives/acceptcaracter.directiv
       , NumberDirective
       , AlphanumericDirective
       , AcceptCharactersDirective
+      , NegOrPosNumbergDirective 
 
   ],
 
@@ -96,6 +97,7 @@ import {AcceptCharactersDirective} from '@app/directives/acceptcaracter.directiv
     , NumberDirective
     , AlphanumericDirective
     , AcceptCharactersDirective
+    , NegOrPosNumbergDirective
     ]
   , providers  : [{
     provide: NG_SELECT_DEFAULT_CONFIG,

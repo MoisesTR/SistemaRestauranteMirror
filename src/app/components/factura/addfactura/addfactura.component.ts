@@ -58,6 +58,8 @@ export class AddfacturaComponent implements OnInit {
     public filesToUpload: Array<File>;
     public deshabilitarDescuentoXItem = false;
     public descuentoGlobalHabilitado = false;
+    public EstadoCheckTipoDescuento:boolean = true;
+   
 
     Moneda = [
         {Id: 1, Moneda: 'Córdobas'}
@@ -277,6 +279,7 @@ export class AddfacturaComponent implements OnInit {
     }
 
     agregarProductoAFactura(producto: ProductoFactura) {
+        console.log("El estado del CheckBox es: "+producto.IsDescuentoPorcentual);
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
@@ -287,6 +290,7 @@ export class AddfacturaComponent implements OnInit {
             this.resetProductoFiltrado(producto);
             this.showSuccess();
         }
+        
     }
 
     productoValido(producto: ProductoFactura): boolean {
@@ -593,8 +597,8 @@ export class AddfacturaComponent implements OnInit {
     }
 
     onSearchChangeDescuentoProducto(descuento, producto) {
-        producto.DescuentoIngresado = descuento;
-    }
+         producto.DescuentoIngresado = descuento;
+     }
 
     changeIva(event, producto: ProductoFactura) {
         producto.GravadoIva = event.checked === true ? 1 : 0;
@@ -602,7 +606,12 @@ export class AddfacturaComponent implements OnInit {
 
     changeTipoDescuento(event, producto: ProductoFactura) {
         producto.IsDescuentoPorcentual = event.path[0].checked;
+        
+        this.EstadoCheckTipoDescuento = producto.IsDescuentoPorcentual;
+       
     }
+
+    
 
     showSuccess() {
         const options = { enableHtml: false,  positionClass: 'toast-top-right', toastClass: 'opacity'};

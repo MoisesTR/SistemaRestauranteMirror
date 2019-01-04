@@ -230,7 +230,7 @@
                                         <div class="md-form">
                                             <input [mdbValidate]=false [disabled]="deshabilitarDescuentoXItem" (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
                                                 mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text"
-                                                onlyPositiveNumber id="valorDescuento" name="valorDescuento" min="0"
+                                                [NegOrPosNumber]="EstadoCheckTipoDescuento" id="valorDescuento" name="valorDescuento" min="0"
                                                 class="input-modal-sm" style="width: 60% !important;">
                                         </div>
                                     </td>
@@ -247,7 +247,7 @@
                                                 </label>    
                                             </div>
                                         </div>
-                                    </td>
+                                    </td>   
 
                                     <td class="text-center align-middle col-xs-1">
                                         <mdb-checkbox class="checkbox-chang-filled" [checked]="producto.GravadoIva"

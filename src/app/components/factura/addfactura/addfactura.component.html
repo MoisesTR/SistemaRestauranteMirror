@@ -14,12 +14,12 @@
 
                             <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-1">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-1" >
                                     <label class="margin-label-proveedor">Proveedor</label>
                                     <div class="md-form">
                                         <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor"
                                             id="proveedor" placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)"
-                                            formControlName="proveedor">
+                                            formControlName="proveedor" >
                                             <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                                                 <div style="margin: 10px 0;" class="card">
                                                     <div class="card-body">
@@ -55,11 +55,12 @@
                                         (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
                                 </div>
 
-                                <div class="col-md-2 mt-codigo-factura">
+                                <div class="col-md-2 mt-codigo-factura"  >
                                     <div class="md-form">
                                         <input Alphanumeric [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura"
                                             placeholder="Ej: BD200" class="form-control" autocomplete="off"
-                                            formControlName="codigoFactura">
+                                            formControlName="codigoFactura"
+                                            [attr.disabled]="deshabilitarCampos()">
                                         <label for="codigoFactura">Código de Factura</label>
                                         <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
                                     </div>
@@ -69,7 +70,8 @@
                                     <div class="md-form">
                                         <input [mdbValidate]=false mdbInputDirective onlyNumbers="decimal" type="text"
                                             placeholder="Ej: 1200" class="form-control" autocomplete="off"
-                                            formControlName="totalFacturaOrigen">
+                                            formControlName="totalFacturaOrigen"
+                                            [attr.disabled]="deshabilitarCampos()">
                                         <label for="totalFacturaImpresa">Total Factura Impresa</label>
                                     </div>
                                 </div>
@@ -78,7 +80,8 @@
                                     <div class="md-form">
                                         <input [mdbValidate]=false [attr.disabled]="existeProductoConDescuento()"
                                             mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500"
-                                            formControlName="descuentoGlobal" class="form-control" autocomplete="off">
+                                            formControlName="descuentoGlobal" class="form-control" autocomplete="off"
+                                            [attr.disabled]="deshabilitarCampos()">
                                         <label for="descuentTotalFactura">Descuento Total Factura</label>
                                     </div>
                                 </div>
@@ -87,8 +90,9 @@
                                     <div class="md-form">
                                         <input formControlName="fechaFactura" name="FechaFactura" [owlDateTimeTrigger]="dt1"
                                             [owlDateTime]="dt1" class="input-picker form-control" [mdbValidate]=false
-                                            id="fechaFactura" placeholder="Seleccioné" mdbInputDirective>
-                                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                            id="fechaFactura" placeholder="Seleccioné" mdbInputDirective
+                                            (ngModelChange)="ingresoFechaRecepcion($event)">
+                                        <owl-date-time [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt1></owl-date-time>
                                         <label for="fechaFactura">Fecha factura</label>
                                     </div>
 
@@ -99,8 +103,8 @@
                                         <input formControlName="fechaRecepcion" name="FechaRecepcion"
                                             [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
                                             [mdbValidate]=false id="fechaRecepcion" placeholder="Seleccioné"
-                                            mdbInputDirective>
-                                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                                            mdbInputDirective [min]="SeleccionarFechaFactura">
+                                        <owl-date-time   [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt2></owl-date-time>
                                         <label for="fechaRecepcion">Fecha recepción</label>
                                     </div>
                                 </div>
@@ -110,7 +114,8 @@
                                     <label class="grey-text-card">Moneda</label>
                                     <ng-select dropdownPosition="top" class="disabled" [items]="Moneda" (change)="changeMoneda($event)"
                                         formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada" bindLabel="Moneda"
-                                        bindValue="Id" id="moneda">
+                                        bindValue="Id" id="moneda"
+                                        [attr.disabled]="deshabilitarCampos()">
                                     </ng-select>
                                 </div>
 
@@ -119,7 +124,7 @@
                                     <label class="grey-text-card">Forma de Pago</label>
                                     <ng-select dropdownPosition="top" class="disabled" [items]="FormaPago" (change)="changeFormaPlazoPago($event)"
                                         formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado" bindLabel="FormaPago"
-                                        bindValue="Id" id="pago">
+                                        bindValue="Id" id="pago"  [attr.disabled]="deshabilitarCampos()">
                                     </ng-select>
                                 </div>
 
@@ -211,7 +216,7 @@
                                             <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Cantidad"
                                                 (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
                                                 type="text" name="cantidadProducto" onlyNumbers="decimal" min="0" class="input-modal-sm"
-                                                style="width: 60% !important;">
+                                                style="width: 60% !important;" maxlength="7"> 
                                         </div>
                                     </td>
                                     <td class="col-xs-1">
@@ -219,29 +224,31 @@
                                             <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Costo"
                                                 (input)="onSearchChangePrecioProducto($event.target.value,producto)"
                                                 name="precioProducto" class="input-modal-sm" onlyNumbers="decimal"
-                                                style="width: 60% !important;">
+                                                style="width: 60% !important;" maxlength="7">
                                         </div>
                                     </td>
                                     <td class="col-xs-1">
                                         <div class="md-form">
                                             <input [mdbValidate]=false [disabled]="deshabilitarDescuentoXItem" (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
                                                 mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text"
-                                                onlyPositiveNumber id="valorDescuento" name="valorDescuento" min="0"
+                                                [NegOrPosNumber]="EstadoCheckTipoDescuento" id="valorDescuento" name="valorDescuento" min="0"
                                                 class="input-modal-sm" style="width: 60% !important;">
                                         </div>
                                     </td>
 
                                     <td class="text-center align-middle col-xs-1">
                                         <div class="switch chang-switch">
-                                            <label>
+                                            <div class=" form-inline form-check">
+                                                <label>
                                                 <mdb-icon icon="money"></mdb-icon>
                                                 <input (change)="changeTipoDescuento($event, producto)" [(ngModel)]="producto.IsDescuentoPorcentual"
-                                                    type="checkbox">
+                                                        type="checkbox">
                                                 <span class="lever"></span>
                                                 <mdb-icon icon="percent"></mdb-icon>
-                                            </label>
+                                                </label>    
+                                            </div>
                                         </div>
-                                    </td>
+                                    </td>   
 
                                     <td class="text-center align-middle col-xs-1">
                                         <mdb-checkbox class="checkbox-chang-filled" [checked]="producto.GravadoIva"

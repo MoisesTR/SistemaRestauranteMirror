@@ -112,7 +112,14 @@
             <div class="container d-none d-lg-block d-xl-block" id="mg-labels">
               <div class="row">
 
-                <div class="col-lg-3">
+
+                <div class="col-lg-1">
+                  <div class="md-form">
+                    <h6 class="orange-chang-text">Cant.</h6>
+                  </div>
+                </div>
+
+                <div class="col-lg-2">
                   <div class="md-form">
                     <h6 class="orange-chang-text">Nombre</h6>
                   </div>
@@ -151,15 +158,20 @@
               </div>
             </div>
 
-            <hr class="d-none d-lg-block d-xl-block mt-4">
 
             <fieldset *ngFor="let telefono of contactos; let i = index;" class="mb-fieldset">
 
               <div class="container">
+                
+                <div class="row mr-5">
 
-                <div class="row mr-4">
+                  <div class="col-md-12 col-lg-1">
+                    <div class="md-form">
+                      <h6 class="orange-chang-text">{{i+1}}</h6>
+                    </div>
+                  </div>
 
-                  <div class="col-md-12 col-lg-3">
+                  <div class="col-md-12 col-lg-2">
                     <div class="md-form">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Nombre</h6>
                       <input maxlength="40" type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Nombre"

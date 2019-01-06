@@ -1,13 +1,13 @@
 import {Directive, ElementRef, HostListener} from '@angular/core';
 
 @Directive({
-    selector: '[Alphanumeric]'
+    selector: '[AcceptCharacters]'
 })
-export class AlphanumericDirective {
+export class AcceptCharactersDirective {
     private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home' ];
 
     constructor(private el: ElementRef) {}
-    private regexAlphanumeric: RegExp = new RegExp(/^[a-zA-Z0-9\-]*$/g);
+    private regexAcceptCharacters: RegExp = new RegExp(/^[a-zA-Z0-9\-\_\#\&\*]*$/g);
 
     @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent): boolean {
 
@@ -18,7 +18,7 @@ export class AlphanumericDirective {
             return;
         }
 
-        if ( next && !String(next).match(this.regexAlphanumeric)) {
+        if ( next && !String(next).match(this.regexAcceptCharacters)) {
             event.preventDefault();
         }
     }

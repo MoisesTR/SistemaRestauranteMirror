@@ -12,6 +12,7 @@ import {DetalleFactura} from '@app/models/DetalleFactura';
 import {ProductoFactura} from '@app/models/ProductoFactura';
 import swal from 'sweetalert2';
 
+
 declare var $: any;
 
 @Component({
@@ -58,6 +59,9 @@ export class AddfacturaComponent implements OnInit {
     public filesToUpload: Array<File>;
     public deshabilitarDescuentoXItem = false;
     public descuentoGlobalHabilitado = false;
+    public EstadoCheckTipoDescuento:boolean = true;
+    public SeleccionarFechaFactura = new Date();
+   
 
     Moneda = [
         {Id: 1, Moneda: 'Córdobas'}
@@ -117,10 +121,10 @@ export class AddfacturaComponent implements OnInit {
     initFormDetailProductoFactura() {
         this.formEditarDetalleProducto = this._formBuilderFactura.group({
             'cantidadProducto': new FormControl('', [
-                Validators.required
+                Validators.required         
             ]),
             'precioProducto': new FormControl('', [
-                Validators.required
+                Validators.required,
             ]),
             'descuentoTotalProducto': new FormControl(0, []),
             'gravadoIva': new FormControl(1, []) ,
@@ -240,7 +244,7 @@ export class AddfacturaComponent implements OnInit {
 
     subscribeValueDescuentoGlobal() {
         this.formAddFactura.controls['descuentoGlobal'].valueChanges.subscribe(value => {
-            if (value === '' || value === 0) {
+            if (value === '' || value == 0) {
                 this.descuentoCalculoFactura = 0;
                 this.deshabilitarDescuentoXItem = false;
                 this.descuentoGlobalHabilitado = false;
@@ -263,6 +267,11 @@ export class AddfacturaComponent implements OnInit {
         return null;
     }
 
+    deshabilitarCampos(){
+        
+        return this.formAddFactura.controls['proveedor'].value?null:true;
+    }
+
     mostrarProducto(producto: ProductoFactura) {
         this.productoSeleccionado = producto;
         if (this.productoSeleccionado.Imagen === '') {
@@ -272,6 +281,7 @@ export class AddfacturaComponent implements OnInit {
     }
 
     agregarProductoAFactura(producto: ProductoFactura) {
+        console.log("El estado del CheckBox es: "+producto.IsDescuentoPorcentual);
         let productoFiltrado: ProductoFactura = new ProductoFactura();
         productoFiltrado = Object.assign({}, producto);
 
@@ -282,6 +292,7 @@ export class AddfacturaComponent implements OnInit {
             this.resetProductoFiltrado(producto);
             this.showSuccess();
         }
+        
     }
 
     productoValido(producto: ProductoFactura): boolean {
@@ -588,8 +599,8 @@ export class AddfacturaComponent implements OnInit {
     }
 
     onSearchChangeDescuentoProducto(descuento, producto) {
-        producto.DescuentoIngresado = descuento;
-    }
+         producto.DescuentoIngresado = descuento;
+     }
 
     changeIva(event, producto: ProductoFactura) {
         producto.GravadoIva = event.checked === true ? 1 : 0;
@@ -597,6 +608,9 @@ export class AddfacturaComponent implements OnInit {
 
     changeTipoDescuento(event, producto: ProductoFactura) {
         producto.IsDescuentoPorcentual = event.path[0].checked;
+        
+        this.EstadoCheckTipoDescuento = producto.IsDescuentoPorcentual;
+       
     }
 
     showSuccess() {
@@ -607,6 +621,12 @@ export class AddfacturaComponent implements OnInit {
     showActualizacionProductos(nuevos: number) {
         const options = { enableHtml: false,  positionClass: 'toast-top-right', toastClass: 'opacity'};
         this.toastrService.success('Se han encontrado un total de: ' + nuevos + ' productos nuevos!', 'Factura', options);
+    }
+
+
+    ingresoFechaRecepcion(evento){
+
+        this.SeleccionarFechaFactura = evento;
     }
 
     trackById(index, producto: ProductoFactura) {

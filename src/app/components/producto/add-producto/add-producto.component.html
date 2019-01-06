@@ -225,7 +225,7 @@
 
               <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
-                  <input Alphanumeric mdbInputDirective [mdbValidate]=false type="text" id="codigoProducto"
+                  <input AcceptCharacters mdbInputDirective [mdbValidate]=false type="text" id="codigoProducto"
                     formControlName="codigoProducto" class="form-control">
                   <label for="codigoProducto" class="">Código producto</label>
                   <show-errors [control]="formAddProducto.controls['codigoProducto']"></show-errors>

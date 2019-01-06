@@ -27,8 +27,10 @@ import {Platform} from '@angular/cdk/platform';
 import {BuscarProductoNombrePipe} from '@app/pipe/buscar-nombre-producto.pipe';
 import {NumberDirective} from '@app/directives/onlypositivenumber.directive';
 import {AlphanumericDirective} from '@app/directives/alphanumeric.directive';
+import {AcceptCharactersDirective} from '@app/directives/acceptcaracter.directive'
+import {NegOrPosNumbergDirective} from '@app/directives/negorposnumber.directive'
 
-@NgModule({
+@NgModule({ 
   imports: [
       CommonModule
       , FormsModule
@@ -69,6 +71,9 @@ import {AlphanumericDirective} from '@app/directives/alphanumeric.directive';
       , NumberOnlyDirective
       , NumberDirective
       , AlphanumericDirective
+      , AcceptCharactersDirective
+      , NegOrPosNumbergDirective 
+
   ],
 
  declarations: [
@@ -91,7 +96,9 @@ import {AlphanumericDirective} from '@app/directives/alphanumeric.directive';
     , NumberOnlyDirective
     , NumberDirective
     , AlphanumericDirective
- ]
+    , AcceptCharactersDirective
+    , NegOrPosNumbergDirective
+    ]
   , providers  : [{
     provide: NG_SELECT_DEFAULT_CONFIG,
     useValue: {

@@ -25,6 +25,7 @@ import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
 import {GastosComponent} from '../gastos/add-gasto/gastos.component';
 import {GastoModule} from '@app/components/gastos/gasto.module';
+import {ConsumoInternoComponent} from '../consumo-interno/consumo-interno.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {GastoModule} from '@app/components/gastos/gasto.module';
     , SalidaProductoComponent
     , ReportesComponent
     , ConfiguracionComponent
+    , ConsumoInternoComponent
   ],
   imports: [
     SharedModule

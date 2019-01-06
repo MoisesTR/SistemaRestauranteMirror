@@ -244,7 +244,7 @@ export class AddfacturaComponent implements OnInit {
 
     subscribeValueDescuentoGlobal() {
         this.formAddFactura.controls['descuentoGlobal'].valueChanges.subscribe(value => {
-            if (value === '' || value === 0) {
+            if (value === '' || value == 0) {
                 this.descuentoCalculoFactura = 0;
                 this.deshabilitarDescuentoXItem = false;
                 this.descuentoGlobalHabilitado = false;

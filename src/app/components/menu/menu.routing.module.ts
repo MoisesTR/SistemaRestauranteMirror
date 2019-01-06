@@ -37,6 +37,7 @@ import {ReportesComponent} from '../reportes/reportes.component';
 import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 import {GastosComponent} from '../gastos/add-gasto/gastos.component';
 import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
+import {ConsumoInternoComponent} from '../consumo-interno/consumo-interno.component';
 
 const menuRoutes: Routes = [
 
@@ -67,6 +68,7 @@ const menuRoutes: Routes = [
         , {path: 'cargo', component: CargoComponent, data : { titulo : 'Cargos'}}
         , {path: 'rol', component: RolusuarioComponent, data : { titulo : 'Roles'}}
         , {path: 'unidadmedida', component: UnidadmedidaComponent , data : { titulo : 'Unidad Medida'}}
+        , {path: 'consumo-interno', component: ConsumoInternoComponent , data : { titulo : 'Consumo Interno'}}
 
         // Reportes
         , {path: 'reportes', component: ReportesComponent , data : { titulo : 'Reportes'}}

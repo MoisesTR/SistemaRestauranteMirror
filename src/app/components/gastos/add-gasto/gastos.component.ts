@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GastoService} from '@app/services/service.index';
-import {Utils} from '../Utils';
+import {Utils} from '../../Utils';
 import {SubclasificacionGasto} from '@app/models/SubclasificacionGasto';
 import {ClasificacionGasto} from '@app/models/ClasificacionGasto';
 import {Gasto} from '@app/models/Gasto';
@@ -12,8 +12,10 @@ import swal from 'sweetalert2';
 @Component({
   selector: 'app-gastos',
   templateUrl: './gastos.component.html',
-  styleUrls: ['./gastos.component.scss']
+  styleUrls: ['./gastos.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class GastosComponent implements OnInit {
 
   formAddGasto: FormGroup;
@@ -78,12 +80,14 @@ export class GastosComponent implements OnInit {
 
   changeClasificacion (event) {
     if (Utils.notNullOrUndefined(event)) {
-      this.idClasificacionSeleccionado = event.IdClasificacion;
-      this.gasto.IdClasificacion = this.idClasificacionSeleccionado;
-      this.getSubclasificacionByIdClasificacion();
+        this.idClasificacionSeleccionado = event.IdClasificacion;
+        this.gasto.IdClasificacion = this.idClasificacionSeleccionado;
+        this.getSubclasificacionByIdClasificacion();
     } else {
-      this.idClasificacionSeleccionado = null;
-      this.gasto.IdClasificacion = this.idClasificacionSeleccionado;
+        this.idClasificacionSeleccionado = null;
+        this.idSubClasificacionSeleccionado = null;
+        this.subclasificaciones = [];
+        this.formAddGasto.controls['subclasificacion'].setValue('');
     }
   }
 
@@ -110,54 +114,51 @@ export class GastosComponent implements OnInit {
             }
           }, error => {
             Utils.showMsgError(Utils.msgError(error), 'Gasto');
-          }, () => {
-
-        }
+          }, () => {}
       );
     }
   }
 
-    getValuesFormAddGasto() {
-        this.gasto.CodigoFactura = this.formAddGasto.controls['codigoFactura'].value;
-        this.gasto.FechaIngreso = this.formAddGasto.controls['fechaIngreso'].value;
-        this.gasto.NoReferencia = this.formAddGasto.controls['numeroReferencia'].value;
-        this.gasto.MontoTotal = this.formAddGasto.controls['montoTotal'].value;
-        this.gasto.ConceptoGasto = this.formAddGasto.controls['conceptoGasto'].value;
-    }
+  getValuesFormAddGasto() {
+    this.gasto.CodigoFactura = this.formAddGasto.controls['codigoFactura'].value;
+    this.gasto.FechaIngreso = this.formAddGasto.controls['fechaIngreso'].value;
+    this.gasto.NoReferencia = this.formAddGasto.controls['numeroReferencia'].value;
+    this.gasto.MontoTotal = this.formAddGasto.controls['montoTotal'].value;
+    this.gasto.ConceptoGasto = this.formAddGasto.controls['conceptoGasto'].value;
+  }
 
-    gastoValido() {
+  gastoValido() {
 
     if (this.gasto.MontoTotal <= 0) {
         Utils.showMsgInfo('El monto del gasto debe ser mayor a cero!');
         return false;
-      }
+    }
 
-      if (DateUtil.formatDateYYYYMMDD(this.gasto.FechaIngreso) > DateUtil.getDate()) {
+    if (DateUtil.formatDateYYYYMMDD(this.gasto.FechaIngreso) > DateUtil.getDate()) {
           Utils.showMsgInfo('La fecha del gasto no puede ser mayor a la fecha actual!');
           return false;
-      }
-
+    }
       return true;
-    }
+  }
 
-    agregarOtroGasto() {
-        swal({
-            title: 'El gasto se ha creado exitosamente!',
-            text: 'Deseas agregar otro?',
-            type: 'success',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'SI',
-            cancelButtonText: 'NO'
-        }).then((result) => {
-            if (result.value) {
-                this.formAddGasto.reset();
-                this.gasto = new Gasto();
-            } else if (result.dismiss === swal.DismissReason.cancel) {
-                this._router.navigate(['/dashboard']);
-            }
-        });
-    }
+  agregarOtroGasto() {
+    swal({
+        title: 'El gasto se ha creado exitosamente!',
+        text: 'Deseas agregar otro?',
+        type: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'SI',
+        cancelButtonText: 'NO'
+    }).then((result) => {
+        if (result.value) {
+            this.formAddGasto.reset();
+            this.gasto = new Gasto();
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+            this._router.navigate(['/dashboard']);
+        }
+    });
+  }
 
 }

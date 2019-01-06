@@ -1,23 +1,24 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {opcionesDatePicker} from '../../../services/shared/global';
-import {IMyOptions} from 'ng-uikit-pro-standard';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {MdbTablePaginationComponent, MdbTableService} from 'ng-uikit-pro-standard';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ClasificacionGasto} from '../../../models/ClasificacionGasto';
-import {SubclasificacionGasto} from '../../../models/SubclasificacionGasto';
-import {Gasto} from '../../../models/Gasto';
+import {ClasificacionGasto} from '@app/models/ClasificacionGasto';
+import {SubclasificacionGasto} from '@app/models/SubclasificacionGasto';
+import {Gasto} from '@app/models/Gasto';
 import {Router} from '@angular/router';
-import {FacturaService, GastoService} from '../../../services/service.index';
+import {FacturaService, GastoService} from '@app/services/service.index';
 import {Utils} from '../../Utils';
 
 @Component({
   selector: 'app-summary-gastos',
   templateUrl: './summary-gastos.component.html',
-  styleUrls: ['./summary-gastos.component.scss']
+  styleUrls: ['./summary-gastos.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class SummaryGastosComponent implements OnInit {
 
-    public startDate: IMyOptions = opcionesDatePicker;
-    public finalDate: IMyOptions = opcionesDatePicker;
+    @ViewChild(MdbTablePaginationComponent) mdbPagination: MdbTablePaginationComponent;
+
     public gastos: Gasto[];
     public clasificaciones: ClasificacionGasto[];
     public subclasificaciones: SubclasificacionGasto[];
@@ -40,12 +41,17 @@ export class SummaryGastosComponent implements OnInit {
     firstVisiblePaginator = 0;
     lastVisiblePaginator = this.numberOfVisiblePaginators;
 
+    searchText: string = '';
+    previous: string;
+
     constructor(private _router: Router
         , private el: ElementRef
         , private _formBuilderBusquedaFactura: FormBuilder
         , private _facturaService: FacturaService
         , private _gastoService: GastoService
         , private _formBuilder: FormBuilder
+        , private tableService: MdbTableService
+        , private cdRef: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
@@ -57,7 +63,7 @@ export class SummaryGastosComponent implements OnInit {
         this.formBusquedaGasto = this._formBuilder.group( {
             'clasificacion': new FormControl('', [ Validators.required])
             , 'subclasificacion': new FormControl('', [ ])
-            , 'fechaInicio': new FormControl('', [ Validators.required])
+            , 'fechaInicio': new FormControl('', Validators.required)
             , 'fechaFin': new FormControl('', [Validators.required])
         });
     }
@@ -84,6 +90,41 @@ export class SummaryGastosComponent implements OnInit {
             this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
             this.lastVisibleIndex = this.activePage * this.itemsPerPage;
         }
+    }
+
+    @HostListener('input') oninput() {
+        this.searchItems();
+    }
+
+    searchItems() {
+        const prev = this.tableService.getDataSource();
+
+        if (!this.searchText) {
+            this.tableService.setDataSource(this.previous);
+            this.gastos = this.tableService.getDataSource();
+            return;
+        }
+
+        if (this.searchText) {
+            this.gastos = this.searchLocalDataBy(this.searchText);
+            this.tableService.setDataSource(prev);
+        }
+    }
+
+    /**
+     * Metodo sobreescrito de mdb angular, mdbtableservice
+     * @param searchKey
+     * @returns {any}
+     */
+    searchLocalDataBy(searchKey: any): any {
+       const lowerSearchKey = searchKey.toString().toLowerCase();
+
+       return this.tableService.getDataSource().filter((obj) => {
+            return Object.keys(obj).some((key) => {
+                if (obj[key] === null) return false;
+                return (obj[key].toString().toLowerCase()).includes(lowerSearchKey);
+            });
+        });
     }
 
     nextPage(event: any) {
@@ -181,7 +222,7 @@ export class SummaryGastosComponent implements OnInit {
         );
     }
 
-    finGastos() {
+    findGastos() {
       this.getDataGastoBusqueda();
 
       if (this.validarBusqueda()) {
@@ -189,11 +230,12 @@ export class SummaryGastosComponent implements OnInit {
               response => {
                   if (response.gastos) {
                       this.gastos = response.gastos;
-                      this.paginators = [];
-                      this.activePage = 1;
-                      this.firstVisibleIndex = 1;
-                      this.firstVisiblePaginator = 0;
-                      this.addPaginators();
+                      this.tableService.setDataSource(this.gastos);
+                      this.gastos = this.tableService.getDataSource();
+                      this.previous = this.tableService.getDataSource();
+                      this.cdRef.markForCheck();
+                      this.searchText = '';
+                      this.iniciarPropiedadesPaginacion();
                       this.sumarGastos();
 
                       if (this.gastos.length === 0 ) {
@@ -210,6 +252,14 @@ export class SummaryGastosComponent implements OnInit {
       }
     }
 
+    iniciarPropiedadesPaginacion() {
+        this.paginators = [];
+        this.activePage = 1;
+        this.firstVisibleIndex = 1;
+        this.firstVisiblePaginator = 0;
+        this.addPaginators();
+    }
+
     validarBusqueda() {
 
         if (this.fechaInicio > this.fechaFin ) {
@@ -222,7 +272,7 @@ export class SummaryGastosComponent implements OnInit {
 
     sumarGastos() {
       this.sumaTotalGastos = 0;
-      this.gastos.forEach( (value, index2) => {
+      this.gastos.forEach( (value, index) => {
             this.sumaTotalGastos += value.MontoTotal;
       });
     }
@@ -231,8 +281,7 @@ export class SummaryGastosComponent implements OnInit {
         this.fechaInicio = this.formBusquedaGasto.value.fechaInicio === '' ? null : Utils.formatDateYYYYMMDD(this.formBusquedaGasto.value.fechaInicio);
         this.fechaFin = this.formBusquedaGasto.value.fechaFin === '' ? null : Utils.formatDateYYYYMMDD(this.formBusquedaGasto.value.fechaFin);
     }
-
-
+    
     changeSubclasificacion(event) {
         if (Utils.notNullOrUndefined(event)) {
             this.idSubClasificacionSeleccionado = event.IdSubClasificacion;

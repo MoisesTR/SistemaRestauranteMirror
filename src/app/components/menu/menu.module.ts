@@ -23,7 +23,8 @@ import {ReportesComponent} from '../reportes/reportes.component';
 import {MDBBootstrapModulesPro} from 'ng-uikit-pro-standard';
 import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
-import {GastosComponent} from '../gastos/gastos.component';
+import {GastosComponent} from '../gastos/add-gasto/gastos.component';
+import {GastoModule} from '@app/components/gastos/gasto.module';
 
 @NgModule({
   declarations: [
@@ -43,14 +44,13 @@ import {GastosComponent} from '../gastos/gastos.component';
     , SalidaProductoComponent
     , ReportesComponent
     , ConfiguracionComponent
-    , SummaryGastosComponent
-    , GastosComponent
   ],
   imports: [
     SharedModule
     , MenuRoutingModule
     , ProductoModule
     , FacturaModule
+    , GastoModule
     , TrabajadorModule
     , ProveedorModule
     , UsuarioModule

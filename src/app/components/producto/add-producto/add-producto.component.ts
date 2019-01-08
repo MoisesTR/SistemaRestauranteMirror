@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import swal from 'sweetalert2';
 import {Proveedor} from '@app/models/Proveedor';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -27,8 +27,6 @@ import {Utils} from '../../Utils';
 import {Empaque} from '@app/models/Empaque';
 import {UnidadMedida} from '@app/models/UnidadMedida';
 import {ProductoProveedor} from '@app/models/ProductoProveedor';
-import {SelectComponent} from 'ng-uikit-pro-standard';
-import {MsgError} from '@app/infraestructura/Util/MsgError';
 
 declare var $: any;
 
@@ -37,14 +35,12 @@ declare var $: any;
   templateUrl: './add-producto.component.html',
   styleUrls: ['./add-producto.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 
 export class AddProductoComponent implements OnInit {
 
     public producto: Producto;
     public productoProveedor: ProductoProveedor;
-    formAddProducto: FormGroup;
     public proveedores: Proveedor [];
     public categorias: CategoriaProducto[];
     public clasificaciones: ClasificacionProducto[];
@@ -61,18 +57,16 @@ export class AddProductoComponent implements OnInit {
     public showModalEmpaque = false;
     public showModalEnvase = false;
     public showModalUnidadMedida = false;
-    @ViewChild('selectClasificacion') public ngSelect: SelectComponent;
-    public mensajesError: MsgError;
-    public error = 'nada';
     public previousUrl: string;
     public tipoInsumoSeleccionado = 1;
     public proveedorSelecionado: number;
+    formAddProducto: FormGroup;
+
     Insumo = [
         {Id: 1, TipoInsumo: 'Alimento'}
         , {Id: 2, TipoInsumo: 'Limpieza'}
         , {Id: 3, TipoInsumo: 'Utensilios'},
     ];
-    groupByFn = (item) => item.Habilitado;
 
     constructor(private _route: ActivatedRoute
         , private _router: Router
@@ -80,19 +74,19 @@ export class AddProductoComponent implements OnInit {
         , private _uploadService: UploadService
         , private _proveedorService: ProveedorService
         , private _categoriaService: CategoriaProductoService
-        , private clasificacionService: ClasificacionProductoService
+        , private _clasificacionService: ClasificacionProductoService
         , private _subclasificacionService: SubClasificacionProductoService
         , private  _empaqueService: EmpaqueService
         , private _envaseService: EnvaseService
         , private _unidadService: UnidadMedidaService
         , private _productoService: ProductoService
         , private _productoProveedorService: ProductoProveedorService
+        , private _fAddProducto: FormBuilder
         , private cdr: ChangeDetectorRef
-        , private _fAddProducto: FormBuilder) {
+    ) {
         this.url = Global.url;
         this.producto = new Producto();
         this.productoProveedor = new ProductoProveedor();
-
     }
 
     ngOnInit() {
@@ -129,8 +123,64 @@ export class AddProductoComponent implements OnInit {
         this.getEmpaques();
         this.getUnidadesDeMedida();
         this.initFormAddProducto();
-        this.mensajesError = new MsgError();
+        this.inicializarPropiedadesFormulario();
+    }
 
+    private initFormAddProducto() {
+        this.formAddProducto =  this._fAddProducto.group({
+            'nombreProducto': new FormControl('', [
+                Validators.required
+                , Validators.minLength(2)
+                , Validators.maxLength(100)
+                , CustomValidators.nospaceValidator
+            ]),
+            'descripcionProducto': new FormControl('', [
+                , Validators.minLength(3)
+                , Validators.maxLength(400)
+                , CustomValidators.nospaceValidator
+            ]),
+            'proveedor': new FormControl(this.proveedorSelecionado, [
+                Validators.required
+            ]),
+            'categoria': new FormControl('', [
+                Validators.required
+            ]),
+            'clasificacion': new FormControl('', [
+                Validators.required
+            ]),
+            'subclasificacion': new FormControl('', [
+                Validators.required
+            ]),
+            'empaque': new FormControl('', [
+            ]),
+            'envase': new FormControl('', [
+            ]),
+            'unidadmedida': new FormControl('', [
+                Validators.required
+            ]),
+            'cantidadEmpaque': new FormControl('', [
+            ]),
+            'consumoDirecto': new FormControl(false, []),
+            'granel': new FormControl(false, []),
+            'valorunidadmedida': new FormControl('', [
+                Validators.required
+            ]),
+            'diasDeUso': new FormControl('', [
+            ]),
+            'codigoInterno': new FormControl(null, [
+                CustomValidators.nospaceValidator
+            ]),
+            'codigoOriginal': new FormControl('', [
+                CustomValidators.nospaceValidator
+            ]),
+            'tipoInsumo': new FormControl('', [
+                Validators.required
+            ])
+        });
+    }
+
+    inicializarPropiedadesFormulario() {
+        this.formAddProducto.controls['tipoInsumo'].disable();
     }
 
     showCardImg() {
@@ -145,41 +195,41 @@ export class AddProductoComponent implements OnInit {
         const unidadmedida = document.getElementById('unidadmedida');
 
         if (x.style.display === 'none') {
-        //  Mostrar card de agregar imagen
-        // Pequeño
+            //  Mostrar card de agregar imagen
+            // Pequeño
 
-        //  Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-        $('#btn-animation').click(function() {
-            $('#imagen-productos').toggleClass('animated');
-        });
-        f.classList.remove('col-lg-12');
-        f.classList.add('col-lg-8');
-        proveedor.classList.add('select-no-margin');
-        categoria.classList.add('select-no-margin');
-        clasificacion.classList.add('select-no-margin');
-        subclasificacion.classList.add('select-no-margin');
-        empaque.classList.add('select-no-margin');
-        envase.classList.add('select-no-margin');
-        unidadmedida.classList.add('select-no-margin');
-        x.style.display = 'block';
+            //  Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
+            $('#btn-animation').click(function() {
+                $('#imagen-productos').toggleClass('animated');
+            });
+            f.classList.remove('col-lg-12');
+            f.classList.add('col-lg-8');
+            proveedor.classList.add('select-no-margin');
+            categoria.classList.add('select-no-margin');
+            clasificacion.classList.add('select-no-margin');
+            subclasificacion.classList.add('select-no-margin');
+            empaque.classList.add('select-no-margin');
+            envase.classList.add('select-no-margin');
+            unidadmedida.classList.add('select-no-margin');
+            x.style.display = 'block';
 
         } else {
-        // Ocultar card de agregar imagen
+            // Ocultar card de agregar imagen
 
-        // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-        $('#btn-animation').click(function() {
-            $('#imagen-productos').toggleClass('animated');
-        });
-        f.classList.remove('col-lg-8');
-        f.classList.add('col-lg-12');
-        proveedor.classList.remove('select-no-margin');
-        categoria.classList.remove('select-no-margin');
-        clasificacion.classList.remove('select-no-margin');
-        subclasificacion.classList.remove('select-no-margin');
-        empaque.classList.remove('select-no-margin');
-        envase.classList.remove('select-no-margin');
-        unidadmedida.classList.remove('select-no-margin');
-        x.style.display = 'none';
+            // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
+            $('#btn-animation').click(function() {
+                $('#imagen-productos').toggleClass('animated');
+            });
+            f.classList.remove('col-lg-8');
+            f.classList.add('col-lg-12');
+            proveedor.classList.remove('select-no-margin');
+            categoria.classList.remove('select-no-margin');
+            clasificacion.classList.remove('select-no-margin');
+            subclasificacion.classList.remove('select-no-margin');
+            empaque.classList.remove('select-no-margin');
+            envase.classList.remove('select-no-margin');
+            unidadmedida.classList.remove('select-no-margin');
+            x.style.display = 'none';
         }
     }
 
@@ -196,7 +246,6 @@ export class AddProductoComponent implements OnInit {
     }
 
     getCategorias() {
-
         this._categoriaService.getCategoriasProductos().subscribe(
             response => {
                 if (response.categorias) {
@@ -208,21 +257,18 @@ export class AddProductoComponent implements OnInit {
                 Utils.showMsgError(Utils.msgError(error));
             }
         );
-
     }
 
     onChangeClasificacion(event) {
-
         if (event === null || event === undefined) {
             this.producto.IdClasificacion = null;
-            this.subclasificaciones = [];
+            this.resetSelectSubClasificacion();
         } else {
             this.producto.IdClasificacion = event.IdClasificacion;
+            this.resetSelectSubClasificacion();
             this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
                 response => {
                     if (response.subclasificaciones) {
-                        this.subclasificaciones = [];
-                        this.subclasificaciones.push(response.subclasificaciones);
                         this.subclasificaciones = response.subclasificaciones;
                     }
                 }, error => {
@@ -233,13 +279,15 @@ export class AddProductoComponent implements OnInit {
     }
 
     onChangeCategoria(event) {
-
         if (event === null || event === undefined) {
             this.producto.IdCategoria = null;
-            this.clasificaciones = [];
+            this.resetSelectClasificacion();
+            this.resetSelectSubClasificacion();
         } else {
             this.producto.IdCategoria = event.IdCategoria;
-            this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
+            this.resetSelectClasificacion();
+            this.resetSelectSubClasificacion();
+            this._clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
                 response => {
                     if (response.clasificaciones) {
                         this.clasificaciones = response.clasificaciones;
@@ -251,6 +299,54 @@ export class AddProductoComponent implements OnInit {
                 }
             );
         }
+    }
+
+    resetSelectClasificacion() {
+        this.clasificaciones = [];
+        this.formAddProducto.controls['clasificacion'].setValue('');
+    }
+
+    resetSelectSubClasificacion() {
+        this.subclasificaciones = [];
+        this.formAddProducto.controls['subclasificacion'].setValue('');
+    }
+
+    changeConsumoDirecto(event) {
+        this.producto.ConsumoDirecto = event.checked;
+    }
+
+    changeGranel(event) {
+        if (event.checked) {
+            this.producto.Granel = true;
+            this.deshabilitarUnidadDeMedida();
+        } else {
+            this.producto.Granel = false;
+            this.habilitarUnidadDeMedida();
+        }
+    }
+
+    deshabilitarUnidadDeMedida() {
+        this.producto.IdUnidadMedida = null;
+        this.producto.ValorUnidadMedida = null;
+        this.formAddProducto.controls['unidadmedida'].clearValidators();
+        this.formAddProducto.controls['unidadmedida'].setValue('');
+        this.formAddProducto.controls['unidadmedida'].disable();
+        this.formAddProducto.controls['unidadmedida'].updateValueAndValidity();
+
+        this.formAddProducto.controls['valorunidadmedida'].clearValidators();
+        this.formAddProducto.controls['valorunidadmedida'].setValue('');
+        this.formAddProducto.controls['valorunidadmedida'].disable();
+        this.formAddProducto.controls['valorunidadmedida'].updateValueAndValidity();
+    }
+
+    habilitarUnidadDeMedida() {
+        this.formAddProducto.controls['unidadmedida'].setValidators([Validators.required]);
+        this.formAddProducto.controls['unidadmedida'].enable();
+        this.formAddProducto.controls['unidadmedida'].updateValueAndValidity();
+
+        this.formAddProducto.controls['valorunidadmedida'].setValidators([Validators.required]);
+        this.formAddProducto.controls['valorunidadmedida'].enable();
+        this.formAddProducto.controls['valorunidadmedida'].updateValueAndValidity();
     }
 
     getEmpaques() {
@@ -291,7 +387,6 @@ export class AddProductoComponent implements OnInit {
     }
 
     onChangeProveedor(event) {
-
         if (event === null) {
             this.producto.IdProveedor = null;
             this.proveedorSelecionado = this.producto.IdProveedor;
@@ -317,7 +412,6 @@ export class AddProductoComponent implements OnInit {
         }
     }
 
-
     onChangeEnvase(event: ProductoProveedor) {
 
         if (event === null) {
@@ -328,7 +422,6 @@ export class AddProductoComponent implements OnInit {
     }
 
     onChangeEmpaque(event) {
-
         if (event === null) {
             this.producto.IdEmpaque = null;
         } else {
@@ -336,10 +429,10 @@ export class AddProductoComponent implements OnInit {
         }
     }
 
- customSearchFn(term: string, item: SubClasificacionProducto) {
-    term = term.toLocaleLowerCase();
-    return item.NombreSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 || item.DescripcionSubClasificacion.toLocaleLowerCase() === term;
- }
+    customSearchFn(term: string, item: SubClasificacionProducto) {
+        term = term.toLocaleLowerCase();
+        return item.NombreSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 || item.DescripcionSubClasificacion.toLocaleLowerCase() === term;
+    }
 
   guardarImagenProducto() {
     this.getValueForm();
@@ -378,12 +471,10 @@ export class AddProductoComponent implements OnInit {
     this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
     this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso === '' ? 0 : this.formAddProducto.value.diasDeUso;
     this.producto.DiasRotacion = Utils.valorCampoEsValido(this.formAddProducto.value.diasDeUso) ? this.formAddProducto.value.diasDeUso : 0;
-    this.producto.CodigoProducto = this.formAddProducto.value.codigoProducto ;
+    this.producto.CodigoProducto = this.formAddProducto.value.codigoOriginal;
     this.producto.CodigoInterno = this.formAddProducto.value.codigoInterno === '' ? null : this.formAddProducto.value.codigoInterno;
     this.producto.IdTipoInsumo = 1;
     this.producto.IdProveedor = this.proveedorSelecionado;
-    this.producto.ConsumoDirecto = this.formAddProducto.value.consumoDirecto === '' ? false : this.formAddProducto.value.consumoDirecto;
-    this.producto.Granel = this.formAddProducto.value.granel === '' ? false : this.formAddProducto.value.granel;
   }
 
   crearProducto() {
@@ -401,17 +492,9 @@ export class AddProductoComponent implements OnInit {
                 cancelButtonText: 'NO'
             }).then((result) => {
                 if (result.value) {
-                    this.resetFormProducto();
-                    this.producto = new Producto();
-                    this.filesToUpload = null;
-                    $('.dropify-clear').click();
-                    window.scrollTo(0, 0);
+                    this.resetComponenteAddProducto();
                 } else if (result.dismiss === swal.DismissReason.cancel) {
-                    if (this.previousUrl === '/proveedor/add') {
-                        this._router.navigate(['/factura/add']);
-                    } else {
-                        this._router.navigate(['/producto']);
-                    }
+                    this.noSeguirAgregandoProductos();
                 }
             });
         }
@@ -421,70 +504,28 @@ export class AddProductoComponent implements OnInit {
     );
   }
 
+  resetComponenteAddProducto() {
+      this.resetFormProducto();
+      this.producto = new Producto();
+      this.filesToUpload = null;
+      $('.dropify-clear').click();
+      window.scrollTo(0, 0);
+  }
+
+  noSeguirAgregandoProductos() {
+      if (this.previousUrl === '/proveedor/add') {
+          this._router.navigate(['/factura/add']);
+      } else {
+          this._router.navigate(['/producto']);
+      }
+  }
+
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 
-  validarCamposProduto() {
-    this.guardarImagenProducto();
-  }
-
-  private initFormAddProducto() {
-    this.formAddProducto =  this._fAddProducto.group({
-        'nombreProducto': new FormControl('', [
-          Validators.required
-          , Validators.minLength(2)
-          , Validators.maxLength(100)
-          , CustomValidators.nospaceValidator
-        ]),
-        'descripcionProducto': new FormControl('', [
-        , Validators.minLength(3)
-        , Validators.maxLength(400)
-        , CustomValidators.nospaceValidator
-        ]),
-        'proveedor': new FormControl(this.proveedorSelecionado, [
-            Validators.required
-        ]),
-        'categoria': new FormControl('', [
-            Validators.required
-        ]),
-        'clasificacion': new FormControl('', [
-            Validators.required
-        ]),
-        'subclasificacion': new FormControl('', [
-            Validators.required
-        ]),
-        'empaque': new FormControl('', [
-        ]),
-        'envase': new FormControl('', [
-        ]),
-        'unidadmedida': new FormControl('', [
-            Validators.required
-        ]),
-        'cantidadEmpaque': new FormControl('', [
-        ]),
-        'consumoDirecto': new FormControl(false, []),
-        'granel': new FormControl(false, []),
-        'valorunidadmedida': new FormControl('', [
-            Validators.required
-        ]),
-        'diasDeUso': new FormControl('', [
-        ]),
-        'codigoInterno': new FormControl(null, [
-        ]),
-        'codigoProducto': new FormControl('', [
-            CustomValidators.nospaceValidator
-            
-        ]),
-        'tipoInsumo': new FormControl('', [
-            Validators.required
-        ])
-    });
-  }
-
-resultadoConsultaCategoria(event) {
+  resultadoConsultaCategoria(event) {
     this.showModalCategoria = false;
-
     if (event) {
         this.getCategorias();
     }
@@ -492,10 +533,9 @@ resultadoConsultaCategoria(event) {
 
   resultadoConsultaClasificacion(event) {
     this.showModalClasificacion = false;
-
     if (event) {
-        if (this.producto.IdCategoria !== undefined && this.producto.IdCategoria !== null)  {
-            this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
+        if (Utils.notNullOrUndefined(this.producto.IdCategoria))  {
+            this._clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
                 response => {
                     if (response.clasificaciones) {
                         this.clasificaciones = response.clasificaciones;
@@ -510,9 +550,8 @@ resultadoConsultaCategoria(event) {
 
   resultadoConsultaSubclasificacion(event) {
         this.showModalSubclasificacion = false;
-
         if (event) {
-            if (this.producto.IdCategoria !== undefined && this.producto.IdCategoria !== null) {
+            if (Utils.notNullOrUndefined(this.producto.IdClasificacion)) {
                 this._subclasificacionService.getSubClasificacionesByIdClasificacion(this.producto.IdClasificacion).subscribe(
                     response => {
                         if (response.subclasificaciones) {
@@ -528,7 +567,6 @@ resultadoConsultaCategoria(event) {
 
   resultQueryEmpaque(event) {
         this.showModalEmpaque = false;
-
         if (event) {
             this._empaqueService.getEmpaques(1).subscribe(
                 response => {
@@ -542,9 +580,8 @@ resultadoConsultaCategoria(event) {
         }
   }
 
-    resultQueryEnvase(event) {
+  resultQueryEnvase(event) {
         this.showModalEnvase = false;
-
         if (event) {
             this._envaseService.getEnvases(1).subscribe(
                 response => {
@@ -556,11 +593,10 @@ resultadoConsultaCategoria(event) {
                 }
             );
         }
-    }
+  }
 
-    resultQueryUnidadMedida(event) {
+  resultQueryUnidadMedida(event) {
         this.showModalUnidadMedida = false;
-
         if (event) {
             this._unidadService.getUnidadesMedida(1).subscribe(
                 response => {
@@ -584,7 +620,7 @@ resultadoConsultaCategoria(event) {
 
     resetFormProducto() {
         Object.keys(this.formAddProducto.controls).forEach( (value, index) => {
-            if (value !== 'proveedor') {
+            if (value !== 'proveedor' && value !== 'tipoInsumo') {
                 this.formAddProducto.controls[value].reset();
             }
         });

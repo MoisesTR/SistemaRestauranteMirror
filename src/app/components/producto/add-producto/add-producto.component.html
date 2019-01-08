@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="formAddProducto" (ngSubmit)="validarCamposProduto()" novalidate>
+  <form [formGroup]="formAddProducto" (ngSubmit)="guardarImagenProducto()" novalidate>
     <div class="row">
 
       <!--Imagen-->
@@ -32,8 +32,7 @@
 
               <div class="col-12 mb-3">
                 <div class="md-form input-group padding-input">
-                  <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" formControlName="nombreProducto"
-                    [(ngModel)]="formAddProducto.value.nombreProducto" class="form-control letras" autocomplete="off"
+                  <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" formControlName="nombreProducto" class="form-control letras" autocomplete="off"
                     placeholder="Nombre del Producto" style="margin-right: 5%;">
                   <div class="input-group-btn">
                     <button tabindex="-1" mdbBtn type="button" class="orange-chang px-3 add-img-position" (click)="showCardImg()"
@@ -48,7 +47,7 @@
               <div class="col-12 col-sm-7 col-md-7">
                 <label for="proveedor" class="grey-text-card">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" [(ngModel)]="proveedorSelecionado"
+                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)"
                   formControlName="proveedor">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
@@ -74,13 +73,7 @@
 
               <div class="col-12 col-sm-5 col-md-2 mts-1">
 
-                <mdb-checkbox formControlName="consumoDirecto" class="checkbox-chang-filled"><label class="grey-text-card">Consumo directo</label></mdb-checkbox>
-
-                <!-- <div class="form-check">
-                  <input [mdbValidate]=false class="form-check-input" type="checkbox" id="consumodirecto"
-                    mdbInputDirective> -->
-                <!-- <label class="form-check-label" for="consumodirecto">Consumo directo</label> -->
-                <!-- </div> -->
+                <mdb-checkbox [checked]="false" [default]="false" formControlName="consumoDirecto" (change)="changeConsumoDirecto($event)" class="checkbox-chang-filled"><label class="grey-text-card">Consumo directo</label></mdb-checkbox>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
@@ -139,11 +132,7 @@
               </div>
 
               <div class="col-12 col-sm-5 col-md-2 mts-2">
-                <mdb-checkbox formControlName="granel" class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
-                <!-- <div class="form-check">
-                  <input [mdbValidate]=false class="form-check-input" type="checkbox" id="granel" mdbInputDirective>
-                  <label class="form-check-label" for="granel">Granel</label>
-                </div> -->
+                <mdb-checkbox [checked]="false" [default]="false" (change)="changeGranel($event)" formControlName="granel" class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
@@ -225,10 +214,10 @@
 
               <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
-                  <input AcceptCharacters mdbInputDirective [mdbValidate]=false type="text" id="codigoProducto"
-                    formControlName="codigoProducto" class="form-control">
-                  <label for="codigoProducto" class="">Código producto</label>
-                  <show-errors [control]="formAddProducto.controls['codigoProducto']"></show-errors>
+                  <input AcceptCharacters mdbInputDirective [mdbValidate]=false type="text" id="codigoOriginal"
+                    formControlName="codigoOriginal" class="form-control">
+                  <label for="codigoOriginal" class="">Código producto</label>
+                  <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
                 </div>
               </div>
 
@@ -243,8 +232,7 @@
 
               <div class="col-md-12">
                 <div class="md-form">
-                  <textarea mdbInputDirective [mdbValidate]=false type="text" id="descripcionproducto" formControlName="descripcionProducto"
-                    [(ngModel)]="formAddProducto.value.descripcionProducto" class="md-textarea form-control"
+                  <textarea mdbInputDirective [mdbValidate]=false type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea form-control"
                     autocomplete="off"></textarea>
                   <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>

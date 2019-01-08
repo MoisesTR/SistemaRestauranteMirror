@@ -60,6 +60,7 @@ export class AddProductoComponent implements OnInit {
     public previousUrl: string;
     public tipoInsumoSeleccionado = 1;
     public proveedorSelecionado: number;
+    public peticionEnCurso = false;
     formAddProducto: FormGroup;
 
     Insumo = [
@@ -435,10 +436,12 @@ export class AddProductoComponent implements OnInit {
     }
 
   guardarImagenProducto() {
+    this.peticionEnCurso = true;
     this.getValueForm();
 
     if (!Utils.valorCampoEsValido(this.producto.CodigoProducto) && !Utils.valorCampoEsValido(this.producto.CodigoInterno)) {
         Utils.showMsgInfo('El codigo producto o codigo interno es requerido!', 'Producto');
+        this.peticionEnCurso = false;
     } else {
         if (this.filesToUpload != null) {
             this._uploadService.makeFileRequest(
@@ -454,6 +457,7 @@ export class AddProductoComponent implements OnInit {
                 this.crearProducto();
             }, error => {
                 Utils.msgErrorImage(error);
+                this.peticionEnCurso = false;
             });
         } else {
             this.producto.Imagen = '';
@@ -500,7 +504,10 @@ export class AddProductoComponent implements OnInit {
         }
       }, error => {
         Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-      }
+        this.peticionEnCurso = false;
+      }, () => {
+          this.peticionEnCurso = false;
+        }
     );
   }
 

@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsumoInternoComponent implements OnInit {
 
-  constructor() { }
+  visible: boolean = true;
+// date = new Date();
+// today = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
 
-  ngOnInit() {
-  }
+ngOnInit() {
+setTimeout(() => {
+this.visible = false;
+}, 3000);
 
+}
 }

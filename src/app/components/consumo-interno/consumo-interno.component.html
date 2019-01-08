@@ -1,6 +1,6 @@
 <section>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="!visible">
       <mdb-card cascade="true" narrower="true">
         <!--Titulo-->
         <div class="view view-cascade gradient-card-header orange-chang">
@@ -14,5 +14,14 @@
 
       </mdb-card>
     </div>
+
+    <div class="view" *ngIf="visible" style="height:100vh; width:100vw; position:fixed; top:0; left:0; z-index:999">
+      <div class="mask rgba-black-strong flex-center">
+        <p class="white-text">Cargando información...</p>
+        <br>
+        <mdb-spinner spinnerType="big" spinnerColor="red"></mdb-spinner>
+      </div>
+    </div>
+
   </div>
 </section>

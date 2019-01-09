@@ -47,7 +47,7 @@
               <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
                 <div class="md-form">
                   <input [owlDateTimeTrigger]="dt1" formControlName="fechaIngreso" [owlDateTime]="dt1" class="input-picker form-control"
-                    [mdbValidate]=false id="fechaIngreso" placeholder="Seleccioné" mdbInputDirective>
+                    [mdbValidate]=false id="fechaIngreso" placeholder="Seleccioné" mdbInputDirective readonly>
                   <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                   <label for="fechaIngreso">Fecha ingreso</label>
                   <show-errors [control]="formAddGasto.controls['fechaIngreso']"></show-errors>

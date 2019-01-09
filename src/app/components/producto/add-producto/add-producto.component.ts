@@ -51,7 +51,6 @@ export class AddProductoComponent implements OnInit {
     public url: string;
     public filesToUpload: Array<File>;
     public tituloPantalla = 'Productos';
-    public showModalCategoria = false;
     public showModalClasificacion = false;
     public showModalSubclasificacion = false;
     public showModalEmpaque = false;
@@ -74,7 +73,7 @@ export class AddProductoComponent implements OnInit {
         , private _previousRouteService: PreviousRouteService
         , private _uploadService: UploadService
         , private _proveedorService: ProveedorService
-        , private _categoriaService: CategoriaProductoService
+        , public _categoriaService: CategoriaProductoService
         , private _clasificacionService: ClasificacionProductoService
         , private _subclasificacionService: SubClasificacionProductoService
         , private  _empaqueService: EmpaqueService
@@ -195,43 +194,43 @@ export class AddProductoComponent implements OnInit {
         const envase = document.getElementById('envase');
         const unidadmedida = document.getElementById('unidadmedida');
 
-        if (x.style.display === 'none') {
-            //  Mostrar card de agregar imagen
-            // Pequeño
-
-            //  Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-            $('#btn-animation').click(function() {
-                $('#imagen-productos').toggleClass('animated');
-            });
-            f.classList.remove('col-lg-12');
-            f.classList.add('col-lg-8');
-            proveedor.classList.add('select-no-margin');
-            categoria.classList.add('select-no-margin');
-            clasificacion.classList.add('select-no-margin');
-            subclasificacion.classList.add('select-no-margin');
-            empaque.classList.add('select-no-margin');
-            envase.classList.add('select-no-margin');
-            unidadmedida.classList.add('select-no-margin');
-            x.style.display = 'block';
-
-        } else {
-            // Ocultar card de agregar imagen
-
-            // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-            $('#btn-animation').click(function() {
-                $('#imagen-productos').toggleClass('animated');
-            });
-            f.classList.remove('col-lg-8');
-            f.classList.add('col-lg-12');
-            proveedor.classList.remove('select-no-margin');
-            categoria.classList.remove('select-no-margin');
-            clasificacion.classList.remove('select-no-margin');
-            subclasificacion.classList.remove('select-no-margin');
-            empaque.classList.remove('select-no-margin');
-            envase.classList.remove('select-no-margin');
-            unidadmedida.classList.remove('select-no-margin');
-            x.style.display = 'none';
-        }
+        // if (x.style.display === 'none') {
+        //     //  Mostrar card de agregar imagen
+        //     // Pequeño
+        //
+        //     //  Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
+        //     $('#btn-animation').click(function() {
+        //         $('#imagen-productos').toggleClass('animated');
+        //     });
+        //     f.classList.remove('col-lg-12');
+        //     f.classList.add('col-lg-8');
+        //     proveedor.classList.add('select-no-margin');
+        //     categoria.classList.add('select-no-margin');
+        //     clasificacion.classList.add('select-no-margin');
+        //     subclasificacion.classList.add('select-no-margin');
+        //     empaque.classList.add('select-no-margin');
+        //     envase.classList.add('select-no-margin');
+        //     unidadmedida.classList.add('select-no-margin');
+        //     x.style.display = 'block';
+        //
+        // } else {
+        //     // Ocultar card de agregar imagen
+        //
+        //     // Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
+        //     $('#btn-animation').click(function() {
+        //         $('#imagen-productos').toggleClass('animated');
+        //     });
+        //     f.classList.remove('col-lg-8');
+        //     f.classList.add('col-lg-12');
+        //     proveedor.classList.remove('select-no-margin');
+        //     categoria.classList.remove('select-no-margin');
+        //     clasificacion.classList.remove('select-no-margin');
+        //     subclasificacion.classList.remove('select-no-margin');
+        //     empaque.classList.remove('select-no-margin');
+        //     envase.classList.remove('select-no-margin');
+        //     unidadmedida.classList.remove('select-no-margin');
+        //     x.style.display = 'none';
+        // }
     }
 
     getProveedores() {
@@ -532,7 +531,6 @@ export class AddProductoComponent implements OnInit {
   }
 
   resultadoConsultaCategoria(event) {
-    this.showModalCategoria = false;
     if (event) {
         this.getCategorias();
     }
@@ -648,5 +646,10 @@ export class AddProductoComponent implements OnInit {
                 this._router.navigate(['/proveedor/add']);
             } else if (result.dismiss === swal.DismissReason.cancel) {}
         });
+    }
+
+    mostrarModalCategoria() {
+        this._categoriaService.mostrarModal();
+        this.cdr.markForCheck();
     }
 }

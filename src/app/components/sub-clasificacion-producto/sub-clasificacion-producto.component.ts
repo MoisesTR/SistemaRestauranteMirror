@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {ClasificacionProductoService, SubClasificacionProductoService} from '@app/services/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SubClasificacionProducto} from '@app/models/SubClasificacionProducto';
@@ -6,23 +6,20 @@ import {Subject} from 'rxjs';
 import {idioma_espanol} from '@app/services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '../../validadores/CustomValidators';
-import swal from 'sweetalert2';
+import {CustomValidators} from '@app/validadores/CustomValidators';
 import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
 import {Utils} from '../Utils';
 import {ModalDirective} from 'ng-uikit-pro-standard';
-
-declare var $: any;
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sub-clasificacion-producto',
   templateUrl: './sub-clasificacion-producto.component.html',
   styleUrls: ['./sub-clasificacion-producto.component.css'],
-  providers: [SubClasificacionProductoService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class SubClasificacionProductoComponent implements OnInit, InvocarFormulario {
-
 
   public subclasificacion: SubClasificacionProducto;
   public subclasificaciones: SubClasificacionProducto[];
@@ -48,7 +45,6 @@ export class SubClasificacionProductoComponent implements OnInit, InvocarFormula
 
   ) {
     this.subclasificacion = new SubClasificacionProducto();
-
     this.initCustomValidatorsFormSubClasificacion();
   }
 

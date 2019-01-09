@@ -11,29 +11,28 @@ import {CustomValidators} from '@app/validadores/CustomValidators';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 import {Utils} from '../Utils';
 
-declare var $: any;
-
 @Component({
   selector: 'app-categoria-producto',
   templateUrl: './categoria-producto.component.html',
   styleUrls: ['./categoria-producto.component.css'],
   providers: [CategoriaProductoService]
 })
-export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
+export class CategoriaProductoComponent implements OnInit {
 
-  public categoriaProducto: CategoriaProducto;
-  public categoriasProductos: CategoriaProducto[];
-  @ViewChild('autoShownModal') public autoShownModal: ModalDirective;
-  @ViewChild('modalAddCategoria') modalAddCategoria: ModalDirective;
+  @ViewChild('autoShownModal')
+  autoShownModal: ModalDirective;
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-  public formAddCategoria: FormGroup;
+  public categoriaProducto: CategoriaProducto;
+  public categoriasProductos: CategoriaProducto[];
   public formUpdateCategoria: FormGroup;
   public tituloPantalla = 'Categoria';
+  public peticionEnCurso: boolean  = false;
 
   constructor(
     private _route: ActivatedRoute
@@ -44,13 +43,10 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
     this.categoriaProducto = new CategoriaProducto();
   }
 
-
   ngOnInit() {
     this.settingsDatatable();
     this.getCategorias();
-    this.initFormAddCategoria();
     this.initFormUpdateCategoria();
-
   }
 
   settingsDatatable() {
@@ -69,8 +65,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
                   key: '1',
                   className: 'btn orange-chang float-right-dt',
                   action:  (e, dt, node, config) => {
-                      // this._router.navigate(['producto/add']);
-                      this.InvocarModal(this.modalAddCategoria, this.formAddCategoria);
+                      this._categoriaProductoServicio.mostrarModal();
                   }
               }
           ]
@@ -87,7 +82,6 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
   }
 
   getCategorias() {
-
     this._categoriaProductoServicio.getCategoriasProductos().subscribe(
       response => {
         if (response.categorias) {
@@ -95,7 +89,7 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           this.dtTrigger.next();
         }
       }, error => {
-
+          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     );
   }
@@ -108,35 +102,12 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
           this.rerender();
         }
       }, error => {
-
+            Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
       }
     );
   }
 
-  /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddCategoria() {
-
-    this.formAddCategoria = this._formBuilderCategoria.group({
-      'nombreCategoria': new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(100),
-          CustomValidators.nospaceValidator
-        ])
-      , 'descripcionCategoria': new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(300),
-          CustomValidators.nospaceValidator
-        ])
-    });
-
-  }
-
   initFormUpdateCategoria() {
-
     this.formUpdateCategoria = this._formBuilderCategoria.group({
       'nombreCategoria': new FormControl('',
         [
@@ -155,46 +126,13 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
     });
   }
 
-  getValuesFormAddCategoria() {
-    this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
-    this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
-  }
-
   getValuesFormUpdateCategoria() {
     this.categoriaProducto.NombreCategoria = this.formUpdateCategoria.value.nombreCategoria;
     this.categoriaProducto.DescripcionCategoria = this.formUpdateCategoria.value.descripcionCategoria;
   }
 
-
-  createCategoriaProducto() {
-    this.getValuesFormAddCategoria();
-
-    this._categoriaProductoServicio.createCategoriaProducto(this.categoriaProducto).subscribe(
-      response => {
-
-        if (response.IdCategoria) {
-          swal(
-            'Categoría',
-            'La categoría ha sido creada exitosamente!',
-            'success'
-          ).then(() => {
-            this.modalAddCategoria.hide();
-            this.formAddCategoria.reset();
-            this.categoriaProducto = new CategoriaProducto();
-            this.getCategoriasRender();
-          });
-
-        } else {
-            Utils.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!', this.tituloPantalla);
-        }
-      }, error => {
-          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-      }
-    );
-  }
-
-  updateCategoria(Modal) {
-
+  updateCategoria(modal) {
+    this.peticionEnCurso = true;
     this.getValuesFormUpdateCategoria();
 
     this._categoriaProductoServicio.updateCategoriaProducto(this.categoriaProducto).subscribe(
@@ -205,10 +143,10 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
             'La categoría ha sido actualizada exitosamente!',
             'success'
           ).then(() => {
-            Modal.hide();
+            modal.hide();
             this.formUpdateCategoria.reset();
-            this.getCategoriasRender();
             this.categoriaProducto = new CategoriaProducto();
+            this.getCategoriasRender();
           });
 
         } else {
@@ -216,65 +154,64 @@ export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
         }
       }, error => {
           Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+      }, () => {
+          this.peticionEnCurso = false;
       }
     );
-
   }
 
-
-  invocarModalUpdate(Modal, Categoria: CategoriaProducto) {
-
-      this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
-      this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
-      this.categoriaProducto.DescripcionCategoria = Categoria.DescripcionCategoria;
+  showModalUpdate(modal, categoria: CategoriaProducto) {
+      this.categoriaProducto.IdCategoria = categoria.IdCategoria;
+      this.categoriaProducto.NombreCategoria = categoria.NombreCategoria;
+      this.categoriaProducto.DescripcionCategoria = categoria.DescripcionCategoria;
 
       this.formUpdateCategoria.reset();
       this.formUpdateCategoria.setValue( {
-          nombreCategoria: Categoria.NombreCategoria
-          , descripcionCategoria: Categoria.DescripcionCategoria
+          nombreCategoria: categoria.NombreCategoria
+          , descripcionCategoria: categoria.DescripcionCategoria
       });
 
-    Modal.show();
+      modal.show();
   }
 
-  deleteCategoria(IdCategoria) {
+  deleteCategoria(idCategoria) {
 
     swal({
       title: 'Estas seguro(a)?',
-      text: 'La categoria sera eliminada permanentemente!',
+      text: 'La categoria sera inhabilitada!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!',
+      confirmButtonText: 'Si!',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            this._categoriaProductoServicio.deleteCategoriaProducto(IdCategoria).subscribe(
+            this._categoriaProductoServicio.deleteCategoriaProducto(idCategoria).subscribe(
                 response => {
                     if (response.success) {
                         swal(
-                            'Eliminada!',
-                            'La categoría ha sido eliminada exitosamente',
+                            'Inhabilitada!',
+                            'La categoría ha sido inhabilitada exitosamente',
                             'success'
                         ).then(() => {
                             this.getCategoriasRender();
                         });
                     } else {
-                        Utils.showMsgInfo('Ha ocurrido un error al eliminar', this.tituloPantalla);
+                        Utils.showMsgInfo('Ha ocurrido un error al inhabilitar', this.tituloPantalla);
                     }
                 }, error => {
                     Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
                 }
             );
-        } else if (result.dismiss === swal.DismissReason.cancel) {
-
         }
     });
   }
 
-  InvocarModal(Modal, Formulario) {
-      Utils.invocacionModal(Modal, Formulario);
+  resultadoConsultaAddCategoria(event) {
+      if (event) {
+          this.getCategoriasRender();
+      }
   }
 
 }

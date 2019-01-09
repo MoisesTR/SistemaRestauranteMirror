@@ -87,7 +87,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalCategoria=true" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
+                  (click)="mostrarModalCategoria()" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -240,6 +240,7 @@
   </form>
 </section>
 
+
 <!-- Modal respaldo factura fisica -->
 <div mdbModal #modalImagenProducto="mdb-modal" class="modal fade" id="modalImagenProducto" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true">
@@ -280,7 +281,7 @@
   </div>
 </div>
 
-<modal-categoria *ngIf="showModalCategoria" [mostrarModal]="showModalCategoria" (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
+<modal-categoria (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
 <modal-clasificacion *ngIf="showModalClasificacion" [mostrarModal]="showModalClasificacion" (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>
 <modal-subclasificacion *ngIf="showModalSubclasificacion" [mostrarModal]="showModalSubclasificacion"
   (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>

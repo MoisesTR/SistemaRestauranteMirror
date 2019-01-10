@@ -28,7 +28,7 @@ export class UsuarioService {
   }
 
   login2(usuarioLogin, gettoken = null): Observable<any> {
-
+    gettoken= true;
     if (gettoken != null) {
       usuarioLogin.gettoken = gettoken;
     }

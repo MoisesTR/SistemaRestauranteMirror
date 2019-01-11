@@ -47,16 +47,25 @@
                 </div>
 
                 <div class="col-md-6">
-                  <mdb-date-picker [options]="myDatePickerOptions" name="fechaNacimiento" id="fechaNacimiento"
-                    [placeholder]="'Seleccione'" [label]="'Fecha de Nacimiento'" formControlName="fechaNacimiento"
-                    required></mdb-date-picker>
-                  <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
+                  <div class="md-form">
+                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control"
+                      [mdbValidate]=false placeholder="Seleccioné" formControlName="fechaNacimiento" name="fechaNacimiento"
+                      id="fechaNacimiento" mdbInputDirective readonly>
+                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    <label id="fechaNacimiento">Fecha Nacimiento</label>
+                    <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
-                  <mdb-date-picker [options]="myDatePickerOptions" name="FechaIngreso" id="fechaIngreso" [placeholder]="'Seleccione'"
-                    [label]="'Fecha de Ingreso'" formControlName="fechaIngreso" required></mdb-date-picker>
-                  <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
+                  <div class="md-form">
+                    <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
+                      [mdbValidate]=false placeholder="Seleccioné" formControlName="fechaIngreso" name="fechaIngreso"
+                      id="fechaIngreso" mdbInputDirective readonly>
+                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    <label id="fechaIngreso">Fecha Ingreso</label>
+                    <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
+                  </div>
                 </div>
 
                 <div class="col-md-6 mt-1">

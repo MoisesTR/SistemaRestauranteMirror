@@ -47,18 +47,28 @@
                 </div>
 
                 <div class="col-md-6">
-                  <mdb-date-picker [options]="myDatePickerOptions" formControlName="fechaNacimiento" name="fechaNacimiento"
-                    id="fechaNacimiento" [placeholder]="'Seleccione'" [label]="'Fecha de Nacimiento'" required></mdb-date-picker>
-                  <show-errors [control]="formAddTrabajador.controls['fechaNacimiento']"></show-errors>
+                  <div class="md-form">
+                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control"
+                      [mdbValidate]=false placeholder="Seleccioné" formControlName="fechaNacimiento" name="fechaNacimiento"
+                      id="fechaNacimiento" mdbInputDirective readonly>
+                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    <label id="fechaNacimiento">Fecha Nacimiento</label>
+                    <show-errors [control]="formAddTrabajador.controls['fechaNacimiento']"></show-errors>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
-                  <mdb-date-picker [options]="myDatePickerOptions" formControlName="fechaIngreso" name="fechaIngreso"
-                    id="fechaIngreso" [placeholder]="'Seleccione'" [label]="'Fecha de Ingreso'" required></mdb-date-picker>
-                  <show-errors [control]="formAddTrabajador.controls['fechaIngreso']"></show-errors>
+                  <div class="md-form">
+                    <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
+                      [mdbValidate]=false placeholder="Seleccioné" formControlName="fechaIngreso" name="fechaIngreso"
+                      id="fechaIngreso" mdbInputDirective readonly>
+                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    <label id="fechaIngreso">Fecha Ingreso</label>
+                    <show-errors [control]="formAddTrabajador.controls['fechaIngreso']"></show-errors>
+                  </div>                  
                 </div>
 
-                <div class="col-md-6 mt-1">
+                <div class="col-md-6">
                   <div class="md-form ">
                     <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoPrincipalTrabajador" minlength="4"
                       maxlength="50" class="form-control" name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal"
@@ -68,10 +78,10 @@
                   </div>
                 </div>
 
-                <div class="col-md-6 mt-1">
+                <div class="col-md-6">
                   <div class="md-form ">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control" name="TelefonoSecundarioTrabajador"
-                      formControlName="telefonoSecundario" autocomplete="off">
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control"
+                      name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario" autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>

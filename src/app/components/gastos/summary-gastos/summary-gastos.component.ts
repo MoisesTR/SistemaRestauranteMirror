@@ -72,7 +72,7 @@ export class SummaryGastosComponent implements OnInit {
 		private tableService: MdbTableService,
 		private cdr: ChangeDetectorRef
 	) {}
-	
+
 	ngOnInit() {
 		this.initFormBusquedaGasto();
 		this.getClasificacionGasto();

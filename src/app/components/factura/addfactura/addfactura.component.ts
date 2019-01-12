@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import {
 	FacturaService,
 	ProductoProveedorService,
@@ -7,24 +7,24 @@ import {
 	ProveedorService,
 	UploadService,
 	UsuarioService
-} from '@app/core/service.index';
-import { Proveedor } from '@app/models/Proveedor';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CARPETA_FACTURA, Global } from '@app/core/services/shared/global';
-import { ModalDirective, ToastService } from 'ng-uikit-pro-standard';
-import { Usuario } from '@app/models/Usuario';
-import { Factura } from '@app/models/Factura';
-import { Utils } from '../../Utils';
-import { DetalleFactura } from '@app/models/DetalleFactura';
-import { ProductoFactura } from '@app/models/ProductoFactura';
-import swal from 'sweetalert2';
+} from "@app/core/service.index";
+import { Proveedor } from "@app/models/Proveedor";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { CARPETA_FACTURA, Global } from "@app/core/services/shared/global";
+import { ModalDirective, ToastService } from "ng-uikit-pro-standard";
+import { Usuario } from "@app/models/Usuario";
+import { Factura } from "@app/models/Factura";
+import { Utils } from "../../Utils";
+import { DetalleFactura } from "@app/models/DetalleFactura";
+import { ProductoFactura } from "@app/models/ProductoFactura";
+import swal from "sweetalert2";
 
 declare var $: any;
 
 @Component({
-	selector: 'app-addfactura',
-	templateUrl: './addfactura.component.html',
-	styleUrls: ['./addfactura.component.scss'],
+	selector: "app-addfactura",
+	templateUrl: "./addfactura.component.html",
+	styleUrls: ["./addfactura.component.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddfacturaComponent implements OnInit {
@@ -41,7 +41,7 @@ export class AddfacturaComponent implements OnInit {
 	public productosFiltrados: ProductoFactura[];
 	public productosProveedor: ProductoFactura[];
 	public productoEditar: ProductoFactura;
-	public buscando = '';
+	public buscando = "";
 	public subtotalFacturaConDescuento = 0;
 	public subTotalConIvaFactura = 0;
 	public subTotalFactura = 0;
@@ -59,7 +59,7 @@ export class AddfacturaComponent implements OnInit {
 	public simboloMonedaUtilizado: string;
 	public mostrarComboPlazoPagos = false;
 	public mostrarComboTipoMoneda = false;
-	public tituloPantalla: 'Factura';
+	public tituloPantalla: "Factura";
 	public fechaVencimiento: string;
 	public filesToUpload: Array<File>;
 	public deshabilitarDescuentoXItem = false;
@@ -67,13 +67,14 @@ export class AddfacturaComponent implements OnInit {
 	public EstadoCheckTipoDescuento: boolean = true;
 	public SeleccionarFechaFactura = new Date();
 
-	Moneda = [{ Id: 1, Moneda: 'Córdobas' }, { Id: 2, Moneda: 'Dólares' }];
+	Moneda = [{ Id: 1, Moneda: "Córdobas" }, { Id: 2, Moneda: "Dólares" }];
 
-	FormaPago = [{ Id: 1, FormaPago: 'Contado' }, { Id: 2, FormaPago: 'Crédito' }];
+	FormaPago = [{ Id: 1, FormaPago: "Contado" }, { Id: 2, FormaPago: "Crédito" }];
 
-	@ViewChild('modalVerProducto') modalVerProducto: ModalDirective;
-	@ViewChild('modalAgregarDetalleProducto') modalAgregarDetalleProducto: ModalDirective;
-	@ViewChild('modalAddDescuento') modalAddDescuento: ModalDirective;
+	@ViewChild("modalVerProducto") modalVerProducto: ModalDirective;
+	@ViewChild("modalAgregarDetalleProducto")
+	modalAgregarDetalleProducto: ModalDirective;
+	@ViewChild("modalAddDescuento") modalAddDescuento: ModalDirective;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -99,13 +100,13 @@ export class AddfacturaComponent implements OnInit {
 		this.url = Global.url;
 		this.IdMonedaSeleccionada = 1;
 		this.IdFormaPagoSeleccionado = 1;
-		this.simboloMonedaUtilizado = 'C$';
+		this.simboloMonedaUtilizado = "C$";
 		this.valorIva = 0.15;
 	}
 
 	ngOnInit() {
 		$(document).ready(() => {
-			$('.dropify').dropify();
+			$(".dropify").dropify();
 		});
 
 		this.getProveedores();
@@ -118,32 +119,32 @@ export class AddfacturaComponent implements OnInit {
 
 	initFormDetailProductoFactura() {
 		this.formEditarDetalleProducto = this._formBuilderFactura.group({
-			cantidadProducto: new FormControl('', [Validators.required]),
-			precioProducto: new FormControl('', [Validators.required]),
+			cantidadProducto: new FormControl("", [Validators.required]),
+			precioProducto: new FormControl("", [Validators.required]),
 			descuentoTotalProducto: new FormControl(0, []),
 			gravadoIva: new FormControl(1, []),
-			tipoDescuento: new FormControl('', [Validators.required])
+			tipoDescuento: new FormControl("", [Validators.required])
 		});
 	}
 
 	initFormAddFactura() {
 		this.formAddFactura = this._formBuilderFactura.group({
-			proveedor: new FormControl('', Validators.required),
-			codigoFactura: new FormControl('', Validators.required),
+			proveedor: new FormControl("", Validators.required),
+			codigoFactura: new FormControl("", Validators.required),
 			totalFacturaOrigen: new FormControl(0, Validators.required),
 			descuentoGlobal: new FormControl(0),
-			fechaFactura: new FormControl('', [Validators.required]),
-			fechaRecepcion: new FormControl('', [Validators.required]),
-			Moneda: new FormControl('', Validators.required),
-			FormaPago: new FormControl('', Validators.required),
-			TipoCambio: new FormControl(''),
-			PlazoPagos: new FormControl('')
+			fechaFactura: new FormControl("", [Validators.required]),
+			fechaRecepcion: new FormControl("", [Validators.required]),
+			Moneda: new FormControl("", Validators.required),
+			FormaPago: new FormControl("", Validators.required),
+			TipoCambio: new FormControl(""),
+			PlazoPagos: new FormControl("")
 		});
 	}
 
 	initFormDetailFactura() {
 		this.formDetallesFactura = this._formBuilderFactura.group({
-			checkDescuentoGeneral: new FormControl('', [])
+			checkDescuentoGeneral: new FormControl("", [])
 		});
 	}
 
@@ -152,12 +153,13 @@ export class AddfacturaComponent implements OnInit {
 			response => {
 				if (response.proveedores) {
 					this.proveedores = response.proveedores;
+					this.cdr.markForCheck();
 				} else {
-					Utils.showMsgInfo('No se han logrado obtener los proveedores', 'Factura');
+					Utils.showMsgInfo("No se han logrado obtener los proveedores", "Factura");
 				}
 			},
 			error => {
-				Utils.showMsgError(Utils.msgError(error), 'Factura');
+				Utils.showMsgError(Utils.msgError(error), "Factura");
 			},
 			() => {}
 		);
@@ -178,7 +180,7 @@ export class AddfacturaComponent implements OnInit {
 		this.factura.TotalOrigenFactura = this.formAddFactura.value.totalFacturaOrigen;
 		this.factura.Retencion = 0;
 		this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
-		this.factura.FormaPago = 'Contado';
+		this.factura.FormaPago = "Contado";
 		this.factura.IdFormaPago = 1;
 		this.factura.NombVendedor = this.proveedores.filter(
 			item => item.IdProveedor === this.proveedor.IdProveedor
@@ -192,10 +194,10 @@ export class AddfacturaComponent implements OnInit {
 			this.productos = null;
 			this.productosFactura = [];
 			this.productosFiltrados = [];
-			this.buscando = '';
+			this.buscando = "";
 			this.subtotalFacturaConDescuento = 0;
 		} else {
-			this.buscando = '';
+			this.buscando = "";
 			this.productosFiltrados = [];
 			this.productosFactura = [];
 			this.proveedor.IdProveedor = event.IdProveedor;
@@ -207,11 +209,11 @@ export class AddfacturaComponent implements OnInit {
 	changeMoneda(event) {
 		if (event === null || event === undefined) {
 			this.IdMonedaSeleccionada = null;
-			this.simboloMonedaUtilizado = 'C$';
+			this.simboloMonedaUtilizado = "C$";
 			this.mostrarComboTipoMoneda = false;
 		} else {
 			this.IdMonedaSeleccionada = event.Id;
-			this.simboloMonedaUtilizado = event.Id === 1 ? 'C$' : '$';
+			this.simboloMonedaUtilizado = event.Id === 1 ? "C$" : "$";
 			this.mostrarComboTipoMoneda = event.Id === 2;
 		}
 	}
@@ -229,8 +231,8 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	subscribeValueDescuentoGlobal() {
-		this.formAddFactura.controls['descuentoGlobal'].valueChanges.subscribe(value => {
-			if (value === '' || value == 0) {
+		this.formAddFactura.controls["descuentoGlobal"].valueChanges.subscribe(value => {
+			if (value === "" || value === 0) {
 				this.descuentoCalculoFactura = 0;
 				this.deshabilitarDescuentoXItem = false;
 				this.descuentoGlobalHabilitado = false;
@@ -249,35 +251,35 @@ export class AddfacturaComponent implements OnInit {
 	existeProductoConDescuento() {
 		if (
 			this.descuentoCalculoFactura > 0 &&
-			(this.formAddFactura.controls['descuentoGlobal'].value === 0 ||
-				this.formAddFactura.controls['descuentoGlobal'].value === '')
+			(this.formAddFactura.controls["descuentoGlobal"].value === 0 ||
+				this.formAddFactura.controls["descuentoGlobal"].value === "")
 		) {
-			return '';
+			return "";
 		}
 		return null;
 	}
 
 	deshabilitarCampos() {
-		return this.formAddFactura.controls['proveedor'].value ? null : true;
+		return this.formAddFactura.controls["proveedor"].value ? null : true;
 	}
 
 	mostrarProducto(producto: ProductoFactura) {
 		this.productoSeleccionado = producto;
-		if (this.productoSeleccionado.Imagen === '') {
-			this.productoSeleccionado.Imagen = 'vacio';
+		if (this.productoSeleccionado.Imagen === "") {
+			this.productoSeleccionado.Imagen = "vacio";
 		}
 		this.modalVerProducto.show();
 	}
 
 	agregarProductoAFactura(producto: ProductoFactura) {
-		console.log('El estado del CheckBox es: ' + producto.IsDescuentoPorcentual);
+		console.log("El estado del CheckBox es: " + producto.IsDescuentoPorcentual);
 		let productoFiltrado: ProductoFactura = new ProductoFactura();
 		productoFiltrado = Object.assign({}, producto);
 
 		if (this.productoValido(productoFiltrado)) {
 			this.calculoProducto(productoFiltrado);
 			this.productosFactura.push(productoFiltrado);
-			this.calculoValoresFactura(productoFiltrado, 'SUMA');
+			this.calculoValoresFactura(productoFiltrado, "SUMA");
 			this.resetProductoFiltrado(producto);
 			this.showSuccess();
 		}
@@ -295,25 +297,25 @@ export class AddfacturaComponent implements OnInit {
 					productoFiltrado.DescuentoIngresado <= productoFiltrado.Cantidad * productoFiltrado.Costo))
 		) {
 			if (this.descuentoGlobalHabilitado && productoFiltrado.DescuentoIngresado > 0) {
-				Utils.showMsgInfo('No puede agregar productos con descuento, cuando ya existe un descuento total por factura!');
+				Utils.showMsgInfo("No puede agregar productos con descuento, cuando ya existe un descuento total por factura!");
 				return false;
 			}
 			return true;
 		} else {
 			if (productoFiltrado.Cantidad <= 0) {
-				Utils.showMsgInfo('La cantidad debe ser mayor a cero!');
+				Utils.showMsgInfo("La cantidad debe ser mayor a cero!");
 				return false;
 			} else if (productoFiltrado.Costo <= 0) {
-				Utils.showMsgInfo('El precio debe ser mayor a cero!');
+				Utils.showMsgInfo("El precio debe ser mayor a cero!");
 				return false;
 			} else if (productoFiltrado.DescuentoIngresado > 100 && productoFiltrado.IsDescuentoPorcentual) {
-				Utils.showMsgInfo('El porcentaje de descuento debe ser menor o igual a 100!');
+				Utils.showMsgInfo("El porcentaje de descuento debe ser menor o igual a 100!");
 				return false;
 			} else if (
 				productoFiltrado.DescuentoIngresado > productoFiltrado.Cantidad * productoFiltrado.Costo &&
 				!productoFiltrado.IsDescuentoPorcentual
 			) {
-				Utils.showMsgInfo('El descuento no puede ser mayor al precio neto del producto!');
+				Utils.showMsgInfo("El descuento no puede ser mayor al precio neto del producto!");
 				return false;
 			}
 		}
@@ -363,7 +365,7 @@ export class AddfacturaComponent implements OnInit {
 						this.productosFiltrados[index].GravadoIva = 0;
 						this.productosFiltrados[index].ExentoIva = 0;
 						this.productosFiltrados[index].Cantidad = 0;
-						this.productosFiltrados[index].FechaVencimiento = '';
+						this.productosFiltrados[index].FechaVencimiento = "";
 						this.productosFiltrados[index].Descuento = 0;
 						this.productosFiltrados[index].DescuentoIngresado = 0;
 						this.productosFiltrados[index].PorcentajeDescuento = 0;
@@ -372,7 +374,7 @@ export class AddfacturaComponent implements OnInit {
 						this.productosFiltrados[index].CalculoIva = 0;
 						this.productosFiltrados[index].IsDescuentoPorcentual = true;
 						this.productosFiltrados[index].DescripcionInsumo =
-							this.productosFiltrados[index].IdTipoInsumo === 1 ? 'Alimento' : 'Limpieza';
+							this.productosFiltrados[index].IdTipoInsumo === 1 ? "Alimento" : "Limpieza";
 					});
 					this.cdr.detectChanges();
 				}
@@ -398,22 +400,22 @@ export class AddfacturaComponent implements OnInit {
 	crearFactura() {
 		this.getValueFromFormFactura();
 		if (this.productosFactura.length < 1) {
-			Utils.showMsgInfo('Selecciona al menos un producto para crear la factura', 'Factura');
+			Utils.showMsgInfo("Selecciona al menos un producto para crear la factura", "Factura");
 		} else if (this.totalFactura === 0) {
-			Utils.showMsgInfo('El total de la factura no puede ser igual a cero!', 'Factura');
+			Utils.showMsgInfo("El total de la factura no puede ser igual a cero!", "Factura");
 		} else if (this.descuentoCalculoFactura > this.subTotalFactura) {
-			Utils.showMsgInfo('El descuento no puede ser mayor al subtotal de la factura!', 'Factura');
+			Utils.showMsgInfo("El descuento no puede ser mayor al subtotal de la factura!", "Factura");
 		} else if (this.existenMontosMenorIgualaCero()) {
-			Utils.showMsgInfo('El costo total de cada producto en la factura debe ser mayor cero', 'Factura');
+			Utils.showMsgInfo("El costo total de cada producto en la factura debe ser mayor cero", "Factura");
 		} else if (this.factura.FechaRecepcion < this.factura.FechaFactura) {
-			Utils.showMsgInfo('La fecha de recepción no puede ser menor a la fecha de la factura!', 'Factura');
+			Utils.showMsgInfo("La fecha de recepción no puede ser menor a la fecha de la factura!", "Factura");
 		} else {
 			this._facturaService.createFactura(this.factura).subscribe(
 				response => {
 					if (response.IdFactura) {
 						this.crearDetalleFactura(response.IdFactura);
 					} else {
-						Utils.showMsgInfo('Ha ocurrido un error al crear la factura');
+						Utils.showMsgInfo("Ha ocurrido un error al crear la factura");
 					}
 				},
 				error => {
@@ -453,7 +455,7 @@ export class AddfacturaComponent implements OnInit {
 				response => {
 					if (response.IdDetalle) {
 					} else {
-						Utils.showMsgInfo('Ha ocurrido un error al insertar el detalle del producto' + value.IdProducto);
+						Utils.showMsgInfo("Ha ocurrido un error al insertar el detalle del producto" + value.IdProducto);
 					}
 				},
 				error => {
@@ -468,27 +470,27 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	eliminarProductoDeFactura(productoFactura: ProductoFactura, index) {
-		this.calculoValoresFactura(productoFactura, 'RESTA');
+		this.calculoValoresFactura(productoFactura, "RESTA");
 		this.productosFactura.splice(index, 1);
 		this.calcularDescuentoGlobalFactura();
 	}
 
 	agregarProveedor() {
-		this._router.navigate(['proveedor/add']);
+		this._router.navigate(["proveedor/add"]);
 	}
 
 	guardarRespaldoFactura() {
 		if (this.filesToUpload != null) {
 			this._uploadService
 				.makeFileRequest(
-					this.url + 'uploadImage/',
+					this.url + "uploadImage/",
 					CARPETA_FACTURA,
-					'',
+					"",
 					false,
 					[],
 					this.filesToUpload,
-					'token',
-					'image'
+					"token",
+					"image"
 				)
 				.then(
 					(result: any) => {
@@ -500,7 +502,7 @@ export class AddfacturaComponent implements OnInit {
 					}
 				);
 		} else {
-			this.factura.respaldoFactura = 'vacio';
+			this.factura.respaldoFactura = "vacio";
 			this.crearFactura();
 		}
 	}
@@ -513,11 +515,11 @@ export class AddfacturaComponent implements OnInit {
 		this.formEditarDetalleProducto.reset();
 		this.productoEditar = productoFactura;
 
-		this.formEditarDetalleProducto.controls['cantidadProducto'].setValue(productoFactura.Cantidad);
-		this.formEditarDetalleProducto.controls['precioProducto'].setValue(productoFactura.Costo);
-		this.formEditarDetalleProducto.controls['descuentoTotalProducto'].setValue(productoFactura.DescuentoIngresado);
-		this.formEditarDetalleProducto.controls['gravadoIva'].setValue(productoFactura.GravadoIva);
-		this.formEditarDetalleProducto.controls['tipoDescuento'].setValue(productoFactura.IsDescuentoPorcentual);
+		this.formEditarDetalleProducto.controls["cantidadProducto"].setValue(productoFactura.Cantidad);
+		this.formEditarDetalleProducto.controls["precioProducto"].setValue(productoFactura.Costo);
+		this.formEditarDetalleProducto.controls["descuentoTotalProducto"].setValue(productoFactura.DescuentoIngresado);
+		this.formEditarDetalleProducto.controls["gravadoIva"].setValue(productoFactura.GravadoIva);
+		this.formEditarDetalleProducto.controls["tipoDescuento"].setValue(productoFactura.IsDescuentoPorcentual);
 		this.modalAgregarDetalleProducto.show();
 	}
 
@@ -528,9 +530,9 @@ export class AddfacturaComponent implements OnInit {
 
 		if (this.productoValido(productoEditarTemp)) {
 			this.asignarValoresEditarProducto(this.productoEditar);
-			this.calculoValoresFactura(productoEditarValorAnterior, 'RESTA');
+			this.calculoValoresFactura(productoEditarValorAnterior, "RESTA");
 			this.calculoProducto(this.productoEditar);
-			this.calculoValoresFactura(this.productoEditar, 'SUMA');
+			this.calculoValoresFactura(this.productoEditar, "SUMA");
 			this.modalAgregarDetalleProducto.hide();
 		}
 	}
@@ -544,7 +546,7 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	calculoValoresFactura(productoFactura: ProductoFactura, operacion: string) {
-		if (operacion === 'SUMA') {
+		if (operacion === "SUMA") {
 			this.subTotalFactura += productoFactura.Subtotal;
 			this.ivaCalculoFactura += productoFactura.CalculoIva;
 			this.subTotalConIvaFactura += productoFactura.TotalDetalle;
@@ -611,13 +613,21 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	showSuccess() {
-		const options = { enableHtml: false, positionClass: 'toast-top-right', toastClass: 'opacity' };
-		this.toastrService.success('El producto ha sido agregado a la factura', 'Factura', options);
+		const options = {
+			enableHtml: false,
+			positionClass: "toast-top-right",
+			toastClass: "opacity"
+		};
+		this.toastrService.success("El producto ha sido agregado a la factura", "Factura", options);
 	}
 
 	showActualizacionProductos(nuevos: number) {
-		const options = { enableHtml: false, positionClass: 'toast-top-right', toastClass: 'opacity' };
-		this.toastrService.success('Se han encontrado un total de: ' + nuevos + ' productos nuevos!', 'Factura', options);
+		const options = {
+			enableHtml: false,
+			positionClass: "toast-top-right",
+			toastClass: "opacity"
+		};
+		this.toastrService.success("Se han encontrado un total de: " + nuevos + " productos nuevos!", "Factura", options);
 	}
 
 	ingresoFechaRecepcion(evento) {
@@ -629,12 +639,12 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	agregarNuevoProducto() {
-		window.open('http://localhost:4200/producto/add', '_blank');
+		window.open("http://localhost:4200/producto/add", "_blank");
 	}
 
 	actualizarListaProductos() {
 		if (this.factura.IdProveedor === null || this.factura.IdProveedor === undefined) {
-			Utils.showMsgInfo('Selecciona un proveedor');
+			Utils.showMsgInfo("Selecciona un proveedor");
 		} else {
 			const totalAnterior = this.productosFiltrados.length;
 			this.getProductosOfProveedor(this.factura.IdProveedor);
@@ -646,14 +656,14 @@ export class AddfacturaComponent implements OnInit {
 
 	agregarOtraFactura() {
 		swal({
-			title: 'La factura se ha creado correctamente!',
-			text: 'Deseas crear otra factura?',
-			type: 'success',
+			title: "La factura se ha creado correctamente!",
+			text: "Deseas crear otra factura?",
+			type: "success",
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'SI',
-			cancelButtonText: 'NO'
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "SI",
+			cancelButtonText: "NO"
 		}).then(result => {
 			if (result.value) {
 				this.resetFormAddFactura();
@@ -675,14 +685,14 @@ export class AddfacturaComponent implements OnInit {
 				this.descuentoGlobalHabilitado = false;
 				window.scrollTo(0, 0);
 			} else if (result.dismiss === swal.DismissReason.cancel) {
-				this._router.navigate(['factura/summaryFactura']);
+				this._router.navigate(["factura/summaryFactura"]);
 			}
 		});
 	}
 
 	resetFormAddFactura() {
 		Object.keys(this.formAddFactura.controls).forEach((value, index) => {
-			if (value !== 'Moneda' && value !== 'FormaPago') {
+			if (value !== "Moneda" && value !== "FormaPago") {
 				this.formAddFactura.controls[value].reset();
 			}
 		});

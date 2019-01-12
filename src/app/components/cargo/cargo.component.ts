@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component,ChangeDetectionStrategy,ChangeDetectorRef, OnInit, ViewChild} from '@angular/core';
 import {Cargo} from '@app/models/Cargo';
 import {Subject} from 'rxjs/Subject';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -17,7 +17,8 @@ declare var $: any;
   selector: 'app-cargo',
   templateUrl: './cargo.component.html',
   styleUrls: ['./cargo.component.css'],
-  providers: [CargoService]
+  providers: [CargoService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CargoComponent implements OnInit, InvocarFormulario {
 
@@ -39,7 +40,8 @@ export class CargoComponent implements OnInit, InvocarFormulario {
     private _route: ActivatedRoute,
     private _router: Router,
     private _cargoServicio: CargoService,
-    private _formBuilderCargo: FormBuilder
+    private _formBuilderCargo: FormBuilder,
+    private cdr:ChangeDetectorRef
 
   ) {
     this.cargo = new Cargo();
@@ -104,6 +106,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
+      this.cdr.detectChanges();
      });
     }
 
@@ -114,6 +117,7 @@ export class CargoComponent implements OnInit, InvocarFormulario {
           if (response.cargos) {
             this.cargos = response.cargos;
             this.dtTrigger.next();
+            this.cdr.markForCheck();
           }
         }, error => {
 
@@ -197,9 +201,8 @@ export class CargoComponent implements OnInit, InvocarFormulario {
             this.modalAddCargo.hide();
             this.formAddCargo.reset();
             this.cargo = new Cargo();
-            this.getCargosRender();
+            this.getCargosRender();     
           });
-
         } else {
           Utils.showMsgInfo('Ha ocurrido un error al insertar el cargo, intentalo nuevamente', this.tituloPantalla);
         }

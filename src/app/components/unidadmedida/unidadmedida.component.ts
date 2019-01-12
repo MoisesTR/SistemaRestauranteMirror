@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import {
 	FormBuilder,
 	FormControl,
@@ -53,7 +53,8 @@ export class UnidadmedidaComponent implements OnInit {
 		private clasificacionService: ClasificacionProductoService,
 		private clasificacionUnidadService: ClasificacionUnidadMedidaService,
 		private formBuilder: FormBuilder,
-		private unidadMedidaService: UnidadMedidaService
+		private unidadMedidaService: UnidadMedidaService,
+		private cdr: ChangeDetectorRef
 	) {
 		this.unidadMedida = new UnidadMedida();
 	}
@@ -85,18 +86,7 @@ export class UnidadmedidaComponent implements OnInit {
 		});
 
 		this.settingsDatatable();
-		this.unidadMedidaService.getUnidadesMedida().subscribe(
-			response => {
-				if (response.unidadesmedida) {
-					this.unidadesMedida = response.unidadesmedida;
-					this.dtTrigger.next();
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
-		);
-
+		this.getUnidadesMedida();
 		this.initFormUpdate();
 		this.getClasificaciones();
 		this.getClasificacionUnidades();
@@ -122,6 +112,21 @@ export class UnidadmedidaComponent implements OnInit {
 				}
 			]
 		};
+	}
+
+	getUnidadesMedida() {
+		this.unidadMedidaService.getUnidadesMedida().subscribe(
+			response => {
+				if (response.unidadesmedida) {
+					this.unidadesMedida = response.unidadesmedida;
+					this.dtTrigger.next();
+					this.cdr.markForCheck();
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
 	}
 
 	initFormUpdate() {
@@ -161,6 +166,7 @@ export class UnidadmedidaComponent implements OnInit {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
+			this.cdr.detectChanges();
 		});
 	}
 

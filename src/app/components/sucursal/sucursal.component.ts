@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	OnInit,
+	ViewChild
+} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
 	FormBuilder,
@@ -22,7 +28,8 @@ declare var $: any;
 @Component({
 	selector: "app-sucursal",
 	templateUrl: "./sucursal.component.html",
-	styleUrls: ["./sucursal.component.css"]
+	styleUrls: ["./sucursal.component.css"],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SucursalComponent implements OnInit, InvocarFormulario {
 	public sucursal: Sucursal;
@@ -45,7 +52,8 @@ export class SucursalComponent implements OnInit, InvocarFormulario {
 		private route: ActivatedRoute,
 		private router: Router,
 		private sucursalService: SucursalService,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private cdr: ChangeDetectorRef
 	) {
 		this.sucursal = new Sucursal();
 		this.telefonoPrincipal = new TelefonoSucursal();
@@ -78,23 +86,9 @@ export class SucursalComponent implements OnInit, InvocarFormulario {
 		});
 
 		this.settingsDatatable();
-		this.getSucursal();
+		this.getSucursales();
 		this.initFormAddSucursal();
 		this.initFormUpdateSucursal();
-		this.getSucursales();
-	}
-
-	getSucursales() {
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-					this.dtTrigger.next();
-				}
-			},
-			error => {},
-			() => {}
-		);
 	}
 
 	getSucursalesRender() {
@@ -136,14 +130,17 @@ export class SucursalComponent implements OnInit, InvocarFormulario {
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 			dtInstance.destroy();
 			this.dtTrigger.next();
+			this.cdr.detectChanges();
 		});
 	}
 
-	getSucursal() {
+	getSucursales() {
 		this.sucursalService.getSucursales().subscribe(
 			response => {
 				if (response.sucursales) {
 					this.sucursales = response.sucursales;
+					this.dtTrigger.next();
+					this.cdr.markForCheck();
 				} else {
 					Utils.showMsgInfo(
 						"Ha ocurrido un error al obtener las sucursales",

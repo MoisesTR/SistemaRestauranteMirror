@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -24,7 +24,7 @@ import { Utils } from "../Utils";
 	selector: "app-clasificacion-producto",
 	templateUrl: "./clasificacion-producto.component.html",
 	styleUrls: ["./clasificacion-producto.component.css"],
-	providers: [ClasificacionProductoService]
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClasificacionProductoComponent implements OnInit {
 	public clasificacion: ClasificacionProducto;
@@ -47,25 +47,15 @@ export class ClasificacionProductoComponent implements OnInit {
 	constructor(
 		private clasificacionService: ClasificacionProductoService,
 		private categoriaService: CategoriaProductoService,
-		private formBuilderClasificacion: FormBuilder
+		private formBuilderClasificacion: FormBuilder,
+        private cdr: ChangeDetectorRef
 	) {
 		this.clasificacion = new ClasificacionProducto();
 	}
 
 	ngOnInit() {
 		this.settingsDatatable();
-		this.clasificacionService.getClasificaciones().subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificaciones = response.clasificaciones;
-					this.dtTrigger.next();
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
-		);
-
+		this.getClasificaciones();
 		this.initFormUpdateClasificacion();
 		this.getCategorias();
 	}
@@ -92,12 +82,28 @@ export class ClasificacionProductoComponent implements OnInit {
 		};
 	}
 
+	getClasificaciones() {
+        this.clasificacionService.getClasificaciones().subscribe(
+            response => {
+                if (response.clasificaciones) {
+                    this.clasificaciones = response.clasificaciones;
+                    this.dtTrigger.next();
+                    this.cdr.markForCheck();
+                }
+            },
+            error => {
+                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+            }
+        );
+    }
+
 	rerender(): void {
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 			// Destroy the table first
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
+            this.cdr.detectChanges();
 		});
 	}
 

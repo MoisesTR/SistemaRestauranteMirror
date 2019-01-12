@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -19,7 +19,8 @@ import { Utils } from "../Utils";
 @Component({
 	selector: "app-categoria-producto",
 	templateUrl: "./categoria-producto.component.html",
-	styleUrls: ["./categoria-producto.component.css"]
+	styleUrls: ["./categoria-producto.component.css"],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriaProductoComponent implements OnInit {
 	@ViewChild("autoShownModal")
@@ -39,7 +40,8 @@ export class CategoriaProductoComponent implements OnInit {
 
 	constructor(
 		private categoriaService: CategoriaProductoService,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+        private cdr: ChangeDetectorRef
 	) {
 		this.categoriaProducto = new CategoriaProducto();
 	}
@@ -78,6 +80,7 @@ export class CategoriaProductoComponent implements OnInit {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
+            this.cdr.detectChanges();
 		});
 	}
 
@@ -87,6 +90,7 @@ export class CategoriaProductoComponent implements OnInit {
 				if (response.categorias) {
 					this.categoriasProductos = response.categorias;
 					this.dtTrigger.next();
+                    this.cdr.markForCheck();
 				}
 			},
 			error => {

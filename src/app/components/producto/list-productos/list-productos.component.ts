@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ProductoService } from '@app/core/service.index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '@app/models/Producto';
@@ -14,7 +14,7 @@ import { Utils } from '../../Utils';
 	selector: 'app-list-productos',
 	templateUrl: './list-productos.component.html',
 	styleUrls: ['./list-productos.component.css'],
-	providers: [ProductoService]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListProductosComponent implements OnInit, OnDestroy {
 	subscription: Subscription;
@@ -31,7 +31,8 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _ProductoServicio: ProductoService,
-		private spinner: NgxSpinnerService
+		private spinner: NgxSpinnerService,
+        private cdr:ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
@@ -68,6 +69,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
+            this.cdr.detectChanges();
 		});
 	}
 
@@ -78,6 +80,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 					this.productos = response.productos;
 					this.dtTrigger.next();
 					this.spinner.hide();
+					this.cdr.markForCheck();
 				} else {
 					this.spinner.hide();
 					Utils.showMsgInfo('Ha ocurrido un error al cargar los productos');

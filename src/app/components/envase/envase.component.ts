@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
@@ -15,7 +15,8 @@ import swal from "sweetalert2";
 @Component({
 	selector: "app-envase",
 	templateUrl: "./envase.component.html",
-	styleUrls: ["./envase.component.css"]
+	styleUrls: ["./envase.component.css"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EnvaseComponent implements OnInit {
 	dtOptions: DataTables.Settings = {};
@@ -41,7 +42,9 @@ export class EnvaseComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private envaseService: EnvaseService
+		private envaseService: EnvaseService,
+        private cdr: ChangeDetectorRef
+
 	) {
 		this.envase = new Envase();
 	}
@@ -80,6 +83,7 @@ export class EnvaseComponent implements OnInit {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
+            this.cdr.detectChanges();
 		});
 	}
 
@@ -89,6 +93,7 @@ export class EnvaseComponent implements OnInit {
 				if (response.envases) {
 					this.envases = response.envases;
 					this.dtTrigger.next();
+                    this.cdr.markForCheck();
 				} else {
 				}
 			},
@@ -187,8 +192,8 @@ export class EnvaseComponent implements OnInit {
 			showCancelButton: true,
 			confirmButtonColor: "#3085d6",
 			cancelButtonColor: "#d33",
-            confirmButtonText: "Si!",
-            cancelButtonText: "Cancelar"
+			confirmButtonText: "Si!",
+			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
 				this.envaseService.deleteEnvase(idEnvase).subscribe(

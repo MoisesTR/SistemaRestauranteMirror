@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy,ChangeDetectorRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Proveedor} from '@app/models/Proveedor';
 import {Producto} from '@app/models/Producto';
@@ -31,7 +31,8 @@ declare var $: any;
 @Component({
   selector: 'app-update-producto',
   templateUrl: './update-producto.component.html',
-  styleUrls: ['./update-producto.component.css']
+  styleUrls: ['./update-producto.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpdateProductoComponent implements OnInit {
 
@@ -65,6 +66,7 @@ export class UpdateProductoComponent implements OnInit {
       , private _productoProveedorService: ProductoProveedorService
     , private _deleteImageService: DeleteImageService
     , private formBuilderUProducto: FormBuilder
+    , private cdr: ChangeDetectorRef
   ) {
     this.url = Global.url;
     this.producto = new Producto();

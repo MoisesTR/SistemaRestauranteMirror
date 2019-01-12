@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -21,7 +21,8 @@ declare var $: any;
 @Component({
 	selector: "app-empaque",
 	templateUrl: "./empaque.component.html",
-	styleUrls: ["./empaque.component.css"]
+	styleUrls: ["./empaque.component.css"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmpaqueComponent implements OnInit {
 	@ViewChild("modalAddEmpaque")
@@ -41,7 +42,8 @@ export class EmpaqueComponent implements OnInit {
 
 	constructor(
 		private empaqueService: EmpaqueService,
-		private formBuilderEmpaque: FormBuilder
+		private formBuilderEmpaque: FormBuilder,
+        private cdr: ChangeDetectorRef
 	) {
 		this.empaque = new Empaque();
 	}
@@ -80,6 +82,7 @@ export class EmpaqueComponent implements OnInit {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
+            this.cdr.detectChanges();
 		});
 	}
 
@@ -89,6 +92,7 @@ export class EmpaqueComponent implements OnInit {
 				if (response.empaques) {
 					this.empaques = response.empaques;
 					this.dtTrigger.next();
+					this.cdr.markForCheck();
 				}
 			},
 			error => {

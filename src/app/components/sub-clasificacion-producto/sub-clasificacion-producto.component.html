@@ -87,7 +87,7 @@
           </div>
 
           <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select [items]="clasificaciones" class="select-mdl" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
+          <ng-select [items]="clasificaciones" class="custom" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
             placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
 
           </ng-select>
@@ -146,7 +146,7 @@
           </div>
 
           <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select [items]="clasificaciones" class="select-mdl" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
+          <ng-select [items]="clasificaciones" class="custom" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
             placeholder="Selecciona una clasificacion" formControlName="clasificacion" [(ngModel)]="subclasificacion.IdClasificacion"
             (change)="onChangeClasificacion($event)">
           </ng-select>

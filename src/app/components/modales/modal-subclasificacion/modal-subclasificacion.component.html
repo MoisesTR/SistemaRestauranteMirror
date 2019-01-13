@@ -34,7 +34,7 @@
           </div>
 
           <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select [items]="clasificaciones" class="select-mdl" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
+          <ng-select [items]="clasificaciones" class="custom" bindLabel="NombreClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion"
                      formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
 
           </ng-select>

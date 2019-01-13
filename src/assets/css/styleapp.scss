@@ -625,3 +625,12 @@ dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdow
 .margin-label-sucursal {
   margin-bottom: -20px;
 }
+
+.ng-select.custom {
+  right: 2% !important;
+  width: 106% !important;
+}
+.ng-select.custom .ng-control  {            
+  min-height: 0px;
+  border-radius: 0;
+}

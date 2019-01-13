@@ -34,7 +34,7 @@
           </div>
 
           <h6 class="orange-chang-text">Categoria</h6>
-          <ng-select dropdownPosition="'top'" class="select-mdl" [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria"
+          <ng-select dropdownPosition="'top'" class="custom" [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria"
                      placeholder="Selecciona una categoria" formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
           </ng-select>
           <show-errors [control]="formAddClasificacion.controls['categoria']"></show-errors>

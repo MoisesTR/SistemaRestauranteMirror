@@ -2,23 +2,6 @@
   <form [formGroup]="formAddProducto" (ngSubmit)="guardarImagenProducto()" novalidate>
     <div class="row">
 
-      <!--Imagen-->
-      <div class="col-12 col-sm-12 col-md-12 col-lg-4 mb-r wow fadeInLeft mb-5" data-wow-delay="0.4s" id="imagen-productos"
-        style="display: none;">
-
-        <mdb-card cascade="true" narrower="true">
-          <div class="view view-cascade gradient-card-header orange-chang">
-            <h3 class="card-header-title mb-2">Imagen</h3>
-          </div>
-          <mdb-card-body class=" text-center" cascade="true">
-            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300"
-              data-allowed-file-extensions="jpg png jpeg" />
-          </mdb-card-body>
-        </mdb-card>
-
-      </div>
-      <!-- /.Imagen -->
-
       <!--Datos del producto-->
       <div class="col-12 col-sm-12 col-md-12 col-lg-12" id="formulario-productos">
         <mdb-card cascade="true" narrower="true">
@@ -32,11 +15,11 @@
 
               <div class="col-12 mb-3">
                 <div class="md-form input-group padding-input">
-                  <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" formControlName="nombreProducto" class="form-control letras" autocomplete="off"
-                    placeholder="Nombre del Producto" style="margin-right: 5%;">
+                  <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" formControlName="nombreProducto"
+                    class="form-control letras" autocomplete="off" placeholder="Nombre del Producto" style="margin-right: 5%;">
                   <div class="input-group-btn">
-                    <button tabindex="-1" mdbBtn type="button" class="orange-chang px-3 add-img-position" (click)="showCardImg()"
-                      mdbTooltip="Agregar Imagen" placement="bottom" id="btn-animation" style="margin-left: -20%;">
+                    <button tabindex="-1" mdbBtn type="button" class="orange-chang px-3 add-img-position" (click)="modalImagenProducto.show()"
+                      mdbTooltip="Agregar Imagen" placement="bottom" style="margin-left: -20%;">
                       <i class="fa fa-file-photo-o" aria-hidden="true"></i>
                     </button>
                   </div>
@@ -47,8 +30,7 @@
               <div class="col-12 col-sm-7 col-md-7">
                 <label for="proveedor" class="grey-text-card">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)"
-                  formControlName="proveedor">
+                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
                       <div class="card-body">
@@ -73,7 +55,8 @@
 
               <div class="col-12 col-sm-5 col-md-2 mts-1">
 
-                <mdb-checkbox [checked]="false" [default]="false" formControlName="consumoDirecto" (change)="changeConsumoDirecto($event)" class="checkbox-chang-filled"><label class="grey-text-card">Consumo directo</label></mdb-checkbox>
+                <mdb-checkbox [checked]="false" [default]="false" formControlName="consumoDirecto" (change)="changeConsumoDirecto($event)"
+                  class="checkbox-chang-filled"><label class="grey-text-card">Consumo directo</label></mdb-checkbox>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
@@ -132,7 +115,8 @@
               </div>
 
               <div class="col-12 col-sm-5 col-md-2 mts-2">
-                <mdb-checkbox [checked]="false" [default]="false" (change)="changeGranel($event)" formControlName="granel" class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
+                <mdb-checkbox [checked]="false" [default]="false" (change)="changeGranel($event)" formControlName="granel"
+                  class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
@@ -232,8 +216,8 @@
 
               <div class="col-md-12">
                 <div class="md-form">
-                  <textarea mdbInputDirective [mdbValidate]=false type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea form-control"
-                    autocomplete="off"></textarea>
+                  <textarea mdbInputDirective [mdbValidate]=false type="text" id="descripcionproducto" formControlName="descripcionProducto"
+                    class="md-textarea form-control" autocomplete="off"></textarea>
                   <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
                 </div>
@@ -255,6 +239,46 @@
     </div>
   </form>
 </section>
+
+<!-- Modal respaldo factura fisica -->
+<div mdbModal #modalImagenProducto="mdb-modal" class="modal fade" id="modalImagenProducto" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Header-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-photo-o" aria-hidden="true"></i> Imagen del Producto
+        </h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalImagenProducto.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <!--Cuerpo Modal-->
+      <div class="modal-body mb-0">
+
+        <form [formGroup]="" novalidate>
+
+          <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
+            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300"
+              data-allowed-file-extensions="jpg png jpeg" />
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button mdbBtn type="button" class="orange-chang mb-1">Ingresar
+              <mdb-icon class="ml-1" icon="check"></mdb-icon>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>
 
 <modal-categoria *ngIf="showModalCategoria" [mostrarModal]="showModalCategoria" (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
 <modal-clasificacion *ngIf="showModalClasificacion" [mostrarModal]="showModalClasificacion" (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>

@@ -1,54 +1,53 @@
-
 <section>
-
   <div class="row">
 
     <div class="col-md-12">
 
-      <div class="card card-cascade narrower">
+      <mdb-card cascade="true" narrower="true">
         <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang" >
-          <h2 class="h2-responsive">Trabajadores</h2>
+        <div class="view view-cascade gradient-card-header orange-chang">
+          <h3 class="card-header-title mb-2">Trabajadores</h3>
         </div>
         <!--/Titulo-->
-        <div class="card-body" >
-          <br>
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-              <th class="header-negrita">#</th>
-              <th class="header-negrita">Nombres</th>
-              <th class="header-negrita">Apellidos</th>
-              <th class="header-negrita">Usuario</th>
-              <th class="header-negrita">Direccion</th>
-              <th class="header-negrita">Fecha ingreso</th>
-              <th class="header-negrita">Acciones</th>
-            </tr>
-            </thead>
-            <tbody >
-            <tr *ngFor="let trabajador of trabajadores; let i = index">
-              <td class="body-negrita">{{ i + 1 }}</td>
-              <td class="body-negrita">{{ trabajador.Nombres }}</td>
-              <td class="body-negrita">{{ trabajador.Apellidos }}</td>
-              <td class="body-negrita">{{ trabajador.Username }}</td>
-              <td width="30%" class="body-negrita">{{ trabajador.Direccion }}</td>
-              <td width="10%" class="body-negrita">{{ trabajador.FechaIngreso | date:'yyyy-MM-dd'}}</td>
-              <td width="25%" class="body-negrita">
+        <mdb-card-body cascade="true">
 
-                <div class="text-center">
-                  <!--<button type="button" (click)="getTrabajador()" class="btn btn-sm orange-chang" id="btnVerTrabajador" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                  <button type="button" [routerLink]="'update/'+trabajador.IdTrabajador" class="btn btn-sm orange-chang" id="btneditarTrabajador" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil"></i></button>
-                  <button type="button" (click)="deleteTrabajador(trabajador.IdTrabajador)" class="btn btn-sm orange-chang"  id="btnEliminarTrabajador" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-            </tr>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered"
+            cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="header-negrita">#</th>
+                <th class="header-negrita">Nombres</th>
+                <th class="header-negrita">Apellidos</th>
+                <th class="header-negrita">Usuario</th>
+                <th class="header-negrita">Direccion</th>
+                <th class="header-negrita">Fecha ingreso</th>
+                <th class="header-negrita">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let trabajador of trabajadores; let i = index">
+                <td class="body-negrita">{{ i + 1 }}</td>
+                <td class="body-negrita">{{ trabajador.Nombres }}</td>
+                <td class="body-negrita">{{ trabajador.Apellidos }}</td>
+                <td class="body-negrita">{{ trabajador.Username }}</td>
+                <td width="30%" class="body-negrita">{{ trabajador.Direccion }}</td>
+                <td width="10%" class="body-negrita">{{ trabajador.FechaIngreso | date:'yyyy-MM-dd'}}</td>
+                <td width="25%" class="body-negrita">
+
+                  <div class="text-center">
+                    <button type="button" [routerLink]="'update/'+trabajador.IdTrabajador" class="btn btn-sm orange-chang"
+                      id="btneditarTrabajador" mdbTooltip="Editar Trabajador" placement="bottom"><i class="fa fa-pencil"></i></button>
+                    <button type="button" (click)="deleteTrabajador(trabajador.IdTrabajador)" class="btn btn-sm orange-chang"
+                      id="btnEliminarTrabajador" mdbTooltip="Eliminar Trabajador" placement="bottom"><i class="fa fa-times"></i></button>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
-        </div>
-      </div>
 
+        </mdb-card-body>
+
+      </mdb-card>
     </div>
-
   </div>
-
 </section>

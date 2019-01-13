@@ -1,57 +1,58 @@
-<div class="row">
+<section>
+  <div class="row">
 
-  <div class="col-md-12">
+    <div class="col-md-12">
 
-    <div class="card card-cascade narrower">
-      <!--Titulo-->
-      <div class="view view-cascade gradient-card-header orange-chang">
-        <h2 class="h2-responsive">Cargo</h2>
-      </div>
-      <!--/Titulo-->
-      <div class="card-body">
-        <br>
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0"
-          width="100%">
-          <thead>
-            <tr>
-              <th class="header-negrita">#</th>
-              <th class="header-negrita">Nombre</th>
-              <th class="header-negrita">Descripcion</th>
-              <th class="header-negrita">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cargo of cargos">
-              <td class="body-negrita">{{ cargo.IdCargo }}</td>
-              <td class="body-negrita">{{ cargo.NombreCargo }}</td>
-              <td class="body-negrita">{{ cargo.DescripcionCargo }}</td>
-              <td width="25%" class="body-negrita">
-                <div class="text-center">
-                  <!--<button type="button" (click)="getCargo()" class="btn btn-sm orange-chang" id="btnGetCargo" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                  <button type="button" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="btn btn-sm orange-chang" id="btnUpdateCargo"
-                    data-toggle="tooltip" data-placement="bottom" title="Editar">
-                    <i class="fa fa-pencil"></i>
-                  </button>
-                  <button type="button" (click)="deleteCargo(cargo.IdCargo)" class="btn btn-sm orange-chang" id="btnDeleteCargo" data-toggle="tooltip"
-                    data-placement="bottom" title="Eliminar">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <mdb-card cascade="true" narrower="true">
+        <!--Titulo-->
+        <div class="view view-cascade gradient-card-header orange-chang">
+          <h3 class="card-header-title mb-2">Cargos</h3>
+        </div>
+        <!--/Titulo-->
+        <mdb-card-body cascade="true">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered"
+            cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="header-negrita">#</th>
+                <th class="header-negrita">Nombre</th>
+                <th class="header-negrita">Descripcion</th>
+                <th class="header-negrita">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cargo of cargos">
+                <td class="body-negrita">{{ cargo.IdCargo }}</td>
+                <td class="body-negrita">{{ cargo.NombreCargo }}</td>
+                <td class="body-negrita">{{ cargo.DescripcionCargo }}</td>
+                <td width="25%" class="body-negrita">
+                  <div class="text-center">
+                    <button mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="orange-chang"
+                      id="btnUpdateCargo" mdbTooltip="Editar Cargo" placement="bottom">
+                      <i class="fa fa-pencil"></i>
+                    </button>
+                    <button mdbBtn type="button" size="sm" (click)="deleteCargo(cargo.IdCargo)" class="orange-chang" id="btnDeleteCargo"
+                      mdbTooltip="Eliminar Cargo" placement="bottom">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </mdb-card-body>
+
+      </mdb-card>
+
     </div>
-
   </div>
-
-</div>
+</section>
 
 
 <!-- Modal crear Cargos -->
-<div mdbModal #modalAddCargo="mdb-modal" class="modal modal-scroll fade" id="modalAddCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div mdbModal #modalAddCargo="mdb-modal" class="modal modal-scroll fade" id="modalAddCargo" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray mdl">
@@ -78,8 +79,8 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="descripcioncargo" class="text-area-modal" minlength="5" maxlength="150" formControlName="descripcionCargo"
-              required></textarea>
+            <textarea type="text" id="descripcioncargo" class="text-area-modal" minlength="5" maxlength="150"
+              formControlName="descripcionCargo" required></textarea>
             <show-errors [control]="formAddCargo.controls['descripcionCargo']"></show-errors>
           </div>
 
@@ -100,8 +101,8 @@
 <!-- /.Modal Cargos -->
 
 <!-- Modal actualizar Cargos -->
-<div mdbModal #modalUpdateCargo="mdb-modal" class="modal fade" id="modalUpdateCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div mdbModal #modalUpdateCargo="mdb-modal" class="modal fade" id="modalUpdateCargo" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal " role="document">
     <!--Contenido-->
     <div class="modal-content background-gray mdl">
@@ -127,7 +128,8 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="updescripcioncargo" class="text-area-modal" minlength="5" maxlength="150" formControlName="descripcionCargo"></textarea>
+            <textarea type="text" id="updescripcioncargo" class="text-area-modal" minlength="5" maxlength="150"
+              formControlName="descripcionCargo"></textarea>
             <show-errors [control]="formUpdateCargo.controls['descripcionCargo']"></show-errors>
           </div>
 

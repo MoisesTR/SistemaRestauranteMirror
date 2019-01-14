@@ -17,7 +17,6 @@ export {ProveedorService} from './services/shared/proveedor.service';
 export {RolusuarioService} from './services/shared/rolusuario.service';
 export {SubClasificacionProductoService} from './services/shared/sub-clasificacion-producto.service';
 export {SucursalService} from './services/shared/sucursal.service';
-export {TelefonosucursalService} from './services/shared/telefonosucursal.service';
 export {TrabajadorService} from './services/shared/trabajador.service';
 export {UnidadMedidaService} from './services/shared/unidad-medida.service';
 export {UploadService} from './services/shared/upload.service';

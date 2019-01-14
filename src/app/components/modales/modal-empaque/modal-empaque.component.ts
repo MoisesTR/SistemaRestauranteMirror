@@ -36,7 +36,7 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 
 	public empaque: Empaque;
 	public formAddEmpaque: FormGroup;
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 	public tituloPantalla = "Empaque";
 	public subscription: ISubscription;
 

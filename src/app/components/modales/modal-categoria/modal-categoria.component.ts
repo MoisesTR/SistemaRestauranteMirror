@@ -37,7 +37,7 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 	public formAddCategoria: FormGroup;
 	public categoriaProducto: CategoriaProducto;
 	private subscription: ISubscription;
-	private peticionEnCurso: boolean = false;
+	peticionEnCurso = false;
 	public tituloPantalla = "Categoria";
 
 	constructor(

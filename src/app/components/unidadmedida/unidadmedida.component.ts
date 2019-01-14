@@ -47,7 +47,7 @@ export class UnidadmedidaComponent implements OnInit {
 	public formUpdateUnidadMedida: FormGroup;
 	public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
 	public tituloPantalla = "Unidad de Medida";
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 
 	constructor(
 		private clasificacionService: ClasificacionProductoService,

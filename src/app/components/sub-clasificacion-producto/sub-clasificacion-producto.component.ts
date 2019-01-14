@@ -41,7 +41,7 @@ export class SubClasificacionProductoComponent implements OnInit {
 	formUpdateSubClasificacion: FormGroup;
 
 	public tituloPantalla = "Subclasificación";
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 
 	constructor(
 		private subclasificacionService: SubClasificacionProductoService,

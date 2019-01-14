@@ -43,7 +43,7 @@ export class ModalSubclasificacionComponent
 	public clasificaciones: ClasificacionProducto;
 	public subclasificacion: SubClasificacionProducto;
 	formAddSubClasificacion: FormGroup;
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 	public tituloPantalla = "Subclasificación";
 	public subscription: ISubscription;
 

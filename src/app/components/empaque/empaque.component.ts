@@ -37,7 +37,7 @@ export class EmpaqueComponent implements OnInit {
 	public empaques: Empaque[];
 	public tituloPantalla = "Empaque";
 	public formUpdateEmpaque: FormGroup;
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 
 	constructor(
 		private empaqueService: EmpaqueService,

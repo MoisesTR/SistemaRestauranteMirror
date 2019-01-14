@@ -44,7 +44,7 @@ export class ModalClasificacionComponent
 	public formAddClasificacion: FormGroup;
 	public categorias: CategoriaProducto[];
 	public tituloPantalla = "Clasificación";
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 	public subscription: ISubscription;
 
 	constructor(

@@ -29,7 +29,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   public contactos: TelefonoProveedor[];
   public telefonoRequerido: TelefonoProveedor;
   public formAddTelefonos: FormGroup;
-  private peticionEnCurso = false;
+  peticionEnCurso = false;
 
   constructor(
       private _route: ActivatedRoute

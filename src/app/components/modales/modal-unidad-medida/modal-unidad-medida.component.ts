@@ -47,7 +47,7 @@ export class ModalUnidadMedidaComponent
 	public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
 	public subscription: ISubscription;
 	formAddUnidadMedida: FormGroup;
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 
 	constructor(
 		private clasificacionService: ClasificacionProductoService,

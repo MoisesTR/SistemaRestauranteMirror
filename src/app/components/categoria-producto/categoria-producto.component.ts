@@ -35,7 +35,7 @@ export class CategoriaProductoComponent implements OnInit {
 	public categoriasProductos: CategoriaProducto[];
 	public formUpdateCategoria: FormGroup;
 	public tituloPantalla = "Categoria";
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 
 	constructor(
 		private categoriaService: CategoriaProductoService,

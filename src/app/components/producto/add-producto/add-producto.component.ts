@@ -61,7 +61,7 @@ export class AddProductoComponent implements OnInit {
 	public previousUrl: string;
 	public tipoInsumoSeleccionado = 1;
 	public proveedorSelecionado: number;
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 	formAddProducto: FormGroup;
 
 	Insumo = [

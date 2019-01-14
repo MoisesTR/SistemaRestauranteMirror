@@ -37,7 +37,7 @@ export class EnvaseComponent implements OnInit {
 	public tituloPantalla = "Envase";
 
 	public formUpdateEnvase: FormGroup;
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,

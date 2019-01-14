@@ -35,7 +35,7 @@ export class ModalEnvaseComponent implements OnInit, EventoModal, OnDestroy {
 	public envase: Envase;
 	public tituloPantalla = "Envase";
 	public formAddEnvase: FormGroup;
-	private peticionEnCurso = false;
+	peticionEnCurso = false;
 	public subscription: ISubscription;
 
 	constructor(

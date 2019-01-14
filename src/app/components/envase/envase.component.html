@@ -47,56 +47,7 @@
   </div>
 </section>
 
-
-<!-- Modal Envase -->
-<div mdbModal #modalAddEnvase="mdb-modal" class="modal fade" id="modalAddEnvase" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
-
-      <!--Titulo-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Envase</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddEnvase.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-        <!-- Inicio form-->
-        <form [formGroup]="formAddEnvase" (ngSubmit)="createEnvaseProducto(modalAddEnvase)" required>
-
-          <div class="md-form">
-            <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="nombreenvase" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase"
-              required>
-            <show-errors [control]="formAddEnvase.controls['nombreEnvase']"></show-errors>
-          </div>
-
-
-          <div class="md-form">
-            <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="descripcionenvase" formControlName="descripcionEnvase" class="text-area-modal"
-              name="descripcionenvase" required></textarea>
-            <show-errors [control]="formAddEnvase.controls['descripcionEnvase']"></show-errors>
-          </div>
-
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddEnvase.valid">Ingresar
-              <i class="fa fa-check ml-1"></i>
-            </button>
-          </div>
-
-        </form>
-        <!-- Final form -->
-      </div>
-    </div>
-    <!--/.Contenido-->
-  </div>
-</div>
-
+<modal-envase (resultadoConsulta)="resultadoConsultaAddEnvase($event)"></modal-envase>
 <!-- Modal update Envase -->
 <div mdbModal #modalUpdateEnvase="mdb-modal" class="modal fade" id="modalUpdateEnvase" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true">
@@ -119,21 +70,20 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="upnombreenvase" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase"
-              required>
-            <show-errors [control]="formAddEnvase.controls['nombreEnvase']"></show-errors>
+            <input type="text" id="upnombreenvase" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase">
+            <show-errors [control]="formUpdateEnvase.controls['nombreEnvase']"></show-errors>
           </div>
 
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
             <textarea type="text" id="updescripcionenvase" formControlName="descripcionEnvase" class="text-area-modal"
-              name="descripcionenvase" required></textarea>
-            <show-errors [control]="formAddEnvase.controls['descripcionEnvase']"></show-errors>
+              name="descripcionenvase"></textarea>
+            <show-errors [control]="formUpdateEnvase.controls['descripcionEnvase']"></show-errors>
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateEnvase.valid">Actualizar
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateEnvase.valid || peticionEnCurso">Actualizar
               <i class="fa fa-check ml-1"></i>
             </button>
           </div>

@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RolusuarioService, TrabajadorService, UsuarioService} from '@app/services/service.index';
+import {RolusuarioService, TrabajadorService, UsuarioService} from '@app/core/service.index';
 import {Usuario} from '@app/models/Usuario';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RolUsuario} from '@app/models/RolUsuario';
 import {Trabajador} from '@app/models/Trabajador';
 import {CustomValidators} from '@app/validadores/CustomValidators';
 import swal from 'sweetalert2';
-import {Global} from '@app/services/shared/global';
+import {Global} from '@app/core/services/shared/global';
 import {Utils} from '../../Utils';
 
 declare var $:any;

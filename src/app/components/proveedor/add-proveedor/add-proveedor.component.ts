@@ -1,6 +1,6 @@
 import {AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PreviousRouteService, ProveedorService} from '@app/services/service.index';
+import {PreviousRouteService, ProveedorService} from '@app/core/service.index';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Proveedor} from '@app/models/Proveedor';
 import swal from 'sweetalert2';
@@ -29,7 +29,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
   public contactos: TelefonoProveedor[];
   public telefonoRequerido: TelefonoProveedor;
   public formAddTelefonos: FormGroup;
-  public peticionEnCurso = false;
+  private peticionEnCurso = false;
 
   constructor(
       private _route: ActivatedRoute

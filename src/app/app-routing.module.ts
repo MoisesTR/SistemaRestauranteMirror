@@ -1,8 +1,9 @@
-import {Routes} from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {NotFound404Component} from './components/not-found-404/not-found-404.component';
-import {AuthGuardService} from './services/auth/auth-guard.service';
+import {AuthGuardService} from '@app/core/service.index';
+import {NgModule} from '@angular/core';
 
 export const ROUTES: Routes = [
     {path: 'login', component: LoginComponent},
@@ -13,4 +14,11 @@ export const ROUTES: Routes = [
     },
     {path: '**', component: NotFound404Component},
 ];
+
+@NgModule({
+    imports: [RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})]
+    , exports: [RouterModule]
+})
+
+export class AppRoutingModule { }
 

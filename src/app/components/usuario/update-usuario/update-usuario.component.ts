@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RolUsuario} from '@app/models/RolUsuario';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RolusuarioService, TrabajadorService, UsuarioService} from '@app/services/service.index';
+import {RolusuarioService, TrabajadorService, UsuarioService} from '@app/core/service.index';
 import {Trabajador} from '@app/models/Trabajador';
 import {Usuario} from '@app/models/Usuario';
 

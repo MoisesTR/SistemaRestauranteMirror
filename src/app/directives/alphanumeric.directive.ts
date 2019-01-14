@@ -4,10 +4,10 @@ import {Directive, ElementRef, HostListener} from '@angular/core';
     selector: '[Alphanumeric]'
 })
 export class AlphanumericDirective {
-    private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home' ];
+    private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home'];
 
     constructor(private el: ElementRef) {}
-    private regexAlphanumeric: RegExp = new RegExp(/^[a-zA-Z0-9\-]*$/g);
+    private regexAlphanumeric: RegExp = new RegExp(/^[a-zA-Z0-9\s]*$/g);
 
     @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent): boolean {
 

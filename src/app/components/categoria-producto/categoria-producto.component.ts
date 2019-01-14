@@ -1,280 +1,226 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {CategoriaProductoService} from '@app/services/service.index';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CategoriaProducto} from '@app/models/CategoriaProducto';
-import {Subject} from 'rxjs';
-import {idioma_espanol} from '@app/services/shared/global';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import swal from 'sweetalert2';
-import {DataTableDirective} from 'angular-datatables';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import {ModalDirective} from 'ng-uikit-pro-standard';
-import {Utils} from '../Utils';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators
+} from "@angular/forms";
+import { Subject } from "rxjs/Subject";
 
-declare var $: any;
+import { CategoriaProductoService } from "@app/core/service.index";
+import { CategoriaProducto } from "@app/models/CategoriaProducto";
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { DataTableDirective } from "angular-datatables";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import { idioma_espanol } from "@app/core/services/shared/global";
+import swal from "sweetalert2";
+import { Utils } from "../Utils";
 
 @Component({
-  selector: 'app-categoria-producto',
-  templateUrl: './categoria-producto.component.html',
-  styleUrls: ['./categoria-producto.component.css'],
-  providers: [CategoriaProductoService]
+	selector: "app-categoria-producto",
+	templateUrl: "./categoria-producto.component.html",
+	styleUrls: ["./categoria-producto.component.css"]
 })
-export class CategoriaProductoComponent implements OnInit, InvocarFormulario {
+export class CategoriaProductoComponent implements OnInit {
+	@ViewChild("autoShownModal")
+	autoShownModal: ModalDirective;
 
-  public categoriaProducto: CategoriaProducto;
-  public categoriasProductos: CategoriaProducto[];
-  @ViewChild('autoShownModal') public autoShownModal: ModalDirective;
-  @ViewChild('modalAddCategoria') modalAddCategoria: ModalDirective;
+	@ViewChild(DataTableDirective)
+	dtElement: DataTableDirective;
 
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject<any>();
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-  public formAddCategoria: FormGroup;
-  public formUpdateCategoria: FormGroup;
-  public tituloPantalla = 'Categoria';
+	public categoriaProducto: CategoriaProducto;
+	public categoriasProductos: CategoriaProducto[];
+	public formUpdateCategoria: FormGroup;
+	public tituloPantalla = "Categoria";
+	private peticionEnCurso = false;
 
-  constructor(
-    private _route: ActivatedRoute
-    , private _router: Router
-    , private _categoriaProductoServicio: CategoriaProductoService
-    , private _formBuilderCategoria: FormBuilder
-  ) {
-    this.categoriaProducto = new CategoriaProducto();
-  }
+	constructor(
+		private categoriaService: CategoriaProductoService,
+		private formBuilder: FormBuilder
+	) {
+		this.categoriaProducto = new CategoriaProducto();
+	}
 
+	ngOnInit() {
+		this.settingsDatatable();
+		this.getCategorias();
+		this.initFormUpdateCategoria();
+	}
 
-  ngOnInit() {
-    this.settingsDatatable();
-    this.getCategorias();
-    this.initFormAddCategoria();
-    this.initFormUpdateCategoria();
+	settingsDatatable() {
+		/*PROPIEDADES GENERALES DE LA DATATABLE*/
+		this.dtOptions = <DataTables.Settings>{
+			pagingType: "full_numbers",
+			pageLength: 10,
+			language: idioma_espanol,
+			lengthChange: false,
+			responsive: true,
+			dom: "Bfrtip",
+			buttons: [
+				{
+					text: "Agregar",
+					key: "1",
+					className: "btn orange-chang float-right-dt",
+					action: (e, dt, node, config) => {
+						this.categoriaService.mostrarModal();
+					}
+				}
+			]
+		};
+	}
 
-  }
+	rerender(): void {
+		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+			// Destroy the table first
+			dtInstance.destroy();
+			// Call the dtTrigger to rerender again
+			this.dtTrigger.next();
+		});
+	}
 
-  settingsDatatable() {
+	getCategorias() {
+		this.categoriaService.getCategoriasProductos().subscribe(
+			response => {
+				if (response.categorias) {
+					this.categoriasProductos = response.categorias;
+					this.dtTrigger.next();
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
+	}
 
-    /*PROPIEDADES GENERALES DE LA DATATABLE*/
-      this.dtOptions = <DataTables.Settings>{
-          pagingType: 'full_numbers'
-          , pageLength: 10
-          , language: idioma_espanol
-          , 'lengthChange': false
-          , responsive : true
-          , dom: 'Bfrtip',
-          buttons: [
-              {
-                  text: 'Agregar',
-                  key: '1',
-                  className: 'btn orange-chang float-right-dt',
-                  action:  (e, dt, node, config) => {
-                      // this._router.navigate(['producto/add']);
-                      this.InvocarModal(this.modalAddCategoria, this.formAddCategoria);
-                  }
-              }
-          ]
-      };
-  }
+	getCategoriasRender() {
+		this.categoriaService.getCategoriasProductos().subscribe(
+			response => {
+				if (response.categorias) {
+					this.categoriasProductos = response.categorias;
+					this.rerender();
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
+	}
 
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
+	initFormUpdateCategoria() {
+		this.formUpdateCategoria = this.formBuilder.group({
+			nombreCategoria: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			]),
+			descripcionCategoria: new FormControl("", [
+				Validators.required,
+				Validators.minLength(3),
+				Validators.maxLength(300),
+				CustomValidators.nospaceValidator
+			])
+		});
+	}
 
-  getCategorias() {
+	getValuesFormUpdateCategoria() {
+		this.categoriaProducto.NombreCategoria = this.formUpdateCategoria.value.nombreCategoria;
+		this.categoriaProducto.DescripcionCategoria = this.formUpdateCategoria.value.descripcionCategoria;
+	}
 
-    this._categoriaProductoServicio.getCategoriasProductos().subscribe(
-      response => {
-        if (response.categorias) {
-          this.categoriasProductos = response.categorias;
-          this.dtTrigger.next();
-        }
-      }, error => {
+	updateCategoria(modal) {
+		this.peticionEnCurso = true;
+		this.getValuesFormUpdateCategoria();
 
-      }
-    );
-  }
+		this.categoriaService
+			.updateCategoriaProducto(this.categoriaProducto)
+			.subscribe(
+				response => {
+					if (response.success) {
+						swal(
+							"Categoría",
+							"La categoría ha sido actualizada exitosamente!",
+							"success"
+						).then(() => {
+							modal.hide();
+							this.formUpdateCategoria.reset();
+							this.categoriaProducto = new CategoriaProducto();
+							this.getCategoriasRender();
+						});
+					} else {
+						Utils.showMsgError(
+							"Ha ocurrido un error inesperado en la actualización , intenta nuevamente"
+						);
+					}
+				},
+				error => {
+					this.peticionEnCurso = false;
+					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				},
+				() => {
+					this.peticionEnCurso = false;
+				}
+			);
+	}
 
-  getCategoriasRender() {
-    this._categoriaProductoServicio.getCategoriasProductos().subscribe(
-      response => {
-        if (response.categorias) {
-          this.categoriasProductos = response.categorias;
-          this.rerender();
-        }
-      }, error => {
+	showModalUpdate(modal, categoria: CategoriaProducto) {
+		this.categoriaProducto.IdCategoria = categoria.IdCategoria;
+		this.categoriaProducto.NombreCategoria = categoria.NombreCategoria;
+		this.categoriaProducto.DescripcionCategoria =
+			categoria.DescripcionCategoria;
 
-      }
-    );
-  }
+		this.formUpdateCategoria.reset();
+		this.formUpdateCategoria.setValue({
+			nombreCategoria: categoria.NombreCategoria,
+			descripcionCategoria: categoria.DescripcionCategoria
+		});
 
-  /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddCategoria() {
+		modal.show();
+	}
 
-    this.formAddCategoria = this._formBuilderCategoria.group({
-      'nombreCategoria': new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(100),
-          CustomValidators.nospaceValidator
-        ])
-      , 'descripcionCategoria': new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(300),
-          CustomValidators.nospaceValidator
-        ])
-    });
+	deleteCategoria(idCategoria) {
+		swal({
+			title: "Estas seguro(a)?",
+			text: "La categoria sera inhabilitada!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si!",
+			cancelButtonText: "Cancelar"
+		}).then(result => {
+			if (result.value) {
+				this.categoriaService.deleteCategoriaProducto(idCategoria).subscribe(
+					response => {
+						if (response.success) {
+							swal(
+								"Inhabilitada!",
+								"La categoría ha sido inhabilitada exitosamente",
+								"success"
+							).then(() => {
+								this.getCategoriasRender();
+							});
+						} else {
+							Utils.showMsgInfo(
+								"Ha ocurrido un error al inhabilitar",
+								this.tituloPantalla
+							);
+						}
+					},
+					error => {
+						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+					}
+				);
+			}
+		});
+	}
 
-  }
-
-  initFormUpdateCategoria() {
-
-    this.formUpdateCategoria = this._formBuilderCategoria.group({
-      'nombreCategoria': new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(100),
-          CustomValidators.nospaceValidator
-        ])
-      , 'descripcionCategoria': new FormControl('',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(300),
-          CustomValidators.nospaceValidator
-        ])
-    });
-  }
-
-  getValuesFormAddCategoria() {
-    this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
-    this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
-  }
-
-  getValuesFormUpdateCategoria() {
-    this.categoriaProducto.NombreCategoria = this.formUpdateCategoria.value.nombreCategoria;
-    this.categoriaProducto.DescripcionCategoria = this.formUpdateCategoria.value.descripcionCategoria;
-  }
-
-
-  createCategoriaProducto() {
-    this.getValuesFormAddCategoria();
-
-    this._categoriaProductoServicio.createCategoriaProducto(this.categoriaProducto).subscribe(
-      response => {
-
-        if (response.IdCategoria) {
-          swal(
-            'Categoría',
-            'La categoría ha sido creada exitosamente!',
-            'success'
-          ).then(() => {
-            this.modalAddCategoria.hide();
-            this.formAddCategoria.reset();
-            this.categoriaProducto = new CategoriaProducto();
-            this.getCategoriasRender();
-          });
-
-        } else {
-            Utils.showMsgError('Ha ocurrido un error al insertar la categoria, intenta nuevamente!', this.tituloPantalla);
-        }
-      }, error => {
-          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-      }
-    );
-  }
-
-  updateCategoria(Modal) {
-
-    this.getValuesFormUpdateCategoria();
-
-    this._categoriaProductoServicio.updateCategoriaProducto(this.categoriaProducto).subscribe(
-      response => {
-        if (response.success) {
-          swal(
-            'Categoría',
-            'La categoría ha sido actualizada exitosamente!',
-            'success'
-          ).then(() => {
-            Modal.hide();
-            this.formUpdateCategoria.reset();
-            this.getCategoriasRender();
-            this.categoriaProducto = new CategoriaProducto();
-          });
-
-        } else {
-          Utils.showMsgError('Ha ocurrido un error inesperado en la actualización , intenta nuevamente');
-        }
-      }, error => {
-          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-      }
-    );
-
-  }
-
-
-  invocarModalUpdate(Modal, Categoria: CategoriaProducto) {
-
-      this.categoriaProducto.IdCategoria = Categoria.IdCategoria;
-      this.categoriaProducto.NombreCategoria = Categoria.NombreCategoria;
-      this.categoriaProducto.DescripcionCategoria = Categoria.DescripcionCategoria;
-
-      this.formUpdateCategoria.reset();
-      this.formUpdateCategoria.setValue( {
-          nombreCategoria: Categoria.NombreCategoria
-          , descripcionCategoria: Categoria.DescripcionCategoria
-      });
-
-    Modal.show();
-  }
-
-  deleteCategoria(IdCategoria) {
-
-    swal({
-      title: 'Estas seguro(a)?',
-      text: 'La categoria sera eliminada permanentemente!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminala!',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-            this._categoriaProductoServicio.deleteCategoriaProducto(IdCategoria).subscribe(
-                response => {
-                    if (response.success) {
-                        swal(
-                            'Eliminada!',
-                            'La categoría ha sido eliminada exitosamente',
-                            'success'
-                        ).then(() => {
-                            this.getCategoriasRender();
-                        });
-                    } else {
-                        Utils.showMsgInfo('Ha ocurrido un error al eliminar', this.tituloPantalla);
-                    }
-                }, error => {
-                    Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-                }
-            );
-        } else if (result.dismiss === swal.DismissReason.cancel) {
-
-        }
-    });
-  }
-
-  InvocarModal(Modal, Formulario) {
-      Utils.invocacionModal(Modal, Formulario);
-  }
-
+	resultadoConsultaAddCategoria(event) {
+		if (event) {
+			this.getCategoriasRender();
+		}
+	}
 }

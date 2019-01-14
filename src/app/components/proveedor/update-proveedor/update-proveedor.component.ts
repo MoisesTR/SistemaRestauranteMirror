@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Proveedor} from '@app/models/Proveedor';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ProveedorService} from '@app/services/service.index';
+import {ProveedorService} from '@app/core/service.index';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';

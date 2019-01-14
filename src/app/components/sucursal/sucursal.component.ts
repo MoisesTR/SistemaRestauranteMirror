@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SucursalService, TelefonosucursalService} from '@app/services/service.index';
+import {SucursalService, TelefonosucursalService} from '@app/core/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Sucursal} from '@app/models/Sucursal';
-import {Subject} from 'rxjs';
+import {Subject} from 'rxjs/Subject';
 import swal from 'sweetalert2';
-import {idioma_espanol} from '@app/services/shared/global';
+import {idioma_espanol} from '@app/core/services/shared/global';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataTableDirective} from 'angular-datatables';
 import {CustomValidators} from '@app/validadores/CustomValidators';

@@ -1,118 +1,136 @@
-import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {EnvaseService} from '@app/services/service.index';
-import {Envase} from '@app/models/Envase';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ModalDirective} from 'ng-uikit-pro-standard';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import {Utils} from '../../Utils';
-import swal from 'sweetalert2';
-declare var $: any;
+import {
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild
+} from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators
+} from "@angular/forms";
+import { ISubscription } from "rxjs-compat/Subscription";
+
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { EnvaseService } from "@app/core/service.index";
+import { Envase } from "@app/models/Envase";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import swal from "sweetalert2";
+import { Utils } from "../../Utils";
 
 @Component({
-  selector: 'modal-envase',
-  templateUrl: './modal-envase.component.html'
+	selector: "modal-envase",
+	templateUrl: "./modal-envase.component.html"
 })
-export class ModalEnvaseComponent implements OnInit, AfterViewInit {
+export class ModalEnvaseComponent implements OnInit, EventoModal, OnDestroy {
+	@ViewChild("modalAddEnvase") modalAddEnvase: ModalDirective;
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
+		boolean
+	>();
 
-    public envase: Envase;
-    public tituloPantalla = 'Envase';
-    public formAddEnvase: FormGroup;
+	public envase: Envase;
+	public tituloPantalla = "Envase";
+	public formAddEnvase: FormGroup;
+	private peticionEnCurso = false;
+	public subscription: ISubscription;
 
-    @Input() mostrarModal: boolean;
-    @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
+	constructor(
+		private cdRef: ChangeDetectorRef,
+		private envaseService: EnvaseService,
+		private formBuilderEnvase: FormBuilder
+	) {}
 
-    @ViewChild('modalAddEnvase') modalAddEnvase: ModalDirective;
+	ngOnInit() {
+		this.initFormAddEnvase();
+		this.subscribeEventoModal();
+	}
 
-    constructor(
-        private _route: ActivatedRoute
-        , private _router: Router
-        , private _envaseService: EnvaseService
-        , private _formBuilderEnvase: FormBuilder
-    ) {
-        this.envase = new Envase();
-    }
+	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
+	initFormAddEnvase() {
+		this.formAddEnvase = this.formBuilderEnvase.group({
+			nombreEnvase: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			]),
+			descripcionEnvase: new FormControl("", [
+				Validators.required,
+				Validators.minLength(3),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			])
+		});
+	}
 
+	subscribeEventoModal() {
+		this.subscription = this.envaseService.eventoModal.subscribe(
+			mostrarModal => {
+				if (mostrarModal) {
+					this.envase = new Envase();
+					this.formAddEnvase.reset();
+					this.modalAddEnvase.show();
+				} else {
+					this.hideModalAndEmitResult();
+				}
+			}
+		);
+	}
 
-    ngOnInit() {
-      this.initFormAddEnvase();
-    }
+	getValuesFormAddEnvase() {
+		this.envase.NombreEnvase = this.formAddEnvase.value.nombreEnvase;
+		this.envase.Descripcion = this.formAddEnvase.value.descripcionEnvase;
+	}
 
-    ngAfterViewInit(){
-        this.modalAddEnvase.show();
-    }
+	createEnvaseProducto() {
+		this.getValuesFormAddEnvase();
+		this.envaseService.createEnvase(this.envase).subscribe(
+			response => {
+				if (response.IdEnvase) {
+					swal(
+						"Envase",
+						"El envase ha sido creado exitosamente!",
+						"success"
+					).then(() => {
+						this.resetAndHideModal();
+						this.resultadoConsulta.emit(true);
+					});
+				} else {
+					Utils.showMsgInfo(
+						"Ha ocurrido un error inesperado al crear el envase!"
+					);
+				}
+			},
+			error => {
+				this.runChangeDetection();
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.runChangeDetection();
+			}
+		);
+	}
 
-    @HostListener('window:keyup', ['$event'])
-    keyEvent(event: KeyboardEvent) {
-        if (event.keyCode === 27) {
-            this.hideModal();
-        }
-    }
+	runChangeDetection() {
+		this.peticionEnCurso = false;
+		this.cdRef.markForCheck();
+	}
 
-    eventClick(event) {
-        if ( event.dismissReason !== null && event.dismissReason !== undefined ) {
-            if ( (event.dismissReason).toString() === ( 'backdrop-click')) {
-                this.hideModal();
-            }
-        }
-    }
+	hideModalAndEmitResult() {
+		this.resetAndHideModal();
+		this.resultadoConsulta.emit(false);
+	}
 
-    /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-    initFormAddEnvase() {
+	resetAndHideModal() {
+		this.formAddEnvase.reset();
+		this.modalAddEnvase.hide();
+	}
 
-        this.formAddEnvase = this._formBuilderEnvase.group({
-            'nombreEnvase': new FormControl('', [
-                Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(100),
-                CustomValidators.nospaceValidator
-            ])
-            , 'descripcionEnvase': new FormControl('', [
-                    Validators.required,
-                    Validators.minLength(3),
-                    Validators.maxLength(100),
-                    CustomValidators.nospaceValidator
-                ]
-
-            )
-        });
-
-    }
-
-    getValuesFormAddEnvase() {
-        this.envase.NombreEnvase = this.formAddEnvase.value.nombreEnvase;
-        this.envase.Descripcion = this.formAddEnvase.value.descripcionEnvase;
-    }
-
-    createEnvaseProducto(Modal) {
-        this.getValuesFormAddEnvase();
-        this._envaseService.createEnvase(this.envase).subscribe(
-            response => {
-                if (response.IdEnvase) {
-
-                    swal(
-                        'Envase',
-                        'El envase ha sido creado exitosamente!',
-                        'success'
-                    ).then(() => {
-                        Modal.hide();
-                        this.envase = new Envase();
-                        this.formAddEnvase.reset();
-                        this.resultadoConsulta.emit(true);
-                    });
-
-                } else {
-                    Utils.showMsgInfo('Ha ocurrido un error al crear el envase, intentalo nuevamente');
-                }
-            }, error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }
-        );
-    }
-
-    public hideModal() {
-        this.modalAddEnvase.hide();
-        this.resultadoConsulta.emit(false);
-    }
-
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
+	}
 }

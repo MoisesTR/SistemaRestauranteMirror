@@ -5,7 +5,7 @@ import {ClasificacionGasto} from '@app/models/ClasificacionGasto';
 import {SubclasificacionGasto} from '@app/models/SubclasificacionGasto';
 import {Gasto} from '@app/models/Gasto';
 import {Router} from '@angular/router';
-import {FacturaService, GastoService} from '@app/services/service.index';
+import {FacturaService, GastoService} from '@app/core/service.index';
 import {Utils} from '../../Utils';
 
 @Component({

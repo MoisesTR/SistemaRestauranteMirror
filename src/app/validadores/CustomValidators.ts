@@ -36,15 +36,7 @@ export class CustomValidators {
     return cadena.length === 0 ? message : null;
   }
 
-  static nospaceValidator1(control: AbstractControl): { [s: string]: boolean } {
-        const re = / /;
-        if (control.value && control.value.match(re)) {
-            return { nospace: true };
-        }
-  }
-
   static nospaceValidator(control: AbstractControl): { [s: string]: boolean } {
-        const re = / /;
         if (control.value && control.value.toString().trim().length === 0) {
             return { nospace: true };
         }

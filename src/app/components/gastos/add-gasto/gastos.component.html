@@ -16,6 +16,12 @@
             <div class="row">
 
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
+                <ng-select id="sucursalGastos" placeholder="Selecciona una Sucursal">
+                </ng-select>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
                 <label for="clasificacionGastos" class="grey-text-card">Clasificación</label>
                 <ng-select id="clasificacionGastos" (change)="changeClasificacion($event)" [items]="clasificaciones"
                   bindValue="IdClasificacion" bindLabel="Descripcion" formControlName="clasificacion" placeholder="Selecciona una clasificación">
@@ -23,12 +29,19 @@
                 <show-errors [control]="formAddGasto.controls['clasificacion']"></show-errors>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
                 <label for="subclasificacionGastos" class="grey-text-card">Sub - Clasificación</label>
                 <ng-select id="subclasificacionGastos" (change)="changeSubclasificacion($event)" [items]="subclasificaciones"
-                 bindValue="IdSubClasificacion" bindLabel="Descripcion" formControlName="subclasificacion"
-                  placeholder="Selecciona una sub - clasificación">
+                  bindValue="IdSubClasificacion" bindLabel="Descripcion" formControlName="subclasificacion" placeholder="Selecciona una sub - clasificación">
                 </ng-select>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+                <div class="md-form">
+                  <input onlyPositiveNumber [mdbValidate]=false mdbInputDirective type="text" id="consumo" class="form-control"
+                    placeholder="Ej: 14" autocomplete="off">
+                  <label for="consumo">Consumo</label>
+                </div>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">

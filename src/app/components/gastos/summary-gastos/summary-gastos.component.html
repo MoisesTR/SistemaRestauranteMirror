@@ -1,88 +1,90 @@
 <section>
   <div class="row">
 
-    <div class="col-lg-4 col-md-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+      <form [formGroup]="formBusquedaGasto" novalidate (ngSubmit)="findGastos()">
+        <mdb-card cascade="true" narrower="true">
+          <!--Titulo-->
+          <div class="view view-cascade gradient-card-header orange-chang">
+            <h3 class="card-header-title mb-2">Búsqueda</h3>
+          </div>
+          <!--/Titulo-->
+          <mdb-card-body cascade="true">
 
-      <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-        <form novalidate>
-          <mdb-card cascade="true" narrower="true">
-            <div class="center-card">
-              <i class="fa fa-money orange-chang icono-card"></i>
-              <div class="mb-3 right-card-align">
-                <p class="grey-text-card">Total Gastos</p>
-                <h4><strong>{{sumaTotalGastos | number :'1.2-2'}} C$</strong></h4>
-              </div>
-            </div>
-          </mdb-card>
-        </form>
-      </div>
+            <div class="container-fluid">
 
-      <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-        <form [formGroup]="formBusquedaGasto" novalidate (ngSubmit)="findGastos()">
-          <mdb-card cascade="true" narrower="true">
-            <!--Titulo-->
-            <div class="view view-cascade gradient-card-header orange-chang">
-              <h3 class="card-header-title mb-2">Búsqueda</h3>
-            </div>
-            <!--/Titulo-->
-            <mdb-card-body cascade="true">
+              <div class="row">
 
-              <div class="container-fluid">
+                <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-2">
+                  <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
+                  <ng-select id="sucursalGastos" placeholder="Selecciona una Sucursal">
+                  </ng-select>
+                </div>
 
-                <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
+                  <label for="clasificacion" class="grey-text-card">Clasificación</label>
+                  <ng-select placeholder="Selecciona una clasificación" formControlName="clasificacion" (change)="changeClasificacion($event)"
+                    [items]="clasificaciones" bindValue="IdClasificacion" bindLabel="Descripcion">
+                  </ng-select>
+                  <show-errors [control]="formBusquedaGasto.controls['clasificacion']"></show-errors>
+                </div>
 
-                  <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-2">
-                    <label for="clasificacion" class="grey-text-card">Clasificación</label>
-                    <ng-select placeholder="Selecciona una clasificación" formControlName="clasificacion" (change)="changeClasificacion($event)" [items]="clasificaciones"
-                               bindValue="IdClasificacion" bindLabel="Descripcion">
-                    </ng-select>
-                    <show-errors [control]="formBusquedaGasto.controls['clasificacion']"></show-errors>
-                  </div>
+                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
+                  <label for="subclasificacion" class="grey-text-card">SubClasificación</label>
+                  <ng-select placeholder="Selecciona una subclasificación" formControlName="subclasificacion" (change)="changeSubclasificacion($event)"
+                    [items]="subclasificaciones" bindValue="IdSubClasificacion" bindLabel="Descripcion">
+                  </ng-select>
+                </div>
 
-                  <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-3">
-                    <label for="subclasificacion" class="grey-text-card">SubClasificación</label>
-                    <ng-select placeholder="Selecciona una subclasificación" formControlName="subclasificacion" (change)="changeSubclasificacion($event)" [items]="subclasificaciones"
-                               bindValue="IdSubClasificacion" bindLabel="Descripcion" >
-                    </ng-select>
-                  </div>
-
-                  <div class="col-xs-12 col-md-12 col-lg-12">
-                    <div class="md-form">
-                      <input [readonly]="true" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="fechaInicio" class="input-picker form-control"
-                        [mdbValidate]=false placeholder="Seleccioné" mdbInputDirective>
-                      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-                      <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
-                      <show-errors [control]="formBusquedaGasto.controls['fechaInicio']"></show-errors>
-                    </div>
-                  </div>
-
-                  <div class="col-xs-12 col-md-12 col-lg-12">
-                    <div class="md-form">
-                      <input [readonly]="true" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="fechaFin" class="input-picker form-control"
-                        [mdbValidate]=false id="fechaFin" placeholder="Seleccioné" mdbInputDirective>
-                      <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
-                      <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
-                    </div>
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                  <div class="md-form">
+                    <input [readonly]="true" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="fechaInicio"
+                      class="input-picker form-control" [mdbValidate]=false placeholder="Seleccioné" mdbInputDirective>
+                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
+                    <show-errors [control]="formBusquedaGasto.controls['fechaInicio']"></show-errors>
                   </div>
                 </div>
 
-                <div class="text-center mt-1-half mt-3">
-                  <button mdbBtn type="submit" [disabled]="!formBusquedaGasto.valid" class="orange-chang mb-1">Buscar
-                    <mdb-icon class="ml-1" icon="search"></mdb-icon>
-                  </button>
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                  <div class="md-form">
+                    <input [readonly]="true" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="fechaFin"
+                      class="input-picker form-control" [mdbValidate]=false id="fechaFin" placeholder="Seleccioné"
+                      mdbInputDirective>
+                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
+                  </div>
                 </div>
-
               </div>
 
-            </mdb-card-body>
-          </mdb-card>
-        </form>
-      </div>
+              <div class="text-center mt-1-half mt-3">
+                <button mdbBtn type="submit" [disabled]="!formBusquedaGasto.valid" class="orange-chang mb-1">Buscar
+                  <mdb-icon class="ml-1" icon="search"></mdb-icon>
+                </button>
+              </div>
+
+            </div>
+
+          </mdb-card-body>
+        </mdb-card>
+      </form>
     </div>
 
+    <div class="col-lg-2 col-md-3 col-sm-12 mb-5">
+      <form novalidate>
+        <mdb-card cascade="true" narrower="true">
+          <div class="center-card">
+            <i class="fa fa-money orange-chang icono-card"></i>
+            <div class="mb-3 right-card-align">
+              <p class="grey-text-card">Total Gastos</p>
+              <h4><strong>{{sumaTotalGastos | number :'1.2-2'}} C$</strong></h4>
+            </div>
+          </div>
+        </mdb-card>
+      </form>
+    </div>
 
-
-    <div class="col-lg-8 col-md-12 col-sm-12">
+    <div class="col-lg-10 col-md-9 col-sm-12">
 
       <mdb-card cascade="true" narrower="true">
         <!--Titulo-->
@@ -95,7 +97,8 @@
           <div class="col-12 col-sm-12 col-md-12 mt-3">
             <div class="in input-group md-form form-inline form-sm form-2 pl-0">
               <i class="fa fa-search mt-2" aria-hidden="true"></i>
-              <input [(ngModel)]="searchText" class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar">
+              <input [(ngModel)]="searchText" class="form-control w-75 ml-3" type="text" placeholder="Buscar"
+                aria-label="Buscar">
             </div>
           </div>
 
@@ -104,6 +107,7 @@
               <thead>
                 <tr class="">
                   <th class="header-negrita">#</th>
+                  <th class="header-negrita text-center align-middle">Sucursal</th>
                   <th class="header-negrita text-center align-middle">Clasificación</th>
                   <th class="header-negrita text-center align-middle">SubClasificación</th>
                   <th class="header-negrita text-center align-middle">Fecha Ingreso</th>
@@ -118,6 +122,8 @@
                 <tr *ngFor="let gasto of gastos; let i = index">
                   <th *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" scope="row">
                     {{i+1}}</th>
+                  <td class="body-negrita text-center align-middle">
+                    Rubenia prro</td>
                   <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
                     {{gasto.Clasificacion}}</td>
                   <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
@@ -130,12 +136,12 @@
                   </td>
                   <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.NoReferencia}}</td>
                   <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.CodigoFactura}}</td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.MontoTotal | number :
+                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.MontoTotal
+                    | number :
                     '1.2-2'}} C$</td>
                   <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex">
                     <button mdbBtn type="button" size="sm" class="orange-chang" mdbPopover="Concepto Gastos" placement="left"
-                      mdbPopoverHeader={{gasto.ConceptoGasto}}
-                      triggers="focus">
+                      mdbPopoverHeader={{gasto.ConceptoGasto}} triggers="focus">
                       <mdb-icon icon="eye"></mdb-icon>
                     </button>
                   </td>

@@ -1,114 +1,143 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {CategoriaProductoService} from '@app/services/service.index';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CategoriaProducto} from '@app/models/CategoriaProducto';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import swal from 'sweetalert2';
-import {Utils} from '../../Utils';
-import {ModalDirective} from 'ng-uikit-pro-standard';
-import {ISubscription} from 'rxjs-compat/Subscription';
+import {
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild
+} from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators
+} from "@angular/forms";
+import { ISubscription } from "rxjs-compat/Subscription";
+
+import { CategoriaProductoService } from "@app/core/service.index";
+import { CategoriaProducto } from "@app/models/CategoriaProducto";
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import swal from "sweetalert2";
+import { Utils } from "../../Utils";
 
 @Component({
-  selector: 'modal-categoria',
-  templateUrl: './modal-categoria.component.html'
+	selector: "modal-categoria",
+	templateUrl: "./modal-categoria.component.html"
 })
-export class ModalCategoriaComponent implements OnInit, OnDestroy {
+export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
+	@ViewChild("modalAddCategoria")
+	modalAddCategoria: ModalDirective;
 
-  @ViewChild('modalAddCategoria') modalAddCategoria: ModalDirective;
-  @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
-  public formAddCategoria: FormGroup;
-  public categoriaProducto: CategoriaProducto;
-  private subscription: ISubscription;
-  private peticionEnCurso: boolean = false;
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
+		boolean
+	>();
 
-  constructor(
-      public _categoriaProductoService: CategoriaProductoService
-      , private _formBuilderCategoria: FormBuilder
-  ) {
-      this.categoriaProducto = new CategoriaProducto();
-  }
+	public formAddCategoria: FormGroup;
+	public categoriaProducto: CategoriaProducto;
+	private subscription: ISubscription;
+	private peticionEnCurso: boolean = false;
+	public tituloPantalla = "Categoria";
 
-  ngOnInit() {
-    this.initFormAddCategoria();
-    this.subscripcionModal();
-  }
+	constructor(
+		public categoriaService: CategoriaProductoService,
+		private cdRef: ChangeDetectorRef,
+		private formBuilderCategoria: FormBuilder
+	) {}
 
-  /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddCategoria() {
-      this.formAddCategoria = this._formBuilderCategoria.group({
-          'nombreCategoria': new FormControl('',
-              [
-                  Validators.required,
-                  Validators.minLength(2),
-                  Validators.maxLength(100),
-                  CustomValidators.nospaceValidator
-              ])
-          , 'descripcionCategoria': new FormControl('',
-              [
-                  Validators.required,
-                  Validators.minLength(3),
-                  Validators.maxLength(300),
-                  CustomValidators.nospaceValidator
-              ])
-      });
+	ngOnInit() {
+		this.initFormAddCategoria();
+		this.subscribeEventoModal();
+	}
 
-  }
+	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
+	initFormAddCategoria() {
+		this.formAddCategoria = this.formBuilderCategoria.group({
+			nombreCategoria: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			]),
+			descripcionCategoria: new FormControl("", [
+				Validators.required,
+				Validators.minLength(3),
+				Validators.maxLength(300),
+				CustomValidators.nospaceValidator
+			])
+		});
+	}
 
-  subscripcionModal() {
-      this.subscription = this._categoriaProductoService.notificacion.subscribe(
-        mostrarModal => {
-            if (mostrarModal) {
-                this.formAddCategoria.reset();
-                this.modalAddCategoria.show()
-            } else {
-                this.hideModalAndEmitResult();
-            }
-        });
-  }
+	subscribeEventoModal() {
+		this.subscription = this.categoriaService.eventoModal.subscribe(
+			mostrarModal => {
+				if (mostrarModal) {
+					this.categoriaProducto = new CategoriaProducto();
+					this.formAddCategoria.reset();
+					this.modalAddCategoria.show();
+				} else {
+					this.hideModalAndEmitResult();
+				}
+			}
+		);
+	}
 
-  getValuesFormAddCategoria() {
-      this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
-      this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
-  }
+	createCategoriaProducto() {
+		this.peticionEnCurso = true;
+		this.getValuesFormAddCategoria();
 
-  createCategoriaProducto() {
-      this.peticionEnCurso = true;
-      this.getValuesFormAddCategoria();
+		this.categoriaService
+			.createCategoriaProducto(this.categoriaProducto)
+			.subscribe(
+				response => {
+					if (response.IdCategoria) {
+						swal(
+							this.tituloPantalla,
+							"La categoría ha sido creada exitosamente!",
+							"success"
+						).then(() => {
+							this.resetAndHideModal();
+							this.resultadoConsulta.emit(true);
+						});
+					} else {
+						Utils.showMsgInfo(
+							"Ha ocurrido un error inesperado al crear la categoria",
+							this.tituloPantalla
+						);
+					}
+				},
+				error => {
+					this.runChangeDetection();
+					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				},
+				() => {
+					this.runChangeDetection();
+				}
+			);
+	}
 
-      this._categoriaProductoService.createCategoriaProducto(this.categoriaProducto).subscribe(
-          response => {
-              if (response.IdCategoria) {
-                  swal(
-                      'Categoría',
-                      'La categoría ha sido creada exitosamente!',
-                      'success'
-                  ).then(() => {
-                      this.resetAndHideModal();
-                      this.resultadoConsulta.emit(true);
-                  });
-              } else {
-                  Utils.showMsgInfo('Ha ocurrido un error inesperado al crear la categoria,intentalo nuevamente', 'Categoria');
-              }
-          }, error => {
-              Utils.showMsgError(Utils.msgError(error));
-          }, () => {
-              this.peticionEnCurso = false;
-          }
-      );
-  }
+	runChangeDetection() {
+		this.peticionEnCurso = false;
+		this.cdRef.markForCheck();
+	}
 
-  hideModalAndEmitResult() {
-      this.resetAndHideModal();
-      this.resultadoConsulta.emit(false);
-  }
+	getValuesFormAddCategoria() {
+		this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
+		this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
+	}
 
-  resetAndHideModal() {
-      this.formAddCategoria.reset();
-      this.modalAddCategoria.hide();
-  }
+	hideModalAndEmitResult() {
+		this.resetAndHideModal();
+		this.resultadoConsulta.emit(false);
+	}
 
-  ngOnDestroy(): void {
-      this.subscription.unsubscribe();
-  }
+	resetAndHideModal() {
+		this.formAddCategoria.reset();
+		this.modalAddCategoria.hide();
+	}
 
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
+	}
 }

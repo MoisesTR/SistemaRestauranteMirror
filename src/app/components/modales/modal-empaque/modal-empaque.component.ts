@@ -1,121 +1,141 @@
-import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ng-uikit-pro-standard';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmpaqueService} from '@app/services/service.index';
-import {Empaque} from '@app/models/Empaque';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import swal from 'sweetalert2';
-import {Utils} from '../../Utils';
+import {
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild
+} from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators
+} from "@angular/forms";
+import { ISubscription } from "rxjs-compat/Subscription";
+
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { EmpaqueService } from "@app/core/service.index";
+import { Empaque } from "@app/models/Empaque";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import swal from "sweetalert2";
+import { Utils } from "../../Utils";
 
 @Component({
-  selector: 'modal-empaque',
-  templateUrl: './modal-empaque.component.html',
-  styleUrls: ['./modal-empaque.component.scss'],
-    exportAs: 'modalEmpaque'
+	selector: "modal-empaque",
+	templateUrl: "./modal-empaque.component.html"
 })
-export class ModalEmpaqueComponent implements OnInit, AfterViewInit {
+export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
+	@ViewChild("modalAddEmpaque")
+	modalAddEmpaque: ModalDirective;
 
-  @ViewChild('modalAddEmpaque') modalAddEmpaque: ModalDirective;
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
+		boolean
+	>();
 
-  @Input() mostrarModal: boolean;
-  @Output() resultadoModal: EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
-  @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
-  public isVisible = false;
+	public empaque: Empaque;
+	public formAddEmpaque: FormGroup;
+	private peticionEnCurso = false;
+	public tituloPantalla = "Empaque";
+	public subscription: ISubscription;
 
-  public empaque: Empaque;
-  public formAddEmpaque: FormGroup;
+	constructor(
+		private cdRef: ChangeDetectorRef,
+		private empaqueService: EmpaqueService,
+		private formBuilderEmpaque: FormBuilder
+	) {}
 
-  constructor(
-      private _empaqueService: EmpaqueService
-      , private formBuilderEmpaque: FormBuilder
-  ) {
-      this.empaque = new Empaque();
+	ngOnInit() {
+		this.initFormAddEmpaque();
+		this.subscribeEventoModal();
+	}
 
-  }
-    @HostListener('window:keyup', ['$event'])
-    keyEvent(event: KeyboardEvent) {
-        if (event.keyCode === 27) {
-            this.hideModal();
-        }
-    }
+	initFormAddEmpaque() {
+		this.formAddEmpaque = this.formBuilderEmpaque.group({
+			nombreEmpaque: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			]),
+			descripcionEmpaque: new FormControl("", [
+				Validators.required,
+				Validators.minLength(3),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			])
+		});
+	}
 
-    eventClick(event) {
-        if ( event.dismissReason !== null && event.dismissReason !== undefined ) {
-            if ( (event.dismissReason).toString() === ( 'backdrop-click')) {
-                this.hideModal();
-            }
-        }
-    }
+	subscribeEventoModal() {
+		this.subscription = this.empaqueService.eventoModal.subscribe(
+			mostrarModal => {
+				if (mostrarModal) {
+					this.empaque = new Empaque();
+					this.formAddEmpaque.reset();
+					this.modalAddEmpaque.show();
+				} else {
+					this.hideModalAndEmitResult();
+				}
+			}
+		);
+	}
 
-  ngOnInit() {
-      this.initFormAddEmpaque();
+	createEmpaque() {
+		this.peticionEnCurso = true;
+		this.getValuesFormAddEmpaque();
 
-  }
+		this.empaqueService.createEmpaque(this.empaque).subscribe(
+			response => {
+				if (response.IdEmpaque) {
+					swal(
+						this.tituloPantalla,
+						"El Empaque ha sido creado exitosamente!",
+						"success"
+					).then(() => {
+						this.resetAndHideModal();
+						this.resultadoConsulta.emit(true);
+					});
+				} else {
+					Utils.showMsgInfo(
+						"Ha ocurrido un error inesperado al crear el empaque!",
+						this.tituloPantalla
+					);
+				}
+			},
+			error => {
+				this.runChangeDetection();
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.runChangeDetection();
+			}
+		);
+	}
 
-  show() {
-        this.isVisible = true;
-  }
+	runChangeDetection() {
+		this.peticionEnCurso = false;
+		this.cdRef.markForCheck();
+	}
 
-  ngAfterViewInit() {
-      this.modalAddEmpaque.show();
-  }
+	getValuesFormAddEmpaque() {
+		this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
+		this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
+	}
 
-    /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddEmpaque() {
+	hideModalAndEmitResult() {
+		this.resetAndHideModal();
+		this.resultadoConsulta.emit(false);
+	}
 
-      this.formAddEmpaque = this.formBuilderEmpaque.group({
-          'nombreEmpaque': new FormControl('', [
+	resetAndHideModal() {
+		this.formAddEmpaque.reset();
+		this.modalAddEmpaque.hide();
+	}
 
-              Validators.required,
-              Validators.minLength(2),
-              Validators.maxLength(100),
-              CustomValidators.nospaceValidator
-          ])
-
-          , 'descripcionEmpaque': new FormControl('', [
-              Validators.required,
-              Validators.minLength(3),
-              Validators.maxLength(100),
-              CustomValidators.nospaceValidator
-          ])
-      });
-
-  }
-
-  createEmpaque(Modal) {
-    this.getValuesFormAddEmpaque();
-
-    this._empaqueService.createEmpaque(this.empaque).subscribe(
-        response => {
-
-            if (response.IdEmpaque) {
-                swal(
-                    'Empaque',
-                    'El Empaque ha sido creado exitosamente!',
-                    'success'
-                ).then(() => {
-                    Modal.hide();
-                    this.formAddEmpaque.reset();
-                    this.resultadoConsulta.emit(true);
-                });
-
-            } else {
-                Utils.showMsgInfo('Ha ocurrido un error inesperado al crear el empaque,intentalo nuevamente', 'Empaque');
-            }
-        }, error => {
-            Utils.showMsgError(Utils.msgError(error));
-        }
-    );
-  }
-
-  getValuesFormAddEmpaque() {
-    this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
-    this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
-  }
-
-  public hideModal() {
-    this.modalAddEmpaque.hide();
-    this.resultadoConsulta.emit(false);
-  }
-
+	ngOnDestroy(): void {
+		this.formAddEmpaque.reset();
+		this.modalAddEmpaque.hide();
+	}
 }

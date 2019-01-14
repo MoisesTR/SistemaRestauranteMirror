@@ -1,144 +1,176 @@
-import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ClasificacionProductoService, ClasificacionUnidadMedidaService, UnidadMedidaService} from '@app/services/service.index';
-import {UnidadMedida} from '@app/models/UnidadMedida';
-import {ModalDirective} from 'ng-uikit-pro-standard';
-import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import {Utils} from '../../Utils';
-import swal from 'sweetalert2';
-import {ClasificacionUnidadDeMedida} from '@app/models/ClasificacionUnidadDeMedida';
+import {
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild
+} from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators
+} from "@angular/forms";
 
-declare var $: any;
+import {
+	ClasificacionProductoService,
+	ClasificacionUnidadMedidaService,
+	UnidadMedidaService
+} from "@app/core/service.index";
+import { ClasificacionUnidadDeMedida } from "@app/models/ClasificacionUnidadDeMedida";
+import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import { UnidadMedida } from "@app/models/UnidadMedida";
+import { Utils } from "../../Utils";
+import swal from "sweetalert2";
+import { ISubscription } from "rxjs-compat/Subscription";
 
 @Component({
-  selector: 'modal-unidad-medida',
-  templateUrl: './modal-unidad-medida.component.html'
+	selector: "modal-unidad-medida",
+	templateUrl: "./modal-unidad-medida.component.html"
 })
-export class ModalUnidadMedidaComponent implements OnInit, AfterViewInit {
+export class ModalUnidadMedidaComponent
+	implements OnInit, EventoModal, OnDestroy {
+	@ViewChild("modalAddUnidadMedida")
+	modalAddUnidadMedida: ModalDirective;
 
-    public unidadMedida: UnidadMedida;
-    public clasificaciones: ClasificacionProducto[];
-    public tituloPantalla = 'Unidad de Medida';
-    public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
-    formAddUnidadMedida: FormGroup;
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
+		boolean
+	>();
 
-    @ViewChild('modalAddUnidadMedida') modalAddUnidadMedida: ModalDirective;
+	public unidadMedida: UnidadMedida;
+	public clasificaciones: ClasificacionProducto[];
+	public tituloPantalla = "Unidad de Medida";
+	public clasificacionesUnidad: ClasificacionUnidadDeMedida[];
+	public subscription: ISubscription;
+	formAddUnidadMedida: FormGroup;
+	private peticionEnCurso = false;
 
-    @Input() mostrarModal: boolean;
-    @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
+	constructor(
+		private clasificacionService: ClasificacionProductoService,
+		private clasificacionUnidadService: ClasificacionUnidadMedidaService,
+		private cdRef: ChangeDetectorRef,
+		private formBuilder: FormBuilder,
+		private unidadMedidaService: UnidadMedidaService
+	) {}
 
-    constructor(
-        private _UnidadMedidaServicio: UnidadMedidaService
-        , private _clasificacionService: ClasificacionProductoService
-        , private _clasificacionUnidad: ClasificacionUnidadMedidaService
-        , private fBuilderUnidadMedida: FormBuilder
-    ) {
-        this.initFormAdd();
-        this.getClasificacionUnidades();
-        this.unidadMedida = new UnidadMedida();
+	ngOnInit() {
+		this.initFormAdd();
+		this.subscribeEventoModal();
+	}
 
-    }
+	initFormAdd() {
+		this.formAddUnidadMedida = this.formBuilder.group({
+			nombreUnidadMedida: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			]),
+			simboloUnidadMedida: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(3),
+				CustomValidators.nospaceValidator
+			]),
+			clasificacionesUnidad: new FormControl("", [Validators.required])
+		});
+	}
 
-    ngOnInit() {
+	subscribeEventoModal() {
+		this.subscription = this.unidadMedidaService.eventoModal.subscribe(
+			mostrarModal => {
+				if (mostrarModal) {
+					this.getClasificacionUnidades();
+					this.unidadMedida = new UnidadMedida();
+					this.formAddUnidadMedida.reset();
+					this.modalAddUnidadMedida.show();
+				} else {
+					this.hideModalAndEmitResult();
+				}
+			}
+		);
+	}
 
-    }
+	createUnidadMedida() {
+		this.peticionEnCurso = true;
+		this.getValuesForm();
 
-    ngAfterViewInit(){
-        this.modalAddUnidadMedida.show();
-    }
+		this.unidadMedidaService.createUnidadMedida(this.unidadMedida).subscribe(
+			response => {
+				if (response.IdUnidadMedida) {
+					swal(
+						this.tituloPantalla,
+						"La unidad ha sido creada exitosamente!",
+						"success"
+					).then(() => {
+						this.resetAndHideModal();
+						this.resultadoConsulta.emit(true);
+					});
+				} else {
+					Utils.showMsgInfo(
+						"Ha ocurrido un error inesperado al crear la unidad de medida!",
+						this.tituloPantalla
+					);
+				}
+			},
+			error => {
+				this.runChangeDetection();
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.runChangeDetection();
+			}
+		);
+	}
 
-    @HostListener('window:keyup', ['$event'])
-    keyEvent(event: KeyboardEvent) {
-        if (event.keyCode === 27) {
-            this.hideModal();
-        }
-    }
+	runChangeDetection() {
+		this.peticionEnCurso = false;
+		this.cdRef.markForCheck();
+	}
 
+	getValuesForm() {
+		this.unidadMedida.NombreUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
+		this.unidadMedida.Simbolo = this.formAddUnidadMedida.value.simboloUnidadMedida;
+		this.unidadMedida.NImportancia = 1;
+	}
 
-    eventClick(event) {
-        if ( event.dismissReason !== null && event.dismissReason !== undefined ) {
-            if ( (event.dismissReason).toString() === ( 'backdrop-click')) {
-                this.hideModal();
-            }
-        }
-    }
+	getClasificacionUnidades() {
+		this.clasificacionUnidadService.getClasificacionUnidadesMedida().subscribe(
+			response => {
+				if (response.clasificaciones) {
+					this.clasificacionesUnidad = response.clasificaciones;
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
+	}
 
-    initFormAdd() {
-        this.formAddUnidadMedida = this.fBuilderUnidadMedida.group({
+	changeClasificacionUnidad(event) {
+		if (event === null) {
+			this.unidadMedida.IdClasificacionUnidadMedida = null;
+		} else {
+			this.unidadMedida.IdClasificacionUnidadMedida =
+				event.IdClasificacionUnidadMedida;
+		}
+	}
 
-            'nombreUnidadMedida': new FormControl('', [
-                Validators.required
-                , Validators.minLength(2)
-                , Validators.maxLength(100)
-                , CustomValidators.nospaceValidator
-            ]) ,
-            'simboloUnidadMedida': new FormControl('', [
-                Validators.required
-                , Validators.minLength(2)
-                , Validators.maxLength(3)
-                , CustomValidators.nospaceValidator
-            ]),
-            'clasificacionesUnidad': new FormControl('', [
-                Validators.required
-            ])
-        });
-    }
+	hideModalAndEmitResult() {
+		this.resetAndHideModal();
+		this.resultadoConsulta.emit(false);
+	}
 
-    createUnidadMedida(Modal) {
+	resetAndHideModal() {
+		this.formAddUnidadMedida.reset();
+		this.modalAddUnidadMedida.hide();
+	}
 
-        this.unidadMedida.NombreUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
-        this.unidadMedida.Simbolo = this.formAddUnidadMedida.value.simboloUnidadMedida;
-        this.unidadMedida.NImportancia = 1;
-
-        this._UnidadMedidaServicio.createUnidadMedida(this.unidadMedida).subscribe(
-            response => {
-
-                if (response.IdUnidadMedida) {
-                    swal(
-                        'Unidad medida',
-                        'La unidad ha sido creada exitosamente!',
-                        'success'
-                    ).then(() => {
-                        Modal.hide();
-                        this.formAddUnidadMedida.reset();
-                        this.unidadMedida = new UnidadMedida();
-                        this.resultadoConsulta.emit(true);
-                    });
-                } else {
-                    Utils.showMsgInfo('Ha ocurrido un error al insertar la unidad, intentalo nuevamente', this.tituloPantalla);
-                }
-            },
-            error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }
-        );
-    }
-
-    getClasificacionUnidades() {
-            this._clasificacionUnidad.getClasificacionUnidadesMedida().subscribe(
-            response => {
-                if (response.clasificaciones) {
-                    this.clasificacionesUnidad = response.clasificaciones;
-                }
-            }, error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }
-        );
-    }
-
-    changeClasificacionUnidad(event) {
-
-        if (event === null) {
-            this.unidadMedida.IdClasificacionUnidadMedida  = null;
-        } else {
-            this.unidadMedida.IdClasificacionUnidadMedida = event.IdClasificacionUnidadMedida;
-        }
-    }
-
-    public hideModal() {
-        this.modalAddUnidadMedida.hide();
-        this.resultadoConsulta.emit(false);
-    }
-
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
+	}
 }

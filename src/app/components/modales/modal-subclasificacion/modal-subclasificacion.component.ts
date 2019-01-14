@@ -1,152 +1,177 @@
-import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {SubClasificacionProducto} from '@app/models/SubClasificacionProducto';
-import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ClasificacionProductoService, SubClasificacionProductoService} from '@app/services/service.index';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import swal from 'sweetalert2';
-import {Utils} from '../../Utils';
-import {ModalDirective} from 'ng-uikit-pro-standard';
+import {
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild
+} from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators
+} from "@angular/forms";
+
+import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
+import {
+	ClasificacionProductoService,
+	SubClasificacionProductoService
+} from "@app/core/service.index";
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import { SubClasificacionProducto } from "@app/models/SubClasificacionProducto";
+import { Utils } from "../../Utils";
+
+import swal from "sweetalert2";
+import { ISubscription } from "rxjs-compat/Subscription";
 
 @Component({
-  selector: 'modal-subclasificacion',
-  templateUrl: './modal-subclasificacion.component.html'
+	selector: "modal-subclasificacion",
+	templateUrl: "./modal-subclasificacion.component.html"
 })
-export class ModalSubclasificacionComponent implements OnInit, AfterViewInit {
+export class ModalSubclasificacionComponent
+	implements OnInit, EventoModal, OnDestroy {
+	@ViewChild("modalAddSubclasificacion")
+	modalAddSubclasificacion: ModalDirective;
 
-  public subclasificacion: SubClasificacionProducto;
-  public clasificaciones: ClasificacionProducto;
-  formAddSubClasificacion: FormGroup;
-  public tituloPantalla = 'Subclasificación';
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
+		boolean
+	>();
 
-  @ViewChild('modalAddSubclasificacion') modalAddSubclasificacion: ModalDirective;
+	public clasificaciones: ClasificacionProducto;
+	public subclasificacion: SubClasificacionProducto;
+	formAddSubClasificacion: FormGroup;
+	private peticionEnCurso = false;
+	public tituloPantalla = "Subclasificación";
+	public subscription: ISubscription;
 
-  @Input() mostrarModal: boolean;
-  @Output() resultadoModal: EventEmitter<ModalDirective> = new EventEmitter<ModalDirective>();
-  @Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
-  public isVisible = false;
+	constructor(
+		private cdRef: ChangeDetectorRef,
+		private clasificacionService: ClasificacionProductoService,
+		private formBuilderSubClasificacion: FormBuilder,
+		private subclasificacionService: SubClasificacionProductoService
+	) {}
 
+	ngOnInit(): void {
+		this.initFormAddSubclasificacion();
+		this.subscribeEventoModal();
+	}
 
-  constructor(
-      private _route: ActivatedRoute
-      , private _router: Router
-      , private _subClasificacionService: SubClasificacionProductoService
-      , private _clasificacionService: ClasificacionProductoService
-      , private formBuilderSubClasificacion: FormBuilder
+	private initFormAddSubclasificacion() {
+		this.formAddSubClasificacion = this.formBuilderSubClasificacion.group({
+			nombreSubClasificacion: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			]),
+			descripcionSubClasificacion: new FormControl("", [
+				Validators.required,
+				Validators.minLength(3),
+				Validators.maxLength(300),
+				CustomValidators.nospaceValidator
+			]),
+			clasificacion: new FormControl("", [Validators.required])
+		});
+	}
 
-  ) {
-      this.subclasificacion = new SubClasificacionProducto();
-      this.initFormAddSubclasificacion();
-  }
+	subscribeEventoModal() {
+		this.subscription = this.subclasificacionService.eventoModal.subscribe(
+			mostrarModal => {
+				if (mostrarModal) {
+					this.getClasificaciones();
+					this.subclasificacion = new SubClasificacionProducto();
+					this.formAddSubClasificacion.reset();
+					this.modalAddSubclasificacion.show();
+				} else {
+					this.hideModalAndEmitResult();
+				}
+			}
+		);
+	}
 
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-      if (event.keyCode === 27) {
-          this.hideModal();
-      }
-  }
+	createSubCasificacion() {
+		this.capturarDatosIngresados();
 
+		this.subclasificacionService
+			.createSubClasificacionProducto(this.subclasificacion)
+			.subscribe(
+				response => {
+					if (response.IdSubClasificacion) {
+						swal(
+							"Subclasificación",
+							"la Subclasificación ha sido creado exitosamente!",
+							"success"
+						).then(() => {
+							this.resetAndHideModal();
+							this.resultadoConsulta.emit(true);
+						});
+					} else {
+						Utils.showMsgError(
+							"Ha ocurrido un error inesperado al crear la subclasificación!",
+							this.tituloPantalla
+						);
+					}
+				},
+				error => {
+					this.runChangeDetection();
+					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				},
+				() => {
+					this.runChangeDetection();
+				}
+			);
+	}
 
-  eventClick(event) {
-      if ( event.dismissReason !== null && event.dismissReason !== undefined ) {
-          if ( (event.dismissReason).toString() === ( 'backdrop-click')) {
-              this.hideModal();
-          }
-      }
-  }
+	capturarDatosIngresados() {
+		this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
+		this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
+	}
 
-  show() {
-    this.isVisible = true;
-  }
+	getClasificaciones() {
+		this.clasificacionService.getClasificaciones().subscribe(
+			response => {
+				if (response.clasificaciones) {
+					this.clasificaciones = response.clasificaciones;
+				} else {
+					Utils.showMsgInfo(
+						"Ha ocurrido un error obteniendo las clasificaciones",
+						this.tituloPantalla
+					);
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
+	}
 
-  ngAfterViewInit() {
-    this.modalAddSubclasificacion.show();
-  }
+	onChangeClasificacion(event) {
+		if (event === null) {
+			this.subclasificacion.IdClasificacion = null;
+		} else {
+			this.subclasificacion.IdClasificacion = event.IdClasificacion;
+		}
+	}
 
-  private initFormAddSubclasificacion() {
+	runChangeDetection() {
+		this.peticionEnCurso = false;
+		this.cdRef.markForCheck();
+	}
 
-      this.formAddSubClasificacion = this.formBuilderSubClasificacion.group({
-          'nombreSubClasificacion' : new FormControl('', [
-              Validators.required
-              , Validators.minLength(2)
-              , Validators.maxLength(100)
-              , CustomValidators.nospaceValidator
-          ])
-          , 'descripcionSubClasificacion' : new FormControl('', [
-              Validators.required
-              , Validators.minLength(3)
-              , Validators.maxLength(300)
-              , CustomValidators.nospaceValidator
-          ])
-          , 'clasificacion' : new FormControl('', [
-              Validators.required
-          ])
-      });
+	hideModalAndEmitResult() {
+		this.resetAndHideModal();
+		this.resultadoConsulta.emit(false);
+	}
 
-  }
+	resetAndHideModal() {
+		this.formAddSubClasificacion.reset();
+		this.modalAddSubclasificacion.hide();
+	}
 
-  ngOnInit() {
-      this.getClasificaciones();
-  }
-
-  capturarDatosIngresados() {
-    this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
-    this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
-  }
-
-  createSubCasificacion(Modal) {
-
-      this.capturarDatosIngresados();
-
-      this._subClasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
-          response => {
-              if (response.IdSubClasificacion) {
-                  swal(
-                      'Subclasificación',
-                      'la Subclasificación ha sido creado exitosamente!',
-                      'success'
-                  ).then( () =>  {
-                      Modal.hide();
-                      this.formAddSubClasificacion.reset();
-                      this.resultadoConsulta.emit(true);
-                  });
-              } else {
-                  Utils.showMsgError('Ha ocurrido un error al insertar la subclasificación, intenta nuevamente!', this.tituloPantalla);
-              }
-          }, error => {
-              Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-          }
-      );
-  }
-
-  getClasificaciones() {
-
-      this._clasificacionService.getClasificaciones().subscribe(
-          response => {
-              if (response.clasificaciones) {
-                  this.clasificaciones = response.clasificaciones;
-              } else {
-                  Utils.showMsgInfo('Ha ocurrido un error obteniendo las clasificaciones', this.tituloPantalla);
-              }
-
-          }, error => {
-              Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-          }
-      );
-  }
-
-  onChangeClasificacion(event) {
-      if (event === null) {
-          this.subclasificacion.IdClasificacion  = null;
-      } else {
-          this.subclasificacion.IdClasificacion = event.IdClasificacion;
-      }
-  }
-
-  public hideModal() {
-    this.modalAddSubclasificacion.hide();
-    this.resultadoConsulta.emit(false);
-  }
-
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
+	}
 }

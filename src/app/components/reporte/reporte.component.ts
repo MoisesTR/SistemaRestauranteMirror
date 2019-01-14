@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
-import {ClasificacionProductoService, ProductoProveedorService, ProductoService, ProveedorService} from '@app/services/service.index';
+import {ClasificacionProductoService, ProductoProveedorService, ProductoService, ProveedorService} from '@app/core/service.index';
 import {Producto} from '@app/models/Producto';
-import {Global} from '@app/services/shared/global';
+import {Global} from '@app/core/services/shared/global';
 import {Proveedor} from '@app/models/Proveedor';
 import {Utils} from '../Utils';
 

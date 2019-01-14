@@ -1,314 +1,227 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {EmpaqueService} from '@app/services/service.index';
-import {Empaque} from '@app/models/Empaque';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs';
-import swal from 'sweetalert2';
-import {DataTableDirective} from 'angular-datatables';
-import {idioma_espanol} from '@app/services/shared/global';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import {Utils} from '../Utils';
-import {ModalDirective} from 'ng-uikit-pro-standard';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators
+} from "@angular/forms";
+
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { DataTableDirective } from "angular-datatables";
+import { EmpaqueService } from "@app/core/service.index";
+import { Empaque } from "@app/models/Empaque";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import { Utils } from "../Utils";
+import { idioma_espanol } from "@app/core/services/shared/global";
+import swal from "sweetalert2";
+import { Subject } from "rxjs/Subject";
 
 declare var $: any;
 
 @Component({
-  selector: 'app-empaque',
-  templateUrl: './empaque.component.html',
-  styleUrls: ['./empaque.component.css'],
-  providers: [EmpaqueService]
+	selector: "app-empaque",
+	templateUrl: "./empaque.component.html",
+	styleUrls: ["./empaque.component.css"]
 })
-export class EmpaqueComponent implements OnInit, InvocarFormulario {
+export class EmpaqueComponent implements OnInit {
+	@ViewChild("modalAddEmpaque")
+	modalAddEmpaque: ModalDirective;
 
-  public empaque: Empaque;
-  public empaques: Empaque[];
-  public tituloPantalla = 'Empaque';
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject<any>();
 
-  public formAddEmpaque: FormGroup;
-  public formUpdateEmpaque: FormGroup;
+	@ViewChild(DataTableDirective)
+	dtElement: DataTableDirective;
 
-  @ViewChild('modalAddEmpaque') modalAddEmpaque: ModalDirective;
+	public empaque: Empaque;
+	public empaques: Empaque[];
+	public tituloPantalla = "Empaque";
+	public formUpdateEmpaque: FormGroup;
+	private peticionEnCurso = false;
 
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+	constructor(
+		private empaqueService: EmpaqueService,
+		private formBuilderEmpaque: FormBuilder
+	) {
+		this.empaque = new Empaque();
+	}
 
-  constructor(
-    private _route: ActivatedRoute
-    , private _router: Router
-    , private _EmpaqueServicio: EmpaqueService
-    , private formBuilderEmpaque: FormBuilder
-  ) {
-    this.empaque = new Empaque();
-  }
+	ngOnInit() {
+		this.settingsDatatable();
+		this.getEmpaques();
+		this.initFormUpdateEmpaque();
+	}
 
-  ngOnInit() {
+	settingsDatatable() {
+		/*PROPIEDADES GENERALES DE LA DATATABLE*/
+		this.dtOptions = <DataTables.Settings>{
+			pagingType: "full_numbers",
+			pageLength: 10,
+			language: idioma_espanol,
+			lengthChange: false,
+			responsive: true,
+			dom: "Bfrtip",
+			buttons: [
+				{
+					text: "Agregar",
+					key: "1",
+					className: "btn orange-chang float-right-dt",
+					action: (e, dt, node, config) => {
+						this.empaqueService.mostrarModal();
+					}
+				}
+			]
+		};
+	}
 
-    $(document).ready(function() {
+	rerender(): void {
+		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+			// Destroy the table first
+			dtInstance.destroy();
+			// Call the dtTrigger to rerender again
+			this.dtTrigger.next();
+		});
+	}
 
-      $('.letras').keypress(function (key) {
-        if ((key.charCode < 97 || key.charCode > 122) // letras mayusculas
-          && (key.charCode < 65 || key.charCode > 90) // letras minusculas
-          && (key.charCode !== 45) // retroceso
-          && (key.charCode !== 241) // ñ
-          && (key.charCode !== 209) // Ñ
-          && (key.charCode !== 32) // espacio
-          && (key.charCode !== 225) // á
-          && (key.charCode !== 233) // é
-          && (key.charCode !== 237) // í
-          && (key.charCode !== 243) // ó
-          && (key.charCode !== 250) // ú
-          && (key.charCode !== 193) // Á
-          && (key.charCode !== 201) // É
-          && (key.charCode !== 205) // Í
-          && (key.charCode !== 211) // Ó
-          && (key.charCode !== 218) // Ú
+	getEmpaques() {
+		this.empaqueService.getEmpaques().subscribe(
+			response => {
+				if (response.empaques) {
+					this.empaques = response.empaques;
+					this.dtTrigger.next();
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
+	}
 
-        ) {
-            return false;
-        }
-      });
-    });
+	getEmpaquesRender() {
+		this.empaqueService.getEmpaques().subscribe(
+			response => {
+				if (response.empaques) {
+					this.empaques = response.empaques;
+					this.rerender();
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
+	}
 
-    this.settingsDatatable();
-    this.getEmpaques();
-    this.initFormAddEmpaque();
-    this.initFormUpdateEmpaque();
+	initFormUpdateEmpaque() {
+		this.formUpdateEmpaque = this.formBuilderEmpaque.group({
+			nombreEmpaque: new FormControl("", [
+				Validators.required,
+				Validators.minLength(2),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			]),
+			descripcionEmpaque: new FormControl("", [
+				Validators.required,
+				Validators.minLength(3),
+				Validators.maxLength(100),
+				CustomValidators.nospaceValidator
+			])
+		});
+	}
 
-  }
+	updateEmpaque(modal) {
+		this.peticionEnCurso = true;
+		this.getValuesFormUpdateEmpaque();
+		this.empaqueService.updateEmpaque(this.empaque).subscribe(
+			response => {
+				if (response.success) {
+					swal(
+						"Empaque",
+						"El empaque ha sido actualizado exitosamente!",
+						"success"
+					)
+						.catch(swal.noop)
+						.then(() => {
+							modal.hide();
+							this.formUpdateEmpaque.reset();
+							this.getEmpaquesRender();
+							this.empaque = new Empaque();
+						});
+				} else {
+					Utils.showMsgInfo(
+						"Ha ocurrido un error inesperado al actualizar el empaque!",
+						this.tituloPantalla
+					);
+				}
+			},
+			error => {
+				this.peticionEnCurso = false;
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.peticionEnCurso = false;
+			}
+		);
+	}
 
-  settingsDatatable() {
+	getValuesFormUpdateEmpaque() {
+		this.empaque.NombreEmpaque = this.formUpdateEmpaque.value.nombreEmpaque;
+		this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
+	}
 
-      /*PROPIEDADES GENERALES DE LA DATATABLE*/
-      this.dtOptions = <DataTables.Settings>{
-          pagingType: 'full_numbers'
-          , pageLength: 10
-          , language: idioma_espanol
-          , 'lengthChange': false
-          , responsive : true
-          , dom: 'Bfrtip',
-          buttons: [
-              {
-                  text: 'Agregar',
-                  key: '1',
-                  className: 'btn orange-chang float-right-dt',
-                  action:  (e, dt, node, config) => {
-                      this.InvocarModal(this.modalAddEmpaque, this.formAddEmpaque);
-                  }
-              }
-          ]
-      };
-  }
+	deleteEmpaque(idEmpaque) {
+		swal({
+			title: "Estas seguro(a)?",
+			text: "El empaque sera inhabilitado!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si!",
+			cancelButtonText: "Cancelar"
+		}).then(result => {
+			if (result.value) {
+				this.empaqueService.deleteEmpaque(idEmpaque).subscribe(
+					response => {
+						if (response.success) {
+							swal(
+								"Inhabilitado!",
+								"El empaque ha sido inhabilitado exitosamente",
+								"success"
+							).then(() => {
+								this.getEmpaquesRender();
+							});
+						} else {
+							Utils.showMsgInfo(
+								"Ha ocurrido un error inesperado al inhabilitar el empaque!",
+								this.tituloPantalla
+							);
+						}
+					},
+					error => {
+						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+					}
+				);
+			}
+		});
+	}
 
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
+	showModalUpdate(modal, empaque: Empaque) {
+		this.empaque.IdEmpaque = empaque.IdEmpaque;
+		this.empaque.NombreEmpaque = empaque.NombreEmpaque;
+		this.empaque.Descripcion = empaque.Descripcion;
 
-  getEmpaques() {
+		this.formUpdateEmpaque.reset();
+		this.formUpdateEmpaque.setValue({
+			nombreEmpaque: empaque.NombreEmpaque,
+			descripcionEmpaque: empaque.Descripcion
+		});
 
-      this._EmpaqueServicio.getEmpaques().subscribe(
-        response => {
-          if (response.empaques) {
-            this.empaques = response.empaques;
-            this.dtTrigger.next();
-          }
-        }, error => {
+		modal.show();
+	}
 
-        }
-      );
-  }
-
-  getEmpaquesRender() {
-    this._EmpaqueServicio.getEmpaques().subscribe(
-      response => {
-        if (response.empaques) {
-          this.empaques = response.empaques;
-          this.rerender();
-        }
-      }, error => {
-
-      }
-    );
-  }
-
-  /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-  initFormAddEmpaque() {
-
-    this.formAddEmpaque = this.formBuilderEmpaque.group({
-      'nombreEmpaque': new FormControl('', [
-
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(100),
-          CustomValidators.nospaceValidator
-        ])
-
-      , 'descripcionEmpaque': new FormControl('', [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-          CustomValidators.nospaceValidator
-      ])
-    });
-
-  }
-
-  initFormUpdateEmpaque() {
-
-    this.formUpdateEmpaque = this.formBuilderEmpaque.group({
-      'nombreEmpaque': new FormControl('', [
-
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(100),
-        CustomValidators.nospaceValidator
-      ])
-      , 'descripcionEmpaque': new FormControl('',
-        [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(100),
-            CustomValidators.nospaceValidator
-        ])
-    });
-  }
-
-
-  createEmpaque(Modal) {
-    this.getValuesFormAddEmpaque();
-
-    this._EmpaqueServicio.createEmpaque(this.empaque).subscribe(
-      response => {
-
-        if (response.IdEmpaque) {
-          swal(
-            'Empaque',
-            'El Empaque ha sido creado exitosamente!',
-            'success'
-          ).then(() => {
-            Modal.hide();
-            this.formAddEmpaque.reset();
-            this.empaque = new Empaque();
-            this.getEmpaquesRender();
-          });
-
-        } else {
-          Utils.showMsgInfo('Ha ocurrido un error el insertar el empaque, intenta nuevamnete!!', this.tituloPantalla);
-        }
-        this.getEmpaquesProductos();
-      }, error => {
-        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-      }
-    );
-  }
-
-  getValuesFormAddEmpaque() {
-    this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
-    this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
-  }
-
-  getValuesFormUpdateEmpaque() {
-    this.empaque.NombreEmpaque = this.formUpdateEmpaque.value.nombreEmpaque;
-    this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
-  }
-  getEmpaquesProductos() {
-    this._EmpaqueServicio.getEmpaques().subscribe(
-      response => {
-
-        if (!response.empaques) {
-          Utils.showMsgInfo('Ha ocurrido un error al obtener los empaques', this.tituloPantalla);
-        } else {
-          this.empaques = response.empaques;
-        }
-      }, error => {
-          Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-    }
-    );
-  }
-
-  updateEmpaque(Modal) {
-
-    this.getValuesFormUpdateEmpaque();
-    this._EmpaqueServicio.updateEmpaque(this.empaque).subscribe(
-      response => {
-        if (response.success) {
-          swal(
-            'Empaque',
-            'El empaque ha sido actualizado exitosamente!',
-            'success'
-          ).catch(swal.noop).then(() => {
-            Modal.hide();
-            this.formUpdateEmpaque.reset();
-            this.getEmpaquesRender();
-            this.empaque = new Empaque();
-          });
-        } else {
-          Utils.showMsgInfo('Ha ocurrido un error en la actualización', this.tituloPantalla);
-        }
-      }, error => {
-        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-      }
-    );
-  }
-
-  deleteEmpaque(IdEmpaque) {
-
-    swal({
-      title: 'Estas seguro(a)?',
-      text: 'El empaque sera eliminado permanentemente!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminalo!',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-     if (result.value) {
-         this._EmpaqueServicio.deleteEmpaque(IdEmpaque).subscribe(
-             response => {
-                 if (response.success) {
-                     swal(
-                         'Eliminado!',
-                         'El empaque ha sido eliminado exitosamente',
-                         'success'
-                     ).then(() => {
-                         this.getEmpaquesRender();
-                     });
-                 } else {
-                     Utils.showMsgInfo('Ha ocurrido un error al eliminar', this.tituloPantalla);
-                 }
-             }, error => {
-                 Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-             }
-         );
-     } else if (result.dismiss === swal.DismissReason.cancel) {}
-    });
-  }
-
-  InvocarModal(Modal, Formulario) {
-    Utils.invocacionModal(Modal, Formulario);
-  }
-
-  invocarModalUpdate(Modal, empaque: Empaque) {
-
-      this.empaque.IdEmpaque  = empaque.IdEmpaque;
-      this.empaque.NombreEmpaque = empaque.NombreEmpaque;
-      this.empaque.Descripcion = empaque.Descripcion;
-
-      this.formUpdateEmpaque.reset();
-      this.formUpdateEmpaque.setValue({
-          nombreEmpaque: empaque.NombreEmpaque
-          , descripcionEmpaque: empaque.Descripcion
-      });
-
-      Modal.show();
-
-  }
+	resultadoConsultaAddEmpaque(event) {
+		if (event) {
+			this.getEmpaquesRender();
+		}
+	}
 }

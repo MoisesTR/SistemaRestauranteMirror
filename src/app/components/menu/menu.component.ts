@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Usuario} from '@app/models/Usuario';
-import {UsuarioService} from '@app/services/service.index';
+import {UsuarioService} from '@app/core/service.index';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Global} from '@app/services/shared/global';
-import {MenuService} from '@app/services/service.index';
+import {Global} from '@app/core/services/shared/global';
+import {MenuService} from '@app/core/service.index';
 import {Menu} from '@app/models/Menu';
 
 @Component({

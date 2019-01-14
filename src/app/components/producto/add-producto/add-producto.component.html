@@ -87,7 +87,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="mostrarModalCategoria()" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
+                        (click)="showModalCategoria()" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -101,7 +101,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalClasificacion=true" mdbTooltip="Agregar Clasificación" placement="bottom"
+                  (click)="showModalClasificacion()" mdbTooltip="Agregar Clasificación" placement="bottom"
                   mdbWavesEffect>Agregar</button>
               </div>
 
@@ -121,7 +121,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalSubclasificacion=true" mdbTooltip="Agregar Subclasificación" placement="bottom"
+                  (click)="showModalSubClasificacion()" mdbTooltip="Agregar Subclasificación" placement="bottom"
                   mdbWavesEffect>Agregar</button>
               </div>
 
@@ -144,7 +144,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalEmpaque = true" mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
+                  (click)="showModalEmpaque()" mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="mt-3 ml-3 mb-0 d-block d-xl-none d-lg-none d-md-none"><label class="grey-text-card">Envase</label></div>
@@ -159,7 +159,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-1">
                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalEnvase = true" mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
+                  (click)="showModalEnvase()" mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
 
@@ -183,7 +183,7 @@
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalUnidadMedida = true" mdbTooltip="Agregar unidad de medida" placement="bottom"
+                  (click)="showModalUnidadMedida()" mdbTooltip="Agregar unidad de medida" placement="bottom"
                   mdbWavesEffect>Agregar</button>
               </div>
 
@@ -282,9 +282,8 @@
 </div>
 
 <modal-categoria (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
-<modal-clasificacion *ngIf="showModalClasificacion" [mostrarModal]="showModalClasificacion" (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>
-<modal-subclasificacion *ngIf="showModalSubclasificacion" [mostrarModal]="showModalSubclasificacion"
-  (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>
-<modal-empaque *ngIf="showModalEmpaque" [mostrarModal]="showModalEmpaque" (resultadoConsulta)="resultQueryEmpaque($event)"></modal-empaque>
-<modal-envase *ngIf="showModalEnvase" [mostrarModal]="showModalEnvase" (resultadoConsulta)="resultQueryEnvase($event)"></modal-envase>
-<modal-unidad-medida *ngIf="showModalUnidadMedida" [mostrarModal]="showModalUnidadMedida" (resultadoConsulta)="resultQueryUnidadMedida($event)"></modal-unidad-medida>
+<modal-clasificacion (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>
+<modal-subclasificacion (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>
+<modal-empaque (resultadoConsulta)="resultQueryEmpaque($event)"></modal-empaque>
+<modal-envase (resultadoConsulta)="resultQueryEnvase($event)"></modal-envase>
+<modal-unidad-medida (resultadoConsulta)="resultQueryUnidadMedida($event)"></modal-unidad-medida>

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Global} from './global';
 import 'rxjs/add/operator/map';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -8,11 +8,16 @@ import {Observable} from 'rxjs/Observable';
 export class ClasificacionProductoService {
 
   public url: string;
+  public eventoModal = new EventEmitter<any>();
 
   constructor(
     private _http: HttpClient
   ) {
     this.url = Global.url;
+  }
+
+  mostrarModal() {
+    this.eventoModal.emit(true);
   }
 
   createClasificacionProducto(ClasificacionProducto): Observable<any> {

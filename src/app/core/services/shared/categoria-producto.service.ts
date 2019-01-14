@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 export class CategoriaProductoService {
 
   public url: string;
-  public notificacion = new EventEmitter<any>();
+  public eventoModal = new EventEmitter<any>();
 
   constructor(
     private _http: HttpClient
@@ -17,7 +17,7 @@ export class CategoriaProductoService {
   }
 
   mostrarModal() {
-    this.notificacion.emit(true);
+    this.eventoModal.emit(true);
   }
 
   createCategoriaProducto(CategoriaProducto): Observable<any> {

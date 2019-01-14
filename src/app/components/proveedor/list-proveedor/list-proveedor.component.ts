@@ -5,8 +5,8 @@ import {Subject} from 'rxjs/Rx';
 import {Utils} from '../../Utils';
 import {Proveedor} from '@app/models/Proveedor';
 import {DataTableDirective} from 'angular-datatables';
-import {ProveedorService} from '@app/services/service.index';
-import {idioma_espanol} from '@app/services/shared/global';
+import {ProveedorService} from '@app/core/service.index';
+import {idioma_espanol} from '@app/core/services/shared/global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDirective} from 'ng-uikit-pro-standard';
 

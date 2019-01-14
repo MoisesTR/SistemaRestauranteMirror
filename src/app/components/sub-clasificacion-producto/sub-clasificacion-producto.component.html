@@ -29,7 +29,7 @@
                 <td width="25%" class="body-negrita">
 
                   <div class="text-center">
-                    <button type="button" (click)="invocarModalUpdateSubClasificacion(modalUpdateSubClasificacion,subclasificacion)"
+                    <button type="button" (click)="showModalUpdateSubclasificacion(modalUpdateSubClasificacion,subclasificacion)"
                       class="btn btn-sm orange-chang" id="btnUpdateSubClasificacion" mdbTooltip="Editar SubClasificación"
                       placement="bottom">
                       <i class="fa fa-pencil"></i>
@@ -50,63 +50,7 @@
   </div>
 </section>
 
-
-<!-- Modal para crear Sub-clasificación -->
-<div mdbModal #modalAddSubclasificacion="mdb-modal" class="modal fade" id="modalAddSubClasificacion" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
-
-      <!--Titulo-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Sub-Clasificación</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddSubclasificacion.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-        <!-- Inicio form-->
-        <form [formGroup]="formAddSubClasificacion" (ngSubmit)="createSubCasificacion(modalAddSubclasificacion)"
-          novalidate>
-
-          <div class="md-form">
-            <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="addnombresubclasificacion" maxlength="100" class="input-modal-sm" name="nombresubclasificacion"
-              formControlName="nombreSubClasificacion" required>
-            <show-errors [control]="formAddSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
-          </div>
-
-          <div class="md-form">
-            <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="adddescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
-              formControlName="descripcionSubClasificacion" required></textarea>
-            <show-errors [control]="formAddSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
-          </div>
-
-          <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select [items]="clasificaciones" class="custom" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
-            placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
-
-          </ng-select>
-          <show-errors [control]="formAddSubClasificacion.controls['clasificacion']"></show-errors>
-
-          <div class="text-center mt-1-half">
-            <br>
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddSubClasificacion.valid">Ingresar
-              <i class="fa fa-check ml-1"></i>
-            </button>
-          </div>
-
-        </form>
-        <!-- Final form -->
-      </div>
-    </div>
-    <!--/.Contenido-->
-  </div>
-</div>
+<modal-subclasificacion (resultadoConsulta)="resultadoConsultaAddSubclasificacion($event)"></modal-subclasificacion>
 
 <!-- Modal para actualizar subclasificacion -->
 <div mdbModal #modalUpdateSubClasificacion="mdb-modal" class="modal fade" id="modalUpdateSubClasificacion" tabindex="-1"
@@ -131,16 +75,16 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input mdbInputDirective type="text" id="upnombresubclasificacion" class="input-modal-sm" name="nombresubclasificacion"
-              formControlName="nombreSubClasificacion" required>
+            <input mdbInputDirective [mdbValidate]=false type="text" id="upnombresubclasificacion" class="input-modal-sm" name="nombresubclasificacion"
+              formControlName="nombreSubClasificacion">
             <show-errors [control]="formUpdateSubClasificacion.controls['nombreSubClasificacion']"></show-errors>
           </div>
 
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea mdbInputDirective type="text" id="updescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
-              formControlName="descripcionSubClasificacion" required>
+            <textarea mdbInputDirective [mdbValidate]=false type="text" id="updescripcionsubclasificacion" class="text-area-modal" name="descripcionsubclasificacion"
+              formControlName="descripcionSubClasificacion">
                   </textarea>
             <show-errors [control]="formUpdateSubClasificacion.controls['descripcionSubClasificacion']"></show-errors>
           </div>
@@ -154,14 +98,13 @@
 
           <div class="text-center mt-1-half">
             <br>
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSubClasificacion.valid">Actualizar
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSubClasificacion.valid || peticionEnCurso">Actualizar
               <i class="fa fa-check ml-1"></i>
             </button>
           </div>
 
         </form>
         <!-- Final form -->
-
       </div>
     </div>
     <!--/.Contenido-->

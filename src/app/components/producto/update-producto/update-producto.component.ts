@@ -20,8 +20,8 @@ import {
     SubClasificacionProductoService,
     UnidadMedidaService,
     UploadService
-} from '@app/services/service.index';
-import {CARPETA_PRODUCTOS, Global} from '@app/services/shared/global';
+} from '@app/core/service.index';
+import {CARPETA_PRODUCTOS, Global} from '@app/core/services/shared/global';
 import {CustomValidators} from '@app/validadores/CustomValidators';
 import {Utils} from '../../Utils';
 import {ProductoProveedor} from '@app/models/ProductoProveedor';

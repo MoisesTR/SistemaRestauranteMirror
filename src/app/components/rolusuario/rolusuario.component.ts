@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RolUsuario} from '@app/models/RolUsuario';
-import {RolusuarioService} from '@app/services/service.index';
+import {RolusuarioService} from '@app/core/service.index';
 import {Subject} from 'rxjs/Subject';
-import {idioma_espanol} from '@app/services/shared/global';
+import {idioma_espanol} from '@app/core/services/shared/global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';

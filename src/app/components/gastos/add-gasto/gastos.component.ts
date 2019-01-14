@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GastoService} from '@app/services/service.index';
+import {GastoService} from '@app/core/service.index';
 import {Utils} from '../../Utils';
 import {SubclasificacionGasto} from '@app/models/SubclasificacionGasto';
 import {ClasificacionGasto} from '@app/models/ClasificacionGasto';

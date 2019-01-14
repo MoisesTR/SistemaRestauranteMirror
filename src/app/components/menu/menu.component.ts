@@ -1,74 +1,81 @@
-import {Component, OnInit} from '@angular/core';
-import {Usuario} from '@app/models/Usuario';
-import {UsuarioService} from '@app/core/service.index';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Global} from '@app/core/services/shared/global';
-import {MenuService} from '@app/core/service.index';
-import {Menu} from '@app/models/Menu';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Usuario } from "@app/models/Usuario";
+import { UsuarioService } from "@app/core/service.index";
+import { MenuService } from "@app/core/service.index";
+import { Menu } from "@app/models/Menu";
+import { Global } from "@app/core/services/shared/global";
+import {NgxSpinnerService} from 'ngx-spinner';
+import {Utils} from '@app/components/Utils';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+	selector: "app-menu",
+	templateUrl: "./menu.component.html",
+	styleUrls: ["./menu.component.scss"]
 })
 export class MenuComponent implements OnInit {
+	public rol = "admin";
+	public Usuario: Usuario;
+	public menues: Menu[];
+	public url: string;
+	public tituloPantalla = 'Menu';
 
-  public rol = 'admin';
-  public Usuario: Usuario;
-  public menues: Menu[];
-  public url: string;
+	constructor(
+		private menuService: MenuService,
+		private route: ActivatedRoute,
+		private router: Router,
+        private spinner: NgxSpinnerService,
+		private usuarioService: UsuarioService
+	) {}
 
-  constructor(private _route: ActivatedRoute,
-              private _router: Router,
-              private _usuarioService: UsuarioService
-              , private _menuService: MenuService
-  ) {
-  }
+	ngOnInit() {
+        this.spinner.show();
+		this.Usuario = this.usuarioService.getIdentity();
+		this.url = Global.url;
+		this.menues = [];
+		this.getMenuesByIdRol(this.Usuario.IdRol);
 
-  ngOnInit() {
-    this.Usuario = this._usuarioService.getIdentity();
-    this.url = Global.url;
-    this.menues = [];
-    this.getMenuesByIdRol(this.Usuario.IdRol);
+		window.onscroll = function() {
+			if (pageYOffset >= 200) {
+				document.getElementById("backToTop").style.visibility = "visible";
+			} else {
+				document.getElementById("backToTop").style.visibility = "hidden";
+			}
+		};
+	}
 
-    window.onscroll = function () {
-      if (pageYOffset >= 200) {
-          document.getElementById('backToTop').style.visibility = "visible";
-      } else {
-          document.getElementById('backToTop').style.visibility = "hidden";
-      }
-    };
+	backtoPage() {
+		window.history.back();
+	}
 
-  
-  }
+	onActivate(event) {
+		window.scroll(0, 0);
+	}
 
-  backtoPage(){
-    window.history.back();
-  }
+	logout() {
+		localStorage.clear();
+		this.usuarioService.identity = null;
+		this.router.navigate(["/login"]);
+	}
 
-  onActivate(event) {
-    window.scroll(0,0);
-  }
+	verInformacionUsuario() {
+		this.router.navigate(["/usuario/view"]);
+	}
 
-  logout() {
-    localStorage.clear();
-    this._usuarioService.identity = null;
-    this._router.navigate(['/login']);
-  }
-
-  verInformacionUsuario() {
-    this._router.navigate(['/usuario/view']);
-  }
-
-  getMenuesByIdRol(IdRol) {
-    this._menuService.getMenuesByIdRol(IdRol).subscribe(
-        response => {
-          if (response.Menues) {
-            this.menues = response.Menues;
-          }
-        }, error => {
-
-        }
-    );
-  }
+	getMenuesByIdRol(IdRol) {
+		this.menuService.getMenuesByIdRol(IdRol).subscribe(
+			response => {
+				if (response.Menues) {
+					this.menues = response.Menues;
+				} else {
+				    Utils.showMsgInfo('Ha ocurrido un error inesperado al obtener los menues!', this.tituloPantalla)
+                }
+			},
+			error => {
+                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+            }, () => {
+                this.spinner.hide();
+            }
+		);
+	}
 }

@@ -24,6 +24,7 @@ import { ConfiguracionComponent } from "../configuracion/configuracion.component
 import { GastoModule } from "@app/components/gastos/gasto.module";
 import { ConsumoInternoComponent } from "../consumo-interno/consumo-interno.component";
 import { ModalModule } from "@app/components/modales/modal.module";
+import {TiposInsumosComponent} from '../tipos-insumos/tipos-insumos.component';
 
 @NgModule({
 	imports: [
@@ -54,7 +55,8 @@ import { ModalModule } from "@app/components/modales/modal.module";
 		SalidaProductoComponent,
 		ReportesComponent,
 		ConfiguracionComponent,
-		ConsumoInternoComponent
+    ConsumoInternoComponent,
+    TiposInsumosComponent
 	],
 	exports: [],
 	schemas: [NO_ERRORS_SCHEMA]

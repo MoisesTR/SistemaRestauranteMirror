@@ -38,6 +38,7 @@ import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 import {GastosComponent} from '../gastos/add-gasto/gastos.component';
 import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
 import {ConsumoInternoComponent} from '../consumo-interno/consumo-interno.component';
+import {TiposInsumosComponent} from '../tipos-insumos/tipos-insumos.component';
 
 const menuRoutes: Routes = [
 
@@ -69,6 +70,7 @@ const menuRoutes: Routes = [
         , {path: 'rol', component: RolusuarioComponent, data : { titulo : 'Roles'}}
         , {path: 'unidadmedida', component: UnidadmedidaComponent , data : { titulo : 'Unidad Medida'}}
         , {path: 'consumo-interno', component: ConsumoInternoComponent , data : { titulo : 'Consumo Interno'}}
+        , {path: 'tipos-insumos', component: TiposInsumosComponent , data : { titulo : 'Tipos de Insumos'}}
 
         // Reportes
         , {path: 'reportes', component: ReportesComponent , data : { titulo : 'Reportes'}}

@@ -33,8 +33,8 @@
               <div class="col-12 mb-3">
                 <div class="md-form input-group padding-input">
                   <input mdbInputDirective type="text" id="nombreproducto" [mdbValidate]="false" formControlName="nombreProducto"
-                    mdbInputDirective [(ngModel)]="formUpdateProducto.value.nombreProducto" class="form-control letras"
-                    autocomplete="off" [(ngModel)]="formUpdateProducto.value.nombreProducto" placeholder="Nombre del Producto"
+                    [(ngModel)]="formUpdateProducto.value.nombreProducto" class="form-control letras"
+                    autocomplete="off" placeholder="Nombre del Producto"
                     style="margin-right: 5%;">
                   <div class="input-group-btn">
                     <button type="button" class="btn orange-chang px-3 add-img-position" (click)="showCardImg()"
@@ -86,8 +86,8 @@
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
                 <label class="grey-text-card">Tipo de Insumo</label>
-                <ng-select dropdownPosition="top" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id"
-                  placeholder="Selecciona un tipo de insumo" id="TipoInsumo">
+                <ng-select dropdownPosition="top" [items]="Insumo" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id"
+                  placeholder="Selecciona un tipo de insumo" [(ngModel)]="IdTipoInsumo" id="TipoInsumo">
                 </ng-select>
               </div>
 
@@ -171,7 +171,7 @@
               <div class="col-12 col-sm-12 col-md-9 mt-0">
                 <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
                 <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
-                  formControlName="envase" id="envase" (change)="onChangeEnvase($event)" [(ngModel)]="producto.IdEnvase">
+                  formControlName="envase" id="envase" (change)="onChangeEnvase($event)" [(ngModel)]="IdTipoInsumo">
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['envase']"></show-errors>
               </div>

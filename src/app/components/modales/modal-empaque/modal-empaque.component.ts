@@ -135,7 +135,6 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.formAddEmpaque.reset();
-		this.modalAddEmpaque.hide();
+        this.subscription.unsubscribe();
 	}
 }

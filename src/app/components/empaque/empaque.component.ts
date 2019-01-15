@@ -1,10 +1,5 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
@@ -22,7 +17,7 @@ declare var $: any;
 	selector: "app-empaque",
 	templateUrl: "./empaque.component.html",
 	styleUrls: ["./empaque.component.css"],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmpaqueComponent implements OnInit {
 	@ViewChild("modalAddEmpaque")
@@ -43,7 +38,7 @@ export class EmpaqueComponent implements OnInit {
 	constructor(
 		private empaqueService: EmpaqueService,
 		private formBuilderEmpaque: FormBuilder,
-        private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef
 	) {
 		this.empaque = new Empaque();
 	}
@@ -82,7 +77,7 @@ export class EmpaqueComponent implements OnInit {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
-            this.cdr.detectChanges();
+			this.cdr.detectChanges();
 		});
 	}
 
@@ -138,11 +133,7 @@ export class EmpaqueComponent implements OnInit {
 		this.empaqueService.updateEmpaque(this.empaque).subscribe(
 			response => {
 				if (response.success) {
-					swal(
-						"Empaque",
-						"El empaque ha sido actualizado exitosamente!",
-						"success"
-					)
+					swal("Empaque", "El empaque ha sido actualizado exitosamente!", "success")
 						.catch(swal.noop)
 						.then(() => {
 							modal.hide();
@@ -151,10 +142,7 @@ export class EmpaqueComponent implements OnInit {
 							this.empaque = new Empaque();
 						});
 				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error inesperado al actualizar el empaque!",
-						this.tituloPantalla
-					);
+					Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar el empaque!", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -187,18 +175,11 @@ export class EmpaqueComponent implements OnInit {
 				this.empaqueService.deleteEmpaque(idEmpaque).subscribe(
 					response => {
 						if (response.success) {
-							swal(
-								"Inhabilitado!",
-								"El empaque ha sido inhabilitado exitosamente",
-								"success"
-							).then(() => {
+							swal("Inhabilitado!", "El empaque ha sido inhabilitado exitosamente", "success").then(() => {
 								this.getEmpaquesRender();
 							});
 						} else {
-							Utils.showMsgInfo(
-								"Ha ocurrido un error inesperado al inhabilitar el empaque!",
-								this.tituloPantalla
-							);
+							Utils.showMsgInfo("Ha ocurrido un error inesperado al inhabilitar el empaque!", this.tituloPantalla);
 						}
 					},
 					error => {

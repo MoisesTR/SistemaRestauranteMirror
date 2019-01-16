@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	OnInit,
+	ViewChild
+} from "@angular/core";
 import {
 	FormBuilder,
 	FormControl,
@@ -23,7 +29,8 @@ import swal from "sweetalert2";
 @Component({
 	selector: "app-sub-clasificacion-producto",
 	templateUrl: "./sub-clasificacion-producto.component.html",
-	styleUrls: ["./sub-clasificacion-producto.component.css"]
+	styleUrls: ["./sub-clasificacion-producto.component.css"],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubClasificacionProductoComponent implements OnInit {
 	@ViewChild("modalAddSubclasificacion")
@@ -46,7 +53,8 @@ export class SubClasificacionProductoComponent implements OnInit {
 	constructor(
 		private subclasificacionService: SubClasificacionProductoService,
 		private clasificacionService: ClasificacionProductoService,
-		private formBuilderSubClasificacion: FormBuilder
+		private formBuilderSubClasificacion: FormBuilder,
+		private cdr: ChangeDetectorRef
 	) {
 		this.subclasificacion = new SubClasificacionProducto();
 		this.initCustomValidatorsFormSubClasificacion();
@@ -111,6 +119,7 @@ export class SubClasificacionProductoComponent implements OnInit {
 				if (response.subclasificaciones) {
 					this.subclasificaciones = response.subclasificaciones;
 					this.dtTrigger.next();
+					this.cdr.markForCheck();
 				} else {
 				}
 			},
@@ -152,8 +161,8 @@ export class SubClasificacionProductoComponent implements OnInit {
 							.then(() => {
 								modal.hide();
 								this.formUpdateSubClasificacion.reset();
-								this.getSubClasificacionesRender();
 								this.subclasificacion = new SubClasificacionProducto();
+								this.getSubClasificacionesRender();
 							});
 					} else {
 						Utils.showMsgError(
@@ -234,7 +243,10 @@ export class SubClasificacionProductoComponent implements OnInit {
 		);
 	}
 
-	 showModalUpdateSubclasificacion(modal, Subclasificacion: SubClasificacionProducto) {
+	showModalUpdateSubclasificacion(
+		modal,
+		Subclasificacion: SubClasificacionProducto
+	) {
 		this.subclasificacion.IdSubClasificacion =
 			Subclasificacion.IdSubClasificacion;
 		this.subclasificacion.NombreSubClasificacion =

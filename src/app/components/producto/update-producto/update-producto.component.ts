@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy,ChangeDetectorRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Proveedor} from '@app/models/Proveedor';
 import {Producto} from '@app/models/Producto';
@@ -31,7 +31,8 @@ declare var $: any;
 @Component({
   selector: 'app-update-producto',
   templateUrl: './update-producto.component.html',
-  styleUrls: ['./update-producto.component.css']
+  styleUrls: ['./update-producto.component.css'],
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpdateProductoComponent implements OnInit {
 
@@ -49,6 +50,12 @@ export class UpdateProductoComponent implements OnInit {
   public url: string;
   public removioImagen = false;
   public filesToUpload: Array<File> = null;
+  public IdTipoInsumo;
+  Insumo = [
+    {Id: 1, TipoInsumo: 'Alimento'}
+    , {Id: 2, TipoInsumo: 'Limpieza'}
+    , {Id: 3, TipoInsumo: 'Utensilios'},
+];
 
   constructor(
       private _route: ActivatedRoute
@@ -65,9 +72,11 @@ export class UpdateProductoComponent implements OnInit {
       , private _productoProveedorService: ProductoProveedorService
     , private _deleteImageService: DeleteImageService
     , private formBuilderUProducto: FormBuilder
+    , private cdr: ChangeDetectorRef
   ) {
     this.url = Global.url;
     this.producto = new Producto();
+    this._route.params.subscribe(params => console.log(params));
 
   }
 
@@ -82,7 +91,6 @@ export class UpdateProductoComponent implements OnInit {
     this.getEmpaques();
     this.getEnvases();
     this.getUnidadesDeMedida();
-
   }
 
 showCardImg() {
@@ -176,6 +184,12 @@ showCardImg() {
         ]),
         'diasCaducidad': new FormControl('', [
             Validators.required
+        ]),
+        'tipoInsumo': new FormControl('', [
+            Validators.required
+        ]),
+        'diasDeUso': new FormControl('', [
+            Validators.required
         ])
     });
   }
@@ -251,19 +265,20 @@ showCardImg() {
     this.formUpdateProducto.controls['diasCaducidad'].setValue(this.producto.DiasCaducidad);
     this.formUpdateProducto.controls['valorUnidadMedida'].setValue(this.producto.ValorUnidadMedida);
     this.formUpdateProducto.controls['cantidadEmpaque'].setValue(this.producto.CantidadEmpaque);
+    this.IdTipoInsumo =  this.producto.IdTipoInsumo;
+    this.proveedoresProducto = this.producto.Proveedores;
   }
 
   getProducto() {
-    this._route.params.forEach((params: Params) => {
+    this._route.params.subscribe((params: Params) => {
 
         const id = params['id'];
-        this.producto.IdProducto = id;
+        //this.producto.IdProducto = id;
 
         this._productoService.getProducto(id).subscribe(
           response => {
             if (response.producto) {
-              this.producto = response.producto[0];
-              this.proveedoresProducto = this.producto.Proveedores;
+              this.producto = response.producto;
               // Inicializar componentes de la vista
               $(document).ready(() => {
 
@@ -291,7 +306,7 @@ showCardImg() {
               this._router.navigate(['/producto/list']);
             }
           }, error => {
-
+                console.log("Error desde la api");
           }
         );
     });

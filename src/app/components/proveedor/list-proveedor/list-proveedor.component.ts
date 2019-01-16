@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild,ChangeDetectionStrategy,ChangeDetectorRef} from '@angular/core';
 import swal from 'sweetalert2';
 import {FormGroup} from '@angular/forms';
 import {Subject} from 'rxjs/Rx';
@@ -14,14 +14,16 @@ declare var $:any;
 @Component({
   selector: 'list-proveedor',
   templateUrl: './list-proveedor.component.html',
-  styleUrls: ['./list-proveedor.component.scss']
+  styleUrls: ['./list-proveedor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListProveedorComponent implements OnInit, AfterViewInit {
+export class ListProveedorComponent implements OnInit{
 
     @ViewChild('modalTelefonos') modalTelefonos: ModalDirective;
     public proveedorSeleccionado: Proveedor;
     public proveedores: Proveedor[];
     public tituloPantalla = 'Proveedor';
+    private renderizarProductos:boolean = false;
 
     @ViewChild(DataTableDirective)
     dtElement: DataTableDirective;
@@ -33,6 +35,7 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
     constructor(private _route: ActivatedRoute
         , private _router: Router
         , private _proveedorService: ProveedorService
+        , private cdr: ChangeDetectorRef
 
     ) {
         this.proveedorSeleccionado = new Proveedor();
@@ -66,9 +69,10 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
         };
     }
 
-    ngAfterViewInit(): void {
+   /** ngAfterViewInit(): void {
         this.dtTrigger.next();
-    }
+        implementarlo en la clase cuando se descomente  
+   }**/
 
     rerender(): void {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -76,6 +80,7 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
             dtInstance.destroy();
             // Call the dtTrigger to rerender again
             this.dtTrigger.next();
+            this.cdr.detectChanges();
         });
     }
 
@@ -84,7 +89,14 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
             response => {
                 if (response.proveedores) {
                     this.proveedores = response.proveedores;
-                    this.rerender();
+                    //this.rerender();
+                    if(this.renderizarProductos === true){
+                        this.rerender();
+                    }else{
+                        this.dtTrigger.next();
+                        this.cdr.markForCheck();
+                    }
+                    
                 }
             }, error => {
             }
@@ -112,7 +124,8 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
                                 'El proveedor ha sido eliminado exitosamente',
                                 'success'
                             ).then( () => {
-                                this.formAddProveedor.reset();
+                                //this.formAddProveedor.reset();
+                                this.renderizarProductos = true;
                                 this.getProveedores();
                             });
                         } else {

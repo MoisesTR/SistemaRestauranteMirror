@@ -28,7 +28,8 @@ import {
 	TrabajadorService,
 	UnidadMedidaService,
 	UploadService,
-	UsuarioService
+	UsuarioService,
+	SpinnerService
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -74,7 +75,8 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 			provide: HTTP_INTERCEPTORS,
 			useClass: TokenInterceptorService,
 			multi: true
-		}
+		},
+		SpinnerService
 	],
 	declarations: []
 })

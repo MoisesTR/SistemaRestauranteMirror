@@ -29,7 +29,9 @@ import {
 	UnidadMedidaService,
 	UploadService,
 	UsuarioService,
-	SpinnerService
+	SpinnerService,
+	TipoDocumentoService,
+	TipoMonedaService
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -84,6 +86,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 		PreviousRouteService,
 		GastoService,
 		SpinnerService,
+		TipoDocumentoService,
+		TipoMonedaService,
 		MDBSpinningPreloader,
 		{
 			provide: HTTP_INTERCEPTORS,

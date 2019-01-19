@@ -10,6 +10,7 @@ import {MenuComponent} from './components/menu/menu.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {PipesModule} from '@app/pipe/pipes.module';
 
 @NgModule({
 	declarations: [
@@ -22,6 +23,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 		BrowserModule,
 		BrowserAnimationsModule,
         NgxSpinnerModule,
+        PipesModule,
 		CoreModule,
 		AppRoutingModule,
 		MDBBootstrapModulesPro.forRoot(),

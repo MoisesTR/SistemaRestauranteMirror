@@ -27,6 +27,8 @@ export {ReporteService} from './services/shared/reporte.service';
 export {PreviousRouteService} from './services/shared/previous-route.service';
 export {GastoService} from './services/shared/gasto.service';
 export {SpinnerService} from './services/shared/spinner.service';
+export {TipoDocumentoService} from './services/shared/tipo-documento.service';
+export {TipoMonedaService} from './services/shared/tipo-moneda.service'
 
 
 

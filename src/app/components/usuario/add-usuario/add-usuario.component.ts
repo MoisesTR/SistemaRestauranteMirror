@@ -28,7 +28,7 @@ export class AddUsuarioComponent implements OnInit {
   public imagenProducto : string;
   public url : string;
   public imagenTrabajador : string = 'no-img.png';
-  public tituloPantalla : string =  'Usuario';
+  public tituloPantalla : string =  'usuario';
   public carpetaImagen : string = 'temp';
 
   constructor(
@@ -107,8 +107,8 @@ export class AddUsuarioComponent implements OnInit {
       response =>{
         if(response.user){
           swal(
-            'Usuario',
-            'El Usuario ha sido creado exitosamente!',
+            'usuario',
+            'El usuario ha sido creado exitosamente!',
             'success'
           ).then(() => {
             this._router.navigate(['/usuario']);

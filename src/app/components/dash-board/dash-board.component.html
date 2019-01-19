@@ -355,7 +355,7 @@
 
                 <!--Avatar-->
                 <div class="avatar z-depth-1-half mb-4 white">
-                    <img src="{{urlImagen}}" class="rounded-circle" alt="Proveedor" style="height: 100% !important; width: 100% !important;">
+                    <img [src]="trabajador.Imagen | imagen:'trabajadores'" class="rounded-circle" alt="Proveedor" style="height: 100% !important; width: 100% !important;">
                 </div>
 
                 <div class="card-body pt-0 mt-0">
@@ -363,8 +363,7 @@
                     <div class="text-center">
                         <!-- Aca va el nombre de la persona -->
                         <h3 class="mb-3 font-bold">
-                            <strong>{{tabSeleccionado == 'trabajador' ? trabajador.Nombres :
-                                proveedor.NombreProveedor}}</strong>
+                            <strong>{{nombreCard}}</strong>
                         </h3>
                         <!-- Si es proveedore aqui va la compañia a la que pertenece en caso que sea empleado aca va la sucursal -->
                         <h6 class="font-bold red-chang-text mb-4">{{trabajador.NombreSucursal}}</h6>
@@ -373,12 +372,10 @@
                     <ul class="striped list-unstyled text-center">
                         <li>
                             <strong>{{tabSeleccionado == 'trabajador' ? 'Documento : ' : 'Nombre representante : ' }}
-                            </strong>{{tabSeleccionado
-                            == 'trabajador' ? trabajador.Documento : proveedor.NombreRepresentante}}</li>
+                            </strong>{{docTrabajadorONombreRepresentanteProveedor}}</li>
                         <hr>
                         <li>
-                            <strong>Telefono: </strong>{{tabSeleccionado == 'trabajador' ? trabajador.Telefono1 :
-                            proveedor.Telefono1}}</li>
+                            <strong>Telefono: </strong>{{telefonoMostrado}}</li>
                         <hr>
                         <li>
                             <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado

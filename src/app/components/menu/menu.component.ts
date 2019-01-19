@@ -5,8 +5,8 @@ import { UsuarioService } from "@app/core/service.index";
 import { MenuService } from "@app/core/service.index";
 import { Menu } from "@app/models/Menu";
 import { Global } from "@app/core/services/shared/global";
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Utils} from '@app/components/Utils';
+import { NgxSpinnerService } from "ngx-spinner";
+import { Utils } from "@app/components/Utils";
 
 @Component({
 	selector: "app-menu",
@@ -15,26 +15,30 @@ import {Utils} from '@app/components/Utils';
 })
 export class MenuComponent implements OnInit {
 	public rol = "admin";
-	public Usuario: Usuario;
+	public usuario: Usuario;
 	public menues: Menu[];
 	public url: string;
-	public tituloPantalla = 'Menu';
+	public carpetaImagen = "trabajadores";
+	public tituloPantalla = "Menu";
 
 	constructor(
 		private menuService: MenuService,
 		private route: ActivatedRoute,
 		private router: Router,
-        private spinner: NgxSpinnerService,
+		private spinner: NgxSpinnerService,
 		private usuarioService: UsuarioService
 	) {}
 
 	ngOnInit() {
-        this.spinner.show();
-		this.Usuario = this.usuarioService.getIdentity();
+		this.spinner.show();
+		this.usuario = this.usuarioService.getIdentity();
 		this.url = Global.url;
 		this.menues = [];
-		this.getMenuesByIdRol(this.Usuario.IdRol);
+		this.getMenuesByIdRol(this.usuario.IdRol);
+		this.scroll();
+	}
 
+	scroll() {
 		window.onscroll = function() {
 			if (pageYOffset >= 200) {
 				document.getElementById("backToTop").style.visibility = "visible";
@@ -68,14 +72,16 @@ export class MenuComponent implements OnInit {
 				if (response.Menues) {
 					this.menues = response.Menues;
 				} else {
-				    Utils.showMsgInfo('Ha ocurrido un error inesperado al obtener los menues!', this.tituloPantalla)
-                }
+					Utils.showMsgInfo("Ha ocurrido un error inesperado al obtener los menues!", this.tituloPantalla);
+				}
 			},
 			error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }, () => {
-                this.spinner.hide();
-            }
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.spinner.hide();
+			},
+			() => {
+				this.spinner.hide();
+			}
 		);
 	}
 }

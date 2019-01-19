@@ -20,7 +20,7 @@ export class ListUsuariosComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  public tituloPantalla : string = 'Usuario';
+  public tituloPantalla : string = 'usuario';
 
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 

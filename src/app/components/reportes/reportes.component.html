@@ -18,7 +18,7 @@
 
               <div class="card collection-card z-depth-1-half background-card-reportes">
                 <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                    <img src="http://localhost:3000/api/getImagen/Reportes/productos.png" class="img-fluid img-reportes" alt="" style="background-color: white;">
+                    <img [src]="imgProducto | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="" style="background-color: white;">
                   <div class="stripe dark">
                     <a>
                       <p>Productos</p>
@@ -34,7 +34,7 @@
 
               <div class="card collection-card z-depth-1-half background-card-reportes">
                 <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                  <img src="http://localhost:3000/api/getImagen/Reportes/proveedores.jpg" class="img-fluid img-reportes" alt="">
+                  <img [src]="imgProveedor | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
                   <div class="stripe dark">
                     <a>
                       <p>Proveedores</p>
@@ -50,7 +50,7 @@
 
               <div class="card collection-card z-depth-1-half background-card-reportes">
                 <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                  <img src="http://localhost:3000/api/getImagen/Reportes/trabajadores.jpg" class="img-fluid img-reportes" alt="">
+                  <img [src]="imgTrabajadores | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
                   <div class="stripe dark">
                     <a>
                       <p>Trabajadores</p>
@@ -67,7 +67,7 @@
               <div class="card collection-card z-depth-1-half background-card-reportes">
                 <!--Card image-->
                 <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                  <img src="http://localhost:3000/api/getImagen/reportes/facturas.jpg" class="img-fluid img-reportes" alt="">
+                  <img [src]="imgFactura | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
                   <div class="stripe dark">
                     <a>
                       <p>Facturas</p>

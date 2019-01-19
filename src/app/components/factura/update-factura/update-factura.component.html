@@ -316,7 +316,7 @@
                     <h4 class="mb-0">Imagen</h4>
                   </div>
                   <div class="card-body text-center">
-                    <img src="{{this.url + 'getImagen/productos/' + productoSeleccionado.Imagen}}" alt="..." class="img-thumbnail height-card-usuario">
+                    <img [src]="productoSeleccionado.Imagen | imagen" alt="..." class="img-thumbnail height-card-usuario">
                   </div>
                 </div>
               </div>

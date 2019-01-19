@@ -1,30 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {ReporteService} from '@app/core/service.index';
+import { Component, OnInit } from "@angular/core";
+import { ReporteService } from "@app/core/service.index";
 
 @Component({
-  selector: 'app-reportes',
-  templateUrl: './reportes.component.html',
-  styleUrls: ['./reportes.component.scss']
+	selector: "app-reportes",
+	templateUrl: "./reportes.component.html",
+	styleUrls: ["./reportes.component.scss"]
 })
 export class ReportesComponent implements OnInit {
 
-  nativeWindow: any;
-  constructor(
-      private _reporteService: ReporteService,
-  ) {
-  }
+    public imgProducto = 'productos.png';
+    public imgProveedor = 'proveedores.jpg';
+    public imgFactura = 'facturas.jpg';
+    public imgTrabajadores = 'trabajadores.jpg';
+    public carpetaImagenes = 'reportes';
 
-  ngOnInit() {
-  }
+	constructor(private reporteService: ReporteService) {}
 
+	ngOnInit() {}
 
-  imprimirReporteProductos() {
-    // Utils.printReport('BkZfjOAUQ', true, 'proveedores', this.nativeWindow);
-    // this.nativeWindow.open('http://localhost:3000/reports?shortid=Sy9Eauq87&preview=true&catalogoApi=productos');
-  }
+	imprimirReporteProductos() {}
 
-  imprimirReporteProveedores () {
-
-  }
-
+	imprimirReporteProveedores() {}
 }

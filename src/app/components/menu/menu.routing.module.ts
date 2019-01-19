@@ -47,10 +47,10 @@ const menuRoutes: Routes = [
         , {path: 'producto/update/:id', component: UpdateProductoComponent, data : { titulo : 'Producto'}}
 
         /*MODULO USUARIO*/
-        , {path: 'usuario/add', component: AddUsuarioComponent , data : { titulo : 'Usuario'}}
+        , {path: 'usuario/add', component: AddUsuarioComponent , data : { titulo : 'usuario'}}
         , {path: 'usuario', component: ListUsuariosComponent, data : { titulo : 'Usuarios'} }
-        , {path: 'usuario/update/:id', component: UpdateUsuarioComponent, data : { titulo : 'Usuario'} }
-        , {path: 'usuario/view', component: ListUsuarioComponent, data : { titulo : 'Usuario'} }
+        , {path: 'usuario/update/:id', component: UpdateUsuarioComponent, data : { titulo : 'usuario'} }
+        , {path: 'usuario/view', component: ListUsuarioComponent, data : { titulo : 'usuario'} }
 
         , {path: 'categorias', component: CategoriaProductoComponent, data : { titulo : 'Categorias'}}
         , {path: 'clasificacion-productos', component: ClasificacionProductoComponent, data : { titulo : 'Clasificaciones Produtos'}}

@@ -11,10 +11,10 @@
         <!-- Logo -->
         <li>
           <div class="logo-wrapper sn-ad-avatar-wrapper">
-            <img src="{{this.url + 'getImagen/' + 'trabajadores' + '/' + Usuario.Imagen}}" class="img-fluid ">
-            <p class="user white-text" *ngIf="Usuario">{{Usuario.Username}}
-              <br>{{Usuario.NombreCargo}}</p>
-            <p class="user white-text" *ngIf="!Usuario">Indefinido
+            <img [src]="usuario.Imagen | imagen:carpetaImagen" class="img-fluid">
+            <p class="user white-text" *ngIf="usuario">{{usuario.Username}}
+                <br>{{usuario.NombreCargo}}</p>
+            <p class="user white-text" *ngIf="!usuario">Indefinido
               <br>Cargo</p>
           </div>
         </li>
@@ -75,7 +75,7 @@
 
       <navlinks>
         <ul class="nav navbar-nav nav-flex-icons ml-auto ie-double-nav">
-          <li class="nav-item dropdown btn-group" dropdown *ngIf="!Usuario">
+          <li class="nav-item dropdown btn-group" dropdown *ngIf="!usuario">
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
               SIN DATOS
             </a>
@@ -85,9 +85,9 @@
             </div>
           </li>
 
-          <li class="nav-item dropdown btn-group" dropdown *ngIf="Usuario">
+          <li class="nav-item dropdown btn-group" dropdown *ngIf="usuario">
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
-              {{Usuario.Username}}
+                {{usuario.Username}}
             </a>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
               <a class="dropdown-item " (click)="verInformacionUsuario()">Mis datos</a>

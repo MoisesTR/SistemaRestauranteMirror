@@ -59,7 +59,7 @@
 
                   <!--Card image-->
                   <div class="view overlay">
-                    <img class="card-img-top" src="{{url + 'getImagen/productos/' + (producto.Imagen == '' ? 'default.png' : producto.Imagen)}}"
+                    <img class="card-img-top" [src]="producto.Imagen | imagen"
                       alt="Imagen del producto">
                   </div>
 

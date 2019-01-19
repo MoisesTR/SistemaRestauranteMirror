@@ -307,6 +307,7 @@ export class SummaryGastosComponent implements OnInit {
 								);
 							}
 							this.cdr.detectChanges();
+							window.scrollTo(300,300);
 						} else {
 							Utils.showMsgInfo(
 								"Ha ocurrido un error al obtener los gastos",

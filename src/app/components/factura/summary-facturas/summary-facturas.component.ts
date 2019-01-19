@@ -237,7 +237,7 @@ export class SummaryFacturasComponent implements OnInit {
 						this.firstVisiblePaginator = 0;
 						this.addPaginators();
 						this.sumarFacturas();
-
+						window.scrollTo(400,400);
 						if (this.facturas.length === 0) {
 							Utils.showMsgInfo("No se encontraron facturas con los parametros digitados", "Busqueda Facturas");
 						}

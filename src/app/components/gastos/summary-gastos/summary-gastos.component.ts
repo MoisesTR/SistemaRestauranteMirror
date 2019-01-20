@@ -4,8 +4,6 @@ import {
 	OnInit,
 	QueryList,
 	ViewChildren,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
 	ViewChild,
 	HostListener
 } from "@angular/core";
@@ -18,9 +16,10 @@ import {
 } from "@angular/forms";
 import { ClasificacionGasto } from "@app/models/ClasificacionGasto";
 import { SubclasificacionGasto } from "@app/models/SubclasificacionGasto";
+import { Sucursal } from "@app/models/Sucursal";
 import { Gasto } from "@app/models/Gasto";
 import { Router } from "@angular/router";
-import { FacturaService, GastoService } from "@app/core/service.index";
+import { FacturaService, GastoService, SucursalService} from "@app/core/service.index";
 import { Utils } from "../../Utils";
 import {
 	MdbTablePaginationComponent,
@@ -30,8 +29,7 @@ import {
 @Component({
 	selector: "app-summary-gastos",
 	templateUrl: "./summary-gastos.component.html",
-	styleUrls: ["./summary-gastos.component.scss"],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ["./summary-gastos.component.scss"]
 })
 export class SummaryGastosComponent implements OnInit {
 	@ViewChild(MdbTablePaginationComponent)
@@ -47,6 +45,9 @@ export class SummaryGastosComponent implements OnInit {
 	public idClasificacionSeleccionado: number;
 	public idSubClasificacionSeleccionado: number;
 	public sumaTotalGastos = 0;
+	public sucursales: Sucursal[];
+	@ViewChild("scrollgasto") scrollGasto: ElementRef
+	public scrollStart: number = 0;
 
 	@ViewChildren("pages") pages: QueryList<any>;
 	itemsPerPage = 6;
@@ -70,12 +71,13 @@ export class SummaryGastosComponent implements OnInit {
 		private _gastoService: GastoService,
 		private _formBuilder: FormBuilder,
 		private tableService: MdbTableService,
-		private cdr: ChangeDetectorRef
+		private sucursalService: SucursalService
 	) {}
 
 	ngOnInit() {
 		this.initFormBusquedaGasto();
 		this.getClasificacionGasto();
+		this.getSucursales();
 	}
 
 	initFormBusquedaGasto() {
@@ -83,7 +85,8 @@ export class SummaryGastosComponent implements OnInit {
 			clasificacion: new FormControl("", [Validators.required]),
 			subclasificacion: new FormControl("", []),
 			fechaInicio: new FormControl("", Validators.required),
-			fechaFin: new FormControl("", [Validators.required])
+			fechaFin: new FormControl("", [Validators.required]),
+			sucursal: new FormControl("",[Validators.required])
 		});
 	}
 
@@ -92,7 +95,6 @@ export class SummaryGastosComponent implements OnInit {
 			response => {
 				if (response.clasificaciones) {
 					this.clasificaciones = response.clasificaciones;
-					this.cdr.markForCheck();
 				} else {
 					Utils.showMsgInfo(
 						"Ha ocurrido un error al obtener las clasificaciones!",
@@ -105,6 +107,26 @@ export class SummaryGastosComponent implements OnInit {
 			},
 			() => {}
 		);
+	}
+
+	getSucursales(){
+		this.sucursalService.getSucursales().subscribe(
+				response => {
+					if(response.sucursales){
+						this.sucursales = response.sucursales;
+					}else{
+						Utils.showMsgInfo(
+							"Ha ocurrido un error al obtener las sucursales!",
+							"Sucursal"
+						);
+					}
+				},
+				error => {
+					Utils.showMsgError(Utils.msgError(error), "Sucursal");
+				}
+			);
+
+			
 	}
 
 	changePage(event: any) {
@@ -121,6 +143,11 @@ export class SummaryGastosComponent implements OnInit {
 
 	@HostListener("input") oninput() {
 		this.searchItems();
+	}
+
+	@HostListener("window:scroll",[])
+	scrollerDateGasto(){
+		this.scrollStart = this.scrollGasto.nativeElement.offsetTop;
 	}
 
 	searchItems() {
@@ -263,7 +290,6 @@ export class SummaryGastosComponent implements OnInit {
 				response => {
 					if (response.subclasificaciones) {
 						this.subclasificaciones = response.subclasificaciones;
-						this.cdr.markForCheck();
 					} else {
 						Utils.showMsgInfo(
 							"Ha ocurrido un error al obtener las subclasificaciones!",
@@ -295,19 +321,17 @@ export class SummaryGastosComponent implements OnInit {
 							this.tableService.setDataSource(this.gastos);
 							this.gastos = this.tableService.getDataSource();
 							this.previous = this.tableService.getDataSource();
-							this.cdr.markForCheck();
 							this.searchText = "";
 							this.iniciarPropiedadesPaginacion();
 							this.sumarGastos();
-
+							this.scrollerDateGasto();
+							window.scroll(0,this.scrollStart);	
 							if (this.gastos.length === 0) {
 								Utils.showMsgInfo(
 									"No se encontraron gastos con los parametros digitados",
 									"Busqueda Gastos"
 								);
 							}
-							this.cdr.detectChanges();
-							window.scrollTo(300,300);
 						} else {
 							Utils.showMsgInfo(
 								"Ha ocurrido un error al obtener los gastos",

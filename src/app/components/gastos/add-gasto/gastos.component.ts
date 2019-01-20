@@ -16,6 +16,8 @@ import { Utils } from "../../Utils";
 import { SubclasificacionGasto } from "@app/models/SubclasificacionGasto";
 import { ClasificacionGasto } from "@app/models/ClasificacionGasto";
 import { Gasto } from "@app/models/Gasto";
+import { Sucursal } from "@app/models/Sucursal"
+import { SucursalService } from "@app/core/services/shared/sucursal.service";
 import { DateUtil } from "@app/infraestructura/Util/DateUtil";
 import swal from "sweetalert2";
 
@@ -32,11 +34,14 @@ export class GastosComponent implements OnInit {
 	public subclasificaciones: SubclasificacionGasto[];
 	public idClasificacionSeleccionado: number;
 	public idSubClasificacionSeleccionado: number;
+	public sucursales: Sucursal[];
+	public idSucursalSeleccionada: number;
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _gastoService: GastoService,
+		private _sucursalService: SucursalService,
 		private formBuilder: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {}
@@ -44,6 +49,7 @@ export class GastosComponent implements OnInit {
 	ngOnInit() {
 		this.initFormAddGasto();
 		this.getClasificaciones();
+		this.getSucursales();
 		this.gasto = new Gasto();
 	}
 
@@ -59,10 +65,11 @@ export class GastosComponent implements OnInit {
 				Validators.required,
 				Validators.maxLength(1000),
 				Validators.minLength(5)
-			])
+			]),
+			sucursal: new FormControl("",[Validators.required])
 		});
 	}
-
+	
 	getClasificaciones() {
 		this._gastoService.getClasificacionesGasto(1).subscribe(
 			response => {
@@ -101,6 +108,27 @@ export class GastosComponent implements OnInit {
 					Utils.showMsgError(Utils.msgError(error), "Gastos");
 				}
 			);
+	}
+
+	getSucursales(){
+		this._sucursalService.getSucursales().subscribe(
+				response => {
+					if(response.sucursales){
+						this.sucursales = response.sucursales;
+						this.cdr.markForCheck();
+					}else{
+						Utils.showMsgInfo(
+							"Ha ocurrido un error al obtener las sucursales!",
+							"Sucursal"
+						);
+					}
+				},
+				error => {
+					Utils.showMsgError(Utils.msgError(error), "Sucursal");
+				}
+			);
+
+			
 	}
 
 	changeClasificacion(event) {

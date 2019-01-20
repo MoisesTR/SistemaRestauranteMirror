@@ -18,6 +18,7 @@ import { Platform } from "@angular/cdk/platform";
 import { PipesModule } from "@app/pipe/pipes.module";
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 import { ShowErrorsComponent } from "../show-errors.component";
+import { DirectivesModule } from "@app/directives/directives.module";
 
 @NgModule({
 	imports: [CommonModule, MDBBootstrapModulesPro],
@@ -32,25 +33,13 @@ import { ShowErrorsComponent } from "../show-errors.component";
 		NgxSpinnerModule,
 		OwlDateTimeModule,
 		OwlNativeDateTimeModule,
+		DirectivesModule,
 		PipesModule,
 		ShowErrorsComponent,
-		BreadcrumbComponent,
-		NumberOnlyDirective,
-		NumberDirective,
-		AlphanumericDirective,
-		AcceptCharactersDirective,
-		NegOrPosNumbergDirective
+		BreadcrumbComponent
 	],
 
-	declarations: [
-		ShowErrorsComponent,
-		BreadcrumbComponent,
-		NumberOnlyDirective,
-		NumberDirective,
-		AlphanumericDirective,
-		AcceptCharactersDirective,
-		NegOrPosNumbergDirective
-	],
+	declarations: [ShowErrorsComponent, BreadcrumbComponent],
 	providers: [
 		{
 			provide: NG_SELECT_DEFAULT_CONFIG,

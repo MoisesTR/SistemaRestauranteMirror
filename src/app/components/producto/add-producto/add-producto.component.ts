@@ -1,16 +1,6 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	OnInit
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import {
 	CategoriaProductoService,
 	ClasificacionProductoService,
@@ -37,6 +27,7 @@ import { UnidadMedida } from "@app/models/UnidadMedida";
 import { Utils } from "../../Utils";
 import swal from "sweetalert2";
 import { CARPETA_PRODUCTOS, Global } from "@app/core/services/shared/global";
+
 declare var $: any;
 
 @Component({
@@ -59,16 +50,9 @@ export class AddProductoComponent implements OnInit {
 	public filesToUpload: Array<File>;
 	public tituloPantalla = "Productos";
 	public previousUrl: string;
-	public tipoInsumoSeleccionado = 1;
 	public proveedorSelecionado: number;
 	peticionEnCurso = false;
 	formAddProducto: FormGroup;
-
-	Insumo = [
-		{ Id: 1, TipoInsumo: "Alimento" },
-		{ Id: 2, TipoInsumo: "Limpieza" },
-		{ Id: 3, TipoInsumo: "Utensilios" }
-	];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -126,7 +110,6 @@ export class AddProductoComponent implements OnInit {
 		this.getEmpaques();
 		this.getUnidadesDeMedida();
 		this.initFormAddProducto();
-		this.inicializarPropiedadesFormulario();
 	}
 
 	private initFormAddProducto() {
@@ -143,9 +126,7 @@ export class AddProductoComponent implements OnInit {
 				Validators.maxLength(400),
 				CustomValidators.nospaceValidator
 			]),
-			proveedor: new FormControl(this.proveedorSelecionado, [
-				Validators.required
-			]),
+			proveedor: new FormControl(this.proveedorSelecionado, [Validators.required]),
 			categoria: new FormControl("", [Validators.required]),
 			clasificacion: new FormControl("", [Validators.required]),
 			subclasificacion: new FormControl("", [Validators.required]),
@@ -158,13 +139,8 @@ export class AddProductoComponent implements OnInit {
 			valorunidadmedida: new FormControl("", [Validators.required]),
 			diasDeUso: new FormControl("", []),
 			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator]),
-			codigoOriginal: new FormControl("", [CustomValidators.nospaceValidator]),
-			tipoInsumo: new FormControl("", [Validators.required])
+			codigoOriginal: new FormControl("", [CustomValidators.nospaceValidator])
 		});
-	}
-
-	inicializarPropiedadesFormulario() {
-		this.formAddProducto.controls["tipoInsumo"].disable();
 	}
 
 	showCardImg() {
@@ -250,18 +226,16 @@ export class AddProductoComponent implements OnInit {
 		} else {
 			this.producto.IdClasificacion = event.IdClasificacion;
 			this.resetSelectSubClasificacion();
-			this.subclasificacionService
-				.getSubClasificacionesByIdClasificacion(event.IdClasificacion)
-				.subscribe(
-					response => {
-						if (response.subclasificaciones) {
-							this.subclasificaciones = response.subclasificaciones;
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error));
+			this.subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
+				response => {
+					if (response.subclasificaciones) {
+						this.subclasificaciones = response.subclasificaciones;
 					}
-				);
+				},
+				error => {
+					Utils.showMsgError(Utils.msgError(error));
+				}
+			);
 		}
 	}
 
@@ -274,23 +248,18 @@ export class AddProductoComponent implements OnInit {
 			this.producto.IdCategoria = event.IdCategoria;
 			this.resetSelectClasificacion();
 			this.resetSelectSubClasificacion();
-			this.clasificacionService
-				.getClasificacionesByIdCategoria(1, this.producto.IdCategoria)
-				.subscribe(
-					response => {
-						if (response.clasificaciones) {
-							this.clasificaciones = response.clasificaciones;
-						} else {
-							Utils.showMsgInfo(
-								"No se ha podido obtener las clasificaciones",
-								"Producto"
-							);
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error));
+			this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
+				response => {
+					if (response.clasificaciones) {
+						this.clasificaciones = response.clasificaciones;
+					} else {
+						Utils.showMsgInfo("No se ha podido obtener las clasificaciones", "Producto");
 					}
-				);
+				},
+				error => {
+					Utils.showMsgError(Utils.msgError(error));
+				}
+			);
 		}
 	}
 
@@ -333,15 +302,11 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	habilitarUnidadDeMedida() {
-		this.formAddProducto.controls["unidadmedida"].setValidators([
-			Validators.required
-		]);
+		this.formAddProducto.controls["unidadmedida"].setValidators([Validators.required]);
 		this.formAddProducto.controls["unidadmedida"].enable();
 		this.formAddProducto.controls["unidadmedida"].updateValueAndValidity();
 
-		this.formAddProducto.controls["valorunidadmedida"].setValidators([
-			Validators.required
-		]);
+		this.formAddProducto.controls["valorunidadmedida"].setValidators([Validators.required]);
 		this.formAddProducto.controls["valorunidadmedida"].enable();
 		this.formAddProducto.controls["valorunidadmedida"].updateValueAndValidity();
 	}
@@ -443,10 +408,7 @@ export class AddProductoComponent implements OnInit {
 			!Utils.valorCampoEsValido(this.producto.CodigoProducto) &&
 			!Utils.valorCampoEsValido(this.producto.CodigoInterno)
 		) {
-			Utils.showMsgInfo(
-				"El codigo producto o codigo interno es requerido!",
-				"Producto"
-			);
+			Utils.showMsgInfo("El codigo producto o codigo interno es requerido!", "Producto");
 			this.peticionEnCurso = false;
 		} else {
 			if (this.filesToUpload != null) {
@@ -480,33 +442,21 @@ export class AddProductoComponent implements OnInit {
 
 	getValueForm() {
 		this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
-		this.producto.Descripcion = Utils.valorCampoEsValido(
-			this.formAddProducto.value.descripcionProducto
-		)
+		this.producto.Descripcion = Utils.valorCampoEsValido(this.formAddProducto.value.descripcionProducto)
 			? this.formAddProducto.value.descripcionProducto
 			: "Ninguna";
 		this.producto.IdEstado = 1;
 		this.producto.DiasCaducidad = this.formAddProducto.value.diasDeUso;
 		this.producto.CantidadEmpaque =
-			this.formAddProducto.value.cantidadEmpaque === ""
-				? null
-				: this.formAddProducto.value.cantidadEmpaque;
+			this.formAddProducto.value.cantidadEmpaque === "" ? null : this.formAddProducto.value.cantidadEmpaque;
 		this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
-		this.producto.DiasDeUso =
-			this.formAddProducto.value.diasDeUso === ""
-				? 0
-				: this.formAddProducto.value.diasDeUso;
-		this.producto.DiasRotacion = Utils.valorCampoEsValido(
-			this.formAddProducto.value.diasDeUso
-		)
+		this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso === "" ? 0 : this.formAddProducto.value.diasDeUso;
+		this.producto.DiasRotacion = Utils.valorCampoEsValido(this.formAddProducto.value.diasDeUso)
 			? this.formAddProducto.value.diasDeUso
 			: 0;
 		this.producto.CodigoProducto = this.formAddProducto.value.codigoOriginal;
 		this.producto.CodigoInterno =
-			this.formAddProducto.value.codigoInterno === ""
-				? null
-				: this.formAddProducto.value.codigoInterno;
-		this.producto.IdTipoInsumo = 1;
+			this.formAddProducto.value.codigoInterno === "" ? null : this.formAddProducto.value.codigoInterno;
 		this.producto.IdProveedor = this.proveedorSelecionado;
 	}
 
@@ -571,18 +521,16 @@ export class AddProductoComponent implements OnInit {
 	resultadoConsultaClasificacion(event) {
 		if (event) {
 			if (Utils.notNullOrUndefined(this.producto.IdCategoria)) {
-				this.clasificacionService
-					.getClasificacionesByIdCategoria(1, this.producto.IdCategoria)
-					.subscribe(
-						response => {
-							if (response.clasificaciones) {
-								this.clasificaciones = response.clasificaciones;
-							}
-						},
-						error => {
-							Utils.showMsgError(Utils.msgError(error));
+				this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
+					response => {
+						if (response.clasificaciones) {
+							this.clasificaciones = response.clasificaciones;
 						}
-					);
+					},
+					error => {
+						Utils.showMsgError(Utils.msgError(error));
+					}
+				);
 			}
 		}
 	}
@@ -590,18 +538,16 @@ export class AddProductoComponent implements OnInit {
 	resultadoConsultaSubclasificacion(event) {
 		if (event) {
 			if (Utils.notNullOrUndefined(this.producto.IdClasificacion)) {
-				this.subclasificacionService
-					.getSubClasificacionesByIdClasificacion(this.producto.IdClasificacion)
-					.subscribe(
-						response => {
-							if (response.subclasificaciones) {
-								this.subclasificaciones = response.subclasificaciones;
-							}
-						},
-						error => {
-							Utils.showMsgError(Utils.msgError(error));
+				this.subclasificacionService.getSubClasificacionesByIdClasificacion(this.producto.IdClasificacion).subscribe(
+					response => {
+						if (response.subclasificaciones) {
+							this.subclasificaciones = response.subclasificaciones;
 						}
-					);
+					},
+					error => {
+						Utils.showMsgError(Utils.msgError(error));
+					}
+				);
 			}
 		}
 	}
@@ -651,17 +597,9 @@ export class AddProductoComponent implements OnInit {
 		}
 	}
 
-	changeInsumo(event) {
-		if (event === null || event === undefined) {
-			this.tipoInsumoSeleccionado = null;
-		} else {
-			this.tipoInsumoSeleccionado = event.Id;
-		}
-	}
-
 	resetFormProducto() {
 		Object.keys(this.formAddProducto.controls).forEach((value, index) => {
-			if (value !== "proveedor" && value !== "tipoInsumo") {
+			if (value !== "proveedor") {
 				this.formAddProducto.controls[value].reset();
 			}
 		});
@@ -670,8 +608,7 @@ export class AddProductoComponent implements OnInit {
 	agregarProveedor() {
 		swal({
 			title: "Agregar proveedor",
-			text:
-				'Si seleccionas la opcion "SI", perderas los cambios digitados hasta el momento!',
+			text: 'Si seleccionas la opcion "SI", perderas los cambios digitados hasta el momento!',
 			type: "info",
 			showCancelButton: true,
 			confirmButtonColor: "#3085d6",

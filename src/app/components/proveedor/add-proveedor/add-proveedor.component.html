@@ -190,7 +190,7 @@
                   <div class="col-md-6 col-lg-2 mr-0">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Télefono</h6>
-                      <input maxlength="8" min type="text" onlyNumbers="int" id="t{{i}}" [ngModelOptions]="{standalone: true}"
+                      <input maxlength="8" min type="text" onlyNumbersInt id="t{{i}}" [ngModelOptions]="{standalone: true}"
                         [(ngModel)]="telefono.Telefono" class="input-modal-sm">
                     </div>
                   </div>
@@ -198,7 +198,7 @@
                   <div class="col-md-6 col-lg-2 mr-0">
                     <div class="md-form ml-chang-agenda">
                       <h6 class="orange-chang-text d-block d-lg-none d-xl-none">Extensión</h6>
-                      <input maxlength="3" type="text" onlyNumbers="int" [(ngModel)]="telefono.Extension" [ngModelOptions]="{standalone: true}" onlyNumbers="int" id="ext{{i}}" class="input-modal-sm">
+                      <input maxlength="3" type="text" onlyNumbersInt [(ngModel)]="telefono.Extension" [ngModelOptions]="{standalone: true}" onlyNumbersInt id="ext{{i}}" class="input-modal-sm">
                     </div>
                   </div>
 

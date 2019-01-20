@@ -67,7 +67,9 @@ export class UsuarioService {
   createUsuario(Usuario): Observable<any> {
 
     const params = JSON.stringify(Usuario);
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', 
+      'Authorization': 'token'});
 
     return this._http.post(this.url + 'signup', params, { headers: headers });
   }

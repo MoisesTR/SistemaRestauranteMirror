@@ -11,7 +11,7 @@ import {Utils} from '../Utils';
 export class SpinnerComponent implements OnInit {
 
   public spinnerVisibilidad:boolean;
-  @Input() p:boolean;
+ // @Input() p:boolean;
 
     constructor(
         private _spinnerServicio: SpinnerService
@@ -22,7 +22,7 @@ export class SpinnerComponent implements OnInit {
     ngOnInit() {  
       console.log("se logro");
       setTimeout(() => {
-        this.p = false
+        //this.p = false
         }, 3000);
         
       //this._spinnerServicio.convertir.subscribe(response=> this.spinnerVisibilidad = response);

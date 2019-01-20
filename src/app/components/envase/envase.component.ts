@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
@@ -16,9 +16,9 @@ import swal from "sweetalert2";
 	selector: "app-envase",
 	templateUrl: "./envase.component.html",
 	styleUrls: ["./envase.component.css"],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EnvaseComponent implements OnInit {
+export class EnvaseComponent implements OnInit, OnDestroy {
 	dtOptions: DataTables.Settings = {};
 	// We use this trigger because fetching the list of persons can be quite long,
 	// thus we ensure the data is fetched before rendering
@@ -43,8 +43,7 @@ export class EnvaseComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private envaseService: EnvaseService,
-        private cdr: ChangeDetectorRef
-
+		private cdr: ChangeDetectorRef
 	) {
 		this.envase = new Envase();
 	}
@@ -83,7 +82,7 @@ export class EnvaseComponent implements OnInit {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
-            this.cdr.detectChanges();
+			this.cdr.detectChanges();
 		});
 	}
 
@@ -93,7 +92,7 @@ export class EnvaseComponent implements OnInit {
 				if (response.envases) {
 					this.envases = response.envases;
 					this.dtTrigger.next();
-                    this.cdr.markForCheck();
+					this.cdr.markForCheck();
 				} else {
 				}
 			},
@@ -157,21 +156,14 @@ export class EnvaseComponent implements OnInit {
 		this.envaseService.updateEnvase(this.envase).subscribe(
 			response => {
 				if (response.success) {
-					swal(
-						this.tituloPantalla,
-						"El envase ha sido actualizado exitosamente!",
-						"success"
-					).then(() => {
+					swal(this.tituloPantalla, "El envase ha sido actualizado exitosamente!", "success").then(() => {
 						this.modalUpdateEnvase.hide();
 						this.formUpdateEnvase.reset();
 						this.getEnvasesRender();
 						this.envase = new Envase();
 					});
 				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error inesperado al actualizar en envase!",
-						this.tituloPantalla
-					);
+					Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar en envase!", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -199,18 +191,11 @@ export class EnvaseComponent implements OnInit {
 				this.envaseService.deleteEnvase(idEnvase).subscribe(
 					response => {
 						if (response.success) {
-							swal(
-								this.tituloPantalla,
-								"El envase ha sido inhabilitado exitosamente",
-								"success"
-							).then(() => {
+							swal(this.tituloPantalla, "El envase ha sido inhabilitado exitosamente", "success").then(() => {
 								this.getEnvasesRender();
 							});
 						} else {
-							Utils.showMsgInfo(
-								"Ha ocurrido un error al inhabilitar el envase!",
-								this.tituloPantalla
-							);
+							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar el envase!", this.tituloPantalla);
 						}
 					},
 					error => {
@@ -225,5 +210,9 @@ export class EnvaseComponent implements OnInit {
 		if (event) {
 			this.getEnvasesRender();
 		}
+	}
+
+	ngOnDestroy(): void {
+		this.dtTrigger.unsubscribe();
 	}
 }

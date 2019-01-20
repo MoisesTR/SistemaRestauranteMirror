@@ -1,22 +1,8 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	OnInit,
-	ViewChild
-} from "@angular/core";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import {
-	ClasificacionProductoService,
-	SubClasificacionProductoService
-} from "@app/core/service.index";
+import { ClasificacionProductoService, SubClasificacionProductoService } from "@app/core/service.index";
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
@@ -32,7 +18,7 @@ import swal from "sweetalert2";
 	styleUrls: ["./sub-clasificacion-producto.component.css"],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SubClasificacionProductoComponent implements OnInit {
+export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	@ViewChild("modalAddSubclasificacion")
 	modalAddSubclasificacion: ModalDirective;
 
@@ -147,38 +133,29 @@ export class SubClasificacionProductoComponent implements OnInit {
 	updateSubClasificacion(modal) {
 		this.peticionEnCurso = true;
 		this.capturarDatosActualizados();
-		this.subclasificacionService
-			.updateSubClasificacionProducto(this.subclasificacion)
-			.subscribe(
-				response => {
-					if (response.success) {
-						swal(
-							"Subclasificación",
-							"La Subclasificación ha sido actualizado exitosamente!",
-							"success"
-						)
-							.catch(swal.noop)
-							.then(() => {
-								modal.hide();
-								this.formUpdateSubClasificacion.reset();
-								this.subclasificacion = new SubClasificacionProducto();
-								this.getSubClasificacionesRender();
-							});
-					} else {
-						Utils.showMsgError(
-							"Ha ocurrido un error inesperado al actualizar la subclasificacion!",
-							this.tituloPantalla
-						);
-					}
-				},
-				error => {
-					this.peticionEnCurso = false;
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-				},
-				() => {
-					this.peticionEnCurso = false;
+		this.subclasificacionService.updateSubClasificacionProducto(this.subclasificacion).subscribe(
+			response => {
+				if (response.success) {
+					swal("Subclasificación", "La Subclasificación ha sido actualizado exitosamente!", "success")
+						.catch(swal.noop)
+						.then(() => {
+							modal.hide();
+							this.formUpdateSubClasificacion.reset();
+							this.subclasificacion = new SubClasificacionProducto();
+							this.getSubClasificacionesRender();
+						});
+				} else {
+					Utils.showMsgError("Ha ocurrido un error inesperado al actualizar la subclasificacion!", this.tituloPantalla);
 				}
-			);
+			},
+			error => {
+				this.peticionEnCurso = false;
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.peticionEnCurso = false;
+			}
+		);
 	}
 
 	capturarDatosActualizados() {
@@ -198,29 +175,23 @@ export class SubClasificacionProductoComponent implements OnInit {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.subclasificacionService
-					.deleteSubclasificacion(idSubclasificacion)
-					.subscribe(
-						response => {
-							if (response.success) {
-								swal(
-									this.tituloPantalla,
-									"La Subclasificación ha sido inhabilatada exitosamente",
-									"success"
-								).then(() => {
-									this.getSubClasificacionesRender();
-								});
-							} else {
-								Utils.showMsgInfo(
-									"Ha ocurrido un error inesperado al inhabilitar la subclasificacion!",
-									this.tituloPantalla
-								);
-							}
-						},
-						error => {
-							Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.subclasificacionService.deleteSubclasificacion(idSubclasificacion).subscribe(
+					response => {
+						if (response.success) {
+							swal(this.tituloPantalla, "La Subclasificación ha sido inhabilatada exitosamente", "success").then(() => {
+								this.getSubClasificacionesRender();
+							});
+						} else {
+							Utils.showMsgInfo(
+								"Ha ocurrido un error inesperado al inhabilitar la subclasificacion!",
+								this.tituloPantalla
+							);
 						}
-					);
+					},
+					error => {
+						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+					}
+				);
 			}
 		});
 	}
@@ -231,10 +202,7 @@ export class SubClasificacionProductoComponent implements OnInit {
 				if (response.clasificaciones) {
 					this.clasificaciones = response.clasificaciones;
 				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error inesperado al obtener las clasificaciones",
-						this.tituloPantalla
-					);
+					Utils.showMsgInfo("Ha ocurrido un error inesperado al obtener las clasificaciones", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -243,16 +211,10 @@ export class SubClasificacionProductoComponent implements OnInit {
 		);
 	}
 
-	showModalUpdateSubclasificacion(
-		modal,
-		Subclasificacion: SubClasificacionProducto
-	) {
-		this.subclasificacion.IdSubClasificacion =
-			Subclasificacion.IdSubClasificacion;
-		this.subclasificacion.NombreSubClasificacion =
-			Subclasificacion.NombreSubClasificacion;
-		this.subclasificacion.DescripcionSubClasificacion =
-			Subclasificacion.DescripcionSubClasificacion;
+	showModalUpdateSubclasificacion(modal, Subclasificacion: SubClasificacionProducto) {
+		this.subclasificacion.IdSubClasificacion = Subclasificacion.IdSubClasificacion;
+		this.subclasificacion.NombreSubClasificacion = Subclasificacion.NombreSubClasificacion;
+		this.subclasificacion.DescripcionSubClasificacion = Subclasificacion.DescripcionSubClasificacion;
 		this.subclasificacion.IdClasificacion = Subclasificacion.IdClasificacion;
 
 		this.formUpdateSubClasificacion.reset();
@@ -277,5 +239,9 @@ export class SubClasificacionProductoComponent implements OnInit {
 		if (event) {
 			this.getSubClasificacionesRender();
 		}
+	}
+
+	ngOnDestroy(): void {
+		this.dtTrigger.unsubscribe();
 	}
 }

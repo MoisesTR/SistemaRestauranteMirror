@@ -1,0 +1,114 @@
+<section class="hide-scroll background-gray">
+  <div class="row hw-100">
+    <div class="col-md-12 col-lg-7 d-none d-sm-block">
+
+      <mdb-carousel [isControls]="false" [animation]="'slide'">
+        <mdb-carousel-item>
+          <div class="view d-flex justify-content-center">
+            <img class="d-block" src="../../../assets/img/paneladministrativo/restaurante-1.jpg" alt="First slide">
+            <div class="mask flex-center rgba-black-light">
+            </div>
+          </div>
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <div class="view d-flex justify-content-center">
+            <img class="d-block" src="../../../assets/img/paneladministrativo/restaurante-2.jpg" alt="Second slide">
+            <div class="mask flex-center rgba-black-light">
+            </div>
+          </div>
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <div class="view d-flex justify-content-center">
+            <img class="d-block" src="../../../assets/img/paneladministrativo/restaurante-3.jpg" alt="Third slide">
+            <div class="mask flex-center rgba-black-light">
+            </div>
+          </div>
+        </mdb-carousel-item>
+      </mdb-carousel>
+
+    </div>
+
+    <div class="col-12 col-md-12 col-lg-5">
+
+      <div class="row mt-6 ml-1">
+
+        <div class="col-md-12 text-center">
+          <h1 class="h1-reponsive orange-chang-text font-weight-bold mb-0 wow fadeInDownBig" data-wow-delay="0.3s"><strong>¡Bienvenidos!</strong></h1>
+          <hr class="hr-light my-4 wow fadeInDownBig" data-wow-delay="0.3s">
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="nombreRestaurante">Nombre Restaurante</label>
+          <input class="form-control" type="text" id="nombreRestaurante" placeholder="Restaurante Azul">
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="pais">País</label>
+          <ng-select id="pais" placeholder="Selecciona un pais">
+          </ng-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="moneda">Moneda</label>
+          <ng-select id="moneda" placeholder="Selecciona una Moneda">
+          </ng-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="monedaFacturacion">Moneda Facturación</label>
+          <ng-select id="monedaFacturacion" placeholder="Selecciona una Moneda de Facturación">
+          </ng-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="correo">Correo Electrónico</label>
+          <input type="email" class="form-control" id="correo" placeholder="usuario@dominio.com">
+        </div>
+
+        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-5 text-center wow fadeInUpBig" data-wow-delay="0.3s">
+          <label class="mb-3">Respaldo Automático</label>
+          <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+        </div>
+
+        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-5 text-center wow fadeInUpBig" data-wow-delay="0.3s">
+          <label class="mb-3">Cuota Fija</label>
+          <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="telefono">Teléfono</label>
+          <input type="text" class="form-control" id="telefono" placeholder="22222222">
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="fechaFundacion">Fecha Fundación</label>
+          <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" type="text" class="form-control" id="fechaFundacion"
+            placeholder="Seleccioné" [mdbValidate]=false mdbInputDirective readonly>
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="razonSocial">Razón Social</label>
+          <textarea id="razonSocial" class="form-control mb-4 resize-text-area" placeholder="Razón Social"></textarea>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 wow fadeInUpBig" data-wow-delay="0.3s">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" class="form-control mb-4 resize-text-area" placeholder="Descripción"></textarea>
+        </div>
+
+        <div class="col-md-12 wow fadeInUpBig" data-wow-delay="0.3s">
+          <div class="text-center mt-5">
+            <button mdbBtn type="submit" class="orange-chang mb-1">Ingresar
+              <mdb-icon icon="check" class="ml-1"></mdb-icon>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

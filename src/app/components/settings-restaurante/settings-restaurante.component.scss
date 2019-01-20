@@ -1,0 +1,61 @@
+html,
+body,
+.view {
+  height: 100vh;
+}
+
+.hide-scroll {
+  overflow: auto !important;
+}
+
+/* Full Page Carousel*/
+.carousel {
+  height: 100vh;
+}
+
+.hw-100 {
+  height: 100% !important; 
+  width: 100% !important;
+}
+
+.carousel .carousel-inner {
+  height: 100vh;
+}
+
+.carousel .carousel-inner .carousel-item,
+.carousel .carousel-inner .active {
+  height: 100vh;
+}
+
+img {
+  &.d-block {
+    height: 100vh;
+  }
+}
+
+.hr-light {
+  border-top: 3px solid #e67e22;
+  width: 80px;
+}
+
+input[type=date]:focus:not([readonly])
+, input[type=datetime-local]:focus:not([readonly])
+, input[type=email]:focus:not([readonly])
+, input[type=number]:focus:not([readonly])
+, input[type=password]:focus:not([readonly])
+, input[type=search-md]:focus:not([readonly])
+, input[type=search]:focus:not([readonly])
+, input[type=tel]:focus:not([readonly])
+, input[type=text]:focus:not([readonly])
+, input[type=time]:focus:not([readonly])
+, input[type=url]:focus:not([readonly])
+, textarea.form-control:focus:not([readonly]) {
+  border: 1px solid #E67E22;
+  box-shadow: 0 1px 0 0 #E67E22;
+}
+
+.resize-text-area {
+  resize: vertical; 
+  min-height: 90px; 
+  max-height: 110px;
+}

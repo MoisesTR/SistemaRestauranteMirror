@@ -66,6 +66,7 @@ export class AddfacturaComponent implements OnInit {
 	public descuentoGlobalHabilitado = false;
 	public EstadoCheckTipoDescuento: boolean = true;
 	public SeleccionarFechaFactura = new Date();
+	public fechaActual = new Date();
 
 	Moneda = [{ Id: 1, Moneda: "Córdobas" }, { Id: 2, Moneda: "Dólares" }];
 

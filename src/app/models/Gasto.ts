@@ -11,6 +11,6 @@ export class Gasto {
     public Clasificacion: string;
     public SubClasificacion: string;
     public Habilitado: boolean;
-
+    public IdSucursal: number;
     constructor() {}
  }

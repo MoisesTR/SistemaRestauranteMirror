@@ -140,7 +140,7 @@
               <div class="col-12 col-sm-12 col-md-9 mt-0">
                 <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
                 <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
-                  formControlName="envase" id="envase" (change)="onChangeEnvase($event)" [(ngModel)]="IdTipoInsumo">
+                  formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['envase']"></show-errors>
               </div>

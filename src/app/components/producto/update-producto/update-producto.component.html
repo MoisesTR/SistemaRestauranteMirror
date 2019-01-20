@@ -3,41 +3,26 @@
   <form [formGroup]="formUpdateProducto" (ngSubmit)="cargarImagen()" novalidate>
     <div class="row">
 
-      <!--Imagen-->
-      <div class="col-12 col-sm-12 col-md-12 col-lg-4 mb-r wow fadeInLeft mb-5" data-wow-delay="0.4s" id="imagen-productos"
-        style="display: none;">
-        <div class="card card-cascade narrower">
-          <div class="view view-cascade gradient-card-header orange-chang">
-            <h4 class="mb-0">Imagen</h4>
-          </div>
-          <div class="card-body text-center">
-            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300"
-              data-allowed-file-extensions="jpg png jpeg" />
-          </div>
-        </div>
-
-      </div>
-      <!-- /.Imagen -->
-
       <!--Datos del producto-->
       <div class="col-12 col-sm-12 col-md-12 col-lg-12" id="formulario-productos">
-        <div class="card card-cascade narrower">
+
+        <mdb-card cascade="true" narrower="true">
+
           <div class="view view-cascade gradient-card-header orange-chang">
-            <h4 class="mb-0">Editar datos del Producto</h4>
+            <h3 class="card-header-title mb-2">Editar datos del Producto</h3>
           </div>
           <!-- Contenido -->
-          <div class="card-body">
+          <mdb-card-body cascade="true">
 
             <div class="row">
 
               <div class="col-12 mb-3">
                 <div class="md-form input-group padding-input">
                   <input mdbInputDirective type="text" id="nombreproducto" [mdbValidate]="false" formControlName="nombreProducto"
-                    [(ngModel)]="formUpdateProducto.value.nombreProducto" class="form-control letras"
-                    autocomplete="off" placeholder="Nombre del Producto"
-                    style="margin-right: 5%;">
+                    [(ngModel)]="formUpdateProducto.value.nombreProducto" class="form-control letras" autocomplete="off"
+                    placeholder="Nombre del Producto" style="margin-right: 5%;">
                   <div class="input-group-btn">
-                    <button type="button" class="btn orange-chang px-3 add-img-position" (click)="showCardImg()"
+                    <button type="button" class="btn orange-chang px-3 add-img-position" (click)="modalEditarImagenProducto.show()"
                       mdbTooltip="Agregar Imagen" placement="bottom" id="btn-animation" style="margin-left: -20%;">
                       <i class="fa fa-file-photo-o" aria-hidden="true"></i>
                     </button>
@@ -72,28 +57,13 @@
               </div>
 
               <div class="col-12 col-sm-5 col-md-2 mts-1">
-                <div class="form-check">
-                  <input [mdbValidate]=false class="form-check-input" type="checkbox" id="consumodirecto"
-                    mdbInputDirective>
-                  <label class="form-check-label" for="consumodirecto">Consumo directo</label>
-                </div>
+                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"><label class="grey-text-card">Consumo
+                    directo</label></mdb-checkbox>
               </div>
 
               <div class="col-12 col-sm-12 col-md-3 mt-2">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
                   tabindex="-1" mdbTooltip="Agregar Proveedor" placement="bottom" mdbWavesEffect>Agregar</button>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-9 mt-3">
-                <label class="grey-text-card">Tipo de Insumo</label>
-                <ng-select dropdownPosition="top" [items]="Insumo" formControlName="tipoInsumo" bindLabel="TipoInsumo" bindValue="Id"
-                  placeholder="Selecciona un tipo de insumo" [(ngModel)]="IdTipoInsumo" id="TipoInsumo">
-                </ng-select>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
-                  tabindex="-1" mdbTooltip="Agregar Insumo" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
               <div class="col-12 col-sm-12 col-md-9 mt-3">
@@ -134,8 +104,7 @@
 
               <div class="col-12 col-sm-5 col-md-2 mts-2">
                 <div class="form-check">
-                  <input [mdbValidate]=false class="form-check-input" type="checkbox" id="granel" mdbInputDirective>
-                  <label class="form-check-label" for="granel">Granel</label>
+                  <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"><label class="grey-text-card">Granel</label></mdb-checkbox>
                 </div>
               </div>
 
@@ -171,7 +140,7 @@
               <div class="col-12 col-sm-12 col-md-9 mt-0">
                 <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
                 <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
-                  formControlName="envase" id="envase" (change)="onChangeEnvase($event)" [(ngModel)]="IdTipoInsumo">
+                  formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['envase']"></show-errors>
               </div>
@@ -223,23 +192,8 @@
 
               <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
-                  <input mdbInputDirective type="text" id="codigoAlterno" class="form-control">
-                  <label for="codigoAlterno" class="">Código alterno</label>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6 mt-3">
-                <div class="md-form">
-                  <input mdbInputDirective type="text" id="codigoBarra" class="form-control">
-                  <label for="codigoBarra" class="">Código barra</label>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6 mt-3">
-                <div class="md-form">
-                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="codigoBarraSistema"
-                    class="form-control">
-                  <label for="codigoBarraSistema" class="">Código barra sistema</label>
+                  <input mdbInputDirective type="text" id="codigoInterno" class="form-control">
+                  <label for="codigoInterno" class="">Código Interno</label>
                 </div>
               </div>
 
@@ -260,13 +214,51 @@
               </button>
             </div>
 
-          </div>
+          </mdb-card-body>
           <!-- Contenido -->
-        </div>
-      </div>
+        </mdb-card>
 
+      </div>
     </div>
   </form>
-
-
 </section>
+
+<!-- Modal agregar imagen del producto -->
+<div mdbModal #modalEditarImagenProducto="mdb-modal" class="modal fade" id="modalEditarImagenProducto" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Header-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-file-photo-o" aria-hidden="true"></i> Editar del Producto
+        </h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalEditarImagenProducto.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <!--Cuerpo Modal-->
+      <div class="modal-body mb-0">
+
+        <form [formGroup]="" novalidate>
+
+          <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
+            <input type="file" id="imageProducto" class="dropify" (change)="fileChangeEvent($event)" data-height="300"
+              data-allowed-file-extensions="jpg png jpeg" />
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button mdbBtn type="button" class="orange-chang mb-1">Ingresar
+              <mdb-icon class="ml-1" icon="check"></mdb-icon>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

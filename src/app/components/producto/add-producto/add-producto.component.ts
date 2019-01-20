@@ -143,55 +143,6 @@ export class AddProductoComponent implements OnInit {
 		});
 	}
 
-	showCardImg() {
-		const x = document.getElementById("imagen-productos");
-		const f = document.getElementById("formulario-productos");
-		const proveedor = document.getElementById("proveedor");
-		const categoria = document.getElementById("categoria");
-		const clasificacion = document.getElementById("clasificacion");
-		const subclasificacion = document.getElementById("subclasificacion");
-		const empaque = document.getElementById("empaque");
-		const envase = document.getElementById("envase");
-		const unidadmedida = document.getElementById("unidadmedida");
-
-		if (x.style.display === "none") {
-			//  Mostrar card de agregar imagen
-			// Pequeño
-
-			//  Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-			$("#btn-animation").click(function() {
-				$("#imagen-productos").toggleClass("animated");
-			});
-			f.classList.remove("col-lg-12");
-			f.classList.add("col-lg-8");
-			proveedor.classList.add("select-no-margin");
-			categoria.classList.add("select-no-margin");
-			clasificacion.classList.add("select-no-margin");
-			subclasificacion.classList.add("select-no-margin");
-			empaque.classList.add("select-no-margin");
-			envase.classList.add("select-no-margin");
-			unidadmedida.classList.add("select-no-margin");
-			x.style.display = "block";
-		} else {
-			// Ocultar card de agregar imagen
-
-			// Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
-			$("#btn-animation").click(function() {
-				$("#imagen-productos").toggleClass("animated");
-			});
-			f.classList.remove("col-lg-8");
-			f.classList.add("col-lg-12");
-			proveedor.classList.remove("select-no-margin");
-			categoria.classList.remove("select-no-margin");
-			clasificacion.classList.remove("select-no-margin");
-			subclasificacion.classList.remove("select-no-margin");
-			empaque.classList.remove("select-no-margin");
-			envase.classList.remove("select-no-margin");
-			unidadmedida.classList.remove("select-no-margin");
-			x.style.display = "none";
-		}
-	}
-
 	getProveedores() {
 		this.proveedorService.getProveedores().subscribe(
 			response => {

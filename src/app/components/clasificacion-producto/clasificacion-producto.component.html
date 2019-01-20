@@ -24,9 +24,9 @@
             <tbody>
               <tr *ngFor="let clasificacion of clasificaciones; let i = index">
                 <td class="body-negrita">{{ i + 1}}</td>
-                <td class="body-negrita">{{ clasificacion.NombreClasificacion }}</td>
-                <td class="body-negrita">{{ clasificacion.DescripcionClasificacion}}</td>
-                <td class="body-negrita">{{ clasificacion.NombreCategoria}}</td>
+                <td class="body-negrita">{{ clasificacion.NombClasificacion }}</td>
+                <td class="body-negrita">{{ clasificacion.DescClasificacion}}</td>
+                <td class="body-negrita">{{ clasificacion.NombCategoria}}</td>
                 <td width="25%" class="body-negrita">
                   <div class="text-center">
                     <!--<button type="button" (click)="getClasificacion(clasificacion)" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetClasificacion" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
@@ -89,8 +89,8 @@
           </div>
 
           <h6 class="orange-chang-text">Categoria</h6>
-          <ng-select dropdownPosition="'top'" class="custom" [items]="categorias" bindLabel="NombreCategoria"
-            bindValue="IdCategoria" placeholder="Selecciona una categoria"
+          <ng-select dropdownPosition="'top'" class="custom" [items]="categorias" bindLabel="NombCategoria"
+            bindValue="IdCategoria" placeholder="Selecciona una categoria" [(ngModel)]="clasificacion.IdCategoria"
             formControlName="categoria" id="upcategoria" (change)="onChangeCategoria($event)">
           </ng-select>
           <show-errors [control]="formUpdateClasificacion.controls['categoria']"></show-errors>

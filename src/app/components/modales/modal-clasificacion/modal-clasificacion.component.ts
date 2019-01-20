@@ -125,8 +125,8 @@ export class ModalClasificacionComponent implements OnInit, EventoModal, OnDestr
 	}
 
 	getValuesFormClasificacion() {
-		this.clasificacion.DescripcionClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
-		this.clasificacion.NombreClasificacion = this.formAddClasificacion.value.nombreClasificacion;
+		this.clasificacion.DescClasificacion = this.formAddClasificacion.value.descripcionClasificacion;
+		this.clasificacion.NombClasificacion = this.formAddClasificacion.value.nombreClasificacion;
 	}
 
 	onChangeCategoria(event) {

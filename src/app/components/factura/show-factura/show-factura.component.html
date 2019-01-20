@@ -17,7 +17,7 @@
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-proveedor">
                                     <label class="mb-label">Proveedor</label>
                                     <div class="md-form">
-                                        <ng-select id="proveedor" [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor"
+                                        <ng-select id="proveedor" [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor"
                                                    placeholder="Selecciona un proveedor" formControlName="Proveedor" class="disabled">
                                         </ng-select>
                                     </div>
@@ -154,8 +154,8 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let detalle of factura.Detalle ;let i = index">
-                                <td class="body-negrita">{{detalle.NombreProducto}}</td>
-                                <td class="body-negrita">{{detalle.NombreUnidad}}</td>
+                                <td class="body-negrita">{{detalle.NombProducto}}</td>
+                                <td class="body-negrita">{{detalle.NombUnidad}}</td>
                                 <td class="body-negrita">{{detalle.Cantidad}}</td>
                                 <td class="body-negrita">{{detalle.PrecioUnitario | number : '1.2-2'}} C$</td>
                                 <td width="10%" class="body-negrita">

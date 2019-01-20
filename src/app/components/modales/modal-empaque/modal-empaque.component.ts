@@ -120,8 +120,8 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 	}
 
 	getValuesFormAddEmpaque() {
-		this.empaque.NombreEmpaque = this.formAddEmpaque.value.nombreEmpaque;
-		this.empaque.Descripcion = this.formAddEmpaque.value.descripcionEmpaque;
+		this.empaque.NombEmpaque = this.formAddEmpaque.value.nombreEmpaque;
+		this.empaque.DescEmpaque = this.formAddEmpaque.value.descripcionEmpaque;
 	}
 
 	hideModalAndEmitResult() {

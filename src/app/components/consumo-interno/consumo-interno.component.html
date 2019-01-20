@@ -35,21 +35,21 @@
 
                             <div class="col-12 col-sm-12 col-md-9 mt-3">
                                 <label for="proveedor" class="grey-text-card">Proveedor</label>
-                                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+                                <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor" id="proveedor"
                                            placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
                                     <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                                         <div style="margin: 10px 0;" class="card">
                                             <div class="card-body">
-                                                <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                                                <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombProveedor}}</h5>
                                                 <p class="card-subtitle mb-2 text-muted">
                                                     <b>Nombre del Representante</b>
                                                     <br>
-                                                    <i>{{item.NombreRepresentante}}</i>
+                                                    <i>{{item.NombRepresentante}}</i>
                                                 </p>
                                                 <p class="card-text">
                                                     <b>Descripcion</b>
                                                     <br>
-                                                    <i>{{item.Descripcion}}</i>
+                                                    <i>{{item.DescProveedor}}</i>
                                                 </p>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
 
                             <div class="col-12 col-sm-12 col-md-5 mt-3">
                                 <label class="grey-text-card">Empaque</label>
-                                <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque"
+                                <ng-select [items]="empaques" bindLabel="NombEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque"
                                            formControlName="empaque" id="empaque" (change)="onChangeEmpaque($event)">
                                 </ng-select>
                                 <show-errors [control]="formAddProducto.controls['empaque']"></show-errors>
@@ -133,7 +133,7 @@
 
                             <div class="col-12 col-sm-12 col-md-9 mt-0">
                                 <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
-                                <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
+                                <ng-select [items]="envases" bindLabel="NombEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
                                            formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
                                 </ng-select>
                                 <show-errors [control]="formAddProducto.controls['envase']"></show-errors>
@@ -174,7 +174,7 @@
                         </div>
 
                         <div class="text-center mt-3">
-                            <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid && !peticionEnCurso">Ingresar
+                            <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid || peticionEnCurso">Ingresar
                                 <mdb-icon icon="check" class="ml-1"></mdb-icon>
                             </button>
                         </div>
@@ -227,8 +227,5 @@
     </div>
 </div>
 
-<modal-categoria (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
-<modal-clasificacion (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>
-<modal-subclasificacion (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>
 <modal-empaque (resultadoConsulta)="resultQueryEmpaque($event)"></modal-empaque>
 <modal-envase (resultadoConsulta)="resultQueryEnvase($event)"></modal-envase>

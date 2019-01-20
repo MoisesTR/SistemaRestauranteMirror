@@ -203,7 +203,7 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	getValuesFormUpdateUnidad() {
-		this.unidadMedida.NombreUnidad = this.formUpdateUnidadMedida.value.nombreUnidadMedida;
+		this.unidadMedida.NombUnidad = this.formUpdateUnidadMedida.value.nombreUnidadMedida;
 		this.unidadMedida.Simbolo = this.formUpdateUnidadMedida.value.simboloUnidadMedida;
 		this.unidadMedida.NImportancia = this.formUpdateUnidadMedida.value.nimportancia;
 	}
@@ -276,7 +276,7 @@ export class UnidadmedidaComponent implements OnInit {
 
 		this.formUpdateUnidadMedida.reset();
 		this.formUpdateUnidadMedida.setValue({
-			nombreUnidadMedida: Unidad.NombreUnidad,
+			nombreUnidadMedida: Unidad.NombUnidad,
 			simboloUnidadMedida: Unidad.Simbolo,
 			clasificacionesUnidad: Unidad.IdClasificacionUnidadMedida
 		});

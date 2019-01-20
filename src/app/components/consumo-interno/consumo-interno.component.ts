@@ -165,64 +165,6 @@ export class ConsumoInternoComponent implements OnInit {
         );
     }
 
-    onChangeClasificacion(event) {
-        if (event === null || event === undefined) {
-            this.producto.IdClasificacion = null;
-            this.resetSelectSubClasificacion();
-        } else {
-            this.producto.IdClasificacion = event.IdClasificacion;
-            this.resetSelectSubClasificacion();
-            this.subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
-                response => {
-                    if (response.subclasificaciones) {
-                        this.subclasificaciones = response.subclasificaciones;
-                    }
-                },
-                error => {
-                    Utils.showMsgError(Utils.msgError(error));
-                }
-            );
-        }
-    }
-
-    onChangeCategoria(event) {
-        if (event === null || event === undefined) {
-            this.producto.IdCategoria = null;
-            this.resetSelectClasificacion();
-            this.resetSelectSubClasificacion();
-        } else {
-            this.producto.IdCategoria = event.IdCategoria;
-            this.resetSelectClasificacion();
-            this.resetSelectSubClasificacion();
-            this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
-                response => {
-                    if (response.clasificaciones) {
-                        this.clasificaciones = response.clasificaciones;
-                    } else {
-                        Utils.showMsgInfo("No se ha podido obtener las clasificaciones", "Producto");
-                    }
-                },
-                error => {
-                    Utils.showMsgError(Utils.msgError(error));
-                }
-            );
-        }
-    }
-
-    resetSelectClasificacion() {
-        this.clasificaciones = [];
-        this.formAddProducto.controls["clasificacion"].setValue("");
-    }
-
-    resetSelectSubClasificacion() {
-        this.subclasificaciones = [];
-        this.formAddProducto.controls["subclasificacion"].setValue("");
-    }
-
-    changeConsumoDirecto(event) {
-        this.producto.ConsumoDirecto = event.checked;
-    }
-
     getEmpaques() {
         this.empaqueService.getEmpaques().subscribe(
             response => {
@@ -259,14 +201,6 @@ export class ConsumoInternoComponent implements OnInit {
         }
     }
 
-    onChangeSubclasificacion(event) {
-        if (event === null || event === undefined) {
-            this.producto.IdSubClasificacion = null;
-        } else {
-            this.producto.IdSubClasificacion = event.IdSubClasificacion;
-        }
-    }
-
     onChangeEnvase(event: ProductoProveedor) {
         if (event === null) {
             this.producto.IdEnvase = null;
@@ -283,21 +217,13 @@ export class ConsumoInternoComponent implements OnInit {
         }
     }
 
-    customSearchFn(term: string, item: SubClasificacionProducto) {
-        term = term.toLocaleLowerCase();
-        return (
-            item.NombreSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 ||
-            item.DescripcionSubClasificacion.toLocaleLowerCase() === term
-        );
-    }
-
     guardarImagenProducto() {
         this.peticionEnCurso = true;
         this.getValueForm();
 
         if (
-            !Utils.valorCampoEsValido(this.producto.CodigoProducto) &&
-            !Utils.valorCampoEsValido(this.producto.CodigoInterno)
+            !Utils.valorCampoEsValido(this.producto.CodOriginal) &&
+            !Utils.valorCampoEsValido(this.producto.CodProd)
         ) {
             Utils.showMsgInfo("El codigo producto o codigo interno es requerido!", "Producto");
             this.peticionEnCurso = false;
@@ -332,8 +258,8 @@ export class ConsumoInternoComponent implements OnInit {
     }
 
     getValueForm() {
-        this.producto.NombreProducto = this.formAddProducto.value.nombreProducto;
-        this.producto.Descripcion = Utils.valorCampoEsValido(this.formAddProducto.value.descripcionProducto)
+        this.producto.NombProducto = this.formAddProducto.value.nombreProducto;
+        this.producto.DescProducto = Utils.valorCampoEsValido(this.formAddProducto.value.descripcionProducto)
             ? this.formAddProducto.value.descripcionProducto
             : "Ninguna";
         this.producto.IdEstado = 1;
@@ -344,12 +270,10 @@ export class ConsumoInternoComponent implements OnInit {
         this.producto.DiasRotacion = Utils.valorCampoEsValido(this.formAddProducto.value.diasDeUso)
             ? this.formAddProducto.value.diasDeUso
             : 0;
-        this.producto.CodigoProducto = this.formAddProducto.value.codigoOriginal;
-        this.producto.CodigoInterno =
+        this.producto.CodOriginal = this.formAddProducto.value.codigoOriginal;
+        this.producto.CodProd =
             this.formAddProducto.value.codigoInterno === "" ? null : this.formAddProducto.value.codigoInterno;
         this.producto.IdProveedor = this.proveedorSelecionado;
-        // Valores estaticos de prueba
-        // this.producto.IdCategoria = this.
     }
 
     crearProducto() {
@@ -402,46 +326,6 @@ export class ConsumoInternoComponent implements OnInit {
 
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
-    }
-
-    resultadoConsultaCategoria(event) {
-        if (event) {
-            this.getCategorias();
-        }
-    }
-
-    resultadoConsultaClasificacion(event) {
-        if (event) {
-            if (Utils.notNullOrUndefined(this.producto.IdCategoria)) {
-                this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(
-                    response => {
-                        if (response.clasificaciones) {
-                            this.clasificaciones = response.clasificaciones;
-                        }
-                    },
-                    error => {
-                        Utils.showMsgError(Utils.msgError(error));
-                    }
-                );
-            }
-        }
-    }
-
-    resultadoConsultaSubclasificacion(event) {
-        if (event) {
-            if (Utils.notNullOrUndefined(this.producto.IdClasificacion)) {
-                this.subclasificacionService.getSubClasificacionesByIdClasificacion(this.producto.IdClasificacion).subscribe(
-                    response => {
-                        if (response.subclasificaciones) {
-                            this.subclasificaciones = response.subclasificaciones;
-                        }
-                    },
-                    error => {
-                        Utils.showMsgError(Utils.msgError(error));
-                    }
-                );
-            }
-        }
     }
 
     resultQueryEmpaque(event) {
@@ -498,18 +382,6 @@ export class ConsumoInternoComponent implements OnInit {
             } else if (result.dismiss === swal.DismissReason.cancel) {
             }
         });
-    }
-
-    showModalCategoria() {
-        this.categoriaService.mostrarModal();
-    }
-
-    showModalClasificacion() {
-        this.clasificacionService.mostrarModal();
-    }
-
-    showModalSubClasificacion() {
-        this.subclasificacionService.mostrarModal();
     }
 
     showModalEmpaque() {

@@ -192,7 +192,7 @@ export class AddfacturaComponent implements OnInit {
 		this.factura.IdFormaPago = 1;
 		this.factura.NombVendedor = this.proveedores.filter(
 			item => item.IdProveedor === this.proveedor.IdProveedor
-		)[0].NombreRepresentante;
+		)[0].NombRepresentante;
 	}
 
 	onChangeProveedor(event) {

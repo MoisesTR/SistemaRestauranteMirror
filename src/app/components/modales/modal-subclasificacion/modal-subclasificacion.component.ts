@@ -100,8 +100,8 @@ export class ModalSubclasificacionComponent implements OnInit, EventoModal, OnDe
 	}
 
 	capturarDatosIngresados() {
-		this.subclasificacion.NombreSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
-		this.subclasificacion.DescripcionSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
+		this.subclasificacion.NombSubClasificacion = this.formAddSubClasificacion.value.nombreSubClasificacion;
+		this.subclasificacion.DescSubClasificacion = this.formAddSubClasificacion.value.descripcionSubClasificacion;
 	}
 
 	getClasificaciones() {

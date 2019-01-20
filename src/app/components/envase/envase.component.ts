@@ -140,8 +140,8 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 	}
 
 	getValuesFormUpdateEnvase() {
-		this.envase.NombreEnvase = this.formUpdateEnvase.value.nombreEnvase;
-		this.envase.Descripcion = this.formUpdateEnvase.value.descripcionEnvase;
+		this.envase.NombEnvase = this.formUpdateEnvase.value.nombreEnvase;
+		this.envase.DescEnvase = this.formUpdateEnvase.value.descripcionEnvase;
 	}
 
 	showModalUpdateEnvase(envase: Envase) {
@@ -149,8 +149,8 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 
 		this.formUpdateEnvase.reset();
 		this.formUpdateEnvase.setValue({
-			nombreEnvase: envase.NombreEnvase,
-			descripcionEnvase: envase.Descripcion
+			nombreEnvase: envase.NombEnvase,
+			descripcionEnvase: envase.DescEnvase
 		});
 
 		this.modalUpdateEnvase.show();

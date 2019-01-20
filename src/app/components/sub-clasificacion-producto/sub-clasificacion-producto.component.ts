@@ -126,6 +126,7 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 				if (response.subclasificaciones) {
 					this.subclasificaciones = response.subclasificaciones;
 					this.rerender();
+					this.cdr.markForCheck();
 				} else {
 				}
 			},
@@ -165,8 +166,8 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	capturarDatosActualizados() {
-		this.subclasificacion.NombreSubClasificacion = this.formUpdateSubClasificacion.value.nombreSubClasificacion;
-		this.subclasificacion.DescripcionSubClasificacion = this.formUpdateSubClasificacion.value.descripcionSubClasificacion;
+		this.subclasificacion.NombSubClasificacion = this.formUpdateSubClasificacion.value.nombreSubClasificacion;
+		this.subclasificacion.DescSubClasificacion = this.formUpdateSubClasificacion.value.descripcionSubClasificacion;
 	}
 
 	deleteSubClasificacion(idSubclasificacion) {
@@ -219,14 +220,14 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 
 	showModalUpdateSubclasificacion(modal, Subclasificacion: SubClasificacionProducto) {
 		this.subclasificacion.IdSubClasificacion = Subclasificacion.IdSubClasificacion;
-		this.subclasificacion.NombreSubClasificacion = Subclasificacion.NombreSubClasificacion;
-		this.subclasificacion.DescripcionSubClasificacion = Subclasificacion.DescripcionSubClasificacion;
+		this.subclasificacion.NombSubClasificacion = Subclasificacion.NombSubClasificacion;
+		this.subclasificacion.DescSubClasificacion = Subclasificacion.DescSubClasificacion;
 		this.subclasificacion.IdClasificacion = Subclasificacion.IdClasificacion;
 
 		this.formUpdateSubClasificacion.reset();
 		this.formUpdateSubClasificacion.setValue({
-			nombreSubClasificacion: Subclasificacion.NombreSubClasificacion,
-			descripcionSubClasificacion: Subclasificacion.DescripcionSubClasificacion,
+			nombreSubClasificacion: Subclasificacion.NombSubClasificacion,
+			descripcionSubClasificacion: Subclasificacion.DescSubClasificacion,
 			clasificacion: Subclasificacion.IdClasificacion
 		});
 

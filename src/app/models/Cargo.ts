@@ -1,11 +1,14 @@
 export class Cargo {
 
   public IdCargo: number;
-  public NombreCargo: string;
-  public DescripcionCargo: string;
+  public NombCargo: string;
+  public DescCargo: string;
+  public CodCargo: string;
   public Habilitado: number;
   public disabled: number;
 
-  constructor() {}
+  constructor() {
+      this.CodCargo = 'TEST';
+  }
 
 }

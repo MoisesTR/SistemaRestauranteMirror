@@ -11,8 +11,8 @@ export class Producto {
   public IdEmpaque: number;
   public IdUnidadMedida: number;
   public ValorUnidadMedida: number;
-  public NombreProducto: string;
-  public Descripcion: string;
+  public NombProducto: string;
+  public DescProducto: string;
   public Imagen: string;
   public Habilitado: number;
   public NombreCategoria: string;
@@ -31,20 +31,21 @@ export class Producto {
   public IdTipoInsumo: number;
   public DescripcionInsumo: string;
   public Proveedores: Proveedor[];
-  public CodigoProducto: string;
-  public CodigoBarra: string;
-  public CodigoInterno: string;
+  public CodOriginal: string;
+  public IdTipInsumo: number;
+  public CodBarra: string;
+  public CodProd: string;
   public DiasRotacion: number;
   public ConsumoDirecto: boolean;
-  public Granel: boolean;
+  public IsGranel: boolean;
 
   constructor() {
-    this.CodigoBarra = null;
-    this.CodigoInterno = null;
-    this.CodigoProducto = null;
+    this.CodBarra = null;
+    this.CodProd = null;
+    this.CodOriginal = null;
     this.DescripcionInsumo = '';
     this.ConsumoDirecto = false;
-    this.Granel = false;
+    this.IsGranel = false;
   }
 
 }

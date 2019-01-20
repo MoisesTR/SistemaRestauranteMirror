@@ -25,7 +25,7 @@
           </div>
 
           <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select dropdownPosition="'top'" class="custom" [items]="clasificacionesUnidad" bindLabel="NombreClasificacion" bindValue="IdClasificacionUnidadMedida"
+          <ng-select dropdownPosition="'top'" class="custom" [items]="clasificacionesUnidad" bindLabel="NombClasificacion" bindValue="IdClasificacionUnidadMedida"
                      placeholder="Selecciona una clasificacion" formControlName="clasificacionesUnidad" id="clasificacionesUnidad" (change)="changeClasificacionUnidad($event)">
           </ng-select>
           <show-errors [control]="formAddUnidadMedida.controls['clasificacionesUnidad']"></show-errors>

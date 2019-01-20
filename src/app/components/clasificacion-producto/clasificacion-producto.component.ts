@@ -163,6 +163,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 			response => {
 				if (response.categorias) {
 					this.categorias = response.categorias;
+					this.cdr.markForCheck();
 				} else {
 					Utils.showMsgInfo("Ha ocurrido un error al cargar las categorias", this.tituloPantalla);
 				}
@@ -174,8 +175,8 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	getValuesFormUpdateClasificacion() {
-		this.clasificacion.NombreClasificacion = this.formUpdateClasificacion.value.nombreClasificacion;
-		this.clasificacion.DescripcionClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
+		this.clasificacion.NombClasificacion = this.formUpdateClasificacion.value.nombreClasificacion;
+		this.clasificacion.DescClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
 	}
 
 	deleteClasificacion(idClasificacion) {
@@ -221,11 +222,10 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 
 		this.clasificacion.IdClasificacion = clasificacion.IdClasificacion;
 		this.clasificacion.IdCategoria = clasificacion.IdCategoria;
-		this.clasificacion.NombreClasificacion = clasificacion.NombreClasificacion;
-		this.clasificacion.DescripcionClasificacion = clasificacion.DescripcionClasificacion;
-
-		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(clasificacion.NombreClasificacion);
-		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(clasificacion.DescripcionClasificacion);
+		this.clasificacion.NombClasificacion = clasificacion.NombClasificacion;
+		this.clasificacion.DescClasificacion = clasificacion.DescClasificacion;
+		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(clasificacion.NombClasificacion);
+		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(clasificacion.DescClasificacion);
         this.formUpdateClasificacion.controls["categoria"].setValue(clasificacion.IdCategoria);
 
 		modal.show();

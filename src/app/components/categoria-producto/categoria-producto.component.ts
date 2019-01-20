@@ -134,8 +134,9 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 	}
 
 	getValuesFormUpdateCategoria() {
-		this.categoriaProducto.NombreCategoria = this.formUpdateCategoria.value.nombreCategoria;
-		this.categoriaProducto.DescripcionCategoria = this.formUpdateCategoria.value.descripcionCategoria;
+		this.categoriaProducto.NombCategoria = this.formUpdateCategoria.value.nombreCategoria;
+		this.categoriaProducto.DescCategoria = this.formUpdateCategoria.value.descripcionCategoria;
+		this.categoriaProducto.IdTipInsumo = 1;
 	}
 
 	updateCategoria(modal) {
@@ -167,13 +168,13 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 
 	showModalUpdate(modal, categoria: CategoriaProducto) {
 		this.categoriaProducto.IdCategoria = categoria.IdCategoria;
-		this.categoriaProducto.NombreCategoria = categoria.NombreCategoria;
-		this.categoriaProducto.DescripcionCategoria = categoria.DescripcionCategoria;
-
+		this.categoriaProducto.NombCategoria = categoria.NombCategoria;
+		this.categoriaProducto.DescCategoria =
+			categoria.DescCategoria;
 		this.formUpdateCategoria.reset();
 		this.formUpdateCategoria.setValue({
-			nombreCategoria: categoria.NombreCategoria,
-			descripcionCategoria: categoria.DescripcionCategoria
+			nombreCategoria: categoria.NombCategoria,
+			descripcionCategoria: categoria.DescCategoria
 		});
 
 		modal.show();

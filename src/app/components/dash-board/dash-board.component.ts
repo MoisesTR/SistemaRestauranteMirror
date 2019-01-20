@@ -126,8 +126,8 @@ export class DashBoardComponent implements OnInit {
     visualizarProveedor(proveedor: Proveedor) {
         this.proveedor = proveedor;
         this.tabSeleccionado = "proveedor";
-        this.nombreCard = this.proveedor.NombreProveedor;
-        this.docTrabajadorONombreRepresentanteProveedor = this.proveedor.NombreRepresentante;
+        this.nombreCard = this.proveedor.NombProveedor;
+        this.docTrabajadorONombreRepresentanteProveedor = this.proveedor.NombRepresentante;
         this.telefonoMostrado = this.proveedor.Telefono1;
     }
 }

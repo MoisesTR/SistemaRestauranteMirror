@@ -2,8 +2,8 @@ export class UnidadMedida {
 
   public IdUnidadMedida: number;
   public IdClasificacionUnidadMedida: number;
-  public NombreUnidad: string;
-  public NombreClasificacion : string;
+  public NombUnidad: string;
+  public NombClasificacion : string;
   public Simbolo: string;
   public Habilitado: number;
   public NImportancia : number;

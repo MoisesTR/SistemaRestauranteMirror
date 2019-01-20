@@ -133,7 +133,7 @@ export class ModalUnidadMedidaComponent
 	}
 
 	getValuesForm() {
-		this.unidadMedida.NombreUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
+		this.unidadMedida.NombUnidad = this.formAddUnidadMedida.value.nombreUnidadMedida;
 		this.unidadMedida.Simbolo = this.formAddUnidadMedida.value.simboloUnidadMedida;
 		this.unidadMedida.NImportancia = 1;
 	}

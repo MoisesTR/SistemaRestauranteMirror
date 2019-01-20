@@ -5,12 +5,12 @@ export class Proveedor {
     public IdProductoProveedor: number;
     public IdProducto: number;
     public IdProveedor: number;
-    public NombreProveedor: string;
+    public NombProveedor: string;
     public Direccion: string;
     public Email: string;
-    public Descripcion: string;
+    public DescProveedor: string;
     public numeroRuc: string;
-    public NombreRepresentante: string;
+    public NombRepresentante: string;
     public Documento: string;
     public Telefono1: string;
     public Telefono2: string;
@@ -18,8 +18,11 @@ export class Proveedor {
     public Habilitado: boolean;
     public Mercado: number;
     public disabled: number;
-    public TieneSucursales: boolean;
-    public IsProveedorServicio: number;
+    public IdPais: number;
+    public IsMercado: number;
+    public IsProvServicio: boolean;
+    public Abreviatura: string;
+    public IdTipDoc: number;
     public Telefonos: TelefonoProveedor[];
 
     constructor() {

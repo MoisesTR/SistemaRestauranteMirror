@@ -15,7 +15,7 @@ export class BuscarProveedorPipe implements PipeTransform{
 
         if(!isNull(valor) && !isUndefined(valor)) {
             return valor.filter( (item) => {
-                return item.NombreProveedor.toLowerCase().includes(term.toLowerCase());
+                return item.NombProveedor.toLowerCase().includes(term.toLowerCase());
             });
         }
 

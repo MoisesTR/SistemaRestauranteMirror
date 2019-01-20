@@ -189,23 +189,25 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 	}
 
 	getValuesFormAddSucursal() {
-		this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
+		this.sucursal.NombSucursal = this.formAddSucursal.value.nombreSucursal;
 		this.sucursal.Direccion = this.formAddSucursal.value.direccion;
 		this.sucursal.Telefono1 = this.formAddSucursal.value.telefonoPrincipal.toString().replace("-", "");
 		this.sucursal.Telefono2 =
 			this.formAddSucursal.value.telefonoSecundario != null
 				? Utils.replaceCharacter(this.formUpdateSucursal.value.telefonoSecundario.toString())
 				: "";
+        this.sucursal.IdRestaurante = 1;
 	}
 
 	getValuesFormUpdateSucursal() {
-		this.sucursal.NombreSucursal = this.formUpdateSucursal.value.nombreSucursal;
+		this.sucursal.NombSucursal = this.formUpdateSucursal.value.nombreSucursal;
 		this.sucursal.Direccion = this.formUpdateSucursal.value.direccion;
 		this.sucursal.Telefono1 = this.formUpdateSucursal.value.telefonoPrincipal.toString().replace("-", "");
 		this.sucursal.Telefono2 =
 			this.formUpdateSucursal.value.telefonoSecundario != null
 				? Utils.replaceCharacter(this.formUpdateSucursal.value.telefonoSecundario.toString())
 				: "";
+		this.sucursal.IdRestaurante = 1;
 	}
 
 	createSucursal(Modal) {
@@ -294,7 +296,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		this.formUpdateSucursal.reset();
 
 		this.formUpdateSucursal.setValue({
-			nombreSucursal: sucursal.NombreSucursal,
+			nombreSucursal: sucursal.NombSucursal,
 			direccion: sucursal.Direccion,
 			telefonoPrincipal: sucursal.Telefono1,
 			telefonoSecundario: sucursal.Telefono2

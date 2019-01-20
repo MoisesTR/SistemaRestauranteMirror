@@ -24,8 +24,8 @@
           <tbody>
             <tr *ngFor="let rol of roles; let i = index">
               <td class="body-negrita">{{ i + 1}}</td>
-              <td class="body-negrita">{{ rol.NombreRol }}</td>
-              <td class="body-negrita">{{ rol.DescripcionRol }}</td>
+              <td class="body-negrita">{{ rol.NombRol }}</td>
+              <td class="body-negrita">{{ rol.DescRol }}</td>
               <td width="25%" class="body-negrita">
                 <div class="text-center">
                   <button type="button" (click)="invocarModalUpdate(modalUpdateRol,rol)" class="btn btn-sm orange-chang" id="btnUpdateRol"

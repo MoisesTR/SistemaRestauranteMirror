@@ -178,13 +178,13 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 	}
 
 	getValuesFormAddCargo() {
-		this.cargo.NombreCargo = this.formAddCargo.value.nombreCargo;
-		this.cargo.DescripcionCargo = this.formAddCargo.value.descripcionCargo;
+		this.cargo.NombCargo = this.formAddCargo.value.nombreCargo;
+		this.cargo.DescCargo = this.formAddCargo.value.descripcionCargo;
 	}
 
 	getValuesFormUpdateCargo() {
-		this.cargo.NombreCargo = this.formUpdateCargo.value.nombreCargo;
-		this.cargo.DescripcionCargo = this.formUpdateCargo.value.descripcionCargo;
+		this.cargo.NombCargo = this.formUpdateCargo.value.nombreCargo;
+		this.cargo.DescCargo = this.formUpdateCargo.value.descripcionCargo;
 	}
 
 	createCargoUsuario() {
@@ -268,13 +268,13 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 	invocarModalUpdate(Modal, cargo: Cargo) {
 		this.cargo.IdCargo = cargo.IdCargo;
-		this.cargo.NombreCargo = cargo.NombreCargo;
-		this.cargo.DescripcionCargo = cargo.DescripcionCargo;
+		this.cargo.NombCargo = cargo.NombCargo;
+		this.cargo.DescCargo = cargo.DescCargo;
 
 		this.formUpdateCargo.reset();
 		this.formUpdateCargo.setValue({
-			nombreCargo: cargo.NombreCargo,
-			descripcionCargo: cargo.DescripcionCargo
+			nombreCargo: cargo.NombCargo,
+			descripcionCargo: cargo.DescCargo
 		});
 		Modal.show();
 	}

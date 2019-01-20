@@ -57,8 +57,14 @@ export class UsuarioService {
 		return this._http.get(this.url + "users?Habilitado=" + Habilitado);
 	}
 
-	getInfoUsuario(): Observable<any> {
-		return this._http.get(this.url + "me?addOtherUInfo=" + true);
+	getInfoUsuario(token: string): Observable<any> {
+	    console.log(token)
+        const headers = new HttpHeaders({
+            "Content-Type": "application/json",
+            Authorization: token
+        });
+
+		return this._http.request('get', this.url + "me?addOtherUInfo=" + true, { headers: headers});
 	}
 
 	deleteUsuario(IdUsuario): Observable<any> {
@@ -67,7 +73,7 @@ export class UsuarioService {
 			Authorization: "token"
 		});
 
-		const body = JSON.stringify({ Habilitado: 0 });
+		const body = JSON.stringify({ Habilitado: false });
 
 		return this._http.request("delete", this.url + "user/" + IdUsuario, { headers: headers, body: body });
 	}

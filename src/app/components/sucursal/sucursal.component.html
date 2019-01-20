@@ -24,7 +24,7 @@
             <tbody>
               <tr *ngFor="let sucursal of sucursales">
                 <td class="body-negrita">{{ sucursal.IdSucursal }}</td>
-                <td class="body-negrita">{{ sucursal.NombreSucursal }}</td>
+                <td class="body-negrita">{{ sucursal.NombSucursal }}</td>
                 <td class="body-negrita">{{ sucursal.Direccion }}</td>
                 <td class="body-negrita">{{sucursal.Telefono1}}</td>
                 <td width="25%" class="body-negrita">
@@ -69,7 +69,7 @@
 
           <div class="md-form">
             <h6>Nombre Sucursal</h6>
-            <input type="text" id="NombreSucursal" class="input-modal-sm letras" name="NombreSucursal" formControlName="nombreSucursal">
+            <input type="text" id="NombSucursal" class="input-modal-sm letras" name="NombSucursal" formControlName="nombreSucursal">
             <show-errors [control]="formAddSucursal.controls['nombreSucursal']"></show-errors>
           </div>
 
@@ -133,7 +133,7 @@
 
           <div class="md-form">
             <h6>Nombre Sucursal</h6>
-            <input type="text" id="UpNombreSucursal" class="input-modal-sm " name="NombreSucursal" formControlName="nombreSucursal">
+            <input type="text" id="UpNombreSucursal" class="input-modal-sm " name="NombSucursal" formControlName="nombreSucursal">
             <show-errors [control]="formUpdateSucursal.controls['nombreSucursal']"></show-errors>
           </div>
 

@@ -159,8 +159,8 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 	}
 
 	getValuesFormUpdateEmpaque() {
-		this.empaque.NombreEmpaque = this.formUpdateEmpaque.value.nombreEmpaque;
-		this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
+		this.empaque.NombEmpaque = this.formUpdateEmpaque.value.nombreEmpaque;
+		this.empaque.DescEmpaque = this.formUpdateEmpaque.value.descripcionEmpaque;
 	}
 
 	deleteEmpaque(idEmpaque) {
@@ -195,13 +195,13 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 
 	showModalUpdate(modal, empaque: Empaque) {
 		this.empaque.IdEmpaque = empaque.IdEmpaque;
-		this.empaque.NombreEmpaque = empaque.NombreEmpaque;
-		this.empaque.Descripcion = empaque.Descripcion;
+		this.empaque.NombEmpaque = empaque.NombEmpaque;
+		this.empaque.DescEmpaque = empaque.DescEmpaque;
 
 		this.formUpdateEmpaque.reset();
 		this.formUpdateEmpaque.setValue({
-			nombreEmpaque: empaque.NombreEmpaque,
-			descripcionEmpaque: empaque.Descripcion
+			nombreEmpaque: empaque.NombEmpaque,
+			descripcionEmpaque: empaque.DescEmpaque
 		});
 
 		modal.show();

@@ -16,21 +16,21 @@
             <div class="col-12 col-sm-12 col-md-5">
               <br>
               <label for="proveedor">Proveedor</label>
-              <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+              <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor" id="proveedor"
                 placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)">
                 <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                   <div style="margin: 10px 0;" class="card">
                     <div class="card-body">
-                      <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                      <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombProveedor}}</h5>
                       <p class="card-subtitle mb-2 text-muted">
                         <b>Nombre del Representante</b>
                         <br>
-                        <i>{{item.NombreRepresentante}}</i>
+                        <i>{{item.NombRepresentante}}</i>
                       </p>
                       <p class="card-text">
                         <b>Descripcion</b>
                         <br>
-                        <i>{{item.Descripcion}}</i>
+                        <i>{{item.DescProducto}}</i>
                       </p>
                     </div>
                   </div>
@@ -67,16 +67,16 @@
                   <div class="card-body background-gray mdl">
 
                     <!--Title-->
-                    <h4 class="card-title">{{producto.NombreProducto}}</h4>
+                    <h4 class="card-title">{{producto.NombProducto}}</h4>
                     <!--Text-->
-                    <p class="card-text">{{producto.Descripcion}}</p>
+                    <p class="card-text">{{producto.DescProducto}}</p>
 
                     <hr class="grey lighten-2">
 
-                    <div class="chip white-text mr-2 text-center orange-chang" mdbTooltip="Categoría" placement="bottom">{{producto.NombreCategoria}}</div>
-                    <div class="chip  white-text text-center orange-chang" mdbTooltip="Clasificación" placement="bottom">{{producto.NombreClasificacion}}</div>
+                    <div class="chip white-text mr-2 text-center orange-chang" mdbTooltip="Categoría" placement="bottom">{{producto.NombCategoria}}</div>
+                    <div class="chip  white-text text-center orange-chang" mdbTooltip="Clasificación" placement="bottom">{{producto.NombClasificacion}}</div>
                     <br>
-                    <div class="chip white-text mr-2 text-center orange-chang" mdbTooltip="SubClasificación" placement="bottom">{{producto.NombreSubClasificacion}}</div>
+                    <div class="chip white-text mr-2 text-center orange-chang" mdbTooltip="SubClasificación" placement="bottom">{{producto.NombSubClasificacion}}</div>
                     <div class="chip white-text text-center orange-chang" mdbTooltip="Tipo Insumo" placement="bottom">{{producto.DescripcionInsumo}}</div>
 
                   </div>

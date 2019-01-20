@@ -32,7 +32,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 		private _router: Router,
 		private _ProductoServicio: ProductoService,
 		private spinner: NgxSpinnerService,
-        private cdr:ChangeDetectorRef
+        private cdr: ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
@@ -61,6 +61,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		this.subscription.unsubscribe();
+        this.dtTrigger.unsubscribe();
 	}
 
 	rerender(): void {

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -22,7 +22,7 @@ import { Utils } from "../Utils";
 	styleUrls: ["./categoria-producto.component.css"],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriaProductoComponent implements OnInit {
+export class CategoriaProductoComponent implements OnInit, OnDestroy {
 	@ViewChild("autoShownModal")
 	autoShownModal: ModalDirective;
 
@@ -227,4 +227,8 @@ export class CategoriaProductoComponent implements OnInit {
 			this.getCategoriasRender();
 		}
 	}
+
+    ngOnDestroy(): void {
+        this.dtTrigger.unsubscribe();
+    }
 }

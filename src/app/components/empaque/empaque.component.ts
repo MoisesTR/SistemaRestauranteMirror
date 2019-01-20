@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { CustomValidators } from "@app/validadores/CustomValidators";
@@ -19,7 +19,7 @@ declare var $: any;
 	styleUrls: ["./empaque.component.css"],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EmpaqueComponent implements OnInit {
+export class EmpaqueComponent implements OnInit, OnDestroy {
 	@ViewChild("modalAddEmpaque")
 	modalAddEmpaque: ModalDirective;
 
@@ -208,5 +208,9 @@ export class EmpaqueComponent implements OnInit {
 		if (event) {
 			this.getEmpaquesRender();
 		}
+	}
+
+	ngOnDestroy(): void {
+		this.dtTrigger.unsubscribe();
 	}
 }

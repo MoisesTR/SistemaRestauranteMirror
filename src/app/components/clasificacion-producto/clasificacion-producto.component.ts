@@ -1,16 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import {
-	CategoriaProductoService,
-	ClasificacionProductoService
-} from "@app/core/service.index";
+import { CategoriaProductoService, ClasificacionProductoService } from "@app/core/service.index";
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { CategoriaProducto } from "@app/models/CategoriaProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
@@ -26,7 +18,7 @@ import { Utils } from "../Utils";
 	styleUrls: ["./clasificacion-producto.component.css"],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ClasificacionProductoComponent implements OnInit {
+export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	public clasificacion: ClasificacionProducto;
 	public clasificaciones: ClasificacionProducto[];
 
@@ -48,7 +40,7 @@ export class ClasificacionProductoComponent implements OnInit {
 		private clasificacionService: ClasificacionProductoService,
 		private categoriaService: CategoriaProductoService,
 		private formBuilderClasificacion: FormBuilder,
-        private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef
 	) {
 		this.clasificacion = new ClasificacionProducto();
 	}
@@ -83,19 +75,19 @@ export class ClasificacionProductoComponent implements OnInit {
 	}
 
 	getClasificaciones() {
-        this.clasificacionService.getClasificaciones().subscribe(
-            response => {
-                if (response.clasificaciones) {
-                    this.clasificaciones = response.clasificaciones;
-                    this.dtTrigger.next();
-                    this.cdr.markForCheck();
-                }
-            },
-            error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }
-        );
-    }
+		this.clasificacionService.getClasificaciones().subscribe(
+			response => {
+				if (response.clasificaciones) {
+					this.clasificaciones = response.clasificaciones;
+					this.dtTrigger.next();
+					this.cdr.markForCheck();
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
+	}
 
 	rerender(): void {
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -103,7 +95,7 @@ export class ClasificacionProductoComponent implements OnInit {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
-            this.cdr.detectChanges();
+			this.cdr.detectChanges();
 		});
 	}
 
@@ -142,32 +134,23 @@ export class ClasificacionProductoComponent implements OnInit {
 	updateClasificacion(modal) {
 		this.getValuesFormUpdateClasificacion();
 
-		this.clasificacionService
-			.updateClasificacionProducto(this.clasificacion)
-			.subscribe(
-				response => {
-					if (response.success) {
-						swal(
-							"Clasificación",
-							"La clasificación ha sido actualizada exitosamente!",
-							"success"
-						).then(() => {
-							modal.hide();
-							this.formUpdateClasificacion.reset();
-							this.getClasificacionesRender();
-							this.clasificacion = new ClasificacionProducto();
-						});
-					} else {
-						Utils.showMsgInfo(
-							"Ha ocurrido un error inesperado al actualizar!",
-							this.tituloPantalla
-						);
-					}
-				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.clasificacionService.updateClasificacionProducto(this.clasificacion).subscribe(
+			response => {
+				if (response.success) {
+					swal("Clasificación", "La clasificación ha sido actualizada exitosamente!", "success").then(() => {
+						modal.hide();
+						this.formUpdateClasificacion.reset();
+						this.getClasificacionesRender();
+						this.clasificacion = new ClasificacionProducto();
+					});
+				} else {
+					Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar!", this.tituloPantalla);
 				}
-			);
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}
+		);
 	}
 
 	getCategorias() {
@@ -176,10 +159,7 @@ export class ClasificacionProductoComponent implements OnInit {
 				if (response.categorias) {
 					this.categorias = response.categorias;
 				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error al cargar las categorias",
-						this.tituloPantalla
-					);
+					Utils.showMsgInfo("Ha ocurrido un error al cargar las categorias", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -205,29 +185,20 @@ export class ClasificacionProductoComponent implements OnInit {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.clasificacionService
-					.deleteClasificacionProducto(idClasificacion)
-					.subscribe(
-						response => {
-							if (response.success) {
-								swal(
-									"Inhabilitada!",
-									"La clasificacion ha sido inhabilitada exitosamente",
-									"success"
-								).then(() => {
-									this.getClasificacionesRender();
-								});
-							} else {
-								Utils.showMsgInfo(
-									"Ha ocurrido un error al inhabilitar!",
-									this.tituloPantalla
-								);
-							}
-						},
-						error => {
-							Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.clasificacionService.deleteClasificacionProducto(idClasificacion).subscribe(
+					response => {
+						if (response.success) {
+							swal("Inhabilitada!", "La clasificacion ha sido inhabilitada exitosamente", "success").then(() => {
+								this.getClasificacionesRender();
+							});
+						} else {
+							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar!", this.tituloPantalla);
 						}
-					);
+					},
+					error => {
+						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+					}
+				);
 			}
 		});
 	}
@@ -246,15 +217,10 @@ export class ClasificacionProductoComponent implements OnInit {
 		this.clasificacion.IdClasificacion = clasificacion.IdClasificacion;
 		this.clasificacion.IdCategoria = clasificacion.IdCategoria;
 		this.clasificacion.NombreClasificacion = clasificacion.NombreClasificacion;
-		this.clasificacion.DescripcionClasificacion =
-			clasificacion.DescripcionClasificacion;
+		this.clasificacion.DescripcionClasificacion = clasificacion.DescripcionClasificacion;
 
-		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(
-			clasificacion.NombreClasificacion
-		);
-		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(
-			clasificacion.DescripcionClasificacion
-		);
+		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(clasificacion.NombreClasificacion);
+		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(clasificacion.DescripcionClasificacion);
 
 		modal.show();
 	}
@@ -263,5 +229,9 @@ export class ClasificacionProductoComponent implements OnInit {
 		if (event) {
 			this.getClasificacionesRender();
 		}
+	}
+
+	ngOnDestroy(): void {
+		this.dtTrigger.unsubscribe();
 	}
 }

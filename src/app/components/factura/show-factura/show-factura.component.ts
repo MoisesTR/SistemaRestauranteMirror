@@ -110,6 +110,7 @@ export class ShowFacturaComponent implements OnInit {
 			response => {
 				if (response.proveedores) {
 					this.proveedores = response.proveedores;
+					this.cdr.markForCheck();
 				} else {
 					Utils.showMsgInfo("No se logro cargar los proveedores", "Mostrar Factura");
 				}

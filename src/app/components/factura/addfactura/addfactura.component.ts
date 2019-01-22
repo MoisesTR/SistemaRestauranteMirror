@@ -36,6 +36,7 @@ export class AddfacturaComponent implements OnInit {
 	public formEditarDetalleProducto: FormGroup;
 	public formAddFactura: FormGroup;
 	public formDetallesFactura: FormGroup;
+	public formAddProducto: FormGroup;
 	public formDescuentoGeneral: FormGroup;
 	public productosFactura: ProductoFactura[];
 	public productosFiltrados: ProductoFactura[];
@@ -114,6 +115,7 @@ export class AddfacturaComponent implements OnInit {
 		this.initFormAddFactura();
 		this.subscribeValueDescuentoGlobal();
 		this.initFormDetailFactura();
+		this.initDefaultValues();
 		this.usuario = this._usuarioService.getIdentity();
 	}
 
@@ -163,6 +165,11 @@ export class AddfacturaComponent implements OnInit {
 			},
 			() => {}
 		);
+	}
+
+	initDefaultValues() {
+		this.formAddFactura.controls["Moneda"].setValue(this.IdMonedaSeleccionada);
+		this.formAddFactura.controls["FormaPago"].setValue(this.IdFormaPagoSeleccionado);
 	}
 
 	getValueFromFormFactura() {
@@ -635,7 +642,7 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	trackById(index, producto: ProductoFactura) {
-		return producto.CodigoProducto;
+		return producto.IdProducto;
 	}
 
 	agregarNuevoProducto() {

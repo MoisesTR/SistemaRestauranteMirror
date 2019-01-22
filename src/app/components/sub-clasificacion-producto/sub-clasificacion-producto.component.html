@@ -90,7 +90,7 @@
 
           <h6 class="orange-chang-text">Clasificación</h6>
           <ng-select [items]="clasificaciones" class="custom" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
-            placeholder="Selecciona una clasificacion" formControlName="clasificacion" [(ngModel)]="subclasificacion.IdClasificacion"
+            placeholder="Selecciona una clasificacion" formControlName="clasificacion"
             (change)="onChangeClasificacion($event)">
           </ng-select>
           <show-errors [control]="formUpdateSubClasificacion.controls['clasificacion']"></show-errors>

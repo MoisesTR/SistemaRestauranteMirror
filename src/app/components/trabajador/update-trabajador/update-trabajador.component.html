@@ -89,7 +89,7 @@
                 <div class="col-md-6">
                   <label for="sucursal" class="grey-text-card">Tipo de Documento</label>
                   <ng-select [items]="tiposDocumento" bindLabel="NombreTD" bindValue="IdTipoDocumento" placeholder="Selecciona un tipo de documento"
-                    id="tipoDocumento" (change)="onChangeTipoDocumento($event)" [(ngModel)]="trabajador.IdTipoDocumento"
+                    id="tipoDocumento" (change)="onChangeTipoDocumento($event)"
                     formControlName="tipoDocumento">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['tipoDocumento']"></show-errors>
@@ -107,7 +107,7 @@
                 <div class="col-md-12">
                   <label for="sucursal" class="grey-text-card">Sucursal</label>
                   <ng-select [items]="sucursales" bindLabel="NombreSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal"
-                    id="sucursal" (change)="onChangeSucursal($event)" [(ngModel)]="trabajador.IdSucursal"
+                    id="sucursal" (change)="onChangeSucursal($event)"
                     formControlName="sucursal">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['sucursal']"></show-errors>
@@ -117,7 +117,7 @@
                   <br>
                   <label for="cargo" class="grey-text-card">Cargo</label>
                   <ng-select [items]="cargos" bindLabel="NombreCargo" bindValue="IdCargo" placeholder="Selecciona un cargo"
-                    id="cargo" (change)="onChangeCargo($event)" [(ngModel)]="trabajador.IdCargo" formControlName="cargo">
+                    id="cargo" (change)="onChangeCargo($event)" formControlName="cargo">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['cargo']"></show-errors>
                 </div>

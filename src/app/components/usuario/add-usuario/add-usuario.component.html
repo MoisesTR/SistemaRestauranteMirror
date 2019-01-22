@@ -46,7 +46,7 @@
                 <div class="col-md-12">
                   <div class="md-form">
                     <input [mdbValidate]=false mdbInputDirective type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control letras "
-                      formControlName="nombre" autocomplete="off" [(ngModel)]="formularioAddUsuario.value.nombre">
+                      formControlName="nombre" autocomplete="off">
                     <label for="UsuarioNombre">Nombre de usuario</label>
                     <show-errors [control]="formularioAddUsuario.controls['nombre']"></show-errors>
                   </div>
@@ -55,7 +55,7 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input [mdbValidate]=false mdbInputDirective type="email" id="Correo" name="Correo" class="form-control letras" formControlName="correo"
-                      autocomplete="off" [(ngModel)]="formularioAddUsuario.value.correo">
+                      autocomplete="off" >
                     <label for="Correo">Correo Electrónico</label>
                     <show-errors [control]="formularioAddUsuario.controls['correo']"></show-errors>
                   </div>
@@ -64,7 +64,7 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input [mdbValidate]=false mdbInputDirective type="text" id="Contrasenia" name="Contrasenia" class="form-control letras"
-                      formControlName="contrasenia" autocomplete="off" [(ngModel)]="formularioAddUsuario.value.contrasenia">
+                      formControlName="contrasenia" autocomplete="off">
                     <label for="Contrasenia">Contraseña</label>
                     <show-errors [control]="formularioAddUsuario.controls['contrasenia']"></show-errors>
                   </div>

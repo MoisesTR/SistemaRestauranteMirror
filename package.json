@@ -31,6 +31,7 @@
     "@auth0/angular-jwt": "^2.0.0",
     "@ng-select/ng-select": "2.3.2",
     "@ngx-pwa/local-storage": "6",
+    "@sentry/browser": "^4.5.3",
     "angular-datatables": "6.0.0",
     "chart.js": "2.7.2",
     "classlist.js": "1.1.x",

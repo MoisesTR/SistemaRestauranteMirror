@@ -221,6 +221,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 
 		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(clasificacion.NombreClasificacion);
 		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(clasificacion.DescripcionClasificacion);
+        this.formUpdateClasificacion.controls["categoria"].setValue(clasificacion.IdCategoria);
 
 		modal.show();
 	}

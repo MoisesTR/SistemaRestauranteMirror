@@ -113,7 +113,7 @@
                                     <br>
                                     <label class="grey-text-card">Moneda</label>
                                     <ng-select dropdownPosition="top" class="disabled" [items]="Moneda" (change)="changeMoneda($event)"
-                                        formControlName="Moneda" [(ngModel)]="IdMonedaSeleccionada" bindLabel="Moneda"
+                                        formControlName="Moneda" bindLabel="Moneda"
                                         bindValue="Id" id="moneda"
                                         [attr.disabled]="deshabilitarCampos()">
                                     </ng-select>
@@ -123,7 +123,7 @@
                                     <br>
                                     <label class="grey-text-card">Forma de Pago</label>
                                     <ng-select dropdownPosition="top" class="disabled" [items]="FormaPago" (change)="changeFormaPlazoPago($event)"
-                                        formControlName="FormaPago" [(ngModel)]="IdFormaPagoSeleccionado" bindLabel="FormaPago"
+                                        formControlName="FormaPago" bindLabel="FormaPago"
                                         bindValue="Id" id="pago"  [attr.disabled]="deshabilitarCampos()">
                                     </ng-select>
                                 </div>

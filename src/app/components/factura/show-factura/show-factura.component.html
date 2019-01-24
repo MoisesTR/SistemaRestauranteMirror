@@ -17,8 +17,8 @@
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-proveedor">
                   <label class="mb-label">Proveedor</label>
                   <div class="md-form">
-                    <ng-select id="proveedor" [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
-                               formControlName="Proveedor" class="disabled">
+                    <ng-select id="proveedor" [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor"
+                      placeholder="Selecciona un proveedor" formControlName="Proveedor" class="disabled">
                     </ng-select>
                   </div>
                   <br>
@@ -26,39 +26,48 @@
 
                 <div class="col-xs-12 col-md-6 col-lg-6 mt-nombre_vendedor">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="nombrevendedor" formControlName="nombrevendedor" class="form-control" autocomplete="off" readonly>
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="nombrevendedor" formControlName="nombrevendedor"
+                      class="form-control" autocomplete="off" readonly>
                     <label for="nombrevendedor">Nombre vendedor</label>
                   </div>
                 </div>
 
-                <div class="col-xs-6 col-md-6 col-lg-6 mt-codigo-factura">
+                <div class="col-xs-6 col-md-6 col-lg-6">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura" class="form-control" formControlName="mumeroFactura"
-                      autocomplete="off" readonly>
+                    <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura" class="form-control"
+                      formControlName="mumeroFactura" autocomplete="off" readonly>
                     <label for="numeroFactura">Código de factura</label>
                   </div>
                 </div>
 
-                <div class="col-xs-6 col-md-6 col-lg-6">
-                  <mdb-date-picker [options]="myDatePickerOptions" [placeholder]="'Seleccione la fecha'" [label]="'Fecha de Factura'" formControlName="fechaFactura"
-                    required [disabled]="true"></mdb-date-picker>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input formControlName="fechaFactura" name="fechaFactura" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
+                      class="input-picker form-control" id="fechaFactura" placeholder="ej: 12-01-2019"
+                      mdbInputDirective readonly [mdbValidate]=false>
+                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    <label for="fechaFactura">Fecha de Factura</label>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input [mdbValidate]=false formControlName="usuario" mdbInputDirective type="text" id="usuario" class="form-control" autocomplete="off"
-                      readonly>
+                    <input [mdbValidate]=false formControlName="usuario" mdbInputDirective type="text" id="usuario"
+                      class="form-control" autocomplete="off" readonly>
                     <label for="usuario">Trabajador Ingreso</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <mdb-time-picker [buttonLabel]="'OK'" [twelvehour]="true" [darktheme]="false" [placeholder]="'Seleccione la hora'" formControlName="hora"
-                    [label]="'Hora ingreso factura'" [showClock]="false"></mdb-time-picker>
+                  <div class="md-form">
+                    <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="input-time form-control" id="horaFactura"
+                      placeholder="ej: 12:00" mdbInputDirective readonly [mdbValidate]=false>
+                    <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
+                    <label for="horaFactura">Hora Ingreso Factura</label>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
-                  <br>
                   <label>Moneda</label>
                   <ng-select dropdownPosition="top" [items]="Moneda" formControlName="Moneda" bindLabel="Moneda"
                     bindValue="Id" id="moneda" class="disabled">
@@ -66,23 +75,24 @@
                 </div>
 
                 <div class="col-md-6">
-                  <br>
                   <label>Forma de Pago</label>
-                  <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago"  bindLabel="FormaPago"
+                  <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago" bindLabel="FormaPago"
                     bindValue="Id" id="pago" class="disabled">
                   </ng-select>
                 </div>
 
                 <div class="col-md-6 mt-3">
                   <div class="md-form">
-                    <input mdbInputDirective [mdbValidate]=false type="number" id="tipoCambio" class="form-control" autocomplete="off" readonly>
+                    <input mdbInputDirective [mdbValidate]=false type="number" id="tipoCambio" class="form-control"
+                      autocomplete="off" readonly>
                     <label for="tipoCambio">Tipo de Cambio</label>
                   </div>
                 </div>
 
                 <div class="col-md-6 mt-3">
                   <div class="md-form">
-                    <input mdbInputDirective [mdbValidate]=false type="number" id="plazoPagos" class="form-control" autocomplete="off" readonly>
+                    <input mdbInputDirective [mdbValidate]=false type="number" id="plazoPagos" class="form-control"
+                      autocomplete="off" readonly>
                     <label for="plazoPagos">Plazo de pagos(dias)</label>
                   </div>
                 </div>
@@ -202,7 +212,7 @@
                 </div>
                 <div class="">
                   <label>
-                     {{factura.SubTotal + factura.TotalDescuento | number : '1.2-2'}}  C$
+                    {{factura.SubTotal + factura.TotalDescuento | number : '1.2-2'}} C$
                   </label>
                 </div>
                 <div class="">

@@ -146,20 +146,20 @@ export class AddProductoComponent implements OnInit {
 			proveedor: new FormControl(this.proveedorSelecionado, [
 				Validators.required
 			]),
-			categoria: new FormControl("", [Validators.required]),
-			clasificacion: new FormControl("", [Validators.required]),
-			subclasificacion: new FormControl("", [Validators.required]),
-			empaque: new FormControl("", []),
-			envase: new FormControl("", []),
-			unidadmedida: new FormControl("", [Validators.required]),
-			cantidadEmpaque: new FormControl("", []),
+			categoria: new FormControl( [Validators.required]),
+			clasificacion: new FormControl([Validators.required]),
+			subclasificacion: new FormControl([Validators.required]),
+			empaque: new FormControl([]),
+			envase: new FormControl([]),
+			unidadmedida: new FormControl([Validators.required]),
+			cantidadEmpaque: new FormControl([]),
 			consumoDirecto: new FormControl(false, []),
 			granel: new FormControl(false, []),
-			valorunidadmedida: new FormControl("", [Validators.required]),
-			diasDeUso: new FormControl("", []),
+			valorunidadmedida: new FormControl("",[Validators.required]),
+			diasDeUso: new FormControl([]),
 			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator]),
 			codigoOriginal: new FormControl("", [CustomValidators.nospaceValidator]),
-			tipoInsumo: new FormControl("", [Validators.required])
+			tipoInsumo: new FormControl([Validators.required])
 		});
 	}
 

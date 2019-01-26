@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from "@angular/core";
+import { ChangeDetectorRef,Component, ElementRef, OnInit, QueryList, ViewChildren, ViewChild, HostListener } from "@angular/core";
 import { FacturaService, ProveedorService } from "@app/core/service.index";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Proveedor } from "@app/models/Proveedor";
@@ -27,6 +27,8 @@ export class SummaryFacturasComponent implements OnInit {
 	public buscando: string;
 	public idFechaBusqueda = 1;
 	public codFactura: string = null;
+	@ViewChild("pointscroll") pointScroll: ElementRef;
+	public scrollStart: number = 0;
 
 	// Paginacion
 	@ViewChildren("pages") pages: QueryList<any>;
@@ -55,6 +57,7 @@ export class SummaryFacturasComponent implements OnInit {
 	ngOnInit() {
 		this.initFormBusquedaFactura();
 		this.getProveedores();
+		
 		this.formBusquedaFactura.controls["codFactura"].valueChanges.subscribe(value => {
 			if (value === "") {
 				this.formBusquedaFactura.controls["fechaBusqueda"].enable();
@@ -76,6 +79,12 @@ export class SummaryFacturasComponent implements OnInit {
 				}
 			}
 		});
+	}
+
+	@HostListener("window:scroll",[])
+	pointScroller(){
+		this.scrollStart = this.pointScroll.nativeElement.offsetTop
+		this.scrollStart -= 30;
 	}
 
 	changePage(event: any) {
@@ -237,7 +246,8 @@ export class SummaryFacturasComponent implements OnInit {
 						this.firstVisiblePaginator = 0;
 						this.addPaginators();
 						this.sumarFacturas();
-
+						this.pointScroller();
+						window.scroll(0,this.scrollStart);
 						if (this.facturas.length === 0) {
 							Utils.showMsgInfo("No se encontraron facturas con los parametros digitados", "Busqueda Facturas");
 						}

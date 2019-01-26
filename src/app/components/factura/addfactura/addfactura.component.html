@@ -90,7 +90,7 @@
                                     <div class="md-form">
                                         <input formControlName="fechaFactura" name="FechaFactura" [owlDateTimeTrigger]="dt1"
                                             [owlDateTime]="dt1" class="input-picker form-control" [mdbValidate]=false
-                                            id="fechaFactura" placeholder="Seleccioné" mdbInputDirective
+                                            id="fechaFactura" placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
                                             (ngModelChange)="ingresoFechaRecepcion($event)" readonly>
                                         <owl-date-time [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt1></owl-date-time>
                                         <label for="fechaFactura">Fecha factura</label>
@@ -103,7 +103,7 @@
                                         <input formControlName="fechaRecepcion" name="FechaRecepcion"
                                             [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
                                             [mdbValidate]=false id="fechaRecepcion" placeholder="Seleccioné"
-                                            mdbInputDirective [min]="SeleccionarFechaFactura" readonly>
+                                            mdbInputDirective [min]="SeleccionarFechaFactura" [max]="fechaActual" readonly>
                                         <owl-date-time   [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt2></owl-date-time>
                                         <label for="fechaRecepcion">Fecha recepción</label>
                                     </div>

@@ -2,7 +2,7 @@
 
 #node modules
 node_modules/
-/yarn.lock
+dist/
 .json/*
 *.sh
 #visual studio code

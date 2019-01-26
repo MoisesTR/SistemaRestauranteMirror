@@ -16,7 +16,7 @@ export class SpinnerComponent implements OnInit {
 
     ngOnInit() {
       this.spinnerService.status.subscribe((val: boolean) =>{
-        spinnerVisibilidad: val;
+        this.spinnerVisibilidad = val;
       });
     }
 

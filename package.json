@@ -43,6 +43,8 @@
     "datatables.net-responsive-dt": "^2.2.1",
     "datatables.net-select": "^1.2.4",
     "datatables.net-select-dt": "^1.2.4",
+    "@types/datatables.net": "^1.10.8",
+    "@types/datatables.net-select": "^1.2.3",
     "easy-pie-chart": "2.1.x",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",

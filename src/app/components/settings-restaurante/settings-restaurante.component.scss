@@ -59,3 +59,38 @@ input[type=date]:focus:not([readonly])
   min-height: 90px; 
   max-height: 110px;
 }
+
+@media only screen and (max-width: 991px) {
+  #carousel-hide {
+    display: none !important;
+  }
+}
+
+.mlc-1 {
+  margin-left: -3% !important;
+}
+
+@media only screen and (max-width: 991px) {
+  .mlc-1 {
+    margin-left: 0.25rem !important;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .mbc-1 {
+    margin-bottom: 1rem !important;
+  }
+}
+
+#container1 {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+#container2 {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  overflow: auto;
+}

@@ -152,7 +152,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let productoFactura of productosFactura;let i = index">
-                  <td class="body-negrita">{{productoFactura.NombreProducto}}</td>
+                  <td class="body-negrita">{{productoFactura.NombProducto}}</td>
                   <td class="body-negrita">{{productoFactura.NombUnidad}}</td>
                   <td class="body-negrita">{{productoFactura.Cantidad}}</td>
                   <td class="body-negrita">{{productoFactura.PrecioUnitario}} {{simboloMonedaUtilizado}}</td>
@@ -328,7 +328,7 @@
                       <div class="md-form">
                         <h6 class="orange-chang-text">Nombre</h6>
                         <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase"
-                          value={{productoSeleccionado.NombreProducto}} readonly>
+                          value={{productoSeleccionado.NombProducto}} readonly>
                       </div>
                     </div>
 

@@ -14,7 +14,7 @@ export class BuscarProductoNombrePipe implements PipeTransform {
 
 		if (valor !== null && valor !== undefined) {
             return valor.filter( (item) => {
-                return item.NombreProducto.toLowerCase().includes(term.toLowerCase());
+                return item.NombProducto.toLowerCase().includes(term.toLowerCase());
             });
 		}
 

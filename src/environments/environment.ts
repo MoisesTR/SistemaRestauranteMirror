@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-    apiEndpoint: 'https://hwsrv-402458.hostwindsdns.com/api/'
-    /** 'http://localhost:3000/api/'**/
+    apiEndpoint: 'http://localhost:3000/api/'
+    /** https://hwsrv-402458.hostwindsdns.com/api/**/
 };

@@ -1,6 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { IMyOptions } from "ng-uikit-pro-standard";
-import { opcionesDatePicker } from "@app/core/services/shared/global";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { FacturaService, ProveedorService } from "@app/core/service.index";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Factura } from "@app/models/Factura";
@@ -15,7 +13,6 @@ import { Proveedor } from "@app/models/Proveedor";
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowFacturaComponent implements OnInit {
-	public myDatePickerOptions: IMyOptions = opcionesDatePicker;
 	public factura: Factura;
 	public proveedores: Proveedor[];
 	public formFactura: FormGroup;
@@ -23,13 +20,11 @@ export class ShowFacturaComponent implements OnInit {
 	public IdMonedaSeleccionada: number;
 	public IdFormaPagoSeleccionado: number;
 	public IdProveedorSeleccionado: number;
-	public horaFactura: string;
 	public tieneRetencion = 0;
 
 	Moneda = [{ Id: 1, Moneda: "Córdobas" }, { Id: 2, Moneda: "Dólares" }];
 
 	FormaPago = [{ Id: 1, FormaPago: "Contado" }, { Id: 2, FormaPago: "Crédito" }];
-	nativeWindow: any;
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
@@ -77,8 +72,8 @@ export class ShowFacturaComponent implements OnInit {
 		this.formFactura.controls["usuario"].setValue(this.factura.TrabajadorIngreso);
 		this.formFactura.controls["nombrevendedor"].setValue("Vendedor no registrado");
 		this.formFactura.controls["FormaPago"].setValue(this.IdFormaPagoSeleccionado);
-		this.formFactura.controls['Moneda'].setValue(this.IdMonedaSeleccionada);
-		this.formFactura.controls['Proveedor'].setValue(this.IdProveedorSeleccionado);
+		this.formFactura.controls["Moneda"].setValue(this.IdMonedaSeleccionada);
+		this.formFactura.controls["Proveedor"].setValue(this.IdProveedorSeleccionado);
 	}
 
 	setDataFormDetailFactura() {

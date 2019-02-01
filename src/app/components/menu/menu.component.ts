@@ -1,12 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Usuario } from "@app/models/Usuario";
-import { UsuarioService } from "@app/core/service.index";
-import { MenuService } from "@app/core/service.index";
-import { Menu } from "@app/models/Menu";
-import { Global } from "@app/core/services/shared/global";
-import { NgxSpinnerService } from "ngx-spinner";
-import { Utils } from "@app/components/Utils";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Usuario} from '@app/models/Usuario';
+import {MenuService, UsuarioService} from '@app/core/service.index';
+import {Menu} from '@app/models/Menu';
+import {Global} from '@app/core/services/shared/global';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {Utils} from '@app/components/Utils';
 
 @Component({
 	selector: "app-menu",
@@ -27,7 +26,7 @@ export class MenuComponent implements OnInit {
 		private router: Router,
 		private spinner: NgxSpinnerService,
 		private usuarioService: UsuarioService,
-        private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
@@ -40,7 +39,11 @@ export class MenuComponent implements OnInit {
 	}
 
 	scroll() {
-
+		if (pageYOffset >= 200) {
+			document.getElementById("backToTop").style.visibility = "visible";
+		} else {
+			document.getElementById("backToTop").style.visibility = "hidden";
+		}
 	}
 
 	backtoPage() {
@@ -48,8 +51,8 @@ export class MenuComponent implements OnInit {
 	}
 
 	onActivate(event) {
-        window.scroll(0, 0);
-    }
+		window.scroll(0, 0);
+	}
 
 	logout() {
 		localStorage.clear();
@@ -78,13 +81,5 @@ export class MenuComponent implements OnInit {
 				this.spinner.hide();
 			}
 		);
-	}
-
-	trackMenu(index, menu: Menu) {
-		return menu ? menu.IdRecursoSistema : undefined;
-	}
-
-	trakSubmenu(index, submenu: Menu) {
-		return submenu ? submenu.IdRecursoSistema : undefined;
 	}
 }

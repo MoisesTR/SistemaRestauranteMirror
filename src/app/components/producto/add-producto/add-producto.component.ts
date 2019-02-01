@@ -412,6 +412,7 @@ export class AddProductoComponent implements OnInit {
 		this.producto.CodigoInterno =
 			this.formAddProducto.value.codigoInterno === "" ? null : this.formAddProducto.value.codigoInterno;
 		this.producto.IdProveedor = this.proveedorSelecionado;
+		this.producto.IdTipoInsumo = 1;
 	}
 
 	crearProducto() {

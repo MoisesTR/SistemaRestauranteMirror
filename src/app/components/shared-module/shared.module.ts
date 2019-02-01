@@ -14,6 +14,7 @@ import {PipesModule} from '@app/pipe/pipes.module';
 import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
 import {ShowErrorsComponent} from '../show-errors.component';
 import {DirectivesModule} from '@app/directives/directives.module';
+import {SpinnerComponent} from '@app/components/spinner/spinner.component';
 
 @NgModule({
 	imports: [CommonModule, MDBBootstrapModulesPro],
@@ -31,10 +32,11 @@ import {DirectivesModule} from '@app/directives/directives.module';
 		DirectivesModule,
 		PipesModule,
 		ShowErrorsComponent,
-		BreadcrumbComponent
+		BreadcrumbComponent,
+        SpinnerComponent
 	],
 
-	declarations: [ShowErrorsComponent, BreadcrumbComponent],
+	declarations: [ShowErrorsComponent, BreadcrumbComponent, SpinnerComponent],
 	providers: [
 		{
 			provide: NG_SELECT_DEFAULT_CONFIG,

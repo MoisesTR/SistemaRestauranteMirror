@@ -1,13 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import { CategoriaProductoService } from "@app/core/service.index";
+import { CategoriaProductoService, SpinnerService } from "@app/core/service.index";
 import { CategoriaProducto } from "@app/models/CategoriaProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
@@ -40,8 +35,9 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private categoriaService: CategoriaProductoService,
+		private spinnerService: SpinnerService,
 		private formBuilder: FormBuilder,
-        private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef
 	) {
 		this.categoriaProducto = new CategoriaProducto();
 	}
@@ -80,21 +76,26 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
-            this.cdr.detectChanges();
+			this.cdr.detectChanges();
 		});
 	}
 
 	getCategorias() {
+		this.spinnerService.display(true);
 		this.categoriaService.getCategoriasProductos().subscribe(
 			response => {
 				if (response.categorias) {
 					this.categoriasProductos = response.categorias;
 					this.dtTrigger.next();
-                    this.cdr.markForCheck();
+					this.cdr.markForCheck();
 				}
 			},
 			error => {
+				this.spinnerService.display(false);
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.spinnerService.display(false);
 			}
 		);
 	}
@@ -109,6 +110,8 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 			},
 			error => {
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
 			}
 		);
 	}
@@ -139,42 +142,33 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 		this.peticionEnCurso = true;
 		this.getValuesFormUpdateCategoria();
 
-		this.categoriaService
-			.updateCategoriaProducto(this.categoriaProducto)
-			.subscribe(
-				response => {
-					if (response.success) {
-						swal(
-							"Categoría",
-							"La categoría ha sido actualizada exitosamente!",
-							"success"
-						).then(() => {
-							modal.hide();
-							this.formUpdateCategoria.reset();
-							this.categoriaProducto = new CategoriaProducto();
-							this.getCategoriasRender();
-						});
-					} else {
-						Utils.showMsgError(
-							"Ha ocurrido un error inesperado en la actualización , intenta nuevamente"
-						);
-					}
-				},
-				error => {
-					this.peticionEnCurso = false;
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-				},
-				() => {
-					this.peticionEnCurso = false;
+		this.categoriaService.updateCategoriaProducto(this.categoriaProducto).subscribe(
+			response => {
+				if (response.success) {
+					swal("Categoría", "La categoría ha sido actualizada exitosamente!", "success").then(() => {
+						modal.hide();
+						this.formUpdateCategoria.reset();
+						this.categoriaProducto = new CategoriaProducto();
+						this.getCategoriasRender();
+					});
+				} else {
+					Utils.showMsgError("Ha ocurrido un error inesperado en la actualización , intenta nuevamente");
 				}
-			);
+			},
+			error => {
+				this.peticionEnCurso = false;
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.peticionEnCurso = false;
+			}
+		);
 	}
 
 	showModalUpdate(modal, categoria: CategoriaProducto) {
 		this.categoriaProducto.IdCategoria = categoria.IdCategoria;
 		this.categoriaProducto.NombreCategoria = categoria.NombreCategoria;
-		this.categoriaProducto.DescripcionCategoria =
-			categoria.DescripcionCategoria;
+		this.categoriaProducto.DescripcionCategoria = categoria.DescripcionCategoria;
 
 		this.formUpdateCategoria.reset();
 		this.formUpdateCategoria.setValue({
@@ -200,18 +194,11 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 				this.categoriaService.deleteCategoriaProducto(idCategoria).subscribe(
 					response => {
 						if (response.success) {
-							swal(
-								"Inhabilitada!",
-								"La categoría ha sido inhabilitada exitosamente",
-								"success"
-							).then(() => {
+							swal("Inhabilitada!", "La categoría ha sido inhabilitada exitosamente", "success").then(() => {
 								this.getCategoriasRender();
 							});
 						} else {
-							Utils.showMsgInfo(
-								"Ha ocurrido un error al inhabilitar",
-								this.tituloPantalla
-							);
+							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar", this.tituloPantalla);
 						}
 					},
 					error => {
@@ -228,7 +215,7 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 		}
 	}
 
-    ngOnDestroy(): void {
-        this.dtTrigger.unsubscribe();
-    }
+	ngOnDestroy(): void {
+		this.dtTrigger.unsubscribe();
+	}
 }

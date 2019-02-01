@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import { SucursalService } from "@app/core/service.index";
+import { SpinnerService, SucursalService } from "@app/core/service.index";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
 import { ModalDirective } from "ng-uikit-pro-standard";
@@ -41,6 +41,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		private route: ActivatedRoute,
 		private router: Router,
 		private sucursalService: SucursalService,
+		private spinner: SpinnerService,
 		private formBuilder: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
@@ -80,19 +81,6 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		this.initFormUpdateSucursal();
 	}
 
-	getSucursalesRender() {
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-					this.rerender();
-				}
-			},
-			error => {},
-			() => {}
-		);
-	}
-
 	settingsDatatable() {
 		/*PROPIEDADES GENERALES DE LA DATATABLE*/
 		this.dtOptions = <DataTables.Settings>{
@@ -124,6 +112,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 	}
 
 	getSucursales() {
+		this.spinner.display(true);
 		this.sucursalService.getSucursales().subscribe(
 			response => {
 				if (response.sucursales) {
@@ -135,7 +124,27 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 				}
 			},
 			error => {
+                this.spinner.display(false);
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			}, () => {
+                this.spinner.display(false);
+            }
+		);
+	}
+
+	getSucursalesRender() {
+		this.sucursalService.getSucursales().subscribe(
+			response => {
+				if (response.sucursales) {
+					this.sucursales = response.sucursales;
+					this.rerender();
+				}
+			},
+			error => {
+				Utils.showMsgInfo("Ha ocurrido un error al obtener las sucursales", this.tituloPantalla);
+			},
+			() => {
+
 			}
 		);
 	}

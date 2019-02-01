@@ -1,12 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Usuario } from "@app/models/Usuario";
-import { UsuarioService } from "@app/core/service.index";
-import { MenuService } from "@app/core/service.index";
-import { Menu } from "@app/models/Menu";
-import { Global } from "@app/core/services/shared/global";
-import { NgxSpinnerService } from "ngx-spinner";
-import { Utils } from "@app/components/Utils";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Usuario} from '@app/models/Usuario';
+import {MenuService, UsuarioService} from '@app/core/service.index';
+import {Menu} from '@app/models/Menu';
+import {Global} from '@app/core/services/shared/global';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {Utils} from '@app/components/Utils';
 
 @Component({
 	selector: "app-menu",
@@ -26,7 +25,8 @@ export class MenuComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private spinner: NgxSpinnerService,
-		private usuarioService: UsuarioService
+		private usuarioService: UsuarioService,
+		private cdr: ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
@@ -39,13 +39,11 @@ export class MenuComponent implements OnInit {
 	}
 
 	scroll() {
-		window.onscroll = function() {
-			if (pageYOffset >= 200) {
-				document.getElementById("backToTop").style.visibility = "visible";
-			} else {
-				document.getElementById("backToTop").style.visibility = "hidden";
-			}
-		};
+		if (pageYOffset >= 200) {
+			document.getElementById("backToTop").style.visibility = "visible";
+		} else {
+			document.getElementById("backToTop").style.visibility = "hidden";
+		}
 	}
 
 	backtoPage() {

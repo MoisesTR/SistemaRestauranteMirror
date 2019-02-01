@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import { ClasificacionProductoService, SubClasificacionProductoService } from "@app/core/service.index";
+import {ClasificacionProductoService, SpinnerService, SubClasificacionProductoService} from '@app/core/service.index';
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
@@ -39,6 +39,7 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	constructor(
 		private subclasificacionService: SubClasificacionProductoService,
 		private clasificacionService: ClasificacionProductoService,
+        private spinner: SpinnerService,
 		private formBuilderSubClasificacion: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
@@ -100,6 +101,7 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	getSubClasificaciones() {
+	    this.spinner.display(true);
 		this.subclasificacionService.getSubClasificaciones().subscribe(
 			response => {
 				if (response.subclasificaciones) {
@@ -110,8 +112,11 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 				}
 			},
 			error => {
+                this.spinner.display(false);
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			}, () => {
+                this.spinner.display(false);
+            }
 		);
 	}
 
@@ -126,7 +131,8 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 			},
 			error => {
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			}, () => {
+            }
 		);
 	}
 

@@ -5,7 +5,7 @@ import { Subject } from "rxjs/Subject";
 import { Utils } from "../../Utils";
 import { Proveedor } from "@app/models/Proveedor";
 import { DataTableDirective } from "angular-datatables";
-import { ProveedorService } from "@app/core/service.index";
+import { ProveedorService, SpinnerService } from "@app/core/service.index";
 import { idioma_espanol } from "@app/core/services/shared/global";
 import swal from "sweetalert2";
 import { ModalDirective } from "ng-uikit-pro-standard";
@@ -32,6 +32,7 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 		private route: ActivatedRoute,
 		private router: Router,
 		private proveedorService: ProveedorService,
+		private spinner: SpinnerService,
 		private cdr: ChangeDetectorRef
 	) {
 		this.proveedorSeleccionado = new Proveedor();
@@ -75,34 +76,42 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 	}
 
 	getProveedores() {
+		this.spinner.display(true);
 		this.proveedorService.getProveedores().subscribe(
 			response => {
 				if (response.proveedores) {
 					this.proveedores = response.proveedores;
-                    this.dtTrigger.next();
-                    this.cdr.markForCheck();
+					this.dtTrigger.next();
+					this.cdr.markForCheck();
 				}
 			},
 			error => {
-			    Utils.showMsgError(Utils.msgError(error), this.tituloPantalla)
-            }
+				this.spinner.display(false);
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.spinner.display(false);
+			}
 		);
 	}
 
-    getProveedoresRender() {
-        this.proveedorService.getProveedores().subscribe(
-            response => {
-                if (response.proveedores) {
-                    this.proveedores = response.proveedores;
-                    this.rerender();
-                    this.cdr.markForCheck();
-                }
-            },
-            error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla)
-            }
-        );
-    }
+	getProveedoresRender() {
+		this.proveedorService.getProveedores().subscribe(
+			response => {
+				if (response.proveedores) {
+					this.proveedores = response.proveedores;
+					this.rerender();
+					this.cdr.markForCheck();
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+
+			}
+		);
+	}
 
 	deleteProveedor(IdProveedor) {
 		swal({

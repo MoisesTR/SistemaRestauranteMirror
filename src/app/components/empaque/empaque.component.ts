@@ -3,15 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
-import { EmpaqueService } from "@app/core/service.index";
+import {EmpaqueService, SpinnerService} from '@app/core/service.index';
 import { Empaque } from "@app/models/Empaque";
 import { ModalDirective } from "ng-uikit-pro-standard";
 import { Utils } from "../Utils";
 import { idioma_espanol } from "@app/core/services/shared/global";
 import swal from "sweetalert2";
 import { Subject } from "rxjs/Subject";
-
-declare var $: any;
 
 @Component({
 	selector: "app-empaque",
@@ -37,6 +35,7 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private empaqueService: EmpaqueService,
+		private spinner: SpinnerService,
 		private formBuilderEmpaque: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
@@ -82,6 +81,7 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 	}
 
 	getEmpaques() {
+	    this.spinner.display(true);
 		this.empaqueService.getEmpaques().subscribe(
 			response => {
 				if (response.empaques) {
@@ -91,8 +91,11 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 				}
 			},
 			error => {
+                this.spinner.display(false);
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			}, () => {
+                this.spinner.display(false);
+            }
 		);
 	}
 

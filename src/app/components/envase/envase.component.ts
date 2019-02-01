@@ -5,7 +5,7 @@ import { Subject } from "rxjs/Subject";
 
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
-import { EnvaseService } from "@app/core/service.index";
+import { EnvaseService, SpinnerService } from "@app/core/service.index";
 import { Envase } from "@app/models/Envase";
 import { ModalDirective } from "ng-uikit-pro-standard";
 import { Utils } from "../Utils";
@@ -43,6 +43,7 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 		private route: ActivatedRoute,
 		private router: Router,
 		private envaseService: EnvaseService,
+		private spinner: SpinnerService,
 		private cdr: ChangeDetectorRef
 	) {
 		this.envase = new Envase();
@@ -87,6 +88,7 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 	}
 
 	getEnvases() {
+		this.spinner.display(true);
 		this.envaseService.getEnvases().subscribe(
 			response => {
 				if (response.envases) {
@@ -97,7 +99,11 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 				}
 			},
 			error => {
+				this.spinner.display(false);
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.spinner.display(false);
 			}
 		);
 	}

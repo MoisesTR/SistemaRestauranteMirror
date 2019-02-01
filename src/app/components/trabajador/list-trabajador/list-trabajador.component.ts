@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { DataTableDirective } from "angular-datatables";
-import { Subject } from "rxjs/Subject";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TrabajadorService } from "@app/core/service.index";
+import { Subject } from "rxjs/Subject";
+
+import { DataTableDirective } from "angular-datatables";
+import { SpinnerService, TrabajadorService } from "@app/core/service.index";
 import { idioma_espanol } from "@app/core/services/shared/global";
 import { Trabajador } from "@app/models/Trabajador";
 import swal from "sweetalert2";
@@ -22,7 +23,12 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject<any>();
 
-	constructor(private _route: ActivatedRoute, private _router: Router, private _trabajadorService: TrabajadorService) {}
+	constructor(
+		private route: ActivatedRoute,
+		private router: Router,
+		private trabajadorService: TrabajadorService,
+		private spinner: SpinnerService
+	) {}
 
 	ngOnInit() {
 		this.settingsDatatable();
@@ -30,20 +36,25 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 	}
 
 	getTrabajadores() {
-		this._trabajadorService.getTrabajadores().subscribe(
+	    this.spinner.display(true);
+		this.trabajadorService.getTrabajadores().subscribe(
 			response => {
 				if (response.trabajadores) {
 					this.trabajadores = response.trabajadores;
 					this.dtTrigger.next();
-				} else {
 				}
 			},
-			error => {}
+			error => {
+                this.spinner.display(false);
+                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+            }, () => {
+                this.spinner.display(false);
+            }
 		);
 	}
 
 	getTrabajadoresRender() {
-		this._trabajadorService.getTrabajadores().subscribe(
+		this.trabajadorService.getTrabajadores().subscribe(
 			response => {
 				if (response.trabajadores) {
 					this.trabajadores = response.trabajadores;
@@ -51,7 +62,9 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 				} else {
 				}
 			},
-			error => {}
+			error => {
+                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+            }
 		);
 	}
 
@@ -70,7 +83,7 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 					key: "1",
 					className: "btn orange-chang float-right-dt",
 					action: (e, dt, node, config) => {
-						this._router.navigate(["trabajador/add"]);
+						this.router.navigate(["trabajador/add"]);
 					}
 				}
 			]
@@ -98,7 +111,7 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this._trabajadorService.deleteTrabajador(IdTrabajador).subscribe(
+				this.trabajadorService.deleteTrabajador(IdTrabajador).subscribe(
 					response => {
 						if (response.success) {
 							swal("Eliminado!", "El trabajador ha sido eliminado exitosamente", "success").then(() => {

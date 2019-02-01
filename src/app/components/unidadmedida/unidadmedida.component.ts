@@ -8,10 +8,10 @@ import {
 import { Subject } from "rxjs/Subject";
 
 import {
-	ClasificacionProductoService,
-	ClasificacionUnidadMedidaService,
-	UnidadMedidaService
-} from "@app/core/service.index";
+    ClasificacionProductoService,
+    ClasificacionUnidadMedidaService, SpinnerService,
+    UnidadMedidaService
+} from '@app/core/service.index';
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { ClasificacionUnidadDeMedida } from "@app/models/ClasificacionUnidadDeMedida";
 import { CustomValidators } from "@app/validadores/CustomValidators";
@@ -54,6 +54,7 @@ export class UnidadmedidaComponent implements OnInit {
 		private clasificacionUnidadService: ClasificacionUnidadMedidaService,
 		private formBuilder: FormBuilder,
 		private unidadMedidaService: UnidadMedidaService,
+		private spinner: SpinnerService,
 		private cdr: ChangeDetectorRef
 	) {
 		this.unidadMedida = new UnidadMedida();
@@ -115,6 +116,7 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	getUnidadesMedida() {
+	    this.spinner.display(true);
 		this.unidadMedidaService.getUnidadesMedida().subscribe(
 			response => {
 				if (response.unidadesmedida) {
@@ -124,8 +126,11 @@ export class UnidadmedidaComponent implements OnInit {
 				}
 			},
 			error => {
+                this.spinner.display(false);
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			}, () => {
+                this.spinner.display(false);
+            }
 		);
 	}
 

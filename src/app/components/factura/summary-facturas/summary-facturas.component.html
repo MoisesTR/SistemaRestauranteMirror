@@ -1,8 +1,9 @@
+<spinner titulo="Buscando Facturas"></spinner>
 <section>
-  <div class="row">
+    <div class="row">
 
     <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-      <form [formGroup]="formBusquedaFactura" novalidate>
+      <form [formGroup]="formBusquedaFactura" (ngSubmit)="findFacturas()" novalidate>
         <mdb-card cascade="true" narrower="true">
           <!--Titulo-->
           <div class="view view-cascade gradient-card-header orange-chang">
@@ -76,7 +77,7 @@
               </div>
 
               <div class="text-center mt-1-half mt-3">
-                <button mdbBtn type="button" class="orange-chang mb-1" (click)="findFacturas()">Buscar
+                <button mdbBtn type="submit" [disabled]="!formBusquedaFactura.valid || peticionEnCurso" class="orange-chang mb-1">Buscar
                   <mdb-icon class="ml-1" icon="search"></mdb-icon>
                 </button>
               </div>

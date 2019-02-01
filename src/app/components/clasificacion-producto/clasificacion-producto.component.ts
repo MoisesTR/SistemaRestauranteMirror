@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import { CategoriaProductoService, ClasificacionProductoService } from "@app/core/service.index";
+import {CategoriaProductoService, ClasificacionProductoService, SpinnerService} from '@app/core/service.index';
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { CategoriaProducto } from "@app/models/CategoriaProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
@@ -39,6 +39,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	constructor(
 		private clasificacionService: ClasificacionProductoService,
 		private categoriaService: CategoriaProductoService,
+		private spinner: SpinnerService,
 		private formBuilderClasificacion: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
@@ -75,6 +76,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	getClasificaciones() {
+	    this.spinner.display(true);
 		this.clasificacionService.getClasificaciones().subscribe(
 			response => {
 				if (response.clasificaciones) {
@@ -84,8 +86,11 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 				}
 			},
 			error => {
+                this.spinner.display(false);
 				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			}, () => {
+                this.spinner.display(false);
+            }
 		);
 	}
 

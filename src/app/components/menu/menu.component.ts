@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Usuario } from "@app/models/Usuario";
 import { UsuarioService } from "@app/core/service.index";
@@ -26,7 +26,8 @@ export class MenuComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private spinner: NgxSpinnerService,
-		private usuarioService: UsuarioService
+		private usuarioService: UsuarioService,
+        private cdr: ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
@@ -39,13 +40,7 @@ export class MenuComponent implements OnInit {
 	}
 
 	scroll() {
-		window.onscroll = function() {
-			if (pageYOffset >= 200) {
-				document.getElementById("backToTop").style.visibility = "visible";
-			} else {
-				document.getElementById("backToTop").style.visibility = "hidden";
-			}
-		};
+
 	}
 
 	backtoPage() {
@@ -53,8 +48,8 @@ export class MenuComponent implements OnInit {
 	}
 
 	onActivate(event) {
-		window.scroll(0, 0);
-	}
+        window.scroll(0, 0);
+    }
 
 	logout() {
 		localStorage.clear();
@@ -83,5 +78,13 @@ export class MenuComponent implements OnInit {
 				this.spinner.hide();
 			}
 		);
+	}
+
+	trackMenu(index, menu: Menu) {
+		return menu ? menu.IdRecursoSistema : undefined;
+	}
+
+	trakSubmenu(index, submenu: Menu) {
+		return submenu ? submenu.IdRecursoSistema : undefined;
 	}
 }

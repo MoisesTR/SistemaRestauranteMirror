@@ -1,15 +1,16 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewChild, OnDestroy } from "@angular/core";
-import { Cargo } from "@app/models/Cargo";
-import { Subject } from "rxjs/Subject";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CargoService } from "@app/core/service.index";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import swal from "sweetalert2";
-import { DataTableDirective } from "angular-datatables";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subject } from "rxjs/Subject";
+
+import { Cargo } from "@app/models/Cargo";
 import { CustomValidators } from "@app/validadores/CustomValidators";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import { DataTableDirective } from "angular-datatables";
 import { idioma_espanol } from "@app/core/services/shared/global";
 import { Utils } from "../Utils";
-import { ModalDirective } from "ng-uikit-pro-standard";
+import { CargoService, SpinnerService } from "@app/core/service.index";
+import swal from "sweetalert2";
 
 declare var $: any;
 
@@ -36,10 +37,11 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 	@ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
 	constructor(
-		private _route: ActivatedRoute,
-		private _router: Router,
-		private _cargoServicio: CargoService,
-		private _formBuilderCargo: FormBuilder,
+		private route: ActivatedRoute,
+		private router: Router,
+		private cargoService: CargoService,
+		private spinner: SpinnerService,
+		private formBuilderCargo: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
 		this.cargo = new Cargo();
@@ -70,7 +72,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 			});
 		});
 		this.settingsDatatable();
-		this.getCargo();
+		this.getCargos();
 		this.initFormAddCargo();
 		this.initFormUpdateCargo();
 	}
@@ -107,8 +109,9 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 		});
 	}
 
-	getCargo() {
-		this._cargoServicio.getCargos().subscribe(
+	getCargos() {
+		this.spinner.display(true);
+		this.cargoService.getCargos().subscribe(
 			response => {
 				if (response.cargos) {
 					this.cargos = response.cargos;
@@ -116,12 +119,18 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 					this.cdr.markForCheck();
 				}
 			},
-			error => {}
+			error => {
+				this.spinner.display(false);
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.spinner.display(false);
+			}
 		);
 	}
 
 	getCargosRender() {
-		this._cargoServicio.getCargos().subscribe(
+		this.cargoService.getCargos().subscribe(
 			response => {
 				if (response.cargos) {
 					this.cargos = response.cargos;
@@ -134,7 +143,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
 	initFormAddCargo() {
-		this.formAddCargo = this._formBuilderCargo.group({
+		this.formAddCargo = this.formBuilderCargo.group({
 			nombreCargo: new FormControl("", [
 				Validators.required,
 				Validators.minLength(2),
@@ -151,7 +160,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 	}
 
 	initFormUpdateCargo() {
-		this.formUpdateCargo = this._formBuilderCargo.group({
+		this.formUpdateCargo = this.formBuilderCargo.group({
 			nombreCargo: new FormControl("", [
 				Validators.required,
 				Validators.minLength(2),
@@ -180,7 +189,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 	createCargoUsuario() {
 		this.getValuesFormAddCargo();
 
-		this._cargoServicio.createCargo(this.cargo).subscribe(
+		this.cargoService.createCargo(this.cargo).subscribe(
 			response => {
 				if (response) {
 					swal("Cargo", "El Cargo ha sido creado exitosamente!", "success").then(() => {
@@ -202,7 +211,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 	updateCargo() {
 		this.getValuesFormUpdateCargo();
 
-		this._cargoServicio.updateCargo(this.cargo).subscribe(
+		this.cargoService.updateCargo(this.cargo).subscribe(
 			response => {
 				if (response.success) {
 					swal("Cargo", "El cargo ha sido actualizado exitosamente!", "success").then(() => {
@@ -233,7 +242,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this._cargoServicio.deleteCargo(IdCargo).subscribe(
+				this.cargoService.deleteCargo(IdCargo).subscribe(
 					response => {
 						if (response.success) {
 							swal(this.tituloPantalla, "El cargo ha sido eliminado exitosamente", "success").then(() => {

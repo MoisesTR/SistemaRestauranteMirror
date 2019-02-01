@@ -30,7 +30,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 		private route: ActivatedRoute,
 		private router: Router,
 		private productoService: ProductoService,
-		private ngxSpinner: NgxSpinnerService,
+		private spinner: SpinnerService,
 		private cdr: ChangeDetectorRef
 	) {}
 
@@ -73,11 +73,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 	}
 
 	getProductos() {
-	    this.ngxSpinner.show();
-        setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.ngxSpinner.hide();
-        }, 5000);
+	    this.spinner.display(true);
 		this.subscription = this.productoService.getProductos().subscribe(
 			response => {
 				if (response.productos) {
@@ -89,16 +85,16 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 				}
 			},
 			error => {
-                this.ngxSpinner.hide();
+			    this.spinner.display(false);
 				Utils.showMsgError(Utils.msgError(error));
 			},
 			() => {
+                this.spinner.display(false);
 			}
 		);
 	}
 
 	getProductosRender() {
-	    this.ngxSpinner.show();
 		this.productoService.getProductos().subscribe(
 			response => {
 				if (response.productos) {
@@ -107,10 +103,9 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 				}
 			},
 			error => {
-                this.ngxSpinner.hide();
                 Utils.showMsgError(Utils.msgError(error));
             }, () => {
-			    this.ngxSpinner.hide();
+
             }
 		);
 	}

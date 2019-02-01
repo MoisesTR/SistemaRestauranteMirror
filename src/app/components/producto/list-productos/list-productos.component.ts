@@ -1,26 +1,25 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { ProductoService } from '@app/core/service.index';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Producto } from '@app/models/Producto';
-import { Subject } from 'rxjs';
-import swal from 'sweetalert2';
-import { idioma_espanol } from '@app/core/services/shared/global';
-import { DataTableDirective } from 'angular-datatables';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs/Subscription';
-import { Utils } from '../../Utils';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { ProductoService, SpinnerService } from "@app/core/service.index";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Producto } from "@app/models/Producto";
+import { Subject } from "rxjs";
+import swal from "sweetalert2";
+import { idioma_espanol } from "@app/core/services/shared/global";
+import { DataTableDirective } from "angular-datatables";
+import { Subscription } from "rxjs/Subscription";
+import { Utils } from "../../Utils";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
-	selector: 'app-list-productos',
-	templateUrl: './list-productos.component.html',
-	styleUrls: ['./list-productos.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	selector: "app-list-productos",
+	templateUrl: "./list-productos.component.html",
+	styleUrls: ["./list-productos.component.css"],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListProductosComponent implements OnInit, OnDestroy {
 	subscription: Subscription;
 	public producto: Producto;
 	public productos: Producto[];
-	public habilita = 1;
 
 	@ViewChild(DataTableDirective)
 	dtElement: DataTableDirective;
@@ -28,40 +27,39 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 	dtTrigger: Subject<any> = new Subject<any>();
 
 	constructor(
-		private _route: ActivatedRoute,
-		private _router: Router,
-		private _ProductoServicio: ProductoService,
-		private spinner: NgxSpinnerService,
-        private cdr: ChangeDetectorRef
+		private route: ActivatedRoute,
+		private router: Router,
+		private productoService: ProductoService,
+		private ngxSpinner: NgxSpinnerService,
+		private cdr: ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
 		this.dtOptions = <DataTables.Settings>{
-			pagingType: 'full_numbers',
+			pagingType: "full_numbers",
 			pageLength: 10,
 			language: idioma_espanol,
 			lengthChange: false,
 			responsive: true,
-			dom: 'Bfrtip',
+			dom: "Bfrtip",
 			buttons: [
 				{
-					text: 'Agregar',
-					key: '1',
-					className: 'btn orange-chang float-right-dt',
+					text: "Agregar",
+					key: "1",
+					className: "btn orange-chang float-right-dt",
 					action: (e, dt, node, config) => {
-						this._router.navigate(['producto/add']);
+						this.router.navigate(["producto/add"]);
 					}
 				}
 			]
 		};
 
-		this.spinner.show();
 		this.getProductos();
 	}
 
 	ngOnDestroy() {
 		this.subscription.unsubscribe();
-        this.dtTrigger.unsubscribe();
+		this.dtTrigger.unsubscribe();
 	}
 
 	rerender(): void {
@@ -70,67 +68,78 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 			dtInstance.destroy();
 			// Call the dtTrigger to rerender again
 			this.dtTrigger.next();
-            this.cdr.detectChanges();
+			this.cdr.detectChanges();
 		});
 	}
 
 	getProductos() {
-		this.subscription = this._ProductoServicio.getProductos().subscribe(
+	    this.ngxSpinner.show();
+        setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.ngxSpinner.hide();
+        }, 5000);
+		this.subscription = this.productoService.getProductos().subscribe(
 			response => {
 				if (response.productos) {
 					this.productos = response.productos;
 					this.dtTrigger.next();
-					this.spinner.hide();
 					this.cdr.markForCheck();
 				} else {
-					this.spinner.hide();
-					Utils.showMsgInfo('Ha ocurrido un error al cargar los productos');
+					Utils.showMsgInfo("Ha ocurrido un error al cargar los productos");
 				}
 			},
 			error => {
-				this.spinner.hide();
+                this.ngxSpinner.hide();
 				Utils.showMsgError(Utils.msgError(error));
+			},
+			() => {
 			}
 		);
 	}
 
 	getProductosRender() {
-		this._ProductoServicio.getProductos().subscribe(
+	    this.ngxSpinner.show();
+		this.productoService.getProductos().subscribe(
 			response => {
 				if (response.productos) {
 					this.productos = response.productos;
 					this.rerender();
 				}
 			},
-			error => {}
+			error => {
+                this.ngxSpinner.hide();
+                Utils.showMsgError(Utils.msgError(error));
+            }, () => {
+			    this.ngxSpinner.hide();
+            }
 		);
 	}
 
 	eliminarProducto(IdProducto) {
 		swal({
-			title: 'Estas seguro(a)?',
-			text: 'El producto sera eliminado!',
-			type: 'warning',
+			title: "Estas seguro(a)?",
+			text: "El producto sera eliminado!",
+			type: "warning",
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si, Eliminalo!',
-			cancelButtonText: 'Cancelar'
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si, Eliminalo!",
+			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this._ProductoServicio.deleteProducto(IdProducto).subscribe(
+				this.productoService.deleteProducto(IdProducto).subscribe(
 					response => {
 						if (response.success) {
-							swal('Eliminado  !', 'El producto ha sido eliminado exitosamente', 'success').then(() => {
+							swal("Eliminado  !", "El producto ha sido eliminado exitosamente", "success").then(() => {
 								this.getProductosRender();
 							});
 						} else {
-							swal('Error inesperado', 'Ha ocurrido un error en la eliminación, intenta nuevamente!', 'error');
+							swal("Error inesperado", "Ha ocurrido un error en la eliminación, intenta nuevamente!", "error");
 						}
 					},
 					error => {
 						if ((error.status = 500)) {
-							swal('Error inesperado', 'Ha ocurrido un error en el servidor, intenta nuevamente!', 'error');
+							swal("Error inesperado", "Ha ocurrido un error en el servidor, intenta nuevamente!", "error");
 						}
 					}
 				);

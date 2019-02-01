@@ -54,7 +54,7 @@
     "ng-pick-datetime": "^6.0.16",
     "ng-uikit-pro-standard": "git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git",
     "ngx-logger": "^3.3.8",
-    "ngx-spinner": "^6.0.0",
+    "ngx-spinner": "^7.0.0",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "screenfull": "3.3.x",

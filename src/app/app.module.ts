@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { LoggerModule, NGXLogger, NgxLoggerLevel } from "ngx-logger";
 import { SettingsRestauranteComponent } from "./components/settings-restaurante/settings-restaurante.component";
 import * as Sentry from "@sentry/browser";
+import {environment} from '@env/environment';
 
 Sentry.init({
 	dsn: "https://c7dd0e241bb548dd919a4e7edd1d3422@sentry.io/1376101"
@@ -20,7 +21,7 @@ Sentry.init({
 export class SentryErrorHandler implements ErrorHandler {
 	constructor(private logger: NGXLogger) {}
 	handleError(error) {
-		if (navigator.onLine) {
+		if (navigator.onLine && environment.production) {
 			Sentry.captureException(error.originalError || error);
 			throw error;
 		} else {

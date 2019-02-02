@@ -5,5 +5,6 @@ export class CategoriaProducto {
   public DescripcionCategoria: string;
   public Habilitado: number;
   public disabled: number;
+  public IdTipInsumo: number;
   constructor() {}
 }

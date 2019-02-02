@@ -1,12 +1,12 @@
 import {
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    EventEmitter, Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -29,6 +29,8 @@ import { Utils } from "../../Utils";
 export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 	@ViewChild("modalAddCategoria")
 	modalAddCategoria: ModalDirective;
+
+    @Input() idTipoInsumo : number;
 
 	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
 		boolean
@@ -125,6 +127,7 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 	getValuesFormAddCategoria() {
 		this.categoriaProducto.NombreCategoria = this.formAddCategoria.value.nombreCategoria;
 		this.categoriaProducto.DescripcionCategoria = this.formAddCategoria.value.descripcionCategoria;
+		this.categoriaProducto.IdTipInsumo = !this.idTipoInsumo ? 1 : this.idTipoInsumo;
 	}
 
 	hideModalAndEmitResult() {

@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="formAddProducto" (ngSubmit)="guardarImagenProducto()" novalidate>
+  <form [formGroup]="formAddProducto" (ngSubmit)="crearProducto()" novalidate>
     <div class="row">
 
       <!--Datos del producto-->
@@ -213,7 +213,7 @@
             </div>
 
             <div class="text-center mt-3">
-              <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid && !peticionEnCurso">Ingresar
+              <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid || peticionEnCurso">Ingresar
                 <mdb-icon icon="check" class="ml-1"></mdb-icon>
               </button>
             </div>
@@ -269,8 +269,8 @@
 </div>
 
 <modal-categoria (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
-<modal-clasificacion (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>
-<modal-subclasificacion (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>
+<modal-clasificacion [idCategoria]="producto.IdCategoria" (resultadoConsulta)="resultadoConsultaClasificacion($event)"></modal-clasificacion>
+<modal-subclasificacion [idClasificacion]="producto.IdClasificacion" (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>
 <modal-empaque (resultadoConsulta)="resultQueryEmpaque($event)"></modal-empaque>
 <modal-envase (resultadoConsulta)="resultQueryEnvase($event)"></modal-envase>
 <modal-unidad-medida (resultadoConsulta)="resultQueryUnidadMedida($event)"></modal-unidad-medida>

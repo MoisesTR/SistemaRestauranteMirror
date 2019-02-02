@@ -1,27 +1,11 @@
 import { ActivatedRoute, Router } from "@angular/router";
-import {
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from "@angular/core";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ISubscription } from "rxjs-compat/Subscription";
 
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { CategoriaProducto } from "@app/models/CategoriaProducto";
-import {
-	CategoriaProductoService,
-	ClasificacionProductoService
-} from "@app/core/service.index";
+import { CategoriaProductoService, ClasificacionProductoService } from "@app/core/service.index";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { ModalDirective } from "ng-uikit-pro-standard";
 import swal from "sweetalert2";
@@ -31,14 +15,13 @@ import { Utils } from "../../Utils";
 	selector: "modal-clasificacion",
 	templateUrl: "./modal-clasificacion.component.html"
 })
-export class ModalClasificacionComponent
-	implements OnInit, EventoModal, OnDestroy {
+export class ModalClasificacionComponent implements OnInit, EventoModal, OnDestroy {
 	@ViewChild("modalAddClasificacion")
 	modalAddClasificacion: ModalDirective;
 
-	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
-		boolean
-	>();
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+	@Input() idCategoria: number;
 
 	public clasificacion: ClasificacionProducto;
 	public formAddClasificacion: FormGroup;
@@ -76,23 +59,23 @@ export class ModalClasificacionComponent
 				Validators.maxLength(300),
 				CustomValidators.nospaceValidator
 			]),
-			categoria: new FormControl("", [Validators.required])
+			categoria: new FormControl(null, [Validators.required])
 		});
 	}
 
 	subscribeEventoModal() {
-		this.subscription = this.clasificacionService.eventoModal.subscribe(
-			mostrarModal => {
-				if (mostrarModal) {
-					this.clasificacion = new ClasificacionProducto();
-					this.getCategorias();
-					this.formAddClasificacion.reset();
-					this.modalAddClasificacion.show();
-				} else {
-					this.hideModalAndEmitResult();
-				}
+		this.subscription = this.clasificacionService.eventoModal.subscribe(mostrarModal => {
+			if (mostrarModal) {
+				this.clasificacion = new ClasificacionProducto();
+				this.getCategorias();
+				this.formAddClasificacion.reset();
+				this.clasificacion.IdCategoria = this.idCategoria;
+				this.formAddClasificacion.controls['categoria'].setValue(this.idCategoria);
+				this.modalAddClasificacion.show();
+			} else {
+				this.hideModalAndEmitResult();
 			}
-		);
+		});
 	}
 
 	getCategorias() {
@@ -100,11 +83,9 @@ export class ModalClasificacionComponent
 			response => {
 				if (response.categorias) {
 					this.categorias = response.categorias;
+                    this.cdRef.detectChanges();
 				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error al cargar las categorias",
-						this.tituloPantalla
-					);
+					Utils.showMsgInfo("Ha ocurrido un error al cargar las categorias", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -117,34 +98,25 @@ export class ModalClasificacionComponent
 		this.peticionEnCurso = true;
 		this.getValuesFormClasificacion();
 
-		this.clasificacionService
-			.createClasificacionProducto(this.clasificacion)
-			.subscribe(
-				response => {
-					if (response.IdClasificacion) {
-						swal(
-							"Clasificación",
-							"La clasificación ha sido creada exitosamente!",
-							"success"
-						).then(() => {
-							this.resetAndHideModal();
-							this.resultadoConsulta.emit(true);
-						});
-					} else {
-						Utils.showMsgInfo(
-							"Ha ocurrido un error inesperado al crear la clasificación!",
-							this.tituloPantalla
-						);
-					}
-				},
-				error => {
-					this.runChangeDetection();
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-				},
-				() => {
-					this.runChangeDetection();
+		this.clasificacionService.createClasificacionProducto(this.clasificacion).subscribe(
+			response => {
+				if (response.IdClasificacion) {
+					swal("Clasificación", "La clasificación ha sido creada exitosamente!", "success").then(() => {
+						this.resetAndHideModal();
+						this.resultadoConsulta.emit(true);
+					});
+				} else {
+					Utils.showMsgInfo("Ha ocurrido un error inesperado al crear la clasificación!", this.tituloPantalla);
 				}
-			);
+			},
+			error => {
+				this.runChangeDetection();
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.runChangeDetection();
+			}
+		);
 	}
 
 	runChangeDetection() {

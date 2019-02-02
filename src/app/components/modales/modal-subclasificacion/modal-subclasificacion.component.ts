@@ -1,24 +1,8 @@
-import {
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from "@angular/core";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
-import {
-	ClasificacionProductoService,
-	SubClasificacionProductoService
-} from "@app/core/service.index";
+import { ClasificacionProductoService, SubClasificacionProductoService } from "@app/core/service.index";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { ModalDirective } from "ng-uikit-pro-standard";
 import { SubClasificacionProducto } from "@app/models/SubClasificacionProducto";
@@ -31,14 +15,13 @@ import { ISubscription } from "rxjs-compat/Subscription";
 	selector: "modal-subclasificacion",
 	templateUrl: "./modal-subclasificacion.component.html"
 })
-export class ModalSubclasificacionComponent
-	implements OnInit, EventoModal, OnDestroy {
+export class ModalSubclasificacionComponent implements OnInit, EventoModal, OnDestroy {
 	@ViewChild("modalAddSubclasificacion")
 	modalAddSubclasificacion: ModalDirective;
 
-	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
-		boolean
-	>();
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+	@Input() idClasificacion: number;
 
 	public clasificaciones: ClasificacionProducto;
 	public subclasificacion: SubClasificacionProducto;
@@ -73,56 +56,47 @@ export class ModalSubclasificacionComponent
 				Validators.maxLength(300),
 				CustomValidators.nospaceValidator
 			]),
-			clasificacion: new FormControl("", [Validators.required])
+			clasificacion: new FormControl(null, [Validators.required])
 		});
 	}
 
 	subscribeEventoModal() {
-		this.subscription = this.subclasificacionService.eventoModal.subscribe(
-			mostrarModal => {
-				if (mostrarModal) {
-					this.getClasificaciones();
-					this.subclasificacion = new SubClasificacionProducto();
-					this.formAddSubClasificacion.reset();
-					this.modalAddSubclasificacion.show();
-				} else {
-					this.hideModalAndEmitResult();
-				}
+		this.subscription = this.subclasificacionService.eventoModal.subscribe(mostrarModal => {
+			if (mostrarModal) {
+				this.getClasificaciones();
+				this.subclasificacion = new SubClasificacionProducto();
+				this.formAddSubClasificacion.reset();
+				this.subclasificacion.IdClasificacion = this.idClasificacion;
+				this.formAddSubClasificacion.controls["clasificacion"].setValue(this.idClasificacion);
+				this.modalAddSubclasificacion.show();
+			} else {
+				this.hideModalAndEmitResult();
 			}
-		);
+		});
 	}
 
 	createSubCasificacion() {
 		this.capturarDatosIngresados();
 
-		this.subclasificacionService
-			.createSubClasificacionProducto(this.subclasificacion)
-			.subscribe(
-				response => {
-					if (response.IdSubClasificacion) {
-						swal(
-							"Subclasificación",
-							"la Subclasificación ha sido creado exitosamente!",
-							"success"
-						).then(() => {
-							this.resetAndHideModal();
-							this.resultadoConsulta.emit(true);
-						});
-					} else {
-						Utils.showMsgError(
-							"Ha ocurrido un error inesperado al crear la subclasificación!",
-							this.tituloPantalla
-						);
-					}
-				},
-				error => {
-					this.runChangeDetection();
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-				},
-				() => {
-					this.runChangeDetection();
+		this.subclasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
+			response => {
+				if (response.IdSubClasificacion) {
+					swal("Subclasificación", "la Subclasificación ha sido creado exitosamente!", "success").then(() => {
+						this.resetAndHideModal();
+						this.resultadoConsulta.emit(true);
+					});
+				} else {
+					Utils.showMsgError("Ha ocurrido un error inesperado al crear la subclasificación!", this.tituloPantalla);
 				}
-			);
+			},
+			error => {
+				this.runChangeDetection();
+				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+			},
+			() => {
+				this.runChangeDetection();
+			}
+		);
 	}
 
 	capturarDatosIngresados() {
@@ -135,11 +109,9 @@ export class ModalSubclasificacionComponent
 			response => {
 				if (response.clasificaciones) {
 					this.clasificaciones = response.clasificaciones;
+					this.cdRef.markForCheck();
 				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error obteniendo las clasificaciones",
-						this.tituloPantalla
-					);
+					Utils.showMsgInfo("Ha ocurrido un error obteniendo las clasificaciones", this.tituloPantalla);
 				}
 			},
 			error => {

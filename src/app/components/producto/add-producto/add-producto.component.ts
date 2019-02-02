@@ -126,23 +126,21 @@ export class AddProductoComponent implements OnInit {
 				Validators.maxLength(400),
 				CustomValidators.nospaceValidator
 			]),
-			proveedor: new FormControl(this.proveedorSelecionado, [
-				Validators.required
-			]),
-			categoria: new FormControl( [Validators.required]),
-			clasificacion: new FormControl([Validators.required]),
-			subclasificacion: new FormControl([Validators.required]),
-			empaque: new FormControl([]),
-			envase: new FormControl([]),
-			unidadmedida: new FormControl([Validators.required]),
-			cantidadEmpaque: new FormControl([]),
+			proveedor: new FormControl(null, [Validators.required]),
+			categoria: new FormControl(null, [Validators.required]),
+			clasificacion: new FormControl(null, [Validators.required]),
+			subclasificacion: new FormControl(null, [Validators.required]),
+			empaque: new FormControl(null, []),
+			envase: new FormControl(null, []),
+			unidadmedida: new FormControl(null, [Validators.required]),
+			cantidadEmpaque: new FormControl(null, []),
 			consumoDirecto: new FormControl(false, []),
 			granel: new FormControl(false, []),
-			valorunidadmedida: new FormControl("",[Validators.required]),
-			diasDeUso: new FormControl([]),
-			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator]),
-			codigoOriginal: new FormControl("", [CustomValidators.nospaceValidator]),
-			tipoInsumo: new FormControl([Validators.required])
+			valorunidadmedida: new FormControl(null, [Validators.required]),
+			diasDeUso: new FormControl(null, []),
+			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
+			codigoOriginal: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
+			tipoInsumo: new FormControl(null, [])
 		});
 	}
 
@@ -174,7 +172,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	onChangeClasificacion(event) {
-		if (event === null || event === undefined) {
+		if (!event) {
 			this.producto.IdClasificacion = null;
 			this.resetSelectSubClasificacion();
 		} else {
@@ -194,7 +192,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	onChangeCategoria(event) {
-		if (event === null || event === undefined) {
+		if (!event) {
 			this.producto.IdCategoria = null;
 			this.resetSelectClasificacion();
 			this.resetSelectSubClasificacion();
@@ -219,12 +217,12 @@ export class AddProductoComponent implements OnInit {
 
 	resetSelectClasificacion() {
 		this.clasificaciones = [];
-		this.formAddProducto.controls["clasificacion"].setValue("");
+		this.formAddProducto.controls["clasificacion"].setValue(null);
 	}
 
 	resetSelectSubClasificacion() {
 		this.subclasificaciones = [];
-		this.formAddProducto.controls["subclasificacion"].setValue("");
+		this.formAddProducto.controls["subclasificacion"].setValue(null);
 	}
 
 	changeConsumoDirecto(event) {
@@ -245,12 +243,12 @@ export class AddProductoComponent implements OnInit {
 		this.producto.IdUnidadMedida = null;
 		this.producto.ValorUnidadMedida = null;
 		this.formAddProducto.controls["unidadmedida"].clearValidators();
-		this.formAddProducto.controls["unidadmedida"].setValue("");
+		this.formAddProducto.controls["unidadmedida"].setValue(null);
 		this.formAddProducto.controls["unidadmedida"].disable();
 		this.formAddProducto.controls["unidadmedida"].updateValueAndValidity();
 
 		this.formAddProducto.controls["valorunidadmedida"].clearValidators();
-		this.formAddProducto.controls["valorunidadmedida"].setValue("");
+		this.formAddProducto.controls["valorunidadmedida"].setValue(null);
 		this.formAddProducto.controls["valorunidadmedida"].disable();
 		this.formAddProducto.controls["valorunidadmedida"].updateValueAndValidity();
 	}
@@ -305,7 +303,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	onChangeProveedor(event) {
-		if (event === null) {
+		if (!event) {
 			this.producto.IdProveedor = null;
 			this.proveedorSelecionado = this.producto.IdProveedor;
 		} else {
@@ -315,7 +313,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	onChangeSubclasificacion(event) {
-		if (event === null || event === undefined) {
+		if (!event) {
 			this.producto.IdSubClasificacion = null;
 		} else {
 			this.producto.IdSubClasificacion = event.IdSubClasificacion;
@@ -323,7 +321,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	onChangeUnidadMedida(event) {
-		if (event === null) {
+		if (!event) {
 			this.producto.IdUnidadMedida = null;
 		} else {
 			this.producto.IdUnidadMedida = event.IdUnidadMedida;
@@ -331,7 +329,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	onChangeEnvase(event: ProductoProveedor) {
-		if (event === null) {
+		if (!event) {
 			this.producto.IdEnvase = null;
 		} else {
 			this.producto.IdEnvase = event.IdEnvase;
@@ -339,7 +337,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	onChangeEmpaque(event) {
-		if (event === null) {
+		if (!event) {
 			this.producto.IdEmpaque = null;
 		} else {
 			this.producto.IdEmpaque = event.IdEmpaque;
@@ -400,51 +398,77 @@ export class AddProductoComponent implements OnInit {
 			? this.formAddProducto.value.descripcionProducto
 			: "Ninguna";
 		this.producto.IdEstado = 1;
-		this.producto.DiasCaducidad = this.formAddProducto.value.diasDeUso;
-		this.producto.CantidadEmpaque =
-			this.formAddProducto.value.cantidadEmpaque === "" ? null : this.formAddProducto.value.cantidadEmpaque;
-		this.producto.ValorUnidadMedida = this.formAddProducto.value.valorunidadmedida;
-		this.producto.DiasDeUso = this.formAddProducto.value.diasDeUso === "" ? 0 : this.formAddProducto.value.diasDeUso;
-		this.producto.DiasRotacion = Utils.valorCampoEsValido(this.formAddProducto.value.diasDeUso)
-			? this.formAddProducto.value.diasDeUso
-			: 0;
+		this.producto.CantidadEmpaque = !this.formAddProducto.value.cantidadEmpaque ? null : this.formAddProducto.value.cantidadEmpaque;
+		this.producto.ValorUnidadMedida = !this.formAddProducto.value.valorunidadmedida ? null : this.formAddProducto.value.valorunidadmedida;
+        this.producto.DiasCaducidad = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
+		this.producto.DiasDeUso = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
+		this.producto.DiasRotacion = !this.formAddProducto.value.diasDeUso ? null : this.formAddProducto.value.diasDeUso;
 		this.producto.CodigoProducto = this.formAddProducto.value.codigoOriginal;
-		this.producto.CodigoInterno =
-			this.formAddProducto.value.codigoInterno === "" ? null : this.formAddProducto.value.codigoInterno;
+		this.producto.CodigoInterno = this.formAddProducto.value.codigoInterno;
 		this.producto.IdProveedor = this.proveedorSelecionado;
 		this.producto.IdTipoInsumo = 1;
-	}
+        this.producto.Imagen = !this.producto.Imagen ? "" : this.producto.Imagen;
+    }
 
 	crearProducto() {
-		this.productoService.createProducto(this.producto).subscribe(
-			response => {
-				if (response.IdProducto) {
-					swal({
-						title: "El producto se ha creado exitosamente!",
-						text: "Deseas agregar otro producto?",
-						type: "success",
-						showCancelButton: true,
-						confirmButtonColor: "#3085d6",
-						cancelButtonColor: "#d33",
-						confirmButtonText: "SI",
-						cancelButtonText: "NO"
-					}).then(result => {
-						if (result.value) {
-							this.resetComponenteAddProducto();
-						} else if (result.dismiss === swal.DismissReason.cancel) {
-							this.noSeguirAgregandoProductos();
-						}
-					});
+        this.peticionEnCurso = true;
+        this.getValueForm();
+
+        if (this.validarCamposProductos()) {
+			this.productoService.createProducto(this.producto).subscribe(
+				response => {
+					if (response.IdProducto) {
+						swal({
+							title: "El producto se ha creado exitosamente!",
+							text: "Deseas agregar otro producto?",
+							type: "success",
+							showCancelButton: true,
+							confirmButtonColor: "#3085d6",
+							cancelButtonColor: "#d33",
+							confirmButtonText: "SI",
+							cancelButtonText: "NO"
+						}).then(result => {
+							if (result.value) {
+								this.resetComponenteAddProducto();
+							} else if (result.dismiss === swal.DismissReason.cancel) {
+								this.noSeguirAgregandoProductos();
+							}
+						});
+					}
+				},
+				error => {
+					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+					this.peticionEnCurso = false;
+				},
+				() => {
+					this.peticionEnCurso = false;
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-				this.peticionEnCurso = false;
-			},
-			() => {
-				this.peticionEnCurso = false;
-			}
-		);
+			);
+		}
+	}
+
+	validarCamposProductos() {
+		if (this.producto.IdEmpaque && !this.formAddProducto.value.cantidadEmpaque) {
+			Utils.showMsgInfo("La cantidad de empaque es requerida!");
+			return false;
+		}
+
+		if (!this.producto.IdEmpaque && this.formAddProducto.value.cantidadEmpaque) {
+			Utils.showMsgInfo("El empaque es requerido!");
+			return false;
+		}
+
+		if (this.producto.IdUnidadMedida && !this.formAddProducto.value.valorunidadmedida) {
+			Utils.showMsgInfo("El valor de la unidad de medida es requerida!");
+			return false;
+		}
+
+		if (!this.producto.IdUnidadMedida && this.formAddProducto.value.valorunidadmedida) {
+			Utils.showMsgInfo("La unidad de medida es requerida!");
+			return false;
+		}
+
+		return true;
 	}
 
 	resetComponenteAddProducto() {

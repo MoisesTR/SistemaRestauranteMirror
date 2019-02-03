@@ -14,7 +14,6 @@ export class Gasto {
     public IdSucursal: number;
     public Consumo: number;
     public NombreSucursal; string;
-    public IdSucursal: number;
 
     constructor() {}
  }

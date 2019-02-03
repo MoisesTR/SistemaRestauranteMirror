@@ -258,9 +258,11 @@ export class SummaryFacturasComponent implements OnInit {
 			this.idFechaBusqueda === null
 		) {
 			Utils.showMsgInfo("Debes digitar al menos uno de los parametros de busqueda", "Busqueda Facturas");
+            this.spinner.display(false);
 			return false;
 		} else if (this.idProveedor === null) {
 			Utils.showMsgInfo("El proveedor es requerido para la busqueda", "Busqueda Facturas");
+            this.spinner.display(false);
 			return false;
 		} else if (
 			this.idProveedor !== null &&
@@ -269,15 +271,19 @@ export class SummaryFacturasComponent implements OnInit {
 			(this.fechaInicio === null || this.fechaFin === null)
 		) {
 			Utils.showMsgInfo("Debes digitar el rango de fechas!", "Busqueda Facturas");
+            this.spinner.display(false);
 			return false;
 		} else if (this.fechaInicio !== null && this.fechaFin === null) {
 			Utils.showMsgInfo("Debes digitar la fecha fin", "Busqueda Facturas");
+            this.spinner.display(false);
 			return false;
 		} else if (this.fechaInicio === null && this.fechaFin !== null) {
 			Utils.showMsgInfo("Debes digitar la fecha inicio", "Busqueda Facturas");
+            this.spinner.display(false);
 			return false;
 		} else if (this.fechaInicio > this.fechaFin) {
 			Utils.showMsgInfo("La fecha de inicio no puede ser mayor a la fecha fin!", "Busqueda Facturas");
+            this.spinner.display(false);
 			return false;
 		}
 		return true;

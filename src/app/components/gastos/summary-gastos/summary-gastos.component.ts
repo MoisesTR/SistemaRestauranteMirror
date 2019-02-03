@@ -306,6 +306,7 @@ export class SummaryGastosComponent implements OnInit {
 	validarBusqueda() {
 		if (this.fechaInicio > this.fechaFin) {
 			Utils.showMsgInfo("La fecha de inicio no puede ser mayor a la fecha fin!", "Busqueda Gastos");
+            this.spinnerService.display(true);
 			return false;
 		}
 

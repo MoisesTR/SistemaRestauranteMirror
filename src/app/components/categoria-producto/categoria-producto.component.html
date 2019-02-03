@@ -16,6 +16,7 @@
               <tr>
                 <th class="header-negrita">#</th>
                 <th class="header-negrita">Nombre</th>
+                <th class="header-negrita">Tipo de insumo</th>
                 <th class="header-negrita">Descripcion</th>
                 <th class="header-negrita">Acciones</th>
               </tr>
@@ -24,11 +25,12 @@
               <tr *ngFor="let categoria of categoriasProductos; let i = index">
                 <td class="body-negrita">{{i+1}}</td>
                 <td class="body-negrita">{{ categoria.NombreCategoria }}</td>
+                <td class="body-negrita">Insumo</td>
                 <td class="body-negrita">{{ categoria.DescripcionCategoria }}</td>
                 <td width="25%" class="body-negrita">
                   <div class="text-center">
                     <button type="button" (click)="showModalUpdate(modalUpdateCategoria,categoria)" class="btn btn-sm orange-chang"
-                            mdbTooltip="Editar Categoría" placement="bottom" mdbRippleRadius>
+                      mdbTooltip="Editar Categoría" placement="bottom" mdbRippleRadius>
                       <i class="fa fa-pencil"></i>
                     </button>
                     <button type="button" (click)="deleteCategoria(categoria.IdCategoria)" class="btn btn-sm orange-chang"
@@ -72,9 +74,14 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input Alphanumeric type="text" id="upnombrecategoria" class="input-modal-sm" name="nombrecategoria" formControlName="nombreCategoria">
+            <input Alphanumeric type="text" id="upnombrecategoria" class="input-modal-sm" name="nombrecategoria"
+              formControlName="nombreCategoria">
             <show-errors [control]="formUpdateCategoria.controls['nombreCategoria']"></show-errors>
           </div>
+
+          <h6 class="orange-chang-text">Tipo insumo</h6>
+          <ng-select dropdownPosition="'top'" class="custom" placeholder="Selecciona un tipo de insumo">
+          </ng-select>
 
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>

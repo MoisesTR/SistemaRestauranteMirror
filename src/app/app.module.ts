@@ -11,7 +11,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { LoggerModule, NGXLogger, NgxLoggerLevel } from "ngx-logger";
 import { SettingsRestauranteComponent } from "./components/settings-restaurante/settings-restaurante.component";
 import * as Sentry from "@sentry/browser";
-import {environment} from '@env/environment';
+import { environment } from "@env/environment";
+import { BreadcrumbComponent } from "@app/components/breadcrumb/breadcrumb.component";
 
 Sentry.init({
 	dsn: "https://c7dd0e241bb548dd919a4e7edd1d3422@sentry.io/1376101"
@@ -32,7 +33,14 @@ export class SentryErrorHandler implements ErrorHandler {
 }
 
 @NgModule({
-	declarations: [AppComponent, LoginComponent, MenuComponent, NotFound404Component, SettingsRestauranteComponent],
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		BreadcrumbComponent,
+		MenuComponent,
+		NotFound404Component,
+		SettingsRestauranteComponent
+	],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,

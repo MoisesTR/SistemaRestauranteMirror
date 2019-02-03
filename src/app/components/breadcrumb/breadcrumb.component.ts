@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivationEnd, Router } from "@angular/router";
-import { Meta, MetaDefinition, Title } from "@angular/platform-browser";
-import { filter } from "rxjs/operators";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { Meta, Title } from "@angular/platform-browser";
+import { BreadCrumb } from "@app/models/interface/breadcrumb";
+import { distinctUntilChanged, filter, map, startWith } from "rxjs/operators";
 
 @Component({
 	selector: "app-breadcrumb",
@@ -10,26 +11,35 @@ import { filter } from "rxjs/operators";
 })
 export class BreadcrumbComponent implements OnInit {
 	label: string;
-	constructor(private _router: Router, public title: Title, public meta: Meta) {
 
-		this.getDataRoute().subscribe(data => {
-			this.label = data.titulo;
-			this.title.setTitle(this.label);
-
-			const metaTag: MetaDefinition = {
-				name: "descripcion",
-				content: this.label
-			};
-			this.meta.updateTag(metaTag);
-		});
-	}
+	breadcrumbs$ = this.router.events.pipe(
+		filter(event => event instanceof NavigationEnd),
+		distinctUntilChanged(),
+		map(event => this.buildBreadCrumb(this.activatedRoute.root)),
+		startWith(this.buildBreadCrumb(this.activatedRoute.root))
+	);
+	constructor(private router: Router, private activatedRoute: ActivatedRoute, public title: Title, public meta: Meta) {}
 
 	ngOnInit() {}
 
-	getDataRoute() {
-		return this._router.events
-			.pipe(filter(evento => evento instanceof ActivationEnd))
-			.pipe(filter((evento: ActivationEnd) => evento.snapshot.firstChild === null))
-			.map((evento: ActivationEnd) => evento.snapshot.data);
+	buildBreadCrumb(route: ActivatedRoute, url: string = "", breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
+		//If no routeConfig is avalailable we are on the root path
+		const label = route.routeConfig ? route.routeConfig.data["titulo"] : "Inicio";
+		const path = route.routeConfig ? route.routeConfig.path : "";
+		console.log(label);
+		//In the routeConfig the complete path is not available,
+		//so we rebuild it each time
+		const nextUrl = `${url}${path}/`;
+		const breadcrumb = {
+			label: label,
+			url: nextUrl
+		};
+		const newBreadcrumbs = [...breadcrumbs, breadcrumb];
+		if (route.firstChild) {
+			//If we are not on our current path yet,
+			//there will be more children to look after, to build our breadcumb
+			return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
+		}
+		return newBreadcrumbs;
 	}
 }

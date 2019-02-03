@@ -1,7 +1,8 @@
-<logo>
-  <!-- Breadcrumb-->
-  <div class="breadcrumbs breadcrumb-dn mr-auto">
-    <p>{{label}}</p>
-  </div>
-  <!--/. Breadcrumb-->
-</logo>
+<ol class="breadcrumb">
+    <li *ngFor="let breadcrumb of breadcrumbs$ | async; last as isLast;" class="breadcrumb-item white-text" aria-current="page">
+        <a *ngIf="!isLast; else lastRoute" [routerLink]="[breadcrumb.url]"  routerLinkActive="active">
+            {{ breadcrumb.label }}
+        </a>
+        <ng-template #lastRoute>{{ breadcrumb.label }}</ng-template>
+    </li>
+</ol>

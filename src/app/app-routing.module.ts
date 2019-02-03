@@ -7,15 +7,37 @@ import { AuthGuardService } from "@app/core/service.index";
 import { NgModule } from "@angular/core";
 
 export const ROUTES: Routes = [
-	{ path: "login", component: LoginComponent },
-	{ path: "settingsRestaurante", canActivate: [AuthGuardService], component: SettingsRestauranteComponent },
+	{
+		path: "login",
+		component: LoginComponent,
+		data: {
+			titulo: "Login"
+		}
+	},
+	{
+		path: "settingsRestaurante",
+		canActivate: [AuthGuardService],
+		component: SettingsRestauranteComponent,
+		data: {
+			titulo: "Restaurante"
+		}
+	},
 	{
 		path: "",
 		component: MenuComponent,
 		canActivate: [AuthGuardService],
-		loadChildren: "./components/menu/menu.module#MenuModule"
+		loadChildren: "./components/menu/menu.module#MenuModule",
+		data: {
+			titulo: "Menu"
+		}
 	},
-	{ path: "**", component: NotFound404Component }
+	{
+		path: "**",
+		component: NotFound404Component,
+		data: {
+			titulo: "No encontrado"
+		}
+	}
 ];
 
 @NgModule({

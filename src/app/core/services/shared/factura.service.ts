@@ -18,6 +18,10 @@ export class FacturaService {
       return this._http.get(this.url + 'getFactura?IdFactura=' + idFactura );
   }
 
+  getFacturasIngresadas(): Observable<any> {
+      return this._http.get(this.url + 'getFacturas');
+  }
+
   getCambiosFacturaById(idFactura: number): Observable<any> {
       return this._http.get(this.url + 'getCambiosFactura?IdFactura=' + idFactura );
   }

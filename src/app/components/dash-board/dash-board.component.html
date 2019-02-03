@@ -18,13 +18,13 @@
 
                         <div class="container-fluid">
                             <div class="list-group">
-                                <a *ngFor="let proveedor of proveedores" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <a *ngFor="let factura of facturas" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">{{proveedor.NombreProveedor}}</h5>
-                                        <small>6:00 AM</small>
+                                        <h5 class="mb-1">{{factura.NombreProveedor}}</h5>
+                                        <small>Hora Ingreso: {{factura.HoraIngreso}}</small>
                                     </div>
-                                    <p class="mb-1">Moises Israel Trigueros López</p>
-                                    <small>2249-5222</small>
+                                    <p class="mb-1">Codigo factura: {{factura.NumRefFactura}}</p>
+                                    <small>Total Cordobas: {{factura.TotalCordobas}} C$</small>
                                 </a>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
 
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header orange-chang">
-                    <h3 class="card-header-title mb-2">Productos más comprados</h3>
+                    <h3 class="card-header-title mb-2">Top 5 Productos más comprados</h3>
                 </div>
                 <!--/Card image-->
 

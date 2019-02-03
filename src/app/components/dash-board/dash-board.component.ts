@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { DatePipe } from "@angular/common";
-import { ProveedorService } from "@app/core/service.index";
+import { FacturaService, ProveedorService } from "@app/core/service.index";
 import { TrabajadorService } from "@app/core/service.index";
 import { Proveedor } from "@app/models/Proveedor";
 import { Trabajador } from "@app/models/Trabajador";
@@ -8,6 +8,7 @@ import { Utils } from "../Utils";
 import { Global } from "@app/core/services/shared/global";
 import { GastoService } from "@app/core/service.index";
 import { ProductosTop } from "@app/models/ProductosTop";
+import {Factura} from '@app/models/Factura';
 
 declare var $: any;
 
@@ -30,83 +31,14 @@ export class DashBoardComponent implements OnInit {
 	public docTrabajadorONombreRepresentanteProveedor = "";
 	public telefonoMostrado = "";
 	public productosTop: ProductosTop[];
-
-	public chartType: string = "line";
-
-	public chartDatasets: Array<any> = [
-		{ data: [32.08, 32.09, 32.1, 32.11, 32.12], label: "Compra" },
-		{ data: [32.76, 32.8, 32.84, 32.88, 32.92], label: "Venta" }
-	];
-
-	public chartLabels: Array<any> = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
-
-	public chartColors: Array<any> = [
-		{
-			backgroundColor: "rgba(230, 126, 34,0.2)",
-			borderColor: "rgba(230, 126, 34,1)",
-			borderWidth: 2,
-			pointBackgroundColor: "rgba(230, 126, 34,1)",
-			pointBorderColor: "#fff",
-			pointHoverBackgroundColor: "#fff",
-			pointHoverBorderColor: "rgba(230, 126, 34,1)"
-		},
-		{
-			backgroundColor: "rgba(192, 57, 43,0.2)",
-			borderColor: "rgba(192, 57, 43,1)",
-			borderWidth: 2,
-			pointBackgroundColor: "rgba(192, 57, 43,1)",
-			pointBorderColor: "#fff",
-			pointHoverBackgroundColor: "#fff",
-			pointHoverBorderColor: "rgba(192, 57, 43,1)"
-		}
-	];
-
-	public chartOptions: any = {
-		responsive: true
-	};
-	public chartClicked(e: any): void {}
-	public chartHovered(e: any): void {}
-
-	// Pie chart
-	public pieType: string = "pie";
-	// public pieData:Array<any> = [300, 50];
-	// public pieLabels:Array<any> = ['Gusano Entero', 'Coca-Cola'];
-	public pieData: Array<any>;
-	public pieLabels: Array<any>;
-	public pieColors: Array<any> = [
-		{
-			hoverBorderColor: [
-				"rgba(230, 126, 34, 0.1)",
-				"rgba(192, 57, 43, 0.1)",
-				"rgba(230, 126, 34, 0.1)",
-				"rgba(192, 57, 43, 0.1)",
-				"rgba(230, 126, 34, 0.1)"
-			],
-			hoverBorderWidth: 0,
-			backgroundColor: ["#E67E22", "#C0392B", "#E67E22", "#C0392B", "#E67E22"],
-			hoverBackgroundColor: [
-				"rgba(230, 126, 34, 0.6)",
-				"rgba(192, 57, 43, 0.6)",
-				"rgba(192, 57, 43, 0.6)",
-				"rgba(230, 126, 34, 0.6)",
-				"rgba(192, 57, 43, 0.6)"
-			]
-		}
-	];
-
-	public pieOptions: any = {
-		responsive: true
-	};
-	public pieClicked(e: any): void {}
-	public pieHovered(e: any): void {}
-
-	headElements = ["ID", "Productos", "Proveedor", "Cantidad"];
+	public facturas: Factura[] = [];
 
 	constructor(
 		private datePipe: DatePipe,
 		private proveedorService: ProveedorService,
 		private trabajadorService: TrabajadorService,
 		private gastoService: GastoService,
+		private facturaService: FacturaService,
 		private cdr: ChangeDetectorRef
 	) {
 		this.url = Global.url;
@@ -114,8 +46,6 @@ export class DashBoardComponent implements OnInit {
 		this.trabajador = new Trabajador();
 		this.proveedor = new Proveedor();
 		this.productosTop = [];
-		this.pieData = [];
-		this.pieLabels = [];
 	}
 
 	ngOnInit() {
@@ -123,6 +53,7 @@ export class DashBoardComponent implements OnInit {
 		this.getProveedores();
 		this.getTrabajadores();
 		this.getTopProductos();
+		this.getFacturas();
 	}
 
 	getTopProductos() {
@@ -130,7 +61,6 @@ export class DashBoardComponent implements OnInit {
 			response => {
 				if (response.productostop) {
 					this.productosTop = response.productostop;
-					this.llenarGraficoPastel();
 					this.cdr.markForCheck();
 				} else {
 					Utils.showMsgInfo("Ha ocurrido un error al obtener los productos");
@@ -142,11 +72,16 @@ export class DashBoardComponent implements OnInit {
 		);
 	}
 
-	llenarGraficoPastel() {
-		this.productosTop.forEach((value, index) => {
-			this.pieLabels.push(value.NombreProducto);
-			this.pieData.push(value.Cantidad);
-		});
+	getFacturas() {
+		this.facturaService.getFacturasIngresadas().subscribe(response => {
+		    if (response.facturas) {
+                this.facturas = response.facturas;
+            }
+        }, error => {
+            Utils.showMsgError(Utils.msgError(error), "Dashboard");
+        }, () => {
+
+        });
 	}
 
 	transformDate(date): string | null {

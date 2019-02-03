@@ -34,9 +34,9 @@
                   </div>
                 </div>
 
-                <div class="col-4 col-sm-4 col-md-4 mt-5 col-lg-2 col-xl-2">
-                  <mdb-checkbox class="checkbox-chang-filled" formControlName="isMercado" (change)="changeMercado($event)"><label
-                      class="grey-text-card">Mercado</label></mdb-checkbox>
+                <div class="col-4 col-sm-4 col-md-4 mt-3 col-lg-2 col-xl-2 text-center">
+                  <h6 class="grey-text-card">Mercado</h6>
+                  <mdb-checkbox class="checkbox-chang-filled" formControlName="isMercado" (change)="changeMercado($event)"></mdb-checkbox>
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
@@ -57,11 +57,9 @@
                   </div>
                 </div>
 
-                <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 mt-4">
-                  <a tabindex="-1" mdbBtn role="button" class="orange-chang mb-1 btn-sm white-text" mdbPageScroll href="#agenda-proveedores"
-                    [pageScrollDuration]="750" mdbWavesEffect>
-                    <mdb-icon icon="phone" class="mr-1"></mdb-icon> Teléfonos
-                  </a>
+                <div class="col-4 col-sm-4 col-md-4 mt-3 col-lg-2 col-xl-2 text-center">
+                  <h6 class="grey-text-card">Proveedor de servicio</h6>
+                  <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
@@ -80,6 +78,13 @@
                     <show-errors [control]="formAddProveedor.controls['descripcionProveedor']"></show-errors>
                     <label for="descripcionProveedor">Descripción Proveedor</label>
                   </div>
+                </div>
+
+                <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 mt-7 text-center">
+                  <a tabindex="-1" mdbBtn role="button" class="orange-chang mb-1 btn-sm white-text" mdbPageScroll href="#agenda-proveedores"
+                    [pageScrollDuration]="750" mdbWavesEffect>
+                    <mdb-icon icon="phone" class="mr-1"></mdb-icon> Teléfonos
+                  </a>
                 </div>
 
               </div>
@@ -144,8 +149,6 @@
                   <th scope="col">Teléfono</th>
                   <th scope="col">Extensión</th>
                   <th class="text-center align-middle col-xs-1" scope="col">Titular</th>
-                  <th class="text-center align-middle col-xs-1" scope="col">Proveedor de servicio</th>
-                  <th class="text-center align-middle col-xs-1" scope="col">Sucursales</th>
                   <th class="text-center align-middle col-xs-1" scope="col">Acción</th>
                 </tr>
               </thead>
@@ -159,13 +162,7 @@
                   <td class="align-middle col-xs-1">12345678</td>
                   <td class="align-middle col-xs-1">24</td>
                   <td class="text-center align-middle col-xs-1">
-                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
-                  </td>
-                  <td class="text-center align-middle col-xs-1">
-                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
-                  </td>
-                  <td class="text-center align-middle col-xs-1">
-                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+                    <mdb-checkbox checked="true" class="checkbox-chang-filled"></mdb-checkbox>
                   </td>
                   <td>
                     <div class="text-center">
@@ -210,13 +207,18 @@
           <div class="container-fluid">
             <div class="row mb-2">
 
-              <div class="col-12">
+              <div class="col-10">
                 <div class="md-form input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text md-addon" id="nombres"><i class="fa fa-user" aria-hidden="true"></i></span>
                   </div>
                   <input mdbInputDirective type="text" id="nombres" placeholder="Nombres y apellidos" class="form-control">
                 </div>
+              </div>
+
+              <div class="col-2 text-center font-small mt-3">
+                <h6 id="text-titular">Titular</h6>
+                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
               </div>
 
               <div class="col-12">
@@ -240,36 +242,6 @@
                   <input type="text" id="extension" placeholder="Extension" class="form-control ml-3">
                 </div>
               </div>
-
-              <div class="col-12 mb-3">
-                <div class="md-form input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text md-addon" id="correo"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                  </div>
-                  <input mdbInputDirective type="email" id="correo" placeholder="Correo electronico" class="form-control">
-                </div>
-              </div>
-
-              <div class="col-4 text-center font-small">
-                <h6>Titular</h6>
-                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
-              </div>
-
-              <div class="col-4 text-center font-small">
-                <h6>Proveedor de servicio</h6>
-                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
-              </div>
-
-              <div class="col-4 text-center font-small">
-                <h6>Sucursales</h6>
-                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
-              </div>
-
-              <!-- <div class="col-12 mt-4 text-center">
-                <button mdbBtn mdbWavesEffect class="orange-chang">
-                  <mdb-icon icon="check" class="mr-1"></mdb-icon> Agregar
-                </button>
-              </div> -->
 
             </div>
           </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import { SpinnerService } from "@app/core/services/shared/spinner.service";
 
 @Component({
@@ -10,11 +10,12 @@ export class SpinnerComponent implements OnInit {
 	public spinnerVisibilidad: boolean;
 
 	@Input() titulo: string;
-	constructor(private spinnerService: SpinnerService) {}
+	constructor(private spinnerService: SpinnerService, private cdr: ChangeDetectorRef) {}
 
 	ngOnInit() {
 		this.spinnerService.status.subscribe((val: boolean) => {
 			this.spinnerVisibilidad = val;
+			this.cdr.markForCheck();
 		});
 	}
 }

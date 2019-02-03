@@ -17,7 +17,7 @@
 
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
                 <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
-                <ng-select id="sucursalGastos" placeholder="Selecciona una Sucursal" [items]="sucursales"
+                <ng-select (change)="changeSucursal($event)" id="sucursalGastos" placeholder="Selecciona una Sucursal" [items]="sucursales"
                   bindValue="IdSucursal" bindLabel="NombreSucursal" formControlName="sucursal" id="sucursal">
                 </ng-select>
               </div>
@@ -39,7 +39,7 @@
 
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
                 <div class="md-form">
-                  <input onlyPositiveNumber [mdbValidate]=false mdbInputDirective type="text" id="consumo" class="form-control"
+                  <input onlyPositiveNumber [mdbValidate]=false mdbInputDirective type="text" disabled id="consumo" formControlName="consumo" class="form-control"
                     placeholder="Ej: 14" autocomplete="off">
                   <label for="consumo">Consumo</label>
                 </div>

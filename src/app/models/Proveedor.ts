@@ -18,6 +18,8 @@ export class Proveedor {
     public Habilitado: boolean;
     public Mercado: number;
     public disabled: number;
+    public TieneSucursales: boolean;
+    public IsProveedorServicio: number;
     public Telefonos: TelefonoProveedor[];
 
     constructor() {

@@ -120,18 +120,21 @@ export class ConsumoInternoComponent implements OnInit {
 				Validators.maxLength(400),
 				CustomValidators.nospaceValidator
 			]),
-			proveedor: new FormControl(this.proveedorSelecionado, [Validators.required]),
-			categoria: new FormControl("", [Validators.required]),
-			clasificacion: new FormControl("", [Validators.required]),
-			subclasificacion: new FormControl("", [Validators.required]),
-			empaque: new FormControl("", []),
-			envase: new FormControl("", []),
-			cantidadEmpaque: new FormControl("", []),
-			consumoDirecto: new FormControl(false, []),
-			granel: new FormControl(false, []),
-			diasDeUso: new FormControl("", []),
-			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator]),
-			codigoOriginal: new FormControl("", [CustomValidators.nospaceValidator])
+            proveedor: new FormControl(null, [Validators.required]),
+            categoria: new FormControl(null, []),
+            clasificacion: new FormControl(null, []),
+            subclasificacion: new FormControl(null, []),
+            empaque: new FormControl(null, []),
+            envase: new FormControl(null, []),
+            unidadmedida: new FormControl(null, [Validators.required]),
+            cantidadEmpaque: new FormControl(null, []),
+            consumoDirecto: new FormControl(false, []),
+            granel: new FormControl(false, []),
+            valorunidadmedida: new FormControl(null, [Validators.required]),
+            diasDeUso: new FormControl(null, []),
+            codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
+            codigoOriginal: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
+            tipoInsumo: new FormControl(null, [])
 		});
 	}
 
@@ -345,6 +348,8 @@ export class ConsumoInternoComponent implements OnInit {
 		this.producto.CodigoInterno =
 			this.formAddProducto.value.codigoInterno === "" ? null : this.formAddProducto.value.codigoInterno;
 		this.producto.IdProveedor = this.proveedorSelecionado;
+		// Valores estaticos de prueba
+		// this.producto.IdCategoria = this.
 	}
 
 	crearProducto() {

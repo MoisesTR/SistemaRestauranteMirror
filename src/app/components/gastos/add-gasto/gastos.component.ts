@@ -35,12 +35,11 @@ export class GastosComponent implements OnInit {
 	public idClasificacionSeleccionado: number;
 	public idSubClasificacionSeleccionado: number;
 	public sucursales: Sucursal[];
-	public idSucursalSeleccionada: number;
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _gastoService: GastoService,
+		private gastoService: GastoService,
 		private _sucursalService: SucursalService,
 		private formBuilder: FormBuilder,
 		private cdr: ChangeDetectorRef
@@ -55,8 +54,9 @@ export class GastosComponent implements OnInit {
 
 	initFormAddGasto() {
 		this.formAddGasto = this.formBuilder.group({
-			clasificacion: new FormControl("", [Validators.required]),
-			subclasificacion: new FormControl("", []),
+			clasificacion: new FormControl(null, [Validators.required]),
+			subclasificacion: new FormControl(null, []),
+            consumo: new FormControl(null, []),
 			fechaIngreso: new FormControl("", [Validators.required]),
 			numeroReferencia: new FormControl(null, []),
 			codigoFactura: new FormControl(null, []),
@@ -66,12 +66,12 @@ export class GastosComponent implements OnInit {
 				Validators.maxLength(1000),
 				Validators.minLength(5)
 			]),
-			sucursal: new FormControl("",[Validators.required])
+			sucursal: new FormControl(null, [Validators.required])
 		});
 	}
-	
+
 	getClasificaciones() {
-		this._gastoService.getClasificacionesGasto(1).subscribe(
+		this.gastoService.getClasificacionesGasto(1).subscribe(
 			response => {
 				if (response.clasificaciones) {
 					this.clasificaciones = response.clasificaciones;
@@ -90,7 +90,7 @@ export class GastosComponent implements OnInit {
 	}
 
 	getSubclasificacionByIdClasificacion() {
-		this._gastoService
+		this.gastoService
 			.getSubclasificacionesByIdClasificacion(this.idClasificacionSeleccionado)
 			.subscribe(
 				response => {
@@ -113,7 +113,7 @@ export class GastosComponent implements OnInit {
 	getSucursales(){
 		this._sucursalService.getSucursales().subscribe(
 				response => {
-					if(response.sucursales){
+					if (response.sucursales){
 						this.sucursales = response.sucursales;
 						this.cdr.markForCheck();
 					}else{
@@ -128,7 +128,7 @@ export class GastosComponent implements OnInit {
 				}
 			);
 
-			
+
 	}
 
 	changeClasificacion(event) {
@@ -148,9 +148,24 @@ export class GastosComponent implements OnInit {
 		if (Utils.notNullOrUndefined(event)) {
 			this.idSubClasificacionSeleccionado = event.IdSubClasificacion;
 			this.gasto.IdSubClasificacion = this.idSubClasificacionSeleccionado;
+            if (this.gasto.IdClasificacion === 2 && this.gasto.IdSubClasificacion !== 3) {
+                this.formAddGasto.controls["consumo"].setValidators([Validators.required]);
+                this.formAddGasto.controls["consumo"].setValue(null);
+                this.formAddGasto.controls["consumo"].enable();
+                this.formAddGasto.controls["consumo"].updateValueAndValidity();
+            } else {
+                this.formAddGasto.controls["consumo"].clearValidators();
+                this.formAddGasto.controls["consumo"].setValue(null);
+                this.formAddGasto.controls["consumo"].disable();
+                this.formAddGasto.controls["consumo"].updateValueAndValidity();
+            }
 		} else {
 			this.idSubClasificacionSeleccionado = null;
 			this.gasto.IdSubClasificacion = this.idSubClasificacionSeleccionado;
+            this.formAddGasto.controls["consumo"].clearValidators();
+            this.formAddGasto.controls["consumo"].setValue(null);
+            this.formAddGasto.controls["consumo"].disable();
+            this.formAddGasto.controls["consumo"].updateValueAndValidity();
 		}
 	}
 
@@ -158,7 +173,7 @@ export class GastosComponent implements OnInit {
 		this.getValuesFormAddGasto();
 
 		if (this.gastoValido()) {
-			this._gastoService.createGasto(this.gasto).subscribe(
+			this.gastoService.createGasto(this.gasto).subscribe(
 				response => {
 					if (response.IdGasto) {
 						this.agregarOtroGasto();
@@ -189,6 +204,7 @@ export class GastosComponent implements OnInit {
 		this.gasto.ConceptoGasto = this.formAddGasto.controls[
 			"conceptoGasto"
 		].value;
+		this.gasto.Consumo = !this.formAddGasto.controls["consumo"].value  ? null : this.formAddGasto.controls["consumo"].value;
 	}
 
 	gastoValido() {
@@ -227,4 +243,12 @@ export class GastosComponent implements OnInit {
 			}
 		});
 	}
+
+    changeSucursal(event) {
+	    if (event) {
+	        this.gasto.IdSucursal = event.IdSucursal;
+        } else {
+            this.gasto.IdSucursal = null;
+        }
+    }
 }

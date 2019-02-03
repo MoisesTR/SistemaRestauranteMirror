@@ -20,7 +20,7 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 	@ViewChild("modalTelefonos") modalTelefonos: ModalDirective;
 
 	public proveedorSeleccionado: Proveedor;
-	public proveedores: Proveedor[];
+	public proveedores: Proveedor[] = [];
 	public tituloPantalla = "Proveedor";
 
 	@ViewChild(DataTableDirective) dtElement: DataTableDirective;

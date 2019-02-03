@@ -1,7 +1,6 @@
-
 <!-- Modal categorias crear -->
-<div mdbModal #modalAddCategoria="mdb-modal" class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div mdbModal #modalAddCategoria="mdb-modal" class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
     <!--Contenido-->
     <div class="modal-content background-gray mdl">
@@ -21,13 +20,19 @@
 
           <div class="md-form">
             <h6 class="orange-chang-text">Nombre</h6>
-            <input Alphanumeric type="text" id="addnombrecategoria" class="input-modal-sm" name="nombrecategoria" formControlName="nombreCategoria">
+            <input Alphanumeric type="text" id="addnombrecategoria" class="input-modal-sm" name="nombrecategoria"
+              formControlName="nombreCategoria">
             <show-errors [control]="formAddCategoria.controls['nombreCategoria']"></show-errors>
           </div>
 
+          <h6 class="orange-chang-text">Tipo insumo</h6>
+          <ng-select dropdownPosition="'top'" class="custom" placeholder="Selecciona un tipo de insumo">
+          </ng-select>
+
           <div class="md-form">
             <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="adddescripcioncategoria" class="text-area-modal" name="descripcioncategoria" formControlName="descripcionCategoria"></textarea>
+            <textarea type="text" id="adddescripcioncategoria" class="text-area-modal" name="descripcioncategoria"
+              formControlName="descripcionCategoria"></textarea>
             <show-errors [control]="formAddCategoria.controls['descripcionCategoria']"></show-errors>
           </div>
 

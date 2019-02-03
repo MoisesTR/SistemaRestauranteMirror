@@ -132,6 +132,54 @@
 
           </div>
 
+          <!-- Tabla de contactos -->
+          <div class="table-responsive-sm">
+            <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombres y Apellidos</th>
+                  <th scope="col">Cargo</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Pais</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">Extensión</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Titular</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Proveedor de servicio</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Sucursales</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="align-middle col-xs-1">1</th>
+                  <td class="align-middle col-xs-1">Jake Test</td>
+                  <td class="align-middle col-xs-1">Programador</td>
+                  <td class="text-center align-middle col-xs-1"><img src="/assets/img/icon/nicaragua.png" class="img-fluid mr-2"
+                      alt="Nicaragua"></td>
+                  <td class="align-middle col-xs-1">12345678</td>
+                  <td class="align-middle col-xs-1">24</td>
+                  <td class="text-center align-middle col-xs-1">
+                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+                  </td>
+                  <td class="text-center align-middle col-xs-1">
+                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+                  </td>
+                  <td class="text-center align-middle col-xs-1">
+                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+                  </td>
+                  <td>
+                    <div class="text-center">
+                      <button mdbBtn type="button" size="sm" class="orange-chang" mdbTooltip="Eliminar contacto">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- .Tabla de contactos -->
+
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -143,7 +191,7 @@
   aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal modal-lg" role="document">
     <!--Contenido-->
-    <div class="modal-content">
+    <div class="modal-content background-gray mdl">
 
       <!--Header-->
       <div class="modal-header white-text orange-chang">
@@ -182,56 +230,52 @@
 
               <div class="col-12 mb-3">
                 <div class="md-form input-group mb-3">
-                  <div class="input-group-prepend">
+                  <div class="input-group-prepend mr-2">
                     <span class="input-group-text md-addon" id="telefono"><i class="fa fa-phone" aria-hidden="true"></i></span>
                     <img src="/assets/img/icon/nicaragua.png" class="img-fluid mr-2" alt="Nicaragua">
+                    <!-- <ng-select>
+                    </ng-select> -->
                   </div>
                   <input mdbInputDirective type="text" id="telefono" placeholder="Telefono" class="form-control mr-3">
                   <input type="text" id="extension" placeholder="Extension" class="form-control ml-3">
                 </div>
               </div>
 
-              <div class="col-4">
-                <div class="switch chang-switch font-small text-center">
-                  <h6 class="orange-chang-text">Titular</h6>
-                  <label>
-                    <input type="checkbox">
-                    <span class="lever"></span>
-                  </label>
-                </div>
+              <div class="col-4 text-center font-small">
+                <h6>Titular</h6>
+                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
               </div>
 
-              <div class="col-4">
-                <div class="switch chang-switch font-small text-center">
-                  <h6 class="orange-chang-text">Servicio</h6>
-                  <label>
-                    <input type="checkbox">
-                    <span class="lever"></span>
-                  </label>
-                </div>
+              <div class="col-4 text-center font-small">
+                <h6>Proveedor de servicio</h6>
+                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
               </div>
 
-              <div class="col-4">
-                <div class="switch chang-switch font-small text-center">
-                  <h6 class="orange-chang-text">Sucursales</h6>
-                  <label>
-                    <input type="checkbox">
-                    <span class="lever"></span>
-                  </label>
-                </div>
+              <div class="col-4 text-center font-small">
+                <h6>Sucursales</h6>
+                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
               </div>
 
-              <div class="col-12 mt-4 text-center">
+              <!-- <div class="col-12 mt-4 text-center">
                 <button mdbBtn mdbWavesEffect class="orange-chang">
                   <mdb-icon icon="check" class="mr-1"></mdb-icon> Agregar
                 </button>
-              </div>
+              </div> -->
 
             </div>
           </div>
         </form>
 
       </div>
+
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-end">
+        <button mdbBtn size="sm" mdbWavesEffect class="orange-chang" (click)="modalAgendaTelefonica.hide()">Cerrar</button>
+        <button mdbBtn size="sm" mdbWavesEffect class="orange-chang">Agregar
+        </button>
+      </div>
+
     </div>
     <!--/.Contenido-->
   </div>

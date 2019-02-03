@@ -42,16 +42,16 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 1200"
-                      class="form-control" autocomplete="off">
+                    <input [mdbValidate]=false disabled mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 1200"
+                      class="form-control" formControlName="totalImpreso" autocomplete="off">
                     <label for="totalFacturaImpresa">Total Factura Impresa</label>
                   </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500"
-                      class="form-control" autocomplete="off">
+                    <input [mdbValidate]=false disabled mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500"
+                      class="form-control" formControlName="descuentoTotal" autocomplete="off">
                     <label for="descuentTotalFactura">Descuento Total Factura</label>
                   </div>
                 </div>
@@ -61,16 +61,16 @@
                     <input formControlName="fechaFactura" name="fechaFactura" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
                       class="input-picker form-control" id="fechaFactura" placeholder="ej: 12-01-2019"
                       mdbInputDirective readonly [mdbValidate]=false>
-                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    <owl-date-time [disabled]="true" [pickerType]="'calendar'" #dt2></owl-date-time>
                     <label for="fechaFactura">Fecha de factura</label>
                   </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                   <div class="md-form">
-                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control" placeholder="ej: 12-01-2019"
+                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control" formControlName="fechaRecepcion" placeholder="ej: 12-01-2019"
                       mdbInputDirective readonly [mdbValidate]=false>
-                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    <owl-date-time [disabled]="true" [pickerType]="'calendar'" #dt1></owl-date-time>
                     <label for="fechaRecepcion">Fecha de recepción</label>
                   </div>
                 </div>
@@ -86,8 +86,8 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="input-time form-control" id="horaFactura"
-                      placeholder="ej: 12:00" mdbInputDirective readonly [mdbValidate]=false formControlName="hora">
-                    <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
+                           mdbInputDirective readonly [mdbValidate]=false formControlName="hora">
+                    <owl-date-time [disabled]="true" [pickerType]="'timer'" #dt3></owl-date-time>
                     <label for="horaFactura">Hora Ingreso Factura</label>
                   </div>
                 </div>

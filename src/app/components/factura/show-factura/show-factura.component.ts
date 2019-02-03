@@ -54,7 +54,10 @@ export class ShowFacturaComponent implements OnInit {
 			Proveedor: new FormControl("", []),
 			usuario: new FormControl("", []),
 			nombrevendedor: new FormControl(""),
-			hora: new FormControl("", [])
+			hora: new FormControl("", []),
+            totalImpreso: new FormControl("", []),
+            descuentoTotal: new FormControl("", []),
+            fechaRecepcion: new FormControl("", [])
 		});
 	}
 
@@ -67,13 +70,17 @@ export class ShowFacturaComponent implements OnInit {
 	setDataFormFactura() {
 		this.IdProveedorSeleccionado = this.factura.IdProveedor;
 		this.formFactura.controls["mumeroFactura"].setValue(this.factura.NumRefFactura);
-		this.formFactura.controls["hora"].setValue(this.factura.HoraIngreso);
 		this.formFactura.controls["fechaFactura"].setValue(this.factura.FechaIngreso);
 		this.formFactura.controls["usuario"].setValue(this.factura.TrabajadorIngreso);
 		this.formFactura.controls["nombrevendedor"].setValue("Vendedor no registrado");
 		this.formFactura.controls["FormaPago"].setValue(this.IdFormaPagoSeleccionado);
 		this.formFactura.controls["Moneda"].setValue(this.IdMonedaSeleccionada);
 		this.formFactura.controls["Proveedor"].setValue(this.IdProveedorSeleccionado);
+		this.formFactura.controls["totalImpreso"].setValue(this.factura.TotalOrigenFactura + " C$");
+		this.formFactura.controls["descuentoTotal"].setValue(this.factura.TotalDescuento);
+		this.formFactura.controls["fechaFactura"].setValue(this.factura.FechaFactura);
+		this.formFactura.controls["fechaRecepcion"].setValue(this.factura.FechaRecepcion);
+		this.formFactura.controls["hora"].setValue(this.factura.HoraIngreso);
 	}
 
 	setDataFormDetailFactura() {

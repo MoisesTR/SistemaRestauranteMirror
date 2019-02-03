@@ -38,6 +38,7 @@ import {ConfiguracionComponent} from '../configuracion/configuracion.component';
 import {GastosComponent} from '../gastos/add-gasto/gastos.component';
 import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
 import {ConsumoInternoComponent} from '../consumo-interno/consumo-interno.component';
+import {ConsolidadoComponent} from '../consolidado/consolidado.component';
 
 const menuRoutes: Routes = [
 
@@ -97,6 +98,9 @@ const menuRoutes: Routes = [
         // Modulo gastos
         , {path: 'gasto/gastos', component: GastosComponent, data : { titulo : 'Gastos'}}
         , {path: 'gastos/summary-gastos', component: SummaryGastosComponent, data : { titulo : 'Gastos'}}
+
+        // Consolidado de gastos y facturas
+        , {path: 'consolidado', component: ConsolidadoComponent, data : { titulo : 'Consolidado'}}
 
         , {path: '', redirectTo: '/dashboard', pathMatch: 'full', data : { titulo : 'Dashboard'} }
 ];

@@ -23,7 +23,7 @@
                 <th class="header-negrita">Dirección</th>
                 <th class="header-negrita">Descripción</th>
                 <th class="header-negrita">Representante</th>
-                <th class="header-negrita">Acciones</th>
+                <th class="header-negrita text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -41,12 +41,8 @@
                 <td width="15%" class="align-middle body-negrita">
 
                   <div class="text-center">
-                    <button mdbBtn type="button" size="sm" [routerLink]="'update/'+proveedor.IdProveedor" class="orange-chang"
-                      id="btnUpdateProveedor" mdbTooltip="Editar" placement="bottom">
-                      <i class="fa fa-pencil"></i>
-                    </button>
                     <button mdbBtn type="button" size="sm" (click)="deleteProveedor(proveedor.IdProveedor)" class="orange-chang"
-                      id="btnDeleteProveedor" mdbTooltip="Eliminar" placement="bottom">
+                      id="btnDeleteProveedor" mdbTooltip="Eliminar proveedor" placement="bottom">
                       <i class="fa fa-times"></i>
                     </button>
                   </div>

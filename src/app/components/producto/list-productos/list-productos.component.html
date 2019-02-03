@@ -1,5 +1,5 @@
 <spinner titulo="Cargando productos"></spinner>
-<section >
+<section>
 
   <div class="row">
 
@@ -21,7 +21,7 @@
                 <th class="header-negrita">Descripcion</th>
                 <th class="header-negrita">Clasificación</th>
                 <th class="header-negrita">Subclasificación</th>
-                <th class="header-negrita">Acciones</th>
+                <th class="header-negrita text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -34,12 +34,8 @@
                 <td width="25%" class="body-negrita">
 
                   <div class="text-center">
-                    <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang"
-                      id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar">
-                      <i class="fa fa-pencil"></i>
-                    </button>
                     <button type="button" (click)="eliminarProducto(producto.IdProducto)" class="btn btn-sm orange-chang"
-                      id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                      id="btnEliminarproductos" mdbTooltip="Eliminar producto" placement="bottom">
                       <i class="fa fa-times"></i>
                     </button>
                   </div>

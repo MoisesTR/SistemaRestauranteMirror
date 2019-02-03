@@ -19,8 +19,8 @@
 
                 <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-2">
                   <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
-                  <ng-select  placeholder="Selecciona una Sucursal" [items]="sucursales"
-                    formControlName="sucursal" id="sucursal" bindValue="IdSucursal" bindLabel="NombreSucursal">
+                  <ng-select placeholder="Selecciona una Sucursal" [items]="sucursales" formControlName="sucursal" id="sucursal"
+                    bindValue="IdSucursal" bindLabel="NombreSucursal">
                   </ng-select>
                 </div>
 
@@ -42,7 +42,8 @@
                 <div class="col-xs-12 col-md-6 col-lg-6">
                   <div class="md-form">
                     <input [readonly]="true" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="fechaInicio"
-                      class="input-picker form-control" [mdbValidate]=false placeholder="Seleccioné" mdbInputDirective readonly>
+                      class="input-picker form-control" [mdbValidate]=false placeholder="Seleccioné" mdbInputDirective
+                      readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                     <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
                     <show-errors [control]="formBusquedaGasto.controls['fechaInicio']"></show-errors>
@@ -52,7 +53,7 @@
                 <div class="col-xs-12 col-md-6 col-lg-6">
                   <div class="md-form">
                     <input [readonly]="true" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="fechaFin"
-                      class="input-picker form-control" [mdbValidate]=false id="fechaFin" placeholder="Seleccioné" 
+                      class="input-picker form-control" [mdbValidate]=false id="fechaFin" placeholder="Seleccioné"
                       mdbInputDirective readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                     <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
@@ -195,3 +196,34 @@
     </div>
   </div>
 </section>
+
+<!-- Modal descripcion gasto -->
+<div mdbModal #modalConcepto="mdb-modal" class="modal fade" id="modalConcepto" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
+
+      <!--Header-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <mdb-icon icon="file-text-o"></mdb-icon> Concepto de gastos
+        </h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalConcepto.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <!--Cuerpo Modal-->
+      <div class="modal-body mb-0">
+
+        <form [formGroup]="" novalidate>
+
+          <h5>Popover in a modal</h5>
+
+        </form>
+      </div>
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

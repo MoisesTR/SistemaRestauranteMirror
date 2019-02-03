@@ -27,8 +27,13 @@
                 </div>
               </div>
 
+              <div class="col-12 col-sm-12 col-md-12">
+                <label for="categoria" class="grey-text-card">Tipo Insumo</label>
+                <ng-select placeholder="Selecciona un tipo de insumo">
+                </ng-select>
+              </div>
 
-              <div class="col-12 col-sm-12 col-md-9">
+              <div class="col-12 col-sm-12 col-md-9 mt-3">
                 <label for="proveedor" class="grey-text-card">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
                   placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">

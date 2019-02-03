@@ -62,8 +62,7 @@ footer.page-footer {
   color: #fff !important;
 }
 .background {
-  background: url("../img/landingpage/background-historia.jpg") no-repeat center
-    center;
+  background: url("../img/landingpage/background-historia.jpg") no-repeat center center;
   background-size: cover;
 }
 
@@ -215,18 +214,22 @@ h6 {
   width: auto;
   height: auto;
   margin: 0;
-  padding: 0;  
+  padding: 0;
 }
 
-.modal .mdl{
-  width: 100% !important; 
+.modal .mdl {
+  width: 100% !important;
 }
 
 .background-gray-w {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
-  background: -moz-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
-  background: -o-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
-  background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)),
+    url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  background: -moz-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)),
+    url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  background: -o-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)),
+    url(../img/landingpage/background-historia.jpg) no-repeat center center;
+  background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)),
+    url(../img/landingpage/background-historia.jpg) no-repeat center center;
   min-height: 100%;
   min-width: auto;
   width: auto;
@@ -338,7 +341,12 @@ h6 {
   margin-top: 35%;
 }
 
-/*** Estilo de input modales ***/
+/*** Modal ***/
+
+.modal-footer {
+  border-top: 1px solid rgba(108, 117, 125, 0.3) !important;
+}
+
 .md-form .input-modal-sm {
   margin-left: -10px !important;
   display: block !important;
@@ -417,15 +425,15 @@ h6 {
   }
 }
 
-.height-card{
+.height-card {
   height: 78% !important;
 }
 
-.team-section .height-card{
-  height: 55% !important;  
+.team-section .height-card {
+  height: 55% !important;
 }
 
-.team-section .position-margin{
+.team-section .position-margin {
   margin-top: 3%;
 }
 
@@ -439,8 +447,8 @@ h6 {
 .nav-tabs .scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-image: -webkit-linear-gradient(330deg, #2A2D2E 0%, #2A2D2E 100%);
-  background-image: linear-gradient(120deg, #2A2D2E 0%, #2A2D2E 100%);
+  background-image: -webkit-linear-gradient(330deg, #2a2d2e 0%, #2a2d2e 100%);
+  background-image: linear-gradient(120deg, #2a2d2e 0%, #2a2d2e 100%);
 }
 
 .nav-tabs .scrollbar-card {
@@ -461,8 +469,9 @@ h6 {
   }
 }
 
-dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:hover {
-  background-color: #E67E22 !important;
+dropdown .dropdown-menu .dropdown-item:active,
+.dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #e67e22 !important;
 }
 
 /*** Sidenav ***/
@@ -472,26 +481,38 @@ dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdow
 }
 
 .sn-bg-5 {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
-  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
-  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
-  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
+  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/background-3.png) no-repeat center center !important;
   background-size: cover;
 }
 
 .sn-bg-6 {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
-  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
-  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
-  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)), url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
+  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 111, 0, 0.2)),
+    url(../img/paneladministrativo/sidenav.png) no-repeat center center !important;
   background-size: cover;
 }
 
 .sn-bg-7 {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)), url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
-  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)), url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
-  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)), url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
-  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)), url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)),
+    url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)),
+    url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
+  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)),
+    url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(255, 111, 0, 0.4)),
+    url(../img/paneladministrativo/sidenav-3.png) no-repeat center center !important;
   background-size: cover !important;
 }
 
@@ -504,8 +525,8 @@ dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdow
 }
 
 /*** checkbox ***/
-.checkbox-chang-filled [type="checkbox"]:checked+label:before {
-  border-color: transparent #E67E22 #E67E22 transparent !important;
+.checkbox-chang-filled [type="checkbox"]:checked + label:before {
+  border-color: transparent #e67e22 #e67e22 transparent !important;
 }
 
 /*** Producto ***/
@@ -535,7 +556,7 @@ dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdow
 
 /*** Estilos cards ***/
 .card-height {
-  height: 70% !important
+  height: 70% !important;
 }
 
 .card-size-img-facturas {
@@ -543,8 +564,8 @@ dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdow
 }
 
 .card-background-img-facturas {
-    background: url('../../../assets/img/landingpage/background-historia.jpg')no-repeat center center; 
-    // height: 30% !important;
+  background: url("../../../assets/img/landingpage/background-historia.jpg") no-repeat center center;
+  // height: 30% !important;
 }
 
 .icono-card {
@@ -569,23 +590,22 @@ dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdow
   text-align: right;
 }
 
-
 /***  Margins factura ***/
 .mt-codigo-factura {
   margin-top: 9px;
 }
 
 /*** Z-index pagination cuando en la pantalla se use component calendar ***/
-.z-index-0h {  
+.z-index-0h {
   z-index: 0;
 }
 
 /*** Color switch ***/
-.switch.chang-switch label input[type=checkbox]:checked + .lever {
-  background-color: #E67E22;
+.switch.chang-switch label input[type="checkbox"]:checked + .lever {
+  background-color: #e67e22;
 }
-.switch.chang-switch label input[type=checkbox]:checked + .lever:after {
-  background-color: #E67E22;
+.switch.chang-switch label input[type="checkbox"]:checked + .lever:after {
+  background-color: #e67e22;
 }
 
 /*** Color label cards ***/
@@ -641,7 +661,7 @@ dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdow
   right: 2% !important;
   width: 106% !important;
 }
-.ng-select.custom .ng-control  {            
+.ng-select.custom .ng-control {
   min-height: 0px;
   border-radius: 0;
 }

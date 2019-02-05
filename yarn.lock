@@ -202,6 +202,10 @@
   dependencies:
     url "^0.11.0"
 
+"@fortawesome/fontawesome-free@^5.6.0":
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.1.tgz#e4bdc6fd2a7b5a41d5b599bcb62cf22c78f7f535"
+
 "@ng-select/ng-select@2.3.2":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.3.2.tgz#4e7da0421bf04a94539b1433e419154af84e9aed"

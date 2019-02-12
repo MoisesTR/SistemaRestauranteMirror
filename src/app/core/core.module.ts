@@ -31,7 +31,8 @@ import {
 	UsuarioService,
 	SpinnerService,
 	TipoDocumentoService,
-	TipoMonedaService
+	TipoMonedaService,
+	PersistenciaDatoService
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -89,6 +90,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 		TipoDocumentoService,
 		TipoMonedaService,
 		MDBSpinningPreloader,
+		PersistenciaDatoService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: TokenInterceptorService,

@@ -221,8 +221,9 @@
     webpack-sources "^1.1.0"
 
 "@ngx-pwa/local-storage@6":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@ngx-pwa/local-storage/-/local-storage-6.2.0.tgz#d86ce8421d2646a7b90cc517cb2a10791c0efbb1"
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@ngx-pwa/local-storage/-/local-storage-6.2.2.tgz#a77399279685f475321b81ee7cb21d141f516a5d"
+  integrity sha512-3jxY+tP7r9Mi09Ljf92j4ADcXwxATMY0+sUQiZxMkqMnUb5nDG8XToKTJ5D+5wRST8AwUPn502HPo4xP80y7Rw==
   dependencies:
     tslib "^1.9.0"
 

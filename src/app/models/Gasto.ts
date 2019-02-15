@@ -12,5 +12,8 @@ export class Gasto {
     public SubClasificacion: string;
     public Habilitado: boolean;
     public IdSucursal: number;
+    public Consumo: number;
+    public NombreSucursal; string;
+
     constructor() {}
- }
+}

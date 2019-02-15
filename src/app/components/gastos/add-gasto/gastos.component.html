@@ -1,108 +1,108 @@
 <section>
 
-  <div class="row">
-    <!--Datos del Gastos-->
-    <div class="col-lg-12">
+    <div class="row">
+        <!--Datos del Gastos-->
+        <div class="col-lg-12">
 
-      <mdb-card cascade="true" narrower="true">
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Gastos</h3>
-        </div>
-        <!-- Contenido -->
-        <mdb-card-body cascade="true">
-
-          <form [formGroup]="formAddGasto" (ngSubmit)="createGasto()" novalidate>
-
-            <div class="row">
-
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
-                <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
-                <ng-select id="sucursalGastos" placeholder="Selecciona una Sucursal" [items]="sucursales"
-                  bindValue="IdSucursal" bindLabel="NombreSucursal" formControlName="sucursal" id="sucursal">
-                </ng-select>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
-                <label for="clasificacionGastos" class="grey-text-card">Clasificación</label>
-                <ng-select id="clasificacionGastos" (change)="changeClasificacion($event)" [items]="clasificaciones"
-                  bindValue="IdClasificacion" bindLabel="Descripcion" formControlName="clasificacion" placeholder="Selecciona una clasificación">
-                </ng-select>
-                <show-errors [control]="formAddGasto.controls['clasificacion']"></show-errors>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-                <label for="subclasificacionGastos" class="grey-text-card">Sub - Clasificación</label>
-                <ng-select id="subclasificacionGastos" (change)="changeSubclasificacion($event)" [items]="subclasificaciones"
-                  bindValue="IdSubClasificacion" bindLabel="Descripcion" formControlName="subclasificacion" placeholder="Selecciona una sub - clasificación">
-                </ng-select>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-                <div class="md-form">
-                  <input onlyPositiveNumber [mdbValidate]=false mdbInputDirective type="text" id="consumo" class="form-control"
-                    placeholder="Ej: 14" autocomplete="off">
-                  <label for="consumo">Consumo</label>
+            <mdb-card cascade="true" narrower="true">
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Gastos</h3>
                 </div>
-              </div>
+                <!-- Contenido -->
+                <mdb-card-body cascade="true">
 
-              <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
-                <div class="md-form">
-                  <input [owlDateTimeTrigger]="dt1" formControlName="fechaIngreso" [owlDateTime]="dt1" class="input-picker form-control"
-                    [mdbValidate]=false id="fechaIngreso" placeholder="Seleccioné" mdbInputDirective readonly>
-                  <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-                  <label for="fechaIngreso">Fecha ingreso</label>
-                  <show-errors [control]="formAddGasto.controls['fechaIngreso']"></show-errors>
-                </div>
-              </div>
+                    <form [formGroup]="formAddGasto" (ngSubmit)="createGasto()" novalidate>
 
-              <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
-                <div class="md-form">
-                  <input formControlName="numeroReferencia" onlyPositiveNumber [mdbValidate]=false mdbInputDirective
-                    type="text" id="numeroReferencia" class="form-control" placeholder="Ej: 1" autocomplete="off">
-                  <label for="numeroReferencia">Número de referencia</label>
-                </div>
-              </div>
+                        <div class="row">
 
-              <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
-                <div class="md-form">
-                  <input Alphanumeric formControlName="codigoFactura" [mdbValidate]=false mdbInputDirective type="text"
-                    id="codigoFactura" class="form-control" placeholder="Ej: BD200" autocomplete="off">
-                  <label for="codigoFactura">Código factura</label>
-                </div>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
+                                <ng-select (change)="changeSucursal($event)" id="sucursalGastos" placeholder="Selecciona una Sucursal" [items]="sucursales"
+                                           bindValue="IdSucursal" bindLabel="NombreSucursal" formControlName="sucursal" id="sucursal">
+                                </ng-select>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
-                <div class="md-form">
-                  <input onlyNumbers="decimal" formControlName="montoTotal" [mdbValidate]=false mdbInputDirective type="text"
-                    id="montoTotal" class="form-control" placeholder="Ej: 2500" autocomplete="off">
-                  <label for="montoTotal">Monto total</label>
-                  <show-errors [control]="formAddGasto.controls['montoTotal']"></show-errors>
-                </div>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                <label for="clasificacionGastos" class="grey-text-card">Clasificación</label>
+                                <ng-select id="clasificacionGastos" (change)="changeClasificacion($event)" [items]="clasificaciones"
+                                           bindValue="IdClasificacion" bindLabel="Descripcion" formControlName="clasificacion" placeholder="Selecciona una clasificación">
+                                </ng-select>
+                                <show-errors [control]="formAddGasto.controls['clasificacion']"></show-errors>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-0">
-                <div class="md-form">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+                                <label for="subclasificacionGastos" class="grey-text-card">Sub - Clasificación</label>
+                                <ng-select id="subclasificacionGastos" (change)="changeSubclasificacion($event)" [items]="subclasificaciones"
+                                           bindValue="IdSubClasificacion" bindLabel="Descripcion" formControlName="subclasificacion" placeholder="Selecciona una sub - clasificación">
+                                </ng-select>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+                                <div class="md-form">
+                                    <input onlyPositiveNumber [mdbValidate]=false mdbInputDirective type="text" disabled id="consumo" formControlName="consumo" class="form-control"
+                                           placeholder="Ej: 14" autocomplete="off">
+                                    <label for="consumo">Consumo</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+                                <div class="md-form">
+                                    <input [owlDateTimeTrigger]="dt1" formControlName="fechaIngreso" [owlDateTime]="dt1" class="input-picker form-control"
+                                           [mdbValidate]=false id="fechaIngreso" placeholder="Seleccioné" mdbInputDirective readonly>
+                                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                    <label for="fechaIngreso">Fecha ingreso</label>
+                                    <show-errors [control]="formAddGasto.controls['fechaIngreso']"></show-errors>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+                                <div class="md-form">
+                                    <input formControlName="numeroReferencia" onlyPositiveNumber [mdbValidate]=false mdbInputDirective
+                                           type="text" id="numeroReferencia" class="form-control" placeholder="Ej: 1" autocomplete="off">
+                                    <label for="numeroReferencia">Número de referencia</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+                                <div class="md-form">
+                                    <input Alphanumeric formControlName="codigoFactura" [mdbValidate]=false mdbInputDirective type="text"
+                                           id="codigoFactura" class="form-control" placeholder="Ej: BD200" autocomplete="off">
+                                    <label for="codigoFactura">Código factura</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+                                <div class="md-form">
+                                    <input onlyNumbers="decimal" formControlName="montoTotal" [mdbValidate]=false mdbInputDirective type="text"
+                                           id="montoTotal" class="form-control" placeholder="Ej: 2500" autocomplete="off">
+                                    <label for="montoTotal">Monto total</label>
+                                    <show-errors [control]="formAddGasto.controls['montoTotal']"></show-errors>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-0">
+                                <div class="md-form">
                   <textarea [mdbValidate]=false formControlName="conceptoGasto" mdbInputDirective type="text" id="conceptoGasto"
-                    class="md-textarea form-control" autocomplete="off"></textarea>
-                  <label for="conceptoGasto">Concepto gasto</label>
-                  <show-errors [control]="formAddGasto.controls['conceptoGasto']"></show-errors>
-                </div>
-              </div>
+                            class="md-textarea form-control" autocomplete="off"></textarea>
+                                    <label for="conceptoGasto">Concepto gasto</label>
+                                    <show-errors [control]="formAddGasto.controls['conceptoGasto']"></show-errors>
+                                </div>
+                            </div>
 
-            </div>
+                        </div>
 
-            <div class="text-center mt-3">
-              <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddGasto.valid">Ingresar
-                <mdb-icon icon="check" class="ml-1"></mdb-icon>
-              </button>
-            </div>
+                        <div class="text-center mt-3">
+                            <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddGasto.valid">Ingresar
+                                <mdb-icon icon="check" class="ml-1"></mdb-icon>
+                            </button>
+                        </div>
 
-          </form>
+                    </form>
 
-        </mdb-card-body>
-        <!-- Contenido -->
-      </mdb-card>
+                </mdb-card-body>
+                <!-- Contenido -->
+            </mdb-card>
 
+        </div>
     </div>
-  </div>
 </section>

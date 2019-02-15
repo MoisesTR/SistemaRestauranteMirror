@@ -249,7 +249,9 @@ export class SummaryFacturasComponent implements OnInit {
 						this.spinner.display(false);
 					}
 				);
-		}
+		} else {
+            this.spinner.display(false);
+        }
 	}
 
 	validarParametrosBusquedaFactura() {

@@ -56,7 +56,7 @@ export class SummaryGastosComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private tableService: MdbTableService,
 		private sucursalService: SucursalService,
-		private spinnerService: SpinnerService
+		private spinner: SpinnerService
 	) {}
 
 	ngOnInit() {
@@ -255,7 +255,7 @@ export class SummaryGastosComponent implements OnInit {
 	}
 
 	findGastos() {
-	    this.spinnerService.display(true);
+	    this.spinner.display(true);
 		this.getDataGastoBusqueda();
 
 		if (this.validarBusqueda()) {
@@ -286,13 +286,15 @@ export class SummaryGastosComponent implements OnInit {
 						}
 					},
 					error => {
-                        this.spinnerService.display(false);
+                        this.spinner.display(false);
 						Utils.showMsgError(Utils.msgError(error), "Busqueda Gastos");
 					}, () => {
-					    this.spinnerService.display(false);
+					    this.spinner.display(false);
                     }
 				);
-		}
+		} else {
+            this.spinner.display(false);
+        }
 	}
 
 	iniciarPropiedadesPaginacion() {

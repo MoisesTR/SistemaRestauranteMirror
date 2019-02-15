@@ -1,230 +1,230 @@
 <section>
-  <div class="row">
-    <div class="col-md-12">
-      <mdb-card cascade="true" narrower="true">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Otros Insumos</h3>
-        </div>
-        <!--/Titulo-->
-
-        <mdb-card-body cascade="true">
-
-          <form [formGroup]="formAddProducto" (ngSubmit)="guardarImagenProducto()" novalidate>
-
-            <div class="row">
-
-              <div class="col-12 mb-3">
-                <div class="md-form input-group">
-                  <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" class="form-control letras"
-                    autocomplete="off" placeholder="Nombre del Producto" style="margin-right: 5%;">
-                  <div class="input-group-btn">
-                    <button tabindex="-1" mdbBtn type="button" class="orange-chang px-3 add-img-position" mdbTooltip="Agregar Imagen"
-                      placement="bottom" (click)="modalImagenProducto.show()" style="margin-left: -20%;">
-                      <i class="fa fa-file-photo-o" aria-hidden="true"></i>
-                    </button>
-                  </div>
+    <div class="row">
+        <div class="col-md-12">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Otros Insumos</h3>
                 </div>
-              </div>
+                <!--/Titulo-->
 
-              <div class="col-12 col-sm-12 col-md-12">
-                <label for="categoria" class="grey-text-card">Tipo Insumo</label>
-                <ng-select placeholder="Selecciona un tipo de insumo">
-                </ng-select>
-              </div>
+                <mdb-card-body cascade="true">
 
-              <div class="col-12 col-sm-12 col-md-9 mt-3">
-                <label for="proveedor" class="grey-text-card">Proveedor</label>
-                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
-                  placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
-                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-                    <div style="margin: 10px 0;" class="card">
-                      <div class="card-body">
-                        <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
-                        <p class="card-subtitle mb-2 text-muted">
-                          <b>Nombre del Representante</b>
-                          <br>
-                          <i>{{item.NombreRepresentante}}</i>
-                        </p>
-                        <p class="card-text">
-                          <b>Descripcion</b>
-                          <br>
-                          <i>{{item.Descripcion}}</i>
-                        </p>
-                      </div>
-                    </div>
-                  </ng-template>
-                </ng-select>
+                    <form [formGroup]="formAddProducto" (ngSubmit)="guardarImagenProducto()" novalidate>
 
-                <show-errors [control]="formAddProducto.controls['proveedor']"></show-errors>
-              </div>
+                        <div class="row">
 
-              <div class="col-12 col-sm-12 col-md-3 mt-2">
-                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  mdbTooltip="Agregar Proveedor" placement="bottom" mdbWavesEffect>Agregar</button>
-              </div>
+                            <div class="col-12 mb-3">
+                                <div class="md-form input-group">
+                                    <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" class="form-control letras"
+                                           autocomplete="off" placeholder="Nombre del Producto" style="margin-right: 5%;">
+                                    <div class="input-group-btn">
+                                        <button tabindex="-1" mdbBtn type="button" class="orange-chang px-3 add-img-position" mdbTooltip="Agregar Imagen"
+                                                placement="bottom" (click)="modalImagenProducto.show()" style="margin-left: -20%;">
+                                            <i class="fa fa-file-photo-o" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-9 mt-3">
-                <label for="categoria" class="grey-text-card">Categoría</label>
-                <ng-select [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria"
-                  formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
-                </ng-select>
-                <show-errors [control]="formAddProducto.controls['categoria']"></show-errors>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-12">
+                                <label for="categoria" class="grey-text-card">Tipo Insumo</label>
+                                <ng-select placeholder="Selecciona un tipo de insumo">
+                                </ng-select>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalCategoria()" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-9 mt-3">
+                                <label for="proveedor" class="grey-text-card">Proveedor</label>
+                                <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+                                           placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
+                                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                        <div style="margin: 10px 0;" class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                                                <p class="card-subtitle mb-2 text-muted">
+                                                    <b>Nombre del Representante</b>
+                                                    <br>
+                                                    <i>{{item.NombreRepresentante}}</i>
+                                                </p>
+                                                <p class="card-text">
+                                                    <b>Descripcion</b>
+                                                    <br>
+                                                    <i>{{item.Descripcion}}</i>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ng-select>
 
-              <div class="col-12 col-sm-12 col-md-9 mt-3">
-                <label for="clasificacion" class="grey-text-card">Clasificación</label>
-                <ng-select [items]="clasificaciones" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
-                  placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="clasificacion"
-                  (change)="onChangeClasificacion($event)">
-                </ng-select>
-                <show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>
-              </div>
+                                <show-errors [control]="formAddProducto.controls['proveedor']"></show-errors>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalClasificacion()" mdbTooltip="Agregar Clasificación" placement="bottom"
-                  mdbWavesEffect>Agregar</button>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-3 mt-2">
+                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                                        mdbTooltip="Agregar Proveedor" (click)="agregarProveedor()" placement="bottom" mdbWavesEffect>Agregar</button>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-9 mt-3">
-                <label for="subclasificacion" class="grey-text-card">Subclasificación</label>
-                <ng-select [items]="subclasificaciones" bindLabel="NombreSubClasificacion" bindValue="IdSubClasificacion"
-                  placeholder="Selecciona una subclasificacion" [searchFn]="customSearchFn" formControlName="subclasificacion"
-                  id="subclasificacion" (change)="onChangeSubclasificacion($event)">
-                </ng-select>
-                <show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>
-              </div>
+                            <!--<div class="col-12 col-sm-12 col-md-9 mt-3">-->
+                            <!--<label for="categoria" class="grey-text-card">Categoría</label>-->
+                            <!--<ng-select [items]="categorias" bindLabel="NombreCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria"-->
+                            <!--formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">-->
+                            <!--</ng-select>-->
+                            <!--<show-errors [control]="formAddProducto.controls['categoria']"></show-errors>-->
+                            <!--</div>-->
 
-              <div class="col-12 col-sm-12 col-md-3 mt-3">
-                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalSubClasificacion()" mdbTooltip="Agregar Subclasificación" placement="bottom"
-                  mdbWavesEffect>Agregar</button>
-              </div>
+                            <!--<div class="col-12 col-sm-12 col-md-3 mt-3">-->
+                            <!--<button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"-->
+                            <!--(click)="showModalCategoria()" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>-->
+                            <!--</div>-->
 
-              <div class="col-12 col-sm-12 col-md-5 mt-3">
-                <label class="grey-text-card">Empaque</label>
-                <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque"
-                  formControlName="empaque" id="empaque" (change)="onChangeEmpaque($event)">
-                </ng-select>
-                <show-errors [control]="formAddProducto.controls['empaque']"></show-errors>
-              </div>
+                            <!--<div class="col-12 col-sm-12 col-md-9 mt-3">-->
+                            <!--<label for="clasificacion" class="grey-text-card">Clasificación</label>-->
+                            <!--<ng-select [items]="clasificaciones" bindLabel="NombreClasificacion" bindValue="IdClasificacion"-->
+                            <!--placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="clasificacion"-->
+                            <!--(change)="onChangeClasificacion($event)">-->
+                            <!--</ng-select>-->
+                            <!--<show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>-->
+                            <!--</div>-->
 
-              <div class="col-12 col-sm-12 col-md-4 mt-3">
-                <div class="md-form">
-                  <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="cantidadEmpaque"
-                    formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
-                  <label for="cantidadEmpaque">Cantidad por Empaque</label>
-                  <show-errors [control]="formAddProducto.controls['cantidadEmpaque']"></show-errors>
-                </div>
-              </div>
+                            <!--<div class="col-12 col-sm-12 col-md-3 mt-3">-->
+                            <!--<button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"-->
+                            <!--(click)="showModalClasificacion()" mdbTooltip="Agregar Clasificación" placement="bottom"-->
+                            <!--mdbWavesEffect>Agregar</button>-->
+                            <!--</div>-->
 
-              <div class="col-12 col-sm-12 col-md-3 mt-2">
-                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalEmpaque()" mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
-              </div>
+                            <!--<div class="col-12 col-sm-12 col-md-9 mt-3">-->
+                            <!--<label for="subclasificacion" class="grey-text-card">Subclasificación</label>-->
+                            <!--<ng-select [items]="subclasificaciones" bindLabel="NombreSubClasificacion" bindValue="IdSubClasificacion"-->
+                            <!--placeholder="Selecciona una subclasificacion" [searchFn]="customSearchFn" formControlName="subclasificacion"-->
+                            <!--id="subclasificacion" (change)="onChangeSubclasificacion($event)">-->
+                            <!--</ng-select>-->
+                            <!--<show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>-->
+                            <!--</div>-->
 
-              <div class="mt-3 ml-3 mb-0 d-block d-xl-none d-lg-none d-md-none"><label class="grey-text-card">Envase</label></div>
+                            <!--<div class="col-12 col-sm-12 col-md-3 mt-3">-->
+                            <!--<button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"-->
+                            <!--(click)="showModalSubClasificacion()" mdbTooltip="Agregar Subclasificación" placement="bottom"-->
+                            <!--mdbWavesEffect>Agregar</button>-->
+                            <!--</div>-->
 
-              <div class="col-12 col-sm-12 col-md-9 mt-0">
-                <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
-                <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
-                  formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
-                </ng-select>
-                <show-errors [control]="formAddProducto.controls['envase']"></show-errors>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-5 mt-3">
+                                <label class="grey-text-card">Empaque</label>
+                                <ng-select [items]="empaques" bindLabel="NombreEmpaque" bindValue="IdEmpaque" placeholder="Selecciona un empaque"
+                                           formControlName="empaque" id="empaque" (change)="onChangeEmpaque($event)">
+                                </ng-select>
+                                <show-errors [control]="formAddProducto.controls['empaque']"></show-errors>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-1">
-                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
-                  (click)="showModalEnvase()" mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-4 mt-3">
+                                <div class="md-form">
+                                    <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="cantidadEmpaque"
+                                           formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                                    <label for="cantidadEmpaque">Cantidad por Empaque</label>
+                                    <show-errors [control]="formAddProducto.controls['cantidadEmpaque']"></show-errors>
+                                </div>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-4 mt-6-oi">
-                <div class="md-form">
-                  <input AcceptCharacters mdbInputDirective [mdbValidate]=false type="text" id="codigoOriginal"
-                    formControlName="codigoOriginal" class="form-control">
-                  <label for="codigoOriginal" class="">Código producto</label>
-                  <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
-                </div>
-              </div>
+                            <div class="col-12 col-sm-12 col-md-3 mt-2">
+                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                                        (click)="showModalEmpaque()" mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
+                            </div>
 
-              <div class="col-12 col-sm-12 col-md-4 mt-6-oi">
-                <div class="md-form">
-                  <input Alphanumeric mdbInputDirective [mdbValidate]=false formControlName="codigoInterno" type="text"
-                    id="codigoInterno" class="form-control">
-                  <label for="codigoInterno" class="">Código interno</label>
-                  <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
-                </div>
-              </div>
+                            <div class="mt-3 ml-3 mb-0 d-block d-xl-none d-lg-none d-md-none"><label class="grey-text-card">Envase</label></div>
 
-              <div class="ol-12 col-sm-12 col-md-4">
-                <div class="md-form">
+                            <div class="col-12 col-sm-12 col-md-9 mt-0">
+                                <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
+                                <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
+                                           formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
+                                </ng-select>
+                                <show-errors [control]="formAddProducto.controls['envase']"></show-errors>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-3 mt-1">
+                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
+                                        (click)="showModalEnvase()" mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 mt-6-oi">
+                                <div class="md-form">
+                                    <input AcceptCharacters mdbInputDirective [mdbValidate]=false type="text" id="codigoOriginal"
+                                           formControlName="codigoOriginal" class="form-control">
+                                    <label for="codigoOriginal" class="">Código producto</label>
+                                    <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 mt-6-oi">
+                                <div class="md-form">
+                                    <input Alphanumeric mdbInputDirective [mdbValidate]=false formControlName="codigoInterno" type="text"
+                                           id="codigoInterno" class="form-control">
+                                    <label for="codigoInterno" class="">Código interno</label>
+                                    <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
+                                </div>
+                            </div>
+
+                            <div class="ol-12 col-sm-12 col-md-4">
+                                <div class="md-form">
                   <textarea mdbInputDirective [mdbValidate]=false type="text" id="descripcionproducto" formControlName="descripcionProducto"
-                    class="md-textarea form-control" autocomplete="off"></textarea>
-                  <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
-                  <label for="descripcionproducto">Descripción</label>
-                </div>
-              </div>
+                            class="md-textarea form-control" autocomplete="off"></textarea>
+                                    <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
+                                    <label for="descripcionproducto">Descripción</label>
+                                </div>
+                            </div>
 
-            </div>
+                        </div>
 
-            <div class="text-center mt-3">
-              <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid && !peticionEnCurso">Ingresar
-                <mdb-icon icon="check" class="ml-1"></mdb-icon>
-              </button>
-            </div>
+                        <div class="text-center mt-3">
+                            <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid && !peticionEnCurso">Ingresar
+                                <mdb-icon icon="check" class="ml-1"></mdb-icon>
+                            </button>
+                        </div>
 
-          </form>
+                    </form>
 
-        </mdb-card-body>
+                </mdb-card-body>
 
-      </mdb-card>
+            </mdb-card>
+        </div>
     </div>
-  </div>
 </section>
 
 <!-- Modal Imagen del Producto -->
 <div mdbModal #modalImagenProducto="mdb-modal" class="modal fade" id="modalImagenProducto" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal" role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Header-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <i class="fa fa-file-photo-o" aria-hidden="true"></i> Imagen del Producto
-        </h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalImagenProducto.hide()">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
+            <!--Header-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <i class="fa fa-file-photo-o" aria-hidden="true"></i> Imagen del Producto
+                </h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalImagenProducto.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
 
-      <!--Cuerpo Modal-->
-      <div class="modal-body mb-0">
+            <!--Cuerpo Modal-->
+            <div class="modal-body mb-0">
 
-        <form [formGroup]="" novalidate>
+                <form [formGroup]="" novalidate>
 
-          <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
-            <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" />
-          </div>
+                    <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
+                        <input type="file" id="imageProducto" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" />
+                    </div>
 
-          <div class="text-center mt-1-half">
-            <button mdbBtn type="button" class="orange-chang mb-1">Ingresar
-              <mdb-icon class="ml-1" icon="check"></mdb-icon>
-            </button>
-          </div>
+                    <div class="text-center mt-1-half">
+                        <button mdbBtn type="button" class="orange-chang mb-1">Ingresar
+                            <mdb-icon class="ml-1" icon="check"></mdb-icon>
+                        </button>
+                    </div>
 
-        </form>
-      </div>
+                </form>
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>
 
 <modal-categoria (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>

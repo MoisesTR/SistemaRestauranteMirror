@@ -1,7 +1,7 @@
 <section>
     <div class="row">
 
-        <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
+        <div class="col-lg-6 col-md-12 col-sm-12 mb-3">
 
             <!--Card-->
             <mdb-card cascade="true" narrower="true" class="height-card">
@@ -18,13 +18,13 @@
 
                         <div class="container-fluid">
                             <div class="list-group">
-                                <a *ngFor="let proveedor of proveedores" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <a *ngFor="let factura of facturas" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">{{proveedor.NombreProveedor}}</h5>
-                                        <small>6:00 AM</small>
+                                        <h5 class="mb-1">{{factura.NombreProveedor}}</h5>
+                                        <small>Hora Ingreso: {{factura.HoraIngreso}}</small>
                                     </div>
-                                    <p class="mb-1">Moises Israel Trigueros López</p>
-                                    <small>2249-5222</small>
+                                    <p class="mb-1">Codigo factura: {{factura.NumRefFactura}}</p>
+                                    <small>Total Cordobas: {{factura.TotalCordobas}} C$</small>
                                 </a>
                             </div>
                         </div>
@@ -42,14 +42,14 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
+        <div class="col-lg-6 col-md-12 col-sm-12 mb-3">
 
             <!--Card-->
             <mdb-card cascade="true" narrower="true" class="height-card">
 
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header orange-chang">
-                    <h3 class="card-header-title mb-2">Productos por agotarse</h3>
+                    <h3 class="card-header-title mb-2">Top 5 Productos más comprados</h3>
                 </div>
                 <!--/Card image-->
 
@@ -59,25 +59,8 @@
 
                         <div class="container-fluid">
                             <div class="list-group">
-                                <a class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">Pollo
-                                    Entero
-                                    <span class="badge badge-pill red-chang">6</span>
-                                </a>
-                                <a class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">Pollo
-                                    Entero
-                                    <span class="badge badge-pill red-chang">16</span>
-                                </a>
-                                <a class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">Pollo
-                                    Entero
-                                    <span class="badge badge-pill red-chang">5</span>
-                                </a>
-                                <a class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">Pollo
-                                    Entero
-                                    <span class="badge badge-pill red-chang">1</span>
-                                </a>
-                                <a class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">Pollo
-                                    Entero
-                                    <span class="badge badge-pill red-chang">0</span>
+                                <a *ngFor="let producto of productosTop" class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">{{producto.NombreProducto}}
+                                    <span class="badge badge-pill red-chang">{{producto.Cantidad}}</span>
                                 </a>
                             </div>
                         </div>
@@ -93,154 +76,6 @@
             </mdb-card>
             <!--/.Card-->
 
-        </div>
-
-        <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
-
-            <!--Card-->
-            <mdb-card cascade="true" narrower="true" class="height-card">
-
-                <!--Card image-->
-                <div class="view view-cascade gradient-card-header orange-chang">
-                    <h3 class="card-header-title mb-2">Productos por expirar</h3>
-                </div>
-                <!--/Card image-->
-
-                <!--Card content-->
-                <div class="scrollbar-card scrollbar-ripe-malinka">
-                    <mdb-card-body cascade="true" class="text-center">
-
-                        <div class="container-fluid">
-                            <div class="list-group">
-                                <a class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">Cargil</h5>
-                                        <small class="red-chang-text font-weight-bold">12/05/2018</small>
-                                    </div>
-                                    <p class="mb-1">Bacón</p>
-                                    <small>Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
-                                </a>
-                            </div>
-                        </div>
-
-                    </mdb-card-body>
-                </div>
-                <!--/.Card content-->
-                <div class="card-footer text-muted">
-                    <p class="mb-0">
-                        <strong>Fecha:</strong> {{fechaActual}}</p>
-                </div>
-
-            </mdb-card>
-            <!--/.Card-->
-
-        </div>
-
-        <div class="col-lg-4 col-md-12 col-sm-12 mt-5">
-
-            <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-                <form novalidate>
-                    <mdb-card cascade="true">
-                        <div class="center-card">
-                            <i class="fa fa-money orange-chang icono-card"></i>
-                            <div class="mb-3 right-card-align">
-                                <p class="grey-text-card">Compra Dolar</p>
-                                <h4><strong>C$ 32.20</strong></h4>
-                            </div>
-                        </div>
-                    </mdb-card>
-                </form>
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-                <form novalidate>
-                    <mdb-card cascade="true">
-                        <div class="center-card">
-                            <i class="fa fa-dollar orange-chang icono-card"></i>
-                            <div class="mb-3 right-card-align">
-                                <p class="grey-text-card">Venta Dolar</p>
-                                <h4><strong>C$ 32.95</strong></h4>
-                            </div>
-                        </div>
-                    </mdb-card>
-                </form>
-            </div>
-
-            <div class="col-lg-12 col-md-12 mb-5 mt-5">
-                <mdb-card cascade="true">
-                    <div class="center-card">
-                        <i class="fa fa-line-chart orange-chang icono-card"></i>
-                        <div class="mb-3">
-                            <div style="display: block">
-                                <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels"
-                                    [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)"
-                                    (chartClick)="chartClicked($event)" width="250" height="200">
-                                </canvas>
-                            </div>
-                        </div>
-                    </div>
-                </mdb-card>
-            </div>
-
-        </div>
-
-        <div class="col-lg-8 col-md-12 col-sm-12 mb-3">
-            <!--Card-->
-            <mdb-card cascade="true" narrower="true" class="height-card">
-
-                <div class="view view-cascade gradient-card-header orange-chang">
-                    <h3 class="card-header-title mb-2">Productos más comprados</h3>
-                </div>
-
-                <!--Card content-->
-                <div class="scrollbar-card scrollbar-ripe-malinka">
-                    <mdb-card-body cascade="true">
-                        <div class="container-fluid">
-                            <div class="row mt-4">
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div style="display: block">
-                                        <canvas mdbChart #char id="char" [chartType]="pieType" [data]="pieData"
-                                            [labels]="pieLabels" [colors]="pieColors" [options]="pieOptions" [legend]="true"
-                                            (chartHover)="pieHovered($event)" (chartClick)="pieClicked($event)" width="380"
-                                            height="380">
-                                        </canvas>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <table mdbTable hover="true" small="true">
-                                        <thead>
-                                            <tr>
-                                                <th *ngFor="let head of headElements" scope="col">
-                                                    <h5 class="grey-text-card">{{head}}</h5>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr mdbTableCol *ngFor="let producto of productosTop">
-                                                <th scope="row">
-                                                    <h6>{{producto.IdProducto}}</h6>
-                                                </th>
-                                                <td>
-                                                    <h6>{{producto.NombreProducto}}</h6>
-                                                </td>
-                                                <td>
-                                                    <h6>{{producto.Proveedor}}</h6>
-                                                </td>
-                                                <td>
-                                                    <h6>{{producto.Cantidad}}</h6>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </mdb-card-body>
-                </div>
-
-            </mdb-card>
-            <!--/.Card-->
         </div>
 
     </div>
@@ -264,33 +99,33 @@
                                         <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin"></i>
                                             <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
-                                                aria-label="Buscar" [(ngModel)]="buscando">
+                                                   aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nombre</th>
-                                                    <th>Representante</th>
-                                                    <th>Email</th>
-                                                    <th>Acción</th>
-                                                </tr>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Representante</th>
+                                                <th>Email</th>
+                                                <th>Acción</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let proveedor of proveedores | buscarProveedor: buscando; let i = index">
-                                                    <th scope="row">{{i+1}}</th>
-                                                    <td>{{proveedor.NombreProveedor}}</td>
-                                                    <td>{{proveedor.NombreRepresentante}}</td>
-                                                    <td>{{proveedor.Email}}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)"
+                                            <tr *ngFor="let proveedor of proveedores | buscarProveedor: buscando; let i = index">
+                                                <th scope="row">{{i+1}}</th>
+                                                <td>{{proveedor.NombreProveedor}}</td>
+                                                <td>{{proveedor.NombreRepresentante}}</td>
+                                                <td>{{proveedor.Email}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)"
                                                             mdbTooltip="Visualizar" placement="bottom">
-                                                            <i class="fa fa-eye"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -306,35 +141,35 @@
                                         <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin" aria-hidden="true"></i>
                                             <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
-                                                aria-label="Buscar" [(ngModel)]="buscando">
+                                                   aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
                                     </div>
                                     <div class="table-responsive">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Nombre</th>
-                                                        <th>Apellidos</th>
-                                                        <th>Telefono</th>
-                                                        <th>Acción</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Telefono</th>
+                                                    <th>Acción</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let trabajador of trabajadores | buscarTrabajador: buscando; let i = index">
-                                                        <th scope="row">{{i+1}}</th>
-                                                        <td>{{trabajador.Nombres}}</td>
-                                                        <td>{{trabajador.Apellidos}}</td>
-                                                        <td>{{trabajador.Telefono1}}</td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-sm orange-chang"
+                                                <tr *ngFor="let trabajador of trabajadores | buscarTrabajador: buscando; let i = index">
+                                                    <th scope="row">{{i+1}}</th>
+                                                    <td>{{trabajador.Nombres}}</td>
+                                                    <td>{{trabajador.Apellidos}}</td>
+                                                    <td>{{trabajador.Telefono1}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm orange-chang"
                                                                 (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar"
                                                                 placement="bottom">
-                                                                <i class="fa fa-eye"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                            <i class="fa fa-eye"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>

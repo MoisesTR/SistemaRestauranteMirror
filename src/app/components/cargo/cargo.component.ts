@@ -18,7 +18,6 @@ declare var $: any;
 	selector: "app-cargo",
 	templateUrl: "./cargo.component.html",
 	styleUrls: ["./cargo.component.css"],
-	providers: [CargoService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {

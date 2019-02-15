@@ -137,7 +137,9 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 					this.rerender();
 				}
 			},
-			error => {}
+			error => {
+                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+            }
 		);
 	}
 

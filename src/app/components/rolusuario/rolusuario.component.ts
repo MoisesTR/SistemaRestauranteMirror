@@ -15,8 +15,7 @@ import { Utils } from "../Utils";
 @Component({
 	selector: "app-rolusuario",
 	templateUrl: "./rolusuario.component.html",
-	styleUrls: ["./rolusuario.component.css"],
-	providers: [RolusuarioService]
+	styleUrls: ["./rolusuario.component.css"]
 })
 export class RolusuarioComponent implements OnInit, InvocarFormulario {
 	public rol: RolUsuario;

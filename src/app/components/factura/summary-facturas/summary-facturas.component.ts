@@ -8,7 +8,7 @@ import {
 	ViewChild,
 	ViewChildren
 } from "@angular/core";
-import { FacturaService, ProveedorService, SpinnerService } from "@app/core/service.index";
+import { FacturaService, ProveedorService, SpinnerService, PersistenciaDatoService } from "@app/core/service.index";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Proveedor } from "@app/models/Proveedor";
 import { Factura } from "@app/models/Factura";
@@ -58,10 +58,12 @@ export class SummaryFacturasComponent implements OnInit {
 		private facturaService: FacturaService,
 		private proveedorService: ProveedorService,
 		private cdr: ChangeDetectorRef,
-		private spinner: SpinnerService
+		private spinner: SpinnerService,
+		private persistencia: PersistenciaDatoService
 	) {}
 
 	ngOnInit() {
+		this.setPersistencia();
 		this.initFormBusquedaFactura();
 		this.getProveedores();
 
@@ -301,13 +303,52 @@ export class SummaryFacturasComponent implements OnInit {
 
 	mostrarFactura(idFactura: number) {
 		this.router.navigate(["factura/showFactura/" + idFactura]);
+		this.getPersistencia();
 	}
 
 	changeFechaBusqueda(event) {
 		if (event === null || event === undefined) {
-			this.idFechaBusqueda = null;
+			this.idFechaBusqueda = null; 
 		} else {
 			this.idFechaBusqueda = event.Id;
 		}
 	}
+  
+	getPersistencia(){
+
+		let ObjetoSummaryFactura = {
+
+				facturas: this.facturas,
+				totalFactura: this.totalOrigenFactura,
+				totalCalculado: this.totalCordobasFacturas,
+				proveedor: this.formBusquedaFactura.value.proveedor,
+				fechaBusqueda: this.formBusquedaFactura.value.fechaBusqueda,
+				fechaInicio: this.formBusquedaFactura.value.fechaInicio,
+				fechaFin: this.formBusquedaFactura.value.fechaFin,
+				codFactura: this.formBusquedaFactura.value.codFactura
+		}
+		
+		this.persistencia.getPersistencia(ObjetoSummaryFactura,'SummaryFactura');
+	}
+
+	setPersistencia(){
+		this.persistencia.setPersistencia('SummaryFactura').subscribe(res => {
+		 
+			if(res){
+				this.facturas = res.facturas;
+				this.totalOrigenFactura = res.totalFactura;
+				this.totalCordobasFacturas = res.totalCalculado;
+				this.formBusquedaFactura.controls["fechaInicio"].setValue(res.fechaInicio);
+				this.formBusquedaFactura.controls["fechaFin"].setValue(res.fechaFin);
+				this.formBusquedaFactura.controls["fechaBusqueda"].setValue(res.fechaBusqueda);
+				this.formBusquedaFactura.controls["proveedor"].setValue(res.proveedor);
+				this.formBusquedaFactura.controls["codFactura"].setValue(res.codFactura);
+			}
+		},
+		error => {
+		}
+		);
+
+		this.persistencia.deletePersistencia('SummaryFactura');
+ 	}
 }

@@ -14,14 +14,12 @@ export class ReportesComponent implements OnInit {
 	public imgFactura = "facturas.jpg";
 	public imgTrabajadores = "trabajadores.jpg";
 	public carpetaImagenes = "reportes";
-	public probando: boolean = false;
+
 	constructor(private reporteService: ReporteService) {}
 
-	ngOnInit() {
-		//this.imprimirReporteProductos();
-	}
+	ngOnInit() {}
 
-	//aqui enviamos el id desde donde queremos que se muestre el reporte
+	//aqui obtenemnos el id desde el html, desde la parte que se quiere imprimir
 	/* imprimirReporteProductos() {
 		var data = document.getElementById("probar");
 		html2canvas(data, { allowTaint: true, useCORS: false, scaler: 1 }).then(canvas => {
@@ -39,7 +37,5 @@ export class ReportesComponent implements OnInit {
 		});
 	} */
 
-	imprimirReporteProveedores() {
-		this.probando = true;
-	}
+	imprimirReporteProveedores() {}
 }

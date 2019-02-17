@@ -55,6 +55,10 @@ export class FacturaService {
 		return this._http.post(this.url + "detalleFactComp/", params, { headers: headers });
 	}
 
+    getTop5ProductosMasCompradosFacturas(): Observable<any> {
+        return this._http.get(this.url + 'top5Productos/');
+    }
+
 	updateDetailFactura(FacturaDetalle): Observable<any> {
 		const params = JSON.stringify(FacturaDetalle);
 		const headers = new HttpHeaders({ "Content-type": "application/json" });

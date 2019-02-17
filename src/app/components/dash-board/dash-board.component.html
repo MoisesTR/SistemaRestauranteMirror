@@ -20,7 +20,7 @@
                             <div class="list-group">
                                 <a *ngFor="let factura of facturas" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">{{factura.NombreProveedor}}</h5>
+                                        <h5 class="mb-1">{{factura.NombProveedor}}</h5>
                                         <small>Hora Ingreso: {{factura.HoraIngreso}}</small>
                                     </div>
                                     <p class="mb-1">Codigo factura: {{factura.NumRefFactura}}</p>
@@ -59,7 +59,7 @@
 
                         <div class="container-fluid">
                             <div class="list-group">
-                                <a *ngFor="let producto of productosTop" class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">{{producto.NombreProducto}}
+                                <a *ngFor="let producto of productosTop" class="list-group-item d-flex justify-content-between align-items-center dark-grey-text">{{producto.NombProducto}}
                                     <span class="badge badge-pill red-chang">{{producto.Cantidad}}</span>
                                 </a>
                             </div>
@@ -116,8 +116,8 @@
                                             <tbody>
                                             <tr *ngFor="let proveedor of proveedores | buscarProveedor: buscando; let i = index">
                                                 <th scope="row">{{i+1}}</th>
-                                                <td>{{proveedor.NombreProveedor}}</td>
-                                                <td>{{proveedor.NombreRepresentante}}</td>
+                                                <td>{{proveedor.NombProveedor}}</td>
+                                                <td>{{proveedor.NombRepresentante}}</td>
                                                 <td>{{proveedor.Email}}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)"
@@ -201,7 +201,7 @@
                             <strong>{{nombreCard}}</strong>
                         </h3>
                         <!-- Si es proveedore aqui va la compañia a la que pertenece en caso que sea empleado aca va la sucursal -->
-                        <h6 class="font-bold red-chang-text mb-4">{{trabajador.NombreSucursal}}</h6>
+                        <h6 class="font-bold red-chang-text mb-4">{{trabajador.NombSucursal}}</h6>
                     </div>
 
                     <ul class="striped list-unstyled text-center">

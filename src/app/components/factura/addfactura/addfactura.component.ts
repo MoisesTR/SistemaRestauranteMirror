@@ -384,6 +384,7 @@ export class AddfacturaComponent implements OnInit {
 						this.productosFiltrados[index].DescripcionInsumo =
 							this.productosFiltrados[index].IdTipInsumo === 1 ? "Alimento" : "Limpieza";
 					});
+					console.log(this.productosFiltrados);
 					this.cdr.detectChanges();
 				}
 			},

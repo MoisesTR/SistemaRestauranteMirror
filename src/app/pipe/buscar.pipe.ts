@@ -11,7 +11,6 @@ export class BuscarPipe implements PipeTransform {
 		if (term === undefined) {
 			return valor;
 		}
-
 		if (valor !== null && valor !== undefined ) {
             return valor.filter( (item) => {
             	if (item.CodOriginal !== null) {
@@ -22,6 +21,5 @@ export class BuscarPipe implements PipeTransform {
 
             });
 		}
-
 	}
 }

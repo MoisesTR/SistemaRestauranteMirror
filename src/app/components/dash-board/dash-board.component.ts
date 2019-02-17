@@ -37,7 +37,6 @@ export class DashBoardComponent implements OnInit {
         private datePipe: DatePipe,
         private proveedorService: ProveedorService,
         private trabajadorService: TrabajadorService,
-        private gastoService: GastoService,
         private facturaService: FacturaService,
         private cdr: ChangeDetectorRef
     ) {
@@ -52,12 +51,12 @@ export class DashBoardComponent implements OnInit {
         this.fechaActual = this.transformDate(new Date());
         this.getProveedores();
         this.getTrabajadores();
-        // this.getTopProductos();
-        // this.getFacturas();
+        this.getTopProductos();
+        this.getFacturas();
     }
 
     getTopProductos() {
-        this.gastoService.getTopProductos().subscribe(
+        this.facturaService.getTop5ProductosMasCompradosFacturas().subscribe(
             response => {
                 if (response.productostop) {
                     this.productosTop = response.productostop;

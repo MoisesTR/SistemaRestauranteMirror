@@ -68,14 +68,13 @@ export class ShowFacturaComponent implements OnInit {
     }
 
     setDataFormFactura() {
-        this.IdProveedorSeleccionado = this.factura.IdProveedor;
         this.formFactura.controls["mumeroFactura"].setValue(this.factura.NumRefFactura);
         this.formFactura.controls["fechaFactura"].setValue(this.factura.FechaIngreso);
         this.formFactura.controls["usuario"].setValue(this.factura.TrabajadorIngreso);
-        this.formFactura.controls["nombrevendedor"].setValue("Vendedor no registrado");
+        this.formFactura.controls["nombrevendedor"].setValue(this.factura.NombVendedor);
         this.formFactura.controls["FormaPago"].setValue(this.IdFormaPagoSeleccionado);
         this.formFactura.controls["Moneda"].setValue(this.IdMonedaSeleccionada);
-        this.formFactura.controls["Proveedor"].setValue(this.IdProveedorSeleccionado);
+        this.formFactura.controls["Proveedor"].setValue(this.factura.IdProveedor);
         this.formFactura.controls["totalImpreso"].setValue(this.factura.TotalOrigenFactura + " C$");
         this.formFactura.controls["descuentoTotal"].setValue(this.factura.TotalDescuento);
         this.formFactura.controls["fechaFactura"].setValue(this.factura.FechaFactura);

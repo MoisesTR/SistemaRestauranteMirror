@@ -250,8 +250,9 @@ export class SummaryFacturasComponent implements OnInit {
 					}
 				);
 		} else {
-            this.spinner.display(false);
-        }
+		    this.peticionEnCurso = false;
+			this.spinner.display(false);
+		}
 	}
 
 	validarParametrosBusquedaFactura() {
@@ -310,47 +311,45 @@ export class SummaryFacturasComponent implements OnInit {
 
 	changeFechaBusqueda(event) {
 		if (event === null || event === undefined) {
-			this.idFechaBusqueda = null; 
+			this.idFechaBusqueda = null;
 		} else {
 			this.idFechaBusqueda = event.Id;
 		}
 	}
-  
-	getPersistencia(){
 
-		let ObjetoSummaryFactura = {
+	getPersistencia() {
+		const ObjetoSummaryFactura = {
+			facturas: this.facturas,
+			totalFactura: this.totalOrigenFactura,
+			totalCalculado: this.totalCordobasFacturas,
+			proveedor: this.formBusquedaFactura.value.proveedor,
+			fechaBusqueda: this.formBusquedaFactura.value.fechaBusqueda,
+			fechaInicio: this.formBusquedaFactura.value.fechaInicio,
+			fechaFin: this.formBusquedaFactura.value.fechaFin,
+			codFactura: this.formBusquedaFactura.value.codFactura
+		};
 
-				facturas: this.facturas,
-				totalFactura: this.totalOrigenFactura,
-				totalCalculado: this.totalCordobasFacturas,
-				proveedor: this.formBusquedaFactura.value.proveedor,
-				fechaBusqueda: this.formBusquedaFactura.value.fechaBusqueda,
-				fechaInicio: this.formBusquedaFactura.value.fechaInicio,
-				fechaFin: this.formBusquedaFactura.value.fechaFin,
-				codFactura: this.formBusquedaFactura.value.codFactura
-		}
-		
-		this.persistencia.getPersistencia(ObjetoSummaryFactura,'SummaryFactura');
+		this.persistencia.getPersistencia(ObjetoSummaryFactura, "SummaryFactura");
 	}
 
-	setPersistencia(){
-		this.persistencia.setPersistencia('SummaryFactura').subscribe(res => {
-		 
-			if(res){
-				this.facturas = res.facturas;
-				this.totalOrigenFactura = res.totalFactura;
-				this.totalCordobasFacturas = res.totalCalculado;
-				this.formBusquedaFactura.controls["fechaInicio"].setValue(res.fechaInicio);
-				this.formBusquedaFactura.controls["fechaFin"].setValue(res.fechaFin);
-				this.formBusquedaFactura.controls["fechaBusqueda"].setValue(res.fechaBusqueda);
-				this.formBusquedaFactura.controls["proveedor"].setValue(res.proveedor);
-				this.formBusquedaFactura.controls["codFactura"].setValue(res.codFactura);
-			}
-		},
-		error => {
-		}
+	setPersistencia() {
+		this.persistencia.setPersistencia("SummaryFactura").subscribe(
+			res => {
+				if (res) {
+					this.facturas = res.facturas;
+					this.totalOrigenFactura = res.totalFactura;
+					this.totalCordobasFacturas = res.totalCalculado;
+					this.idProveedor = res.proveedor;
+					this.formBusquedaFactura.controls["fechaInicio"].setValue(res.fechaInicio);
+					this.formBusquedaFactura.controls["fechaFin"].setValue(res.fechaFin);
+					this.formBusquedaFactura.controls["fechaBusqueda"].setValue(res.fechaBusqueda);
+					this.formBusquedaFactura.controls["proveedor"].setValue(res.proveedor);
+					this.formBusquedaFactura.controls["codFactura"].setValue(res.codFactura);
+				}
+			},
+			error => {}
 		);
 
-		this.persistencia.deletePersistencia('SummaryFactura');
- 	}
+		this.persistencia.deletePersistencia("SummaryFactura");
+	}
 }

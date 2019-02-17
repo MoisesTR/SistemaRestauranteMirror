@@ -1,5 +1,5 @@
 <section class="hide-scroll background-gray">
-  <div class="row hw-100 fixed-top">
+  <div class="row hw-100">
     <div class="col-md-12 col-lg-7 d-none d-sm-block" id="carousel-hide">
 
       <mdb-carousel [isControls]="false" [animation]="'slide'">
@@ -87,7 +87,7 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
               <label for="fechaFundacion">Fecha Fundación</label>
               <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" type="text" class="form-control" id="fechaFundacion"
-                placeholder="Seleccioné" [mdbValidate]=false mdbInputDirective formControlName="fechaFundacion" readonly>
+                placeholder="Seleccioné" [validateSuccess]="false" [validateError]="false" mdbInputDirective formControlName="fechaFundacion" readonly>
               <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
             </div>
 

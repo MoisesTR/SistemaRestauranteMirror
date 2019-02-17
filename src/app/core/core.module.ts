@@ -34,7 +34,8 @@ import {
 	TipoMonedaService,
 	PersistenciaDatoService,
 	LoginGuardService,
-	SettingRestauranteService
+	SettingRestauranteService,
+	PaisService,
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -95,6 +96,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 		PersistenciaDatoService,
 		LoginGuardService,
 		SettingRestauranteService,
+		PaisService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: TokenInterceptorService,

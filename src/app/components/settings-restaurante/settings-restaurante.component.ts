@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { SettingRestauranteService} from '@app/core/service.index';
+import { SettingRestauranteService,
+        PaisService,
+        TipoMonedaService} from '@app/core/service.index';
 import { Restaurante } from '@app/models/Restaurante';
 import { ActivatedRoute, Router } from "@angular/router";
 import swal from "sweetalert2";
 import { CustomValidators } from "@app/validadores/CustomValidators";
+import {Pais} from '@app/models/Pais';
+import { Utils } from "../Utils";
 
 @Component({
   selector: 'app-settings-restaurante',
@@ -14,18 +18,21 @@ import { CustomValidators } from "@app/validadores/CustomValidators";
 export class SettingsRestauranteComponent implements OnInit {
   
   public restaurante: Restaurante;
+  public paises:Pais[];
+  public pais:Pais;
   formSettingsRestaurante: FormGroup;            
   
   constructor(
     private route: ActivatedRoute,
 		private router: Router,
     private formBuilder: FormBuilder,
+    private paisService: PaisService,
     private settingRestauranteService: SettingRestauranteService
   ) { }
 
   ngOnInit() {
     this.initFormSettingRestaurante();
-
+    this.getPais();
     $(document).ready(() => {
 			$(".letras").keypress(function(key) {
 				if (
@@ -129,4 +136,20 @@ export class SettingsRestauranteComponent implements OnInit {
       }
     )
   }
+
+  getPais(){
+    this.paisService.getPaises().subscribe(
+      response => {
+        
+        if(response.paises){
+          this.paises = response.paises
+        }
+      },
+      error => {
+				Utils.showMsgError(Utils.msgError(error));
+			}
+    );
+  }
+
+  getTipoMoneda(){}
 }

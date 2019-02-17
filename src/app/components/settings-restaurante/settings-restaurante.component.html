@@ -48,7 +48,7 @@
 
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.3s">
               <label for="pais">País</label>
-              <ng-select id="pais" placeholder="Selecciona un pais" formControlName="pais">
+              <ng-select [items]="paises" bindLabel="NombPais" bindValue="IdPais"  id="pais" placeholder="Selecciona un pais" formControlName="pais">
               </ng-select>
             </div>
 

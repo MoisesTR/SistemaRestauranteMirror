@@ -32,5 +32,6 @@ export {TipoMonedaService} from './services/shared/tipo-moneda.service'
 export {PersistenciaDatoService} from './services/shared/persistencia.service';
 export {LoginGuardService} from './services/auth/login-guard.service';
 export {SettingRestauranteService} from './services/shared/settings-restaurante.service';
+export {PaisService} from './services/shared/pais.service';
 
 

@@ -5,20 +5,19 @@
     <!-- Sidebar navigation -->
     <mdb-side-nav #sidenav class="sn-bg-7" [fixed]="true">
 
-
-        <!-- Logo -->
         <li>
-            <div class="logo-wrapper sn-ad-avatar-wrapper">
-                <img [src]="usuario.Imagen | imagen:carpetaImagen" class="img-fluid">
-                <p class="user white-text" *ngIf="usuario">{{usuario.Username}}
-                    <br>{{usuario.NombCargo}}</p>
-                <p class="user white-text" *ngIf="!usuario">Indefinido
-                    <br>Cargo</p>
-            </div>
-        </li>
-        <!--/. Logo -->
+            <!-- Avatar -->
+            <ul class="black-chang-dregadate">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="text-center mt-2 mb-2">
+                        <img [src]="usuario.Imagen | imagen:carpetaImagen" alt="person" class="img-fluid rounded-circle mx-auto d-block mb-2" style="height: 7%;">
+                        <h5 class="text-uppercase" *ngIf="usuario" style="margin: 0;
+                        padding: 0;">{{usuario.Username}}</h5>
+                        <span class="font-weight-lighter">Web Developer</span>
+                    </div>
+                </div>
+            </ul>
 
-        <li>
             <ul class="collapsible collapsible-accordion">
                 <mdb-accordion [multiple]="false" aria-multiselectable="false">
                     <mdb-accordion-item class="{{menu.Clase}}" *ngFor="let menu of menues">

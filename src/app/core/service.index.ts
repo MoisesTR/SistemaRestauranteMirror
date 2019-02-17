@@ -30,6 +30,7 @@ export {SpinnerService} from './services/shared/spinner.service';
 export {TipoDocumentoService} from './services/shared/tipo-documento.service';
 export {TipoMonedaService} from './services/shared/tipo-moneda.service'
 export {PersistenciaDatoService} from './services/shared/persistencia.service';
-export {LoginGuardService} from './services/auth/login-guard.service'
+export {LoginGuardService} from './services/auth/login-guard.service';
+export {SettingRestauranteService} from './services/shared/settings-restaurante.service';
 
 

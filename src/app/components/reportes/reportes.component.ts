@@ -14,12 +14,15 @@ export class ReportesComponent implements OnInit {
 	public imgFactura = "facturas.jpg";
 	public imgTrabajadores = "trabajadores.jpg";
 	public carpetaImagenes = "reportes";
-
+	public probando: boolean = false;
 	constructor(private reporteService: ReporteService) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		//this.imprimirReporteProductos();
+	}
 
-	imprimirReporteProductos() {
+	//aqui enviamos el id desde donde queremos que se muestre el reporte
+	/* imprimirReporteProductos() {
 		var data = document.getElementById("probar");
 		html2canvas(data, { allowTaint: true, useCORS: false, scaler: 1 }).then(canvas => {
 			// Few necessary setting options
@@ -34,7 +37,9 @@ export class ReportesComponent implements OnInit {
 			pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
 			pdf.save("reporte.pdf"); // Generated PDF
 		});
-	}
+	} */
 
-	imprimirReporteProveedores() {}
+	imprimirReporteProveedores() {
+		this.probando = true;
+	}
 }

@@ -5,6 +5,7 @@ import { NegOrPosNumbergDirective } from "@app/directives/negorposnumber.directi
 import { NumbersOnlyIntDirective } from "@app/directives/numbers-only-int.directive";
 import { NumberOnlyDirective } from "@app/directives/onlynumber.directive";
 import { NumberDirective } from "@app/directives/onlypositivenumber.directive";
+import { ReportesDirective } from "@app/directives/reportes.directive";
 
 @NgModule({
 	imports: [],
@@ -14,7 +15,8 @@ import { NumberDirective } from "@app/directives/onlypositivenumber.directive";
 		NegOrPosNumbergDirective,
 		NumbersOnlyIntDirective,
 		NumberOnlyDirective,
-		NumberDirective
+		NumberDirective,
+		ReportesDirective
 	],
 	declarations: [
 		AcceptCharactersDirective,
@@ -22,7 +24,8 @@ import { NumberDirective } from "@app/directives/onlypositivenumber.directive";
 		NegOrPosNumbergDirective,
 		NumbersOnlyIntDirective,
 		NumberOnlyDirective,
-		NumberDirective
+		NumberDirective,
+		ReportesDirective
 	]
 })
 export class DirectivesModule {}

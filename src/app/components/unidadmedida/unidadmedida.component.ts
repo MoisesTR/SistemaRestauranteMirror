@@ -270,15 +270,15 @@ export class UnidadmedidaComponent implements OnInit {
 
 	showModalUpdateUnidad(modal, Unidad: UnidadMedida) {
 		this.unidadMedida.IdUnidadMedida = Unidad.IdUnidadMedida;
-		this.unidadMedida.IdClasificacionUnidadMedida =
-			Unidad.IdClasificacionUnidadMedida;
+		this.unidadMedida.IdClasifUDM =
+			Unidad.IdClasifUDM;
 		this.unidadMedida.NImportancia = Unidad.NImportancia;
 
 		this.formUpdateUnidadMedida.reset();
 		this.formUpdateUnidadMedida.setValue({
 			nombreUnidadMedida: Unidad.NombUnidad,
 			simboloUnidadMedida: Unidad.Simbolo,
-			clasificacionesUnidad: Unidad.IdClasificacionUnidadMedida
+			clasificacionesUnidad: Unidad.IdClasifUDM
 		});
 
 		modal.show();
@@ -286,10 +286,10 @@ export class UnidadmedidaComponent implements OnInit {
 
 	changeClasificacionUnidad(event) {
 		if (event === null) {
-			this.unidadMedida.IdClasificacionUnidadMedida = null;
+			this.unidadMedida.IdClasifUDM = null;
 		} else {
-			this.unidadMedida.IdClasificacionUnidadMedida =
-				event.IdClasificacionUnidadMedida;
+			this.unidadMedida.IdClasifUDM =
+				event.IdClasifUDM;
 		}
 	}
 

@@ -187,7 +187,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 			]),
 			descripcionProveedor: new FormControl("", [Validators.maxLength(400)]),
 			isMercado: new FormControl("", []),
-			isProveedorServicio: new FormControl("", [])
+			isProveedorServicio: new FormControl(false, [])
 		});
 	}
 
@@ -198,8 +198,11 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 		this.proveedor.Documento = this.formAddProveedor.value.numeroRuc;
 		this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
 		this.proveedor.Email = this.formAddProveedor.value.email;
-		this.proveedor.Mercado = this.formAddProveedor.value.isMercado === true ? 1 : 0;
+		this.proveedor.IsMercado = this.formAddProveedor.value.isMercado === true ? 1 : 0;
 		this.proveedor.IsProvServicio = this.formAddProveedor.value.isProveedorServicio;
+		this.proveedor.Abreviatura = "Abreviatura";
+		this.proveedor.IdPais = 1;
+		this.proveedor.IdTipDoc = 2;
 	}
 
 	initFormTelefonos() {

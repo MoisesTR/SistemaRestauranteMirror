@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 		private formBuilderUser: FormBuilder,
 		private toastr: ToastService
 	) {
+	    this.token  = new Token();
 		this.usuario = new Usuario();
 	}
 

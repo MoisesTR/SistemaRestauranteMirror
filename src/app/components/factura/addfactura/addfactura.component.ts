@@ -382,7 +382,7 @@ export class AddfacturaComponent implements OnInit {
 						this.productosFiltrados[index].CalculoIva = 0;
 						this.productosFiltrados[index].IsDescuentoPorcentual = true;
 						this.productosFiltrados[index].DescripcionInsumo =
-							this.productosFiltrados[index].IdTipoInsumo === 1 ? "Alimento" : "Limpieza";
+							this.productosFiltrados[index].IdTipInsumo === 1 ? "Alimento" : "Limpieza";
 					});
 					this.cdr.detectChanges();
 				}

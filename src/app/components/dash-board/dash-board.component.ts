@@ -52,8 +52,8 @@ export class DashBoardComponent implements OnInit {
         this.fechaActual = this.transformDate(new Date());
         this.getProveedores();
         this.getTrabajadores();
-        this.getTopProductos();
-        this.getFacturas();
+        // this.getTopProductos();
+        // this.getFacturas();
     }
 
     getTopProductos() {

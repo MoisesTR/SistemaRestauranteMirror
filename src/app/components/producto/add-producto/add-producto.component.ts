@@ -402,11 +402,12 @@ export class AddProductoComponent implements OnInit {
         this.producto.ValorUnidadMedida = !this.formAddProducto.value.valorunidadmedida ? null : this.formAddProducto.value.valorunidadmedida;
         this.producto.DiasCaducidad = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
         this.producto.DiasDeUso = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
-        this.producto.DiasRotacion = !this.formAddProducto.value.diasDeUso ? null : this.formAddProducto.value.diasDeUso;
-        this.producto.CodOriginal = this.formAddProducto.value.codigoOriginal;
-        this.producto.CodProd = this.formAddProducto.value.codigoInterno;
+        this.producto.DiasRotacion = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
+        this.producto.CodProd = this.formAddProducto.value.codigoOriginal;
+        this.producto.CodOriginal = this.formAddProducto.value.codigoInterno;
+        this.producto.CodBarra = this.producto.CodProd;
         this.producto.IdProveedor = this.proveedorSelecionado;
-        this.producto.IdTipoInsumo = 1;
+        this.producto.IdTipInsumo = 1;
         this.producto.Imagen = !this.producto.Imagen ? "" : this.producto.Imagen;
     }
 

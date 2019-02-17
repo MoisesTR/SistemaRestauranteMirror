@@ -1,18 +1,5 @@
-import {
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from "@angular/core";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import {
 	ClasificacionProductoService,
@@ -32,14 +19,11 @@ import { ISubscription } from "rxjs-compat/Subscription";
 	selector: "modal-unidad-medida",
 	templateUrl: "./modal-unidad-medida.component.html"
 })
-export class ModalUnidadMedidaComponent
-	implements OnInit, EventoModal, OnDestroy {
+export class ModalUnidadMedidaComponent implements OnInit, EventoModal, OnDestroy {
 	@ViewChild("modalAddUnidadMedida")
 	modalAddUnidadMedida: ModalDirective;
 
-	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
-		boolean
-	>();
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 	public unidadMedida: UnidadMedida;
 	public clasificaciones: ClasificacionProducto[];
@@ -81,18 +65,16 @@ export class ModalUnidadMedidaComponent
 	}
 
 	subscribeEventoModal() {
-		this.subscription = this.unidadMedidaService.eventoModal.subscribe(
-			mostrarModal => {
-				if (mostrarModal) {
-					this.getClasificacionUnidades();
-					this.unidadMedida = new UnidadMedida();
-					this.formAddUnidadMedida.reset();
-					this.modalAddUnidadMedida.show();
-				} else {
-					this.hideModalAndEmitResult();
-				}
+		this.subscription = this.unidadMedidaService.eventoModal.subscribe(mostrarModal => {
+			if (mostrarModal) {
+				this.getClasificacionUnidades();
+				this.unidadMedida = new UnidadMedida();
+				this.formAddUnidadMedida.reset();
+				this.modalAddUnidadMedida.show();
+			} else {
+				this.hideModalAndEmitResult();
 			}
-		);
+		});
 	}
 
 	createUnidadMedida() {
@@ -102,19 +84,12 @@ export class ModalUnidadMedidaComponent
 		this.unidadMedidaService.createUnidadMedida(this.unidadMedida).subscribe(
 			response => {
 				if (response.IdUnidadMedida) {
-					swal(
-						this.tituloPantalla,
-						"La unidad ha sido creada exitosamente!",
-						"success"
-					).then(() => {
+					swal(this.tituloPantalla, "La unidad ha sido creada exitosamente!", "success").then(() => {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});
 				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error inesperado al crear la unidad de medida!",
-						this.tituloPantalla
-					);
+					Utils.showMsgInfo("Ha ocurrido un error inesperado al crear la unidad de medida!", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -152,11 +127,10 @@ export class ModalUnidadMedidaComponent
 	}
 
 	changeClasificacionUnidad(event) {
-		if (event === null) {
-			this.unidadMedida.IdClasificacionUnidadMedida = null;
+		if (event) {
+			this.unidadMedida.IdClasifUDM = event.IdClasifUDM;
 		} else {
-			this.unidadMedida.IdClasificacionUnidadMedida =
-				event.IdClasificacionUnidadMedida;
+			this.unidadMedida.IdClasifUDM = null;
 		}
 	}
 

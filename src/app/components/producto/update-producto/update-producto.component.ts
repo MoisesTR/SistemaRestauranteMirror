@@ -230,7 +230,7 @@ export class UpdateProductoComponent implements OnInit {
 		this.formUpdateProducto.controls["diasCaducidad"].setValue(this.producto.DiasCaducidad);
 		this.formUpdateProducto.controls["valorUnidadMedida"].setValue(this.producto.ValorUnidadMedida);
 		this.formUpdateProducto.controls["cantidadEmpaque"].setValue(this.producto.CantidadEmpaque);
-		this.IdTipoInsumo = this.producto.IdTipoInsumo;
+		this.IdTipoInsumo = this.producto.IdTipInsumo;
 		this.proveedoresProducto = this.producto.Proveedores;
 	}
 

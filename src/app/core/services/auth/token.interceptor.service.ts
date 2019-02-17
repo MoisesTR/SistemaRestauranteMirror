@@ -24,7 +24,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 			}
 		});
 
-		this.logger.log(request);
+		// this.logger.log(request);
 		return next.handle(request).pipe(
 			tap(
 				(response: HttpEvent<any>) => {},

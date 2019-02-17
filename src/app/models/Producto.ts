@@ -28,13 +28,12 @@ export class Producto {
   public Visualizar: boolean;
   public CreatedAt: string;
   public UpdateAt: string;
-  public IdTipoInsumo: number;
+  public IdTipInsumo: number;
   public DescripcionInsumo: string;
   public Proveedores: Proveedor[];
-  public CodOriginal: string;
-  public IdTipInsumo: number;
   public CodBarra: string;
   public CodProd: string;
+  public CodOriginal: string;
   public DiasRotacion: number;
   public ConsumoDirecto: boolean;
   public IsGranel: boolean;

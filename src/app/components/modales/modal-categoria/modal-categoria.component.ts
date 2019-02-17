@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ISubscription } from "rxjs-compat/Subscription";
 
-import { CategoriaProductoService } from "@app/core/service.index";
+import {CategoriaProductoService, TipoInsumoService} from '@app/core/service.index';
 import { CategoriaProducto } from "@app/models/CategoriaProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { ModalDirective } from "ng-uikit-pro-standard";
 import swal from "sweetalert2";
 import { Utils } from "../../Utils";
+import {TipoInsumo} from '@app/models/interface/TipoInsumo';
 
 @Component({
 	selector: "modal-categoria",
@@ -25,10 +26,12 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 	public categoriaProducto: CategoriaProducto;
 	private subscription: ISubscription;
 	peticionEnCurso = false;
+	public tiposInsumos: TipoInsumo;
 	public tituloPantalla = "Categoria";
 
 	constructor(
 		public categoriaService: CategoriaProductoService,
+		public tipoInsumoService: TipoInsumoService,
 		private cdRef: ChangeDetectorRef,
 		private formBuilderCategoria: FormBuilder
 	) {}
@@ -36,6 +39,7 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 	ngOnInit() {
 		this.initFormAddCategoria();
 		this.subscribeEventoModal();
+		this.getTiposInsumos();
 	}
 
 	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
@@ -47,6 +51,9 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 				Validators.maxLength(100),
 				CustomValidators.nospaceValidator
 			]),
+            tipoInsumo: new FormControl( null,[
+                Validators.required
+            ]),
 			descripcionCategoria: new FormControl("", [
 				Validators.required,
 				Validators.minLength(3),
@@ -102,6 +109,7 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 		this.categoriaProducto.NombCategoria = this.formAddCategoria.value.nombreCategoria;
 		this.categoriaProducto.DescCategoria = this.formAddCategoria.value.descripcionCategoria;
 		this.categoriaProducto.IdTipInsumo = !this.idTipoInsumo ? 1 : this.idTipoInsumo;
+		console.log(this.categoriaProducto);
 	}
 
 	hideModalAndEmitResult() {
@@ -113,6 +121,23 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 		this.formAddCategoria.reset();
 		this.modalAddCategoria.hide();
 	}
+
+	getTiposInsumos() {
+	    this.tipoInsumoService.getTiposInsumos().subscribe(
+	        tiposinsumos => {
+	            this.tiposInsumos = tiposinsumos;
+	            console.log(this.tiposInsumos);
+            }
+        )
+    }
+
+    changeTipoInsumo(event) {
+	    if (event) {
+	        this.categoriaProducto.IdTipInsumo = event.IdTipInsumo;
+        } else {
+            this.categoriaProducto.IdTipInsumo = null;
+        }
+    }
 
 	ngOnDestroy(): void {
 		this.subscription.unsubscribe();

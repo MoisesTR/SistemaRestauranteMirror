@@ -33,5 +33,5 @@ export {PersistenciaDatoService} from './services/shared/persistencia.service';
 export {LoginGuardService} from './services/auth/login-guard.service';
 export {SettingRestauranteService} from './services/shared/settings-restaurante.service';
 export {PaisService} from './services/shared/pais.service';
-
+export {TipoInsumoService} from './services/shared/tipo-insumo.service'
 

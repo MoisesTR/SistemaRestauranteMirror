@@ -1,79 +1,52 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
 
-import { Cargo } from "@app/models/Cargo";
-import { CustomValidators } from "@app/validadores/CustomValidators";
 import { ModalDirective } from "ng-uikit-pro-standard";
-import { DataTableDirective } from "angular-datatables";
 import { idioma_espanol } from "@app/core/services/shared/global";
-import { Utils } from "../Utils";
-import { CargoService, SpinnerService } from "@app/core/service.index";
+import { RolUsuario } from "@app/models/RolUsuario";
+import { RolusuarioService, SpinnerService } from "@app/core/service.index";
 import swal from "sweetalert2";
-
-declare var $: any;
+import { DataTableDirective } from "angular-datatables";
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { Utils } from "../Utils";
 
 @Component({
-    selector: "app-cargo",
-    templateUrl: "./cargo.component.html",
-    styleUrls: ["./cargo.component.css"],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "app-rolusuario",
+    templateUrl: "./rolusuario.component.html",
+    styleUrls: ["./rolusuario.component.css"]
 })
-export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
-    public cargo: Cargo;
-    public cargos: Cargo[];
-    public formAddCargo: FormGroup;
-    public formUpdateCargo: FormGroup;
-    public tituloPantalla = "Cargo";
+export class RolusuarioComponent implements OnInit, InvocarFormulario {
+    public rol: RolUsuario;
+    public roles: RolUsuario[];
+    public formAddRolUsuario: FormGroup;
+    public formUpdateRolUsuario: FormGroup;
+    public tituloPantalla: string = "Rol";
 
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject<any>();
 
-    @ViewChild("modalAddCargo") modalAddCargo: ModalDirective;
-    @ViewChild("modalUpdateCargo") modalUpdateCargo: ModalDirective;
+    @ViewChild("modalAddRol") modalAddRol: ModalDirective;
+    @ViewChild("modalUpdateRol") modalUpdateRol: ModalDirective;
 
     @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private cargoService: CargoService,
+        private rolUsuarioService: RolusuarioService,
         private spinner: SpinnerService,
-        private formBuilderCargo: FormBuilder,
-        private cdr: ChangeDetectorRef
+        private formBuilderRol: FormBuilder
     ) {
-        this.cargo = new Cargo();
+        this.rol = new RolUsuario();
     }
 
     ngOnInit() {
-        $(document).ready(() => {
-            $(".letras").keypress(function(key) {
-                if (
-                    (key.charCode < 97 || key.charCode > 122) && // letras mayusculas
-                    (key.charCode < 65 || key.charCode > 90) && // letras minusculas
-                    key.charCode !== 241 && // ñ
-                    key.charCode !== 209 && // Ñ
-                    key.charCode !== 32 && // espacio
-                    key.charCode !== 225 && // á
-                    key.charCode !== 233 && // é
-                    key.charCode !== 237 && // í
-                    key.charCode !== 243 && // ó
-                    key.charCode !== 250 && // ú
-                    key.charCode !== 193 && // Á
-                    key.charCode !== 201 && // É
-                    key.charCode !== 205 && // Í
-                    key.charCode !== 211 && // Ó
-                    key.charCode !== 218 // Ú
-                ) {
-                    return false;
-                }
-            });
-        });
         this.settingsDatatable();
-        this.getCargos();
-        this.initFormAddCargo();
-        this.initFormUpdateCargo();
+        this.getRoles();
+        this.initFormAddRolUsuario();
+        this.initFormUpdateRolUsuario();
     }
 
     settingsDatatable() {
@@ -91,31 +64,20 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
                     key: "1",
                     className: "btn orange-chang float-right-dt",
                     action: (e, dt, node, config) => {
-                        this.InvocarModal(this.modalAddCargo, this.formAddCargo);
+                        this.InvocarModal(this.modalAddRol, this.formAddRolUsuario);
                     }
                 }
             ]
         };
     }
 
-    rerender(): void {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            // Destroy the table first
-            dtInstance.destroy();
-            // Call the dtTrigger to rerender again
-            this.dtTrigger.next();
-            this.cdr.detectChanges();
-        });
-    }
-
-    getCargos() {
+    getRoles() {
         this.spinner.display(true);
-        this.cargoService.getCargos().subscribe(
+        this.rolUsuarioService.getRoles().subscribe(
             response => {
-                if (response.cargos) {
-                    this.cargos = response.cargos;
+                if (response.roles) {
+                    this.roles = response.roles;
                     this.dtTrigger.next();
-                    this.cdr.markForCheck();
                 }
             },
             error => {
@@ -128,79 +90,91 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
         );
     }
 
-    getCargosRender() {
-        this.cargoService.getCargos().subscribe(
+    rerender(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            // Destroy the table first
+            dtInstance.destroy();
+            // Call the dtTrigger to rerender again
+            this.dtTrigger.next();
+        });
+    }
+
+    getRolesRender() {
+        this.rolUsuarioService.getRoles().subscribe(
             response => {
-                if (response.cargos) {
-                    this.cargos = response.cargos;
+                if (response.roles) {
+                    this.roles = response.roles;
                     this.rerender();
                 }
             },
             error => {
                 Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+            },
+            () => {
+
             }
         );
     }
 
     /*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
-    initFormAddCargo() {
-        this.formAddCargo = this.formBuilderCargo.group({
-            nombreCargo: new FormControl("", [
+    initFormAddRolUsuario() {
+        this.formAddRolUsuario = this.formBuilderRol.group({
+            nombreRol: new FormControl("", [
                 Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(100),
+                Validators.maxLength(20),
+                Validators.minLength(5),
                 CustomValidators.nospaceValidator
             ]),
-            descripcionCargo: new FormControl("", [
+            descripcionRol: new FormControl("", [
                 Validators.required,
-                Validators.minLength(3),
-                Validators.maxLength(100),
+                Validators.maxLength(20),
+                Validators.minLength(5),
                 CustomValidators.nospaceValidator
             ])
         });
     }
 
-    initFormUpdateCargo() {
-        this.formUpdateCargo = this.formBuilderCargo.group({
-            nombreCargo: new FormControl("", [
+    initFormUpdateRolUsuario() {
+        this.formUpdateRolUsuario = this.formBuilderRol.group({
+            nombreRol: new FormControl("", [
                 Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(100),
+                Validators.maxLength(20),
+                Validators.minLength(5),
                 CustomValidators.nospaceValidator
             ]),
-            descripcionCargo: new FormControl("", [
+            descripcionRol: new FormControl("", [
                 Validators.required,
-                Validators.minLength(3),
-                Validators.maxLength(100),
+                Validators.maxLength(20),
+                Validators.minLength(5),
                 CustomValidators.nospaceValidator
             ])
         });
     }
 
-    getValuesFormAddCargo() {
-        this.cargo.NombCargo = this.formAddCargo.value.nombreCargo;
-        this.cargo.DescCargo = this.formAddCargo.value.descripcionCargo;
+    getValuesFormAddRolUsuario() {
+        this.rol.NombRol = this.formAddRolUsuario.value.nombreRol;
+        this.rol.DescRol = this.formAddRolUsuario.value.descripcionRol;
     }
 
-    getValuesFormUpdateCargo() {
-        this.cargo.NombCargo = this.formUpdateCargo.value.nombreCargo;
-        this.cargo.DescCargo = this.formUpdateCargo.value.descripcionCargo;
+    getValuesFormUpdateRolUsuario() {
+        this.rol.NombRol = this.formUpdateRolUsuario.value.nombreRol;
+        this.rol.DescRol = this.formUpdateRolUsuario.value.descripcionRol;
     }
 
-    createCargoUsuario() {
-        this.getValuesFormAddCargo();
+    createRolUsuario(Modal) {
+        this.getValuesFormAddRolUsuario();
 
-        this.cargoService.createCargo(this.cargo).subscribe(
+        this.rolUsuarioService.createRolUsuario(this.rol).subscribe(
             response => {
-                if (response) {
-                    swal("Cargo", "El Cargo ha sido creado exitosamente!", "success").then(() => {
-                        this.modalAddCargo.hide();
-                        this.formAddCargo.reset();
-                        this.cargo = new Cargo();
-                        this.getCargosRender();
+                if (response.IdRol) {
+                    swal("Rol", "El Rol ha sido creado exitosamente!", "success").then(() => {
+                        Modal.hide();
+                        this.formAddRolUsuario.reset();
+                        this.rol = new RolUsuario();
+                        this.getRolesRender();
                     });
                 } else {
-                    Utils.showMsgInfo("Ha ocurrido un error al insertar el cargo, intentalo nuevamente", this.tituloPantalla);
+                    Utils.showMsgInfo("Ha ocurrido un error al insertar el rol, intentalo nuevamente", this.tituloPantalla);
                 }
             },
             error => {
@@ -209,77 +183,88 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
         );
     }
 
-    updateCargo() {
-        this.getValuesFormUpdateCargo();
+    updateRolUsuario() {
+        this.getValuesFormUpdateRolUsuario();
 
-        this.cargoService.updateCargo(this.cargo).subscribe(
+        this.rolUsuarioService.updateRol(this.rol).subscribe(
             response => {
                 if (response.success) {
-                    swal("Cargo", "El cargo ha sido actualizado exitosamente!", "success").then(() => {
-                        this.modalUpdateCargo.hide();
-                        this.formUpdateCargo.reset();
-                        this.getCargosRender();
+                    swal("Rol", "El rol ha sido actualizado exitosamente!", "success").then(() => {
+                        this.modalUpdateRol.hide();
+                        this.formUpdateRolUsuario.reset();
+                        this.getRolesRender();
                     });
                 } else {
-                    Utils.showMsgInfo("Ha ocurrido un error inesperado en la actualización", this.tituloPantalla);
+                    Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar, intentalo nuevamente", this.tituloPantalla);
                 }
             },
             error => {
                 Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
             }
         );
-        this.cargo = new Cargo();
+
+        this.rol = new RolUsuario();
     }
 
-    deleteCargo(IdCargo) {
-        swal({
-            title: "Estas seguro(a)?",
-            text: "El cargo sera eliminado permanentemente!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminalo!",
-            cancelButtonText: "Cancelar"
-        }).then(result => {
-            if (result.value) {
-                this.cargoService.deleteCargo(IdCargo).subscribe(
-                    response => {
-                        if (response.success) {
-                            swal(this.tituloPantalla, "El cargo ha sido eliminado exitosamente", "success").then(() => {
-                                this.getCargosRender();
-                            });
-                        } else {
-                            Utils.showMsgInfo("Ha ocurrido un error al eliminar", this.tituloPantalla);
-                        }
-                    },
-                    error => {
-                        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-                    }
-                );
-            } else if (result.dismiss === swal.DismissReason.cancel) {
-            }
-        });
-    }
-
+    // deleteRolUsuario(IdRol){
+    //
+    //   swal({
+    //     title: "Estas seguro(a)?",
+    //     text: "El rol sera eliminada permanentemente!",
+    //     type: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Si, Eliminala!'
+    //   }).then((eliminar) => {
+    //     if (eliminar) {
+    //       this._RolusuarioService.deleteRol(IdRol).subscribe(
+    //         response =>{
+    //           if(response.success){
+    //             swal(
+    //               'Eliminada!',
+    //               'El Rol ha sido eliminada exitosamente',
+    //               'success'
+    //             ).then(() => {
+    //              this.getRolRender();
+    //             })
+    //           } else {
+    //             swal(
+    //               'Error inesperado',
+    //               'Ha ocurrido un error en la eliminación, intenta nuevamente!',
+    //               'error'
+    //             )
+    //           }
+    //         }, error =>{
+    //           if(error.status = 500){
+    //             swal(
+    //               'Error inesperado',
+    //               'Ha ocurrido un error en el servidor, intenta nuevamente!',
+    //               'error'
+    //             )
+    //           }
+    //         }
+    //       )
+    //
+    //     }
+    //   });
+    //
+    // }
     InvocarModal(Modal, Formulario) {
         Utils.invocacionModal(Modal, Formulario);
     }
 
-    invocarModalUpdate(Modal, cargo: Cargo) {
-        this.cargo.IdCargo = cargo.IdCargo;
-        this.cargo.NombCargo = cargo.NombCargo;
-        this.cargo.DescCargo = cargo.DescCargo;
+    invocarModalUpdate(Modal, Rol: RolUsuario) {
+        this.rol.IdRol = Rol.IdRol;
+        this.rol.NombRol = Rol.NombRol;
+        this.rol.DescRol = Rol.DescRol;
 
-        this.formUpdateCargo.reset();
-        this.formUpdateCargo.setValue({
-            nombreCargo: cargo.NombCargo,
-            descripcionCargo: cargo.DescCargo
+        this.formUpdateRolUsuario.reset();
+        this.formUpdateRolUsuario.setValue({
+            nombreRol: Rol.NombRol,
+            descripcionRol: Rol.DescRol
         });
-        Modal.show();
-    }
 
-    ngOnDestroy(): void {
-        this.dtTrigger.unsubscribe();
+        Modal.show();
     }
 }

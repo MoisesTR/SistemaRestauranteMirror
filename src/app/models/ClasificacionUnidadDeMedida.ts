@@ -1,8 +1,8 @@
 export class ClasificacionUnidadDeMedida {
 
-  public IdClasificacionUnidadMedida: number;
+  public IdClasifUDM: number;
   public NombClasificacion: string;
-  public Descripcion: string;
+  public DescClasificacion: string;
   public Habilitado: number;
   public disabled: number;
 

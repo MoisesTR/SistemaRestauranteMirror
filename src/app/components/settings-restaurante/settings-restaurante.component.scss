@@ -92,5 +92,6 @@ input[type=date]:focus:not([readonly])
   position: absolute;
   top: 0px;
   bottom: 0px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

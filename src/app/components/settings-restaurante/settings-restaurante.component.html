@@ -30,80 +30,88 @@
 
     <div class="col-12 col-md-12 col-lg-5" id="container1">
 
-      <div class="row mlc-1 center-block" id="container2">
+      <div class="mt-5 mlc-1 center-block" id="container2">
 
         <div class="col-md-12 text-center mt-6" id="bienvenidos">
           <h1 class="h1-reponsive orange-chang-text font-weight-bold mb-0 wow fadeInDownBig" data-wow-delay="0.3s"><strong>¡Bienvenidos!</strong></h1>
           <hr class="hr-light my-4 wow fadeInDownBig" data-wow-delay="0.3s">
         </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.3s">
-          <label for="nombreRestaurante">Nombre Restaurante</label>
-          <input class="form-control" type="text" id="nombreRestaurante" placeholder="Restaurante Azul">
-        </div>
+        <form [formGroup]="">
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.3s">
-          <label for="pais">País</label>
-          <ng-select id="pais" placeholder="Selecciona un pais">
-          </ng-select>
-        </div>
+          <div class="row container-fluid mt-6 ml-2">
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
-          <label for="moneda">Moneda</label>
-          <ng-select id="moneda" placeholder="Selecciona una Moneda">
-          </ng-select>
-        </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.3s">
+              <label for="nombreRestaurante">Nombre Restaurante</label>
+              <input class="form-control" type="text" id="nombreRestaurante" placeholder="Restaurante Azul">
+            </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
-          <label for="monedaFacturacion">Moneda Facturación</label>
-          <ng-select id="monedaFacturacion" placeholder="Selecciona una Moneda de Facturación">
-          </ng-select>
-        </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.3s">
+              <label for="pais">País</label>
+              <ng-select id="pais" placeholder="Selecciona un pais">
+              </ng-select>
+            </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
-          <label for="correo">Correo Electrónico</label>
-          <input type="email" class="form-control" id="correo" placeholder="usuario@dominio.com">
-        </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+              <label for="moneda">Moneda</label>
+              <ng-select id="moneda" placeholder="Selecciona una Moneda">
+              </ng-select>
+            </div>
 
-        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.3s">
-          <label class="mb-3">Respaldo Automático</label>
-          <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
-        </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+              <label for="monedaFacturacion">Moneda Facturación</label>
+              <ng-select id="monedaFacturacion" placeholder="Selecciona una Moneda de Facturación">
+              </ng-select>
+            </div>
 
-        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.3s">
-          <label class="mb-3">Cuota Fija</label>
-          <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
-        </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+              <label for="correo">Correo Electrónico</label>
+              <input type="email" class="form-control" id="correo" placeholder="usuario@dominio.com">
+            </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
-          <label for="telefono">Teléfono</label>
-          <input type="text" class="form-control" id="telefono" placeholder="22222222">
-        </div>
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.3s">
+              <label class="mb-3">Respaldo Automático</label>
+              <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+            </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
-          <label for="fechaFundacion">Fecha Fundación</label>
-          <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" type="text" class="form-control" id="fechaFundacion"
-            placeholder="Seleccioné" [mdbValidate]=false mdbInputDirective readonly>
-          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-        </div>
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.3s">
+              <label class="mb-3">Cuota Fija</label>
+              <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+            </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
-          <label for="razonSocial">Razón Social</label>
-          <textarea id="razonSocial" class="form-control mb-4 resize-text-area" placeholder="Razón Social"></textarea>
-        </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+              <label for="telefono">Teléfono</label>
+              <input type="text" class="form-control" id="telefono" placeholder="22222222">
+            </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
-          <label for="descripcion">Descripción</label>
-          <textarea id="descripcion" class="form-control mb-4 resize-text-area" placeholder="Descripción"></textarea>
-        </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+              <label for="fechaFundacion">Fecha Fundación</label>
+              <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" type="text" class="form-control" id="fechaFundacion"
+                placeholder="Seleccioné" [mdbValidate]=false mdbInputDirective readonly>
+              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+            </div>
 
-        <div class="col-md-12 wow fadeInUpBig" data-wow-delay="0.3s">
-          <div class="text-center">
-            <button mdbBtn type="submit" class="orange-chang mb-1">Ingresar
-              <mdb-icon icon="check" class="ml-1"></mdb-icon>
-            </button>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+              <label for="razonSocial">Razón Social</label>
+              <textarea id="razonSocial" class="form-control mb-4 resize-text-area" placeholder="Razón Social"></textarea>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+              <label for="descripcion">Descripción</label>
+              <textarea id="descripcion" class="form-control mb-4 resize-text-area" placeholder="Descripción"></textarea>
+            </div>
+
+            <div class="col-md-12 wow fadeInUpBig" data-wow-delay="0.3s">
+              <div class="text-center">
+                <button mdbBtn type="submit" class="orange-chang mb-1">
+                  <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
+                </button>
+              </div>
+            </div>
+
           </div>
-        </div>
+
+        </form>
 
       </div>
 

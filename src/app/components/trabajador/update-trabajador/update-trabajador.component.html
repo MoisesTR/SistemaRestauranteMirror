@@ -30,7 +30,7 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="nombreTrabajador" name="Nombres"
+                    <input mdbValidate mdbInputDirective type="text" id="nombreTrabajador" name="Nombres"
                       formControlName="nombreTrabajador" required class="form-control validate letras" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['nombreTrabajador']"></show-errors>
                     <label for="nombreTrabajador">Nombres</label>
@@ -39,7 +39,7 @@
 
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="Apellidos" name="Apellidos"
+                    <input mdbValidate mdbInputDirective type="text" id="Apellidos" name="Apellidos"
                       formControlName="apellido" required class="form-control validate letras" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['apellido']"></show-errors>
                     <label for="Apellidos">Apellidos</label>
@@ -49,7 +49,7 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control"
-                      [mdbValidate]=false placeholder="Seleccioné" formControlName="fechaNacimiento" name="fechaNacimiento"
+                      mdbValidate placeholder="Seleccioné" formControlName="fechaNacimiento" name="fechaNacimiento"
                       id="fechaNacimiento" mdbInputDirective readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                     <label id="fechaNacimiento">Fecha Nacimiento</label>
@@ -60,7 +60,7 @@
                 <div class="col-md-6">
                   <div class="md-form">
                     <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
-                      [mdbValidate]=false placeholder="Seleccioné" formControlName="fechaIngreso" name="fechaIngreso"
+                      mdbValidate placeholder="Seleccioné" formControlName="fechaIngreso" name="fechaIngreso"
                       id="fechaIngreso" mdbInputDirective readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                     <label id="fechaIngreso">Fecha Ingreso</label>
@@ -70,7 +70,7 @@
 
                 <div class="col-md-6 mt-1">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoPrincipalTrabajador" class="form-control telefono"
+                    <input mdbValidate mdbInputDirective type="text" id="TelefonoPrincipalTrabajador" class="form-control telefono"
                       name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
@@ -79,7 +79,7 @@
 
                 <div class="col-md-6 mt-1">
                   <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control telefono"
+                    <input mdbValidate mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control telefono"
                       name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
@@ -97,7 +97,7 @@
 
                 <div class="col-md-6">
                   <div class="md-form ">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="DocumentoTrabajador" name="DocumentoTrabajador"
+                    <input mdbValidate mdbInputDirective type="text" id="DocumentoTrabajador" name="DocumentoTrabajador"
                       class="form-control cedula" formControlName="documentoTrabajador" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['documentoTrabajador']"></show-errors>
                     <label for="DocumentoTrabajador" class="">Documento</label>
@@ -123,8 +123,8 @@
                 </div>
 
                 <div class="col-md-12 mt-2">
-                  <div class="md-form">
-                    <textarea [mdbValidate]=false mdbInputDirective type="text" id="Direccion" name="Direccion"
+                  <div class="md-form active-chang-label">
+                    <textarea [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="Direccion" name="Direccion"
                       formControlName="direccion" class="md-textarea form-control"></textarea>
                     <label for="Direccion">Dirección</label>
                     <show-errors [control]="formUpdateTrabajador.controls['direccion']"></show-errors>
@@ -136,8 +136,8 @@
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateTrabajador.valid">Actualizar
-                  <i class="fa fa-check ml-1"></i>
+                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateTrabajador.valid">
+                  <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
                 </button>
               </div>
 

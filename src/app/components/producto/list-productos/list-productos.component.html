@@ -34,13 +34,13 @@
                 <td width="25%" class="body-negrita">
 
                   <div class="text-center">
-                    <button type="button" [routerLink]="'update/'+producto.IdProducto" class="btn btn-sm orange-chang"
-                      id="btneditarproductos" data-toggle="tooltip" data-placement="bottom" title="Editar">
-                      <i class="fa fa-pencil"></i>
+                    <button mdbBtn type="button" size="sm" [routerLink]="'update/'+producto.IdProducto" class="orange-chang waves-light"
+                      id="btneditarproductos" mdbTooltip="Editar" placement="bottom" mdbWavesEffect>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button type="button" (click)="eliminarProducto(producto.IdProducto)" class="btn btn-sm orange-chang"
-                      id="btnEliminarproductos" data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                      <i class="fa fa-times"></i>
+                    <button mdbBtn type="button" size="sm" (click)="eliminarProducto(producto.IdProducto)" class="orange-chang waves-light"
+                      id="btnEliminarproductos" mdbTooltip="Eliminar" placement="bottom" mdbWavesEffect>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
                 </td>
@@ -57,7 +57,7 @@
 
   <!-- mdbTooltip="Visualizar productos en cuadrícula" placement="right" -->
   <button type="button" class="btn btn-floating btn-large orange-chang waves-light" mdbWavesEffect [routerLink]="'../busqueda-productos'"
-    style="bottom:3%; margin-left: -5%;">
+    style="bottom:3%; margin-left: -5%;" mdbTooltip="Cambiar Visualización" placement="bottom">
     <i class="fa fa-th-large"></i>
   </button>
 

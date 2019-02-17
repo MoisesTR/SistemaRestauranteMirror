@@ -9,7 +9,7 @@
         <mdb-card cascade="true" narrower="true">
 
           <div class="view view-cascade gradient-card-header orange-chang">
-            <h3 class="card-header-title mb-2">Editar datos del Producto</h3>
+            <h3 class="card-header-title mb-2">Editar Producto</h3>
           </div>
           <!-- Contenido -->
           <mdb-card-body cascade="true">
@@ -17,24 +17,24 @@
             <div class="row">
 
               <div class="col-12 mb-3">
-                <div class="md-form input-group padding-input">
+                <div class="md-form input-group padding-input" style="margin-bottom: 10px;">
                   <input mdbInputDirective type="text" id="nombreproducto" [mdbValidate]="false" formControlName="nombreProducto"
                          class="form-control letras" autocomplete="off"
                     placeholder="Nombre del Producto" style="margin-right: 5%;">
                   <div class="input-group-btn">
                     <button type="button" class="btn orange-chang px-3 add-img-position" (click)="modalEditarImagenProducto.show()"
                       mdbTooltip="Agregar Imagen" placement="bottom" id="btn-animation" style="margin-left: -20%;">
-                      <i class="fa fa-file-photo-o" aria-hidden="true"></i>
+                      <mdb-icon far icon="file-image"></mdb-icon>
                     </button>
                   </div>
                 </div>
                 <show-errors [control]="formUpdateProducto.controls['nombreProducto']"></show-errors>
               </div>
 
-              <div class="col-12 col-sm-7 col-md-7">
+              <div class="col-12 col-sm-7 col-md-7 mt-2">
                 <label for="proveedor" class="grey-text-card">Proveedor</label>
                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" placeholder="Selecciona un proveedor"
-                  formControlName="proveedor" id="proveedor" [multiple]="true">
+                  formControlName="proveedor" id="proveedor">
                   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                     <div style="margin: 10px 0;" class="card">
                       <div class="card-body">
@@ -123,29 +123,27 @@
 
               <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
-                  <input mdbInputDirective type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control"
-                    autocomplete="off">
+                  <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="number" id="cantidadEmpaque" formControlName="cantidadEmpaque" class="form-control"
+                    autocomplete="off" style="margin-bottom: -30px;">
                   <label for="cantidadEmpaque">Cantidad por Empaque</label>
                   <show-errors [control]="formUpdateProducto.controls['cantidadEmpaque']"></show-errors>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-2">
+              <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio"
                   mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
 
-              <div class="mt-3 ml-3 mb-0 d-block d-xl-none d-lg-none d-md-none"><label class="grey-text-card">Envase</label></div>
-
-              <div class="col-12 col-sm-12 col-md-9 mt-0">
-                <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
+              <div class="col-12 col-sm-12 col-md-9 mt-3">
+                <label class="grey-text-card">Envase</label>
                 <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
                   formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
                 </ng-select>
                 <show-errors [control]="formUpdateProducto.controls['envase']"></show-errors>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-3 mt-1">
+              <div class="col-12 col-sm-12 col-md-3 mt-3">
                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio mt-2"
                   mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
               </div>
@@ -162,7 +160,7 @@
 
               <div class="col-12 col-sm-12 col-md-4 mt-3">
                 <div class="md-form">
-                  <input mdbInputDirective type="number" id="valorunidadmedida" formControlName="valorUnidadMedida"
+                  <input mdbInputDirective mdbValidate type="number" id="valorunidadmedida" formControlName="valorUnidadMedida"
                     class="form-control" autocomplete="off">
                   <label for="valorunidadmedida">Valor unidad de medida</label>
                   <show-errors [control]="formUpdateProducto.controls['valorunidadmedida']"></show-errors>
@@ -198,8 +196,8 @@
               </div>
 
               <div class="col-md-12">
-                <div class="md-form">
-                  <textarea mdbInputDirective type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea form-control"
+                <div class="md-form active-chang-label">
+                  <textarea mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea form-control"
                     autocomplete="off" required></textarea>
                   <show-errors [control]="formUpdateProducto.controls['descripcionProducto']"></show-errors>
                   <label for="descripcionproducto">Descripción</label>
@@ -208,8 +206,8 @@
             </div>
 
             <div class="text-center mt-3">
-              <button class="btn orange-chang mb-1" [disabled]="!formUpdateProducto.valid">Ingresar
-                <i class="fa fa-check ml-1"></i>
+              <button class="btn orange-chang mb-1" [disabled]="!formUpdateProducto.valid">
+                <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
               </button>
             </div>
 

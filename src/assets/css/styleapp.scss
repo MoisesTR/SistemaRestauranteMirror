@@ -125,6 +125,10 @@ footer.page-footer {
   color: rgba(230, 126, 34, 0.8) !important;
 }
 
+.active-chang-label.md-form label.active {
+  color: #ffa000 !important;
+}
+
 /*** 404 ***/
 .background-404 {
   background: url("../video/background-8.jpg") no-repeat center center;
@@ -547,7 +551,7 @@ dropdown .dropdown-menu .dropdown-item:active,
 }
 
 .mts-1 {
-  margin-top: 2.4rem !important;
+  margin-top: 2.8rem !important;
 }
 
 .mts-2 {

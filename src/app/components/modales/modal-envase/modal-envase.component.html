@@ -8,7 +8,7 @@
       <!--Titulo-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Envase</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Envase</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="hideModalAndEmitResult()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,8 +33,7 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddEnvase.valid || peticionEnCurso">Ingresar
-              <i class="fa fa-check ml-1"></i>
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddEnvase.valid || peticionEnCurso"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
             </button>
           </div>
 

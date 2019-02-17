@@ -31,11 +31,11 @@
                   <div class="text-center">
                     <button type="button" (click)="showModalUpdate(modalUpdateCategoria,categoria)" class="btn btn-sm orange-chang"
                       mdbTooltip="Editar Categoría" placement="bottom" mdbRippleRadius>
-                      <i class="fa fa-pencil"></i>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
                     <button type="button" (click)="deleteCategoria(categoria.IdCategoria)" class="btn btn-sm orange-chang"
                       id="btnDeleteCategoria" mdbTooltip="Eliminar Categoría" placement="bottom">
-                      <i class="fa fa-times"></i>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
                 </td>
@@ -61,7 +61,7 @@
       <!--Titulo-->
       <div class="modal-header white-text orange-chang ">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Actualizar categoría</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Editar categoría</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateCategoria.hide()">
           <span aria-hidden="true">×</span>
         </button>
@@ -91,8 +91,8 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" [disabled]="!formUpdateCategoria.valid || peticionEnCurso">Actualizar
-              <i class="fa fa-check ml-1"></i>
+            <button class="btn orange-chang mb-1" [disabled]="!formUpdateCategoria.valid || peticionEnCurso">
+              <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
           </div>
 

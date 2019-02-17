@@ -14,20 +14,20 @@
                         <div class="row">
 
                             <div class="col-12 mb-3">
-                                <div class="md-form input-group padding-input">
+                                <div class="md-form input-group padding-input" style="margin-bottom: 10px;">
                                     <input type="text" id="nombreproducto" mdbInputDirective [mdbValidate]="false" formControlName="nombreProducto"
                                            class="form-control letras" autocomplete="off" placeholder="Nombre del Producto" style="margin-right: 5%;">
                                     <div class="input-group-btn">
                                         <button tabindex="-1" mdbBtn type="button" class="orange-chang px-3 add-img-position" (click)="modalImagenProducto.show()"
                                                 mdbTooltip="Agregar Imagen" placement="bottom" style="margin-left: -20%;">
-                                            <i class="fa fa-file-photo-o" aria-hidden="true"></i>
+                                                <mdb-icon far icon="file-image"></mdb-icon>
                                         </button>
                                     </div>
                                 </div>
                                 <show-errors [control]="formAddProducto.controls['nombreProducto']"></show-errors>
                             </div>
 
-                            <div class="col-12 col-sm-7 col-md-7">
+                            <div class="col-12 col-sm-7 col-md-7 mt-2">
                                 <label for="proveedor" class="grey-text-card">Proveedor</label>
                                 <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
                                            placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
@@ -122,29 +122,26 @@
 
                             <div class="col-12 col-sm-12 col-md-4 mt-3">
                                 <div class="md-form">
-                                    <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="cantidadEmpaque"
-                                           formControlName="cantidadEmpaque" class="form-control" autocomplete="off">
+                                    <input onlyPositiveNumber mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="cantidadEmpaque"
+                                           formControlName="cantidadEmpaque" class="form-control" autocomplete="off" style="margin-bottom: -30px;">
                                     <label for="cantidadEmpaque">Cantidad por Empaque</label>
-                                    <show-errors [control]="formAddProducto.controls['cantidadEmpaque']"></show-errors>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 mt-2">
+                            <div class="col-12 col-sm-12 col-md-3 mt-3">
                                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
                                         (click)="showModalEmpaque()" mdbTooltip="Agregar Empaque" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
 
-                            <div class="mt-3 ml-3 mb-0 d-block d-xl-none d-lg-none d-md-none"><label class="grey-text-card">Envase</label></div>
-
-                            <div class="col-12 col-sm-12 col-md-9 mt-0">
-                                <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Envase</label>
+                            <div class="col-12 col-sm-12 col-md-9 mt-3">
+                                <label for="envase" class="grey-text-card">Envase</label>
                                 <ng-select [items]="envases" bindLabel="NombreEnvase" bindValue="IdEnvase" placeholder="Selecciona un envase"
                                            formControlName="envase" id="envase" (change)="onChangeEnvase($event)">
                                 </ng-select>
                                 <show-errors [control]="formAddProducto.controls['envase']"></show-errors>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 mt-1">
+                            <div class="col-12 col-sm-12 col-md-3 mt-3">
                                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio"
                                         (click)="showModalEnvase()" mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
@@ -161,7 +158,7 @@
 
                             <div class="col-12 col-sm-12 col-md-4 mt-3">
                                 <div class="md-form">
-                                    <input onlyNumbers="decimal" mdbInputDirective [mdbValidate]=false min="0" type="text" id="valorunidadmedida"
+                                    <input onlyNumbers="decimal" mdbInputDirective mdbValidate min="0" type="text" id="valorunidadmedida"
                                            formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                                     <label for="valorunidadmedida">Valor unidad de medida</label>
                                     <show-errors [control]="formAddProducto.controls['valorunidadmedida']"></show-errors>
@@ -176,7 +173,7 @@
 
                             <div class="col-12 col-sm-12 col-md-4 mt-3">
                                 <div class="md-form">
-                                    <input onlyPositiveNumber mdbInputDirective [mdbValidate]=false type="text" id="diasDeUso"
+                                    <input onlyPositiveNumber mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="diasDeUso"
                                            formControlName="diasDeUso" class="form-control" autocomplete="off">
                                     <label for="diasDeUso">Días de uso</label>
                                     <show-errors [control]="formAddProducto.controls['diasDeUso']"></show-errors>
@@ -185,7 +182,7 @@
 
                             <div class="col-12 col-sm-12 col-md-4 mt-3">
                                 <div class="md-form">
-                                    <input AcceptCharacters mdbInputDirective [mdbValidate]=false type="text" id="codigoOriginal"
+                                    <input AcceptCharacters mdbInputDirective mdbValidate type="text" id="codigoOriginal"
                                            formControlName="codigoOriginal" class="form-control">
                                     <label for="codigoOriginal" class="">Código producto</label>
                                     <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
@@ -194,7 +191,7 @@
 
                             <div class="col-12 col-sm-12 col-md-4 mt-3">
                                 <div class="md-form">
-                                    <input Alphanumeric mdbInputDirective [mdbValidate]=false formControlName="codigoInterno" type="text"
+                                    <input Alphanumeric mdbInputDirective mdbValidate formControlName="codigoInterno" type="text"
                                            id="codigoInterno" class="form-control">
                                     <label for="codigoInterno" class="">Código interno</label>
                                     <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
@@ -202,9 +199,9 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div class="md-form">
-                  <textarea mdbInputDirective [mdbValidate]=false type="text" id="descripcionproducto" formControlName="descripcionProducto"
-                            class="md-textarea form-control" autocomplete="off"></textarea>
+                                <div class="md-form active-chang-label">
+                                    <textarea mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="descripcionproducto" formControlName="descripcionProducto"
+                                    class="md-textarea form-control" autocomplete="off"></textarea>
                                     <show-errors [control]="formAddProducto.controls['descripcionProducto']"></show-errors>
                                     <label for="descripcionproducto">Descripción</label>
                                 </div>
@@ -213,8 +210,8 @@
                         </div>
 
                         <div class="text-center mt-3">
-                            <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid || peticionEnCurso">Ingresar
-                                <mdb-icon icon="check" class="ml-1"></mdb-icon>
+                            <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formAddProducto.valid || peticionEnCurso" mdbWavesEffect>
+                                <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
                             </button>
                         </div>
 

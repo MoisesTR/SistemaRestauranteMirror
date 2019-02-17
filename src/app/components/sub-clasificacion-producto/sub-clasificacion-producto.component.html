@@ -33,11 +33,11 @@
                     <button type="button" (click)="showModalUpdateSubclasificacion(modalUpdateSubClasificacion,subclasificacion)"
                       class="btn btn-sm orange-chang" id="btnUpdateSubClasificacion" mdbTooltip="Editar SubClasificación"
                       placement="bottom">
-                      <i class="fa fa-pencil"></i>
+                     <mdb-icon far icon="edit"></mdb-icon>
                     </button>
                     <button type="button" (click)="deleteSubClasificacion(subclasificacion.IdSubClasificacion)" class="btn btn-sm orange-chang"
                       id="btnDeleteSubclasificacion" mdbTooltip="Eliminar SubClasificación" placement="bottom">
-                      <i class="fa fa-times"></i>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
                 </td>
@@ -63,7 +63,7 @@
       <!--Titulo-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Actualizar Sub-Clasificación</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Editar Sub-Clasificación</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateSubClasificacion.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -98,8 +98,7 @@
 
           <div class="text-center mt-1-half">
             <br>
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSubClasificacion.valid || peticionEnCurso">Actualizar
-              <i class="fa fa-check ml-1"></i>
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateSubClasificacion.valid || peticionEnCurso"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
           </div>
 

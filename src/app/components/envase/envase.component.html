@@ -30,11 +30,11 @@
                     <!--<button type="button" (click)="getEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEnvase" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
                     <button type="button" (click)="showModalUpdateEnvase(envase)" class="btn btn-sm orange-chang" id="btnUpdateEnvase"
                       mdbTooltip="Editar Envase" placement="bottom">
-                      <i class="fa fa-pencil"></i>
+                     <mdb-icon far icon="edit"></mdb-icon>
                     </button>
                     <button type="button" (click)="deleteEnvase(envase.IdEnvase)" class="btn btn-sm orange-chang" id="btnDeleteEnvase"
                       mdbTooltip="Eliminar Envase" placement="bottom">
-                      <i class="fa fa-times"></i>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
                 </td>
@@ -59,7 +59,7 @@
       <!--Titulo-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Envase</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Envase</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateEnvase.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -84,8 +84,7 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateEnvase.valid || peticionEnCurso">Actualizar
-              <i class="fa fa-check ml-1"></i>
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateEnvase.valid || peticionEnCurso"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
           </div>
 

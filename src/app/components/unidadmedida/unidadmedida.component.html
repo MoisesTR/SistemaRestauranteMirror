@@ -31,11 +31,11 @@
                   <div class="text-center">
                     <button mdbBtn type="button" size="sm" (click)="showModalUpdateUnidad(modalUpdateUnidadMedida,unidadmedida)"
                       class="orange-chang" id="btnEditUnidadMedida" mdbTooltip="Editar Unidad de Medida" placement="bottom">
-                      <mdb-icon icon="pencil"></mdb-icon>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
                     <button mdbBtn type="button" size="sm" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)"
                       class="orange-chang" id="btnDeleteUnidadMedida" mdbTooltip="Eliminar Unidad de Medida" placement="bottom">
-                      <mdb-icon icon="times"></mdb-icon>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
                 </td>
@@ -61,7 +61,7 @@
       <!--Titulo-->
       <div class="modal-header orange-chang white-text">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Actualizar Unidad de Medida</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Editar Unidad de Medida</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateUnidadMedida.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -91,8 +91,8 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formUpdateUnidadMedida.valid || peticionEnCurso">Actualizar
-              <mdb-icon icon="check"></mdb-icon>
+            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formUpdateUnidadMedida.valid || peticionEnCurso">
+              <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
           </div>
 

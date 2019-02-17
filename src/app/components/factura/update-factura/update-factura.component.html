@@ -177,11 +177,11 @@
                     <div class="text-center">
                       <button type="button" class="btn btn-sm orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)"
                         data-toggle="tooltip" data-placement="bottom" title="Editar">
-                        <i class="fa fa-pencil"></i>
+                       <mdb-icon far icon="edit"></mdb-icon>
                       </button>
                       <button type="button" class="btn btn-sm orange-chang" id="btnEliminarproductos" (click)="eliminarProductoDeFactura(productoFactura)"
                         data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                        <i class="fa fa-times"></i>
+                        <mdb-icon far icon="trash-alt"></mdb-icon>
                       </button>
                     </div>
                   </td>
@@ -397,7 +397,7 @@
 
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Editar Detalle Producto</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Editar Detalle Producto</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateDetalleProducto.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -442,8 +442,7 @@
             </div>
           </div>
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateDetalleFactura.valid">Ingresar
-              <i class="fa fa-check ml-1"></i>
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateDetalleFactura.valid"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
             </button>
           </div>
         </form>

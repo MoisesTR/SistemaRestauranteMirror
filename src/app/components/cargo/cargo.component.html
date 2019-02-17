@@ -30,11 +30,11 @@
                   <div class="text-center">
                     <button mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="orange-chang"
                       id="btnUpdateCargo" mdbTooltip="Editar Cargo" placement="bottom">
-                      <i class="fa fa-pencil"></i>
+                     <mdb-icon far icon="edit"></mdb-icon>
                     </button>
                     <button mdbBtn type="button" size="sm" (click)="deleteCargo(cargo.IdCargo)" class="orange-chang" id="btnDeleteCargo"
                       mdbTooltip="Eliminar Cargo" placement="bottom">
-                      <i class="fa fa-times"></i>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
                 </td>
@@ -61,7 +61,7 @@
       <!--Titulo-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Nuevo Cargo</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Nuevo Cargo</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddCargo.hide()">
           <span aria-hidden="true">×</span>
         </button>
@@ -87,8 +87,7 @@
 
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddCargo.valid">Ingresar
-              <i class="fa fa-check ml-1"></i>
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddCargo.valid"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
             </button>
           </div>
 
@@ -111,7 +110,7 @@
       <!--Titulo-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i> Nuevo Cargo</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon> Nuevo Cargo</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateCargo.hide()">
           <span aria-hidden="true">×</span>
         </button>
@@ -136,8 +135,7 @@
 
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateCargo.valid">Actualizar
-              <i class="fa fa-check ml-1"></i>
+            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateCargo.valid"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
           </div>
 

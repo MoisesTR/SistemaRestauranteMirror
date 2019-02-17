@@ -32,7 +32,7 @@
                 <td width="15%" class="align-middle body-negrita">{{ proveedor.NombreProveedor }}</td>
                 <td width="10%" class="align-middle body-negrita text-center">
                   <a mdbBtn type="button" size="sm" class="ml-3 orange-chang white-text" role="button" (click)="showModalTelefonos(proveedor)">
-                    <mdb-icon icon="phone"></mdb-icon>
+                    <mdb-icon fas icon="phone"></mdb-icon>
                   </a>
                 </td>
                 <td width="20%" class="align-middle body-negrita">{{ proveedor.Direccion }}</td>
@@ -43,11 +43,11 @@
                   <div class="text-center">
                     <button mdbBtn type="button" size="sm" [routerLink]="'update/'+proveedor.IdProveedor" class="orange-chang"
                       id="btnUpdateProveedor" mdbTooltip="Editar" placement="bottom">
-                      <i class="fa fa-pencil"></i>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
                     <button mdbBtn type="button" size="sm" (click)="deleteProveedor(proveedor.IdProveedor)" class="orange-chang"
                       id="btnDeleteProveedor" mdbTooltip="Eliminar" placement="bottom">
-                      <i class="fa fa-times"></i>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
 
@@ -77,7 +77,7 @@
       <!--Header-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <mdb-icon class="ml-1" icon="phone"></mdb-icon>
+          <mdb-icon fas icon="phone"></mdb-icon>
           Telefonos del proveedor
         </h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalTelefonos.hide()">

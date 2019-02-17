@@ -31,11 +31,11 @@
                   <div class="text-center">
                     <button mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateSucursal,sucursal)"
                       class="orange-chang" id="btnUpdateSucursal" mdbTooltip="Editar" placement="bottom">
-                      <mdb-icon icon="pencil"></mdb-icon>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
                     <button mdbBtn type="button" size="sm" (click)="deleteSucursal(sucursal.IdSucursal)" class="orange-chang"
                       id="btnDeleteSucursal" mdbTooltip="Eliminar" placement="bottom">
-                      <mdb-icon icon="times"></mdb-icon>
+                      <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                   </div>
                 </td>
@@ -57,7 +57,7 @@
       <!--Titulo-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <i class="fa fa-file-text-o"></i>Sucursal</h4>
+          <mdb-icon far icon="file-alt"></mdb-icon>Sucursal</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddSucursal.hide()">
           <span aria-hidden="true">×</span>
         </button>
@@ -100,8 +100,8 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formAddSucursal.valid">Ingresar
-              <mdb-icon icon="check"></mdb-icon>
+            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formAddSucursal.valid">
+              <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
             </button>
           </div>
 
@@ -164,8 +164,8 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formUpdateSucursal.valid">Actualizar
-              <mdb-icon icon="check"></mdb-icon>
+            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formUpdateSucursal.valid">
+              <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
           </div>
 

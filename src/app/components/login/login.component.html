@@ -26,14 +26,14 @@
 
                 <div class="md-form">
                   <i class="fa fa-user prefix"></i>
-                  <input [mdbValidate]=false mdbInputDirective type="text" id="nombreusuariologin" class="form-control"
+                  <input mdbInput [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="nombreusuariologin" class="form-control"
                     formControlName="nombre" autocomplete="off">
                   <label for="nombreusuariologin">Nombre de Usuario</label>
                 </div>
 
                 <div class="md-form">
                   <i class="fa fa-lock prefix"></i>
-                  <input [mdbValidate]=false mdbInputDirective type="password" id="contrasenausuariologin" class="form-control"
+                  <input mdbInput [validateSuccess]="false" [validateError]="false" mdbInputDirective type="password" id="contrasenausuariologin" class="form-control"
                     formControlName="password" autocomplete="off">
                   <label for="contrasenausuariologin">Contraseña</label>
                   <!-- <p class="font-small grey-text d-flex justify-content-end">Olvido su <a class=" font-bold ml-1 orange-chang-text"> Contraseña?</a></p> -->

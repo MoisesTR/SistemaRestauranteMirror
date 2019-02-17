@@ -35,16 +35,16 @@ export class MenuComponent implements OnInit {
 		this.url = Global.url;
 		this.menues = [];
 		this.getMenuesByIdRol(this.usuario.IdRol);
-		this.scroll();
+		// this.scroll();
 	}
 
-	scroll() {
-		if (pageYOffset >= 200) {
-			document.getElementById("backToTop").style.visibility = "visible";
-		} else {
-			document.getElementById("backToTop").style.visibility = "hidden";
-		}
-	}
+	// scroll() {
+	// 	if (pageYOffset >= 200) {
+	// 		document.getElementById("backToTop").style.visibility = "visible";
+	// 	} else {
+	// 		document.getElementById("backToTop").style.visibility = "hidden";
+	// 	}
+	// }
 
 	backtoPage() {
 		window.history.back();

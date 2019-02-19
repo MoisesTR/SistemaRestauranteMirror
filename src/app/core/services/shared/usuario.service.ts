@@ -58,7 +58,6 @@ export class UsuarioService {
 	}
 
 	getInfoUsuario(token: string): Observable<any> {
-	    console.log(token)
         const headers = new HttpHeaders({
             "Content-Type": "application/json",
             Authorization: token

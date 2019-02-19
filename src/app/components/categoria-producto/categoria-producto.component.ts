@@ -86,8 +86,6 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 			response => {
 				if (response.categorias) {
 					this.categoriasProductos = response.categorias;
-					console.log(this.categoriasProductos)
-                    console.log(response)
 					this.dtTrigger.next();
 					this.cdr.markForCheck();
 				}
@@ -107,7 +105,6 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 			response => {
 				if (response.categorias) {
 					this.categoriasProductos = response.categorias;
-					console.log(this.categoriasProductos);
 					this.rerender();
 				}
 			},

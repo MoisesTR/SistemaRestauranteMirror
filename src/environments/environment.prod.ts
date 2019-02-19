@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-    apiEndpoint: 'https://hwsrv-402458.hostwindsdns.com/api/'
+    apiEndpoint: "http://localhost:3000/api/"
 };

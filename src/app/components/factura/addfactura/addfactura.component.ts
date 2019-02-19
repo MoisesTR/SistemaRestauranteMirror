@@ -280,7 +280,6 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	agregarProductoAFactura(producto: ProductoFactura) {
-		console.log("El estado del CheckBox es: " + producto.IsDescuentoPorcentual);
 		let productoFiltrado: ProductoFactura = new ProductoFactura();
 		productoFiltrado = Object.assign({}, producto);
 
@@ -384,7 +383,6 @@ export class AddfacturaComponent implements OnInit {
 						this.productosFiltrados[index].DescripcionInsumo =
 							this.productosFiltrados[index].IdTipInsumo === 1 ? "Alimento" : "Limpieza";
 					});
-					console.log(this.productosFiltrados);
 					this.cdr.detectChanges();
 				}
 			},

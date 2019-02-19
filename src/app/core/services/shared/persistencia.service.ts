@@ -1,7 +1,6 @@
-import { Injectable } from "@angular/core";
-import { LocalStorage, JSONSchema } from "@ngx-pwa/local-storage";
-import { Observable } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {LocalStorage} from '@ngx-pwa/local-storage';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class PersistenciaDatoService {

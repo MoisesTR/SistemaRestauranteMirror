@@ -71,7 +71,6 @@ export class UpdateProductoComponent implements OnInit {
 	) {
 		this.url = Global.url;
 		this.producto = new Producto();
-		this._route.params.subscribe(params => console.log(params));
 	}
 
 	ngOnInit() {
@@ -269,7 +268,6 @@ export class UpdateProductoComponent implements OnInit {
 					}
 				},
 				error => {
-					console.log("Error desde la api");
 				}
 			);
 		});

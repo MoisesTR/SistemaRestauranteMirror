@@ -275,7 +275,6 @@ export class ConsumoInternoComponent implements OnInit {
 		this.producto.IdProveedor = this.proveedorSelecionado;
 		this.producto.Imagen = "";
 		this.producto.CodBarra = this.producto.CodProd;
-		console.log(this.producto);
 	}
 
 	crearProducto() {

@@ -109,7 +109,6 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 		this.categoriaProducto.NombCategoria = this.formAddCategoria.value.nombreCategoria;
 		this.categoriaProducto.DescCategoria = this.formAddCategoria.value.descripcionCategoria;
 		this.categoriaProducto.IdTipInsumo = !this.idTipoInsumo ? 1 : this.idTipoInsumo;
-		console.log(this.categoriaProducto);
 	}
 
 	hideModalAndEmitResult() {
@@ -126,7 +125,6 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 	    this.tipoInsumoService.getTiposInsumos().subscribe(
 	        tiposinsumos => {
 	            this.tiposInsumos = tiposinsumos;
-	            console.log(this.tiposInsumos);
             }
         )
     }

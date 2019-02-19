@@ -294,7 +294,6 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		this.trabajadorService.getTrabajadores(1).subscribe(response => {
 			if (response.trabajadores) {
 				this.trabajadores = response.trabajadores;
-				console.log(this.trabajadores);
 			}
 		});
 	}

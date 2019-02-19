@@ -59,10 +59,10 @@ export class GaleriaProductosProveedoresComponent implements OnInit {
 			this.idProveedorSeleccionado = null;
 		} else {
 			this.idProveedorSeleccionado = event.IdProveedor;
-			this.getProducosOfProveedor();
+			this.getProductosOfProveedor();
 		}
 	}
-	getProducosOfProveedor() {
+	getProductosOfProveedor() {
 		this.productoProveedorService.getProductosOfProveedor(this.idProveedorSeleccionado).subscribe(
 			response => {
 				if (response.productos) {

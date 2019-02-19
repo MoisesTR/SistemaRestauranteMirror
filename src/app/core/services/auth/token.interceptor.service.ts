@@ -36,7 +36,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 							errorMessage = `Error: ${err.error.message}`;
 						} else {
 							// server-side error
-							errorMessage = `Error Code: ${err.status}\nMessage: ${err.message}`;
+                            errorMessage = Utils.msgError(err) ? Utils.msgError(err) : `Error Code: ${err.status}\nMessage: ${err.message}`;
 							if (err.status === 401) {
 								this.auth.logout();
 							}

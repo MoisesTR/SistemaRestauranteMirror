@@ -12,7 +12,7 @@ import {ListProductosComponent} from '../producto/list-productos/list-productos.
 import {AddProductoComponent} from '../producto/add-producto/add-producto.component';
 import {UpdateProductoComponent} from '../producto/update-producto/update-producto.component';
 import {CargoComponent} from '../cargo/cargo.component';
-import {ReporteComponent} from '../reporte/reporte.component';
+import {GaleriaProductosProveedoresComponent} from '../reporte/galeria-productos-proveedores.component';
 import {RolusuarioComponent} from '../rolusuario/rolusuario.component';
 import {UnidadmedidaComponent} from '../unidadmedida/unidadmedida.component';
 import {AddfacturaComponent} from '../factura/addfactura/addfactura.component';
@@ -74,7 +74,7 @@ const menuRoutes: Routes = [
         // Reportes
         , {path: 'reportes', component: ReportesComponent , data : { titulo : 'Reportes'}}
 
-        , {path: 'busqueda-productos', component: ReporteComponent, data : { titulo : 'Busqueda Productos'}}
+        , {path: 'busqueda-productos', component: GaleriaProductosProveedoresComponent, data : { titulo : 'Busqueda Productos'}}
 
         /*FACTURA MODULO*/
         , {path: 'factura/add', component: AddfacturaComponent, data : { titulo : 'Factura'}}

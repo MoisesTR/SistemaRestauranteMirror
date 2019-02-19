@@ -29,7 +29,7 @@ export class Producto {
   public CreatedAt: string;
   public UpdateAt: string;
   public IdTipInsumo: number;
-  public DescripcionInsumo: string;
+  public DescTipInsumo: string;
   public Proveedores: Proveedor[];
   public CodBarra: string;
   public CodProd: string;
@@ -42,7 +42,7 @@ export class Producto {
     this.CodBarra = null;
     this.CodProd = null;
     this.CodOriginal = null;
-    this.DescripcionInsumo = '';
+    this.DescTipInsumo = '';
     this.ConsumoDirecto = false;
     this.IsGranel = false;
   }

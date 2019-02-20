@@ -35,6 +35,8 @@ export class SummaryFacturasComponent implements OnInit {
 	@ViewChild("pointscroll") pointScroll: ElementRef;
 	public scrollStart: number = 0;
 	public peticionEnCurso = false;
+	public fechaActual = new Date();
+	public seleccionFechaBusqueda = new Date();
 
 	// Paginacion
 	@ViewChildren("pages") pages: QueryList<any>;
@@ -182,14 +184,12 @@ export class SummaryFacturasComponent implements OnInit {
 	}
 
 	getProveedores() {
-		this.proveedorService.getProveedores(1).subscribe(
-			response => {
-				if (response.proveedores) {
-					this.proveedores = response.proveedores;
-					this.cdr.markForCheck();
-				}
+		this.proveedorService.getProveedores(1).subscribe(response => {
+			if (response.proveedores) {
+				this.proveedores = response.proveedores;
+				this.cdr.markForCheck();
 			}
-		);
+		});
 	}
 
 	getDataFactura() {
@@ -242,7 +242,7 @@ export class SummaryFacturasComponent implements OnInit {
 					}
 				);
 		} else {
-		    this.peticionEnCurso = false;
+			this.peticionEnCurso = false;
 			this.spinner.display(false);
 		}
 	}
@@ -343,5 +343,9 @@ export class SummaryFacturasComponent implements OnInit {
 		);
 
 		this.persistencia.deletePersistencia("SummaryFactura");
+	}
+
+	busquedaFactura(evento) {
+		this.seleccionFechaBusqueda = evento;
 	}
 }

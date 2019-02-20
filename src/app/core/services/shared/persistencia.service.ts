@@ -24,4 +24,8 @@ export class PersistenciaDatoService {
 		this.localStorage.removeItemSubscribe(PalabraClave);
 		this.localStorage.clearSubscribe();
 	}
+
+	deleteItmes(){
+		this.localStorage.clearSubscribe();
+	}
 }

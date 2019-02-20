@@ -29,7 +29,7 @@
                         <mdb-accordion-item-body>
                             <ul>
                                 <li routerLinkActive="active-submenu" *ngFor="let submenu of menu.Submenues">
-                                    <a class="waves-effect" [routerLink]="[submenu.Ruta]" mdbRippleRadius>{{submenu.Nombre}}</a>
+                                    <a class="waves-effect" [routerLink]="[submenu.Ruta]" (click)="EliminarPersistencia()" mdbRippleRadius>{{submenu.Nombre}}</a>
                                 </li>
                             </ul>
                         </mdb-accordion-item-body>

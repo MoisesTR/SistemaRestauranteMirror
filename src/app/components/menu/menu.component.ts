@@ -1,11 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Usuario} from '@app/models/Usuario';
-import {MenuService, UsuarioService} from '@app/core/service.index';
-import {Menu} from '@app/models/Menu';
-import {Global} from '@app/core/services/shared/global';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Utils} from '@app/components/Utils';
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Usuario } from "@app/models/Usuario";
+import { MenuService, UsuarioService, PersistenciaDatoService } from "@app/core/service.index";
+import { Menu } from "@app/models/Menu";
+import { Global } from "@app/core/services/shared/global";
+import { NgxSpinnerService } from "ngx-spinner";
+import { Utils } from "@app/components/Utils";
 
 @Component({
 	selector: "app-menu",
@@ -26,7 +26,8 @@ export class MenuComponent implements OnInit {
 		private router: Router,
 		private spinner: NgxSpinnerService,
 		private usuarioService: UsuarioService,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private persistenciaDatosService: PersistenciaDatoService
 	) {}
 
 	ngOnInit() {
@@ -81,5 +82,9 @@ export class MenuComponent implements OnInit {
 				this.spinner.hide();
 			}
 		);
+	}
+
+	EliminarPersistencia() {
+		this.persistenciaDatosService.deleteItmes();
 	}
 }

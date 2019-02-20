@@ -10,7 +10,7 @@ import { Utils } from "@app/components/Utils";
 import { SpinnerService } from "@app/core/service.index";
 
 @Injectable()
-export class TokenInterceptorService implements HttpInterceptor {
+export class HttpInterceptorService implements HttpInterceptor {
 	constructor(
 		public auth: AuthService,
 		public spinnerService: SpinnerService,

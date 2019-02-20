@@ -27,7 +27,9 @@ export class TokenInterceptorService implements HttpInterceptor {
 		// this.logger.log(request);
 		return next.handle(request).pipe(
 			tap(
-				(response: HttpEvent<any>) => {},
+				(response: HttpEvent<any>) => {
+
+				},
 				(err: any) => {
 					let errorMessage = "";
 					if (err instanceof HttpErrorResponse) {
@@ -36,7 +38,9 @@ export class TokenInterceptorService implements HttpInterceptor {
 							errorMessage = `Error: ${err.error.message}`;
 						} else {
 							// server-side error
-                            errorMessage = Utils.msgError(err) ? Utils.msgError(err) : `Error Code: ${err.status}\nMessage: ${err.message}`;
+							errorMessage = Utils.msgError(err)
+								? Utils.msgError(err)
+								: `Error Code: ${err.status}\nMessage: ${err.message}`;
 							if (err.status === 401) {
 								this.auth.logout();
 							}
@@ -45,7 +49,9 @@ export class TokenInterceptorService implements HttpInterceptor {
 						Utils.showMsgError(errorMessage, "Ops... Ha ocurrido un error!");
 						return throwError(errorMessage);
 					}
-				}
+				}, () => {
+                    if (this.spinnerService.status) this.spinnerService.display(false);
+                }
 			)
 		);
 	}

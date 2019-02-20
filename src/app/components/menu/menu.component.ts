@@ -8,17 +8,17 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Utils } from "@app/components/Utils";
 
 @Component({
-	selector: "app-menu",
-	templateUrl: "./menu.component.html",
-	styleUrls: ["./menu.component.scss"]
+    selector: "app-menu",
+    templateUrl: "./menu.component.html",
+    styleUrls: ["./menu.component.scss"]
 })
 export class MenuComponent implements OnInit {
-	public rol = "admin";
-	public usuario: Usuario;
-	public menues: Menu[];
-	public url: string;
-	public carpetaImagen = "trabajadores";
-	public tituloPantalla = "Menu";
+    public rol = "admin";
+    public usuario: Usuario;
+    public menues: Menu[];
+    public url: string;
+    public carpetaImagen = "trabajadores";
+    public tituloPantalla = "Menu";
 
 	constructor(
 		private menuService: MenuService,
@@ -30,40 +30,40 @@ export class MenuComponent implements OnInit {
 		private persistenciaDatosService: PersistenciaDatoService
 	) {}
 
-	ngOnInit() {
-		this.spinner.show();
-		this.usuario = this.usuarioService.getIdentity();
-		this.url = Global.url;
-		this.menues = [];
-		this.getMenuesByIdRol(this.usuario.IdRol);
-		// this.scroll();
-	}
+    ngOnInit() {
+        this.spinner.show();
+        this.usuario = this.usuarioService.getIdentity();
+        this.url = Global.url;
+        this.menues = [];
+        this.getMenuesByIdRol(this.usuario.IdRol);
+        // this.scroll();
+    }
 
-	// scroll() {
-	// 	if (pageYOffset >= 200) {
-	// 		document.getElementById("backToTop").style.visibility = "visible";
-	// 	} else {
-	// 		document.getElementById("backToTop").style.visibility = "hidden";
-	// 	}
-	// }
+    // scroll() {
+    // 	if (pageYOffset >= 200) {
+    // 		document.getElementById("backToTop").style.visibility = "visible";
+    // 	} else {
+    // 		document.getElementById("backToTop").style.visibility = "hidden";
+    // 	}
+    // }
 
-	backtoPage() {
-		window.history.back();
-	}
+    backtoPage() {
+        window.history.back();
+    }
 
-	onActivate(event) {
-		window.scroll(0, 0);
-	}
+    onActivate(event) {
+        window.scroll(0, 0);
+    }
 
-	logout() {
-		localStorage.clear();
-		this.usuarioService.identity = null;
-		this.router.navigate(["/login"]);
-	}
+    logout() {
+        localStorage.clear();
+        this.usuarioService.identity = null;
+        this.router.navigate(["/login"]);
+    }
 
-	verInformacionUsuario() {
-		this.router.navigate(["/usuario/view"]);
-	}
+    verInformacionUsuario() {
+        this.router.navigate(["/usuario/view"]);
+    }
 
 	getMenuesByIdRol(IdRol) {
 		this.menuService.getMenuesByIdRol(IdRol).subscribe(

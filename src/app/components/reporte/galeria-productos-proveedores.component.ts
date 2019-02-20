@@ -40,18 +40,11 @@ export class GaleriaProductosProveedoresComponent implements OnInit {
 	}
 
 	getProveedores() {
-		this.proveedorService.getProveedores(1).subscribe(
-			response => {
-				if (response.proveedores) {
-					this.proveedores = response.proveedores;
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al obtener los proveedores", "Busqueda productos proveedor");
-				}
-			},
-			error => {
-				Utils.showMsgError(error, "Busqueda productos proveedor");
+		this.proveedorService.getProveedores(1).subscribe(response => {
+			if (response.proveedores) {
+				this.proveedores = response.proveedores;
 			}
-		);
+		});
 	}
 
 	onChangeProveedor(event) {
@@ -63,20 +56,13 @@ export class GaleriaProductosProveedoresComponent implements OnInit {
 		}
 	}
 	getProductosOfProveedor() {
-		this.productoProveedorService.getProductosOfProveedor(this.idProveedorSeleccionado).subscribe(
-			response => {
-				if (response.productos) {
-					this.productos = response.productos;
-					if (this.productos.length === 0) {
-						Utils.showMsgInfo("No se han encontrado productos!", "Busqueda productos proveedor");
-					}
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al obtener los productos", "Busqueda productos proveedor");
+		this.productoProveedorService.getProductosOfProveedor(this.idProveedorSeleccionado).subscribe(response => {
+			if (response.productos) {
+				this.productos = response.productos;
+				if (this.productos.length === 0) {
+					Utils.showMsgInfo("No se han encontrado productos!", "Busqueda productos proveedor");
 				}
-			},
-			error => {
-				Utils.showMsgError(error, "Busqueda productos proveedor");
 			}
-		);
+		});
 	}
 }

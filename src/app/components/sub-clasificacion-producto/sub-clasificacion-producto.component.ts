@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import {ClasificacionProductoService, SpinnerService, SubClasificacionProductoService} from '@app/core/service.index';
+import { ClasificacionProductoService, SpinnerService, SubClasificacionProductoService } from "@app/core/service.index";
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
@@ -39,7 +39,7 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	constructor(
 		private subclasificacionService: SubClasificacionProductoService,
 		private clasificacionService: ClasificacionProductoService,
-        private spinner: SpinnerService,
+		private spinner: SpinnerService,
 		private formBuilderSubClasificacion: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
@@ -101,40 +101,26 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	getSubClasificaciones() {
-	    this.spinner.display(true);
-		this.subclasificacionService.getSubClasificaciones().subscribe(
-			response => {
-				if (response.subclasificaciones) {
-					this.subclasificaciones = response.subclasificaciones;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				} else {
-				}
-			},
-			error => {
-                this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}, () => {
-                this.spinner.display(false);
-            }
-		);
+		this.spinner.display(true);
+		this.subclasificacionService.getSubClasificaciones().subscribe(response => {
+			if (response.subclasificaciones) {
+				this.subclasificaciones = response.subclasificaciones;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
+			} else {
+			}
+		});
 	}
 
 	getSubClasificacionesRender() {
-		this.subclasificacionService.getSubClasificaciones().subscribe(
-			response => {
-				if (response.subclasificaciones) {
-					this.subclasificaciones = response.subclasificaciones;
-					this.rerender();
-					this.cdr.markForCheck();
-				} else {
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}, () => {
-            }
-		);
+		this.subclasificacionService.getSubClasificaciones().subscribe(response => {
+			if (response.subclasificaciones) {
+				this.subclasificaciones = response.subclasificaciones;
+				this.rerender();
+				this.cdr.markForCheck();
+			} else {
+			}
+		});
 	}
 
 	updateSubClasificacion(modal) {
@@ -151,13 +137,10 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 							this.subclasificacion = new SubClasificacionProducto();
 							this.getSubClasificacionesRender();
 						});
-				} else {
-					Utils.showMsgError("Ha ocurrido un error inesperado al actualizar la subclasificacion!", this.tituloPantalla);
 				}
 			},
 			error => {
 				this.peticionEnCurso = false;
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.peticionEnCurso = false;
@@ -182,40 +165,23 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.subclasificacionService.deleteSubclasificacion(idSubclasificacion).subscribe(
-					response => {
-						if (response.success) {
-							swal(this.tituloPantalla, "La Subclasificación ha sido inhabilatada exitosamente", "success").then(() => {
-								this.getSubClasificacionesRender();
-							});
-						} else {
-							Utils.showMsgInfo(
-								"Ha ocurrido un error inesperado al inhabilitar la subclasificacion!",
-								this.tituloPantalla
-							);
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.subclasificacionService.deleteSubclasificacion(idSubclasificacion).subscribe(response => {
+					if (response.success) {
+						swal(this.tituloPantalla, "La Subclasificación ha sido inhabilatada exitosamente", "success").then(() => {
+							this.getSubClasificacionesRender();
+						});
 					}
-				);
+				});
 			}
 		});
 	}
 
 	getClasificaciones() {
-		this.clasificacionService.getClasificaciones().subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificaciones = response.clasificaciones;
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error inesperado al obtener las clasificaciones", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.clasificacionService.getClasificaciones().subscribe(response => {
+			if (response.clasificaciones) {
+				this.clasificaciones = response.clasificaciones;
 			}
-		);
+		});
 	}
 
 	showModalUpdateSubclasificacion(modal, Subclasificacion: SubClasificacionProducto) {

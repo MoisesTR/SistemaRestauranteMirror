@@ -89,13 +89,6 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 					this.dtTrigger.next();
 					this.cdr.markForCheck();
 				}
-			},
-			error => {
-				this.spinnerService.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {
-				this.spinnerService.display(false);
 			}
 		);
 	}
@@ -107,11 +100,6 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 					this.categoriasProductos = response.categorias;
 					this.rerender();
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {
 			}
 		);
 	}
@@ -158,7 +146,6 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 			},
 			error => {
 				this.peticionEnCurso = false;
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.peticionEnCurso = false;

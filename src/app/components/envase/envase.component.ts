@@ -89,37 +89,23 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 
 	getEnvases() {
 		this.spinner.display(true);
-		this.envaseService.getEnvases().subscribe(
-			response => {
-				if (response.envases) {
-					this.envases = response.envases;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				} else {
-				}
-			},
-			error => {
-				this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {
-				this.spinner.display(false);
+		this.envaseService.getEnvases().subscribe(response => {
+			if (response.envases) {
+				this.envases = response.envases;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
+			} else {
 			}
-		);
+		});
 	}
 
 	getEnvasesRender() {
-		this.envaseService.getEnvases().subscribe(
-			response => {
-				if (response.envases) {
-					this.envases = response.envases;
-					this.rerender();
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.envaseService.getEnvases().subscribe(response => {
+			if (response.envases) {
+				this.envases = response.envases;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	initFormUpdateEnvase() {
@@ -174,7 +160,6 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 			},
 			error => {
 				this.peticionEnCurso = false;
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.peticionEnCurso = false;
@@ -203,9 +188,6 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 						} else {
 							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar el envase!", this.tituloPantalla);
 						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 					}
 				);
 			}

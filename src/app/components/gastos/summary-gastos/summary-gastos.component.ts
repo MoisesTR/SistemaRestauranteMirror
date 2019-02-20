@@ -76,34 +76,19 @@ export class SummaryGastosComponent implements OnInit {
 	}
 
 	getClasificacionGasto() {
-		this.gastoService.getClasificacionesGasto(1).subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificaciones = response.clasificaciones;
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al obtener las clasificaciones!", "Gastos");
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), "Gastos");
-			},
-			() => {}
-		);
+		this.gastoService.getClasificacionesGasto(1).subscribe(response => {
+			if (response.clasificaciones) {
+				this.clasificaciones = response.clasificaciones;
+			}
+		});
 	}
 
 	getSucursales() {
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al obtener las sucursales!", "Sucursal");
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), "Sucursal");
+		this.sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
 			}
-		);
+		});
 	}
 
 	changePage(event: any) {
@@ -240,22 +225,15 @@ export class SummaryGastosComponent implements OnInit {
 	}
 
 	getSubclasificacionByIdClasificacion() {
-		this.gastoService.getSubclasificacionesByIdClasificacion(this.idClasificacionSeleccionado).subscribe(
-			response => {
-				if (response.subclasificaciones) {
-					this.subclasificaciones = response.subclasificaciones;
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al obtener las subclasificaciones!", "Gastos");
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), "Gastos");
+		this.gastoService.getSubclasificacionesByIdClasificacion(this.idClasificacionSeleccionado).subscribe(response => {
+			if (response.subclasificaciones) {
+				this.subclasificaciones = response.subclasificaciones;
 			}
-		);
+		});
 	}
 
 	findGastos() {
-	    this.spinner.display(true);
+		this.spinner.display(true);
 		this.getDataGastoBusqueda();
 
 		if (this.validarBusqueda()) {
@@ -266,35 +244,27 @@ export class SummaryGastosComponent implements OnInit {
 					this.fechaInicio,
 					this.fechaFin
 				)
-				.subscribe(
-					response => {
-						if (response.gastos) {
-							this.gastos = response.gastos;
-							this.tableService.setDataSource(this.gastos);
-							this.gastos = this.tableService.getDataSource();
-							this.previous = this.tableService.getDataSource();
-							this.searchText = "";
-							this.iniciarPropiedadesPaginacion();
-							this.sumarGastos();
-							this.scrollerDateGasto();
-							window.scroll(0, this.scrollStart);
-							if (this.gastos.length === 0) {
-								Utils.showMsgInfo("No se encontraron gastos con los parametros digitados", "Busqueda Gastos");
-							}
-						} else {
-							Utils.showMsgInfo("Ha ocurrido un error al obtener los gastos", "Busqueda Gastos");
+				.subscribe(response => {
+					if (response.gastos) {
+						this.gastos = response.gastos;
+						this.tableService.setDataSource(this.gastos);
+						this.gastos = this.tableService.getDataSource();
+						this.previous = this.tableService.getDataSource();
+						this.searchText = "";
+						this.iniciarPropiedadesPaginacion();
+						this.sumarGastos();
+						this.scrollerDateGasto();
+						window.scroll(0, this.scrollStart);
+						if (this.gastos.length === 0) {
+							Utils.showMsgInfo("No se encontraron gastos con los parametros digitados", "Busqueda Gastos");
 						}
-					},
-					error => {
-                        this.spinner.display(false);
-						Utils.showMsgError(Utils.msgError(error), "Busqueda Gastos");
-					}, () => {
-					    this.spinner.display(false);
-                    }
-				);
+					} else {
+						Utils.showMsgInfo("Ha ocurrido un error al obtener los gastos", "Busqueda Gastos");
+					}
+				});
 		} else {
-            this.spinner.display(false);
-        }
+			this.spinner.display(false);
+		}
 	}
 
 	iniciarPropiedadesPaginacion() {

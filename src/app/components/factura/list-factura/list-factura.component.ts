@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Subject } from "rxjs/Subject";
-import { DataTableDirective } from "angular-datatables";
-import { FacturaService } from "@app/core/service.index";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Factura } from "@app/models/Factura";
-import { idioma_espanol } from "@app/core/services/shared/global";
-import { Producto } from "@app/models/Producto";
-import { Utils } from "../../Utils";
-import { DatePipe } from "@angular/common";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
+import {DataTableDirective} from 'angular-datatables';
+import {FacturaService} from '@app/core/service.index';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Factura} from '@app/models/Factura';
+import {idioma_espanol} from '@app/core/services/shared/global';
+import {Producto} from '@app/models/Producto';
+import {DatePipe} from '@angular/common';
 
 @Component({
 	selector: "app-list-factura",
@@ -66,20 +65,11 @@ export class ListFacturaComponent implements OnInit {
 	}
 
 	getFacturas() {
-		this._facturaService
-			.getFacturas(null, true, this.fechaActual, this.fechaActual, 1, 2, null)
-			.subscribe(
-				response => {
-					if (response.facturas) {
-						this.facturas = response.facturas;
-						this.dtTrigger.next();
-					} else {
-						Utils.showMsgInfo("Ha ocurrido un error al obtener las facturas");
-					}
-				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error));
-				}
-			);
+		this._facturaService.getFacturas(null, true, this.fechaActual, this.fechaActual, 1, 2, null).subscribe(response => {
+			if (response.facturas) {
+				this.facturas = response.facturas;
+				this.dtTrigger.next();
+			}
+		});
 	}
 }

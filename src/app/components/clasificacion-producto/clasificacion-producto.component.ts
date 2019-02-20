@@ -84,13 +84,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 					this.dtTrigger.next();
 					this.cdr.markForCheck();
 				}
-			},
-			error => {
-                this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}, () => {
-                this.spinner.display(false);
-            }
+			}
 		);
 	}
 
@@ -111,9 +105,6 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 					this.clasificaciones = response.clasificaciones;
 					this.rerender();
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
@@ -164,12 +155,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 				if (response.categorias) {
 					this.categorias = response.categorias;
 					this.cdr.markForCheck();
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al cargar las categorias", this.tituloPantalla);
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
@@ -200,9 +186,6 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 						} else {
 							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar!", this.tituloPantalla);
 						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 					}
 				);
 			}

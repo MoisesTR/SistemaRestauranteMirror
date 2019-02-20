@@ -117,39 +117,22 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 	getSucursales() {
 		this.spinner.display(true);
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al obtener las sucursales", this.tituloPantalla);
-				}
-			},
-			error => {
-				this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {
-				this.spinner.display(false);
+		this.sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
 			}
-		);
+		});
 	}
 
 	getSucursalesRender() {
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-					this.rerender();
-				}
-			},
-			error => {
-				Utils.showMsgInfo("Ha ocurrido un error al obtener las sucursales", this.tituloPantalla);
-			},
-			() => {}
-		);
+		this.sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
+				this.rerender();
+			}
+		});
 	}
 
 	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
@@ -217,22 +200,15 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 	createSucursal(Modal) {
 		this.getValuesFormAddSucursal();
 
-		this.sucursalService.createSucursal(this.sucursal).subscribe(
-			response => {
-				if (response.IdSucursal) {
-					swal(this.tituloPantalla, "la Sucursal ha sido creada exitosamente!", "success").then(() => {
-						Modal.hide();
-						this.formAddSucursal.reset();
-						this.getSucursalesRender();
-					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al crear la sucursal,intentalo nuevamente", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.sucursalService.createSucursal(this.sucursal).subscribe(response => {
+			if (response.IdSucursal) {
+				swal(this.tituloPantalla, "la Sucursal ha sido creada exitosamente!", "success").then(() => {
+					Modal.hide();
+					this.formAddSucursal.reset();
+					this.getSucursalesRender();
+				});
 			}
-		);
+		});
 	}
 
 	updateSucursal(Modal) {
@@ -249,12 +225,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 							this.getSucursalesRender();
 							this.sucursal = new Sucursal();
 						});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al actualizar, intentalo nuevamente", this.tituloPantalla);
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
@@ -271,20 +242,13 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.sucursalService.deleteSucursal(IdSucursal).subscribe(
-					response => {
-						if (response.success) {
-							swal("Eliminada!", "La sucursal ha sido eliminada exitosamente", "success").then(() => {
-								this.getSucursalesRender();
-							});
-						} else {
-							swal("Error inesperado", "Ha ocurrido un error en la eliminación, intenta nuevamente!", "error");
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error));
+				this.sucursalService.deleteSucursal(IdSucursal).subscribe(response => {
+					if (response.success) {
+						swal("Eliminada!", "La sucursal ha sido eliminada exitosamente", "success").then(() => {
+							this.getSucursalesRender();
+						});
 					}
-				);
+				});
 			} else if (result.dismiss === swal.DismissReason.cancel) {
 			}
 		});

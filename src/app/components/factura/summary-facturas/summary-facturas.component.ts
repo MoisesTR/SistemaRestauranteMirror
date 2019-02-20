@@ -187,12 +187,7 @@ export class SummaryFacturasComponent implements OnInit {
 				if (response.proveedores) {
 					this.proveedores = response.proveedores;
 					this.cdr.markForCheck();
-				} else {
-					Utils.showMsgInfo("No se logro obtener a los proveedores");
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
 			}
 		);
 	}
@@ -241,12 +236,9 @@ export class SummaryFacturasComponent implements OnInit {
 					},
 					error => {
 						this.peticionEnCurso = false;
-						this.spinner.display(false);
-						Utils.showMsgError(Utils.msgError(error));
 					},
 					() => {
 						this.peticionEnCurso = false;
-						this.spinner.display(false);
 					}
 				);
 		} else {

@@ -117,13 +117,6 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 					this.dtTrigger.next();
 					this.cdr.markForCheck();
 				}
-			},
-			error => {
-				this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {
-				this.spinner.display(false);
 			}
 		);
 	}
@@ -135,10 +128,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 					this.cargos = response.cargos;
 					this.rerender();
 				}
-			},
-			error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }
+			}
 		);
 	}
 

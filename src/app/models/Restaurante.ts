@@ -3,7 +3,7 @@ export class Restaurante {
     public IdRestaurante: number;
     public IdMoneda: number;
     public IdPais: number;
-    public IdMonedaFactura: number;
+    public IdMonedaFacturacion: number;
     public IsAutoBackup: boolean;
     public IsCuotaFija: boolean;
     public NombRestaurante: string;
@@ -22,5 +22,5 @@ export class Restaurante {
     public CreatedAt: Date;
     public UpdatedAt: Date;
 
-    constructor() {}
+    constructor() { }
 }

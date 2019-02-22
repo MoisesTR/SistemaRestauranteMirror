@@ -5,18 +5,18 @@ import { Observable } from "rxjs/Observable";
 import { Global } from "./global";
 
 @Injectable()
-export class PaisService {
+export class FacturacionMonedaService {
 	public url: string;
 
 	constructor(private _http: HttpClient) {
 		this.url = Global.url;
 	}
 
-	getPais(IdPais): Observable<any> {
-		return this._http.get(this.url + "pais/" + IdPais);
+	getFacturaMoneda(IdPais): Observable<any> {
+		return this._http.get(this.url + "monedas/" + IdPais);
 	}
 
-	getPaises(Habilitado = 1): Observable<any> {
-		return this._http.get(this.url + "paises?Habilitado=" + Habilitado);
+	getFacturaMonedas(Habilitado = 1): Observable<any> {
+		return this._http.get(this.url + "monedas?Habilitado=" + Habilitado);
 	}
 }

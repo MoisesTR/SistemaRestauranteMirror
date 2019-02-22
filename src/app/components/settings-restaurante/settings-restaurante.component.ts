@@ -1,40 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { SettingRestauranteService,
-        PaisService,
-        TipoMonedaService} from '@app/core/service.index';
-import { Restaurante } from '@app/models/Restaurante';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+	SettingRestauranteService,
+	PaisService,
+	TipoMonedaService,
+	FacturacionMonedaService
+} from "@app/core/service.index";
+import { Restaurante } from "@app/models/Restaurante";
 import { ActivatedRoute, Router } from "@angular/router";
 import swal from "sweetalert2";
 import { CustomValidators } from "@app/validadores/CustomValidators";
-import {Pais} from '@app/models/Pais';
+import { Pais } from "@app/models/Pais";
 import { Utils } from "../Utils";
+import { FacturacionMoneda } from "@app/models/FacturacionMoneda";
 
 @Component({
-  selector: 'app-settings-restaurante',
-  templateUrl: './settings-restaurante.component.html',
-  styleUrls: ['./settings-restaurante.component.scss']
+	selector: "app-settings-restaurante",
+	templateUrl: "./settings-restaurante.component.html",
+	styleUrls: ["./settings-restaurante.component.scss"]
 })
 export class SettingsRestauranteComponent implements OnInit {
-  
-  public restaurante: Restaurante;
-  public paises:Pais[];
-  public pais:Pais;
-  formSettingsRestaurante: FormGroup;            
-  
-  constructor(
-    private route: ActivatedRoute,
-		private router: Router,
-    private formBuilder: FormBuilder,
-    private paisService: PaisService,
-    private settingRestauranteService: SettingRestauranteService
-  ) { }
+	public restaurante: Restaurante;
+	public paises: Pais[];
+	public monedas: FacturacionMoneda[];
+	formSettingsRestaurante: FormGroup;
+	public fechaActual: Date;
 
-  ngOnInit() {
-    this.initFormSettingRestaurante();
-    this.getPais();
-    $(document).ready(() => {
-			$(".letras").keypress(function(key) {
+	constructor(
+		private route: ActivatedRoute,
+		private router: Router,
+		private formBuilder: FormBuilder,
+		private paisService: PaisService,
+		private settingRestauranteService: SettingRestauranteService,
+		private facturacionMonedaService: FacturacionMonedaService
+	) {
+		this.fechaActual = new Date();
+		this.restaurante = new Restaurante();
+	}
+
+	ngOnInit() {
+
+		$(document).ready(() => {
+			$(".letras").keypress(function (key) {
 				if (
 					(key.charCode < 97 || key.charCode > 122) && // letras mayusculas
 					(key.charCode < 65 || key.charCode > 90) && // letras minusculas
@@ -56,100 +63,104 @@ export class SettingsRestauranteComponent implements OnInit {
 				}
 			});
 		});
-  }
 
-  initFormSettingRestaurante(){
-    this.formSettingsRestaurante = this.formBuilder.group({
-      nombreRestaurante : new FormControl("",Validators.required),
-      pais: new FormControl(null,Validators.required),
-      moneda: new FormControl(null,Validators.required),
-      monedaFacturacion: new FormControl(null,Validators.required),
-      correo: new FormControl(null,[
-        Validators.required,
-        CustomValidators.nospaceValidator
-      ]),
-      respaldoAutomatico: new FormControl(false,Validators.required),
-      cuotaFija: new FormControl(false, Validators.required),
-      telefono: new FormControl("",[
-        Validators.required,
-        Validators.maxLength(8)
-      ]),
-      fechaFundacion: new FormControl(null,Validators.required),
-      razonSocial: new FormControl("",[
-        Validators.required,
-        Validators.maxLength(150)
-      ]),
-      descripcion: new FormControl("",[
-        Validators.required,
-        Validators.maxLength(150)
-      ])
-    });
-  }
+		this.initFormSettingRestaurante();
+		this.getPais();
+		this.getTipoMoneda();
+	}
 
-  getValueForm(){
-    this.restaurante.NombRestaurante = this.formSettingsRestaurante.value.nombreRestaurante;
-    this.restaurante.IdPais = this.formSettingsRestaurante.value.pais;
-    this.restaurante.IdMoneda = this.formSettingsRestaurante.value.moneda;
-    this.restaurante.IdMonedaFactura = this.formSettingsRestaurante.value.monedaFacturacion;
-    this.restaurante.Correo = this.formSettingsRestaurante.value.correo;
-    this.restaurante.IsAutoBackup = this.formSettingsRestaurante.value.respaldoAutomatico;
-    this.restaurante.IsCuotaFija = this.formSettingsRestaurante.value.cuotaFija;
-    this.restaurante.TelPrincipal = this.formSettingsRestaurante.value.telefono;
-    this.restaurante.FechaFundacion = this.formSettingsRestaurante.value.fechaFundacion;
-    this.restaurante.RazonSocial = this.formSettingsRestaurante.value.razonSocial;
-    this.restaurante.DescRestaurante = this.formSettingsRestaurante.value.descripcion;
-  }
+	initFormSettingRestaurante() {
+		this.formSettingsRestaurante = this.formBuilder.group({
+			nombreRestaurante: new FormControl("", Validators.required),
+			pais: new FormControl(null, Validators.required),
+			moneda: new FormControl(null, Validators.required),
+			monedaFacturacion: new FormControl(null, Validators.required),
+			correo: new FormControl(null, [Validators.required, Validators.email, CustomValidators.nospaceValidator]),
+			respaldoAutomatico: new FormControl(false, Validators.required),
+			cuotaFija: new FormControl(false, Validators.required),
+			telefono: new FormControl("", [Validators.required, Validators.maxLength(8), Validators.minLength(8)]),
+			fechaFundacion: new FormControl(null, Validators.required),
+			razonSocial: new FormControl("", [Validators.required, Validators.maxLength(150)]),
+			descripcion: new FormControl("", [Validators.required, Validators.maxLength(150)])
+		});
+	}
 
-  resetFormSettingRestaurante() {
+	getValueForm() {
+		this.restaurante.NombRestaurante = this.formSettingsRestaurante.value.nombreRestaurante;
+		this.restaurante.IdPais = this.formSettingsRestaurante.value.pais;
+		this.restaurante.IdMoneda = this.formSettingsRestaurante.value.moneda;
+		this.restaurante.IdMonedaFacturacion = this.formSettingsRestaurante.value.monedaFacturacion;
+		this.restaurante.Correo = this.formSettingsRestaurante.value.correo;
+		this.restaurante.IsAutoBackup = this.formSettingsRestaurante.value.respaldoAutomatico;
+		this.restaurante.IsCuotaFija = this.formSettingsRestaurante.value.cuotaFija;
+		this.restaurante.TelPrincipal = this.formSettingsRestaurante.value.telefono;
+		this.restaurante.FechaFundacion = this.formSettingsRestaurante.value.fechaFundacion;
+		this.restaurante.RazonSocial = this.formSettingsRestaurante.value.razonSocial;
+		this.restaurante.DescRestaurante = this.formSettingsRestaurante.value.descripcion;
+	}
+
+	resetFormSettingRestaurante() {
 		Object.keys(this.formSettingsRestaurante.controls).forEach((value, index) => {
 			if (value !== "restaurante") {
 				this.formSettingsRestaurante.controls[value].reset();
 			}
 		});
-  }
-  
-  getSettingRestaurante(){
-    this.getValueForm();
+	}
 
-    this.settingRestauranteService.createdRestaurante(this.restaurante).subscribe(
-      response=>{
+	getSettingRestaurante() {
+		this.getValueForm();
 
-        if (response.IdRestaurante) {
-          swal({
-            title: "El Restaurante se ha creado exitosamente!",
-            text: "Bienvenidos!!",
-            type: "success",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "SI",
-            cancelButtonText: "NO"
-          }).then(result => {
-            if (result.value) {
-              this.router.navigate(["/dashboard"]);
-            } else if (result.dismiss === swal.DismissReason.cancel) {
-              this.resetFormSettingRestaurante();
-            }
-          });
-        }
-        
-      }
-    )
-  }
+		this.settingRestauranteService.createdRestaurante(this.restaurante).subscribe(response => {
+			if (response) {
+				swal({
+					title: "El Restaurante se ha creado exitosamente!",
+					text: "Bienvenidos!!",
+					type: "success",
+					showCancelButton: true,
+					confirmButtonColor: "#3085d6",
+					cancelButtonColor: "#d33",
+					confirmButtonText: "SI",
+					cancelButtonText: "NO"
+				}).then(result => {
+					if (result.value) {
+						this.router.navigate(["/dashboard"]);
+					} else if (result.dismiss === swal.DismissReason.cancel) {
+						this.resetFormSettingRestaurante();
+					}
+				});
+			}
+		});
+	}
 
-  getPais(){
-    this.paisService.getPaises().subscribe(
-      response => {
-        
-        if(response.paises){
-          this.paises = response.paises
-        }
-      },
-      error => {
+	getPais() {
+		this.paisService.getPaises().subscribe(
+			response => {
+				if (response) {
+					this.paises = response;
+				} else {
+					Utils.showMsgInfo("No se han logrado obtener los paises", "Paises");
+				}
+			},
+			error => {
 				Utils.showMsgError(Utils.msgError(error));
 			}
-    );
-  }
+		);
+	}
 
-  getTipoMoneda(){}
+	getTipoMoneda() {
+		this.facturacionMonedaService.getFacturaMonedas().subscribe(
+			response => {
+				if (response) {
+					this.monedas = response;
+
+				} else {
+					Utils.showMsgInfo("No se ha logrado obtener tipo de monedas", "Monedas");
+				}
+			},
+			error => {
+				Utils.showMsgError(Utils.msgError(error));
+			}
+		);
+	}
+
 }

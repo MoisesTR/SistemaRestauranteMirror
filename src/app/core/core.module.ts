@@ -36,8 +36,8 @@ import {
 	LoginGuardService,
 	SettingRestauranteService,
 	PaisService,
-    TipoInsumoService
-
+	TipoInsumoService,
+	FacturacionMonedaService
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -99,8 +99,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
 		LoginGuardService,
 		SettingRestauranteService,
 		PaisService,
-        LoginGuardService,
-        TipoInsumoService,
+		LoginGuardService,
+		TipoInsumoService,
+		FacturacionMonedaService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: HttpInterceptorService,
@@ -118,7 +119,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 			useClass: NativeDateTimeAdapter,
 			deps: [OWL_DATE_TIME_LOCALE, Platform]
 		}
-		
 	],
 	declarations: []
 })

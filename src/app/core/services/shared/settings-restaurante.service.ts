@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Global} from './global';
+import { Injectable } from '@angular/core';
+import { Global } from './global';
 import 'rxjs/add/operator/map';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SettingRestauranteService {
@@ -18,7 +18,7 @@ export class SettingRestauranteService {
   createdRestaurante(Restaurante): Observable<any> {
 
     const params = JSON.stringify(Restaurante);
-    const headers = new HttpHeaders({'Content-Type': ''});
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this._http.post(this.url + 'restaurantes', params, { headers: headers });
   }

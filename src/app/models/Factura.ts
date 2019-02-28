@@ -24,6 +24,7 @@ export class Factura {
   public TotalCordobas: number;
   public TotalOrigenFactura: number;
   public Habilitado: number;
+  public productos: DetalleFactura[];
   public Detalle: DetalleFactura[];
   public HoraIngreso: string;
   public FechaRecepcion: string;

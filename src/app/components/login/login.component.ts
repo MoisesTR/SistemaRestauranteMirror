@@ -47,43 +47,6 @@ export class LoginComponent implements OnInit {
 		this.usuario.Username = this.formLoginUser.value.nombre;
 		this.usuario.Password = this.formLoginUser.value.password;
 	}
-	// onSubmit2() {
-	// 	this.obtenerValoresFormLogin();
-    //
-	// 	// Logear al usuario y conseguir el objeto
-	// 	this.usuarioService.login2(this.usuario).subscribe(
-	// 		response => {
-	// 			this.identity = response;
-	// 			if (!this.identity || !this.identity.IdUsuario) {
-	// 				this.toastr.error("Error", "El nombre de usuario o la contraseña son erroneos!");
-	// 			} else {
-	// 				this.identity.Password = "";
-    //
-	// 				// Local storage solo deja guardar numeros o string
-	// 				localStorage.setItem("identity", JSON.stringify(this.identity));
-    //
-	// 				// Conseguir el token
-	// 				this.usuarioService.login2(this.usuario, true).subscribe(
-	// 					response2 => {
-	// 						this.token = response2.token;
-	// 						localStorage.setItem("token", JSON.stringify(this.token));
-	// 						if (this.token.length <= 0) {
-	// 						} else {
-	// 							this.status = "success";
-	// 							this.router.navigate(["/dashboard"]);
-	// 						}
-	// 					},
-	// 					error => {
-	// 						this.toastr.error(Utils.msgError(<any>error), "Error");
-	// 					}
-	// 				);
-	// 			}
-	// 		},
-	// 		error => {
-	// 			this.toastr.error(Utils.msgError(<any>error), "Error");
-	// 		}
-	// 	);
-	// }
 
 	onSubmit() {
 		this.obtenerValoresFormLogin();

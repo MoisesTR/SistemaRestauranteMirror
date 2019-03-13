@@ -40,7 +40,7 @@ $color-selected: #f5faff;
   }
   &.ng-select-disabled {
     > .ng-select-container {
-      background-color: #e67e22;
+      background-color: rgba(230, 126, 34, 0.1);
     }
   }
   .ng-has-value .ng-placeholder {

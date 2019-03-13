@@ -2,6 +2,26 @@
 /* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
 @import "~ng-pick-datetime/assets/style/picker.min.scss";
 @import "assets/css/estiloSelect";
+
+// Estilos inputs
+/* Eliminar color rojo de inputs de error */
+.counter-danger {
+  border-bottom: 0px solid rgba(230, 126, 34, 0.8) !important;
+  border-top: 1px solid rgba(230, 126, 34, 0.8) !important;
+  border-right: 1px solid rgba(230, 126, 34, 0.8) !important;
+  border-left: 1px solid rgba(230, 126, 34, 0.8) !important;
+  box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8) !important;
+}
+
+/* Eliminar color verde de inputs con valores validos */
+.counter-success {
+  border-bottom: 0px solid rgba(230, 126, 34, 0.8) !important;
+  border-top: 1px solid rgba(230, 126, 34, 0.8) !important;
+  border-right: 1px solid rgba(230, 126, 34, 0.8) !important;
+  border-left: 1px solid rgba(230, 126, 34, 0.8) !important;
+  box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8) !important;
+}
+
 /* position */
 .toast-center-center {
   top: 50%;

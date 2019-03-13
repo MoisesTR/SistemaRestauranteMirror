@@ -11,6 +11,7 @@
   margin-left: -2% !important;
   margin-right: 2% !important;
 }
+
 // 540px
 @media (max-width: 540px) {
   .nomargin {
@@ -21,6 +22,10 @@
 
 .navbar {
   background-color: transparent;
+}
+
+.position-top-buttons {
+  margin-top: 0.9rem !important;
 }
 
 .top-nav-collapse {
@@ -126,6 +131,24 @@ footer.page-footer {
 .md-form textarea[type="email"]:focus:not([readonly]) + label,
 .md-form textarea[type="search"]:focus:not([readonly]) + label {
   color: rgba(230, 126, 34, 0.8) !important;
+}
+
+/*** Colores inputs 2.0 ***/
+.md-form.md-outline input[type="text"]:focus:not([readonly]),
+.md-form.md-outline input[type="password"]:focus:not([readonly]),
+.md-form.md-outline input[type="number"]:focus:not([readonly]),
+.md-form.md-outline input[type="email"]:focus:not([readonly]),
+.md-form.md-outline input[type="search"]:focus:not([readonly]),
+.md-form.md-outline textarea[type="text"]:focus:not([readonly]),
+.md-form.md-outline textarea[type="password"]:focus:not([readonly]),
+.md-form.md-outline textarea[type="number"]:focus:not([readonly]),
+.md-form.md-outline textarea[type="email"]:focus:not([readonly]),
+.md-form.md-outline textarea[type="search"]:focus:not([readonly]) {
+  border-bottom: 0px solid rgba(230, 126, 34, 0.8) !important;
+  border-top: 1px solid rgba(230, 126, 34, 0.8) !important;
+  border-right: 1px solid rgba(230, 126, 34, 0.8) !important;
+  border-left: 1px solid rgba(230, 126, 34, 0.8) !important;
+  box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8) !important;
 }
 
 .active-chang-label.md-form label.active {
@@ -554,7 +577,7 @@ dropdown .dropdown-menu .dropdown-item:active,
 }
 
 .mts-1 {
-  margin-top: 2.8rem !important;
+  margin-top: 2.4rem !important;
 }
 
 .mts-2 {

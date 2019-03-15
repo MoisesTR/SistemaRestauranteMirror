@@ -8,23 +8,22 @@ export class Utils {
 			console.log(mensaje);
 		}
 
-		if (mensaje === undefined) {
-			return "El error esta indefinido";
-		} else {
-			if (Array.isArray(mensaje.error)) {
-				return mensaje.error[0].msg;
-			} else {
-				if (mensaje.error.message === undefined) {
-					return "Error en la API";
-				} else {
-					if (mensaje.error.showMessage) {
-						return mensaje.error.message;
-					} else {
-						return mensaje.error.message;
-					}
-				}
-			}
-		}
+        // HTTP ERROR RESPONSE
+        if (mensaje.error.message) {
+            return mensaje.error.message;
+        }
+
+        // VALIDATIONS API
+        if (Array.isArray(mensaje.error)) {
+            return mensaje.error[0].param + ' ' + mensaje.error[0].msg;
+        }
+
+        // SQL ERROR
+        if (mensaje.error.errmsg) {
+            return mensaje.error.errmsg;
+        }
+
+        return undefined;
 	}
 
 	static msgErrorImage(mensaje, titulo = "Error") {

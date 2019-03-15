@@ -5,9 +5,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Usuario } from "@app/models/Usuario";
 import { UsuarioService } from "@app/core/service.index";
 import { CustomValidators } from "@app/validadores/CustomValidators";
-import { Utils } from "../Utils";
 import { ToastService } from "ng-uikit-pro-standard";
-import {Token} from '@app/models/Token';
+import { Token } from "@app/models/Token";
 
 @Component({
 	selector: "app-login",
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
 		private formBuilderUser: FormBuilder,
 		private toastr: ToastService
 	) {
-	    this.token  = new Token();
+		this.token = new Token();
 		this.usuario = new Usuario();
 	}
 
@@ -50,20 +49,15 @@ export class LoginComponent implements OnInit {
 
 	onSubmit() {
 		this.obtenerValoresFormLogin();
-		this.usuarioService.login(this.usuario).subscribe(
-			response => {
-				this.token = response;
-				if (!this.token) {
-					this.toastr.error("Error", "El nombre de usuario o la contraseña son erroneos!");
-				} else {
-					localStorage.setItem("token", JSON.stringify(this.token.token));
-					this.getInfoUser();
-				}
-			},
-			error => {
-				this.toastr.error(Utils.msgError(<any>error), "Error");
+		this.usuarioService.login(this.usuario).subscribe(response => {
+			this.token = response;
+			if (!this.token) {
+				this.toastr.error("Error", "El nombre de usuario o la contraseña son erroneos!");
+			} else {
+				localStorage.setItem("token", JSON.stringify(this.token.token));
+				this.getInfoUser();
 			}
-		);
+		});
 	}
 
 	getInfoUser() {
@@ -73,7 +67,7 @@ export class LoginComponent implements OnInit {
 				this.toastr.error("Ha ocurrido un error al obtener la informacion del usuario", "Error");
 			} else {
 				this.status = "success";
-                localStorage.setItem("identity", JSON.stringify(this.identity));
+				localStorage.setItem("identity", JSON.stringify(this.identity));
 				this.router.navigate(["/dashboard"]);
 			}
 		});

@@ -50,6 +50,7 @@ import { NativeDateTimeAdapter } from "ng-pick-datetime/date-time/adapter/native
 import { Platform } from "@angular/cdk/platform";
 import { PipesModule } from "@app/pipe/pipes.module";
 import { NgxSpinnerModule } from "ngx-spinner";
+import {GlobalErrorHandlerService} from '@app/core/services/shared/global-error-handler.service';
 
 @NgModule({
 	imports: [],
@@ -119,8 +120,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 			useClass: NativeDateTimeAdapter,
 			deps: [OWL_DATE_TIME_LOCALE, Platform]
 		}
-	],
-	declarations: []
+	]
 })
 export class CoreModule {
 	constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

@@ -25,7 +25,7 @@ export class PersistenciaDatoService {
 		this.localStorage.clearSubscribe();
 	}
 
-	deleteItmes(){
+	deleteItems(){
 		this.localStorage.clearSubscribe();
 	}
 }

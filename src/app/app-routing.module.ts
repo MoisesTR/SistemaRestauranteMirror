@@ -6,6 +6,7 @@ import {SettingsRestauranteComponent} from './components/settings-restaurante/se
 import {AuthGuardService} from '@app/core/service.index';
 import {NgModule} from '@angular/core';
 import {LoginGuardService} from '@app/core/services/auth/login-guard.service';
+import {ErrorComponent} from '@app/core/error/error.component';
 
 export const ROUTES: Routes = [
 	{
@@ -24,6 +25,13 @@ export const ROUTES: Routes = [
 			titulo: "Restaurante"
 		}
 	},
+    {
+        path: "error",
+        component: ErrorComponent,
+        data: {
+            titulo: "Error Interfaz"
+        }
+    },
 	{
 		path: "",
 		component: MenuComponent,

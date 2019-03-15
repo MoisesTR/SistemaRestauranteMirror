@@ -36,7 +36,7 @@ export class MenuComponent implements OnInit {
 		this.url = Global.url;
 		this.menues = [];
 		this.getMenuesByIdRol(this.usuario.IdRol);
-		// this.scroll();
+		// this.scroll();asdadqwewqeqw
 	}
 
 	// scroll() {

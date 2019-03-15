@@ -82,8 +82,8 @@ export class ModalEnvaseComponent implements OnInit, EventoModal, OnDestroy {
 	}
 
 	getValuesFormAddEnvase() {
-		this.envase.NombreEnvase = this.formAddEnvase.value.nombreEnvase;
-		this.envase.Descripcion = this.formAddEnvase.value.descripcionEnvase;
+		this.envase.NombEnvase = this.formAddEnvase.value.nombreEnvase;
+		this.envase.DescEnvase = this.formAddEnvase.value.descripcionEnvase;
 	}
 
 	createEnvaseProducto() {

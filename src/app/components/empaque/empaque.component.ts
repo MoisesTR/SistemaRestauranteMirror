@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
-import {EmpaqueService, SpinnerService} from '@app/core/service.index';
+import { EmpaqueService, SpinnerService } from "@app/core/service.index";
 import { Empaque } from "@app/models/Empaque";
 import { ModalDirective } from "ng-uikit-pro-standard";
 import { Utils } from "../Utils";
@@ -81,36 +81,23 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 	}
 
 	getEmpaques() {
-	    this.spinner.display(true);
-		this.empaqueService.getEmpaques().subscribe(
-			response => {
-				if (response.empaques) {
-					this.empaques = response.empaques;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				}
-			},
-			error => {
-                this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}, () => {
-                this.spinner.display(false);
-            }
-		);
+		this.spinner.display(true);
+		this.empaqueService.getEmpaques().subscribe(response => {
+			if (response.empaques) {
+				this.empaques = response.empaques;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
+			}
+		});
 	}
 
 	getEmpaquesRender() {
-		this.empaqueService.getEmpaques().subscribe(
-			response => {
-				if (response.empaques) {
-					this.empaques = response.empaques;
-					this.rerender();
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.empaqueService.getEmpaques().subscribe(response => {
+			if (response.empaques) {
+				this.empaques = response.empaques;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	initFormUpdateEmpaque() {
@@ -150,7 +137,6 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 			},
 			error => {
 				this.peticionEnCurso = false;
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.peticionEnCurso = false;
@@ -159,8 +145,8 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 	}
 
 	getValuesFormUpdateEmpaque() {
-		this.empaque.NombreEmpaque = this.formUpdateEmpaque.value.nombreEmpaque;
-		this.empaque.Descripcion = this.formUpdateEmpaque.value.descripcionEmpaque;
+		this.empaque.NombEmpaque = this.formUpdateEmpaque.value.nombreEmpaque;
+		this.empaque.DescEmpaque = this.formUpdateEmpaque.value.descripcionEmpaque;
 	}
 
 	deleteEmpaque(idEmpaque) {
@@ -184,9 +170,6 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 						} else {
 							Utils.showMsgInfo("Ha ocurrido un error inesperado al inhabilitar el empaque!", this.tituloPantalla);
 						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 					}
 				);
 			}
@@ -195,13 +178,13 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 
 	showModalUpdate(modal, empaque: Empaque) {
 		this.empaque.IdEmpaque = empaque.IdEmpaque;
-		this.empaque.NombreEmpaque = empaque.NombreEmpaque;
-		this.empaque.Descripcion = empaque.Descripcion;
+		this.empaque.NombEmpaque = empaque.NombEmpaque;
+		this.empaque.DescEmpaque = empaque.DescEmpaque;
 
 		this.formUpdateEmpaque.reset();
 		this.formUpdateEmpaque.setValue({
-			nombreEmpaque: empaque.NombreEmpaque,
-			descripcionEmpaque: empaque.Descripcion
+			nombreEmpaque: empaque.NombEmpaque,
+			descripcionEmpaque: empaque.DescEmpaque
 		});
 
 		modal.show();

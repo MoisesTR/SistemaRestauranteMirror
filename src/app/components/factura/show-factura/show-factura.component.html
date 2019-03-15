@@ -17,7 +17,7 @@
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-proveedor">
                                     <label class="mb-label">Proveedor</label>
                                     <div class="md-form">
-                                        <ng-select id="proveedor" [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor"
+                                        <ng-select id="proveedor" [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor"
                                                    placeholder="Selecciona un proveedor" formControlName="Proveedor" class="disabled">
                                         </ng-select>
                                     </div>
@@ -154,8 +154,8 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let detalle of factura.Detalle ;let i = index">
-                                <td class="body-negrita">{{detalle.NombreProducto}}</td>
-                                <td class="body-negrita">{{detalle.NombreUnidad}}</td>
+                                <td class="body-negrita">{{detalle.NombProducto}}</td>
+                                <td class="body-negrita">{{detalle.NombUnidad}}</td>
                                 <td class="body-negrita">{{detalle.Cantidad}}</td>
                                 <td class="body-negrita">{{detalle.PrecioUnitario | number : '1.2-2'}} C$</td>
                                 <td width="10%" class="body-negrita">
@@ -182,14 +182,14 @@
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="SubTotal">
+                                    <label for="Descuento">
                                         <strong>Descuento</strong>
                                     </label>
                                 </div>
 
 
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="SubTotal">
+                                    <label for="Subtotal con descuento">
                                         <strong>SubTotal con Descuento</strong>
                                     </label>
                                 </div>
@@ -203,6 +203,18 @@
                                 <div class="col-lg-12 col-md-12">
                                     <label for="Total">
                                         <strong>Total</strong>
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="TotalFacturaImpresa">
+                                        <strong>Total Factura Impresa</strong>
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="Diferencia">
+                                        <strong>Diferencia</strong>
                                     </label>
                                 </div>
                             </form>
@@ -226,6 +238,12 @@
                                 </div>
                                 <div class="">
                                     <label>{{factura.TotalCordobas | number : '1.2-2'}} C$</label>
+                                </div>
+                                <div class="">
+                                    <label>{{factura.TotalOrigenFactura | number : '1.2-2'}} C$</label>
+                                </div>
+                                <div class="">
+                                    <label>{{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2' }}C$</label>
                                 </div>
                             </form>
                         </div>

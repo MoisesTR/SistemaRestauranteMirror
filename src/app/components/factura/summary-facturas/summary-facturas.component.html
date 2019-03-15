@@ -18,21 +18,21 @@
 
                 <div class="col-xs-12 col-md-12 col-lg-12 mb-5 mt-2">
                   <label class="" for="proveedor" class="grey-text-card">Proveedor</label>
-                  <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor" id="proveedor"
+                  <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor" id="proveedor"
                     placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
                     <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                       <div style="margin: 10px 0;" class="card">
                         <div class="card-body">
-                          <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                          <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombProveedor}}</h5>
                           <p class="card-subtitle mb-2 text-muted">
                             <b>Nombre del Representante</b>
                             <br>
-                            <i>{{item.NombreRepresentante}}</i>
+                            <i>{{item.NombRepresentante}}</i>
                           </p>
                           <p class="card-text">
                             <b>Descripcion</b>
                             <br>
-                            <i>{{item.Descripcion}}</i>
+                            <i>{{item.DescProducto}}</i>
                           </p>
                         </div>
                       </div>
@@ -59,7 +59,7 @@
                   <div class="md-form">
                     <input formControlName="fechaInicio" name="fechaInicio" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
                            class="input-picker form-control" [validateSuccess]="false" [validateError]="false" id="fechaInicio" placeholder="Seleccioné"
-                           mdbInputDirective readonly>
+                           mdbInputDirective [max]="fechaActual" (ngModelChange)="busquedaFactura($event)"readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                     <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
                   </div>
@@ -69,7 +69,7 @@
                   <div class="md-form">
                     <input formControlName="fechaFin" name="fechaFin" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
                            class="input-picker form-control" [validateSuccess]="false" [validateError]="false" id="fechaFin" placeholder="Seleccioné"
-                           mdbInputDirective readonly>
+                           mdbInputDirective [max]="fechaActual" [min]="seleccionFechaBusqueda" readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                     <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
                   </div>

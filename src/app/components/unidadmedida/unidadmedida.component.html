@@ -24,8 +24,8 @@
             <tbody>
               <tr *ngFor="let unidadmedida of unidadesMedida">
                 <td class="body-negrita">{{ unidadmedida.IdUnidadMedida }}</td>
-                <td class="body-negrita">{{ unidadmedida.NombreUnidad }}</td>
-                <td class="body-negrita">{{ unidadmedida.NombreClasificacion }}</td>
+                <td class="body-negrita">{{ unidadmedida.NombUnidad }}</td>
+                <td class="body-negrita">{{ unidadmedida.NombClasificacion }}</td>
                 <td class="body-negrita">{{ unidadmedida.Simbolo}}</td>
                 <td width="25%" class="body-negrita">
                   <div class="text-center">
@@ -78,8 +78,8 @@
           </div>
 
           <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select dropdownPosition="top" class="custom" [items]="clasificacionesUnidad" bindLabel="NombreClasificacion"
-            bindValue="IdClasificacionUnidadMedida" placeholder="Selecciona una clasificacion"
+          <ng-select dropdownPosition="top" class="custom" [items]="clasificacionesUnidad" bindLabel="NombClasificacion"
+            bindValue="IdClasifUDM" placeholder="Selecciona una clasificacion"
             formControlName="clasificacionesUnidad" id="upclasificacionunidadmedida" (change)="changeClasificacionUnidad($event)">
           </ng-select>
 

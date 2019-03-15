@@ -17,7 +17,7 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                   <label class="margin-label-proveedor">Proveedor</label>
                   <div class="md-form">
-                    <ng-select [items]="proveedores" bindLabel="NombreProveedor"
+                    <ng-select [items]="proveedores" bindLabel="NombProveedor" [ngModel]="factura.IdProveedor"
                       bindValue="IdProveedor" id="proveedor" formControlName="proveedor" class="disabled">
                     </ng-select>
                   </div>
@@ -106,8 +106,8 @@
               <tbody>
                 <tr *ngFor="let producto of productos | buscar: buscando; let i = index">
                   <th scope="row">{{i + 1}}</th>
-                  <td>{{producto.NombreProducto}}</td>
-                  <td>{{producto.NombreEnvase}}</td>
+                  <td>{{producto.NombProducto}}</td>
+                  <td>{{producto.NombEnvase}}</td>
                   <td class="text-center">
                     <button type="button" class="btn btn-sm orange-chang" (click)="seleccionarProducto(producto)"
                       mdbWavesEffect>
@@ -152,8 +152,8 @@
               </thead>
               <tbody>
                 <tr *ngFor="let productoFactura of productosFactura;let i = index">
-                  <td class="body-negrita">{{productoFactura.NombreProducto}}</td>
-                  <td class="body-negrita">{{productoFactura.NombreUnidad}}</td>
+                  <td class="body-negrita">{{productoFactura.NombProducto}}</td>
+                  <td class="body-negrita">{{productoFactura.NombUnidad}}</td>
                   <td class="body-negrita">{{productoFactura.Cantidad}}</td>
                   <td class="body-negrita">{{productoFactura.PrecioUnitario}} {{simboloMonedaUtilizado}}</td>
                   <td width="10%" class="body-negrita">
@@ -328,35 +328,35 @@
                       <div class="md-form">
                         <h6 class="orange-chang-text">Nombre</h6>
                         <input type="text" id="nombreenvase" minlength="4" maxlength="50" class="input-modal-sm" name="nombreenvase"
-                          value={{productoSeleccionado.NombreProducto}} readonly>
+                          value={{productoSeleccionado.NombProducto}} readonly>
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="md-form">
                         <h6 class="orange-chang-text">Categoria</h6>
-                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombCategoria}}>
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="md-form">
                         <h6 class="orange-chang-text">Clasificación</h6>
-                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreClasificacion}}>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombClasificacion}}>
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="md-form">
                         <h6 class="orange-chang-text">Subclasificación</h6>
-                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreSubClasificacion}}>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombSubClasificacion}}>
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="md-form">
                         <h6 class="orange-chang-text">Empaque</h6>
-                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEmpaque}}>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombEmpaque}}>
                       </div>
                     </div>
 
@@ -370,7 +370,7 @@
                     <div class="col-md-6">
                       <div class="md-form">
                         <h6 class="orange-chang-text">Envase</h6>
-                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEnvase}}>
+                        <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombEnvase}}>
                       </div>
                     </div>
 

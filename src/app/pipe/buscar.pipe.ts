@@ -11,17 +11,15 @@ export class BuscarPipe implements PipeTransform {
 		if (term === undefined) {
 			return valor;
 		}
-
 		if (valor !== null && valor !== undefined ) {
             return valor.filter( (item) => {
-            	if (item.CodigoProducto !== null) {
-                    return item.CodigoProducto.toLowerCase().includes(term.toLowerCase());
+            	if (item.CodOriginal !== null) {
+                    return item.CodOriginal.toLowerCase().includes(term.toLowerCase());
 				} else {
-                    return item.CodigoInterno.toLowerCase().includes(term.toLowerCase());
+                    return item.CodProd.toLowerCase().includes(term.toLowerCase());
 				}
 
             });
 		}
-
 	}
 }

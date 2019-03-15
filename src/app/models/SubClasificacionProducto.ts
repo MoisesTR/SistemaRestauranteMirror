@@ -2,9 +2,9 @@ export class SubClasificacionProducto{
 
   public IdSubClasificacion: number;
   public IdClasificacion: number;
-  public NombreSubClasificacion: string;
-  public NombreClasificacion: string;
-  public DescripcionSubClasificacion: string;
+  public NombSubClasificacion: string;
+  public NombClasificacion: string;
+  public DescSubClasificacion: string;
   public Habilitado: string;
 
   constructor() {}

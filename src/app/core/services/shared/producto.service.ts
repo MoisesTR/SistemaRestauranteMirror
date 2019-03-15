@@ -17,11 +17,11 @@ export class ProductoService {
     const params = JSON.stringify(Producto);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this._http.post(this.url + 'producto', params, { headers: headers });
+    return this._http.post(this.url + 'productos', params, { headers: headers });
 
   }
   getProducto(IdProducto): Observable<any> {
-    return this._http.get(this.url + 'producto/' + IdProducto);
+    return this._http.get(this.url + 'productos/' + IdProducto);
   }
 
   getProductos(Habilitado = 1): Observable<any> {
@@ -36,7 +36,7 @@ export class ProductoService {
       'Authorization': 'token'
     });
 
-    return this._http.put(this.url + 'producto/' + Producto.IdProducto, params, { headers: headers });
+    return this._http.put(this.url + 'productos/' + Producto.IdProducto, params, { headers: headers });
   }
 
   deleteProducto(IdProducto): Observable<any> {
@@ -47,7 +47,7 @@ export class ProductoService {
 
         const body = JSON.stringify({'Habilitado': false});
 
-    return this._http.request('delete', this.url + 'producto/' + IdProducto, { headers: headers, body: body });
+    return this._http.request('delete', this.url + 'productos/' + IdProducto, { headers: headers, body: body });
 
   }
 }

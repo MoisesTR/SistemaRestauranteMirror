@@ -24,9 +24,9 @@
             <tbody>
               <tr *ngFor="let subclasificacion of subclasificaciones; let i = index">
                 <td class="body-negrita">{{ i + 1 }}</td>
-                <td class="body-negrita">{{ subclasificacion.NombreSubClasificacion }}</td>
-                <td class="body-negrita">{{ subclasificacion.DescripcionSubClasificacion }}</td>
-                <td class="body-negrita">{{ subclasificacion.NombreClasificacion }}</td>
+                <td class="body-negrita">{{ subclasificacion.NombSubClasificacion }}</td>
+                <td class="body-negrita">{{ subclasificacion.DescSubClasificacion }}</td>
+                <td class="body-negrita">{{ subclasificacion.NombClasificacion }}</td>
                 <td width="25%" class="body-negrita">
 
                   <div class="text-center">
@@ -90,8 +90,8 @@
           </div>
 
           <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select [items]="clasificaciones" class="custom" bindLabel="NombreClasificacion" bindValue="IdClasificacion"
-            placeholder="Selecciona una clasificacion" formControlName="clasificacion"
+          <ng-select [items]="clasificaciones" class="custom" bindLabel="NombClasificacion" bindValue="IdClasificacion"
+            placeholder="Selecciona una clasificacion" formControlName="clasificacion" [(ngModel)]="subclasificacion.IdClasificacion"
             (change)="onChangeClasificacion($event)">
           </ng-select>
           <show-errors [control]="formUpdateSubClasificacion.controls['clasificacion']"></show-errors>

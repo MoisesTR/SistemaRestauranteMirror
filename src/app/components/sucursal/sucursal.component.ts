@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import { SpinnerService, SucursalService } from "@app/core/service.index";
+import { SpinnerService, SucursalService, TrabajadorService } from "@app/core/service.index";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { DataTableDirective } from "angular-datatables";
 import { ModalDirective } from "ng-uikit-pro-standard";
@@ -12,6 +12,7 @@ import { TelefonoSucursal } from "@app/models/TelefonoSucursal";
 import { Utils } from "../Utils";
 import { idioma_espanol } from "@app/core/services/shared/global";
 import swal from "sweetalert2";
+import { Trabajador } from "@app/models/Trabajador";
 declare var $: any;
 
 @Component({
@@ -29,6 +30,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 	public formAddSucursal: FormGroup;
 	public formUpdateSucursal: FormGroup;
 	public tituloPantalla = "Sucursal";
+	public trabajadores: Trabajador[];
 
 	@ViewChild("modalAddSucursal") modalAddSucursal: ModalDirective;
 
@@ -41,6 +43,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		private route: ActivatedRoute,
 		private router: Router,
 		private sucursalService: SucursalService,
+		private trabajadorService: TrabajadorService,
 		private spinner: SpinnerService,
 		private formBuilder: FormBuilder,
 		private cdr: ChangeDetectorRef
@@ -77,6 +80,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 		this.settingsDatatable();
 		this.getSucursales();
+		this.getTrabajadores();
 		this.initFormAddSucursal();
 		this.initFormUpdateSucursal();
 	}
@@ -113,40 +117,22 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 	getSucursales() {
 		this.spinner.display(true);
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al obtener las sucursales", this.tituloPantalla);
-				}
-			},
-			error => {
-                this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}, () => {
-                this.spinner.display(false);
-            }
-		);
+		this.sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
+			}
+		});
 	}
 
 	getSucursalesRender() {
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-					this.rerender();
-				}
-			},
-			error => {
-				Utils.showMsgInfo("Ha ocurrido un error al obtener las sucursales", this.tituloPantalla);
-			},
-			() => {
-
+		this.sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
@@ -165,7 +151,8 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 				CustomValidators.nospaceValidator
 			]),
 			telefonoPrincipal: new FormControl("", [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
-			telefonoSecundario: new FormControl("", [Validators.minLength(8), Validators.maxLength(8)])
+			telefonoSecundario: new FormControl("", [Validators.minLength(8), Validators.maxLength(8)]),
+			trabajador: new FormControl(null, [])
 		});
 	}
 
@@ -189,44 +176,39 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 	}
 
 	getValuesFormAddSucursal() {
-		this.sucursal.NombreSucursal = this.formAddSucursal.value.nombreSucursal;
+		this.sucursal.NombSucursal = this.formAddSucursal.value.nombreSucursal;
 		this.sucursal.Direccion = this.formAddSucursal.value.direccion;
 		this.sucursal.Telefono1 = this.formAddSucursal.value.telefonoPrincipal.toString().replace("-", "");
 		this.sucursal.Telefono2 =
 			this.formAddSucursal.value.telefonoSecundario != null
 				? Utils.replaceCharacter(this.formUpdateSucursal.value.telefonoSecundario.toString())
 				: "";
+		this.sucursal.IdRestaurante = 1;
 	}
 
 	getValuesFormUpdateSucursal() {
-		this.sucursal.NombreSucursal = this.formUpdateSucursal.value.nombreSucursal;
+		this.sucursal.NombSucursal = this.formUpdateSucursal.value.nombreSucursal;
 		this.sucursal.Direccion = this.formUpdateSucursal.value.direccion;
 		this.sucursal.Telefono1 = this.formUpdateSucursal.value.telefonoPrincipal.toString().replace("-", "");
 		this.sucursal.Telefono2 =
 			this.formUpdateSucursal.value.telefonoSecundario != null
 				? Utils.replaceCharacter(this.formUpdateSucursal.value.telefonoSecundario.toString())
 				: "";
+		this.sucursal.IdRestaurante = 1;
 	}
 
 	createSucursal(Modal) {
 		this.getValuesFormAddSucursal();
 
-		this.sucursalService.createSucursal(this.sucursal).subscribe(
-			response => {
-				if (response.IdSucursal) {
-					swal(this.tituloPantalla, "la Sucursal ha sido creada exitosamente!", "success").then(() => {
-						Modal.hide();
-						this.formAddSucursal.reset();
-						this.getSucursalesRender();
-					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al crear la sucursal,intentalo nuevamente", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.sucursalService.createSucursal(this.sucursal).subscribe(response => {
+			if (response.IdSucursal) {
+				swal(this.tituloPantalla, "la Sucursal ha sido creada exitosamente!", "success").then(() => {
+					Modal.hide();
+					this.formAddSucursal.reset();
+					this.getSucursalesRender();
+				});
 			}
-		);
+		});
 	}
 
 	updateSucursal(Modal) {
@@ -243,12 +225,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 							this.getSucursalesRender();
 							this.sucursal = new Sucursal();
 						});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al actualizar, intentalo nuevamente", this.tituloPantalla);
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
@@ -265,21 +242,22 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.sucursalService.deleteSucursal(IdSucursal).subscribe(
-					response => {
-						if (response.success) {
-							swal("Eliminada!", "La sucursal ha sido eliminada exitosamente", "success").then(() => {
-								this.getSucursalesRender();
-							});
-						} else {
-							swal("Error inesperado", "Ha ocurrido un error en la eliminación, intenta nuevamente!", "error");
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error));
+				this.sucursalService.deleteSucursal(IdSucursal).subscribe(response => {
+					if (response.success) {
+						swal("Eliminada!", "La sucursal ha sido eliminada exitosamente", "success").then(() => {
+							this.getSucursalesRender();
+						});
 					}
-				);
+				});
 			} else if (result.dismiss === swal.DismissReason.cancel) {
+			}
+		});
+	}
+
+	getTrabajadores() {
+		this.trabajadorService.getTrabajadores(1).subscribe(response => {
+			if (response.trabajadores) {
+				this.trabajadores = response.trabajadores;
 			}
 		});
 	}
@@ -294,7 +272,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		this.formUpdateSucursal.reset();
 
 		this.formUpdateSucursal.setValue({
-			nombreSucursal: sucursal.NombreSucursal,
+			nombreSucursal: sucursal.NombSucursal,
 			direccion: sucursal.Direccion,
 			telefonoPrincipal: sucursal.Telefono1,
 			telefonoSecundario: sucursal.Telefono2

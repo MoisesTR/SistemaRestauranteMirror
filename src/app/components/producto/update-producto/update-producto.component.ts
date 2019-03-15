@@ -49,6 +49,8 @@ export class UpdateProductoComponent implements OnInit {
 	public url: string;
 	public removioImagen = false;
 	public filesToUpload: Array<File> = null;
+	public IdTipoInsumo;
+	Insumo = [{ Id: 1, TipoInsumo: "Alimento" }, { Id: 2, TipoInsumo: "Limpieza" }, { Id: 3, TipoInsumo: "Utensilios" }];
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -69,14 +71,9 @@ export class UpdateProductoComponent implements OnInit {
 	) {
 		this.url = Global.url;
 		this.producto = new Producto();
-		this._route.params.subscribe(params => console.log(params));
 	}
 
 	ngOnInit() {
-		$(document).ready(() => {
-			$(".dropify").dropify();
-		});
-
 		this.initFormUpdateProducto();
 		this.getProducto();
 		this.getProveedores();
@@ -86,6 +83,55 @@ export class UpdateProductoComponent implements OnInit {
 		this.getEmpaques();
 		this.getEnvases();
 		this.getUnidadesDeMedida();
+	}
+
+	showCardImg() {
+		const x = document.getElementById("imagen-productos");
+		const f = document.getElementById("formulario-productos");
+		const proveedor = document.getElementById("proveedor");
+		const categoria = document.getElementById("selectCategoria");
+		const clasificacion = document.getElementById("upclasificacion");
+		const subclasificacion = document.getElementById("upsubclasificacion");
+		const empaque = document.getElementById("empaque");
+		const envase = document.getElementById("envase");
+		const unidadmedida = document.getElementById("unidadmedida");
+
+		if (x.style.display === "none") {
+			// Mostrar card de agregar imagen
+			// Pequeño
+
+			// Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
+			$(" #btn-animation").click(function() {
+				$("#imagen-productos").toggleClass("animated");
+			});
+			f.classList.remove("col-lg-12");
+			f.classList.add("col-lg-8");
+			proveedor.classList.add("select-no-margin");
+			categoria.classList.add("select-no-margin");
+			clasificacion.classList.add("select-no-margin");
+			subclasificacion.classList.add("select-no-margin");
+			empaque.classList.add("select-no-margin");
+			envase.classList.add("select-no-margin");
+			unidadmedida.classList.add("select-no-margin");
+			x.style.display = "block";
+		} else {
+			// Ocultar card de agregar imagen
+
+			// Funcion que permite que la animación del card funcione las n veces que sea presionado el botón
+			$("#btn-animation").click(function() {
+				$("#imagen-productos").toggleClass("animated");
+			});
+			f.classList.remove("col-lg-8");
+			f.classList.add("col-lg-12");
+			proveedor.classList.remove("select-no-margin");
+			categoria.classList.remove("select-no-margin");
+			clasificacion.classList.remove("select-no-margin");
+			subclasificacion.classList.remove("select-no-margin");
+			empaque.classList.remove("select-no-margin");
+			envase.classList.remove("select-no-margin");
+			unidadmedida.classList.remove("select-no-margin");
+			x.style.display = "none";
+		}
 	}
 
 	private initFormUpdateProducto() {
@@ -113,6 +159,7 @@ export class UpdateProductoComponent implements OnInit {
 
 			valorUnidadMedida: new FormControl("", [Validators.required]),
 			diasCaducidad: new FormControl("", [Validators.required]),
+			tipoInsumo: new FormControl("", [Validators.required]),
 			diasDeUso: new FormControl("", [Validators.required])
 		});
 	}
@@ -177,11 +224,12 @@ export class UpdateProductoComponent implements OnInit {
 	}
 
 	inicializarValoresFormularioProducto() {
-		this.formUpdateProducto.controls["nombreProducto"].setValue(this.producto.NombreProducto);
-		this.formUpdateProducto.controls["descripcionProducto"].setValue(this.producto.Descripcion);
+		this.formUpdateProducto.controls["nombreProducto"].setValue(this.producto.NombProducto);
+		this.formUpdateProducto.controls["descripcionProducto"].setValue(this.producto.DescProducto);
 		this.formUpdateProducto.controls["diasCaducidad"].setValue(this.producto.DiasCaducidad);
 		this.formUpdateProducto.controls["valorUnidadMedida"].setValue(this.producto.ValorUnidadMedida);
 		this.formUpdateProducto.controls["cantidadEmpaque"].setValue(this.producto.CantidadEmpaque);
+		this.IdTipoInsumo = this.producto.IdTipInsumo;
 		this.proveedoresProducto = this.producto.Proveedores;
 	}
 
@@ -220,7 +268,6 @@ export class UpdateProductoComponent implements OnInit {
 					}
 				},
 				error => {
-					console.log("Error desde la api");
 				}
 			);
 		});
@@ -281,8 +328,8 @@ export class UpdateProductoComponent implements OnInit {
 	}
 
 	getValuesFormUpdate() {
-		this.producto.NombreProducto = this.formUpdateProducto.value.nombreProducto;
-		this.producto.Descripcion = this.formUpdateProducto.value.descripcionProducto;
+		this.producto.NombProducto = this.formUpdateProducto.value.nombreProducto;
+		this.producto.DescProducto = this.formUpdateProducto.value.descripcionProducto;
 		this.producto.IdEstado = 1;
 		this.producto.CantidadEmpaque = this.formUpdateProducto.value.cantidadEmpaque;
 		this.producto.ValorUnidadMedida = this.formUpdateProducto.value.valorUnidadMedida;

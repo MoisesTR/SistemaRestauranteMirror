@@ -73,21 +73,12 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 
 	getRoles() {
 		this.spinner.display(true);
-		this.rolUsuarioService.getRoles().subscribe(
-			response => {
-				if (response.roles) {
-					this.roles = response.roles;
-					this.dtTrigger.next();
-				}
-			},
-			error => {
-				this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {
-				this.spinner.display(false);
+		this.rolUsuarioService.getRoles().subscribe(response => {
+			if (response.roles) {
+				this.roles = response.roles;
+				this.dtTrigger.next();
 			}
-		);
+		});
 	}
 
 	rerender(): void {
@@ -100,20 +91,12 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 	}
 
 	getRolesRender() {
-		this.rolUsuarioService.getRoles().subscribe(
-			response => {
-				if (response.roles) {
-					this.roles = response.roles;
-					this.rerender();
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {
-
+		this.rolUsuarioService.getRoles().subscribe(response => {
+			if (response.roles) {
+				this.roles = response.roles;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
@@ -152,35 +135,28 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 	}
 
 	getValuesFormAddRolUsuario() {
-		this.rol.NombreRol = this.formAddRolUsuario.value.nombreRol;
-		this.rol.DescripcionRol = this.formAddRolUsuario.value.descripcionRol;
+		this.rol.NombRol = this.formAddRolUsuario.value.nombreRol;
+		this.rol.DescRol = this.formAddRolUsuario.value.descripcionRol;
 	}
 
 	getValuesFormUpdateRolUsuario() {
-		this.rol.NombreRol = this.formUpdateRolUsuario.value.nombreRol;
-		this.rol.DescripcionRol = this.formUpdateRolUsuario.value.descripcionRol;
+		this.rol.NombRol = this.formUpdateRolUsuario.value.nombreRol;
+		this.rol.DescRol = this.formUpdateRolUsuario.value.descripcionRol;
 	}
 
 	createRolUsuario(Modal) {
 		this.getValuesFormAddRolUsuario();
 
-		this.rolUsuarioService.createRolUsuario(this.rol).subscribe(
-			response => {
-				if (response.IdRol) {
-					swal("Rol", "El Rol ha sido creado exitosamente!", "success").then(() => {
-						Modal.hide();
-						this.formAddRolUsuario.reset();
-						this.rol = new RolUsuario();
-						this.getRolesRender();
-					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al insertar el rol, intentalo nuevamente", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.rolUsuarioService.createRolUsuario(this.rol).subscribe(response => {
+			if (response.IdRol) {
+				swal("Rol", "El Rol ha sido creado exitosamente!", "success").then(() => {
+					Modal.hide();
+					this.formAddRolUsuario.reset();
+					this.rol = new RolUsuario();
+					this.getRolesRender();
+				});
 			}
-		);
+		});
 	}
 
 	updateRolUsuario() {
@@ -194,12 +170,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 						this.formUpdateRolUsuario.reset();
 						this.getRolesRender();
 					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar, intentalo nuevamente", this.tituloPantalla);
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 
@@ -256,13 +227,13 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 
 	invocarModalUpdate(Modal, Rol: RolUsuario) {
 		this.rol.IdRol = Rol.IdRol;
-		this.rol.NombreRol = Rol.NombreRol;
-		this.rol.DescripcionRol = Rol.DescripcionRol;
+		this.rol.NombRol = Rol.NombRol;
+		this.rol.DescRol = Rol.DescRol;
 
 		this.formUpdateRolUsuario.reset();
 		this.formUpdateRolUsuario.setValue({
-			nombreRol: Rol.NombreRol,
-			descripcionRol: Rol.DescripcionRol
+			nombreRol: Rol.NombRol,
+			descripcionRol: Rol.DescRol
 		});
 
 		Modal.show();

@@ -13,6 +13,6 @@ export class MenuService {
     }
 
     getMenuesByIdRol(IdRol): Observable<any> {
-        return this._http.get(this.url + 'menu/' + IdRol);
+        return this._http.get(this.url + 'menus/rol/' + IdRol);
     }
 }

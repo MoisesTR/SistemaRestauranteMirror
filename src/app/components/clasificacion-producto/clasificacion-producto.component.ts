@@ -84,13 +84,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 					this.dtTrigger.next();
 					this.cdr.markForCheck();
 				}
-			},
-			error => {
-                this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}, () => {
-                this.spinner.display(false);
-            }
+			}
 		);
 	}
 
@@ -111,9 +105,6 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 					this.clasificaciones = response.clasificaciones;
 					this.rerender();
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
@@ -163,19 +154,15 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 			response => {
 				if (response.categorias) {
 					this.categorias = response.categorias;
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al cargar las categorias", this.tituloPantalla);
+					this.cdr.markForCheck();
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
 
 	getValuesFormUpdateClasificacion() {
-		this.clasificacion.NombreClasificacion = this.formUpdateClasificacion.value.nombreClasificacion;
-		this.clasificacion.DescripcionClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
+		this.clasificacion.NombClasificacion = this.formUpdateClasificacion.value.nombreClasificacion;
+		this.clasificacion.DescClasificacion = this.formUpdateClasificacion.value.descripcionClasificacion;
 	}
 
 	deleteClasificacion(idClasificacion) {
@@ -199,9 +186,6 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 						} else {
 							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar!", this.tituloPantalla);
 						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 					}
 				);
 			}
@@ -221,11 +205,10 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 
 		this.clasificacion.IdClasificacion = clasificacion.IdClasificacion;
 		this.clasificacion.IdCategoria = clasificacion.IdCategoria;
-		this.clasificacion.NombreClasificacion = clasificacion.NombreClasificacion;
-		this.clasificacion.DescripcionClasificacion = clasificacion.DescripcionClasificacion;
-
-		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(clasificacion.NombreClasificacion);
-		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(clasificacion.DescripcionClasificacion);
+		this.clasificacion.NombClasificacion = clasificacion.NombClasificacion;
+		this.clasificacion.DescClasificacion = clasificacion.DescClasificacion;
+		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(clasificacion.NombClasificacion);
+		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(clasificacion.DescClasificacion);
         this.formUpdateClasificacion.controls["categoria"].setValue(clasificacion.IdCategoria);
 
 		modal.show();

@@ -26,7 +26,8 @@
           </div>
 
           <h6 class="orange-chang-text">Tipo insumo</h6>
-          <ng-select dropdownPosition="'top'" class="custom" placeholder="Selecciona un tipo de insumo">
+          <ng-select formControlName="tipoInsumo" [items]="tiposInsumos" bindLabel="NombTipInsumo" bindValue="IdTipInsumo" dropdownPosition="'top'" class="custom"
+                     (change)="changeTipoInsumo($event)" placeholder="Selecciona un tipo de insumo">
           </ng-select>
 
           <div class="md-form">

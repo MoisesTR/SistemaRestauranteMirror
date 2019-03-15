@@ -36,8 +36,6 @@ export class AddfacturaComponent implements OnInit {
 	public formEditarDetalleProducto: FormGroup;
 	public formAddFactura: FormGroup;
 	public formDetallesFactura: FormGroup;
-	public formAddProducto: FormGroup;
-	public formDescuentoGeneral: FormGroup;
 	public productosFactura: ProductoFactura[];
 	public productosFiltrados: ProductoFactura[];
 	public productosProveedor: ProductoFactura[];
@@ -79,16 +77,16 @@ export class AddfacturaComponent implements OnInit {
 	@ViewChild("modalAddDescuento") modalAddDescuento: ModalDirective;
 
 	constructor(
-		private _route: ActivatedRoute,
-		private _router: Router,
-		private _productoService: ProductoService,
-		private _proveedorService: ProveedorService,
-		private _productoProveedorService: ProductoProveedorService,
-		private _formBuilderFactura: FormBuilder,
-		private _usuarioService: UsuarioService,
-		private _facturaService: FacturaService,
-		private toastrService: ToastService,
-		private _uploadService: UploadService,
+		private route: ActivatedRoute,
+		private router: Router,
+		private productoService: ProductoService,
+		private proveedorService: ProveedorService,
+		private productoProveedorService: ProductoProveedorService,
+		private formBuilderFactura: FormBuilder,
+		private usuarioService: UsuarioService,
+		private facturaService: FacturaService,
+		private toastService: ToastService,
+		private uploadService: UploadService,
 		private cdr: ChangeDetectorRef
 	) {
 		this.proveedor = new Proveedor();
@@ -117,11 +115,11 @@ export class AddfacturaComponent implements OnInit {
 		this.subscribeValueDescuentoGlobal();
 		this.initFormDetailFactura();
 		this.initDefaultValues();
-		this.usuario = this._usuarioService.getIdentity();
+		this.usuario = this.usuarioService.getIdentity();
 	}
 
 	initFormDetailProductoFactura() {
-		this.formEditarDetalleProducto = this._formBuilderFactura.group({
+		this.formEditarDetalleProducto = this.formBuilderFactura.group({
 			cantidadProducto: new FormControl("", [Validators.required]),
 			precioProducto: new FormControl("", [Validators.required]),
 			descuentoTotalProducto: new FormControl(0, []),
@@ -131,7 +129,7 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	initFormAddFactura() {
-		this.formAddFactura = this._formBuilderFactura.group({
+		this.formAddFactura = this.formBuilderFactura.group({
 			proveedor: new FormControl("", Validators.required),
 			codigoFactura: new FormControl("", Validators.required),
 			totalFacturaOrigen: new FormControl(0, Validators.required),
@@ -146,25 +144,19 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	initFormDetailFactura() {
-		this.formDetallesFactura = this._formBuilderFactura.group({
+		this.formDetallesFactura = this.formBuilderFactura.group({
 			checkDescuentoGeneral: new FormControl("", [])
 		});
 	}
 
 	getProveedores() {
-		this._proveedorService.getProveedores().subscribe(
+		this.proveedorService.getProveedores().subscribe(
 			response => {
 				if (response.proveedores) {
 					this.proveedores = response.proveedores;
 					this.cdr.markForCheck();
-				} else {
-					Utils.showMsgInfo("No se han logrado obtener los proveedores", "Factura");
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), "Factura");
-			},
-			() => {}
+			}
 		);
 	}
 
@@ -192,7 +184,7 @@ export class AddfacturaComponent implements OnInit {
 		this.factura.IdFormaPago = 1;
 		this.factura.NombVendedor = this.proveedores.filter(
 			item => item.IdProveedor === this.proveedor.IdProveedor
-		)[0].NombreRepresentante;
+		)[0].NombRepresentante;
 	}
 
 	onChangeProveedor(event) {
@@ -280,7 +272,6 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	agregarProductoAFactura(producto: ProductoFactura) {
-		console.log("El estado del CheckBox es: " + producto.IsDescuentoPorcentual);
 		let productoFiltrado: ProductoFactura = new ProductoFactura();
 		productoFiltrado = Object.assign({}, producto);
 
@@ -363,7 +354,7 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	getProductosOfProveedor(IdProveedor) {
-		this._productoProveedorService.getProductosOfProveedor(IdProveedor).subscribe(
+		this.productoProveedorService.getProductosOfProveedor(IdProveedor).subscribe(
 			response => {
 				if (response.productos) {
 					this.productosFiltrados = response.productos;
@@ -381,14 +372,12 @@ export class AddfacturaComponent implements OnInit {
 						this.productosFiltrados[index].Iva = 0;
 						this.productosFiltrados[index].CalculoIva = 0;
 						this.productosFiltrados[index].IsDescuentoPorcentual = true;
-						this.productosFiltrados[index].DescripcionInsumo =
-							this.productosFiltrados[index].IdTipoInsumo === 1 ? "Alimento" : "Limpieza";
+						this.productosFiltrados[index].DescTipInsumo =
+							this.productosFiltrados[index].IdTipInsumo === 1 ? "Alimento" : "Limpieza";
 					});
 					this.cdr.detectChanges();
 				}
-			},
-			error => {},
-			() => {}
+			}
 		);
 	}
 
@@ -407,36 +396,41 @@ export class AddfacturaComponent implements OnInit {
 
 	crearFactura() {
 		this.getValueFromFormFactura();
-		if (this.productosFactura.length < 1) {
-			Utils.showMsgInfo("Selecciona al menos un producto para crear la factura", "Factura");
-		} else if (this.totalFactura === 0) {
-			Utils.showMsgInfo("El total de la factura no puede ser igual a cero!", "Factura");
-		} else if (this.descuentoCalculoFactura > this.subTotalFactura) {
-			Utils.showMsgInfo("El descuento no puede ser mayor al subtotal de la factura!", "Factura");
-		} else if (this.existenMontosMenorIgualaCero()) {
-			Utils.showMsgInfo("El costo total de cada producto en la factura debe ser mayor cero", "Factura");
-		} else if (this.factura.FechaRecepcion < this.factura.FechaFactura) {
-			Utils.showMsgInfo("La fecha de recepción no puede ser menor a la fecha de la factura!", "Factura");
-		} else {
-			this._facturaService.createFactura(this.factura).subscribe(
-				response => {
-					if (response.IdFactura) {
-						this.crearDetalleFactura(response.IdFactura);
-					} else {
-						Utils.showMsgInfo("Ha ocurrido un error al crear la factura");
-					}
-				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error));
+		if (this.validarCrearFactura()) {
+			this.factura.productos = this.crearDetalleFactura();
+			this.facturaService.createFactura(this.factura).subscribe(response => {
+				if (response.IdFactura) {
+					this.agregarOtraFactura();
 				}
-			);
+			});
 		}
 	}
 
-	crearDetalleFactura(IdFactura: number) {
+	validarCrearFactura(): boolean {
+		if (this.productosFactura.length < 1) {
+			Utils.showMsgInfo("Selecciona al menos un producto para crear la factura", "Factura");
+			return false;
+		} else if (this.totalFactura === 0) {
+			Utils.showMsgInfo("El total de la factura no puede ser igual a cero!", "Factura");
+			return false;
+		} else if (this.descuentoCalculoFactura > this.subTotalFactura) {
+			Utils.showMsgInfo("El descuento no puede ser mayor al subtotal de la factura!", "Factura");
+			return false;
+		} else if (this.existenMontosMenorIgualaCero()) {
+			Utils.showMsgInfo("El costo total de cada producto en la factura debe ser mayor cero", "Factura");
+			return false;
+		} else if (this.factura.FechaRecepcion < this.factura.FechaFactura) {
+			Utils.showMsgInfo("La fecha de recepción no puede ser menor a la fecha de la factura!", "Factura");
+			return false;
+		}
+
+		return true;
+	}
+
+	crearDetalleFactura() {
+		const productosFactura: DetalleFactura[] = [];
 		this.productosFactura.forEach((value, index) => {
 			this.detalleFactura = new DetalleFactura();
-			this.detalleFactura.IdFactura = IdFactura;
 			this.detalleFactura.IdProducto = value.IdProducto;
 			this.detalleFactura.PrecioUnitario = value.Costo;
 			this.detalleFactura.Cantidad = value.Cantidad;
@@ -458,23 +452,10 @@ export class AddfacturaComponent implements OnInit {
 			this.detalleFactura.PorcentajeDescuento = value.IsDescuentoPorcentual ? value.PorcentajeDescuento : null;
 			this.detalleFactura.EfectivoDescuento = value.IsDescuentoPorcentual ? null : value.DescuentoIngresado;
 			this.detalleFactura.Bonificacion = 0;
-
-			this._facturaService.createDetailFactura(this.detalleFactura).subscribe(
-				response => {
-					if (response.IdDetalle) {
-					} else {
-						Utils.showMsgInfo("Ha ocurrido un error al insertar el detalle del producto" + value.IdProducto);
-					}
-				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error));
-				}
-			);
-
-			if (index === this.productosFactura.length - 1) {
-				this.agregarOtraFactura();
-			}
+			productosFactura.push(this.detalleFactura);
 		});
+
+		return productosFactura;
 	}
 
 	eliminarProductoDeFactura(productoFactura: ProductoFactura, index) {
@@ -484,12 +465,12 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	agregarProveedor() {
-		this._router.navigate(["proveedor/add"]);
+		this.router.navigate(["proveedor/add"]);
 	}
 
 	guardarRespaldoFactura() {
 		if (this.filesToUpload != null) {
-			this._uploadService
+			this.uploadService
 				.makeFileRequest(
 					this.url + "uploadImage/",
 					CARPETA_FACTURA,
@@ -626,7 +607,7 @@ export class AddfacturaComponent implements OnInit {
 			positionClass: "toast-top-right",
 			toastClass: "opacity"
 		};
-		this.toastrService.success("El producto ha sido agregado a la factura", "Factura", options);
+		this.toastService.success("El producto ha sido agregado a la factura", "Factura", options);
 	}
 
 	showActualizacionProductos(nuevos: number) {
@@ -635,7 +616,7 @@ export class AddfacturaComponent implements OnInit {
 			positionClass: "toast-top-right",
 			toastClass: "opacity"
 		};
-		this.toastrService.success("Se han encontrado un total de: " + nuevos + " productos nuevos!", "Factura", options);
+		this.toastService.success("Se han encontrado un total de: " + nuevos + " productos nuevos!", "Factura", options);
 	}
 
 	ingresoFechaRecepcion(evento) {
@@ -693,7 +674,7 @@ export class AddfacturaComponent implements OnInit {
 				this.descuentoGlobalHabilitado = false;
 				window.scrollTo(0, 0);
 			} else if (result.dismiss === swal.DismissReason.cancel) {
-				this._router.navigate(["factura/summaryFactura"]);
+				this.router.navigate(["factura/summaryFactura"]);
 			}
 		});
 	}

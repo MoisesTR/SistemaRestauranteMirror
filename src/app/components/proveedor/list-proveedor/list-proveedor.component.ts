@@ -11,145 +11,120 @@ import swal from "sweetalert2";
 import { ModalDirective } from "ng-uikit-pro-standard";
 
 @Component({
-    selector: "list-proveedor",
-    templateUrl: "./list-proveedor.component.html",
-    styleUrls: ["./list-proveedor.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	selector: "list-proveedor",
+	templateUrl: "./list-proveedor.component.html",
+	styleUrls: ["./list-proveedor.component.scss"],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListProveedorComponent implements OnInit, OnDestroy {
-    @ViewChild("modalTelefonos") modalTelefonos: ModalDirective;
+	@ViewChild("modalTelefonos") modalTelefonos: ModalDirective;
 
-    public proveedorSeleccionado: Proveedor;
-    public proveedores: Proveedor[] = [];
-    public tituloPantalla = "Proveedor";
+	public proveedorSeleccionado: Proveedor;
+	public proveedores: Proveedor[] = [];
+	public tituloPantalla = "Proveedor";
 
-    @ViewChild(DataTableDirective) dtElement: DataTableDirective;
+	@ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<any> = new Subject<any>();
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject<any>();
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private proveedorService: ProveedorService,
-        private spinner: SpinnerService,
-        private cdr: ChangeDetectorRef
-    ) {
-        this.proveedorSeleccionado = new Proveedor();
-    }
+	constructor(
+		private route: ActivatedRoute,
+		private router: Router,
+		private proveedorService: ProveedorService,
+		private spinner: SpinnerService,
+		private cdr: ChangeDetectorRef
+	) {
+		this.proveedorSeleccionado = new Proveedor();
+	}
 
-    ngOnInit() {
-        this.settingsDatatable();
-        this.getProveedores();
-    }
+	ngOnInit() {
+		this.settingsDatatable();
+		this.getProveedores();
+	}
 
-    settingsDatatable() {
-        /*PROPIEDADES GENERALES DE LA DATATABLE*/
-        this.dtOptions = <DataTables.Settings>{
-            pagingType: "full_numbers",
-            pageLength: 10,
-            language: idioma_espanol,
-            lengthChange: false,
-            responsive: true,
-            dom: "Bfrtip",
-            buttons: [
-                {
-                    text: "Agregar",
-                    key: "1",
-                    className: "btn orange-chang float-right-dt",
-                    action: (e, dt, node, config) => {
-                        this.router.navigate(["proveedor/add"]);
-                    }
-                }
-            ]
-        };
-    }
+	settingsDatatable() {
+		/*PROPIEDADES GENERALES DE LA DATATABLE*/
+		this.dtOptions = <DataTables.Settings>{
+			pagingType: "full_numbers",
+			pageLength: 10,
+			language: idioma_espanol,
+			lengthChange: false,
+			responsive: true,
+			dom: "Bfrtip",
+			buttons: [
+				{
+					text: "Agregar",
+					key: "1",
+					className: "btn orange-chang float-right-dt",
+					action: (e, dt, node, config) => {
+						this.router.navigate(["proveedor/add"]);
+					}
+				}
+			]
+		};
+	}
 
-    rerender(): void {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            // Destroy the table first
-            dtInstance.destroy();
-            // Call the dtTrigger to rerender again
-            this.dtTrigger.next();
-            this.cdr.detectChanges();
-        });
-    }
+	rerender(): void {
+		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+			// Destroy the table first
+			dtInstance.destroy();
+			// Call the dtTrigger to rerender again
+			this.dtTrigger.next();
+			this.cdr.detectChanges();
+		});
+	}
 
-    getProveedores() {
-        this.spinner.display(true);
-        this.proveedorService.getProveedores().subscribe(
-            response => {
-                if (response.proveedores) {
-                    this.proveedores = response.proveedores;
-                    this.dtTrigger.next();
-                    this.cdr.markForCheck();
-                }
-            },
-            error => {
-                this.spinner.display(false);
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            },
-            () => {
-                this.spinner.display(false);
-            }
-        );
-    }
+	getProveedores() {
+		this.spinner.display(true);
+		this.proveedorService.getProveedores().subscribe(response => {
+			if (response.proveedores) {
+				this.proveedores = response.proveedores;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
+			}
+		});
+	}
 
-    getProveedoresRender() {
-        this.proveedorService.getProveedores().subscribe(
-            response => {
-                if (response.proveedores) {
-                    this.proveedores = response.proveedores;
-                    this.rerender();
-                    this.cdr.markForCheck();
-                }
-            },
-            error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            },
-            () => {
+	getProveedoresRender() {
+		this.proveedorService.getProveedores().subscribe(response => {
+			if (response.proveedores) {
+				this.proveedores = response.proveedores;
+				this.rerender();
+				this.cdr.markForCheck();
+			}
+		});
+	}
 
-            }
-        );
-    }
+	deleteProveedor(IdProveedor) {
+		swal({
+			title: "Estas seguro(a)?",
+			text: "El proveedor sera eliminado permanentemente!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si, Eliminalo!",
+			cancelButtonText: "Cancelar"
+		}).then(result => {
+			if (result.value) {
+				this.proveedorService.deleteProveedor(IdProveedor).subscribe(response => {
+					if (response.success) {
+						swal("Eliminado!", "El proveedor ha sido eliminado exitosamente", "success").then(() => {
+							this.getProveedoresRender();
+						});
+					}
+				});
+			}
+		});
+	}
 
-    deleteProveedor(IdProveedor) {
-        swal({
-            title: "Estas seguro(a)?",
-            text: "El proveedor sera eliminado permanentemente!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminalo!",
-            cancelButtonText: "Cancelar"
-        }).then(result => {
-            if (result.value) {
-                this.proveedorService.deleteProveedor(IdProveedor).subscribe(
-                    response => {
-                        if (response.success) {
-                            swal("Eliminado!", "El proveedor ha sido eliminado exitosamente", "success").then(() => {
-                                this.getProveedoresRender();
-                            });
-                        } else {
-                            Utils.showMsgInfo("Ha ocurrido un error, intenta nuevamente", this.tituloPantalla);
-                        }
-                    },
-                    error => {
-                        Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-                    }
-                );
-            } else if (result.dismiss === swal.DismissReason.cancel) {
-            }
-        });
-    }
+	showModalTelefonos(proveedor: Proveedor) {
+		this.proveedorSeleccionado = proveedor;
+		this.modalTelefonos.show();
+	}
 
-    showModalTelefonos(proveedor: Proveedor) {
-        this.proveedorSeleccionado = proveedor;
-        this.modalTelefonos.show();
-    }
-
-    ngOnDestroy(): void {
-        this.dtTrigger.unsubscribe();
-    }
+	ngOnDestroy(): void {
+		this.dtTrigger.unsubscribe();
+	}
 }

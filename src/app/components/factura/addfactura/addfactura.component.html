@@ -17,22 +17,22 @@
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-1" >
                                     <label class="margin-label-proveedor">Proveedor</label>
                                     <div class="md-form">
-                                        <ng-select [items]="proveedores" bindLabel="NombreProveedor" bindValue="IdProveedor"
+                                        <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor"
                                             id="proveedor" placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)"
                                             formControlName="proveedor" >
                                             <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
                                                 <div style="margin: 10px 0;" class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombreProveedor}}</h5>
+                                                        <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombProveedor}}</h5>
                                                         <p class="card-subtitle mb-2 text-muted">
                                                             <b>Nombre del Representante</b>
                                                             <br>
-                                                            <i>{{item.NombreRepresentante}}</i>
+                                                            <i>{{item.NombRepresentante}}</i>
                                                         </p>
                                                         <p class="card-text">
                                                             <b>Descripcion</b>
                                                             <br>
-                                                            <i>{{item.Descripcion}}</i>
+                                                            <i>{{item.DescProducto}}</i>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -208,9 +208,9 @@
 
                                 <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
                                     <th scope="row" class="align-middle col-xs-1">{{i + 1}}</th>
-                                    <th scope="row" class="align-middle col-xs-1">{{producto.CodigoProducto !==
-                                        null ? producto.CodigoProducto : producto.CodigoInterno}}</th>
-                                    <td class="align-middle col-xs-2">{{producto.NombreProducto}}</td>
+                                    <th scope="row" class="align-middle col-xs-1">{{producto.CodOriginal !==
+                                        null ? producto.CodOriginal : producto.CodProd}}</th>
+                                    <td class="align-middle col-xs-2">{{producto.NombProducto}}</td>
                                     <td class="col-xs-2">
                                         <div class="md-form">
                                             <input mdbInputDirective [mdbValidate]=false [(ngModel)]="producto.Cantidad"
@@ -301,10 +301,10 @@
                             <tbody>
                                 <tr *ngFor="let productoFactura of productosFactura;let i = index">
                                     <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
-                                    <td class="body-negrita align-middle text-center">{{productoFactura.CodigoProducto
-                                        !== null ? productoFactura.CodigoProducto : productoFactura.CodigoInterno}}</td>
-                                    <td class="body-negrita align-middle">{{productoFactura.NombreProducto}}</td>
-                                    <td class="body-negrita align-middle  text-center">{{productoFactura.NombreUnidad}}</td>
+                                    <td class="body-negrita align-middle text-center">{{productoFactura.CodOriginal
+                                        !== null ? productoFactura.CodOriginal : productoFactura.CodProd}}</td>
+                                    <td class="body-negrita align-middle">{{productoFactura.NombProducto}}</td>
+                                    <td class="body-negrita align-middle  text-center">{{productoFactura.NombUnidad}}</td>
                                     <td class="body-negrita align-middle">{{productoFactura.Cantidad}}</td>
                                     <td class="body-negrita align-middle">{{productoFactura.Costo}}
                                         {{simboloMonedaUtilizado}}</td>
@@ -477,8 +477,8 @@
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Nombre</h6>
-                                                <input type="text" id="nombreProducto" minlength="4" maxlength="50"
-                                                    class="input-modal-sm" name="nombreProducto" value={{productoSeleccionado.NombreProducto}}
+                                                <input type="text" id="NombProducto" minlength="4" maxlength="50"
+                                                    class="input-modal-sm" name="NombProducto" value="{{productoSeleccionado.NombProducto}}"
                                                     readonly>
                                             </div>
                                         </div>
@@ -487,7 +487,7 @@
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Tipo de Insumo</h6>
                                                 <input type="text" id="tipoInsumo" minlength="4" maxlength="50" class="input-modal-sm"
-                                                    name="tipoInsumo" value="Insumo Test" readonly value={{productoSeleccionado.DescripcionInsumo}}>
+                                                    name="tipoInsumo" value="Insumo Test" readonly value="{{productoSeleccionado.DescTipInsumo}}">
                                             </div>
                                         </div>
 
@@ -495,7 +495,7 @@
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Producto</h6>
                                                 <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm"
-                                                    name="codigoproducto" value={{productoSeleccionado.CodigoProducto}}
+                                                    name="codigoproducto" value="{{productoSeleccionado.CodOriginal}}"
                                                     readonly>
                                             </div>
                                         </div>
@@ -504,35 +504,35 @@
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Interno</h6>
                                                 <input type="text" id="codigoInterno" minlength="4" maxlength="50"
-                                                    class="input-modal-sm" name="codigoInterno" readonly value={{productoSeleccionado.CodigoInterno}}>
+                                                    class="input-modal-sm" name="codigoInterno" readonly value="{{productoSeleccionado.CodProd}}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Categoria</h6>
-                                                <input type="text" class="input-modal-sm" readonly value={{productoSeleccionado.NombreCategoria}}>
+                                                <input type="text" class="input-modal-sm" readonly value={{productoSeleccionado.NombCategoria}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Clasificación</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreClasificacion}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombClasificacion}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Subclasificación</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreSubClasificacion}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombSubClasificacion}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Empaque</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEmpaque}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombEmpaque}}>
                                             </div>
                                         </div>
 
@@ -546,7 +546,7 @@
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Envase</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombreEnvase}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombEnvase}}>
                                             </div>
                                         </div>
 
@@ -573,7 +573,7 @@
 
             <div class="modal-header white-text orange-chang">
                 <h4 class="title">
-                    <mdb-icon fas icon="file-invoice"></mdb-icon> Editar Detalle Producto<span id="nombreProductoModal"><br>{{productoEditar.NombreProducto}}
+                    <mdb-icon fas icon="file-invoice"></mdb-icon> Editar Detalle Producto<span id="NombProductoModal"><br>{{productoEditar.NombProducto}}
                     </span>
                 </h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"

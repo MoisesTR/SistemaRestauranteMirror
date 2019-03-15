@@ -29,15 +29,15 @@
             <tbody>
               <tr *ngFor="let proveedor of proveedores">
                 <th scope="row" class="align-middle body-negrita" width="5%">{{ proveedor.IdProveedor }}</th>
-                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombreProveedor }}</td>
+                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombProveedor }}</td>
                 <td width="10%" class="align-middle body-negrita text-center">
                   <a mdbBtn type="button" size="sm" class="ml-3 orange-chang white-text" role="button" (click)="showModalTelefonos(proveedor)">
                     <mdb-icon fas icon="phone"></mdb-icon>
                   </a>
                 </td>
                 <td width="20%" class="align-middle body-negrita">{{ proveedor.Direccion }}</td>
-                <td width="20%" class="align-middle body-negrita">{{ proveedor.Descripcion }}</td>
-                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombreRepresentante}}</td>
+                <td width="20%" class="align-middle body-negrita">{{ proveedor.DescProveedor }}</td>
+                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombRepresentante}}</td>
                 <td width="15%" class="align-middle body-negrita">
 
                   <div class="text-center">
@@ -108,7 +108,7 @@
                   <tbody>
                     <tr>
                       <th scope="row">{{i + 1}}</th>
-                      <th>{{telefono.Nombre}}</th>
+                      <th>{{telefono.NombPAsignada}}</th>
                       <td>{{telefono.Cargo}}</td>
                       <td>{{telefono.Telefono}}</td>
                       <td>

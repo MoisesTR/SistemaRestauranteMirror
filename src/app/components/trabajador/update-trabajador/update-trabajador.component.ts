@@ -30,16 +30,15 @@ export class UpdateTrabajadorComponent implements OnInit {
 	public removioImagen: boolean;
 	public tiposDocumento: TipoDocumento[];
 	public filesToUpload: Array<File> = null;
-	public tituloPantalla = "Actualizar Trabajador";
 
 	constructor(
-		private route: ActivatedRoute,
-		private router: Router,
-		private trabajadorService: TrabajadorService,
+		private _route: ActivatedRoute,
+		private _router: Router,
+		private _trabajadorService: TrabajadorService,
 		private formBuilderTrabajador: FormBuilder,
-		private sucursalService: SucursalService,
-		private cargoService: CargoService,
-		private uploadService: UploadService
+		private _sucursalService: SucursalService,
+		private _cargoService: CargoService,
+		private _uploadService: UploadService
 	) {
 		this.url = Global.url;
 		this.trabajador = new Trabajador();
@@ -104,41 +103,37 @@ export class UpdateTrabajadorComponent implements OnInit {
 	}
 
 	getSucursales() {
-		this.sucursalService.getSucursales().subscribe(
+		this._sucursalService.getSucursales().subscribe(
 			response => {
 				if (response.sucursales) {
 					this.sucursales = response.sucursales;
 				} else {
 				}
 			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			error => {}
 		);
 	}
 
 	getCargos() {
-		this.cargoService.getCargos().subscribe(
+		this._cargoService.getCargos().subscribe(
 			response => {
 				if (response.cargos) {
 					this.cargos = response.cargos;
 				}
 			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			error => {}
 		);
 	}
 
 	updateTrabajador() {
 		this.getValuesFormTrabajador();
 
-		this.trabajadorService.updateTrabajador(this.trabajador).subscribe(
+		this._trabajadorService.updateTrabajador(this.trabajador).subscribe(
 			response => {
 				if (response.success) {
 					swal("Trabajador", "El trabajador ha sido actualizado exitosamente!", "success").then(() => {
 						this.formUpdateTrabajador.reset();
-						this.router.navigate(["/trabajador"]);
+						this._router.navigate(["/trabajador"]);
 					});
 				}
 			},
@@ -149,11 +144,11 @@ export class UpdateTrabajadorComponent implements OnInit {
 	}
 
 	getTrabajador() {
-		this.route.params.forEach((params: Params) => {
+		this._route.params.forEach((params: Params) => {
 			const id = params["id"];
 			this.trabajador.IdTrabajador = id;
 
-			this.trabajadorService.getTrabajador(id).subscribe(
+			this._trabajadorService.getTrabajador(id).subscribe(
 				response => {
 					if (response.trabajador) {
 						this.trabajador = response.trabajador;
@@ -178,12 +173,10 @@ export class UpdateTrabajadorComponent implements OnInit {
 						});
 						this.inicializarValoresFormularioTrabajador();
 					} else {
-						Utils.showMsgInfo("Ha ocurrido un error inesperado al obtener al trabajador", this.tituloPantalla);
+						// this._router.navigate(['/producto/list']);
 					}
 				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-				}
+				error => {}
 			);
 		});
 	}
@@ -197,9 +190,6 @@ export class UpdateTrabajadorComponent implements OnInit {
 		this.formUpdateTrabajador.controls["telefonoPrincipal"].setValue(this.trabajador.Telefono1);
 		this.formUpdateTrabajador.controls["telefonoSecundario"].setValue(this.trabajador.Telefono2);
 		this.formUpdateTrabajador.controls["direccion"].setValue(this.trabajador.Direccion);
-		this.formUpdateTrabajador.controls["tipoDocumento"].setValue(this.trabajador.IdTipoDocumento);
-		this.formUpdateTrabajador.controls['sucursal'].setValue(this.trabajador.IdSucursal);
-        this.formUpdateTrabajador.controls['cargo'].setValue(this.trabajador.IdCargo);
 	}
 
 	guardarImagenTrabajador() {
@@ -207,7 +197,7 @@ export class UpdateTrabajadorComponent implements OnInit {
 			this.updateTrabajador();
 		} else {
 			if (this.filesToUpload != null && !this.removioImagen) {
-				this.uploadService
+				this._uploadService
 					.makeFileRequest(
 						this.url + "uploadImage",
 						CARPETA_TRABAJADORES,
@@ -234,15 +224,14 @@ export class UpdateTrabajadorComponent implements OnInit {
 	}
 
 	getTiposDocumentos() {
-		this.trabajadorService.getTiposDocumento().subscribe(
+		this._trabajadorService.getTiposDocumento().subscribe(
 			response => {
 				if (response.documentos) {
 					this.tiposDocumento = response.documentos;
 				}
 			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}
+			error => {},
+			() => {}
 		);
 	}
 
@@ -264,9 +253,9 @@ export class UpdateTrabajadorComponent implements OnInit {
 
 	onChangeTipoDocumento(event) {
 		if (event === null) {
-			this.trabajador.IdTipoDocumento = null;
+			this.trabajador.IdTipDoc = null;
 		} else {
-			this.trabajador.IdTipoDocumento = event.IdTipoDocumento;
+			this.trabajador.IdTipDoc = event.IdTipDoc;
 		}
 	}
 

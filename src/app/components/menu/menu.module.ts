@@ -12,7 +12,7 @@ import {SubClasificacionProductoComponent} from '../sub-clasificacion-producto/s
 import {EnvaseComponent} from '../envase/envase.component';
 import {EmpaqueComponent} from '../empaque/empaque.component';
 import {CargoComponent} from '../cargo/cargo.component';
-import {ReporteComponent} from '../reporte/reporte.component';
+import {GaleriaProductosProveedoresComponent} from '../reporte/galeria-productos-proveedores.component';
 import {RolusuarioComponent} from '../rolusuario/rolusuario.component';
 import {UnidadmedidaComponent} from '../unidadmedida/unidadmedida.component';
 import {DashBoardComponent} from '../dash-board/dash-board.component';
@@ -47,7 +47,7 @@ import {ConsolidadoComponent} from '../consolidado/consolidado.component';
 		EmpaqueComponent,
 		SucursalComponent,
 		CargoComponent,
-		ReporteComponent,
+		GaleriaProductosProveedoresComponent,
 		RolusuarioComponent,
 		UnidadmedidaComponent,
 		DashBoardComponent,

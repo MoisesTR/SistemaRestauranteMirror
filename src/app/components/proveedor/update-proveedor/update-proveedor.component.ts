@@ -103,14 +103,14 @@ export class UpdateProveedorComponent  implements  OnInit {
         });
     }
     inicializarFormuularioProveedor() {
-        this.formUpdateProveedor.controls['nombreProveedor'].setValue(this.proveedor.NombreProveedor);
+        this.formUpdateProveedor.controls['nombreProveedor'].setValue(this.proveedor.NombProveedor);
         this.formUpdateProveedor.controls['numeroRuc'].setValue(this.proveedor.Documento);
         this.formUpdateProveedor.controls['direccionProveedor'].setValue(this.proveedor.Direccion);
-        this.formUpdateProveedor.controls['nombreRepresentante'].setValue(this.proveedor.NombreRepresentante);
+        this.formUpdateProveedor.controls['nombreRepresentante'].setValue(this.proveedor.NombRepresentante);
         this.formUpdateProveedor.controls['email'].setValue(this.proveedor.Email);
         this.formUpdateProveedor.controls['telefono1'].setValue(this.proveedor.Telefono1);
         this.formUpdateProveedor.controls['telefono2'].setValue(this.proveedor.Telefono2);
-        this.formUpdateProveedor.controls['descripcionProveedor'].setValue(this.proveedor.Descripcion);
+        this.formUpdateProveedor.controls['descripcionProveedor'].setValue(this.proveedor.DescProveedor);
         this.formUpdateProveedor.controls['retencion'].setValue(this.proveedor.Retencion2);
     }
 
@@ -138,14 +138,14 @@ export class UpdateProveedorComponent  implements  OnInit {
     }
 
     getValuesFormUpdate() {
-      this.proveedor.NombreProveedor = this.formUpdateProveedor.value.nombreProveedor;
+      this.proveedor.NombProveedor = this.formUpdateProveedor.value.nombreProveedor;
       this.proveedor.Documento = this.formUpdateProveedor.value.numeroRuc;
       this.proveedor.Direccion = this.formUpdateProveedor.value.direccionProveedor;
-      this.proveedor.NombreRepresentante = this.formUpdateProveedor.value.nombreRepresentante;
+      this.proveedor.NombRepresentante = this.formUpdateProveedor.value.nombreRepresentante;
       this.proveedor.Email = this.formUpdateProveedor.value.email;
       this.proveedor.Telefono1 = this.formUpdateProveedor.value.telefono1;
       this.proveedor.Telefono2 = this.formUpdateProveedor.value.telefono2;
-      this.proveedor.Descripcion = this.formUpdateProveedor.value.descripcionProveedor;
+      this.proveedor.DescProveedor = this.formUpdateProveedor.value.descripcionProveedor;
       this.proveedor.Retencion2 = this.formUpdateProveedor.value.retencion === true ? 1 : 0;
     }
 }

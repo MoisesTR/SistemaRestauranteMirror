@@ -4,7 +4,6 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-    apiEndpoint: 'http://localhost:3000/api/'
-    /** https://hwsrv-402458.hostwindsdns.com/api/**/
+	production: false,
+	apiEndpoint: "http://localhost:3000/api/"
 };

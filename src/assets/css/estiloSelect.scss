@@ -1,7 +1,7 @@
 $color-selected: #f5faff;
 .ng-select {
   &.ng-select-opened {
-    >.ng-select-container {
+    > .ng-select-container {
       background: #fff;
       border-color: #b3b3b3 #ccc #d9d9d9;
       &:hover {
@@ -17,27 +17,30 @@ $color-selected: #f5faff;
       }
     }
     &.ng-select-bottom {
-      >.ng-select-container {
+      > .ng-select-container {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
       }
     }
     &.ng-select-top {
-      >.ng-select-container {
+      > .ng-select-container {
         border-top-right-radius: 0;
         border-top-left-radius: 0;
       }
     }
   }
   &.ng-select-focused {
-    &:not(.ng-select-opened)>.ng-select-container {
-      border-color: #E67E22;
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);
+    &:not(.ng-select-opened) > .ng-select-container {
+      border-bottom: 0px solid rgba(230, 126, 34, 0.8) !important;
+      border-top: 1px solid rgba(230, 126, 34, 0.8) !important;
+      border-right: 1px solid rgba(230, 126, 34, 0.8) !important;
+      border-left: 1px solid rgba(230, 126, 34, 0.8) !important;
+      box-shadow: 0 1px 0 0 rgba(230, 126, 34, 0.8) !important;
     }
   }
   &.ng-select-disabled {
-    >.ng-select-container {
-      background-color: #f9f9f9;
+    > .ng-select-container {
+      background-color: rgba(230, 126, 34, 0.1);
     }
   }
   .ng-has-value .ng-placeholder {
@@ -47,7 +50,7 @@ $color-selected: #f5faff;
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
-    min-height: 36px;
+    min-height: 4%;
     align-items: center;
     &:hover {
       box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
@@ -62,7 +65,7 @@ $color-selected: #f5faff;
   }
   &.ng-select-single {
     .ng-select-container {
-      height: 36px;
+      height: 4%;
       .ng-value-container {
         .ng-input {
           left: 0;
@@ -76,7 +79,7 @@ $color-selected: #f5faff;
   }
   &.ng-select-multiple {
     &.ng-select-disabled {
-      >.ng-select-container .ng-value-container .ng-value {
+      > .ng-select-container .ng-value-container .ng-value {
         background-color: #f9f9f9;
         border: 1px solid #e3e3e3;
         .ng-value-label {
@@ -94,7 +97,7 @@ $color-selected: #f5faff;
           margin-bottom: 5px;
           background-color: $color-selected;
           border-radius: 2px;
-          border: 1px solid #E67E22;
+          border: 1px solid #e67e22;
           &.ng-value-disabled {
             background-color: #f9f9f9;
             border: 1px solid #e3e3e3;
@@ -113,10 +116,10 @@ $color-selected: #f5faff;
               background-color: #d8eafd;
             }
             &.left {
-              border-right: 1px solid #E67E22;
+              border-right: 1px solid #e67e22;
             }
             &.right {
-              border-left: 1px solid #E67E22;
+              border-left: 1px solid #e67e22;
             }
           }
         }
@@ -136,7 +139,7 @@ $color-selected: #f5faff;
     color: #999;
     .ng-clear {
       &:hover {
-        color: #D0021B;
+        color: #d0021b;
       }
     }
   }
@@ -207,24 +210,24 @@ $color-selected: #f5faff;
       cursor: default;
       padding: 8px 10px;
       &.ng-select-disabled {
-        color: rgba(0, 0, 0, .54);
+        color: rgba(0, 0, 0, 0.54);
       }
       &.ng-option-marked {
         background-color: rgba(192, 57, 43, 0.1);
-        color: #E67E22;
+        color: #e67e22;
       }
       &.ng-option-selected {
-        color: #E67E22;
+        color: #e67e22;
         background-color: $color-selected;
         font-weight: 600;
       }
     }
     .ng-option {
       background-color: #fff;
-      color: rgba(0, 0, 0, .87);
+      color: rgba(0, 0, 0, 0.87);
       padding: 8px 10px;
       &.ng-option-selected {
-        color: #E67E22;
+        color: #e67e22;
         background-color: $color-selected;
         .ng-option-label {
           font-weight: 600;
@@ -232,7 +235,7 @@ $color-selected: #f5faff;
       }
       &.ng-option-marked {
         background-color: rgba(192, 57, 43, 0.1);
-        color: #E67E22;
+        color: #e67e22;
       }
       &.ng-option-disabled {
         color: #cccccc;

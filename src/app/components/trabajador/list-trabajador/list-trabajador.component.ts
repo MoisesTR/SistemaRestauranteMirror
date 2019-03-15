@@ -36,36 +36,23 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 	}
 
 	getTrabajadores() {
-	    this.spinner.display(true);
-		this.trabajadorService.getTrabajadores().subscribe(
-			response => {
-				if (response.trabajadores) {
-					this.trabajadores = response.trabajadores;
-					this.dtTrigger.next();
-				}
-			},
-			error => {
-                this.spinner.display(false);
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }, () => {
-                this.spinner.display(false);
-            }
-		);
+		this.spinner.display(true);
+		this.trabajadorService.getTrabajadores().subscribe(response => {
+			if (response.trabajadores) {
+				this.trabajadores = response.trabajadores;
+				this.dtTrigger.next();
+			}
+		});
 	}
 
 	getTrabajadoresRender() {
-		this.trabajadorService.getTrabajadores().subscribe(
-			response => {
-				if (response.trabajadores) {
-					this.trabajadores = response.trabajadores;
-					this.rerender();
-				} else {
-				}
-			},
-			error => {
-                Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-            }
-		);
+		this.trabajadorService.getTrabajadores().subscribe(response => {
+			if (response.trabajadores) {
+				this.trabajadores = response.trabajadores;
+				this.rerender();
+			} else {
+			}
+		});
 	}
 
 	settingsDatatable() {
@@ -111,20 +98,13 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.trabajadorService.deleteTrabajador(IdTrabajador).subscribe(
-					response => {
-						if (response.success) {
-							swal("Eliminado!", "El trabajador ha sido eliminado exitosamente", "success").then(() => {
-								this.getTrabajadoresRender();
-							});
-						} else {
-							Utils.showMsgInfo("Ha ocurrido un error en la eliminación, intentalo nuevamente", this.tituloPantalla);
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.trabajadorService.deleteTrabajador(IdTrabajador).subscribe(response => {
+					if (response.success) {
+						swal("Eliminado!", "El trabajador ha sido eliminado exitosamente", "success").then(() => {
+							this.getTrabajadoresRender();
+						});
 					}
-				);
+				});
 			}
 		});
 	}

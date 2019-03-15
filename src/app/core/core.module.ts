@@ -36,11 +36,13 @@ import {
 	LoginGuardService,
 	SettingRestauranteService,
 	PaisService,
+	TipoInsumoService,
+	FacturacionMonedaService
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MDBSpinningPreloader } from "ng-uikit-pro-standard";
-import { TokenInterceptorService } from "@app/core/services/auth/token.interceptor.service";
+import { HttpInterceptorService } from "@app/core/services/auth/http-interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NG_SELECT_DEFAULT_CONFIG, NgSelectModule } from "@ng-select/ng-select";
 import { DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
@@ -48,6 +50,7 @@ import { NativeDateTimeAdapter } from "ng-pick-datetime/date-time/adapter/native
 import { Platform } from "@angular/cdk/platform";
 import { PipesModule } from "@app/pipe/pipes.module";
 import { NgxSpinnerModule } from "ngx-spinner";
+import {GlobalErrorHandlerService} from '@app/core/services/shared/global-error-handler.service';
 
 @NgModule({
 	imports: [],
@@ -97,9 +100,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
 		LoginGuardService,
 		SettingRestauranteService,
 		PaisService,
+		LoginGuardService,
+		TipoInsumoService,
+		FacturacionMonedaService,
 		{
 			provide: HTTP_INTERCEPTORS,
-			useClass: TokenInterceptorService,
+			useClass: HttpInterceptorService,
 			multi: true
 		},
 		{
@@ -114,9 +120,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 			useClass: NativeDateTimeAdapter,
 			deps: [OWL_DATE_TIME_LOCALE, Platform]
 		}
-		
-	],
-	declarations: []
+	]
 })
 export class CoreModule {
 	constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

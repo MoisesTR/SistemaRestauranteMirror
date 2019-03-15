@@ -2,11 +2,12 @@ export class Trabajador {
 
 	public IdTrabajador: number;
 	public IdSucursal: number;
-	public NombreSucursal: string;
+	public NombSucursal: string;
 	public IdCargo: number;
+	public IdPais: number;
 	public Nombres: string;
 	public Apellidos: string;
-	public IdTipoDocumento: number;
+	public IdTipDoc: number;
 	public Documento: string;
 	public FechaNacimiento: string;
 	public Direccion: string;

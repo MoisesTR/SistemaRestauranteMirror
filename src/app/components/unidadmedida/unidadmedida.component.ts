@@ -1,17 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
 import {
-    ClasificacionProductoService,
-    ClasificacionUnidadMedidaService, SpinnerService,
-    UnidadMedidaService
-} from '@app/core/service.index';
+	ClasificacionProductoService,
+	ClasificacionUnidadMedidaService,
+	SpinnerService,
+	UnidadMedidaService
+} from "@app/core/service.index";
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { ClasificacionUnidadDeMedida } from "@app/models/ClasificacionUnidadDeMedida";
 import { CustomValidators } from "@app/validadores/CustomValidators";
@@ -116,22 +112,14 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	getUnidadesMedida() {
-	    this.spinner.display(true);
-		this.unidadMedidaService.getUnidadesMedida().subscribe(
-			response => {
-				if (response.unidadesmedida) {
-					this.unidadesMedida = response.unidadesmedida;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				}
-			},
-			error => {
-                this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			}, () => {
-                this.spinner.display(false);
-            }
-		);
+		this.spinner.display(true);
+		this.unidadMedidaService.getUnidadesMedida().subscribe(response => {
+			if (response.unidadesmedida) {
+				this.unidadesMedida = response.unidadesmedida;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
+			}
+		});
 	}
 
 	initFormUpdate() {
@@ -153,16 +141,11 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	getClasificacionUnidades() {
-		this.clasificacionUnidadService.getClasificacionUnidadesMedida().subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificacionesUnidad = response.clasificaciones;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.clasificacionUnidadService.getClasificacionUnidadesMedida().subscribe(response => {
+			if (response.clasificaciones) {
+				this.clasificacionesUnidad = response.clasificaciones;
 			}
-		);
+		});
 	}
 
 	rerender(): void {
@@ -181,11 +164,7 @@ export class UnidadmedidaComponent implements OnInit {
 		this.unidadMedidaService.updateUnidadMedida(this.unidadMedida).subscribe(
 			response => {
 				if (response.success) {
-					swal(
-						this.tituloPantalla,
-						"La unidad ha sido actualizada exitosamente!",
-						"success"
-					).then(() => {
+					swal(this.tituloPantalla, "La unidad ha sido actualizada exitosamente!", "success").then(() => {
 						this.modalUpdateUnidadMedida.hide();
 						this.formUpdateUnidadMedida.reset();
 						this.getUnidadesMedidaRender();
@@ -194,7 +173,6 @@ export class UnidadmedidaComponent implements OnInit {
 			},
 			error => {
 				this.peticionEnCurso = false;
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.peticionEnCurso = true;
@@ -203,24 +181,19 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	getValuesFormUpdateUnidad() {
-		this.unidadMedida.NombreUnidad = this.formUpdateUnidadMedida.value.nombreUnidadMedida;
+		this.unidadMedida.NombUnidad = this.formUpdateUnidadMedida.value.nombreUnidadMedida;
 		this.unidadMedida.Simbolo = this.formUpdateUnidadMedida.value.simboloUnidadMedida;
 		this.unidadMedida.NImportancia = this.formUpdateUnidadMedida.value.nimportancia;
 	}
 
 	getUnidadesMedidaRender() {
-		this.unidadMedidaService.getUnidadesMedida().subscribe(
-			response => {
-				if (response.unidadesmedida) {
-					this.unidadesMedida = response.unidadesmedida;
-					this.rerender();
-				} else {
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.unidadMedidaService.getUnidadesMedida().subscribe(response => {
+			if (response.unidadesmedida) {
+				this.unidadesMedida = response.unidadesmedida;
+				this.rerender();
+			} else {
 			}
-		);
+		});
 	}
 
 	getClasificaciones() {
@@ -243,42 +216,27 @@ export class UnidadmedidaComponent implements OnInit {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.unidadMedidaService.deleteUnidadMedida(idUnidad).subscribe(
-					response => {
-						if (response.success) {
-							swal(
-								this.tituloPantalla,
-								"La unidad de medida ha sido inhabilitada exitosamente",
-								"success"
-							).then(() => {
-								this.getUnidadesMedidaRender();
-							});
-						} else {
-							Utils.showMsgInfo(
-								"Ha ocurrido un error inesperado al inhabilitar la unidad de medida!",
-								this.tituloPantalla
-							);
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.unidadMedidaService.deleteUnidadMedida(idUnidad).subscribe(response => {
+					if (response.success) {
+						swal(this.tituloPantalla, "La unidad de medida ha sido inhabilitada exitosamente", "success").then(() => {
+							this.getUnidadesMedidaRender();
+						});
 					}
-				);
+				});
 			}
 		});
 	}
 
 	showModalUpdateUnidad(modal, Unidad: UnidadMedida) {
 		this.unidadMedida.IdUnidadMedida = Unidad.IdUnidadMedida;
-		this.unidadMedida.IdClasificacionUnidadMedida =
-			Unidad.IdClasificacionUnidadMedida;
+		this.unidadMedida.IdClasifUDM = Unidad.IdClasifUDM;
 		this.unidadMedida.NImportancia = Unidad.NImportancia;
 
 		this.formUpdateUnidadMedida.reset();
 		this.formUpdateUnidadMedida.setValue({
-			nombreUnidadMedida: Unidad.NombreUnidad,
+			nombreUnidadMedida: Unidad.NombUnidad,
 			simboloUnidadMedida: Unidad.Simbolo,
-			clasificacionesUnidad: Unidad.IdClasificacionUnidadMedida
+			clasificacionesUnidad: Unidad.IdClasifUDM
 		});
 
 		modal.show();
@@ -286,10 +244,9 @@ export class UnidadmedidaComponent implements OnInit {
 
 	changeClasificacionUnidad(event) {
 		if (event === null) {
-			this.unidadMedida.IdClasificacionUnidadMedida = null;
+			this.unidadMedida.IdClasifUDM = null;
 		} else {
-			this.unidadMedida.IdClasificacionUnidadMedida =
-				event.IdClasificacionUnidadMedida;
+			this.unidadMedida.IdClasifUDM = event.IdClasifUDM;
 		}
 	}
 

@@ -11,7 +11,7 @@ export class Factura {
   public IdTrabajador: number;
   public IdEstadoFactura: number;
   public NombVendedor: string;
-  public NombreProveedor: string;
+  public NombProveedor: string;
   public FechaIngreso: Date;
   public SubTotal: number;
   public TotalIva: number;
@@ -24,6 +24,7 @@ export class Factura {
   public TotalCordobas: number;
   public TotalOrigenFactura: number;
   public Habilitado: number;
+  public productos: DetalleFactura[];
   public Detalle: DetalleFactura[];
   public HoraIngreso: string;
   public FechaRecepcion: string;

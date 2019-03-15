@@ -46,7 +46,7 @@ export class FacturaService {
 		const params = JSON.stringify(Factura);
 		const headers = new HttpHeaders({ "Content-type": "application/json" });
 
-		return this._http.post(this.url + "factComp/", params, { headers: headers });
+		return this._http.post(this.url + "bulk/factComp", params, { headers: headers });
 	}
 	createDetailFactura(FacturaDetalle): Observable<any> {
 		const params = JSON.stringify(FacturaDetalle);
@@ -54,6 +54,10 @@ export class FacturaService {
 
 		return this._http.post(this.url + "detalleFactComp/", params, { headers: headers });
 	}
+
+    getTop5ProductosMasCompradosFacturas(): Observable<any> {
+        return this._http.get(this.url + 'top5Productos/');
+    }
 
 	updateDetailFactura(FacturaDetalle): Observable<any> {
 		const params = JSON.stringify(FacturaDetalle);

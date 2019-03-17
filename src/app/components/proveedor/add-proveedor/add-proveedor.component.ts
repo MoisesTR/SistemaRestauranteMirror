@@ -98,15 +98,10 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 							this.createTelefonoProveedor(value);
 						});
 						this.mensajeCreacionProveedor();
-					} else {
-						Utils.showMsgInfo(
-							"Ha ocurrido un error al insertar el proveedor, intentalo nuevamente",
-							this.tituloPantalla
-						);
 					}
 				},
 				error => {
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+					this.peticionEnCurso = false;
 				},
 				() => {
 					this.peticionEnCurso = false;
@@ -140,18 +135,10 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 	}
 
 	createTelefonoProveedor(telefono: TelefonoProveedor) {
-		this.proveedorService.createTelefonoProveedor(telefono).subscribe(
-			response => {
-				if (response.IdTelefono) {
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al insertar el telefono del proveedor");
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
-			},
-			() => {}
-		);
+		this.proveedorService.createTelefonoProveedor(telefono).subscribe(response => {
+			if (response.IdTelefono) {
+			}
+		});
 	}
 
 	initFormAdd() {

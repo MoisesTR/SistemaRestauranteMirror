@@ -94,7 +94,6 @@ export class ModalUnidadMedidaComponent implements OnInit, EventoModal, OnDestro
 			},
 			error => {
 				this.runChangeDetection();
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.runChangeDetection();
@@ -119,9 +118,6 @@ export class ModalUnidadMedidaComponent implements OnInit, EventoModal, OnDestro
 				if (response.clasificaciones) {
 					this.clasificacionesUnidad = response.clasificaciones;
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}

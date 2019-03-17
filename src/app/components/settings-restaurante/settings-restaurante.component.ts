@@ -140,9 +140,6 @@ export class SettingsRestauranteComponent implements OnInit {
 				} else {
 					Utils.showMsgInfo("No se han logrado obtener los paises", "Paises");
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
 			}
 		);
 	}
@@ -156,9 +153,6 @@ export class SettingsRestauranteComponent implements OnInit {
 				} else {
 					Utils.showMsgInfo("No se ha logrado obtener tipo de monedas", "Monedas");
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
 			}
 		);
 	}

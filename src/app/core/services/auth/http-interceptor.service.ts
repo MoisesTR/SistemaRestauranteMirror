@@ -8,7 +8,7 @@ import { NGXLogger } from "ngx-logger";
 import { throwError } from "rxjs";
 import { Utils } from "@app/components/Utils";
 import { SpinnerService } from "@app/core/service.index";
-import {UNAUTHORIZED} from "http-status-codes";
+import { UNAUTHORIZED } from "http-status-codes";
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -26,18 +26,16 @@ export class HttpInterceptorService implements HttpInterceptor {
 		});
 
 		this.logger.log(request);
-		return next.handle(request)
-            .pipe(
+		return next.handle(request).pipe(
 			tap(
-				(response: HttpEvent<any>) => {
-				    console.log(response)
-                },
+				(response: HttpEvent<any>) => {},
 				(err: any) => {
 					let errorMessage = "";
 					if (err instanceof HttpErrorResponse) {
-                        errorMessage = Utils.msgError(err)
-                            ? Utils.msgError(err)
-                            : `Error Code: ${err.status}\nMessage: ${err.message}`;
+
+					    errorMessage = Utils.msgError(err)
+							? Utils.msgError(err)
+							: `Error Code: ${err.status}\nMessage: ${err.message}`;
 
 						if (err.status === UNAUTHORIZED) {
 							this.auth.logout();
@@ -51,7 +49,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 					}
 				},
 				() => {
-                    if (this.spinnerService.status.value) this.spinnerService.display(false);
+					if (this.spinnerService.status.value) this.spinnerService.display(false);
 				}
 			)
 		);

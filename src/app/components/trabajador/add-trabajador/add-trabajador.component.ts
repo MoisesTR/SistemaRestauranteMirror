@@ -85,16 +85,11 @@ export class AddTrabajadorComponent implements OnInit {
 	}
 
 	getTrabajadores() {
-		this.trabajadorService.getTrabajadores().subscribe(
-			response => {
-				if (response.trabajadores) {
-					this.trabajadores = response.trabajadores;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this.trabajadorService.getTrabajadores().subscribe(response => {
+			if (response.trabajadores) {
+				this.trabajadores = response.trabajadores;
 			}
-		);
+		});
 	}
 
 	onChangeSucursal(event) {
@@ -234,15 +229,7 @@ export class AddTrabajadorComponent implements OnInit {
 					swal("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
 						this.modalUsuario.show();
 					});
-				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error al insertar el trabajador, intentalo nuevamente",
-						this.tituloPantalla
-					);
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.formAddTrabajador.reset();
@@ -251,45 +238,27 @@ export class AddTrabajadorComponent implements OnInit {
 	}
 
 	getSucursales() {
-		this.sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-				} else {
-					Utils.showMsgInfo("No se han podido obtener correctamente las sucursales", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
 			}
-		);
+		});
 	}
 
 	getCargos() {
-		this.cargoService.getCargos().subscribe(
-			response => {
-				if (response.cargos) {
-					this.cargos = response.cargos;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.cargoService.getCargos().subscribe(response => {
+			if (response.cargos) {
+				this.cargos = response.cargos;
 			}
-		);
+		});
 	}
 
 	getTiposDocumentos() {
-		this.trabajadorService.getTiposDocumento().subscribe(
-			response => {
-				if (response.documentos) {
-					this.tiposDocumento = response.documentos;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
-			},
-			() => {}
-		);
+		this.trabajadorService.getTiposDocumento().subscribe(response => {
+			if (response.documentos) {
+				this.tiposDocumento = response.documentos;
+			}
+		});
 	}
 
 	fileChangeEvent(fileInput: any) {

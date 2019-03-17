@@ -338,8 +338,7 @@ export class SummaryFacturasComponent implements OnInit {
 					this.formBusquedaFactura.controls["proveedor"].setValue(res.proveedor);
 					this.formBusquedaFactura.controls["codFactura"].setValue(res.codFactura);
 				}
-			},
-			error => {}
+			}
 		);
 
 		this.persistencia.deletePersistencia("SummaryFactura");

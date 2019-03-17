@@ -103,44 +103,33 @@ export class UpdateTrabajadorComponent implements OnInit {
 	}
 
 	getSucursales() {
-		this._sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-				} else {
-				}
-			},
-			error => {}
-		);
+		this._sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
+			} else {
+			}
+		});
 	}
 
 	getCargos() {
-		this._cargoService.getCargos().subscribe(
-			response => {
-				if (response.cargos) {
-					this.cargos = response.cargos;
-				}
-			},
-			error => {}
-		);
+		this._cargoService.getCargos().subscribe(response => {
+			if (response.cargos) {
+				this.cargos = response.cargos;
+			}
+		});
 	}
 
 	updateTrabajador() {
 		this.getValuesFormTrabajador();
 
-		this._trabajadorService.updateTrabajador(this.trabajador).subscribe(
-			response => {
-				if (response.success) {
-					swal("Trabajador", "El trabajador ha sido actualizado exitosamente!", "success").then(() => {
-						this.formUpdateTrabajador.reset();
-						this._router.navigate(["/trabajador"]);
-					});
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), "Trabajador");
+		this._trabajadorService.updateTrabajador(this.trabajador).subscribe(response => {
+			if (response.success) {
+				swal("Trabajador", "El trabajador ha sido actualizado exitosamente!", "success").then(() => {
+					this.formUpdateTrabajador.reset();
+					this._router.navigate(["/trabajador"]);
+				});
 			}
-		);
+		});
 	}
 
 	getTrabajador() {
@@ -148,36 +137,31 @@ export class UpdateTrabajadorComponent implements OnInit {
 			const id = params["id"];
 			this.trabajador.IdTrabajador = id;
 
-			this._trabajadorService.getTrabajador(id).subscribe(
-				response => {
-					if (response.trabajador) {
-						this.trabajador = response.trabajador;
+			this._trabajadorService.getTrabajador(id).subscribe(response => {
+				if (response.trabajador) {
+					this.trabajador = response.trabajador;
 
-						// Inicializar componentes de la vista
-						$(document).ready(() => {
-							const imagenTrabajador = this.url + "getImagen/" + CARPETA_TRABAJADORES + "/" + this.trabajador.Imagen;
-							let drEvent;
+					// Inicializar componentes de la vista
+					$(document).ready(() => {
+						const imagenTrabajador = this.url + "getImagen/" + CARPETA_TRABAJADORES + "/" + this.trabajador.Imagen;
+						let drEvent;
 
-							if (this.trabajador.Imagen.length > 0) {
-								drEvent = $(".dropify").dropify({
-									defaultFile: imagenTrabajador
-								});
-							} else {
-								drEvent = $(".dropify").dropify();
-							}
-
-							drEvent.on("dropify.afterClear", (event, element) => {
-								this.removioImagen = true;
-								this.filesToUpload = null;
+						if (this.trabajador.Imagen.length > 0) {
+							drEvent = $(".dropify").dropify({
+								defaultFile: imagenTrabajador
 							});
+						} else {
+							drEvent = $(".dropify").dropify();
+						}
+
+						drEvent.on("dropify.afterClear", (event, element) => {
+							this.removioImagen = true;
+							this.filesToUpload = null;
 						});
-						this.inicializarValoresFormularioTrabajador();
-					} else {
-						// this._router.navigate(['/producto/list']);
-					}
-				},
-				error => {}
-			);
+					});
+					this.inicializarValoresFormularioTrabajador();
+				}
+			});
 		});
 	}
 
@@ -224,15 +208,11 @@ export class UpdateTrabajadorComponent implements OnInit {
 	}
 
 	getTiposDocumentos() {
-		this._trabajadorService.getTiposDocumento().subscribe(
-			response => {
-				if (response.documentos) {
-					this.tiposDocumento = response.documentos;
-				}
-			},
-			error => {},
-			() => {}
-		);
+		this._trabajadorService.getTiposDocumento().subscribe(response => {
+			if (response.documentos) {
+				this.tiposDocumento = response.documentos;
+			}
+		});
 	}
 
 	onChangeSucursal(event) {

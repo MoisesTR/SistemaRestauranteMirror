@@ -85,13 +85,10 @@ export class ModalSubclasificacionComponent implements OnInit, EventoModal, OnDe
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});
-				} else {
-					Utils.showMsgError("Ha ocurrido un error inesperado al crear la subclasificación!", this.tituloPantalla);
 				}
 			},
 			error => {
 				this.runChangeDetection();
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.runChangeDetection();
@@ -105,19 +102,12 @@ export class ModalSubclasificacionComponent implements OnInit, EventoModal, OnDe
 	}
 
 	getClasificaciones() {
-		this.clasificacionService.getClasificaciones().subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificaciones = response.clasificaciones;
-					this.cdRef.markForCheck();
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error obteniendo las clasificaciones", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.clasificacionService.getClasificaciones().subscribe(response => {
+			if (response.clasificaciones) {
+				this.clasificaciones = response.clasificaciones;
+				this.cdRef.markForCheck();
 			}
-		);
+		});
 	}
 
 	onChangeClasificacion(event) {

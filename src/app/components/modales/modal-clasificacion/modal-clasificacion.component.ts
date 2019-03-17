@@ -87,9 +87,6 @@ export class ModalClasificacionComponent implements OnInit, EventoModal, OnDestr
 				} else {
 					Utils.showMsgInfo("Ha ocurrido un error al cargar las categorias", this.tituloPantalla);
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
@@ -111,7 +108,6 @@ export class ModalClasificacionComponent implements OnInit, EventoModal, OnDestr
 			},
 			error => {
 				this.runChangeDetection();
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.runChangeDetection();

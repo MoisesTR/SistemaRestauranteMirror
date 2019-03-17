@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import {SpinnerService, UsuarioService} from '@app/core/service.index';
+import { SpinnerService, UsuarioService } from "@app/core/service.index";
 import { TrabajadorService } from "@app/core/service.index";
 import { Usuario } from "@app/models/Usuario";
 import { DataTableDirective } from "angular-datatables";
@@ -28,7 +28,7 @@ export class ListUsuariosComponent implements OnInit {
 		private router: Router,
 		private usuarioService: UsuarioService,
 		private trabajadorService: TrabajadorService,
-        private spinner: SpinnerService
+		private spinner: SpinnerService
 	) {}
 
 	ngOnInit() {
@@ -68,35 +68,22 @@ export class ListUsuariosComponent implements OnInit {
 	}
 
 	getUsuarios() {
-	    this.spinner.display(true);
-		this.usuarioService.getUsuarios().subscribe(
-			response => {
-				if (response.usuarios) {
-					this.usuarios = response.usuarios;
-					this.dtTrigger.next();
-				}
-			},
-			error => {
-                this.spinner.display(false);
-				Utils.showMsgError(Utils.msgError(error));
-			}, () => {
-                this.spinner.display(false);
-            }
-		);
+		this.spinner.display(true);
+		this.usuarioService.getUsuarios().subscribe(response => {
+			if (response.usuarios) {
+				this.usuarios = response.usuarios;
+				this.dtTrigger.next();
+			}
+		});
 	}
 
 	getUsuariosRender() {
-		this.usuarioService.getUsuarios().subscribe(
-			response => {
-				if (response.usuarios) {
-					this.usuarios = response.usuarios;
-					this.rerender();
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.usuarioService.getUsuarios().subscribe(response => {
+			if (response.usuarios) {
+				this.usuarios = response.usuarios;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	deleteUser(IdUsuario) {
@@ -112,20 +99,13 @@ export class ListUsuariosComponent implements OnInit {
 			.catch(swal.noop)
 			.then(eliminar => {
 				if (eliminar) {
-					this.usuarioService.deleteUsuario(IdUsuario).subscribe(
-						response => {
-							if (response.success) {
-								swal("Eliminado!", "El usuario ha sido eliminado exitosamente", "success").then(() => {
-									this.getUsuariosRender();
-								});
-							} else {
-								Utils.showMsgInfo("Ha ocurrido un error en la eliminación, intentalo nuevamente", this.tituloPantalla);
-							}
-						},
-						error => {
-							Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+					this.usuarioService.deleteUsuario(IdUsuario).subscribe(response => {
+						if (response.success) {
+							swal("Eliminado!", "El usuario ha sido eliminado exitosamente", "success").then(() => {
+								this.getUsuariosRender();
+							});
 						}
-					);
+					});
 				}
 			});
 	}

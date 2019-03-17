@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/Subject";
 
-import {CategoriaProductoService, ClasificacionProductoService, SpinnerService} from '@app/core/service.index';
+import { CategoriaProductoService, ClasificacionProductoService, SpinnerService } from "@app/core/service.index";
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { CategoriaProducto } from "@app/models/CategoriaProducto";
 import { CustomValidators } from "@app/validadores/CustomValidators";
@@ -76,16 +76,14 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	getClasificaciones() {
-	    this.spinner.display(true);
-		this.clasificacionService.getClasificaciones().subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificaciones = response.clasificaciones;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				}
+		this.spinner.display(true);
+		this.clasificacionService.getClasificaciones().subscribe(response => {
+			if (response.clasificaciones) {
+				this.clasificaciones = response.clasificaciones;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
 			}
-		);
+		});
 	}
 
 	rerender(): void {
@@ -99,14 +97,12 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	getClasificacionesRender() {
-		this.clasificacionService.getClasificaciones().subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificaciones = response.clasificaciones;
-					this.rerender();
-				}
+		this.clasificacionService.getClasificaciones().subscribe(response => {
+			if (response.clasificaciones) {
+				this.clasificaciones = response.clasificaciones;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	initFormUpdateClasificacion() {
@@ -130,34 +126,25 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	updateClasificacion(modal) {
 		this.getValuesFormUpdateClasificacion();
 
-		this.clasificacionService.updateClasificacionProducto(this.clasificacion).subscribe(
-			response => {
-				if (response.success) {
-					swal("Clasificación", "La clasificación ha sido actualizada exitosamente!", "success").then(() => {
-						modal.hide();
-						this.formUpdateClasificacion.reset();
-						this.getClasificacionesRender();
-						this.clasificacion = new ClasificacionProducto();
-					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar!", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.clasificacionService.updateClasificacionProducto(this.clasificacion).subscribe(response => {
+			if (response.success) {
+				swal("Clasificación", "La clasificación ha sido actualizada exitosamente!", "success").then(() => {
+					modal.hide();
+					this.formUpdateClasificacion.reset();
+					this.getClasificacionesRender();
+					this.clasificacion = new ClasificacionProducto();
+				});
 			}
-		);
+		});
 	}
 
 	getCategorias() {
-		this.categoriaService.getCategoriasProductos().subscribe(
-			response => {
-				if (response.categorias) {
-					this.categorias = response.categorias;
-					this.cdr.markForCheck();
-				}
+		this.categoriaService.getCategoriasProductos().subscribe(response => {
+			if (response.categorias) {
+				this.categorias = response.categorias;
+				this.cdr.markForCheck();
 			}
-		);
+		});
 	}
 
 	getValuesFormUpdateClasificacion() {
@@ -177,17 +164,15 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.clasificacionService.deleteClasificacionProducto(idClasificacion).subscribe(
-					response => {
-						if (response.success) {
-							swal("Inhabilitada!", "La clasificacion ha sido inhabilitada exitosamente", "success").then(() => {
-								this.getClasificacionesRender();
-							});
-						} else {
-							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar!", this.tituloPantalla);
-						}
+				this.clasificacionService.deleteClasificacionProducto(idClasificacion).subscribe(response => {
+					if (response.success) {
+						swal("Inhabilitada!", "La clasificacion ha sido inhabilitada exitosamente", "success").then(() => {
+							this.getClasificacionesRender();
+						});
+					} else {
+						Utils.showMsgInfo("Ha ocurrido un error al inhabilitar!", this.tituloPantalla);
 					}
-				);
+				});
 			}
 		});
 	}
@@ -209,7 +194,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 		this.clasificacion.DescClasificacion = clasificacion.DescClasificacion;
 		this.formUpdateClasificacion.controls["nombreClasificacion"].setValue(clasificacion.NombClasificacion);
 		this.formUpdateClasificacion.controls["descripcionClasificacion"].setValue(clasificacion.DescClasificacion);
-        this.formUpdateClasificacion.controls["categoria"].setValue(clasificacion.IdCategoria);
+		this.formUpdateClasificacion.controls["categoria"].setValue(clasificacion.IdCategoria);
 
 		modal.show();
 	}

@@ -86,13 +86,10 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error inesperado al crear la categoria", this.tituloPantalla);
 				}
 			},
 			error => {
 				this.runChangeDetection();
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.runChangeDetection();

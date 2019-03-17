@@ -139,9 +139,6 @@ export class ConsumoInternoComponent implements OnInit {
 				if (response.proveedores) {
 					this.proveedores = response.proveedores;
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
 			}
 		);
 	}
@@ -153,9 +150,6 @@ export class ConsumoInternoComponent implements OnInit {
 					this.categorias = response.categorias;
 				} else {
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
 			}
 		);
 	}
@@ -166,9 +160,6 @@ export class ConsumoInternoComponent implements OnInit {
 				if (response.empaques) {
 					this.empaques = response.empaques;
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
 			}
 		);
 	}
@@ -186,9 +177,6 @@ export class ConsumoInternoComponent implements OnInit {
 				if (response.envases) {
 					this.envases = response.envases;
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
 			}
 		);
 	}
@@ -245,7 +233,6 @@ export class ConsumoInternoComponent implements OnInit {
 							this.crearProducto();
 						},
 						error => {
-							Utils.msgErrorImage(error);
 							this.peticionEnCurso = false;
 						}
 					);
@@ -304,7 +291,6 @@ export class ConsumoInternoComponent implements OnInit {
 					}
 				},
 				error => {
-					Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 					this.peticionEnCurso = false;
 				},
 				() => {
@@ -357,9 +343,6 @@ export class ConsumoInternoComponent implements OnInit {
 					if (response.empaques) {
 						this.empaques = response.empaques;
 					}
-				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error));
 				}
 			);
 		}
@@ -372,9 +355,6 @@ export class ConsumoInternoComponent implements OnInit {
 					if (response.envases) {
 						this.envases = response.envases;
 					}
-				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error));
 				}
 			);
 		}

@@ -110,26 +110,22 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 	getCargos() {
 		this.spinner.display(true);
-		this.cargoService.getCargos().subscribe(
-			response => {
-				if (response.cargos) {
-					this.cargos = response.cargos;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				}
+		this.cargoService.getCargos().subscribe(response => {
+			if (response.cargos) {
+				this.cargos = response.cargos;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
 			}
-		);
+		});
 	}
 
 	getCargosRender() {
-		this.cargoService.getCargos().subscribe(
-			response => {
-				if (response.cargos) {
-					this.cargos = response.cargos;
-					this.rerender();
-				}
+		this.cargoService.getCargos().subscribe(response => {
+			if (response.cargos) {
+				this.cargos = response.cargos;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	/*INICIALIZAR VALORES DEL FORMULARIO REACTIVO*/
@@ -180,44 +176,30 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 	createCargoUsuario() {
 		this.getValuesFormAddCargo();
 
-		this.cargoService.createCargo(this.cargo).subscribe(
-			response => {
-				if (response) {
-					swal("Cargo", "El Cargo ha sido creado exitosamente!", "success").then(() => {
-						this.modalAddCargo.hide();
-						this.formAddCargo.reset();
-						this.cargo = new Cargo();
-						this.getCargosRender();
-					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error al insertar el cargo, intentalo nuevamente", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.cargoService.createCargo(this.cargo).subscribe(response => {
+			if (response) {
+				swal("Cargo", "El Cargo ha sido creado exitosamente!", "success").then(() => {
+					this.modalAddCargo.hide();
+					this.formAddCargo.reset();
+					this.cargo = new Cargo();
+					this.getCargosRender();
+				});
 			}
-		);
+		});
 	}
 
 	updateCargo() {
 		this.getValuesFormUpdateCargo();
 
-		this.cargoService.updateCargo(this.cargo).subscribe(
-			response => {
-				if (response.success) {
-					swal("Cargo", "El cargo ha sido actualizado exitosamente!", "success").then(() => {
-						this.modalUpdateCargo.hide();
-						this.formUpdateCargo.reset();
-						this.getCargosRender();
-					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error inesperado en la actualización", this.tituloPantalla);
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+		this.cargoService.updateCargo(this.cargo).subscribe(response => {
+			if (response.success) {
+				swal("Cargo", "El cargo ha sido actualizado exitosamente!", "success").then(() => {
+					this.modalUpdateCargo.hide();
+					this.formUpdateCargo.reset();
+					this.getCargosRender();
+				});
 			}
-		);
+		});
 		this.cargo = new Cargo();
 	}
 
@@ -233,21 +215,13 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.cargoService.deleteCargo(IdCargo).subscribe(
-					response => {
-						if (response.success) {
-							swal(this.tituloPantalla, "El cargo ha sido eliminado exitosamente", "success").then(() => {
-								this.getCargosRender();
-							});
-						} else {
-							Utils.showMsgInfo("Ha ocurrido un error al eliminar", this.tituloPantalla);
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.cargoService.deleteCargo(IdCargo).subscribe(response => {
+					if (response.success) {
+						swal(this.tituloPantalla, "El cargo ha sido eliminado exitosamente", "success").then(() => {
+							this.getCargosRender();
+						});
 					}
-				);
-			} else if (result.dismiss === swal.DismissReason.cancel) {
+				});
 			}
 		});
 	}

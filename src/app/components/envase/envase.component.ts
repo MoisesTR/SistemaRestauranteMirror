@@ -154,8 +154,6 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 						this.getEnvasesRender();
 						this.envase = new Envase();
 					});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar en envase!", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -179,17 +177,15 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.envaseService.deleteEnvase(idEnvase).subscribe(
-					response => {
-						if (response.success) {
-							swal(this.tituloPantalla, "El envase ha sido inhabilitado exitosamente", "success").then(() => {
-								this.getEnvasesRender();
-							});
-						} else {
-							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar el envase!", this.tituloPantalla);
-						}
+				this.envaseService.deleteEnvase(idEnvase).subscribe(response => {
+					if (response.success) {
+						swal(this.tituloPantalla, "El envase ha sido inhabilitado exitosamente", "success").then(() => {
+							this.getEnvasesRender();
+						});
+					} else {
+						Utils.showMsgInfo("Ha ocurrido un error al inhabilitar el envase!", this.tituloPantalla);
 					}
-				);
+				});
 			}
 		});
 	}

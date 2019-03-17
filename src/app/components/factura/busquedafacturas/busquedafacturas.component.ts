@@ -63,9 +63,6 @@ export class BusquedafacturasComponent implements OnInit {
 				if (response.proveedores) {
 					this.proveedores = response.proveedores;
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), 'Busqueda facturas');
 			}
 		);
 	}
@@ -97,9 +94,6 @@ export class BusquedafacturasComponent implements OnInit {
 						if (this.facturas.length === 0) {
 							Utils.showMsgInfo('No se encontraron facturas con los parametros digitados', 'Busqueda Facturas');
 						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error));
 					}
 				);
 		}
@@ -113,11 +107,7 @@ export class BusquedafacturasComponent implements OnInit {
 				if (response.cambios) {
 					this.cambios = response.cambios;
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), 'Busqueda Factura');
-			},
-			() => {}
+			}
 		);
 	}
 

@@ -92,9 +92,6 @@ export class AddUsuarioComponent implements OnInit {
 						this._router.navigate(["/usuario"]);
 					});
 				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			}
 		);
 	}
@@ -106,8 +103,7 @@ export class AddUsuarioComponent implements OnInit {
 					this.roles = response.roles;
 				} else {
 				}
-			},
-			error => {}
+			}
 		);
 	}
 
@@ -117,8 +113,7 @@ export class AddUsuarioComponent implements OnInit {
 				if (response.trabajadores) {
 					this.trabajadores = response.trabajadores;
 				}
-			},
-			error => {}
+			}
 		);
 	}
 

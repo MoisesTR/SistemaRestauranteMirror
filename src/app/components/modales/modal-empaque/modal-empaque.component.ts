@@ -1,18 +1,5 @@
-import {
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from "@angular/core";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators
-} from "@angular/forms";
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ISubscription } from "rxjs-compat/Subscription";
 
 import { CustomValidators } from "@app/validadores/CustomValidators";
@@ -30,9 +17,7 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 	@ViewChild("modalAddEmpaque")
 	modalAddEmpaque: ModalDirective;
 
-	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<
-		boolean
-	>();
+	@Output() resultadoConsulta: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 	public empaque: Empaque;
 	public formAddEmpaque: FormGroup;
@@ -69,17 +54,15 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 	}
 
 	subscribeEventoModal() {
-		this.subscription = this.empaqueService.eventoModal.subscribe(
-			mostrarModal => {
-				if (mostrarModal) {
-					this.empaque = new Empaque();
-					this.formAddEmpaque.reset();
-					this.modalAddEmpaque.show();
-				} else {
-					this.hideModalAndEmitResult();
-				}
+		this.subscription = this.empaqueService.eventoModal.subscribe(mostrarModal => {
+			if (mostrarModal) {
+				this.empaque = new Empaque();
+				this.formAddEmpaque.reset();
+				this.modalAddEmpaque.show();
+			} else {
+				this.hideModalAndEmitResult();
 			}
-		);
+		});
 	}
 
 	createEmpaque() {
@@ -89,24 +72,14 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 		this.empaqueService.createEmpaque(this.empaque).subscribe(
 			response => {
 				if (response.IdEmpaque) {
-					swal(
-						this.tituloPantalla,
-						"El Empaque ha sido creado exitosamente!",
-						"success"
-					).then(() => {
+					swal(this.tituloPantalla, "El Empaque ha sido creado exitosamente!", "success").then(() => {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});
-				} else {
-					Utils.showMsgInfo(
-						"Ha ocurrido un error inesperado al crear el empaque!",
-						this.tituloPantalla
-					);
 				}
 			},
 			error => {
 				this.runChangeDetection();
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.runChangeDetection();
@@ -135,6 +108,6 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+		this.subscription.unsubscribe();
 	}
 }

@@ -131,8 +131,6 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 							this.getEmpaquesRender();
 							this.empaque = new Empaque();
 						});
-				} else {
-					Utils.showMsgInfo("Ha ocurrido un error inesperado al actualizar el empaque!", this.tituloPantalla);
 				}
 			},
 			error => {
@@ -161,17 +159,15 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.empaqueService.deleteEmpaque(idEmpaque).subscribe(
-					response => {
-						if (response.success) {
-							swal("Inhabilitado!", "El empaque ha sido inhabilitado exitosamente", "success").then(() => {
-								this.getEmpaquesRender();
-							});
-						} else {
-							Utils.showMsgInfo("Ha ocurrido un error inesperado al inhabilitar el empaque!", this.tituloPantalla);
-						}
+				this.empaqueService.deleteEmpaque(idEmpaque).subscribe(response => {
+					if (response.success) {
+						swal("Inhabilitado!", "El empaque ha sido inhabilitado exitosamente", "success").then(() => {
+							this.getEmpaquesRender();
+						});
+					} else {
+						Utils.showMsgInfo("Ha ocurrido un error inesperado al inhabilitar el empaque!", this.tituloPantalla);
 					}
-				);
+				});
 			}
 		});
 	}

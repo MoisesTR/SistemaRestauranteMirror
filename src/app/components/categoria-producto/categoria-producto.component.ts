@@ -82,26 +82,22 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 
 	getCategorias() {
 		this.spinnerService.display(true);
-		this.categoriaService.getCategoriasProductos().subscribe(
-			response => {
-				if (response.categorias) {
-					this.categoriasProductos = response.categorias;
-					this.dtTrigger.next();
-					this.cdr.markForCheck();
-				}
+		this.categoriaService.getCategoriasProductos().subscribe(response => {
+			if (response.categorias) {
+				this.categoriasProductos = response.categorias;
+				this.dtTrigger.next();
+				this.cdr.markForCheck();
 			}
-		);
+		});
 	}
 
 	getCategoriasRender() {
-		this.categoriaService.getCategoriasProductos().subscribe(
-			response => {
-				if (response.categorias) {
-					this.categoriasProductos = response.categorias;
-					this.rerender();
-				}
+		this.categoriaService.getCategoriasProductos().subscribe(response => {
+			if (response.categorias) {
+				this.categoriasProductos = response.categorias;
+				this.rerender();
 			}
-		);
+		});
 	}
 
 	initFormUpdateCategoria() {
@@ -140,8 +136,6 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 						this.categoriaProducto = new CategoriaProducto();
 						this.getCategoriasRender();
 					});
-				} else {
-					Utils.showMsgError("Ha ocurrido un error inesperado en la actualización , intenta nuevamente");
 				}
 			},
 			error => {
@@ -156,8 +150,7 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 	showModalUpdate(modal, categoria: CategoriaProducto) {
 		this.categoriaProducto.IdCategoria = categoria.IdCategoria;
 		this.categoriaProducto.NombCategoria = categoria.NombCategoria;
-		this.categoriaProducto.DescCategoria =
-			categoria.DescCategoria;
+		this.categoriaProducto.DescCategoria = categoria.DescCategoria;
 		this.formUpdateCategoria.reset();
 		this.formUpdateCategoria.setValue({
 			nombreCategoria: categoria.NombCategoria,
@@ -179,20 +172,13 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 			cancelButtonText: "Cancelar"
 		}).then(result => {
 			if (result.value) {
-				this.categoriaService.deleteCategoriaProducto(idCategoria).subscribe(
-					response => {
-						if (response.success) {
-							swal("Inhabilitada!", "La categoría ha sido inhabilitada exitosamente", "success").then(() => {
-								this.getCategoriasRender();
-							});
-						} else {
-							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar", this.tituloPantalla);
-						}
-					},
-					error => {
-						Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
+				this.categoriaService.deleteCategoriaProducto(idCategoria).subscribe(response => {
+					if (response.success) {
+						swal("Inhabilitada!", "La categoría ha sido inhabilitada exitosamente", "success").then(() => {
+							this.getCategoriasRender();
+						});
 					}
-				);
+				});
 			}
 		});
 	}

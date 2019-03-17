@@ -107,7 +107,6 @@ export class ModalEnvaseComponent implements OnInit, EventoModal, OnDestroy {
 			},
 			error => {
 				this.runChangeDetection();
-				Utils.showMsgError(Utils.msgError(error), this.tituloPantalla);
 			},
 			() => {
 				this.runChangeDetection();

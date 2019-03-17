@@ -170,16 +170,13 @@ export class UpdateProductoComponent implements OnInit {
 		} else {
 			this.producto.IdClasificacion = event.IdClasificacion;
 
-			this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(
-				response => {
+			this._subclasificacionService
+				.getSubClasificacionesByIdClasificacion(event.IdClasificacion)
+				.subscribe(response => {
 					if (response.subclasificaciones) {
 						this.subclasificaciones = response.subclasificaciones;
 					}
-				},
-				error => {
-					Utils.showMsgError(Utils.msgError(error), "Producto");
-				}
-			);
+				});
 		}
 	}
 
@@ -238,53 +235,43 @@ export class UpdateProductoComponent implements OnInit {
 			const id = params["id"];
 			//this.producto.IdProducto = id;
 
-			this._productoService.getProducto(id).subscribe(
-				response => {
-					if (response.producto) {
-						this.producto = response.producto;
-						// Inicializar componentes de la vista
-						$(document).ready(() => {
-							const imagenProducto = this.url + "getImagen/" + CARPETA_PRODUCTOS + "/" + this.producto.Imagen;
-							let drEvent;
+			this._productoService.getProducto(id).subscribe(response => {
+				if (response.producto) {
+					this.producto = response.producto;
+					// Inicializar componentes de la vista
+					$(document).ready(() => {
+						const imagenProducto = this.url + "getImagen/" + CARPETA_PRODUCTOS + "/" + this.producto.Imagen;
+						let drEvent;
 
-							if (this.producto.Imagen.length > 0) {
-								drEvent = $(".dropify").dropify({
-									defaultFile: imagenProducto
-								});
-
-								this.filesToUpload = null;
-							} else {
-								drEvent = $(".dropify").dropify();
-							}
-
-							drEvent.on("dropify.afterClear", (event, element) => {
-								this.removioImagen = true;
-								this.filesToUpload = null;
+						if (this.producto.Imagen.length > 0) {
+							drEvent = $(".dropify").dropify({
+								defaultFile: imagenProducto
 							});
+
+							this.filesToUpload = null;
+						} else {
+							drEvent = $(".dropify").dropify();
+						}
+
+						drEvent.on("dropify.afterClear", (event, element) => {
+							this.removioImagen = true;
+							this.filesToUpload = null;
 						});
-						this.inicializarValoresFormularioProducto();
-					} else {
-						this._router.navigate(["/producto/list"]);
-					}
-				},
-				error => {
+					});
+					this.inicializarValoresFormularioProducto();
+				} else {
+					this._router.navigate(["/producto/list"]);
 				}
-			);
+			});
 		});
 	}
 
 	getSubClasificaciones() {
-		this._subclasificacionService.getSubClasificaciones().subscribe(
-			response => {
-				if (response.subclasificaciones) {
-					this.subclasificaciones = response.subclasificaciones;
-				} else {
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this._subclasificacionService.getSubClasificaciones().subscribe(response => {
+			if (response.subclasificaciones) {
+				this.subclasificaciones = response.subclasificaciones;
 			}
-		);
+		});
 	}
 
 	cargarImagen() {
@@ -292,17 +279,12 @@ export class UpdateProductoComponent implements OnInit {
 		if ((this.filesToUpload === null && !this.removioImagen) || (this.producto.Imagen === "" && this.removioImagen)) {
 			this.actualizarProducto();
 		} else if (this.filesToUpload === null && this.removioImagen && this.producto.Imagen !== "") {
-			this._deleteImageService.deleteImage(CARPETA_PRODUCTOS, this.producto.Imagen).subscribe(
-				response => {
-					if (response.success) {
-						this.producto.Imagen = "";
-						this.actualizarProducto();
-					}
-				},
-				error => {
-					Utils.msgErrorImage(error, "Producto");
+			this._deleteImageService.deleteImage(CARPETA_PRODUCTOS, this.producto.Imagen).subscribe(response => {
+				if (response.success) {
+					this.producto.Imagen = "";
+					this.actualizarProducto();
 				}
-			);
+			});
 		} else {
 			this._uploadService
 				.makeFileRequest(
@@ -315,15 +297,10 @@ export class UpdateProductoComponent implements OnInit {
 					"token",
 					"image"
 				)
-				.then(
-					(result: any) => {
-						this.producto.Imagen = result.image;
-						this.actualizarProducto();
-					},
-					error => {
-						Utils.msgErrorImage(error, "Producto");
-					}
-				);
+				.then((result: any) => {
+					this.producto.Imagen = result.image;
+					this.actualizarProducto();
+				});
 		}
 	}
 
@@ -338,16 +315,11 @@ export class UpdateProductoComponent implements OnInit {
 
 	actualizarProducto() {
 		this.getValuesFormUpdate();
-		this._productoService.updateProducto(this.producto).subscribe(
-			response => {
-				if (response.success) {
-					this.actualizarProductoProveedor();
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error), "Producto");
+		this._productoService.updateProducto(this.producto).subscribe(response => {
+			if (response.success) {
+				this.actualizarProductoProveedor();
 			}
-		);
+		});
 	}
 
 	actualizarProductoProveedor() {}
@@ -358,83 +330,53 @@ export class UpdateProductoComponent implements OnInit {
 	}
 
 	getProveedores() {
-		this._proveedorService.getProveedores(null).subscribe(
-			response => {
-				if (response.proveedores) {
-					this.proveedores = response.proveedores;
-					this.proveedores.forEach((value, index) => {
-						this.proveedores[index].disabled = 0;
-					});
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this._proveedorService.getProveedores(null).subscribe(response => {
+			if (response.proveedores) {
+				this.proveedores = response.proveedores;
+				this.proveedores.forEach((value, index) => {
+					this.proveedores[index].disabled = 0;
+				});
 			}
-		);
+		});
 	}
 
 	getClasificaciones() {
-		this._clasificacionService.getClasificaciones().subscribe(
-			response => {
-				if (response.clasificaciones) {
-					this.clasificaciones = response.clasificaciones;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this._clasificacionService.getClasificaciones().subscribe(response => {
+			if (response.clasificaciones) {
+				this.clasificaciones = response.clasificaciones;
 			}
-		);
+		});
 	}
 
 	getCategorias() {
-		this._categoriaService.getCategoriasProductos().subscribe(
-			response => {
-				if (response.categorias) {
-					this.categorias = response.categorias;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this._categoriaService.getCategoriasProductos().subscribe(response => {
+			if (response.categorias) {
+				this.categorias = response.categorias;
 			}
-		);
+		});
 	}
 
 	getEmpaques() {
-		this._empaqueService.getEmpaques().subscribe(
-			response => {
-				if (response.empaques) {
-					this.empaques = response.empaques;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this._empaqueService.getEmpaques().subscribe(response => {
+			if (response.empaques) {
+				this.empaques = response.empaques;
 			}
-		);
+		});
 	}
 
 	getEnvases() {
-		this._envaseService.getEnvases().subscribe(
-			response => {
-				if (response.envases) {
-					this.envases = response.envases;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this._envaseService.getEnvases().subscribe(response => {
+			if (response.envases) {
+				this.envases = response.envases;
 			}
-		);
+		});
 	}
 
 	getUnidadesDeMedida() {
-		this._unidadService.getUnidadesMedida().subscribe(
-			response => {
-				if (response.unidadesmedida) {
-					this.unidades = response.unidadesmedida;
-				}
-			},
-			error => {
-				Utils.showMsgError(Utils.msgError(error));
+		this._unidadService.getUnidadesMedida().subscribe(response => {
+			if (response.unidadesmedida) {
+				this.unidades = response.unidadesmedida;
 			}
-		);
+		});
 	}
 }

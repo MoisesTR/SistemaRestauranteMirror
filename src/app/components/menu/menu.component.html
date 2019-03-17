@@ -22,14 +22,14 @@
                 <mdb-accordion [multiple]="false" aria-multiselectable="false">
                     <mdb-accordion-item class="{{menu.Clase}}" *ngFor="let menu of menues">
 
-                        <mdb-accordion-item-head [routerLink]="[menu.Ruta]" mdbRippleRadius>
+                        <mdb-accordion-item-head [routerLink]="[menu.Ruta]">
                             <i class="fa">
                                 <img src="{{menu.Icono}}" height="18">
                             </i> {{menu.Nombre}}</mdb-accordion-item-head>
                         <mdb-accordion-item-body>
                             <ul>
                                 <li routerLinkActive="active-submenu" *ngFor="let submenu of menu.Submenues">
-                                    <a class="waves-effect" [routerLink]="[submenu.Ruta]" (click)="EliminarPersistencia()" mdbRippleRadius>{{submenu.Nombre}}</a>
+                                    <a [routerLink]="submenu.Ruta" (click)="eliminarPersistencia()">{{submenu.Nombre}}</a>
                                 </li>
                             </ul>
                         </mdb-accordion-item-body>

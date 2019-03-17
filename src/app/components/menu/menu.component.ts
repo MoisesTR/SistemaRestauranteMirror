@@ -81,7 +81,7 @@ export class MenuComponent implements OnInit {
 		);
 	}
 
-	EliminarPersistencia() {
+	eliminarPersistencia() {
 		this.persistenciaDatosService.deleteItems();
 	}
 }

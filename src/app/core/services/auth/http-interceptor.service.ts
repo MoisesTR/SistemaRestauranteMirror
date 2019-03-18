@@ -12,12 +12,7 @@ import { UNAUTHORIZED } from "http-status-codes";
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-	constructor(
-		public auth: AuthService,
-		public spinnerService: SpinnerService,
-		public router: Router,
-		public logger: NGXLogger
-	) {}
+	constructor(public auth: AuthService, public spinnerService: SpinnerService, public router: Router) {}
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		request = request.clone({
 			setHeaders: {
@@ -25,15 +20,13 @@ export class HttpInterceptorService implements HttpInterceptor {
 			}
 		});
 
-		this.logger.log(request);
 		return next.handle(request).pipe(
 			tap(
 				(response: HttpEvent<any>) => {},
 				(err: any) => {
 					let errorMessage = "";
 					if (err instanceof HttpErrorResponse) {
-
-					    errorMessage = Utils.msgError(err)
+						errorMessage = Utils.msgError(err)
 							? Utils.msgError(err)
 							: `Error Code: ${err.status}\nMessage: ${err.message}`;
 

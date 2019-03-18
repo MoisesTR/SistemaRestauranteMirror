@@ -29,28 +29,31 @@
               <div class="row">
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input mdbValidate mdbInputDirective type="text" id="nombreTrabajador" name="Nombres"
-                      formControlName="nombreTrabajador" required class="form-control validate letras" autocomplete="off">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required
+                      class="form-control validate letras" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['nombreTrabajador']"></show-errors>
                     <label for="nombreTrabajador">Nombres</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input mdbValidate mdbInputDirective type="text" id="Apellidos" name="Apellidos"
-                      formControlName="apellido" required class="form-control validate letras" autocomplete="off">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="Apellidos" name="Apellidos" formControlName="apellido" required
+                      class="form-control validate letras" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['apellido']"></show-errors>
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control"
-                      mdbValidate placeholder="Seleccioné" formControlName="fechaNacimiento" name="fechaNacimiento"
-                      id="fechaNacimiento" mdbInputDirective readonly>
+                  <div class="md-form md-outline">
+                    <input type="text" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="form-control"
+                      [validateSuccess]="false" [validateError]="false" placeholder="Seleccioné"
+                      formControlName="fechaNacimiento" name="fechaNacimiento" id="fechaNacimiento" mdbInputDirective
+                      readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                     <label id="fechaNacimiento">Fecha Nacimiento</label>
                     <show-errors [control]="formUpdateTrabajador.controls['fechaNacimiento']"></show-errors>
@@ -58,10 +61,10 @@
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
-                      mdbValidate placeholder="Seleccioné" formControlName="fechaIngreso" name="fechaIngreso"
-                      id="fechaIngreso" mdbInputDirective readonly>
+                  <div class="md-form md-outline">
+                    <input type="text" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="form-control"
+                      [validateSuccess]="false" [validateError]="false" placeholder="Seleccioné"
+                      formControlName="fechaIngreso" name="fechaIngreso" id="fechaIngreso" mdbInputDirective readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                     <label id="fechaIngreso">Fecha Ingreso</label>
                     <show-errors [control]="formUpdateTrabajador.controls['fechaIngreso']"></show-errors>
@@ -69,17 +72,19 @@
                 </div>
 
                 <div class="col-md-6 mt-1">
-                  <div class="md-form">
-                    <input mdbValidate mdbInputDirective type="text" id="TelefonoPrincipalTrabajador" class="form-control telefono"
-                      name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal" autocomplete="off">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="TelefonoPrincipalTrabajador" class="form-control telefono" name="TelefonoPrincipalTrabajador"
+                      formControlName="telefonoPrincipal" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
                 </div>
 
                 <div class="col-md-6 mt-1">
-                  <div class="md-form">
-                    <input mdbValidate mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control telefono"
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="TelefonoSecundarioTrabajador" class="form-control telefono"
                       name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
@@ -88,17 +93,19 @@
 
                 <div class="col-md-6">
                   <label for="sucursal" class="grey-text-card">Tipo de Documento</label>
-                  <ng-select [items]="tiposDocumento" bindLabel="NombTipDoc" bindValue="IdTipDoc" placeholder="Selecciona un tipo de documento"
-                    id="tipoDocumento" (change)="onChangeTipoDocumento($event)" [(ngModel)]="trabajador.IdTipDoc"
+                  <ng-select [items]="tiposDocumento" bindLabel="NombTipDoc" bindValue="IdTipDoc"
+                    placeholder="Selecciona un tipo de documento" id="tipoDocumento"
+                    (change)="onChangeTipoDocumento($event)" [(ngModel)]="trabajador.IdTipDoc"
                     formControlName="tipoDocumento">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['tipoDocumento']"></show-errors>
                 </div>
 
-                <div class="col-md-6">
-                  <div class="md-form ">
-                    <input mdbValidate mdbInputDirective type="text" id="DocumentoTrabajador" name="DocumentoTrabajador"
-                      class="form-control cedula" formControlName="documentoTrabajador" autocomplete="off">
+                <div class="col-md-6 mt-2">
+                  <div class="md-form md-outline ">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="DocumentoTrabajador" name="DocumentoTrabajador" class="form-control cedula"
+                      formControlName="documentoTrabajador" autocomplete="off">
                     <show-errors [control]="formUpdateTrabajador.controls['documentoTrabajador']"></show-errors>
                     <label for="DocumentoTrabajador" class="">Documento</label>
                   </div>
@@ -106,9 +113,9 @@
 
                 <div class="col-md-12">
                   <label for="sucursal" class="grey-text-card">Sucursal</label>
-                  <ng-select [items]="sucursales" bindLabel="NombSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal"
-                    id="sucursal" (change)="onChangeSucursal($event)" [(ngModel)]="trabajador.IdSucursal"
-                    formControlName="sucursal">
+                  <ng-select [items]="sucursales" bindLabel="NombSucursal" bindValue="IdSucursal"
+                    placeholder="Selecciona una sucursal" id="sucursal" (change)="onChangeSucursal($event)"
+                    [(ngModel)]="trabajador.IdSucursal" formControlName="sucursal">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['sucursal']"></show-errors>
                 </div>
@@ -116,16 +123,18 @@
                 <div class="col-md-12">
                   <br>
                   <label for="cargo" class="grey-text-card">Cargo</label>
-                  <ng-select [items]="cargos" bindLabel="NombCargo" bindValue="IdCargo" placeholder="Selecciona un cargo"
-                    id="cargo" (change)="onChangeCargo($event)" [(ngModel)]="trabajador.IdCargo" formControlName="cargo">
+                  <ng-select [items]="cargos" bindLabel="NombCargo" bindValue="IdCargo"
+                    placeholder="Selecciona un cargo" id="cargo" (change)="onChangeCargo($event)"
+                    [(ngModel)]="trabajador.IdCargo" formControlName="cargo">
                   </ng-select>
                   <show-errors [control]="formUpdateTrabajador.controls['cargo']"></show-errors>
                 </div>
 
                 <div class="col-md-12 mt-2">
-                  <div class="md-form active-chang-label">
-                    <textarea [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="Direccion" name="Direccion"
-                      formControlName="direccion" class="md-textarea form-control"></textarea>
+                  <div class="md-form md-outline active-chang-label">
+                    <textarea [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="Direccion" name="Direccion" formControlName="direccion"
+                      class="md-textarea form-control"></textarea>
                     <label for="Direccion">Dirección</label>
                     <show-errors [control]="formUpdateTrabajador.controls['direccion']"></show-errors>
                   </div>

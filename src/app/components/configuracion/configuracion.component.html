@@ -23,8 +23,8 @@
 
               <div class="col-lg-3 col-md-4 col-sm-4">
                 <div class="ml-0 pt-0 mt-btn-add-settings d-none d-sm-block d-md-block d-lg-block d-xl-block"></div>
-                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3" (click)="modalAddDocumento.show()"
-                  mdbWavesEffect>Agregar
+                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3"
+                  (click)="modalAddDocumento.show()" mdbWavesEffect>Agregar
                 </button>
               </div>
 
@@ -49,13 +49,13 @@
                     001-220000-0023B
                   </td>
                   <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Editar Documento"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="pencil"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Editar Documento" placement="bottom" mdbWavesEffect>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Eliminar Documento"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="times"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Eliminar Documento" placement="bottom" mdbWavesEffect>
+                      <mdb-icon fas icon="times"></mdb-icon>
                     </button>
                   </td>
                 </tr>
@@ -67,13 +67,13 @@
                     001-220000-0023B
                   </td>
                   <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Editar Documento"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="pencil"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Editar Documento" placement="bottom" mdbWavesEffect>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Eliminar Documento"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="times"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Eliminar Documento" placement="bottom" mdbWavesEffect>
+                      <mdb-icon fas icon="times"></mdb-icon>
                     </button>
                   </td>
                 </tr>
@@ -86,7 +86,8 @@
             <ul class="pagination pg-amber justify-content-center">
 
               <!--First-->
-              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"
+                [ngClass]="{disabled: activePage == 1}">
                 <a class="page-link">Primera</a>
               </li>
 
@@ -99,7 +100,8 @@
               </li>
 
               <!--Numbers-->
-              <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
+              <li #pages
+                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
                 class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
                 <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
               </li>
@@ -113,7 +115,8 @@
               </li>
 
               <!--LAST PAGE-->
-              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"
+                [ngClass]="{disabled: activePage == numberOfPaginators}">
                 <a class="page-link">Ultima</a>
               </li>
             </ul>
@@ -146,8 +149,8 @@
 
               <div class="col-lg-3 col-md-4 col-sm-4">
                 <div class="ml-0 pt-0 mt-btn-add-settings d-none d-sm-block d-md-block d-lg-block d-xl-block"></div>
-                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3" (click)="modalAddMoneda.show()"
-                  mdbWavesEffect>Agregar
+                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3"
+                  (click)="modalAddMoneda.show()" mdbWavesEffect>Agregar
                 </button>
               </div>
 
@@ -172,13 +175,13 @@
                     $
                   </td>
                   <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Editar Moneda"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="pencil"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Editar Moneda" placement="bottom" mdbWavesEffect>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Eliminar Moneda"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="times"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Eliminar Moneda" placement="bottom" mdbWavesEffect>
+                      <mdb-icon fas icon="times"></mdb-icon>
                     </button>
                   </td>
                 </tr>
@@ -190,13 +193,13 @@
                     C$
                   </td>
                   <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Editar Moneda"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="pencil"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Editar Moneda" placement="bottom" mdbWavesEffect>
+                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Eliminar Moneda"
-                      placement="bottom" mdbWavesEffect>
-                      <mdb-icon icon="times"></mdb-icon>
+                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
+                      mdbTooltip="Eliminar Moneda" placement="bottom" mdbWavesEffect>
+                      <mdb-icon fas icon="times"></mdb-icon>
                     </button>
                   </td>
                 </tr>
@@ -209,7 +212,8 @@
             <ul class="pagination pg-amber justify-content-center">
 
               <!--First-->
-              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"
+                [ngClass]="{disabled: activePage == 1}">
                 <a class="page-link">Primera</a>
               </li>
 
@@ -222,7 +226,8 @@
               </li>
 
               <!--Numbers-->
-              <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
+              <li #pages
+                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
                 class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
                 <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
               </li>
@@ -236,7 +241,8 @@
               </li>
 
               <!--LAST PAGE-->
-              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"
+                [ngClass]="{disabled: activePage == numberOfPaginators}">
                 <a class="page-link">Ultima</a>
               </li>
             </ul>
@@ -258,8 +264,10 @@
       <!--Header-->
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
-          <mdb-icon far icon="file-alt"></mdb-icon> Agregar Documento</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddDocumento.hide()">
+          <mdb-icon far icon="file-alt"></mdb-icon> Agregar Documento
+        </h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
+          (click)="modalAddDocumento.hide()">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -302,7 +310,8 @@
       <div class="modal-header white-text orange-chang">
         <h4 class="title">
           <i class="fa fa-money"></i> Agregar Moneda</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddMoneda.hide()">
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
+          (click)="modalAddMoneda.hide()">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -322,7 +331,8 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
+            <button class="btn orange-chang mb-1">
+              <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
             </button>
           </div>
 

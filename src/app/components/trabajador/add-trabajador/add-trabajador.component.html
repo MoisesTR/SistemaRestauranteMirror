@@ -2,7 +2,7 @@
   <section>
     <div class="row">
       <!--Imagen-->
-      <div class="col-lg-4">
+      <div class="col-lg-4 mb-3">
         <div class="card card-cascade narrower">
           <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
@@ -29,28 +29,31 @@
               <div class="row">
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input mdbValidate mdbInputDirective type="text" id="nombreTrabajador" name="Nombres"
-                      formControlName="nombreTrabajador" required class="form-control letras" autocomplete="off">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="nombreTrabajador" name="Nombres" formControlName="nombreTrabajador" required
+                      class="form-control letras" autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['nombreTrabajador']"></show-errors>
                     <label for="nombreTrabajador">Nombres</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input mdbValidate mdbInputDirective type="text" id="Apellidos" name="Apellidos"
-                      formControlName="apellido" required class="form-control letras" autocomplete="off">
+                  <div class="md-form md-outline">
+                    <input type="text" [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="Apellidos" name="Apellidos" formControlName="apellido" required class="form-control letras"
+                      autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['apellido']"></show-errors>
                     <label for="Apellidos">Apellidos</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control"
-                      mdbValidate placeholder="Seleccioné" formControlName="fechaNacimiento" name="fechaNacimiento"
-                      id="fechaNacimiento" mdbInputDirective readonly>
+                  <div class="md-form md-outline">
+                    <input type="text" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="form-control"
+                      [validateSuccess]="false" [validateError]="false" placeholder="Seleccioné"
+                      formControlName="fechaNacimiento" name="fechaNacimiento" id="fechaNacimiento" mdbInputDirective
+                      readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                     <label id="fechaNacimiento">Fecha Nacimiento</label>
                     <show-errors [control]="formAddTrabajador.controls['fechaNacimiento']"></show-errors>
@@ -58,30 +61,31 @@
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form">
-                    <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="input-picker form-control"
-                      mdbValidate placeholder="Seleccioné" formControlName="fechaIngreso" name="fechaIngreso"
-                      id="fechaIngreso" mdbInputDirective readonly>
+                  <div class="md-form md-outline">
+                    <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="form-control" [validateSuccess]="false"
+                      [validateError]="false" placeholder="Seleccioné" formControlName="fechaIngreso"
+                      name="fechaIngreso" id="fechaIngreso" mdbInputDirective readonly>
                     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                     <label id="fechaIngreso">Fecha Ingreso</label>
                     <show-errors [control]="formAddTrabajador.controls['fechaIngreso']"></show-errors>
-                  </div>                  
+                  </div>
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form ">
-                    <input mdbValidate mdbInputDirective type="text" id="TelefonoPrincipalTrabajador" minlength="4"
-                      maxlength="50" class="form-control" name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal"
-                      autocomplete="off">
+                  <div class="md-form md-outline ">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="TelefonoPrincipalTrabajador" minlength="4" maxlength="50" class="form-control"
+                      name="TelefonoPrincipalTrabajador" formControlName="telefonoPrincipal" autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['telefonoPrincipal']"></show-errors>
                     <label for="TelefonoPrincipalTrabajador" class="">Telefóno</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <div class="md-form ">
-                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="TelefonoSecundarioTrabajador" class="form-control"
-                      name="TelefonoSecundarioTrabajador" formControlName="telefonoSecundario" autocomplete="off">
+                  <div class="md-form md-outline ">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="TelefonoSecundarioTrabajador" class="form-control" name="TelefonoSecundarioTrabajador"
+                      formControlName="telefonoSecundario" autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['telefonoSecundario']"></show-errors>
                     <label for="TelefonoSecundarioTrabajador" class="">Telefóno (Opcional)</label>
                   </div>
@@ -89,16 +93,18 @@
 
                 <div class="col-md-6">
                   <label for="tipoDocumento" class="grey-text-card">Tipo de Documento</label>
-                  <ng-select [items]="tiposDocumento" bindLabel="NombTipDoc" bindValue="IdTipDoc" placeholder="Selecciona un tipo de documento"
-                    id="tipoDocumento" (change)="onChangeTipoDocumento($event)" formControlName="tipoDocumento">
+                  <ng-select [items]="tiposDocumento" bindLabel="NombTipDoc" bindValue="IdTipDoc"
+                    placeholder="Selecciona un tipo de documento" id="tipoDocumento"
+                    (change)="onChangeTipoDocumento($event)" formControlName="tipoDocumento">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['tipoDocumento']"></show-errors>
                 </div>
 
-                <div class="col-md-6">
-                  <div class="md-form ">
-                    <input mdbValidate mdbInputDirective type="text" id="documentoTrabajador" name="documentoTrabajador"
-                      formControlName="documentoTrabajador" class="form-control" autocomplete="off">
+                <div class="col-md-6 mt-2">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="documentoTrabajador" name="documentoTrabajador" formControlName="documentoTrabajador"
+                      class="form-control" autocomplete="off">
                     <show-errors [control]="formAddTrabajador.controls['documentoTrabajador']"></show-errors>
                     <label for="documentoTrabajador" class="">Documento</label>
                   </div>
@@ -106,8 +112,9 @@
 
                 <div class="col-md-12">
                   <label for="sucursal" class="grey-text-card">Sucursal</label>
-                  <ng-select [items]="sucursales" bindLabel="NombSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal"
-                    id="sucursal" (change)="onChangeSucursal($event)" formControlName="sucursal">
+                  <ng-select [items]="sucursales" bindLabel="NombSucursal" bindValue="IdSucursal"
+                    placeholder="Selecciona una sucursal" id="sucursal" (change)="onChangeSucursal($event)"
+                    formControlName="sucursal">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['sucursal']"></show-errors>
                 </div>
@@ -115,16 +122,18 @@
                 <div class="col-md-12">
                   <br>
                   <label for="cargo" class="grey-text-card">Cargo</label>
-                  <ng-select [items]="cargos" bindLabel="NombCargo" bindValue="IdCargo" placeholder="Selecciona un cargo"
-                    id="cargo" (change)="onChangeCargo($event)" formControlName="cargo">
+                  <ng-select [items]="cargos" bindLabel="NombCargo" bindValue="IdCargo"
+                    placeholder="Selecciona un cargo" id="cargo" (change)="onChangeCargo($event)"
+                    formControlName="cargo">
                   </ng-select>
                   <show-errors [control]="formAddTrabajador.controls['cargo']"></show-errors>
                 </div>
 
                 <div class="col-md-12">
-                  <div class="md-form">
-                    <textarea mdbValidate mdbInputDirective type="text" id="Direccion" name="Direccion"
-                      formControlName="direccion" class="md-textarea form-control"></textarea>
+                  <div class="md-form md-outline active-chang-label">
+                    <textarea [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="Direccion" name="Direccion" formControlName="direccion"
+                      class="md-textarea form-control"></textarea>
                     <label for="Direccion">Dirección</label>
                     <show-errors [control]="formAddTrabajador.controls['direccion']"></show-errors>
                   </div>
@@ -135,7 +144,8 @@
 
               <!-- Boton ingresa -->
               <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddTrabajador.valid || !btnIngresarHabilitado">
+                <button class="btn orange-chang mb-1" type="submit"
+                  [disabled]="!formAddTrabajador.valid || !btnIngresarHabilitado">
                   <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
                 </button>
               </div>
@@ -159,7 +169,8 @@
       <!--Header-->
       <div class="modal-header">
         <!-- Cambiar imagen -->
-        <img src="https://vignette.wikia.nocookie.net/rick-y-morty-espanol/images/5/58/Ick_y_morty_wiki.png/revision/latest?cb=20170914132754&path-prefix=es"
+        <img
+          src="https://vignette.wikia.nocookie.net/rick-y-morty-espanol/images/5/58/Ick_y_morty_wiki.png/revision/latest?cb=20170914132754&path-prefix=es"
           class="rounded-circle img-responsive">
       </div>
       <!--Body-->

@@ -1,22 +1,23 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import "rxjs/add/operator/map";
-import { Observable } from "rxjs/Observable";
 import { Global } from "./global";
+import { map } from "rxjs/operators";
+import { FacturacionMoneda } from "@app/models/FacturacionMoneda";
 
 @Injectable()
 export class FacturacionMonedaService {
 	public url: string;
 
-	constructor(private _http: HttpClient) {
+	constructor(private http: HttpClient) {
 		this.url = Global.url;
 	}
 
-	getFacturaMoneda(IdPais): Observable<any> {
-		return this._http.get(this.url + "monedas/" + IdPais);
+	getFacturaMoneda(IdMoneda) {
+		return this.http.get<FacturacionMoneda>(this.url + "monedas/" + IdMoneda).pipe(map(data => data));
 	}
 
-	getFacturaMonedas(Habilitado = 1): Observable<any> {
-		return this._http.get(this.url + "monedas?Habilitado=" + Habilitado);
+	getFacturaMonedas() {
+		return this.http.get<FacturacionMoneda[]>(this.url + "monedas").pipe(map(data => data));
 	}
 }

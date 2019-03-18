@@ -1,18 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {
-	SettingRestauranteService,
-	PaisService,
-	TipoMonedaService,
-	FacturacionMonedaService
-} from "@app/core/service.index";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FacturacionMonedaService, PaisService, SettingRestauranteService } from "@app/core/service.index";
 import { Restaurante } from "@app/models/Restaurante";
 import { ActivatedRoute, Router } from "@angular/router";
 import swal from "sweetalert2";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { Pais } from "@app/models/Pais";
-import { Utils } from "../Utils";
 import { FacturacionMoneda } from "@app/models/FacturacionMoneda";
+
+declare var $: any;
 
 @Component({
 	selector: "app-settings-restaurante",
@@ -39,9 +35,8 @@ export class SettingsRestauranteComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
 		$(document).ready(() => {
-			$(".letras").keypress(function (key) {
+			$(".letras").keypress(function(key) {
 				if (
 					(key.charCode < 97 || key.charCode > 122) && // letras mayusculas
 					(key.charCode < 65 || key.charCode > 90) && // letras minusculas
@@ -65,7 +60,7 @@ export class SettingsRestauranteComponent implements OnInit {
 		});
 
 		this.initFormSettingRestaurante();
-		this.getPais();
+		this.getPaises();
 		this.getTipoMoneda();
 	}
 
@@ -114,47 +109,30 @@ export class SettingsRestauranteComponent implements OnInit {
 			if (response) {
 				swal({
 					title: "El Restaurante se ha creado exitosamente!",
-					text: "Bienvenidos!!",
+					text: "Haga click en aceptar para ser redigirido al menu principal",
 					type: "success",
-					showCancelButton: true,
+					showCancelButton: false,
 					confirmButtonColor: "#3085d6",
 					cancelButtonColor: "#d33",
-					confirmButtonText: "SI",
-					cancelButtonText: "NO"
+					confirmButtonText: "aceptar"
 				}).then(result => {
 					if (result.value) {
 						this.router.navigate(["/dashboard"]);
-					} else if (result.dismiss === swal.DismissReason.cancel) {
-						this.resetFormSettingRestaurante();
 					}
 				});
 			}
 		});
 	}
 
-	getPais() {
-		this.paisService.getPaises().subscribe(
-			response => {
-				if (response) {
-					this.paises = response;
-				} else {
-					Utils.showMsgInfo("No se han logrado obtener los paises", "Paises");
-				}
-			}
-		);
+	getPaises() {
+		this.paisService.getPaises().subscribe(paises => {
+			this.paises = paises;
+		});
 	}
 
 	getTipoMoneda() {
-		this.facturacionMonedaService.getFacturaMonedas().subscribe(
-			response => {
-				if (response) {
-					this.monedas = response;
-
-				} else {
-					Utils.showMsgInfo("No se ha logrado obtener tipo de monedas", "Monedas");
-				}
-			}
-		);
+		this.facturacionMonedaService.getFacturaMonedas().subscribe(monedas => {
+			this.monedas = monedas;
+		});
 	}
-
 }

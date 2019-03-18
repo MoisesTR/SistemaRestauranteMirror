@@ -33,65 +33,65 @@
       <div class="mt-5 mlc-1 center-block" id="container2">
 
         <div class="col-md-12 text-center mt-6" id="bienvenidos">
-          <h1 class="h1-reponsive orange-chang-text font-weight-bold mb-0 wow fadeInDownBig" data-wow-delay="0.3s">
+          <h1 class="h1-reponsive orange-chang-text font-weight-bold mb-0 wow fadeInDownBig" data-wow-delay="0.2s">
             <strong>¡Bienvenidos!</strong></h1>
-          <hr class="hr-light my-4 wow fadeInDownBig" data-wow-delay="0.3s">
+          <hr class="hr-light my-4 wow fadeInDownBig" data-wow-delay="0.2s">
         </div>
 
         <form [formGroup]="formSettingsRestaurante" (ngSubmit)="getSettingRestaurante()">
 
           <div class="row container-fluid mt-6 ml-2">
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.2s">
               <label for="nombreRestaurante">Nombre Restaurante</label>
               <input class="form-control letras" type="text" id="nombreRestaurante" placeholder="Restaurante Azul"
                 formControlName="nombreRestaurante">
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 wow fadeInUpBig mbc-1" data-wow-delay="0.2s">
               <label for="pais">País</label>
               <ng-select [items]="paises" bindLabel="NombPais" bindValue="IdPais" id="pais"
                 placeholder="Selecciona un pais" formControlName="pais">
               </ng-select>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.2s">
               <label for="moneda">Moneda</label>
               <ng-select [items]="monedas" bindLabel="NombMoneda" bindValue="IdMoneda" id="moneda"
                 placeholder="Selecciona una Moneda" formControlName="moneda">
               </ng-select>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.2s">
               <label for="monedaFacturacion">Moneda Facturación</label>
               <ng-select [items]="monedas" bindLabel="NombMoneda" bindValue="IdMoneda" id="monedaFacturacion"
                 placeholder="Selecciona una Moneda de Facturación" formControlName="monedaFacturacion">
               </ng-select>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.2s">
               <label for="correo">Correo Electrónico</label>
               <input type="email" class="form-control" id="correo" placeholder="usuario@dominio.com"
                 formControlName="correo">
             </div>
 
-            <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.2s">
               <label class="mb-3">Respaldo Automático</label>
               <mdb-checkbox class="checkbox-chang-filled" formControlName="respaldoAutomatico"></mdb-checkbox>
             </div>
 
-            <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 mt-3 text-center wow fadeInUpBig" data-wow-delay="0.2s">
               <label class="mb-3">Cuota Fija</label>
               <mdb-checkbox class="checkbox-chang-filled" formControlName="cuotaFija"></mdb-checkbox>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.2s">
               <label for="telefono">Teléfono</label>
-              <input onlyPositiveNumber type="text" class="form-control" id="telefono" placeholder="22222222"
+              <input onlyPositiveNumber type="text" class="form-control" id="telefono" placeholder="22492812"
                 formControlName="telefono">
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.2s">
               <label for="fechaFundacion">Fecha Fundación</label>
               <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" type="text" class="form-control" id="fechaFundacion"
                 placeholder="Seleccioné" [validateSuccess]="false" [validateError]="false" mdbInputDirective
@@ -99,19 +99,19 @@
               <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.2s">
               <label for="razonSocial">Razón Social</label>
               <textarea id="razonSocial" class="form-control mb-4 resize-text-area" placeholder="Razón Social"
                 formControlName="razonSocial"></textarea>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 wow fadeInUpBig" data-wow-delay="0.2s">
               <label for="descripcion">Descripción</label>
               <textarea id="descripcion" class="form-control mb-4 resize-text-area" placeholder="Descripción"
                 formControlName="descripcion"></textarea>
             </div>
 
-            <div class="col-md-12 wow fadeInUpBig" data-wow-delay="0.3s">
+            <div class="col-md-12 wow fadeInUpBig" data-wow-delay="0.2s">
               <div class="text-center">
                 <button mdbBtn type="submit" class="orange-chang mb-1" [disabled]="!formSettingsRestaurante.valid">
                   <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar

@@ -4725,9 +4725,9 @@ ng-pick-datetime@^6.0.16:
   version "6.0.16"
   resolved "https://registry.yarnpkg.com/ng-pick-datetime/-/ng-pick-datetime-6.0.16.tgz#82a400f0aba5cc905bb443616f5ac4b9bfcc88e1"
 
-"ng-uikit-pro-standard@git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git#7.4.2":
-  version "7.4.2"
-  resolved "git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git#4f21ba6410b87f7e75d5d51499a4e801d6571f04"
+"ng-uikit-pro-standard@git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git#7.4.3":
+  version "7.4.3"
+  resolved "git+https://oauth2:zdX7A4esXxa73NcMWLMD@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git#0e77105c54b9aabf921e11c521c955d0fde69956"
   dependencies:
     tslib "^1.9.0"
 

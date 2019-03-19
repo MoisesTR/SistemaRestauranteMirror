@@ -39,6 +39,7 @@ import {GastosComponent} from '../gastos/add-gasto/gastos.component';
 import {SummaryGastosComponent} from '../gastos/summary-gastos/summary-gastos.component';
 import {ConsumoInternoComponent} from '../consumo-interno/consumo-interno.component';
 import {ConsolidadoComponent} from '../consolidado/consolidado.component';
+import {SettingsRestauranteComponent} from '@app/components/settings-restaurante/settings-restaurante.component';
 
 const menuRoutes: Routes = [
 
@@ -49,7 +50,7 @@ const menuRoutes: Routes = [
 
         /*MODULO USUARIO*/
         , {path: 'usuario/add', component: AddUsuarioComponent , data : { titulo : 'usuario'}}
-        , {path: 'usuario', component: ListUsuariosComponent, data : { titulo : 'Usuarios'} }
+        , {path: 'usuarios', component: ListUsuariosComponent, data : { titulo : 'Usuarios'} }
         , {path: 'usuario/update/:id', component: UpdateUsuarioComponent, data : { titulo : 'usuario'} }
         , {path: 'usuario/view', component: ListUsuarioComponent, data : { titulo : 'usuario'} }
 
@@ -93,7 +94,7 @@ const menuRoutes: Routes = [
         , {path: 'salida-producto', component: SalidaProductoComponent, data : { titulo : 'Salida Producto'}}
 
         // Configuraciones generales del sistema
-        , {path: 'configuraciones', component: ConfiguracionComponent, data : { titulo : 'Configuraciones'}}
+        , {path: 'configuraciones/documentos', component: ConfiguracionComponent, data : { titulo : 'Documentos y Monedas'}}
 
         // Modulo gastos
         , {path: 'gasto/gastos', component: GastosComponent, data : { titulo : 'Gastos'}}

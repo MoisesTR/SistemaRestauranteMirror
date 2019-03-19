@@ -18,7 +18,7 @@ export const ROUTES: Routes = [
 		}
 	},
 	{
-		path: "settingsRestaurante",
+		path: "configuraciones/restaurante",
 		canActivate: [AuthGuardService],
 		component: SettingsRestauranteComponent,
 		data: {

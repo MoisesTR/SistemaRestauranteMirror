@@ -36,7 +36,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 						if (this.spinnerService.status.value) this.spinnerService.display(false);
 
-						Utils.showMsgError(String(errorMessage), "Ops... Ha ocurrido un error!");
+						Utils.showMsgError(errorMessage, "Ops... Ha ocurrido un error!");
 
 						return throwError(errorMessage);
 					}

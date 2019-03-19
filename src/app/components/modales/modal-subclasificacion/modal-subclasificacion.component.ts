@@ -81,7 +81,7 @@ export class ModalSubclasificacionComponent implements OnInit, EventoModal, OnDe
 		this.subclasificacionService.createSubClasificacionProducto(this.subclasificacion).subscribe(
 			response => {
 				if (response.IdSubClasificacion) {
-					swal("Subclasificación", "la Subclasificación ha sido creado exitosamente!", "success").then(() => {
+					swal.fire("Subclasificación", "la Subclasificación ha sido creado exitosamente!", "success").then(() => {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});

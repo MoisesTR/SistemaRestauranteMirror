@@ -129,8 +129,7 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 		this.subclasificacionService.updateSubClasificacionProducto(this.subclasificacion).subscribe(
 			response => {
 				if (response.success) {
-					swal("Subclasificación", "La Subclasificación ha sido actualizado exitosamente!", "success")
-						.catch(swal.noop)
+					swal.fire("Subclasificación", "La Subclasificación ha sido actualizado exitosamente!", "success")
 						.then(() => {
 							modal.hide();
 							this.formUpdateSubClasificacion.reset();
@@ -154,7 +153,7 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	deleteSubClasificacion(idSubclasificacion) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "La Subclasificación sera inhabilitada!",
 			type: "warning",
@@ -167,7 +166,7 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.subclasificacionService.deleteSubclasificacion(idSubclasificacion).subscribe(response => {
 					if (response.success) {
-						swal(this.tituloPantalla, "La Subclasificación ha sido inhabilatada exitosamente", "success").then(() => {
+						swal.fire(this.tituloPantalla, "La Subclasificación ha sido inhabilatada exitosamente", "success").then(() => {
 							this.getSubClasificacionesRender();
 						});
 					}

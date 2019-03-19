@@ -121,7 +121,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 	}
 
 	mensajeCreacionProveedor() {
-		swal("Proveedor", "El proveedor ha sido creado exitosamente!", "success").then(() => {
+		swal.fire("Proveedor", "El proveedor ha sido creado exitosamente!", "success").then(() => {
 			this.formAddProveedor.reset();
 			this.proveedor = new Proveedor();
 			if (this.previousUrl === "/factura/add") {

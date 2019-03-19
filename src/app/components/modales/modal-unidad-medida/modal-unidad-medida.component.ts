@@ -84,7 +84,7 @@ export class ModalUnidadMedidaComponent implements OnInit, EventoModal, OnDestro
 		this.unidadMedidaService.createUnidadMedida(this.unidadMedida).subscribe(
 			response => {
 				if (response.IdUnidadMedida) {
-					swal(this.tituloPantalla, "La unidad ha sido creada exitosamente!", "success").then(() => {
+					swal.fire(this.tituloPantalla, "La unidad ha sido creada exitosamente!", "success").then(() => {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});

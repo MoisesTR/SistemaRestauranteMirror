@@ -91,7 +91,7 @@ export class ModalEnvaseComponent implements OnInit, EventoModal, OnDestroy {
 		this.envaseService.createEnvase(this.envase).subscribe(
 			response => {
 				if (response.IdEnvase) {
-					swal(
+					swal.fire(
 						"Envase",
 						"El envase ha sido creado exitosamente!",
 						"success"

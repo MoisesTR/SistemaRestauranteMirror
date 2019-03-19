@@ -107,7 +107,7 @@ export class SettingsRestauranteComponent implements OnInit {
 
 		this.settingRestauranteService.createdRestaurante(this.restaurante).subscribe(response => {
 			if (response) {
-				swal({
+				swal.fire({
 					title: "El Restaurante se ha creado exitosamente!",
 					text: "Haga click en aceptar para ser redigirido al menu principal",
 					type: "success",

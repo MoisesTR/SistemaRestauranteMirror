@@ -44,17 +44,17 @@ export class Utils {
 		Formulario.reset();
 	}
 
-	static showMsgInfo(mensaje: string, titulo = "Información") {
-		swal(titulo, mensaje, "info").catch(swal.noop);
-	}
+    static showMsgInfo(mensaje: string, titulo = "Información") {
+        swal.fire(titulo, mensaje, "info");
+    }
 
-	static showMsgError(mensaje: string, titulo = "Error") {
-		swal(titulo, mensaje, "error").catch(swal.noop);
-	}
+    static showMsgError(mensaje: string, titulo = "Error") {
+        swal.fire(titulo, mensaje, "error");
+    }
 
-	static showMsgSucces(mensaje: string, titulo = "Exitoso") {
-		swal(titulo, mensaje, "success").catch(swal.noop);
-	}
+    static showMsgSucces(mensaje: string, titulo = "Exitoso") {
+        swal.fire(titulo, mensaje, "success");
+    }
 
 	static formatDateYYYYMMDD(myDate) {
 		return moment(myDate).format("YYYY-MM-DD");

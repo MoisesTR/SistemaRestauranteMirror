@@ -162,7 +162,7 @@ export class GastosComponent implements OnInit {
 	}
 
 	agregarOtroGasto() {
-		swal({
+		swal.fire({
 			title: "El gasto se ha creado exitosamente!",
 			text: "Deseas agregar otro?",
 			type: "success",

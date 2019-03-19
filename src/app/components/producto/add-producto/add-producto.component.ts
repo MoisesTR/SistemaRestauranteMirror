@@ -382,7 +382,7 @@ export class AddProductoComponent implements OnInit {
 			this.productoService.createProducto(this.producto).subscribe(
 				response => {
 					if (response.IdProducto) {
-						swal({
+						swal.fire({
 							title: "El producto se ha creado exitosamente!",
 							text: "Deseas agregar otro producto?",
 							type: "success",
@@ -525,7 +525,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	agregarProveedor() {
-		swal({
+		swal.fire({
 			title: "Agregar proveedor",
 			text: 'Si seleccionas la opcion "SI", perderas los cambios digitados hasta el momento!',
 			type: "info",

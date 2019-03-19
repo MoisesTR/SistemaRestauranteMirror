@@ -98,7 +98,7 @@ export class ModalClasificacionComponent implements OnInit, EventoModal, OnDestr
 		this.clasificacionService.createClasificacionProducto(this.clasificacion).subscribe(
 			response => {
 				if (response.IdClasificacion) {
-					swal("Clasificación", "La clasificación ha sido creada exitosamente!", "success").then(() => {
+					swal.fire("Clasificación", "La clasificación ha sido creada exitosamente!", "success").then(() => {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});

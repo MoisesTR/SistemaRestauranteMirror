@@ -178,7 +178,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 		this.cargoService.createCargo(this.cargo).subscribe(response => {
 			if (response) {
-				swal("Cargo", "El Cargo ha sido creado exitosamente!", "success").then(() => {
+				swal.fire("Cargo", "El Cargo ha sido creado exitosamente!", "success").then(() => {
 					this.modalAddCargo.hide();
 					this.formAddCargo.reset();
 					this.cargo = new Cargo();
@@ -193,7 +193,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 		this.cargoService.updateCargo(this.cargo).subscribe(response => {
 			if (response.success) {
-				swal("Cargo", "El cargo ha sido actualizado exitosamente!", "success").then(() => {
+				swal.fire("Cargo", "El cargo ha sido actualizado exitosamente!", "success").then(() => {
 					this.modalUpdateCargo.hide();
 					this.formUpdateCargo.reset();
 					this.getCargosRender();
@@ -204,7 +204,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 	}
 
 	deleteCargo(IdCargo) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "El cargo sera eliminado permanentemente!",
 			type: "warning",
@@ -217,7 +217,7 @@ export class CargoComponent implements OnInit, InvocarFormulario, OnDestroy {
 			if (result.value) {
 				this.cargoService.deleteCargo(IdCargo).subscribe(response => {
 					if (response.success) {
-						swal(this.tituloPantalla, "El cargo ha sido eliminado exitosamente", "success").then(() => {
+						swal.fire(this.tituloPantalla, "El cargo ha sido eliminado exitosamente", "success").then(() => {
 							this.getCargosRender();
 						});
 					}

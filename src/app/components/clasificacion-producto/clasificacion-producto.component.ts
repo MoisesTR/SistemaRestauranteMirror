@@ -128,7 +128,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 
 		this.clasificacionService.updateClasificacionProducto(this.clasificacion).subscribe(response => {
 			if (response.success) {
-				swal("Clasificación", "La clasificación ha sido actualizada exitosamente!", "success").then(() => {
+				swal.fire("Clasificación", "La clasificación ha sido actualizada exitosamente!", "success").then(() => {
 					modal.hide();
 					this.formUpdateClasificacion.reset();
 					this.getClasificacionesRender();
@@ -153,7 +153,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	deleteClasificacion(idClasificacion) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "La clasificacion sera inhabilitada!",
 			type: "warning",
@@ -166,7 +166,7 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.clasificacionService.deleteClasificacionProducto(idClasificacion).subscribe(response => {
 					if (response.success) {
-						swal("Inhabilitada!", "La clasificacion ha sido inhabilitada exitosamente", "success").then(() => {
+						swal.fire("Inhabilitada!", "La clasificacion ha sido inhabilitada exitosamente", "success").then(() => {
 							this.getClasificacionesRender();
 						});
 					} else {

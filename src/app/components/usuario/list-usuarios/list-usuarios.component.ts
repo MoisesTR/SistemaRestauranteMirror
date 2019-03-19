@@ -87,7 +87,7 @@ export class ListUsuariosComponent implements OnInit {
 	}
 
 	deleteUser(IdUsuario) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "El usuario sera eliminado!",
 			type: "warning",
@@ -96,12 +96,11 @@ export class ListUsuariosComponent implements OnInit {
 			cancelButtonColor: "#d33",
 			confirmButtonText: "Si, Eliminalo!"
 		})
-			.catch(swal.noop)
 			.then(eliminar => {
 				if (eliminar) {
 					this.usuarioService.deleteUsuario(IdUsuario).subscribe(response => {
 						if (response.success) {
-							swal("Eliminado!", "El usuario ha sido eliminado exitosamente", "success").then(() => {
+							swal.fire("Eliminado!", "El usuario ha sido eliminado exitosamente", "success").then(() => {
 								this.getUsuariosRender();
 							});
 						}

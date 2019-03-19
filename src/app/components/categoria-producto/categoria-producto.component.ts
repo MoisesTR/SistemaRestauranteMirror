@@ -130,7 +130,7 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 		this.categoriaService.updateCategoriaProducto(this.categoriaProducto).subscribe(
 			response => {
 				if (response.success) {
-					swal("Categoría", "La categoría ha sido actualizada exitosamente!", "success").then(() => {
+					swal.fire("Categoría", "La categoría ha sido actualizada exitosamente!", "success").then(() => {
 						modal.hide();
 						this.formUpdateCategoria.reset();
 						this.categoriaProducto = new CategoriaProducto();
@@ -161,7 +161,7 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 	}
 
 	deleteCategoria(idCategoria) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "La categoria sera inhabilitada!",
 			type: "warning",
@@ -174,7 +174,7 @@ export class CategoriaProductoComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.categoriaService.deleteCategoriaProducto(idCategoria).subscribe(response => {
 					if (response.success) {
-						swal("Inhabilitada!", "La categoría ha sido inhabilitada exitosamente", "success").then(() => {
+						swal.fire("Inhabilitada!", "La categoría ha sido inhabilitada exitosamente", "success").then(() => {
 							this.getCategoriasRender();
 						});
 					}

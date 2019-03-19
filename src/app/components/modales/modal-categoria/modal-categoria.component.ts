@@ -82,7 +82,7 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 		this.categoriaService.createCategoriaProducto(this.categoriaProducto).subscribe(
 			response => {
 				if (response.IdCategoria) {
-					swal(this.tituloPantalla, "La categoría ha sido creada exitosamente!", "success").then(() => {
+					swal.fire(this.tituloPantalla, "La categoría ha sido creada exitosamente!", "success").then(() => {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});

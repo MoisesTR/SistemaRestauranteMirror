@@ -149,7 +149,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 
 		this.rolUsuarioService.createRolUsuario(this.rol).subscribe(response => {
 			if (response.IdRol) {
-				swal("Rol", "El Rol ha sido creado exitosamente!", "success").then(() => {
+				swal.fire("Rol", "El Rol ha sido creado exitosamente!", "success").then(() => {
 					Modal.hide();
 					this.formAddRolUsuario.reset();
 					this.rol = new RolUsuario();
@@ -165,7 +165,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 		this.rolUsuarioService.updateRol(this.rol).subscribe(
 			response => {
 				if (response.success) {
-					swal("Rol", "El rol ha sido actualizado exitosamente!", "success").then(() => {
+					swal.fire("Rol", "El rol ha sido actualizado exitosamente!", "success").then(() => {
 						this.modalUpdateRol.hide();
 						this.formUpdateRolUsuario.reset();
 						this.getRolesRender();
@@ -179,7 +179,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 
 	// deleteRolUsuario(IdRol){
 	//
-	//   swal({
+	//   swal.fire({
 	//     title: "Estas seguro(a)?",
 	//     text: "El rol sera eliminada permanentemente!",
 	//     type: 'warning',
@@ -192,7 +192,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 	//       this._RolusuarioService.deleteRol(IdRol).subscribe(
 	//         response =>{
 	//           if(response.success){
-	//             swal(
+	//             swal.fire(
 	//               'Eliminada!',
 	//               'El Rol ha sido eliminada exitosamente',
 	//               'success'
@@ -200,7 +200,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 	//              this.getRolRender();
 	//             })
 	//           } else {
-	//             swal(
+	//             swal.fire(
 	//               'Error inesperado',
 	//               'Ha ocurrido un error en la eliminación, intenta nuevamente!',
 	//               'error'
@@ -208,7 +208,7 @@ export class RolusuarioComponent implements OnInit, InvocarFormulario {
 	//           }
 	//         }, error =>{
 	//           if(error.status = 500){
-	//             swal(
+	//             swal.fire(
 	//               'Error inesperado',
 	//               'Ha ocurrido un error en el servidor, intenta nuevamente!',
 	//               'error'

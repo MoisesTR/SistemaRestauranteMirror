@@ -92,7 +92,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 	}
 
 	eliminarProducto(IdProducto) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "El producto sera eliminado!",
 			type: "warning",
@@ -105,11 +105,11 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.productoService.deleteProducto(IdProducto).subscribe(response => {
 					if (response.success) {
-						swal("Eliminado  !", "El producto ha sido eliminado exitosamente", "success").then(() => {
+						swal.fire("Eliminado  !", "El producto ha sido eliminado exitosamente", "success").then(() => {
 							this.getProductosRender();
 						});
 					} else {
-						swal("Error inesperado", "Ha ocurrido un error en la eliminación, intenta nuevamente!", "error");
+						swal.fire("Error inesperado", "Ha ocurrido un error en la eliminación, intenta nuevamente!", "error");
 					}
 				});
 			} else if (result.dismiss === swal.DismissReason.cancel) {

@@ -124,7 +124,7 @@ export class UpdateTrabajadorComponent implements OnInit {
 
 		this._trabajadorService.updateTrabajador(this.trabajador).subscribe(response => {
 			if (response.success) {
-				swal("Trabajador", "El trabajador ha sido actualizado exitosamente!", "success").then(() => {
+				swal.fire("Trabajador", "El trabajador ha sido actualizado exitosamente!", "success").then(() => {
 					this.formUpdateTrabajador.reset();
 					this._router.navigate(["/trabajador"]);
 				});

@@ -72,7 +72,7 @@ export class ModalEmpaqueComponent implements OnInit, EventoModal, OnDestroy {
 		this.empaqueService.createEmpaque(this.empaque).subscribe(
 			response => {
 				if (response.IdEmpaque) {
-					swal(this.tituloPantalla, "El Empaque ha sido creado exitosamente!", "success").then(() => {
+					swal.fire(this.tituloPantalla, "El Empaque ha sido creado exitosamente!", "success").then(() => {
 						this.resetAndHideModal();
 						this.resultadoConsulta.emit(true);
 					});

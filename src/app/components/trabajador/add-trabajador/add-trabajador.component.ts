@@ -226,7 +226,7 @@ export class AddTrabajadorComponent implements OnInit {
 		this.trabajadorService.createTrabajador(this.trabajador).subscribe(
 			response => {
 				if (response.IdTrabajador) {
-					swal("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
+					swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
 						this.modalUsuario.show();
 					});
 				}

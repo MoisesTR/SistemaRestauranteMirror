@@ -644,7 +644,7 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	agregarOtraFactura() {
-		swal({
+		swal.fire({
 			title: "La factura se ha creado correctamente!",
 			text: "Deseas crear otra factura?",
 			type: "success",

@@ -164,7 +164,7 @@ export class UnidadmedidaComponent implements OnInit {
 		this.unidadMedidaService.updateUnidadMedida(this.unidadMedida).subscribe(
 			response => {
 				if (response.success) {
-					swal(this.tituloPantalla, "La unidad ha sido actualizada exitosamente!", "success").then(() => {
+					swal.fire(this.tituloPantalla, "La unidad ha sido actualizada exitosamente!", "success").then(() => {
 						this.modalUpdateUnidadMedida.hide();
 						this.formUpdateUnidadMedida.reset();
 						this.getUnidadesMedidaRender();
@@ -205,7 +205,7 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	deleteUnidadMedida(idUnidad) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "La unidad de medida sera inhabilitada!",
 			type: "warning",
@@ -218,7 +218,7 @@ export class UnidadmedidaComponent implements OnInit {
 			if (result.value) {
 				this.unidadMedidaService.deleteUnidadMedida(idUnidad).subscribe(response => {
 					if (response.success) {
-						swal(this.tituloPantalla, "La unidad de medida ha sido inhabilitada exitosamente", "success").then(() => {
+						swal.fire(this.tituloPantalla, "La unidad de medida ha sido inhabilitada exitosamente", "success").then(() => {
 							this.getUnidadesMedidaRender();
 						});
 					}

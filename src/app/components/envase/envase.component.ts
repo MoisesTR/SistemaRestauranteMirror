@@ -148,7 +148,7 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 		this.envaseService.updateEnvase(this.envase).subscribe(
 			response => {
 				if (response.success) {
-					swal(this.tituloPantalla, "El envase ha sido actualizado exitosamente!", "success").then(() => {
+					swal.fire(this.tituloPantalla, "El envase ha sido actualizado exitosamente!", "success").then(() => {
 						this.modalUpdateEnvase.hide();
 						this.formUpdateEnvase.reset();
 						this.getEnvasesRender();
@@ -166,7 +166,7 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 	}
 
 	deleteEnvase(idEnvase) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "El envase sera inhabilitado!",
 			type: "warning",
@@ -179,7 +179,7 @@ export class EnvaseComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.envaseService.deleteEnvase(idEnvase).subscribe(response => {
 					if (response.success) {
-						swal(this.tituloPantalla, "El envase ha sido inhabilitado exitosamente", "success").then(() => {
+						swal.fire(this.tituloPantalla, "El envase ha sido inhabilitado exitosamente", "success").then(() => {
 							this.getEnvasesRender();
 						});
 					} else {

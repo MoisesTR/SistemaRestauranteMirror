@@ -97,7 +97,7 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 	}
 
 	deleteProveedor(IdProveedor) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "El proveedor sera eliminado permanentemente!",
 			type: "warning",
@@ -110,7 +110,7 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.proveedorService.deleteProveedor(IdProveedor).subscribe(response => {
 					if (response.success) {
-						swal("Eliminado!", "El proveedor ha sido eliminado exitosamente", "success").then(() => {
+						swal.fire("Eliminado!", "El proveedor ha sido eliminado exitosamente", "success").then(() => {
 							this.getProveedoresRender();
 						});
 					}

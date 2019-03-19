@@ -202,7 +202,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 		this.sucursalService.createSucursal(this.sucursal).subscribe(response => {
 			if (response.IdSucursal) {
-				swal(this.tituloPantalla, "la Sucursal ha sido creada exitosamente!", "success").then(() => {
+				swal.fire(this.tituloPantalla, "la Sucursal ha sido creada exitosamente!", "success").then(() => {
 					Modal.hide();
 					this.formAddSucursal.reset();
 					this.getSucursalesRender();
@@ -217,8 +217,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		this.sucursalService.updateSucursal(this.sucursal).subscribe(
 			response => {
 				if (response.success) {
-					swal("Sucursal", "La sucursal ha sido actualizada exitosamente!", "success")
-						.catch(swal.noop)
+					swal.fire("Sucursal", "La sucursal ha sido actualizada exitosamente!", "success")
 						.then(() => {
 							Modal.hide();
 							this.formUpdateSucursal.reset();
@@ -231,7 +230,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 	}
 
 	deleteSucursal(IdSucursal) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "La sucursal sera eliminada!",
 			type: "warning",
@@ -244,7 +243,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 			if (result.value) {
 				this.sucursalService.deleteSucursal(IdSucursal).subscribe(response => {
 					if (response.success) {
-						swal("Eliminada!", "La sucursal ha sido eliminada exitosamente", "success").then(() => {
+						swal.fire("Eliminada!", "La sucursal ha sido eliminada exitosamente", "success").then(() => {
 							this.getSucursalesRender();
 						});
 					}

@@ -123,8 +123,7 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 		this.empaqueService.updateEmpaque(this.empaque).subscribe(
 			response => {
 				if (response.success) {
-					swal("Empaque", "El empaque ha sido actualizado exitosamente!", "success")
-						.catch(swal.noop)
+					swal.fire("Empaque", "El empaque ha sido actualizado exitosamente!", "success")
 						.then(() => {
 							modal.hide();
 							this.formUpdateEmpaque.reset();
@@ -148,7 +147,7 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 	}
 
 	deleteEmpaque(idEmpaque) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "El empaque sera inhabilitado!",
 			type: "warning",
@@ -161,7 +160,7 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.empaqueService.deleteEmpaque(idEmpaque).subscribe(response => {
 					if (response.success) {
-						swal("Inhabilitado!", "El empaque ha sido inhabilitado exitosamente", "success").then(() => {
+						swal.fire("Inhabilitado!", "El empaque ha sido inhabilitado exitosamente", "success").then(() => {
 							this.getEmpaquesRender();
 						});
 					} else {

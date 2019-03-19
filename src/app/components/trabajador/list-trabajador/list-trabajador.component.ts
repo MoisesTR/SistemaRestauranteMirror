@@ -87,7 +87,7 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 	}
 
 	deleteTrabajador(IdTrabajador) {
-		swal({
+		swal.fire({
 			title: "Estas seguro(a)?",
 			text: "El trabajador sera eliminado!",
 			type: "warning",
@@ -100,7 +100,7 @@ export class ListTrabajadorComponent implements OnInit, OnDestroy {
 			if (result.value) {
 				this.trabajadorService.deleteTrabajador(IdTrabajador).subscribe(response => {
 					if (response.success) {
-						swal("Eliminado!", "El trabajador ha sido eliminado exitosamente", "success").then(() => {
+						swal.fire("Eliminado!", "El trabajador ha sido eliminado exitosamente", "success").then(() => {
 							this.getTrabajadoresRender();
 						});
 					}

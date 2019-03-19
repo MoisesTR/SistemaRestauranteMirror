@@ -413,21 +413,25 @@ export class AddProductoComponent implements OnInit {
 	validarCamposProductos() {
 		if (this.producto.IdEmpaque && !this.formAddProducto.value.cantidadEmpaque) {
 			Utils.showMsgInfo("La cantidad de empaque es requerida!");
+			this.peticionEnCurso = false;
 			return false;
 		}
 
 		if (!this.producto.IdEmpaque && this.formAddProducto.value.cantidadEmpaque) {
 			Utils.showMsgInfo("El empaque es requerido!");
+            this.peticionEnCurso = false;
 			return false;
 		}
 
 		if (this.producto.IdUnidadMedida && !this.formAddProducto.value.valorunidadmedida) {
 			Utils.showMsgInfo("El valor de la unidad de medida es requerida!");
+            this.peticionEnCurso = false;
 			return false;
 		}
 
 		if (!this.producto.IdUnidadMedida && this.formAddProducto.value.valorunidadmedida) {
 			Utils.showMsgInfo("La unidad de medida es requerida!");
+            this.peticionEnCurso = false;
 			return false;
 		}
 

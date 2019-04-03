@@ -5,6 +5,8 @@ export class Sucursal {
 	public IdBodega: number;
 	public Principal: number;
 	public NombSucursal: string;
+	public NombRestaurante: string;
+	public IdRestaurante: number;
 	public Direccion: string;
 	public Telefono1: string;
 	public Telefono2: string;

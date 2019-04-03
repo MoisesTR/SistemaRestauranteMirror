@@ -3,6 +3,8 @@ import { Global } from './global';
 import 'rxjs/add/operator/map';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import {Restaurante} from '@app/models/Restaurante';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class SettingRestauranteService {
@@ -15,21 +17,25 @@ export class SettingRestauranteService {
     this.url = Global.url;
   }
 
-  createdRestaurante(Restaurante): Observable<any> {
+  createdRestaurante(restaurante): Observable<any> {
 
-    const params = JSON.stringify(Restaurante);
+    const params = JSON.stringify(restaurante);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this._http.post(this.url + 'restaurantes', params, { headers: headers });
   }
 
-  getRestaurante(IdRestaurantes): Observable<any> {
-    return this._http.get(this.url + 'restaurantes/' + IdRestaurantes);
+  getRestaurante(IdRestaurante): Observable<any> {
+    return this._http.get(this.url + 'restaurantes/' + IdRestaurante);
   }
 
-  updateRestaurante(IdRestaurantes, Restaurante): Observable<any> {
+  getRestaurantes(habilitado = 1): Observable<any> {
+      return this._http.get(this.url + 'restaurantes?Habilitado=' + habilitado);
+  }
 
-    const params = JSON.stringify(Restaurante);
+  updateRestaurante(IdRestaurantes, restaurante): Observable<any> {
+
+    const params = JSON.stringify(restaurante);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'token'

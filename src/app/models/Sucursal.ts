@@ -12,7 +12,6 @@ export class Sucursal {
 	public Telefono2: string;
 	public NumeroTelefono: number;
 	public Habilitado: number;
-	public IdRestaurante: number;
 	public Telefono: TelefonoSucursal[];
 	public disabled: number;
 

@@ -25,6 +25,7 @@ import {GastoModule} from '@app/components/gastos/gasto.module';
 import {ConsumoInternoComponent} from '../consumo-interno/consumo-interno.component';
 import {ModalModule} from '@app/components/modales/modal.module';
 import {ConsolidadoComponent} from '../consolidado/consolidado.component';
+import {TestuiComponent} from '@app/components/testui/testui.component';
 
 @NgModule({
 	imports: [
@@ -39,24 +40,25 @@ import {ConsolidadoComponent} from '../consolidado/consolidado.component';
 		UsuarioModule
 	],
 	declarations: [
-		CategoriaProductoComponent,
-		ClasificacionProductoComponent,
-		SubClasificacionProductoComponent,
-		SucursalComponent,
-		EnvaseComponent,
-		EmpaqueComponent,
-		SucursalComponent,
-		CargoComponent,
-		GaleriaProductosProveedoresComponent,
-		RolusuarioComponent,
-		UnidadmedidaComponent,
-		DashBoardComponent,
-		InicioComponent,
-		SalidaProductoComponent,
-		ReportesComponent,
-		ConfiguracionComponent,
-		ConsumoInternoComponent,
-		ConsolidadoComponent
+		CategoriaProductoComponent
+		, ClasificacionProductoComponent
+		, SubClasificacionProductoComponent
+		, SucursalComponent
+		, EnvaseComponent
+		, EmpaqueComponent
+		, SucursalComponent
+		, CargoComponent
+		, GaleriaProductosProveedoresComponent
+		, RolusuarioComponent
+		, UnidadmedidaComponent
+		, DashBoardComponent
+		, InicioComponent
+		, SalidaProductoComponent
+		, ReportesComponent
+		, ConfiguracionComponent
+		, ConsumoInternoComponent
+		, ConsolidadoComponent
+        , TestuiComponent
 	],
 	exports: [],
 	schemas: [NO_ERRORS_SCHEMA]

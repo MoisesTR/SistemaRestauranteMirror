@@ -61,7 +61,7 @@ export class SummaryGastosComponent implements OnInit {
 
 	ngOnInit() {
 		this.initFormBusquedaGasto();
-		this.getClasificacionGasto();
+		// this.getClasificacionGasto();
 		this.getSucursales();
 	}
 

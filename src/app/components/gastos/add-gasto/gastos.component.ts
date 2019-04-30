@@ -37,7 +37,6 @@ export class GastosComponent implements OnInit {
 
 	ngOnInit() {
 		this.initFormAddGasto();
-		this.getClasificaciones();
 		this.getSucursales();
 		this.gasto = new Gasto();
 	}
@@ -86,41 +85,32 @@ export class GastosComponent implements OnInit {
 	}
 
 	changeClasificacion(event) {
-		if (Utils.notNullOrUndefined(event)) {
-			this.idClasificacionSeleccionado = event.IdClasificacion;
-			this.gasto.IdClasificacion = this.idClasificacionSeleccionado;
-			this.getSubclasificacionByIdClasificacion();
-		} else {
-			this.idClasificacionSeleccionado = null;
-			this.idSubClasificacionSeleccionado = null;
-			this.subclasificaciones = [];
-			this.formAddGasto.controls["subclasificacion"].setValue("");
-		}
+
 	}
 
 	changeSubclasificacion(event) {
-		if (Utils.notNullOrUndefined(event)) {
-			this.idSubClasificacionSeleccionado = event.IdSubClasificacion;
-			this.gasto.IdSubClasificacion = this.idSubClasificacionSeleccionado;
-			if (this.gasto.IdClasificacion === 2 && this.gasto.IdSubClasificacion !== 3) {
-				this.formAddGasto.controls["consumo"].setValidators([Validators.required]);
-				this.formAddGasto.controls["consumo"].setValue(null);
-				this.formAddGasto.controls["consumo"].enable();
-				this.formAddGasto.controls["consumo"].updateValueAndValidity();
-			} else {
-				this.formAddGasto.controls["consumo"].clearValidators();
-				this.formAddGasto.controls["consumo"].setValue(null);
-				this.formAddGasto.controls["consumo"].disable();
-				this.formAddGasto.controls["consumo"].updateValueAndValidity();
-			}
-		} else {
-			this.idSubClasificacionSeleccionado = null;
-			this.gasto.IdSubClasificacion = this.idSubClasificacionSeleccionado;
-			this.formAddGasto.controls["consumo"].clearValidators();
-			this.formAddGasto.controls["consumo"].setValue(null);
-			this.formAddGasto.controls["consumo"].disable();
-			this.formAddGasto.controls["consumo"].updateValueAndValidity();
-		}
+		// if (Utils.notNullOrUndefined(event)) {
+		// 	this.idSubClasificacionSeleccionado = event.IdSubClasificacion;
+		// 	this.gasto.IdSubClasificacion = this.idSubClasificacionSeleccionado;
+		// 	if (this.gasto.IdClasificacion === 2 && this.gasto.IdSubClasificacion !== 3) {
+		// 		this.formAddGasto.controls["consumo"].setValidators([Validators.required]);
+		// 		this.formAddGasto.controls["consumo"].setValue(null);
+		// 		this.formAddGasto.controls["consumo"].enable();
+		// 		this.formAddGasto.controls["consumo"].updateValueAndValidity();
+		// 	} else {
+		// 		this.formAddGasto.controls["consumo"].clearValidators();
+		// 		this.formAddGasto.controls["consumo"].setValue(null);
+		// 		this.formAddGasto.controls["consumo"].disable();
+		// 		this.formAddGasto.controls["consumo"].updateValueAndValidity();
+		// 	}
+		// } else {
+		// 	this.idSubClasificacionSeleccionado = null;
+		// 	this.gasto.IdSubClasificacion = this.idSubClasificacionSeleccionado;
+		// 	this.formAddGasto.controls["consumo"].clearValidators();
+		// 	this.formAddGasto.controls["consumo"].setValue(null);
+		// 	this.formAddGasto.controls["consumo"].disable();
+		// 	this.formAddGasto.controls["consumo"].updateValueAndValidity();
+		// }
 	}
 
 	createGasto() {

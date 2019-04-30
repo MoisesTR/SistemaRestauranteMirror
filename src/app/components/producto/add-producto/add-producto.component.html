@@ -111,12 +111,11 @@
 
                             <div class="col-12 col-sm-7 col-md-7 mt-3">
                                 <label for="subclasificacion" class="grey-text-card">Subclasificación</label>
-                                <ng-select [items]="subclasificaciones" bindLabel="NombSubClasificacion"
-                                    bindValue="IdSubClasificacion" placeholder="Selecciona una subclasificacion"
-                                    [searchFn]="customSearchFn" formControlName="subclasificacion" id="subclasificacion"
-                                    (change)="onChangeSubclasificacion($event)">
+                                <ng-select
+                                   placeholder="Selecciona una subclasificacion"
+                                    id="subclasificacion"
+                                    >
                                 </ng-select>
-                                <show-errors [control]="formAddProducto.controls['subclasificacion']"></show-errors>
                             </div>
 
                             <div class="col-12 col-sm-5 col-md-2 mts-2 text-center">
@@ -303,8 +302,6 @@
 <modal-categoria (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
 <modal-clasificacion [idCategoria]="producto.IdCategoria" (resultadoConsulta)="resultadoConsultaClasificacion($event)">
 </modal-clasificacion>
-<modal-subclasificacion [idClasificacion]="producto.IdClasificacion"
-    (resultadoConsulta)="resultadoConsultaSubclasificacion($event)"></modal-subclasificacion>
 <modal-empaque (resultadoConsulta)="resultQueryEmpaque($event)"></modal-empaque>
 <modal-envase (resultadoConsulta)="resultQueryEnvase($event)"></modal-envase>
 <modal-unidad-medida (resultadoConsulta)="resultQueryUnidadMedida($event)"></modal-unidad-medida>

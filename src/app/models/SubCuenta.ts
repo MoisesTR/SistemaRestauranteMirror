@@ -1,4 +1,4 @@
-export class  ContabilidadSubCuenta {
+export class  SubCuenta {
 
     public NumCuenta: string;
     public NumSubCuenta: string;

@@ -5,6 +5,7 @@ import {MenuService, PersistenciaDatoService, UsuarioService} from '@app/core/se
 import {Menu} from '@app/models/Menu';
 import {Global} from '@app/core/services/shared/global';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Utils} from '@app/components/Utils';
 
 @Component({
 	selector: "app-menu",
@@ -35,7 +36,7 @@ export class MenuComponent implements OnInit {
 		this.url = Global.url;
 		this.menues = [];
 		this.getMenuesByIdRol(this.usuario.IdRol);
-		// this.scroll();asdadqwewqeqw
+		// this.scroll();
 	}
 
 	// scroll() {
@@ -67,9 +68,12 @@ export class MenuComponent implements OnInit {
 	getMenuesByIdRol(IdRol) {
 		this.menuService.getMenuesByIdRol(IdRol).subscribe(
 			response => {
-				if (response.Menues) {
-					this.menues = response.Menues;
-				}
+
+			    if (response) {
+                    this.menues = response.Menues;
+                } else {
+                    Utils.showMsgInfo('Este usuario no tiene pantallas asignadas a su rol');
+                }
 			},
 			() => {
 				this.spinner.hide();

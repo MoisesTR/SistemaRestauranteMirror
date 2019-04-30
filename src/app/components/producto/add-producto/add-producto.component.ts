@@ -1,32 +1,30 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {
-	CategoriaProductoService,
-	ClasificacionProductoService,
-	EmpaqueService,
-	EnvaseService,
-	PreviousRouteService,
-	ProductoProveedorService,
-	ProductoService,
-	ProveedorService,
-	SubClasificacionProductoService,
-	UnidadMedidaService,
-	UploadService
-} from "@app/core/service.index";
-import { Producto } from "@app/models/Producto";
-import { Proveedor } from "@app/models/Proveedor";
-import { CategoriaProducto } from "@app/models/CategoriaProducto";
-import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
-import { CustomValidators } from "@app/validadores/CustomValidators";
-import { Envase } from "@app/models/Envase";
-import { Empaque } from "@app/models/Empaque";
-import { ProductoProveedor } from "@app/models/ProductoProveedor";
-import { SubClasificacionProducto } from "@app/models/SubClasificacionProducto";
-import { UnidadMedida } from "@app/models/UnidadMedida";
-import { Utils } from "../../Utils";
-import swal from "sweetalert2";
-import { CARPETA_PRODUCTOS, Global } from "@app/core/services/shared/global";
+    CategoriaProductoService,
+    ClasificacionProductoService,
+    EmpaqueService,
+    EnvaseService,
+    PreviousRouteService,
+    ProductoProveedorService,
+    ProductoService,
+    ProveedorService,
+    UnidadMedidaService,
+    UploadService
+} from '@app/core/service.index';
+import {Producto} from '@app/models/Producto';
+import {Proveedor} from '@app/models/Proveedor';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
+import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
+import {CustomValidators} from '@app/validadores/CustomValidators';
+import {Envase} from '@app/models/Envase';
+import {Empaque} from '@app/models/Empaque';
+import {ProductoProveedor} from '@app/models/ProductoProveedor';
+import {UnidadMedida} from '@app/models/UnidadMedida';
+import {Utils} from '../../Utils';
+import swal from 'sweetalert2';
+import {CARPETA_PRODUCTOS, Global} from '@app/core/services/shared/global';
 
 declare var $: any;
 
@@ -42,7 +40,6 @@ export class AddProductoComponent implements OnInit {
 	public proveedores: Proveedor[];
 	public categorias: CategoriaProducto[];
 	public clasificaciones: ClasificacionProducto[];
-	public subclasificaciones: SubClasificacionProducto[];
 	public envases: Envase[];
 	public empaques: Empaque[];
 	public unidades: UnidadMedida[];
@@ -62,7 +59,6 @@ export class AddProductoComponent implements OnInit {
 		private proveedorService: ProveedorService,
 		private categoriaService: CategoriaProductoService,
 		private clasificacionService: ClasificacionProductoService,
-		private subclasificacionService: SubClasificacionProductoService,
 		private empaqueService: EmpaqueService,
 		private envaseService: EnvaseService,
 		private unidadService: UnidadMedidaService,
@@ -129,7 +125,6 @@ export class AddProductoComponent implements OnInit {
 			proveedor: new FormControl(null, [Validators.required]),
 			categoria: new FormControl(null, [Validators.required]),
 			clasificacion: new FormControl(null, [Validators.required]),
-			subclasificacion: new FormControl(null, [Validators.required]),
 			empaque: new FormControl(null, []),
 			envase: new FormControl(null, []),
 			unidadmedida: new FormControl(null, [Validators.required]),
@@ -163,15 +158,8 @@ export class AddProductoComponent implements OnInit {
 	onChangeClasificacion(event) {
 		if (!event) {
 			this.producto.IdClasificacion = null;
-			this.resetSelectSubClasificacion();
 		} else {
 			this.producto.IdClasificacion = event.IdClasificacion;
-			this.resetSelectSubClasificacion();
-			this.subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(response => {
-				if (response.subclasificaciones) {
-					this.subclasificaciones = response.subclasificaciones;
-				}
-			});
 		}
 	}
 
@@ -179,11 +167,9 @@ export class AddProductoComponent implements OnInit {
 		if (!event) {
 			this.producto.IdCategoria = null;
 			this.resetSelectClasificacion();
-			this.resetSelectSubClasificacion();
 		} else {
 			this.producto.IdCategoria = event.IdCategoria;
 			this.resetSelectClasificacion();
-			this.resetSelectSubClasificacion();
 			this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(response => {
 				if (response.clasificaciones) {
 					this.clasificaciones = response.clasificaciones;
@@ -195,11 +181,6 @@ export class AddProductoComponent implements OnInit {
 	resetSelectClasificacion() {
 		this.clasificaciones = [];
 		this.formAddProducto.controls["clasificacion"].setValue(null);
-	}
-
-	resetSelectSubClasificacion() {
-		this.subclasificaciones = [];
-		this.formAddProducto.controls["subclasificacion"].setValue(null);
 	}
 
 	changeConsumoDirecto(event) {
@@ -274,14 +255,6 @@ export class AddProductoComponent implements OnInit {
 		}
 	}
 
-	onChangeSubclasificacion(event) {
-		if (!event) {
-			this.producto.IdSubClasificacion = null;
-		} else {
-			this.producto.IdSubClasificacion = event.IdSubClasificacion;
-		}
-	}
-
 	onChangeUnidadMedida(event) {
 		if (!event) {
 			this.producto.IdUnidadMedida = null;
@@ -306,13 +279,13 @@ export class AddProductoComponent implements OnInit {
 		}
 	}
 
-	customSearchFn(term: string, item: SubClasificacionProducto) {
-		term = term.toLocaleLowerCase();
-		return (
-			item.NombSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 ||
-			item.DescSubClasificacion.toLocaleLowerCase() === term
-		);
-	}
+	// customSearchFn(term: string, item: SubClasificacionProducto) {
+    // 	// 	term = term.toLocaleLowerCase();
+    // 	// 	return (
+    // 	// 		item.NombSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 ||
+    // 	// 		item.DescSubClasificacion.toLocaleLowerCase() === term
+    // 	// 	);
+    // 	// }
 
 	guardarImagenProducto() {
 		this.peticionEnCurso = true;
@@ -476,20 +449,6 @@ export class AddProductoComponent implements OnInit {
 		}
 	}
 
-	resultadoConsultaSubclasificacion(event) {
-		if (event) {
-			if (Utils.notNullOrUndefined(this.producto.IdClasificacion)) {
-				this.subclasificacionService
-					.getSubClasificacionesByIdClasificacion(this.producto.IdClasificacion)
-					.subscribe(response => {
-						if (response.subclasificaciones) {
-							this.subclasificaciones = response.subclasificaciones;
-						}
-					});
-			}
-		}
-	}
-
 	resultQueryEmpaque(event) {
 		if (event) {
 			this.empaqueService.getEmpaques(1).subscribe(response => {
@@ -552,10 +511,6 @@ export class AddProductoComponent implements OnInit {
 
 	showModalClasificacion() {
 		this.clasificacionService.mostrarModal();
-	}
-
-	showModalSubClasificacion() {
-		this.subclasificacionService.mostrarModal();
 	}
 
 	showModalEmpaque() {

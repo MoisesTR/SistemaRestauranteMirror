@@ -1,8 +1,7 @@
-export class ContabilidadClaseCuenta {
-
+export class GrupoCuenta {
+	public IdGrupo: number;
 	public IdClasCuenta: number;
-	public NombClasC: string;
-	public DescClasC: string;
+	public NombGrupo: string;
 	public Habilitado: boolean;
 	public CreatedAt: Date;
 	public UpdatedAt: Date;

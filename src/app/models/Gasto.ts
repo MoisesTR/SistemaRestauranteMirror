@@ -13,7 +13,7 @@ export class Gasto {
     public Habilitado: boolean;
     public IdSucursal: number;
     public Consumo: number;
-    public NombreSucursal; string;
+    public NombSucursal; string;
 
     constructor() {}
 }

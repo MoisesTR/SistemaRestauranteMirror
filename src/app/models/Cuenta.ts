@@ -1,4 +1,4 @@
-export class ContabilidadCuenta {
+export class Cuenta {
 	public IdCuenta: number;
 	public IdClasCuenta: number;
 	public IdGrupo: number;

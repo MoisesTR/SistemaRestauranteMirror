@@ -42,7 +42,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 					}
 				},
 				() => {
-					if (this.spinnerService.status.value) this.spinnerService.display(false);
+					// if (this.spinnerService.status.value) this.spinnerService.display(false);
 				}
 			)
 		);

@@ -37,7 +37,10 @@ import {
 	SettingRestauranteService,
 	PaisService,
 	TipoInsumoService,
-	FacturacionMonedaService
+	FacturacionMonedaService,
+	GrupoCuentaServiceService,
+	CuentaServiceService,
+	SubCuentaServiceService
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -103,6 +106,9 @@ import {GlobalErrorHandlerService} from '@app/core/services/shared/global-error-
 		LoginGuardService,
 		TipoInsumoService,
 		FacturacionMonedaService,
+		GrupoCuentaServiceService,
+		CuentaServiceService,
+		SubCuentaServiceService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: HttpInterceptorService,

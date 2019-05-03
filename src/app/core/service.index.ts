@@ -1,3 +1,6 @@
+import {GrupoCuentaServiceService} from "@app/core/services/shared/grupo-cuenta-service.service";
+import {CuentaServiceService} from "@app/core/services/shared/cuenta-service.service";
+
 export {BodegaSucursalService} from './services/shared/bodega-sucursal.service';
 export {CargoService} from './services/shared/cargo.service';
 export {CategoriaProductoService} from './services/shared/categoria-producto.service';
@@ -34,5 +37,8 @@ export {LoginGuardService} from './services/auth/login-guard.service';
 export {SettingRestauranteService} from './services/shared/settings-restaurante.service';
 export {PaisService} from './services/shared/pais.service';
 export {TipoInsumoService} from './services/shared/tipo-insumo.service';
-export {FacturacionMonedaService} from './services/shared/facturacion-moneda.service';
+export {FacturacionMonedaService} from  './services/shared/facturacion-moneda.service';
+export {GrupoCuentaServiceService} from './services/shared/grupo-cuenta-service.service';
+export {CuentaServiceService} from './services/shared/cuenta-service.service';
+export {SubCuentaServiceService} from './services/shared/sub-cuenta-service.service';
 

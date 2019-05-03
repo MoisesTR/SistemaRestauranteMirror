@@ -16,12 +16,19 @@
 
                             <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
                                     <div class="md-form md-outline">
                                         <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor" class="form-control letras" autocomplete="off">
                                         <show-errors [control]="formAddProveedor.controls['nombreProveedor']">
                                         </show-errors>
                                         <label for="nombreProveedor">Nombre Empresa</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="nombreAbreviado" class="form-control letras" autocomplete="off">
+                                        <label for="nombreAbreviado">Nombre Abreviado</label>
                                     </div>
                                 </div>
 

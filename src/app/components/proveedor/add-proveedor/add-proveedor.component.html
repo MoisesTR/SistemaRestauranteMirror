@@ -161,7 +161,7 @@
                                     </td>
                                     <td>
                                         <div class="text-center">
-                                            <button mdbBtn type="button" (click)="eliminarTelefono(contacto,i)" size="sm" class="orange-chang" mdbTooltip="Eliminar contacto">
+                                            <button mdbBtn type="button" (click)="eliminarTelefono(contacto,i)" size="sm" class="orange-chang white-text" mdbTooltip="Eliminar contacto">
                                                 <mdb-icon far icon="trash-alt"></mdb-icon>
                                             </button>
                                         </div>
@@ -250,10 +250,10 @@
 
                 <!--Footer-->
                 <div class="modal-footer justify-content-end">
-                    <button mdbBtn size="sm" mdbWavesEffect class="orange-chang" (click)="modalAgendaTelefonica.hide()">
+                    <button mdbBtn size="sm" mdbWavesEffect class="orange-chang white-text" (click)="modalAgendaTelefonica.hide()">
                         Cerrar
                     </button>
-                    <button mdbBtn size="sm" type="submit" [disabled]="!formAddTelefonos.valid" (click)="agregarContacto()" mdbWavesEffect class="orange-chang">Agregar
+                    <button mdbBtn size="sm" type="submit" [disabled]="!formAddTelefonos.valid" (click)="agregarContacto()" mdbWavesEffect class="orange-chang white-text">Agregar
                     </button>
                 </div>
 

@@ -44,16 +44,12 @@ export class UpdateFacturaComponent implements OnInit {
 	public subTotalFactura = 0;
 	public ivaCalculoFactura = 0;
 	public descuentoCalculoFactura = 0;
-	public retencionCalculoFactura = 0;
 	public usuario: Usuario;
 	public factura: Factura;
 	public valorIva: number;
-	public valorRetencion = 0.02;
 	public totalFactura = 0;
 	public formatoComaDinero;
-	public aplicaRetencion = false;
 	public url: string;
-	public tieneRetencion = false;
 	public IdMonedaSeleccionada: number;
 	public IdFormaPagoSeleccionado: number;
 	public simboloMonedaUtilizado: string;
@@ -132,7 +128,6 @@ export class UpdateFacturaComponent implements OnInit {
 		this.subtotalFacturaConDescuento = this.factura.SubTotal + this.factura.TotalDescuento;
 		this.ivaCalculoFactura = this.factura.TotalIva;
 		this.totalFactura = this.factura.TotalCordobas;
-		this.retencionCalculoFactura = 0;
 	}
 
 	setDataFormUpdateDetailFactura() {}
@@ -167,8 +162,7 @@ export class UpdateFacturaComponent implements OnInit {
 
 	initFormUpdateDetailFactura() {
 		this.formDetallesFactura = this._formBuilderFactura.group({
-			checkDescuentoGeneral: new FormControl("", []),
-			retencion: new FormControl(false, [])
+			checkDescuentoGeneral: new FormControl("", [])
 		});
 	}
 
@@ -188,7 +182,6 @@ export class UpdateFacturaComponent implements OnInit {
 		this.factura.CambioActual = 31.5;
 		this.factura.TotalDescuento = this.descuentoCalculoFactura;
 		this.factura.TotalCordobas = this.totalFactura;
-		this.factura.Retencion = this.tieneRetencion === true ? 1 : 0;
 	}
 
 	editarDatosProducto() {
@@ -220,13 +213,11 @@ export class UpdateFacturaComponent implements OnInit {
 			this.productos = null;
 			this.productosFactura = [];
 			this.subtotalFacturaConDescuento = 0;
-			this.tieneRetencion = false;
 		} else {
 			this.proveedor.IdProveedor = event.IdProveedor;
 			this.factura.IdProveedor = event.IdProveedor;
 			this.productosFactura = [];
 			this.getProductosOfProveedor(event.IdProveedor);
-			this.tieneRetencion = event.Retencion2;
 		}
 	}
 
@@ -343,20 +334,6 @@ export class UpdateFacturaComponent implements OnInit {
 		});
 	}
 
-	aplicarRetencion() {
-		let retencion = 0;
-		this.factura.aplicaRetencion = this.formDetallesFactura.value.retencion === false ? 1 : 0;
-
-		if (this.factura.aplicaRetencion && this.subTotalFactura > 1000) {
-			retencion = this.subTotalFactura * this.valorRetencion;
-			this.retencionCalculoFactura = retencion;
-			this.totalFactura = this.subTotalFactura + this.ivaCalculoFactura - this.descuentoCalculoFactura - retencion;
-		} else {
-			this.retencionCalculoFactura = 0;
-			this.totalFactura = this.subTotalFactura + this.ivaCalculoFactura - this.descuentoCalculoFactura;
-		}
-	}
-
 	eliminarProductoDeFactura(productoFactura: ProductoProveedor) {
 		this.productos.push(productoFactura);
 		this.calcularSubtotalFactura(productoFactura, "RESTA");
@@ -442,14 +419,5 @@ export class UpdateFacturaComponent implements OnInit {
 			}
 		}
 
-		let retencion = 0;
-
-		if (this.factura.aplicaRetencion && this.subTotalFactura > 1000) {
-			retencion = this.subTotalFactura * this.valorRetencion;
-			this.retencionCalculoFactura = retencion;
-			this.totalFactura = this.subTotalFactura + this.ivaCalculoFactura - this.descuentoCalculoFactura - retencion;
-		} else {
-			this.totalFactura = this.subTotalFactura + this.ivaCalculoFactura - this.descuentoCalculoFactura;
-		}
 	}
 }

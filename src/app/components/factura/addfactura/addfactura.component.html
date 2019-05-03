@@ -357,32 +357,31 @@
                         <div class="col-lg-2 col-md-2 col-sm-6 col-6 text-lg-right text-md-right text-sm-center text-center">
                             <form>
                                 <div class="">
-                                    <label>{{subTotalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
+                                    <label>{{factura.SubTotal | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
                                 </div>
                                 <div class="">
-                                    <label>{{descuentoCalculoFactura | number : '1.2-2'}}
+                                    <label>{{factura.DescuentoCalculoFactura | number : '1.2-2'}}
                                         {{simboloMonedaUtilizado}}</label>
                                 </div>
                                 <div class="">
-                                    <label>{{subtotalFacturaConDescuento | number : '1.2-2'}} {{simboloMonedaUtilizado
+                                    <label>{{factura.SubtotalFacturaConDescuento | number : '1.2-2'}} {{simboloMonedaUtilizado
                                         }}</label>
                                 </div>
                                 <div class="">
-                                    <label>{{ivaCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
+                                    <label>{{factura.IvaCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
                                 </div>
                                 <div class="">
-                                    <label>{{totalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
+                                    <label>{{factura.TotalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
                                 </div>
                                 <div class="">
                                     <label>
-                                        {{formAddFactura.controls['totalFacturaOrigen'].value | number : '1.2-2'}}
+                                        {{factura.TotalOrigenFactura | number : '1.2-2'}}
                                         {{simboloMonedaUtilizado}}
                                     </label>
                                 </div>
                                 <div class="">
                                     <label>
-                                        {{totalFactura - formAddFactura.controls['totalFacturaOrigen'].value | number :
-                                        '1.2-2'}} {{simboloMonedaUtilizado}}
+                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}} {{simboloMonedaUtilizado}}
                                     </label>
                                 </div>
                             </form>

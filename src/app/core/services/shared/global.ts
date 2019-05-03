@@ -15,6 +15,9 @@ export const CARPETA_USUARIOS = 'usuarios';
 export const CARPETA_TRABAJADORES = 'trabajadores';
 export const CARPETA_FACTURA = 'factura';
 
+export const SUMA = "SUMA";
+export const RESTA = "RESTA";
+
 // Idioma datatable
 export const idioma_espanol = {
   'sProcessing':     'Procesando...',

@@ -31,7 +31,6 @@ export class ProductoProveedor{
     public UpdateAt : string;
     public Cantidad : number ;
     public Descuento : number ;
-    public Retencion2 : number;
     public TotalDetalle : number;
     public Remover: boolean;
 

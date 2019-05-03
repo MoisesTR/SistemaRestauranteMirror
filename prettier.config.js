@@ -2,7 +2,7 @@
 // If you don't specify one of these properties,
 // the default value will be applied.
 module.exports = {
-	printWidth: 120,
+	printWidth: 140,
 	tabWidth: 2,
 	useTabs: true,
 	semi: true,

@@ -23,6 +23,10 @@ export class Utils {
             return mensaje.error.errmsg;
         }
 
+        if (mensaje.error.originalError['info'].message) {
+            return mensaje.error.originalError['info'].message;
+        }
+
         return undefined;
 	}
 

@@ -16,21 +16,21 @@
                         <div class="row">
 
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
-                                <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
-                                <ng-select (change)="changeSucursal($event)" id="sucursalGastos" placeholder="Selecciona una Sucursal" [items]="sucursales" bindValue="IdSucursal" bindLabel="NombSucursal" formControlName="sucursal" id="sucursal">
+                                <label for="grupoCuenta" class="grey-text-card">Grupo cuenta</label>
+                                <ng-select id="grupoCuenta" placeholder="Selecciona un grupo cuenta">
                                 </ng-select>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
-                                <label for="clasificacionGastos" class="grey-text-card">Clasificación</label>
-                                <ng-select id="clasificacionGastos" (change)="changeClasificacion($event)" [items]="clasificaciones" bindValue="IdClasificacion" bindLabel="Descripcion" formControlName="clasificacion" placeholder="Selecciona una clasificación">
+                                <label for="cuenta" class="grey-text-card">Cuenta</label>
+                                <ng-select id="cuenta" placeholder="Selecciona una cuenta">
                                 </ng-select>
-                                <show-errors [control]="formAddGasto.controls['clasificacion']"></show-errors>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-                                <label for="subclasificacionGastos" class="grey-text-card">Sub - Clasificación</label>
-                                <ng-select id="subclasificacionGastos" (change)="changeSubclasificacion($event)" [items]="subclasificaciones" bindValue="IdSubClasificacion" bindLabel="Descripcion" formControlName="subclasificacion" placeholder="Selecciona una sub - clasificación">
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3">
+                                <label for="subcuenta" class="grey-text-card">Subcuenta</label>
+                                <ng-select id="subcuenta" placeholder="Selecciona una subcuenta">
                                 </ng-select>
                             </div>
 
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4">
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <div class="md-form md-outline">
                                     <input type="text" [owlDateTimeTrigger]="dt1" formControlName="fechaIngreso" [owlDateTime]="dt1" class="form-control" [validateSuccess]="false" [validateError]="false" id="fechaIngreso" placeholder="Seleccioné" mdbInputDirective readonly mdbInput>
                                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
@@ -50,21 +50,21 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4">
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <div class="md-form md-outline">
                                     <input formControlName="numeroReferencia" onlyPositiveNumber [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="numeroReferencia" class="form-control" placeholder="Ej: 1" autocomplete="off">
                                     <label for="numeroReferencia">Número de referencia</label>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4">
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <div class="md-form md-outline">
                                     <input Alphanumeric formControlName="codigoFactura" [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="codigoFactura" class="form-control" placeholder="Ej: BD200" autocomplete="off">
                                     <label for="codigoFactura">Código factura</label>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4">
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <div class="md-form md-outline">
                                     <input onlyNumbers="decimal" formControlName="montoTotal" [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="montoTotal" class="form-control" placeholder="Ej: 2500" autocomplete="off">
                                     <label for="montoTotal">Monto total</label>

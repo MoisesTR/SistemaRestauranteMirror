@@ -103,7 +103,7 @@ export class AddfacturaComponent implements OnInit {
 		this.initFormDetailProductoFactura();
 		this.initFormAddFactura();
 		this.subscribeValueDescuentoGlobal();
-        this.subscribeTotalFacturaOrigen();
+		this.subscribeTotalFacturaOrigen();
 		this.initFormDetailFactura();
 		this.initDefaultValues();
 		this.usuario = this.usuarioService.getIdentity();
@@ -300,7 +300,7 @@ export class AddfacturaComponent implements OnInit {
 		}
 	}
 
-	eliminarProductoDeFactura(productoFactura: ProductoFactura, index) {
+	eliminarProductoFactura(productoFactura: ProductoFactura, index) {
 		this.facturaService.calculoValoresFactura(this.factura, productoFactura, this.productosFactura, RESTA, this.deshabilitarDescuentoXItem);
 		this.productosFactura.splice(index, 1);
 		this.facturaService.calcularDescuentoGlobalFactura(this.factura, this.productosFactura);
@@ -429,14 +429,14 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	actualizarListaProductos() {
-		if (this.factura.IdProveedor === null || this.factura.IdProveedor === undefined) {
-			Utils.showMsgInfo("Selecciona un proveedor");
-		} else {
+		if (this.factura.IdProveedor) {
 			const totalAnterior = this.productosFiltrados.length;
 			this.getProductosOfProveedor(this.factura.IdProveedor);
 			const totalActual = this.productosFiltrados.length;
 			const encontrados = totalActual - totalAnterior;
 			this.showActualizacionProductos(encontrados);
+		} else {
+			Utils.showMsgInfo("Selecciona un proveedor");
 		}
 	}
 

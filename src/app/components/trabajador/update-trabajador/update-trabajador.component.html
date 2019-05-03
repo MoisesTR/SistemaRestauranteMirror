@@ -93,7 +93,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="pais" class="grey-text-card">Pais</label>
+                                    <ng-select placeholder="Selecciona un pais" id="pais">
+                                    </ng-select>
+                                </div>
+
+                                <div class="col-md-6">
                                     <label for="sucursal" class="grey-text-card">Sucursal</label>
                                     <ng-select [items]="sucursales" bindLabel="NombSucursal" bindValue="IdSucursal" placeholder="Selecciona una sucursal" id="sucursal" (change)="onChangeSucursal($event)" [(ngModel)]="trabajador.IdSucursal" formControlName="sucursal">
                                     </ng-select>

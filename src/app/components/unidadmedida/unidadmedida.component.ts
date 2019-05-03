@@ -205,26 +205,28 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	deleteUnidadMedida(idUnidad) {
-		swal.fire({
-			title: "Estas seguro(a)?",
-			text: "La unidad de medida sera inhabilitada!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Si!",
-			cancelButtonText: "Cancelar"
-		}).then(result => {
-			if (result.value) {
-				this.unidadMedidaService.deleteUnidadMedida(idUnidad).subscribe(response => {
-					if (response.success) {
-						swal.fire(this.tituloPantalla, "La unidad de medida ha sido inhabilitada exitosamente", "success").then(() => {
-							this.getUnidadesMedidaRender();
-						});
-					}
-				});
-			}
-		});
+		swal
+			.fire({
+				title: "Estas seguro(a)?",
+				text: "La unidad de medida sera inhabilitada!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si!",
+				cancelButtonText: "Cancelar"
+			})
+			.then(result => {
+				if (result.value) {
+					this.unidadMedidaService.deleteUnidadMedida(idUnidad).subscribe(response => {
+						if (response.success) {
+							swal.fire(this.tituloPantalla, "La unidad de medida ha sido inhabilitada exitosamente", "success").then(() => {
+								this.getUnidadesMedidaRender();
+							});
+						}
+					});
+				}
+			});
 	}
 
 	showModalUpdateUnidad(modal, Unidad: UnidadMedida) {
@@ -243,10 +245,10 @@ export class UnidadmedidaComponent implements OnInit {
 	}
 
 	changeClasificacionUnidad(event) {
-		if (event === null) {
-			this.unidadMedida.IdClasifUDM = null;
-		} else {
+		if (event) {
 			this.unidadMedida.IdClasifUDM = event.IdClasifUDM;
+		} else {
+			this.unidadMedida.IdClasifUDM = null;
 		}
 	}
 

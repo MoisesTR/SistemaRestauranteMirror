@@ -1,30 +1,33 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import {
-    CategoriaProductoService,
-    ClasificacionProductoService,
-    EmpaqueService,
-    EnvaseService,
-    PreviousRouteService,
-    ProductoProveedorService,
-    ProductoService,
-    ProveedorService,
-    UnidadMedidaService,
-    UploadService
-} from '@app/core/service.index';
-import {Producto} from '@app/models/Producto';
-import {Proveedor} from '@app/models/Proveedor';
-import {CategoriaProducto} from '@app/models/CategoriaProducto';
-import {ClasificacionProducto} from '@app/models/ClasificacionProducto';
-import {CustomValidators} from '@app/validadores/CustomValidators';
-import {Envase} from '@app/models/Envase';
-import {Empaque} from '@app/models/Empaque';
-import {ProductoProveedor} from '@app/models/ProductoProveedor';
-import {UnidadMedida} from '@app/models/UnidadMedida';
-import {Utils} from '../../Utils';
-import swal from 'sweetalert2';
-import {CARPETA_PRODUCTOS, Global} from '@app/core/services/shared/global';
+	CategoriaProductoService,
+	ClasificacionProductoService,
+	EmpaqueService,
+	EnvaseService,
+	PreviousRouteService,
+	ProductoProveedorService,
+	ProductoService,
+	ProveedorService,
+	UnidadMedidaService,
+	UploadService
+} from "@app/core/service.index";
+import { Producto } from "@app/models/Producto";
+import { Proveedor } from "@app/models/Proveedor";
+import { CategoriaProducto } from "@app/models/CategoriaProducto";
+import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
+import { CustomValidators } from "@app/validadores/CustomValidators";
+import { Envase } from "@app/models/Envase";
+import { Empaque } from "@app/models/Empaque";
+import { ProductoProveedor } from "@app/models/ProductoProveedor";
+import { UnidadMedida } from "@app/models/UnidadMedida";
+import { Utils } from "../../Utils";
+import swal from "sweetalert2";
+import { CARPETA_PRODUCTOS, Global } from "@app/core/services/shared/global";
+import { EstadoProductoEnum } from "@app/Enums/EstadoProductoEnum";
+import { TipoProductoEnum } from "@app/Enums/TipoProductoEnum";
+import { ProductoFactory } from "@app/models/factory/ProductoFactory";
 
 declare var $: any;
 
@@ -47,7 +50,6 @@ export class AddProductoComponent implements OnInit {
 	public filesToUpload: Array<File>;
 	public tituloPantalla = "Productos";
 	public previousUrl: string;
-	public proveedorSelecionado: number;
 	peticionEnCurso = false;
 	formAddProducto: FormGroup;
 
@@ -67,7 +69,7 @@ export class AddProductoComponent implements OnInit {
 		private formBuilder: FormBuilder
 	) {
 		this.url = Global.url;
-		this.producto = new Producto();
+		this.producto = ProductoFactory.createProducto(TipoProductoEnum.Alimento);
 		this.productoProveedor = new ProductoProveedor();
 	}
 
@@ -116,15 +118,10 @@ export class AddProductoComponent implements OnInit {
 				Validators.maxLength(100),
 				CustomValidators.nospaceValidator
 			]),
-			descripcionProducto: new FormControl("", [
-				,
-				Validators.minLength(3),
-				Validators.maxLength(400),
-				CustomValidators.nospaceValidator
-			]),
+			descripcionProducto: new FormControl("", [, Validators.minLength(3), Validators.maxLength(400), CustomValidators.nospaceValidator]),
 			proveedor: new FormControl(null, [Validators.required]),
 			categoria: new FormControl(null, [Validators.required]),
-			clasificacion: new FormControl(null, [Validators.required]),
+			clasificacion: new FormControl(null),
 			empaque: new FormControl(null, []),
 			envase: new FormControl(null, []),
 			unidadmedida: new FormControl(null, [Validators.required]),
@@ -132,7 +129,7 @@ export class AddProductoComponent implements OnInit {
 			consumoDirecto: new FormControl(false, []),
 			granel: new FormControl(false, []),
 			valorunidadmedida: new FormControl(null, [Validators.required]),
-			diasDeUso: new FormControl(null, []),
+			diasRotacion: new FormControl(null, []),
 			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
 			codigoOriginal: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
 			tipoInsumo: new FormControl(null, [])
@@ -248,10 +245,8 @@ export class AddProductoComponent implements OnInit {
 	onChangeProveedor(event) {
 		if (!event) {
 			this.producto.IdProveedor = null;
-			this.proveedorSelecionado = this.producto.IdProveedor;
 		} else {
 			this.producto.IdProveedor = event.IdProveedor;
-			this.proveedorSelecionado = this.producto.IdProveedor;
 		}
 	}
 
@@ -280,12 +275,12 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	// customSearchFn(term: string, item: SubClasificacionProducto) {
-    // 	// 	term = term.toLocaleLowerCase();
-    // 	// 	return (
-    // 	// 		item.NombSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 ||
-    // 	// 		item.DescSubClasificacion.toLocaleLowerCase() === term
-    // 	// 	);
-    // 	// }
+	// 	// 	term = term.toLocaleLowerCase();
+	// 	// 	return (
+	// 	// 		item.NombSubClasificacion.toLocaleLowerCase().indexOf(term) > -1 ||
+	// 	// 		item.DescSubClasificacion.toLocaleLowerCase() === term
+	// 	// 	);
+	// 	// }
 
 	guardarImagenProducto() {
 		this.peticionEnCurso = true;
@@ -297,16 +292,7 @@ export class AddProductoComponent implements OnInit {
 		} else {
 			if (this.filesToUpload != null) {
 				this.uploadService
-					.makeFileRequest(
-						this.url + "uploadImage/",
-						CARPETA_PRODUCTOS,
-						"",
-						false,
-						[],
-						this.filesToUpload,
-						"token",
-						"image"
-					)
+					.makeFileRequest(this.url + "uploadImage/", CARPETA_PRODUCTOS, "", false, [], this.filesToUpload, "token", "image")
 					.then(
 						(result: any) => {
 							this.producto.Imagen = result.image;
@@ -325,52 +311,35 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	getValueForm() {
-		this.producto.NombProducto = this.formAddProducto.value.nombreProducto;
-		this.producto.DescProducto = Utils.valorCampoEsValido(this.formAddProducto.value.descripcionProducto)
-			? this.formAddProducto.value.descripcionProducto
-			: "Ninguna";
-		this.producto.IdEstado = 1;
-		this.producto.CantidadEmpaque = !this.formAddProducto.value.cantidadEmpaque
-			? null
-			: this.formAddProducto.value.cantidadEmpaque;
-		this.producto.ValorUnidadMedida = !this.formAddProducto.value.valorunidadmedida
-			? null
-			: this.formAddProducto.value.valorunidadmedida;
-		this.producto.DiasCaducidad = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
-		this.producto.DiasDeUso = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
-		this.producto.DiasRotacion = !this.formAddProducto.value.diasDeUso ? 0 : this.formAddProducto.value.diasDeUso;
-		this.producto.CodProd = this.formAddProducto.value.codigoOriginal;
-		this.producto.CodOriginal = this.formAddProducto.value.codigoInterno;
-		this.producto.CodBarra = this.producto.CodProd;
-		this.producto.IdProveedor = this.proveedorSelecionado;
-		this.producto.IdTipInsumo = 1;
-		this.producto.Imagen = !this.producto.Imagen ? "" : this.producto.Imagen;
+		this.producto.guardarDatosProducto(this.formAddProducto);
 	}
 
 	crearProducto() {
 		this.peticionEnCurso = true;
 		this.getValueForm();
 
-		if (this.validarCamposProductos()) {
+		if (this.producto.validarProducto()) {
 			this.productoService.createProducto(this.producto).subscribe(
 				response => {
 					if (response.IdProducto) {
-						swal.fire({
-							title: "El producto se ha creado exitosamente!",
-							text: "Deseas agregar otro producto?",
-							type: "success",
-							showCancelButton: true,
-							confirmButtonColor: "#3085d6",
-							cancelButtonColor: "#d33",
-							confirmButtonText: "SI",
-							cancelButtonText: "NO"
-						}).then(result => {
-							if (result.value) {
-								this.resetComponenteAddProducto();
-							} else if (result.dismiss === swal.DismissReason.cancel) {
-								this.noSeguirAgregandoProductos();
-							}
-						});
+						swal
+							.fire({
+								title: "El producto se ha creado exitosamente!",
+								text: "Deseas agregar otro producto?",
+								type: "success",
+								showCancelButton: true,
+								confirmButtonColor: "#3085d6",
+								cancelButtonColor: "#d33",
+								confirmButtonText: "SI",
+								cancelButtonText: "NO"
+							})
+							.then(result => {
+								if (result.value) {
+									this.resetComponenteAddProducto();
+								} else if (result.dismiss === swal.DismissReason.cancel) {
+									this.noSeguirAgregandoProductos();
+								}
+							});
 					}
 				},
 				error => {
@@ -380,40 +349,14 @@ export class AddProductoComponent implements OnInit {
 					this.peticionEnCurso = false;
 				}
 			);
-		}
-	}
-
-	validarCamposProductos() {
-		if (this.producto.IdEmpaque && !this.formAddProducto.value.cantidadEmpaque) {
-			Utils.showMsgInfo("La cantidad de empaque es requerida!");
+		} else {
 			this.peticionEnCurso = false;
-			return false;
 		}
-
-		if (!this.producto.IdEmpaque && this.formAddProducto.value.cantidadEmpaque) {
-			Utils.showMsgInfo("El empaque es requerido!");
-            this.peticionEnCurso = false;
-			return false;
-		}
-
-		if (this.producto.IdUnidadMedida && !this.formAddProducto.value.valorunidadmedida) {
-			Utils.showMsgInfo("El valor de la unidad de medida es requerida!");
-            this.peticionEnCurso = false;
-			return false;
-		}
-
-		if (!this.producto.IdUnidadMedida && this.formAddProducto.value.valorunidadmedida) {
-			Utils.showMsgInfo("La unidad de medida es requerida!");
-            this.peticionEnCurso = false;
-			return false;
-		}
-
-		return true;
 	}
 
 	resetComponenteAddProducto() {
 		this.resetFormProducto();
-		this.producto = new Producto();
+		this.producto = ProductoFactory.createProducto(TipoProductoEnum.Alimento);
 		this.filesToUpload = null;
 		$(".dropify-clear").click();
 		window.scrollTo(0, 0);
@@ -439,7 +382,7 @@ export class AddProductoComponent implements OnInit {
 
 	resultadoConsultaClasificacion(event) {
 		if (event) {
-			if (Utils.notNullOrUndefined(this.producto.IdCategoria)) {
+			if (this.producto.IdCategoria) {
 				this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(response => {
 					if (response.clasificaciones) {
 						this.clasificaciones = response.clasificaciones;
@@ -488,21 +431,23 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	agregarProveedor() {
-		swal.fire({
-			title: "Agregar proveedor",
-			text: 'Si seleccionas la opcion "SI", perderas los cambios digitados hasta el momento!',
-			type: "info",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "SI",
-			cancelButtonText: "NO"
-		}).then(result => {
-			if (result.value) {
-				this.router.navigate(["/proveedor/add"]);
-			} else if (result.dismiss === swal.DismissReason.cancel) {
-			}
-		});
+		swal
+			.fire({
+				title: "Agregar proveedor",
+				text: 'Si seleccionas la opcion "SI", perderas los cambios digitados hasta el momento!',
+				type: "info",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "SI",
+				cancelButtonText: "NO"
+			})
+			.then(result => {
+				if (result.value) {
+					this.router.navigate(["/proveedor/add"]);
+				} else if (result.dismiss === swal.DismissReason.cancel) {
+				}
+			});
 	}
 
 	showModalCategoria() {

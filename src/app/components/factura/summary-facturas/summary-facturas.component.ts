@@ -1,13 +1,4 @@
-import {
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	HostListener,
-	OnInit,
-	QueryList,
-	ViewChild,
-	ViewChildren
-} from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { FacturaService, ProveedorService, SpinnerService, PersistenciaDatoService } from "@app/core/service.index";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Proveedor } from "@app/models/Proveedor";
@@ -156,8 +147,7 @@ export class SummaryFacturasComponent implements OnInit {
 			this.lastVisiblePaginator = this.numberOfPaginators;
 		} else {
 			this.lastVisiblePaginator = this.numberOfPaginators;
-			this.firstVisiblePaginator =
-				this.lastVisiblePaginator - (this.numberOfPaginators % this.numberOfVisiblePaginators);
+			this.firstVisiblePaginator = this.lastVisiblePaginator - (this.numberOfPaginators % this.numberOfVisiblePaginators);
 		}
 	}
 
@@ -194,20 +184,15 @@ export class SummaryFacturasComponent implements OnInit {
 
 	getDataFactura() {
 		this.fechaInicio =
-			this.formBusquedaFactura.value.fechaInicio === ""
-				? null
-				: Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaInicio);
+			this.formBusquedaFactura.value.fechaInicio === "" ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaInicio);
 		this.fechaFin =
-			this.formBusquedaFactura.value.fechaFin === ""
-				? null
-				: Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaFin);
-		this.codFactura =
-			this.formBusquedaFactura.value.codFactura === "" ? null : this.formBusquedaFactura.value.codFactura;
+			this.formBusquedaFactura.value.fechaFin === "" ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaFin);
+		this.codFactura = this.formBusquedaFactura.value.codFactura === "" ? null : this.formBusquedaFactura.value.codFactura;
 	}
 
 	onChangeProveedor(event) {
-		if (event === null || event === undefined) {
-			this.idProveedor = null;
+		if (event) {
+			this.idProveedor = event.IdProveedor;
 		} else {
 			this.idProveedor = event.IdProveedor;
 		}
@@ -248,12 +233,7 @@ export class SummaryFacturasComponent implements OnInit {
 	}
 
 	validarParametrosBusquedaFactura() {
-		if (
-			this.idProveedor === null &&
-			this.fechaInicio === null &&
-			this.fechaFin === null &&
-			this.idFechaBusqueda === null
-		) {
+		if (this.idProveedor === null && this.fechaInicio === null && this.fechaFin === null && this.idFechaBusqueda === null) {
 			Utils.showMsgInfo("Debes digitar al menos uno de los parametros de busqueda", "Busqueda Facturas");
 			return false;
 		} else if (this.idProveedor === null) {
@@ -302,10 +282,10 @@ export class SummaryFacturasComponent implements OnInit {
 	}
 
 	changeFechaBusqueda(event) {
-		if (event === null || event === undefined) {
-			this.idFechaBusqueda = null;
-		} else {
+		if (event) {
 			this.idFechaBusqueda = event.Id;
+		} else {
+			this.idFechaBusqueda = null;
 		}
 	}
 
@@ -325,21 +305,19 @@ export class SummaryFacturasComponent implements OnInit {
 	}
 
 	setPersistencia() {
-		this.persistencia.setPersistencia("SummaryFactura").subscribe(
-			res => {
-				if (res) {
-					this.facturas = res.facturas;
-					this.totalOrigenFactura = res.totalFactura;
-					this.totalCordobasFacturas = res.totalCalculado;
-					this.idProveedor = res.proveedor;
-					this.formBusquedaFactura.controls["fechaInicio"].setValue(res.fechaInicio);
-					this.formBusquedaFactura.controls["fechaFin"].setValue(res.fechaFin);
-					this.formBusquedaFactura.controls["fechaBusqueda"].setValue(res.fechaBusqueda);
-					this.formBusquedaFactura.controls["proveedor"].setValue(res.proveedor);
-					this.formBusquedaFactura.controls["codFactura"].setValue(res.codFactura);
-				}
+		this.persistencia.setPersistencia("SummaryFactura").subscribe(res => {
+			if (res) {
+				this.facturas = res.facturas;
+				this.totalOrigenFactura = res.totalFactura;
+				this.totalCordobasFacturas = res.totalCalculado;
+				this.idProveedor = res.proveedor;
+				this.formBusquedaFactura.controls["fechaInicio"].setValue(res.fechaInicio);
+				this.formBusquedaFactura.controls["fechaFin"].setValue(res.fechaFin);
+				this.formBusquedaFactura.controls["fechaBusqueda"].setValue(res.fechaBusqueda);
+				this.formBusquedaFactura.controls["proveedor"].setValue(res.proveedor);
+				this.formBusquedaFactura.controls["codFactura"].setValue(res.codFactura);
 			}
-		);
+		});
 
 		this.persistencia.deletePersistencia("SummaryFactura");
 	}

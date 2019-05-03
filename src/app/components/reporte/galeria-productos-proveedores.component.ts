@@ -1,12 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
-import {
-	ClasificacionProductoService,
-	ProductoProveedorService,
-	ProductoService,
-	ProveedorService
-} from "@app/core/service.index";
+import { ClasificacionProductoService, ProductoProveedorService, ProductoService, ProveedorService } from "@app/core/service.index";
 import { Producto } from "@app/models/Producto";
 import { Global } from "@app/core/services/shared/global";
 import { Proveedor } from "@app/models/Proveedor";
@@ -48,11 +43,11 @@ export class GaleriaProductosProveedoresComponent implements OnInit {
 	}
 
 	onChangeProveedor(event) {
-		if (event === null || event === undefined) {
-			this.idProveedorSeleccionado = null;
-		} else {
+		if (event) {
 			this.idProveedorSeleccionado = event.IdProveedor;
 			this.getProductosOfProveedor();
+		} else {
+			this.idProveedorSeleccionado = null;
 		}
 	}
 	getProductosOfProveedor() {

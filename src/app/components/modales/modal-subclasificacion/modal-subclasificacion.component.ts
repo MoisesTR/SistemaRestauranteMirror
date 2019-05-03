@@ -111,10 +111,10 @@ export class ModalSubclasificacionComponent implements OnInit, EventoModal, OnDe
 	}
 
 	onChangeClasificacion(event) {
-		if (event === null) {
-			this.subclasificacion.IdClasificacion = null;
-		} else {
+		if (event) {
 			this.subclasificacion.IdClasificacion = event.IdClasificacion;
+		} else {
+			this.subclasificacion.IdClasificacion = null;
 		}
 	}
 

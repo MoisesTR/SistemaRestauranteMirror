@@ -153,35 +153,37 @@ export class ClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	deleteClasificacion(idClasificacion) {
-		swal.fire({
-			title: "Estas seguro(a)?",
-			text: "La clasificacion sera inhabilitada!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Si!",
-			cancelButtonText: "Cancelar"
-		}).then(result => {
-			if (result.value) {
-				this.clasificacionService.deleteClasificacionProducto(idClasificacion).subscribe(response => {
-					if (response.success) {
-						swal.fire("Inhabilitada!", "La clasificacion ha sido inhabilitada exitosamente", "success").then(() => {
-							this.getClasificacionesRender();
-						});
-					} else {
-						Utils.showMsgInfo("Ha ocurrido un error al inhabilitar!", this.tituloPantalla);
-					}
-				});
-			}
-		});
+		swal
+			.fire({
+				title: "Estas seguro(a)?",
+				text: "La clasificacion sera inhabilitada!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si!",
+				cancelButtonText: "Cancelar"
+			})
+			.then(result => {
+				if (result.value) {
+					this.clasificacionService.deleteClasificacionProducto(idClasificacion).subscribe(response => {
+						if (response.success) {
+							swal.fire("Inhabilitada!", "La clasificacion ha sido inhabilitada exitosamente", "success").then(() => {
+								this.getClasificacionesRender();
+							});
+						} else {
+							Utils.showMsgInfo("Ha ocurrido un error al inhabilitar!", this.tituloPantalla);
+						}
+					});
+				}
+			});
 	}
 
 	onChangeCategoria(event) {
-		if (event === null) {
-			this.clasificacion.IdCategoria = null;
-		} else {
+		if (event) {
 			this.clasificacion.IdCategoria = event.IdCategoria;
+		} else {
+			this.clasificacion.IdCategoria = null;
 		}
 	}
 

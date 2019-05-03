@@ -85,50 +85,44 @@ export class AddUsuarioComponent implements OnInit {
 		this.usuario.Email = this.formularioAddUsuario.value.correo;
 		this.usuario.Imagen = this.imagenTrabajador;
 
-		this._usuarioService.createUsuario(this.usuario).subscribe(
-			response => {
-				if (response.success) {
-					swal.fire("usuario", "El usuario ha sido creado exitosamente!", "success").then(() => {
-						this._router.navigate(["/usuario"]);
-					});
-				}
+		this._usuarioService.createUsuario(this.usuario).subscribe(response => {
+			if (response.success) {
+				swal.fire("usuario", "El usuario ha sido creado exitosamente!", "success").then(() => {
+					this._router.navigate(["/usuario"]);
+				});
 			}
-		);
+		});
 	}
 
 	getRoles() {
-		this._RolService.getRoles().subscribe(
-			response => {
-				if (response.roles) {
-					this.roles = response.roles;
-				} else {
-				}
+		this._RolService.getRoles().subscribe(response => {
+			if (response.roles) {
+				this.roles = response.roles;
+			} else {
 			}
-		);
+		});
 	}
 
 	getTrabajadores() {
-		this._trabajadorService.getTrabajadores().subscribe(
-			response => {
-				if (response.trabajadores) {
-					this.trabajadores = response.trabajadores;
-				}
+		this._trabajadorService.getTrabajadores().subscribe(response => {
+			if (response.trabajadores) {
+				this.trabajadores = response.trabajadores;
 			}
-		);
+		});
 	}
 
 	onChangeTrabajador(event: Trabajador) {
-		if (event === null) {
-			this.usuario.IdTrabajador = null;
-			this.imagenTrabajador = "no-img.png";
-			this.carpetaImagen = "temp";
-		} else {
-			if (event.Imagen == "") this.carpetaImagen = "temp";
+		if (event) {
+			if (event.Imagen === "") this.carpetaImagen = "temp";
 			else {
 				this.carpetaImagen = "trabajadores";
 			}
 			this.usuario.IdTrabajador = event.IdTrabajador;
 			this.imagenTrabajador = event.Imagen;
+		} else {
+			this.usuario.IdTrabajador = null;
+			this.imagenTrabajador = "no-img.png";
+			this.carpetaImagen = "temp";
 		}
 	}
 

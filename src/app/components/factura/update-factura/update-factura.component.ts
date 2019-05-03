@@ -2,13 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { IMyOptions, ModalDirective } from "ng-uikit-pro-standard";
 import { Global, opcionesDatePicker } from "@app/core/services/shared/global";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import {
-	FacturaService,
-	ProductoProveedorService,
-	ProductoService,
-	ProveedorService,
-	UsuarioService
-} from "@app/core/service.index";
+import { FacturaService, ProductoProveedorService, ProductoService, ProveedorService, UsuarioService } from "@app/core/service.index";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { DetalleFactura } from "@app/models/DetalleFactura";
 import { Proveedor } from "@app/models/Proveedor";
@@ -18,6 +12,7 @@ import { ProductoProveedor } from "@app/models/ProductoProveedor";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { Utils } from "../../Utils";
 import { Producto } from "@app/models/Producto";
+import { ProductoFactura } from "@app/models/ProductoFactura";
 
 @Component({
 	selector: "app-update-factura",
@@ -207,41 +202,41 @@ export class UpdateFacturaComponent implements OnInit {
 	}
 
 	onChangeProveedor(event) {
-		if (event === null || event === undefined) {
+		if (event) {
+			this.proveedor.IdProveedor = event.IdProveedor;
+			this.factura.IdProveedor = event.IdProveedor;
+			this.productosFactura = [];
+			this.getProductosOfProveedor(event.IdProveedor);
+		} else {
 			this.proveedor.IdProveedor = null;
 			this.factura.IdProveedor = null;
 			this.productos = null;
 			this.productosFactura = [];
 			this.subtotalFacturaConDescuento = 0;
-		} else {
-			this.proveedor.IdProveedor = event.IdProveedor;
-			this.factura.IdProveedor = event.IdProveedor;
-			this.productosFactura = [];
-			this.getProductosOfProveedor(event.IdProveedor);
 		}
 	}
 
 	changeMoneda(event) {
-		if (event === null || event === undefined) {
-			this.IdMonedaSeleccionada = null;
-			this.simboloMonedaUtilizado = "C$";
-			this.mostrarComboTipoMoneda = false;
-		} else {
+		if (event) {
 			this.IdMonedaSeleccionada = event.Id;
 			this.simboloMonedaUtilizado = event.Id === 1 ? "C$" : "$";
 			this.mostrarComboTipoMoneda = event.Id === 2;
+		} else {
+			this.IdMonedaSeleccionada = null;
+			this.simboloMonedaUtilizado = "C$";
+			this.mostrarComboTipoMoneda = false;
 		}
 	}
 
 	changeFormaPlazoPago(event) {
-		if (event === null || event === undefined) {
-			this.mostrarComboPlazoPagos = false;
-		} else {
+		if (event) {
 			if (event.Id === 2) {
 				this.mostrarComboPlazoPagos = true;
 			} else {
 				this.mostrarComboPlazoPagos = false;
 			}
+		} else {
+			this.mostrarComboPlazoPagos = false;
 		}
 	}
 
@@ -257,23 +252,21 @@ export class UpdateFacturaComponent implements OnInit {
 	}
 
 	getProductosOfProveedor(IdProveedor) {
-		this._productoProveedorService
-			.getProductosOfProveedorFiltrado(IdProveedor, this.factura.IdFactura)
-			.subscribe(response => {
-				if (response.productos) {
-					this.productos = response.productos;
-					this.productos.forEach((value, indice) => {
-						this.productos[indice].Costo = 0;
-						this.productos[indice].TotalDetalle = 0;
-					});
+		this._productoProveedorService.getProductosOfProveedorFiltrado(IdProveedor, this.factura.IdFactura).subscribe(response => {
+			if (response.productos) {
+				this.productos = response.productos;
+				this.productos.forEach((value, indice) => {
+					this.productos[indice].Costo = 0;
+					this.productos[indice].TotalDetalle = 0;
+				});
 
-					this.factura.Detalle.forEach((value, i) => {
-						this.productoTemp = new Producto();
-						this.productoTemp = value;
-						this.productosFactura.push(this.productoTemp);
-					});
-				}
-			});
+				this.factura.Detalle.forEach((value, i) => {
+					this.productoTemp = new ProductoFactura();
+					this.productoTemp = value;
+					this.productosFactura.push(this.productoTemp);
+				});
+			}
+		});
 	}
 
 	existenMontosMenorIgualaCero() {
@@ -418,6 +411,5 @@ export class UpdateFacturaComponent implements OnInit {
 				this.subtotalFacturaConDescuento -= productoConDescuento;
 			}
 		}
-
 	}
 }

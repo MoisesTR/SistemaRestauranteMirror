@@ -1,138 +1,134 @@
 <spinner titulo="Cargando Proveedores"></spinner>
 <section>
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col-md-12">
+        <div class="col-md-12">
 
-      <mdb-card cascade="true" narrower="true">
+            <mdb-card cascade="true" narrower="true">
 
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Proveedores</h3>
-        </div>
-        <!--/Titulo-->
-        <mdb-card-body cascade="true">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered"
-            cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th class="header-negrita">#</th>
-                <th class="header-negrita">Nombre</th>
-                <th class="header-negrita">Teléfono Titular</th>
-                <th class="header-negrita">Dirección</th>
-                <th class="header-negrita">Descripción</th>
-                <th class="header-negrita">Representante</th>
-                <th class="header-negrita">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let proveedor of proveedores">
-                <th scope="row" class="align-middle body-negrita" width="5%">{{ proveedor.IdProveedor }}</th>
-                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombProveedor }}</td>
-                <td width="10%" class="align-middle body-negrita text-center">
-                  <a mdbBtn type="button" size="sm" class="ml-3 orange-chang white-text" role="button" (click)="showModalTelefonos(proveedor)">
-                    <mdb-icon fas icon="phone"></mdb-icon>
-                  </a>
-                </td>
-                <td width="20%" class="align-middle body-negrita">{{ proveedor.Direccion }}</td>
-                <td width="20%" class="align-middle body-negrita">{{ proveedor.DescProveedor }}</td>
-                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombRepresentante}}</td>
-                <td width="15%" class="align-middle body-negrita">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Proveedores</h3>
+                </div>
+                <!--/Titulo-->
+                <mdb-card-body cascade="true">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="header-negrita">#</th>
+                                <th class="header-negrita">Nombre</th>
+                                <th class="header-negrita">Teléfono Titular</th>
+                                <th class="header-negrita">Dirección</th>
+                                <th class="header-negrita">Descripción</th>
+                                <th class="header-negrita">Representante</th>
+                                <th class="header-negrita">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let proveedor of proveedores">
+                                <th scope="row" class="align-middle body-negrita" width="5%">{{ proveedor.IdProveedor }}</th>
+                                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombProveedor }}</td>
+                                <td width="10%" class="align-middle body-negrita text-center">
+                                    <a mdbBtn type="button" size="sm" class="ml-3 orange-chang white-text" role="button" (click)="showModalTelefonos(proveedor)">
+                                        <mdb-icon fas icon="phone"></mdb-icon>
+                                    </a>
+                                </td>
+                                <td width="20%" class="align-middle body-negrita">{{ proveedor.Direccion }}</td>
+                                <td width="20%" class="align-middle body-negrita">{{ proveedor.DescProveedor }}</td>
+                                <td width="15%" class="align-middle body-negrita">{{ proveedor.NombRepresentante}}</td>
+                                <td width="15%" class="align-middle body-negrita">
 
-                  <div class="text-center">
-                    <button mdbBtn type="button" size="sm" [routerLink]="'update/'+proveedor.IdProveedor" class="orange-chang"
-                      id="btnUpdateProveedor" mdbTooltip="Editar" placement="bottom">
+                                    <div class="text-center">
+                                        <button mdbBtn type="button" size="sm" [routerLink]="'update/'+proveedor.IdProveedor" class="orange-chang white-text" id="btnUpdateProveedor" mdbTooltip="Editar" placement="bottom">
                       <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button mdbBtn type="button" size="sm" (click)="deleteProveedor(proveedor.IdProveedor)" class="orange-chang"
-                      id="btnDeleteProveedor" mdbTooltip="Eliminar" placement="bottom">
+                                        <button mdbBtn type="button" size="sm" (click)="deleteProveedor(proveedor.IdProveedor)" class="orange-chang white-text" id="btnDeleteProveedor" mdbTooltip="Eliminar" placement="bottom">
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
-                  </div>
+                                    </div>
 
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </mdb-card-body>
-        <!-- </div> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mdb-card-body>
+                <!-- </div> -->
 
-      </mdb-card>
+            </mdb-card>
+
+        </div>
 
     </div>
-
-  </div>
 
 </section>
 
 
 <!-- Modal para agregar contactos asociados al proveedor -->
-<div mdbModal #modalTelefonos="mdb-modal" class="modal fade" id="modalTelefonos" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal modal-lg" role="document" style="height: 41%;">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalTelefonos="mdb-modal" class="modal fade" id="modalTelefonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal modal-lg" role="document" style="height: 41%;">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Header-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <mdb-icon fas icon="phone"></mdb-icon>
-          Telefonos del proveedor
-        </h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalTelefonos.hide()">
+            <!--Header-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <mdb-icon fas icon="phone"></mdb-icon>
+                    Telefonos del proveedor
+                </h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalTelefonos.hide()">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
+            </div>
 
-      <!--Cuerpo Modal-->
-      <div class="modal-body mb-0">
+            <!--Cuerpo Modal-->
+            <div class="modal-body mb-0">
 
-        <form novalidate>
+                <form novalidate>
 
-          <div class="scrollbar-card scrollbar-ripe-malinka">
-            <fieldset *ngFor="let telefono of proveedorSeleccionado.Telefonos; let i = index;" class="mb-fieldset">
+                    <div class="scrollbar-card scrollbar-ripe-malinka">
+                        <fieldset *ngFor="let telefono of proveedorSeleccionado.Telefonos; let i = index;" class="mb-fieldset">
 
-              <div class="container">
+                            <div class="container">
 
-                <table mdbTable small="true" hover="true" class="text-center">
-                  <thead class="orange-chang-text">
-                    <tr>
-                      <th scope="col">#</th>
-                      <th>Nombre</th>
-                      <th>Cargo</th>
-                      <th>Télefono</th>
-                      <th>Titular</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">{{i + 1}}</th>
-                      <th>{{telefono.NombPAsignada}}</th>
-                      <td>{{telefono.Cargo}}</td>
-                      <td>{{telefono.Telefono}}</td>
-                      <td>
+                                <table mdbTable small="true" hover="true" class="text-center">
+                                    <thead class="orange-chang-text">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th>Nombre</th>
+                                            <th>Cargo</th>
+                                            <th>Télefono</th>
+                                            <th>Titular</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">{{i + 1}}</th>
+                                            <th>{{telefono.NombPAsignada}}</th>
+                                            <td>{{telefono.Cargo}}</td>
+                                            <td>{{telefono.Telefono}}</td>
+                                            <td>
 
-                        <div class="switch chang-switch">
-                          <label>
+                                                <div class="switch chang-switch">
+                                                    <label>
                             <input type="checkbox" disabled [(ngModel)]="telefono.Titular" [ngModelOptions]="{standalone: true}"
                               name="element_name">
                             <span class="lever"></span>
                           </label>
-                        </div>
+                                                </div>
 
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-              </div>
-            </fieldset>
-          </div>
-        </form>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
 
-      </div>
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>

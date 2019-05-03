@@ -1,97 +1,91 @@
 <spinner titulo="Buscando Envases"></spinner>
 <section>
-  <div class="row">
-    <div class="col-md-12">
-      <mdb-card cascade="true" narrower="true">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Envases</h3>
-        </div>
-        <!--/Titulo-->
+    <div class="row">
+        <div class="col-md-12">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Envases</h3>
+                </div>
+                <!--/Titulo-->
 
-        <mdb-card-body cascade="true">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered"
-            cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th class="header-negrita">#</th>
-                <th class="header-negrita">Nombre</th>
-                <th class="header-negrita">Descripcion</th>
-                <th class="header-negrita">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let envase of envases">
-                <td class="body-negrita">{{ envase.IdEnvase }}</td>
-                <td class="body-negrita">{{ envase.NombEnvase }}</td>
-                <td class="body-negrita">{{ envase.DescEnvase}}</td>
-                <td width="25%" class="body-negrita">
-                  <div class="text-center">
-                    <!--<button type="button" (click)="getEnvase()" class="btn btn-sm" style="background-color:#E67E22;" id="btnGetEnvase" data-toggle="tooltip" data-placement="bottom" title="Visualizar" ><i class="fa fa-eye"></i></button>-->
-                    <button type="button" (click)="showModalUpdateEnvase(envase)" class="btn btn-sm orange-chang" id="btnUpdateEnvase"
-                      mdbTooltip="Editar Envase" placement="bottom">
+                <mdb-card-body cascade="true">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="header-negrita">#</th>
+                                <th class="header-negrita">Nombre</th>
+                                <th class="header-negrita">Descripcion</th>
+                                <th class="header-negrita">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let envase of envases">
+                                <td class="body-negrita">{{ envase.IdEnvase }}</td>
+                                <td class="body-negrita">{{ envase.NombEnvase }}</td>
+                                <td class="body-negrita">{{ envase.DescEnvase}}</td>
+                                <td width="25%" class="body-negrita">
+                                    <div class="text-center">
+                                        <button type="button" (click)="showModalUpdateEnvase(envase)" class="btn btn-sm orange-chang white-text" id="btnUpdateEnvase" mdbTooltip="Editar Envase" placement="bottom">
                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button type="button" (click)="deleteEnvase(envase.IdEnvase)" class="btn btn-sm orange-chang" id="btnDeleteEnvase"
-                      mdbTooltip="Eliminar Envase" placement="bottom">
+                                        <button type="button" (click)="deleteEnvase(envase.IdEnvase)" class="btn btn-sm orange-chang white-text" id="btnDeleteEnvase" mdbTooltip="Eliminar Envase" placement="bottom">
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </mdb-card-body>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mdb-card-body>
 
-      </mdb-card>
+            </mdb-card>
+        </div>
     </div>
-  </div>
 </section>
 
 <modal-envase (resultadoConsulta)="resultadoConsultaAddEnvase($event)"></modal-envase>
 <!-- Modal update Envase -->
-<div mdbModal #modalUpdateEnvase="mdb-modal" class="modal fade" id="modalUpdateEnvase" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalUpdateEnvase="mdb-modal" class="modal fade" id="modalUpdateEnvase" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal " role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Titulo-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <mdb-icon far icon="file-alt"></mdb-icon> Envase</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateEnvase.hide()">
+            <!--Titulo-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <mdb-icon far icon="file-alt"></mdb-icon> Envase</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateEnvase.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-        <!-- Inicio form-->
-        <form [formGroup]="formUpdateEnvase" (ngSubmit)="updateEnvase()" required>
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
+                <!-- Inicio form-->
+                <form [formGroup]="formUpdateEnvase" (ngSubmit)="updateEnvase()" required>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="upnombreenvase" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase">
-            <show-errors [control]="formUpdateEnvase.controls['nombreEnvase']"></show-errors>
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Nombre</h6>
+                        <input type="text" id="upnombreenvase" class="input-modal-sm" name="nombreenvase" formControlName="nombreEnvase">
+                        <show-errors [control]="formUpdateEnvase.controls['nombreEnvase']"></show-errors>
+                    </div>
 
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="updescripcionenvase" formControlName="descripcionEnvase" class="text-area-modal"
-              name="descripcionenvase"></textarea>
-            <show-errors [control]="formUpdateEnvase.controls['descripcionEnvase']"></show-errors>
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Descripción</h6>
+                        <textarea type="text" id="updescripcionenvase" formControlName="descripcionEnvase" class="text-area-modal" name="descripcionenvase"></textarea>
+                        <show-errors [control]="formUpdateEnvase.controls['descripcionEnvase']"></show-errors>
+                    </div>
 
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateEnvase.valid || peticionEnCurso"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
+                    <div class="text-center mt-1-half">
+                        <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]="!formUpdateEnvase.valid || peticionEnCurso"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
-          </div>
+                    </div>
 
-        </form>
-        <!-- Final form -->
-      </div>
+                </form>
+                <!-- Final form -->
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>

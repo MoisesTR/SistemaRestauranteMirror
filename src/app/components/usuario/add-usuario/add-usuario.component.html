@@ -1,24 +1,23 @@
 <div class="container-fluid mt-5">
-  <section>
-    <div class="row">
+    <section>
+        <div class="row">
 
-      <!-- Card para cargar imagenes dinamicas -->
-      <div class="col-lg-4">
-        <div class="card card-cascade narrower">
-          <div class="view view-cascade gradient-card-header orange-chang">
-            <h4 class="mb-0">Imagen</h4>
-          </div>
-          <div class="card-body text-center">
-            <!-- <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
+            <!-- Card para cargar imagenes dinamicas -->
+            <div class="col-lg-4">
+                <div class="card card-cascade narrower">
+                    <div class="view view-cascade gradient-card-header orange-chang">
+                        <h4 class="mb-0">Imagen</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <!-- <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
               data-height="300" /> -->
-            <img [src]="imagenTrabajador | imagen:'trabajadores'"
-              alt="..." class="img-thumbnail height-card-usuario">
-          </div>
-        </div>
-      </div>
+                        <img [src]="imagenTrabajador | imagen:'trabajadores'" alt="..." class="img-thumbnail height-card-usuario">
+                    </div>
+                </div>
+            </div>
 
-      <!--Imagen-->
-      <!-- <div class="col-lg-4">
+            <!--Imagen-->
+            <!-- <div class="col-lg-4">
         <div class="card card-cascade narrower">
           <div class="view view-cascade gradient-card-header orange-chang">
             <h4 class="mb-0">Imagen</h4>
@@ -28,81 +27,77 @@
           </div>
         </div>
       </div> -->
-      <!-- /.Imagen -->
+            <!-- /.Imagen -->
 
-      <!--Datos del usuario-->
-      <div class="col-lg-8  ">
-        <div class="card card-cascade narrower">
-          <div class="view view-cascade gradient-card-header orange-chang">
-            <h4 class="mb-0">Datos del Usuario</h4>
-          </div>
-          <!-- Contenido -->
-          <div class="card-body ">
-            <!-- Formulario -->
-            <form [formGroup]="formularioAddUsuario" (ngSubmit)="createUsuario()" novalidate>
-              <!-- Campos a ingresar -->
+            <!--Datos del usuario-->
+            <div class="col-lg-8  ">
+                <div class="card card-cascade narrower">
+                    <div class="view view-cascade gradient-card-header orange-chang">
+                        <h4 class="mb-0">Datos del Usuario</h4>
+                    </div>
+                    <!-- Contenido -->
+                    <div class="card-body ">
+                        <!-- Formulario -->
+                        <form [formGroup]="formularioAddUsuario" (ngSubmit)="createUsuario()" novalidate>
+                            <!-- Campos a ingresar -->
 
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control letras "
-                      formControlName="nombre" autocomplete="off">
-                    <label for="UsuarioNombre">Nombre de usuario</label>
-                    <show-errors [control]="formularioAddUsuario.controls['nombre']"></show-errors>
-                  </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-form">
+                                        <input [mdbValidate]=false mdbInputDirective type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control letras " formControlName="nombre" autocomplete="off">
+                                        <label for="UsuarioNombre">Nombre de usuario</label>
+                                        <show-errors [control]="formularioAddUsuario.controls['nombre']"></show-errors>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                        <input [mdbValidate]=false mdbInputDirective type="email" id="Correo" name="Correo" class="form-control letras" formControlName="correo" autocomplete="off">
+                                        <label for="Correo">Correo Electrónico</label>
+                                        <show-errors [control]="formularioAddUsuario.controls['correo']"></show-errors>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                        <input [mdbValidate]=false mdbInputDirective type="text" id="Contrasenia" name="Contrasenia" class="form-control letras" formControlName="contrasenia" autocomplete="off">
+                                        <label for="Contrasenia">Contraseña</label>
+                                        <show-errors [control]="formularioAddUsuario.controls['contrasenia']"></show-errors>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="trabajador">Nombre trabajador</label>
+                                    <ng-select [items]="trabajadores" bindLabel="Nombres" bindValue="IdTrabajador" placeholder="Selecciona un trabajador" formControlName="trabajador" id="trabajador" (change)="onChangeTrabajador($event)">
+
+                                    </ng-select>
+                                    <show-errors [control]="formularioAddUsuario.controls['trabajador']"></show-errors>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="rol">Rol</label>
+                                    <ng-select [items]="roles" bindLabel="NombRol" bindValue="IdRol" placeholder="Selecciona un rol" formControlName="rol" id="rol" (add)="onAddRol($event)">
+
+                                    </ng-select>
+                                    <show-errors [control]="formularioAddUsuario.controls['rol']"></show-errors>
+                                </div>
+
+                            </div>
+                            <div class="margin-paneladministrativo"></div>
+
+                            <!-- Boton ingresa -->
+                            <div class="text-center mt-1-half">
+                                <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]="!formularioAddUsuario.valid">
+                                  <i class="fa fa-check ml-1"></i> Ingresar
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- Contenido -->
                 </div>
-
-                <div class="col-md-6">
-                  <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="email" id="Correo" name="Correo" class="form-control letras" formControlName="correo"
-                      autocomplete="off" >
-                    <label for="Correo">Correo Electrónico</label>
-                    <show-errors [control]="formularioAddUsuario.controls['correo']"></show-errors>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="Contrasenia" name="Contrasenia" class="form-control letras"
-                      formControlName="contrasenia" autocomplete="off">
-                    <label for="Contrasenia">Contraseña</label>
-                    <show-errors [control]="formularioAddUsuario.controls['contrasenia']"></show-errors>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="trabajador">Nombre trabajador</label>
-                  <ng-select [items]="trabajadores" bindLabel="Nombres" bindValue="IdTrabajador" placeholder="Selecciona un trabajador" formControlName="trabajador"
-                    id="trabajador" (change)="onChangeTrabajador($event)">
-
-                  </ng-select>
-                  <show-errors [control]="formularioAddUsuario.controls['trabajador']"></show-errors>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="rol">Rol</label>
-                  <ng-select [items]="roles" bindLabel="NombRol" bindValue="IdRol" placeholder="Selecciona un rol" formControlName="rol"
-                    id="rol" (add)="onAddRol($event)">
-
-                  </ng-select>
-                  <show-errors [control]="formularioAddUsuario.controls['rol']"></show-errors>
-                </div>
-
-              </div>
-              <div class="margin-paneladministrativo"></div>
-
-              <!-- Boton ingresa -->
-              <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" [disabled]="!formularioAddUsuario.valid">Ingresar <i
-                    class="fa fa-check ml-1"></i></button>
-              </div>
-
-            </form>
-          </div>
-          <!-- Contenido -->
+            </div>
+            <!-- /.Datos del usuario-->
         </div>
-      </div>
-      <!-- /.Datos del usuario-->
-    </div>
-  </section>
+    </section>
 </div>

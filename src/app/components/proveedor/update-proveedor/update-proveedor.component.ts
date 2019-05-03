@@ -69,8 +69,7 @@ export class UpdateProveedorComponent implements OnInit {
 				CustomValidators.nospaceValidator
 			]),
 			telefono2: new FormControl("", [Validators.minLength(8), Validators.maxLength(8)]),
-			descripcionProveedor: new FormControl("", [Validators.maxLength(400)]),
-			retencion: new FormControl("", [])
+			descripcionProveedor: new FormControl("", [Validators.maxLength(400)])
 		});
 	}
 
@@ -96,7 +95,6 @@ export class UpdateProveedorComponent implements OnInit {
 		this.formUpdateProveedor.controls["telefono1"].setValue(this.proveedor.Telefono1);
 		this.formUpdateProveedor.controls["telefono2"].setValue(this.proveedor.Telefono2);
 		this.formUpdateProveedor.controls["descripcionProveedor"].setValue(this.proveedor.DescProveedor);
-		this.formUpdateProveedor.controls["retencion"].setValue(this.proveedor.Retencion2);
 	}
 
 	updateProveedor() {
@@ -123,6 +121,5 @@ export class UpdateProveedorComponent implements OnInit {
 		this.proveedor.Telefono1 = this.formUpdateProveedor.value.telefono1;
 		this.proveedor.Telefono2 = this.formUpdateProveedor.value.telefono2;
 		this.proveedor.DescProveedor = this.formUpdateProveedor.value.descripcionProveedor;
-		this.proveedor.Retencion2 = this.formUpdateProveedor.value.retencion === true ? 1 : 0;
 	}
 }

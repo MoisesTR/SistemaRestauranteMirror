@@ -20,7 +20,6 @@ export class ShowFacturaComponent implements OnInit {
 	public IdMonedaSeleccionada: number;
 	public IdFormaPagoSeleccionado: number;
 	public IdProveedorSeleccionado: number;
-	public tieneRetencion = 0;
 
 	Moneda = [{ Id: 1, Moneda: "Córdobas" }, { Id: 2, Moneda: "Dólares" }];
 
@@ -63,7 +62,7 @@ export class ShowFacturaComponent implements OnInit {
 
 	initFormDetalleFactura() {
 		this.formDetallesFactura = this._formBuilderFactura.group({
-			aplicaRetencion: new FormControl("", [])
+
 		});
 	}
 
@@ -83,7 +82,6 @@ export class ShowFacturaComponent implements OnInit {
 	}
 
 	setDataFormDetailFactura() {
-		this.tieneRetencion = this.factura.Retencion;
 	}
 
 	getFacturaById() {

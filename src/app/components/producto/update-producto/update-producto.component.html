@@ -80,22 +80,11 @@
                                 <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-9 mt-3">
+                            <div class="col-12 col-sm-7 col-md-7 mt-3">
                                 <label for="upclasificacion" class="grey-text-card">Clasificación</label>
                                 <ng-select [items]="clasificaciones" bindLabel="NombClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="upclasificacion" (change)="onChangeClasificacion($event)">
                                 </ng-select>
                                 <show-errors [control]="formUpdateProducto.controls['clasificacion']"></show-errors>
-                            </div>
-
-                            <div class="col-12 col-sm-12 col-md-3 mt-3">
-                                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbTooltip="Agregar Clasificación" placement="bottom" mdbWavesEffect>Agregar</button>
-                            </div>
-
-                            <div class="col-12 col-sm-7 col-md-7 mt-3">
-                                <label for="upsubclasificacion" class="grey-text-card">Subclasificación</label>
-                                <ng-select [items]="subclasificaciones" bindLabel="NombSubClasificacion" bindValue="IdSubClasificacion" placeholder="Selecciona una subclasificacion" formControlName="subclasificacion" id="upsubclasificacion" (change)="onChangeSubclasificacion($event)">
-                                </ng-select>
-                                <show-errors [control]="formUpdateProducto.controls['subclasificacion']"></show-errors>
                             </div>
 
                             <div class="col-12 col-sm-5 col-md-2 mts-2 text-center">
@@ -106,7 +95,7 @@
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-3 mt-3">
-                                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbTooltip="Agregar Subclasificación" placement="bottom" mdbWavesEffect>Agregar</button>
+                                <button type="button" class="btn orange-chang btn-sm btn-block waves-light add-btn-position-espacio" mdbTooltip="Agregar Clasificación" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-5 mt-3">

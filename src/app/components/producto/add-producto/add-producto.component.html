@@ -79,21 +79,11 @@
                                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" (click)="showModalCategoria()" mdbTooltip="Agregar Categoría" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-9 mt-3">
+                            <div class="col-12 col-sm-7 col-md-7 mt-3">
                                 <label for="clasificacion" class="grey-text-card">Clasificación</label>
                                 <ng-select [items]="clasificaciones" bindLabel="NombClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
                                 </ng-select>
                                 <show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>
-                            </div>
-
-                            <div class="col-12 col-sm-12 col-md-3 position-top-buttons">
-                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" (click)="showModalClasificacion()" mdbTooltip="Agregar Clasificación" placement="bottom" mdbWavesEffect>Agregar</button>
-                            </div>
-
-                            <div class="col-12 col-sm-7 col-md-7 mt-3">
-                                <label for="subclasificacion" class="grey-text-card">Subclasificación</label>
-                                <ng-select placeholder="Selecciona una subclasificacion" id="subclasiicacion">
-                                </ng-select>
                             </div>
 
                             <div class="col-12 col-sm-5 col-md-2 mts-2 text-center">
@@ -101,7 +91,7 @@
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-3 position-top-buttons">
-                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" mdbTooltip="Agregar Subclasificación" placement="bottom" mdbWavesEffect>Agregar</button>
+                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" (click)="showModalClasificacion()" mdbTooltip="Agregar Clasificación" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-5 mt-3">

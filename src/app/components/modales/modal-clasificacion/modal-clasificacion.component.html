@@ -1,56 +1,53 @@
-
 <!-- Modal añadir clasificación -->
-<div mdbModal #modalAddClasificacion="mdb-modal" class="modal fade" id="modalAddClasificacion" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalAddClasificacion="mdb-modal" class="modal fade" id="modalAddClasificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal " role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Titulo-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <mdb-icon far icon="file-alt"></mdb-icon> Clasificación</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="hideModalAndEmitResult()">
+            <!--Titulo-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <mdb-icon far icon="file-alt"></mdb-icon> Clasificación</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="hideModalAndEmitResult()">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
 
-        <!-- Inicio form-->
-        <form [formGroup]="formAddClasificacion" (ngSubmit)="createClasificacion()" novalidate>
+                <!-- Inicio form-->
+                <form [formGroup]="formAddClasificacion" (ngSubmit)="createClasificacion()" novalidate>
 
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Nombre</h6>
-            <input Alphanumeric type="text" id="nombre" class="input-modal-sm" name="nombre" formControlName="nombreClasificacion">
-            <show-errors [control]="formAddClasificacion.controls['nombreClasificacion']"></show-errors>
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Nombre</h6>
+                        <input Alphanumeric type="text" id="nombre" class="input-modal-sm" name="nombre" formControlName="nombreClasificacion">
+                        <show-errors [control]="formAddClasificacion.controls['nombreClasificacion']"></show-errors>
+                    </div>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="descripcion" class="text-area-modal" name="descripcion" formControlName="descripcionClasificacion"></textarea>
-            <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Descripción</h6>
+                        <textarea type="text" id="descripcion" class="text-area-modal" name="descripcion" formControlName="descripcionClasificacion"></textarea>
+                        <show-errors [control]="formAddClasificacion.controls['descripcionClasificacion']"></show-errors>
+                    </div>
 
-          <h6 class="orange-chang-text">Categoria</h6>
-          <ng-select dropdownPosition="'top'" class="custom" [items]="categorias" bindLabel="NombCategoria" bindValue="IdCategoria"
-                     placeholder="Selecciona una categoria" formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
-          </ng-select>
-          <show-errors [control]="formAddClasificacion.controls['categoria']"></show-errors>
+                    <h6 class="orange-chang-text">Categoria</h6>
+                    <ng-select dropdownPosition="'top'" class="custom" [items]="categorias" bindLabel="NombCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria" formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
+                    </ng-select>
+                    <show-errors [control]="formAddClasificacion.controls['categoria']"></show-errors>
 
-          <div class="text-center mt-1-half">
-            <br>
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddClasificacion.valid || peticionEnCurso">
+                    <div class="text-center mt-1-half">
+                        <br>
+                        <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]="!formAddClasificacion.valid || peticionEnCurso">
               <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
             </button>
-          </div>
+                    </div>
 
-        </form>
-        <!-- Final form -->
-      </div>
+                </form>
+                <!-- Final form -->
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>
 <!-- /.Modal clasificación -->

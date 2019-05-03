@@ -1,344 +1,288 @@
 <section>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
 
-      <mdb-card cascade="true" narrower="true">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Documentos de Identidad</h3>
-        </div>
-        <!--/Titulo-->
-        <mdb-card-body cascade="true">
-
-          <div class="container-fluid">
-            <div class="row">
-
-              <div class="col-lg-9 col-md-8 col-sm-8 mb-0">
-                <div class="input-group md-form form-inline form-sm pl-0">
-                  <i class="fa fa-search mt-2" aria-hidden="true"></i>
-                  <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
-                    aria-label="Buscar">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Documentos de Identidad</h3>
                 </div>
-              </div>
+                <!--/Titulo-->
+                <mdb-card-body cascade="true">
 
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <div class="ml-0 pt-0 mt-btn-add-settings d-none d-sm-block d-md-block d-lg-block d-xl-block"></div>
-                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3"
-                  (click)="modalAddDocumento.show()" mdbWavesEffect>Agregar
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-lg-9 col-md-8 col-sm-8 mb-0">
+                                <div class="input-group md-form form-inline form-sm pl-0">
+                                    <i class="fa fa-search mt-2" aria-hidden="true"></i>
+                                    <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-sm-4">
+                                <div class="ml-0 pt-0 mt-btn-add-settings d-none d-sm-block d-md-block d-lg-block d-xl-block"></div>
+                                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3 white-text" (click)="modalAddDocumento.show()" mdbWavesEffect>Agregar
                 </button>
-              </div>
+                            </div>
 
-            </div>
-          </div>
+                        </div>
+                    </div>
 
-          <div class="table-responsive-sm">
-            <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0" width="100%">
-              <thead>
-                <tr class="">
-                  <th class="header-negrita">#</th>
-                  <th class="header-negrita text-center align-middle">Nombre Documento</th>
-                  <th class="header-negrita text-center align-middle">N° Documento</th>
-                  <th class="header-negrita text-center align-middle">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row" class="align-middle" width="5%">1</th>
-                  <td class="body-negrita text-center align-middle">Cédula</td>
-                  <td class="body-negrita text-center align-middle">
-                    001-220000-0023B
-                  </td>
-                  <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Editar Documento" placement="bottom" mdbWavesEffect>
-                      <mdb-icon far icon="edit"></mdb-icon>
-                    </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Eliminar Documento" placement="bottom" mdbWavesEffect>
-                      <mdb-icon fas icon="times"></mdb-icon>
-                    </button>
-                  </td>
-                </tr>
+                    <div class="table-responsive-sm">
+                        <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="">
+                                    <th class="header-negrita">#</th>
+                                    <th class="header-negrita text-center align-middle">Nombre Documento</th>
+                                    <th class="header-negrita text-center align-middle">N° Documento</th>
+                                    <th class="header-negrita text-center align-middle">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="align-middle" width="5%">1</th>
+                                    <td class="body-negrita text-center align-middle">Cédula</td>
+                                    <td class="body-negrita text-center align-middle">
+                                        001-220000-0023B
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" mdbTooltip="Editar Documento" placement="bottom" mdbWavesEffect>
+                                          <mdb-icon far icon="edit"></mdb-icon>
+                                        </button>
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" mdbTooltip="Eliminar Documento" placement="bottom" mdbWavesEffect>
+                                          <mdb-icon fas icon="times"></mdb-icon>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                <tr>
-                  <th scope="row" class="align-middle" width="5%">2</th>
-                  <td class="body-negrita text-center align-middle">Cédula</td>
-                  <td class="body-negrita text-center align-middle">
-                    001-220000-0023B
-                  </td>
-                  <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Editar Documento" placement="bottom" mdbWavesEffect>
-                      <mdb-icon far icon="edit"></mdb-icon>
-                    </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Eliminar Documento" placement="bottom" mdbWavesEffect>
-                      <mdb-icon fas icon="times"></mdb-icon>
-                    </button>
-                  </td>
-                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-              </tbody>
-            </table>
-          </div>
+                    <nav>
+                        <ul class="pagination pg-amber justify-content-center">
 
-          <nav>
-            <ul class="pagination pg-amber justify-content-center">
+                            <!--First-->
+                            <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+                                <a class="page-link">Primera</a>
+                            </li>
 
-              <!--First-->
-              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"
-                [ngClass]="{disabled: activePage == 1}">
-                <a class="page-link">Primera</a>
-              </li>
+                            <!--Arrow left-->
+                            <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
+                                <a class="page-link" mdbWavesEffect aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                            </li>
 
-              <!--Arrow left-->
-              <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
-                <a class="page-link" mdbWavesEffect aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-              </li>
+                            <!--Numbers-->
+                            <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index" class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
+                                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+                            </li>
 
-              <!--Numbers-->
-              <li #pages
-                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
-                class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
-                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
-              </li>
+                            <!--Arrow right-->
+                            <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                <a class="page-link" mdbWavesEffect aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </li>
 
-              <!--Arrow right-->
-              <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
-                <a class="page-link" mdbWavesEffect aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-              </li>
+                            <!--LAST PAGE-->
+                            <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                <a class="page-link">Ultima</a>
+                            </li>
+                        </ul>
+                    </nav>
 
-              <!--LAST PAGE-->
-              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"
-                [ngClass]="{disabled: activePage == numberOfPaginators}">
-                <a class="page-link">Ultima</a>
-              </li>
-            </ul>
-          </nav>
-
-        </mdb-card-body>
-      </mdb-card>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
-
-      <mdb-card cascade="true" narrower="true">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Tipos de Moneda</h3>
+                </mdb-card-body>
+            </mdb-card>
         </div>
-        <!--/Titulo-->
-        <mdb-card-body cascade="true">
 
-          <div class="container-fluid">
-            <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
 
-              <div class="col-lg-9 col-md-8 col-sm-8 mb-0">
-                <div class="input-group md-form form-inline form-sm pl-0">
-                  <i class="fa fa-search mt-2" aria-hidden="true"></i>
-                  <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando"
-                    aria-label="Buscar">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Tipos de Moneda</h3>
                 </div>
-              </div>
+                <!--/Titulo-->
+                <mdb-card-body cascade="true">
 
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <div class="ml-0 pt-0 mt-btn-add-settings d-none d-sm-block d-md-block d-lg-block d-xl-block"></div>
-                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3"
-                  (click)="modalAddMoneda.show()" mdbWavesEffect>Agregar
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-lg-9 col-md-8 col-sm-8 mb-0">
+                                <div class="input-group md-form form-inline form-sm pl-0">
+                                    <i class="fa fa-search mt-2" aria-hidden="true"></i>
+                                    <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-sm-4">
+                                <div class="ml-0 pt-0 mt-btn-add-settings d-none d-sm-block d-md-block d-lg-block d-xl-block"></div>
+                                <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light mb-3 white-text" (click)="modalAddMoneda.show()" mdbWavesEffect>Agregar
                 </button>
-              </div>
+                            </div>
 
-            </div>
-          </div>
+                        </div>
+                    </div>
 
-          <div class="table-responsive-sm">
-            <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0" width="100%">
-              <thead>
-                <tr class="">
-                  <th class="header-negrita">#</th>
-                  <th class="header-negrita text-center align-middle">Nombre Moneda</th>
-                  <th class="header-negrita text-center align-middle">Símbolo</th>
-                  <th class="header-negrita text-center align-middle">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row" class="align-middle" width="5%">1</th>
-                  <td class="body-negrita text-center align-middle">Dolar</td>
-                  <td class="body-negrita text-center align-middle">
-                    $
-                  </td>
-                  <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Editar Moneda" placement="bottom" mdbWavesEffect>
-                      <mdb-icon far icon="edit"></mdb-icon>
-                    </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Eliminar Moneda" placement="bottom" mdbWavesEffect>
-                      <mdb-icon fas icon="times"></mdb-icon>
-                    </button>
-                  </td>
-                </tr>
+                    <div class="table-responsive-sm">
+                        <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="">
+                                    <th class="header-negrita">#</th>
+                                    <th class="header-negrita text-center align-middle">Nombre Moneda</th>
+                                    <th class="header-negrita text-center align-middle">Símbolo</th>
+                                    <th class="header-negrita text-center align-middle">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="align-middle" width="5%">1</th>
+                                    <td class="body-negrita text-center align-middle">Dolar</td>
+                                    <td class="body-negrita text-center align-middle">
+                                        $
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" mdbTooltip="Editar Moneda" placement="bottom" mdbWavesEffect>
+                                          <mdb-icon far icon="edit"></mdb-icon>
+                                        </button>
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" mdbTooltip="Eliminar Moneda" placement="bottom" mdbWavesEffect>
+                                          <mdb-icon fas icon="times"></mdb-icon>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                <tr>
-                  <th scope="row" class="align-middle" width="5%">2</th>
-                  <td class="body-negrita text-center align-middle">Cordoba</td>
-                  <td class="body-negrita text-center align-middle">
-                    C$
-                  </td>
-                  <td class="text-center align-middle">
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Editar Moneda" placement="bottom" mdbWavesEffect>
-                      <mdb-icon far icon="edit"></mdb-icon>
-                    </button>
-                    <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1"
-                      mdbTooltip="Eliminar Moneda" placement="bottom" mdbWavesEffect>
-                      <mdb-icon fas icon="times"></mdb-icon>
-                    </button>
-                  </td>
-                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-              </tbody>
-            </table>
-          </div>
+                    <nav>
+                        <ul class="pagination pg-amber justify-content-center">
 
-          <nav>
-            <ul class="pagination pg-amber justify-content-center">
+                            <!--First-->
+                            <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+                                <a class="page-link">Primera</a>
+                            </li>
 
-              <!--First-->
-              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"
-                [ngClass]="{disabled: activePage == 1}">
-                <a class="page-link">Primera</a>
-              </li>
+                            <!--Arrow left-->
+                            <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
+                                <a class="page-link" mdbWavesEffect aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                            </li>
 
-              <!--Arrow left-->
-              <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
-                <a class="page-link" mdbWavesEffect aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-              </li>
+                            <!--Numbers-->
+                            <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index" class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
+                                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+                            </li>
 
-              <!--Numbers-->
-              <li #pages
-                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
-                class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
-                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
-              </li>
+                            <!--Arrow right-->
+                            <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                <a class="page-link" mdbWavesEffect aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </li>
 
-              <!--Arrow right-->
-              <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
-                <a class="page-link" mdbWavesEffect aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-              </li>
+                            <!--LAST PAGE-->
+                            <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                <a class="page-link">Ultima</a>
+                            </li>
+                        </ul>
+                    </nav>
 
-              <!--LAST PAGE-->
-              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"
-                [ngClass]="{disabled: activePage == numberOfPaginators}">
-                <a class="page-link">Ultima</a>
-              </li>
-            </ul>
-          </nav>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
 
-        </mdb-card-body>
-      </mdb-card>
     </div>
-
-  </div>
 </section>
 
-<div mdbModal #modalAddDocumento="mdb-modal" class="modal fade" id="modalAddDocumento" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal" role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalAddDocumento="mdb-modal" class="modal fade" id="modalAddDocumento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Header-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <mdb-icon far icon="file-alt"></mdb-icon> Agregar Documento
-        </h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
-          (click)="modalAddDocumento.hide()">
+            <!--Header-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <mdb-icon far icon="file-alt"></mdb-icon> Agregar Documento
+                </h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddDocumento.hide()">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <!--Cuerpo Modal-->
-      <div class="modal-body mb-0">
+            </div>
+            <!--Cuerpo Modal-->
+            <div class="modal-body mb-0">
 
-        <form novalidate>
+                <form novalidate>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Nombre Documento</h6>
-            <input type="text" class="input-modal-sm">
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Nombre Documento</h6>
+                        <input type="text" class="input-modal-sm">
+                    </div>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">N° Documento</h6>
-            <input type="text" class="input-modal-sm">
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">N° Documento</h6>
+                        <input type="text" class="input-modal-sm">
+                    </div>
 
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1">
-              <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
-            </button>
-          </div>
+                    <div class="text-center mt-1-half">
+                        <button class="btn orange-chang mb-1 white-text">
+                          <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
+                        </button>
+                    </div>
 
-        </form>
-      </div>
+                </form>
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>
 
 
-<div mdbModal #modalAddMoneda="mdb-modal" class="modal fade" id="modalAddMoneda" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal" role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalAddMoneda="mdb-modal" class="modal fade" id="modalAddMoneda" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Header-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <i class="fa fa-money"></i> Agregar Moneda</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
-          (click)="modalAddMoneda.hide()">
+            <!--Header-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <i class="fa fa-money"></i> Agregar Moneda</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddMoneda.hide()">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <!--Cuerpo Modal-->
-      <div class="modal-body mb-0">
+            </div>
+            <!--Cuerpo Modal-->
+            <div class="modal-body mb-0">
 
-        <form novalidate>
+                <form novalidate>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Nombre Moneda</h6>
-            <input type="text" class="input-modal-sm">
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Nombre Moneda</h6>
+                        <input type="text" class="input-modal-sm">
+                    </div>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Simbolo Moneda</h6>
-            <input type="text" class="input-modal-sm">
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Simbolo Moneda</h6>
+                        <input type="text" class="input-modal-sm">
+                    </div>
 
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1">
-              <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
-            </button>
-          </div>
+                    <div class="text-center mt-1-half">
+                        <button class="btn orange-chang mb-1 white-text">
+                          <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
+                        </button>
+                    </div>
 
-        </form>
-      </div>
+                </form>
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>

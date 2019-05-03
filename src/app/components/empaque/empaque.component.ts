@@ -61,7 +61,7 @@ export class EmpaqueComponent implements OnInit, OnDestroy {
 				{
 					text: "Agregar",
 					key: "1",
-					className: "btn orange-chang float-right-dt",
+					className: "btn orange-chang float-right-dt white-text",
 					action: (e, dt, node, config) => {
 						this.empaqueService.mostrarModal();
 					}

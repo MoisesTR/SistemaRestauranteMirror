@@ -1,149 +1,142 @@
 <spinner titulo="Cargando Cargos"></spinner>
 <section>
-  <div class="row">
+    <div class="row">
 
-    <div class="col-md-12">
+        <div class="col-md-12">
 
-      <mdb-card cascade="true" narrower="true">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Cargos</h3>
-        </div>
-        <!--/Titulo-->
-        <mdb-card-body cascade="true">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered"
-            cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th class="header-negrita">#</th>
-                <th class="header-negrita">Nombre</th>
-                <th class="header-negrita">Descripcion</th>
-                <th class="header-negrita">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let cargo of cargos">
-                <td class="body-negrita">{{ cargo.IdCargo }}</td>
-                <td class="body-negrita">{{ cargo.NombCargo }}</td>
-                <td class="body-negrita">{{ cargo.DescCargo }}</td>
-                <td width="25%" class="body-negrita">
-                  <div class="text-center">
-                    <button mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="orange-chang"
-                      id="btnUpdateCargo" mdbTooltip="Editar Cargo" placement="bottom">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Cargos</h3>
+                </div>
+                <!--/Titulo-->
+                <mdb-card-body cascade="true">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="header-negrita">#</th>
+                                <th class="header-negrita">Nombre</th>
+                                <th class="header-negrita">Descripcion</th>
+                                <th class="header-negrita">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cargo of cargos">
+                                <td class="body-negrita">{{ cargo.IdCargo }}</td>
+                                <td class="body-negrita">{{ cargo.NombCargo }}</td>
+                                <td class="body-negrita">{{ cargo.DescCargo }}</td>
+                                <td width="25%" class="body-negrita">
+                                    <div class="text-center">
+                                        <button mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="orange-chang white-text" id="btnUpdateCargo" mdbTooltip="Editar Cargo" placement="bottom">
                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button mdbBtn type="button" size="sm" (click)="deleteCargo(cargo.IdCargo)" class="orange-chang" id="btnDeleteCargo"
-                      mdbTooltip="Eliminar Cargo" placement="bottom">
+                                        <button mdbBtn type="button" size="sm" (click)="deleteCargo(cargo.IdCargo)" class="orange-chang white-text" id="btnDeleteCargo" mdbTooltip="Eliminar Cargo" placement="bottom">
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-        </mdb-card-body>
+                </mdb-card-body>
 
-      </mdb-card>
+            </mdb-card>
 
+        </div>
     </div>
-  </div>
 </section>
 
 
 <!-- Modal crear Cargos -->
-<div mdbModal #modalAddCargo="mdb-modal" class="modal modal-scroll fade" id="modalAddCargo" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalAddCargo="mdb-modal" class="modal modal-scroll fade" id="modalAddCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal " role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Titulo-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <mdb-icon far icon="file-alt"></mdb-icon> Nuevo Cargo</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddCargo.hide()">
+            <!--Titulo-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <mdb-icon far icon="file-alt"></mdb-icon> Nuevo Cargo</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAddCargo.hide()">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
 
-        <!-- Inicio form-->
-        <form [formGroup]="formAddCargo" (ngSubmit)="createCargoUsuario()" novalidate>
+                <!-- Inicio form-->
+                <form [formGroup]="formAddCargo" (ngSubmit)="createCargoUsuario()" novalidate>
 
-          <div class="md-form ">
-            <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="nombrecargo" class="input-modal-sm letras" formControlName="nombreCargo">
-            <show-errors [control]="formAddCargo.controls['nombreCargo']"></show-errors>
-          </div>
+                    <div class="md-form ">
+                        <h6 class="orange-chang-text">Nombre</h6>
+                        <input type="text" id="nombrecargo" class="input-modal-sm letras" formControlName="nombreCargo">
+                        <show-errors [control]="formAddCargo.controls['nombreCargo']"></show-errors>
+                    </div>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="descripcioncargo" class="text-area-modal" minlength="5" maxlength="150"
-              formControlName="descripcionCargo" required></textarea>
-            <show-errors [control]="formAddCargo.controls['descripcionCargo']"></show-errors>
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Descripción</h6>
+                        <textarea type="text" id="descripcioncargo" class="text-area-modal" minlength="5" maxlength="150" formControlName="descripcionCargo" required></textarea>
+                        <show-errors [control]="formAddCargo.controls['descripcionCargo']"></show-errors>
+                    </div>
 
 
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formAddCargo.valid"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
-            </button>
-          </div>
+                    <div class="text-center mt-1-half">
+                        <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]="!formAddCargo.valid"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
+                        </button>
+                    </div>
 
-        </form>
-        <!-- Final form -->
-      </div>
+                </form>
+                <!-- Final form -->
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>
 <!-- /.Modal Cargos -->
 
 <!-- Modal actualizar Cargos -->
-<div mdbModal #modalUpdateCargo="mdb-modal" class="modal fade" id="modalUpdateCargo" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalUpdateCargo="mdb-modal" class="modal fade" id="modalUpdateCargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal " role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Titulo-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <mdb-icon far icon="file-alt"></mdb-icon> Nuevo Cargo</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateCargo.hide()">
+            <!--Titulo-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <mdb-icon far icon="file-alt"></mdb-icon> Nuevo Cargo</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateCargo.hide()">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-        <!-- Inicio form-->
-        <form [formGroup]="formUpdateCargo" (ngSubmit)="updateCargo()" novalidate>
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
+                <!-- Inicio form-->
+                <form [formGroup]="formUpdateCargo" (ngSubmit)="updateCargo()" novalidate>
 
-          <div class="md-form ">
-            <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" id="upnombrecargo" class="input-modal-sm" minlength="3" maxlength="40" formControlName="nombreCargo">
-            <show-errors [control]="formUpdateCargo.controls['nombreCargo']"></show-errors>
-          </div>
+                    <div class="md-form ">
+                        <h6 class="orange-chang-text">Nombre</h6>
+                        <input type="text" id="upnombrecargo" class="input-modal-sm" minlength="3" maxlength="40" formControlName="nombreCargo">
+                        <show-errors [control]="formUpdateCargo.controls['nombreCargo']"></show-errors>
+                    </div>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Descripción</h6>
-            <textarea type="text" id="updescripcioncargo" class="text-area-modal" minlength="5" maxlength="150"
-              formControlName="descripcionCargo"></textarea>
-            <show-errors [control]="formUpdateCargo.controls['descripcionCargo']"></show-errors>
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Descripción</h6>
+                        <textarea type="text" id="updescripcioncargo" class="text-area-modal" minlength="5" maxlength="150" formControlName="descripcionCargo"></textarea>
+                        <show-errors [control]="formUpdateCargo.controls['descripcionCargo']"></show-errors>
+                    </div>
 
 
-          <div class="text-center mt-1-half">
-            <button class="btn orange-chang mb-1" type="submit" [disabled]="!formUpdateCargo.valid"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
-            </button>
-          </div>
+                    <div class="text-center mt-1-half">
+                        <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]="!formUpdateCargo.valid"><mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
+                        </button>
+                    </div>
 
-        </form>
-        <!-- Final form -->
-      </div>
+                </form>
+                <!-- Final form -->
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>
 <!-- /.Modal Cargos -->

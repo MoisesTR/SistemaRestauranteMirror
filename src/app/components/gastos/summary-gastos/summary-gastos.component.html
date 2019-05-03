@@ -1,243 +1,217 @@
 <spinner titulo="Buscando Gastos"></spinner>
 <section>
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-      <form [formGroup]="formBusquedaGasto" novalidate (ngSubmit)="findGastos()">
-        <mdb-card cascade="true" narrower="true">
-          <!--Titulo-->
-          <div class="view view-cascade gradient-card-header orange-chang">
-            <h3 class="card-header-title mb-2">Búsqueda</h3>
-          </div>
-          <!--/Titulo-->
-          <mdb-card-body cascade="true">
+        <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+            <form [formGroup]="formBusquedaGasto" novalidate (ngSubmit)="findGastos()">
+                <mdb-card cascade="true" narrower="true">
+                    <!--Titulo-->
+                    <div class="view view-cascade gradient-card-header orange-chang">
+                        <h3 class="card-header-title mb-2">Búsqueda</h3>
+                    </div>
+                    <!--/Titulo-->
+                    <mdb-card-body cascade="true">
 
-            <div class="container-fluid">
+                        <div class="container-fluid">
 
-              <div class="row">
+                            <div class="row">
 
-                <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-2">
-                  <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
-                  <ng-select placeholder="Selecciona una Sucursal" [items]="sucursales" formControlName="sucursal"
-                    id="sucursal" bindValue="IdSucursal" bindLabel="NombSucursal">
-                  </ng-select>
-                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-12 mb-3 mt-2">
+                                    <label for="sucursalGastos" class="grey-text-card">Sucursal</label>
+                                    <ng-select placeholder="Selecciona una Sucursal" [items]="sucursales" formControlName="sucursal" id="sucursal" bindValue="IdSucursal" bindLabel="NombSucursal">
+                                    </ng-select>
+                                </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
-                  <label for="clasificacion" class="grey-text-card">Clasificación</label>
-                  <ng-select placeholder="Selecciona una clasificación" formControlName="clasificacion"
-                    (change)="changeClasificacion($event)" [items]="clasificaciones" bindValue="IdClasificacion"
-                    bindLabel="Descripcion">
-                  </ng-select>
-                  <show-errors [control]="formBusquedaGasto.controls['clasificacion']"></show-errors>
-                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
+                                    <label for="clasificacion" class="grey-text-card">Clasificación</label>
+                                    <ng-select placeholder="Selecciona una clasificación" formControlName="clasificacion" (change)="changeClasificacion($event)" [items]="clasificaciones" bindValue="IdClasificacion" bindLabel="Descripcion">
+                                    </ng-select>
+                                    <show-errors [control]="formBusquedaGasto.controls['clasificacion']"></show-errors>
+                                </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
-                  <label for="subclasificacion" class="grey-text-card">SubClasificación</label>
-                  <ng-select placeholder="Selecciona una subclasificación" formControlName="subclasificacion"
-                    (change)="changeSubclasificacion($event)" [items]="subclasificaciones"
-                    bindValue="IdSubClasificacion" bindLabel="Descripcion">
-                  </ng-select>
-                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
+                                    <label for="subclasificacion" class="grey-text-card">SubClasificación</label>
+                                    <ng-select placeholder="Selecciona una subclasificación" formControlName="subclasificacion" (change)="changeSubclasificacion($event)" [items]="subclasificaciones" bindValue="IdSubClasificacion" bindLabel="Descripcion">
+                                    </ng-select>
+                                </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-6">
-                  <div class="md-form md-outline">
-                    <input type="text" [readonly]="true" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
-                      formControlName="fechaInicio" class="form-control" [validateSuccess]="false"
-                      [validateError]="false" placeholder="Seleccioné" mdbInputDirective readonly>
-                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-                    <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
-                    <show-errors [control]="formBusquedaGasto.controls['fechaInicio']"></show-errors>
-                  </div>
-                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6">
+                                    <div class="md-form md-outline">
+                                        <input type="text" [readonly]="true" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="fechaInicio" class="form-control" [validateSuccess]="false" [validateError]="false" placeholder="Seleccioné" mdbInputDirective readonly>
+                                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                        <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
+                                        <show-errors [control]="formBusquedaGasto.controls['fechaInicio']"></show-errors>
+                                    </div>
+                                </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-6">
-                  <div class="md-form md-outline">
-                    <input type="text" [readonly]="true" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
-                      formControlName="fechaFin" class="form-control" [validateSuccess]="false" [validateError]="false"
-                      id="fechaFin" placeholder="Seleccioné" mdbInputDirective readonly>
-                    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
-                    <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
-                  </div>
-                </div>
-              </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6">
+                                    <div class="md-form md-outline">
+                                        <input type="text" [readonly]="true" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="fechaFin" class="form-control" [validateSuccess]="false" [validateError]="false" id="fechaFin" placeholder="Seleccioné" mdbInputDirective readonly>
+                                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                                        <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
+                                    </div>
+                                </div>
+                            </div>
 
-              <div class="text-center mt-1-half mt-3">
-                <button mdbBtn type="submit" [disabled]="!formBusquedaGasto.valid" class="orange-chang mb-1">
+                            <div class="text-center mt-1-half mt-3">
+                                <button mdbBtn type="submit" [disabled]="!formBusquedaGasto.valid" class="orange-chang mb-1 white-text">
                   <mdb-icon fas icon="search" class="mr-1"></mdb-icon>Buscar
                 </button>
-              </div>
+                            </div>
 
-            </div>
+                        </div>
 
-          </mdb-card-body>
-        </mdb-card>
-      </form>
-    </div>
-
-    <div class="col-lg-2 col-md-3 col-sm-12 mb-5">
-      <form novalidate>
-        <mdb-card cascade="true" narrower="true">
-          <div class="center-card">
-            <i class="fa fa-money-bill orange-chang icono-card"></i>
-            <div class="mb-3 right-card-align">
-              <p class="grey-text-card">Total Gastos</p>
-              <h4><strong>{{sumaTotalGastos | number :'1.2-2'}} C$</strong></h4>
-            </div>
-          </div>
-        </mdb-card>
-      </form>
-    </div>
-
-    <div #scrollgasto class="col-lg-10 col-md-9 col-sm-12">
-
-      <mdb-card cascade="true" narrower="true">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Total Gastos</h3>
+                    </mdb-card-body>
+                </mdb-card>
+            </form>
         </div>
-        <!--/Titulo-->
-        <mdb-card-body cascade="true">
 
-          <div class="col-12 col-sm-12 col-md-12 mt-3">
-            <div class="in input-group md-form form-inline form-sm form-2 pl-0">
-              <i class="fa fa-search mt-2" aria-hidden="true"></i>
-              <input [(ngModel)]="searchText" class="form-control w-75 ml-3" type="text" placeholder="Buscar"
-                aria-label="Buscar">
-            </div>
-          </div>
+        <div class="col-lg-2 col-md-3 col-sm-12 mb-5">
+            <form novalidate>
+                <mdb-card cascade="true" narrower="true">
+                    <div class="center-card">
+                        <i class="fa fa-money-bill orange-chang icono-card"></i>
+                        <div class="mb-3 right-card-align">
+                            <p class="grey-text-card">Total Gastos</p>
+                            <h4><strong>{{sumaTotalGastos | number :'1.2-2'}} C$</strong></h4>
+                        </div>
+                    </div>
+                </mdb-card>
+            </form>
+        </div>
 
-          <div class="table-responsive-sm">
-            <table mdbTable class="table" striped="true" bordered="true" hover="true">
-              <thead>
-                <tr class="">
-                  <th class="header-negrita">#</th>
-                  <th class="header-negrita text-center align-middle">Sucursal</th>
-                  <th class="header-negrita text-center align-middle">Clasificación</th>
-                  <th class="header-negrita text-center align-middle">SubClasificación</th>
-                  <th class="header-negrita text-center align-middle">Fecha Ingreso</th>
-                  <th class="header-negrita text-center align-middle">Número de Refencia</th>
-                  <th class="header-negrita text-center align-middle">Código Factura</th>
-                  <th class="header-negrita text-center align-middle">Monto Total</th>
-                  <th class="header-negrita text-center align-middle">Concepto</th>
-                </tr>
-              </thead>
-              <tbody>
+        <div #scrollgasto class="col-lg-10 col-md-9 col-sm-12">
 
-                <tr *ngFor="let gasto of gastos; let i = index">
-                  <th *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex"
-                    scope="row">
-                    {{i+1}}</th>
-                  <td class="body-negrita text-center align-middle">
-                    Rubenia prro</td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex"
-                    class="body-negrita text-center align-middle">
-                    {{gasto.Clasificacion}}</td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex"
-                    class="body-negrita text-center align-middle">
-                    {{gasto.SubClasificacion}}
-                  </td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex"
-                    class="body-negrita text-center align-middle">
-                    <!--<span class="grey-text"><small><i class="fa fa-clock-o"></i>10:00 AM</small></span>-->
-                    <!--<br>-->
-                    <span class="grey-text"><small><i
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Total Gastos</h3>
+                </div>
+                <!--/Titulo-->
+                <mdb-card-body cascade="true">
+
+                    <div class="col-12 col-sm-12 col-md-12 mt-3">
+                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">
+                            <i class="fa fa-search mt-2" aria-hidden="true"></i>
+                            <input [(ngModel)]="searchText" class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar">
+                        </div>
+                    </div>
+
+                    <div class="table-responsive-sm">
+                        <table mdbTable class="table" striped="true" bordered="true" hover="true">
+                            <thead>
+                                <tr class="">
+                                    <th class="header-negrita">#</th>
+                                    <th class="header-negrita text-center align-middle">Sucursal</th>
+                                    <th class="header-negrita text-center align-middle">Clasificación</th>
+                                    <th class="header-negrita text-center align-middle">SubClasificación</th>
+                                    <th class="header-negrita text-center align-middle">Fecha Ingreso</th>
+                                    <th class="header-negrita text-center align-middle">Número de Refencia</th>
+                                    <th class="header-negrita text-center align-middle">Código Factura</th>
+                                    <th class="header-negrita text-center align-middle">Monto Total</th>
+                                    <th class="header-negrita text-center align-middle">Concepto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let gasto of gastos; let i = index">
+                                    <th *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" scope="row">
+                                        {{i+1}}</th>
+                                    <td class="body-negrita text-center align-middle">
+                                        Rubenia prro</td>
+                                    <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                                        {{gasto.Clasificacion}}</td>
+                                    <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                                        {{gasto.SubClasificacion}}
+                                    </td>
+                                    <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                                        <!--<span class="grey-text"><small><i class="fa fa-clock-o"></i>10:00 AM</small></span>-->
+                                        <!--<br>-->
+                                        <span class="grey-text"><small><i
                           class="fa fa-calendar-times-o"></i>{{gasto.FechaIngreso}}</small></span>
-                  </td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex"
-                    class="body-negrita text-center align-middle">{{gasto.NoReferencia}}</td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex"
-                    class="body-negrita text-center align-middle">{{gasto.CodigoFactura}}</td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex"
-                    class="body-negrita text-center align-middle">{{gasto.MontoTotal
-                    | number :
-                    '1.2-2'}} C$</td>
-                  <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex">
-                    <button mdbBtn type="button" size="sm" class="orange-chang" mdbPopover="Concepto Gastos"
-                      placement="left" mdbPopoverHeader={{gasto.ConceptoGasto}} triggers="focus">
+                                    </td>
+                                    <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.NoReferencia}}</td>
+                                    <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.CodigoFactura}}</td>
+                                    <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{gasto.MontoTotal | number : '1.2-2'}} C$</td>
+                                    <td *ngIf="gasto.IdPaginacion >= firstVisibleIndex && gasto.IdPaginacion <= lastVisibleIndex">
+                                        <button mdbBtn type="button" size="sm" class="orange-chang" mdbPopover="Concepto Gastos" placement="left" mdbPopoverHeader={{gasto.ConceptoGasto}} triggers="focus">
                       <mdb-icon icon="eye"></mdb-icon>
                     </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-          <nav>
-            <ul class="pagination pg-amber justify-content-center">
+                    <nav>
+                        <ul class="pagination pg-amber justify-content-center">
 
-              <!--First-->
-              <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"
-                [ngClass]="{disabled: activePage == 1}">
-                <a class="page-link">Primera</a>
-              </li>
+                            <!--First-->
+                            <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+                                <a class="page-link">Primera</a>
+                            </li>
 
-              <!--Arrow left-->
-              <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
-                <a class="page-link" mdbWavesEffect aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-              </li>
+                            <!--Arrow left-->
+                            <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
+                                <a class="page-link" mdbWavesEffect aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                            </li>
 
-              <!--Numbers-->
-              <li #pages
-                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
-                class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
-                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
-              </li>
+                            <!--Numbers-->
+                            <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index" class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
+                                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+                            </li>
 
-              <!--Arrow right-->
-              <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
-                <a class="page-link" mdbWavesEffect aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-              </li>
+                            <!--Arrow right-->
+                            <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                <a class="page-link" mdbWavesEffect aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </li>
 
-              <!--LAST PAGE-->
-              <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"
-                [ngClass]="{disabled: activePage == numberOfPaginators}">
-                <a class="page-link">Ultima</a>
-              </li>
-            </ul>
-          </nav>
-        </mdb-card-body>
-      </mdb-card>
+                            <!--LAST PAGE-->
+                            <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                                <a class="page-link">Ultima</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </mdb-card-body>
+            </mdb-card>
 
+        </div>
     </div>
-  </div>
 </section>
 
 <!-- Modal descripcion gasto -->
-<div mdbModal #modalConcepto="mdb-modal" class="modal fade" id="modalConcepto" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal" role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalConcepto="mdb-modal" class="modal fade" id="modalConcepto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Header-->
-      <div class="modal-header white-text orange-chang">
-        <h4 class="title">
-          <mdb-icon icon="file-text-o"></mdb-icon> Concepto de gastos
-        </h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
-          (click)="modalConcepto.hide()">
+            <!--Header-->
+            <div class="modal-header white-text orange-chang">
+                <h4 class="title">
+                    <mdb-icon icon="file-text-o"></mdb-icon> Concepto de gastos
+                </h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalConcepto.hide()">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
+            </div>
 
-      <!--Cuerpo Modal-->
-      <div class="modal-body mb-0">
+            <!--Cuerpo Modal-->
+            <div class="modal-body mb-0">
 
-        <form [formGroup]="" novalidate>
+                <form [formGroup]="" novalidate>
 
-          <h5>Popover in a modal</h5>
+                    <h5>Popover in a modal</h5>
 
-        </form>
-      </div>
+                </form>
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>

@@ -1,105 +1,106 @@
 <spinner titulo="Cargando Unidades de Medida"></spinner>
 <section>
-  <div class="row">
-    <div class="col-md-12">
-      <mdb-card cascade="true" narrower="true">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h3 class="card-header-title mb-2">Unidad de Medida</h3>
-        </div>
-        <!--/Titulo-->
+    <div class="row">
+        <div class="col-md-12">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Unidad de Medida</h3>
+                </div>
+                <!--/Titulo-->
 
-        <mdb-card-body cascade="true">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered"
-            cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th class="header-negrita">#</th>
-                <th class="header-negrita">Nombre</th>
-                <th class="header-negrita">Clasificación</th>
-                <th class="header-negrita">Simbolo</th>
-                <th class="header-negrita">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let unidadmedida of unidadesMedida">
-                <td class="body-negrita">{{ unidadmedida.IdUnidadMedida }}</td>
-                <td class="body-negrita">{{ unidadmedida.NombUnidad }}</td>
-                <td class="body-negrita">{{ unidadmedida.NombClasificacion }}</td>
-                <td class="body-negrita">{{ unidadmedida.Simbolo}}</td>
-                <td width="25%" class="body-negrita">
-                  <div class="text-center">
-                    <button mdbBtn type="button" size="sm" (click)="showModalUpdateUnidad(modalUpdateUnidadMedida,unidadmedida)"
-                      class="orange-chang" id="btnEditUnidadMedida" mdbTooltip="Editar Unidad de Medida" placement="bottom">
+                <mdb-card-body cascade="true">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="header-negrita">#</th>
+                                <th class="header-negrita">Nombre</th>
+                                <th class="header-negrita">Clasificación</th>
+                                <th class="header-negrita">Factor Conversión</th>
+                                <th class="header-negrita">Simbolo</th>
+                                <th class="header-negrita">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let unidadmedida of unidadesMedida">
+                                <td class="body-negrita">{{ unidadmedida.IdUnidadMedida }}</td>
+                                <td class="body-negrita">{{ unidadmedida.NombUnidad }}</td>
+                                <td class="body-negrita">{{ unidadmedida.NombClasificacion }}</td>
+                                <td class="body-negrita">Test</td>
+                                <td class="body-negrita">{{ unidadmedida.Simbolo}}</td>
+                                <td width="25%" class="body-negrita">
+                                    <div class="text-center">
+                                        <button mdbBtn type="button" size="sm" (click)="showModalUpdateUnidad(modalUpdateUnidadMedida,unidadmedida)" class="orange-chang white-text" id="btnEditUnidadMedida" mdbTooltip="Editar Unidad de Medida" placement="bottom">
                       <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                    <button mdbBtn type="button" size="sm" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)"
-                      class="orange-chang" id="btnDeleteUnidadMedida" mdbTooltip="Eliminar Unidad de Medida" placement="bottom">
+                                        <button mdbBtn type="button" size="sm" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)" class="orange-chang white-text" id="btnDeleteUnidadMedida" mdbTooltip="Eliminar Unidad de Medida" placement="bottom">
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </mdb-card-body>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mdb-card-body>
 
-      </mdb-card>
+            </mdb-card>
+        </div>
     </div>
-  </div>
 </section>
 
 <modal-unidad-medida (resultadoConsulta)="resultadoConsultaAddUnidadMedida($event)"></modal-unidad-medida>
 
 <!-- Modal Actualizar unidad de medida -->
-<div mdbModal #modalUpdateUnidadMedida="mdb-modal" class="modal fade" id="modalUpdateUnidadMedida" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal " role="document">
-    <!--Contenido-->
-    <div class="modal-content background-gray mdl">
+<div mdbModal #modalUpdateUnidadMedida="mdb-modal" class="modal fade" id="modalUpdateUnidadMedida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal " role="document">
+        <!--Contenido-->
+        <div class="modal-content background-gray mdl">
 
-      <!--Titulo-->
-      <div class="modal-header orange-chang white-text">
-        <h4 class="title">
-          <mdb-icon far icon="file-alt"></mdb-icon> Editar Unidad de Medida</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateUnidadMedida.hide()">
+            <!--Titulo-->
+            <div class="modal-header orange-chang white-text">
+                <h4 class="title">
+                    <mdb-icon far icon="file-alt"></mdb-icon> Editar Unidad de Medida</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalUpdateUnidadMedida.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <!--Cuerpo modal-->
-      <div class="modal-body mb-0">
-        <!-- Inicio form-->
-        <form [formGroup]="formUpdateUnidadMedida" (ngSubmit)="updateUnidadMedida()" novalidate>
+            </div>
+            <!--Cuerpo modal-->
+            <div class="modal-body mb-0">
+                <!-- Inicio form-->
+                <form [formGroup]="formUpdateUnidadMedida" (ngSubmit)="updateUnidadMedida()" novalidate>
 
-          <div class="md-form ">
-            <h6 class="orange-chang-text">Nombre</h6>
-            <input type="text" class="input-modal-sm" name="nombreunidadmedida" formControlName="nombreUnidadMedida" id="upnombreUnidadMedida">
-            <show-errors [control]="formUpdateUnidadMedida.controls['nombreUnidadMedida']"></show-errors>
-          </div>
+                    <div class="md-form ">
+                        <h6 class="orange-chang-text">Nombre</h6>
+                        <input type="text" class="input-modal-sm" name="nombreunidadmedida" formControlName="nombreUnidadMedida" id="upnombreUnidadMedida">
+                        <show-errors [control]="formUpdateUnidadMedida.controls['nombreUnidadMedida']"></show-errors>
+                    </div>
 
-          <h6 class="orange-chang-text">Clasificación</h6>
-          <ng-select dropdownPosition="top" class="custom" [items]="clasificacionesUnidad" bindLabel="NombClasificacion"
-            bindValue="IdClasifUDM" placeholder="Selecciona una clasificacion"
-            formControlName="clasificacionesUnidad" id="upclasificacionunidadmedida" (change)="changeClasificacionUnidad($event)">
-          </ng-select>
+                    <h6 class="orange-chang-text">Clasificación</h6>
+                    <ng-select dropdownPosition="top" class="custom" [items]="clasificacionesUnidad" bindLabel="NombClasificacion" bindValue="IdClasifUDM" placeholder="Selecciona una clasificacion" formControlName="clasificacionesUnidad" id="upclasificacionunidadmedida"
+                        (change)="changeClasificacionUnidad($event)">
+                    </ng-select>
 
-          <div class="md-form">
-            <h6 class="orange-chang-text">Simbolo</h6>
-            <input type="text" id="upsimbolounidadmedida" class="input-modal-sm letras" name="simbolounidadmedida"
-              formControlName="simboloUnidadMedida">
-            <show-errors [control]="formUpdateUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
-          </div>
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Factor Conversión</h6>
+                        <input type="text" class="input-modal-sm letras">
+                    </div>
 
-          <div class="text-center mt-1-half">
-            <button mdbBtn type="button" class="orange-chang mb-1" type="submit" [disabled]="!formUpdateUnidadMedida.valid || peticionEnCurso">
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Simbolo</h6>
+                        <input type="text" id="upsimbolounidadmedida" class="input-modal-sm letras" name="simbolounidadmedida" formControlName="simboloUnidadMedida">
+                        <show-errors [control]="formUpdateUnidadMedida.controls['simboloUnidadMedida']"></show-errors>
+                    </div>
+
+                    <div class="text-center mt-1-half">
+                        <button mdbBtn type="button" class="orange-chang mb-1 white-text" type="submit" [disabled]="!formUpdateUnidadMedida.valid || peticionEnCurso">
               <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Editar
             </button>
-          </div>
+                    </div>
 
-        </form>
-        <!-- Final form -->
-      </div>
+                </form>
+                <!-- Final form -->
+            </div>
+        </div>
+        <!--/.Contenido-->
     </div>
-    <!--/.Contenido-->
-  </div>
 </div>

@@ -1,89 +1,89 @@
 <section>
-  <div class="row">
+    <div class="row">
 
-    <div class="col-md-12">
+        <div class="col-md-12">
 
-      <div class="card card-cascade narrower">
-        <!--Titulo-->
-        <div class="view view-cascade gradient-card-header orange-chang">
-          <h2 class="h2-responsive">Reportes</h2>
+            <div class="card card-cascade narrower">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h2 class="h2-responsive">Reportes</h2>
+                </div>
+                <!--/Titulo-->
+                <div class="card-body">
+                    <br><br>
+
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-6 mb-4 mb-r">
+
+                            <div class="card collection-card z-depth-1-half background-card-reportes">
+                                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
+                                    <img [src]="imgProducto | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="" style="background-color: white;">
+                                    <div class="stripe dark">
+                                        <a>
+                                            <p>Productos</p>
+                                            <button type="button" class="btn orange-chang btn-sm white-text" (click)="imprimirReporteProductos()" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4 mb-r">
+
+                            <div class="card collection-card z-depth-1-half background-card-reportes">
+                                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
+                                    <img [src]="imgProveedor | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
+                                    <div class="stripe dark">
+                                        <a>
+                                            <p>Proveedores</p>
+                                            <button type="button" class="btn orange-chang btn-sm white-text" (click)="imprimirReporteProveedores()" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4 mb-r">
+
+                            <div class="card collection-card z-depth-1-half background-card-reportes">
+                                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
+                                    <img [src]="imgTrabajadores | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
+                                    <div class="stripe dark">
+                                        <a>
+                                            <p>Trabajadores</p>
+                                            <button type="button" class="btn orange-chang btn-sm white-text" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4 mb-r">
+
+                            <div class="card collection-card z-depth-1-half background-card-reportes">
+                                <!--Card image-->
+                                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
+                                    <img [src]="imgFactura | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
+                                    <div class="stripe dark">
+                                        <a>
+                                            <p>Facturas</p>
+                                            <button type="button" class="btn orange-chang btn-sm white-text" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--Card image-->
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--/Titulo-->
-        <div class="card-body">
-          <br><br>
-
-          <div class="row">
-
-            <div class="col-lg-3 col-md-6 mb-4 mb-r">
-
-              <div class="card collection-card z-depth-1-half background-card-reportes">
-                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                    <img [src]="imgProducto | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="" style="background-color: white;">
-                  <div class="stripe dark">
-                    <a>
-                      <p>Productos</p>
-                      <button type="button" class="btn orange-chang btn-sm" (click)="imprimirReporteProductos()" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4 mb-r">
-
-              <div class="card collection-card z-depth-1-half background-card-reportes">
-                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                  <img [src]="imgProveedor | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
-                  <div class="stripe dark">
-                    <a>
-                      <p>Proveedores</p>
-                      <button type="button" class="btn orange-chang btn-sm" (click)="imprimirReporteProveedores()" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4 mb-r">
-
-              <div class="card collection-card z-depth-1-half background-card-reportes">
-                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                  <img [src]="imgTrabajadores | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
-                  <div class="stripe dark">
-                    <a>
-                      <p>Trabajadores</p>
-                      <button type="button" class="btn orange-chang btn-sm" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4 mb-r">
-
-              <div class="card collection-card z-depth-1-half background-card-reportes">
-                <!--Card image-->
-                <div class="view zoom waves-light size-img-card-reportes" mdbWavesEffect>
-                  <img [src]="imgFactura | imagen:carpetaImagenes" class="img-fluid img-reportes" alt="">
-                  <div class="stripe dark">
-                    <a>
-                      <p>Facturas</p>
-                      <button type="button" class="btn orange-chang btn-sm" mdbWavesEffect><mdb-icon fas icon="print" class="mr-1"></mdb-icon> Imprimir</button>
-                    </a>
-                  </div>
-                </div>
-                <!--Card image-->
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
 </section>

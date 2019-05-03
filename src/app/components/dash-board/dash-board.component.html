@@ -81,6 +81,7 @@
     </div>
 </section>
 
+<br><br><br><br><br>
 <section class="section team-section mt-5">
     <div class="row">
 
@@ -98,34 +99,32 @@
                                     <div class="col-12">
                                         <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin"></i>
-                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
-                                                   aria-label="Buscar" [(ngModel)]="buscando">
+                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Nombre</th>
-                                                <th>Representante</th>
-                                                <th>Email</th>
-                                                <th>Acción</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                    <th>Representante</th>
+                                                    <th>Email</th>
+                                                    <th>Acción</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            <tr *ngFor="let proveedor of proveedores | buscarProveedor: buscando; let i = index">
-                                                <th scope="row">{{i+1}}</th>
-                                                <td>{{proveedor.NombProveedor}}</td>
-                                                <td>{{proveedor.NombRepresentante}}</td>
-                                                <td>{{proveedor.Email}}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)"
-                                                            mdbTooltip="Visualizar" placement="bottom">
-                                                        <i class="fa fa-eye"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                                <tr *ngFor="let proveedor of proveedores | buscarProveedor: buscando; let i = index">
+                                                    <th scope="row">{{i+1}}</th>
+                                                    <td>{{proveedor.NombProveedor}}</td>
+                                                    <td>{{proveedor.NombRepresentante}}</td>
+                                                    <td>{{proveedor.Email}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm orange-chang" (click)="visualizarProveedor(proveedor)" mdbTooltip="Visualizar" placement="bottom">
+                                                            <i class="fa fa-eye white-text"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -140,36 +139,33 @@
                                     <div class="col-12">
                                         <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                             <i class="fa fa-search position-margin" aria-hidden="true"></i>
-                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
-                                                   aria-label="Buscar" [(ngModel)]="buscando">
+                                            <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
                                         </div>
                                     </div>
                                     <div class="table-responsive">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellidos</th>
-                                                    <th>Telefono</th>
-                                                    <th>Acción</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nombre</th>
+                                                        <th>Apellidos</th>
+                                                        <th>Telefono</th>
+                                                        <th>Acción</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr *ngFor="let trabajador of trabajadores | buscarTrabajador: buscando; let i = index">
-                                                    <th scope="row">{{i+1}}</th>
-                                                    <td>{{trabajador.Nombres}}</td>
-                                                    <td>{{trabajador.Apellidos}}</td>
-                                                    <td>{{trabajador.Telefono1}}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-sm orange-chang"
-                                                                (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar"
-                                                                placement="bottom">
-                                                            <i class="fa fa-eye"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
+                                                    <tr *ngFor="let trabajador of trabajadores | buscarTrabajador: buscando; let i = index">
+                                                        <th scope="row">{{i+1}}</th>
+                                                        <td>{{trabajador.Nombres}}</td>
+                                                        <td>{{trabajador.Apellidos}}</td>
+                                                        <td>{{trabajador.Telefono1}}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-sm orange-chang" (click)="visualizarTrabajador(trabajador)" mdbTooltip="Visualizar" placement="bottom">
+                                                                <i class="fa fa-eye white-text"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -213,9 +209,7 @@
                             <strong>Telefono: </strong>{{telefonoMostrado}}</li>
                         <hr>
                         <li>
-                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado
-                            == 'trabajador'
-                            ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
+                            <strong>{{tabSeleccionado == 'trabajador' ? 'Desde : ' : 'Email : '}}</strong>{{tabSeleccionado == 'trabajador' ? (trabajador.FechaIngreso | date:'yyyy-MM-dd') : proveedor.Email}}</li>
 
                     </ul>
 

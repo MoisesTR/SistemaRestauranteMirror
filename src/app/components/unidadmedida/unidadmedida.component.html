@@ -16,6 +16,7 @@
                                 <th class="header-negrita">#</th>
                                 <th class="header-negrita">Nombre</th>
                                 <th class="header-negrita">Clasificación</th>
+                                <th class="header-negrita">Factor Conversión</th>
                                 <th class="header-negrita">Simbolo</th>
                                 <th class="header-negrita">Acciones</th>
                             </tr>
@@ -25,6 +26,7 @@
                                 <td class="body-negrita">{{ unidadmedida.IdUnidadMedida }}</td>
                                 <td class="body-negrita">{{ unidadmedida.NombUnidad }}</td>
                                 <td class="body-negrita">{{ unidadmedida.NombClasificacion }}</td>
+                                <td class="body-negrita">Test</td>
                                 <td class="body-negrita">{{ unidadmedida.Simbolo}}</td>
                                 <td width="25%" class="body-negrita">
                                     <div class="text-center">
@@ -77,6 +79,11 @@
                     <ng-select dropdownPosition="top" class="custom" [items]="clasificacionesUnidad" bindLabel="NombClasificacion" bindValue="IdClasifUDM" placeholder="Selecciona una clasificacion" formControlName="clasificacionesUnidad" id="upclasificacionunidadmedida"
                         (change)="changeClasificacionUnidad($event)">
                     </ng-select>
+
+                    <div class="md-form">
+                        <h6 class="orange-chang-text">Factor Conversión</h6>
+                        <input type="text" class="input-modal-sm letras">
+                    </div>
 
                     <div class="md-form">
                         <h6 class="orange-chang-text">Simbolo</h6>

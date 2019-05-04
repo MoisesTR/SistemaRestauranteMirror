@@ -25,7 +25,6 @@ export class ProductoProveedor{
     public Nombre : string;
     public NombProveedor : string;
     public Habilitado : boolean;
-    public DiasCaducidad : number;
     public GravadoIva : number;
     public createdAt : string;
     public UpdateAt : string;

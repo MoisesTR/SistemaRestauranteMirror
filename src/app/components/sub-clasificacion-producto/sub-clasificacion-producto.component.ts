@@ -129,13 +129,12 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 		this.subclasificacionService.updateSubClasificacionProducto(this.subclasificacion).subscribe(
 			response => {
 				if (response.success) {
-					swal.fire("Subclasificación", "La Subclasificación ha sido actualizado exitosamente!", "success")
-						.then(() => {
-							modal.hide();
-							this.formUpdateSubClasificacion.reset();
-							this.subclasificacion = new SubClasificacionProducto();
-							this.getSubClasificacionesRender();
-						});
+					swal.fire("Subclasificación", "La Subclasificación ha sido actualizado exitosamente!", "success").then(() => {
+						modal.hide();
+						this.formUpdateSubClasificacion.reset();
+						this.subclasificacion = new SubClasificacionProducto();
+						this.getSubClasificacionesRender();
+					});
 				}
 			},
 			error => {
@@ -153,26 +152,28 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	deleteSubClasificacion(idSubclasificacion) {
-		swal.fire({
-			title: "Estas seguro(a)?",
-			text: "La Subclasificación sera inhabilitada!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Si!",
-			cancelButtonText: "Cancelar"
-		}).then(result => {
-			if (result.value) {
-				this.subclasificacionService.deleteSubclasificacion(idSubclasificacion).subscribe(response => {
-					if (response.success) {
-						swal.fire(this.tituloPantalla, "La Subclasificación ha sido inhabilatada exitosamente", "success").then(() => {
-							this.getSubClasificacionesRender();
-						});
-					}
-				});
-			}
-		});
+		swal
+			.fire({
+				title: "Estas seguro(a)?",
+				text: "La Subclasificación sera inhabilitada!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si!",
+				cancelButtonText: "Cancelar"
+			})
+			.then(result => {
+				if (result.value) {
+					this.subclasificacionService.deleteSubclasificacion(idSubclasificacion).subscribe(response => {
+						if (response.success) {
+							swal.fire(this.tituloPantalla, "La Subclasificación ha sido inhabilatada exitosamente", "success").then(() => {
+								this.getSubClasificacionesRender();
+							});
+						}
+					});
+				}
+			});
 	}
 
 	getClasificaciones() {
@@ -200,10 +201,10 @@ export class SubClasificacionProductoComponent implements OnInit, OnDestroy {
 	}
 
 	onChangeClasificacion(event) {
-		if (event === null) {
-			this.subclasificacion.IdClasificacion = null;
-		} else {
+		if (event) {
 			this.subclasificacion.IdClasificacion = event.IdClasificacion;
+		} else {
+			this.subclasificacion.IdClasificacion = null;
 		}
 	}
 

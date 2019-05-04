@@ -216,26 +216,26 @@ export class UpdateTrabajadorComponent implements OnInit {
 	}
 
 	onChangeSucursal(event) {
-		if (event === null) {
-			this.trabajador.IdSucursal = null;
-		} else {
+		if (event) {
 			this.trabajador.IdSucursal = event.IdSucursal;
+		} else {
+			this.trabajador.IdSucursal = null;
 		}
 	}
 
 	onChangeCargo(event) {
-		if (event === null) {
-			this.trabajador.IdCargo = null;
-		} else {
+		if (event) {
 			this.trabajador.IdCargo = event.IdCargo;
+		} else {
+			this.trabajador.IdCargo = null;
 		}
 	}
 
 	onChangeTipoDocumento(event) {
-		if (event === null) {
-			this.trabajador.IdTipDoc = null;
-		} else {
+		if (event) {
 			this.trabajador.IdTipDoc = event.IdTipDoc;
+		} else {
+			this.trabajador.IdTipDoc = null;
 		}
 	}
 

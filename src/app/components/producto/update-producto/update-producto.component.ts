@@ -23,9 +23,10 @@ import {
 } from "@app/core/service.index";
 import { CARPETA_PRODUCTOS, Global } from "@app/core/services/shared/global";
 import { CustomValidators } from "@app/validadores/CustomValidators";
-import { Utils } from "../../Utils";
 import { ProductoProveedor } from "@app/models/ProductoProveedor";
 import { Empaque } from "@app/models/Empaque";
+import { ProductoFactory } from "@app/models/factory/ProductoFactory";
+import { TipoProductoEnum } from "@app/Enums/TipoProductoEnum";
 
 declare var $: any;
 @Component({
@@ -70,7 +71,7 @@ export class UpdateProductoComponent implements OnInit {
 		private cdr: ChangeDetectorRef
 	) {
 		this.url = Global.url;
-		this.producto = new Producto();
+		this.producto = ProductoFactory.createProducto(TipoProductoEnum.Alimento);
 	}
 
 	ngOnInit() {
@@ -158,72 +159,69 @@ export class UpdateProductoComponent implements OnInit {
 			cantidadEmpaque: new FormControl("", []),
 
 			valorUnidadMedida: new FormControl("", [Validators.required]),
-			diasCaducidad: new FormControl("", [Validators.required]),
-			tipoInsumo: new FormControl("", [Validators.required]),
-			diasDeUso: new FormControl("", [Validators.required])
+			diasRotacion: new FormControl("", [Validators.required]),
+			tipoInsumo: new FormControl("", [Validators.required])
 		});
 	}
 
 	onChangeClasificacion(event) {
-		if (event === null) {
-			this.producto.IdClasificacion = null;
-		} else {
+		if (event) {
 			this.producto.IdClasificacion = event.IdClasificacion;
 
-			this._subclasificacionService
-				.getSubClasificacionesByIdClasificacion(event.IdClasificacion)
-				.subscribe(response => {
-					if (response.subclasificaciones) {
-						this.subclasificaciones = response.subclasificaciones;
-					}
-				});
+			this._subclasificacionService.getSubClasificacionesByIdClasificacion(event.IdClasificacion).subscribe(response => {
+				if (response.subclasificaciones) {
+					this.subclasificaciones = response.subclasificaciones;
+				}
+			});
+		} else {
+			this.producto.IdClasificacion = null;
 		}
 	}
 
 	onChangeSubclasificacion(event) {
-		if (event === null || event === undefined) {
-			this.producto.IdSubClasificacion = null;
-		} else {
+		if (event) {
 			this.producto.IdSubClasificacion = event.IdSubClasificacion;
+		} else {
+			this.producto.IdSubClasificacion = null;
 		}
 	}
 
 	onChangeUnidadMedida(event) {
-		if (event === null) {
-			this.producto.IdUnidadMedida = null;
-		} else {
+		if (event) {
 			this.producto.IdUnidadMedida = event.IdUnidadMedida;
+		} else {
+			this.producto.IdUnidadMedida = null;
 		}
 	}
 
 	onChangeEnvase(event: ProductoProveedor) {
-		if (event === null) {
-			this.producto.IdEnvase = null;
-		} else {
+		if (event) {
 			this.producto.IdEnvase = event.IdEnvase;
+		} else {
+			this.producto.IdEnvase = null;
 		}
 	}
 
 	onChangeEmpaque(event) {
-		if (event === null) {
-			this.producto.IdEmpaque = null;
-		} else {
+		if (event) {
 			this.producto.IdEmpaque = event.IdEmpaque;
+		} else {
+			this.producto.IdEmpaque = null;
 		}
 	}
 
 	onChangeCategoria(event) {
-		if (event === null) {
-			this.producto.IdCategoria = null;
-		} else {
+		if (event) {
 			this.producto.IdCategoria = event.IdCategoria;
+		} else {
+			this.producto.IdCategoria = null;
 		}
 	}
 
 	inicializarValoresFormularioProducto() {
 		this.formUpdateProducto.controls["nombreProducto"].setValue(this.producto.NombProducto);
 		this.formUpdateProducto.controls["descripcionProducto"].setValue(this.producto.DescProducto);
-		this.formUpdateProducto.controls["diasCaducidad"].setValue(this.producto.DiasCaducidad);
+		this.formUpdateProducto.controls["diasRotacion"].setValue(this.producto.DiasRotacion);
 		this.formUpdateProducto.controls["valorUnidadMedida"].setValue(this.producto.ValorUnidadMedida);
 		this.formUpdateProducto.controls["cantidadEmpaque"].setValue(this.producto.CantidadEmpaque);
 		this.IdTipoInsumo = this.producto.IdTipInsumo;
@@ -310,7 +308,7 @@ export class UpdateProductoComponent implements OnInit {
 		this.producto.IdEstado = 1;
 		this.producto.CantidadEmpaque = this.formUpdateProducto.value.cantidadEmpaque;
 		this.producto.ValorUnidadMedida = this.formUpdateProducto.value.valorUnidadMedida;
-		this.producto.DiasCaducidad = this.formUpdateProducto.value.diasCaducidad;
+		this.producto.DiasRotacion = this.formUpdateProducto.value.diasRotacion;
 	}
 
 	actualizarProducto() {

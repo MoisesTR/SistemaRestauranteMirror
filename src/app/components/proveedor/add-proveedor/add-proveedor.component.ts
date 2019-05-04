@@ -172,13 +172,14 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 				Validators.maxLength(200),
 				CustomValidators.nospaceValidator
 			]),
-			descripcionProveedor: new FormControl("", [Validators.maxLength(400)]),
+			descripcionProveedor: new FormControl(null, [Validators.maxLength(400)]),
 			isMercado: new FormControl("", []),
 			isProveedorServicio: new FormControl(false, [])
 		});
 	}
 
 	getDatosProveedor() {
+
 		this.proveedor.NombProveedor = this.formAddProveedor.value.nombreProveedor;
 		this.proveedor.NombRepresentante = this.formAddProveedor.value.nombreRepresentante;
 		this.proveedor.DescProveedor = this.formAddProveedor.value.descripcionProveedor;

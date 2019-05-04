@@ -8,26 +8,26 @@ export class Utils {
 			console.log(mensaje);
 		}
 
-        // HTTP ERROR RESPONSE
-        if (mensaje.error.message) {
-            return mensaje.error.message;
-        }
+		// HTTP ERROR RESPONSE
+		if (mensaje.error.message) {
+			return mensaje.error.message;
+		}
 
-        // VALIDATIONS API
-        if (Array.isArray(mensaje.error)) {
-            return mensaje.error[0].param + ' ' + mensaje.error[0].msg;
-        }
+		// VALIDATIONS API
+		if (Array.isArray(mensaje.error)) {
+			return mensaje.error[0].param + " " + mensaje.error[0].msg;
+		}
 
-        // SQL ERROR
-        if (mensaje.error.errmsg) {
-            return mensaje.error.errmsg;
-        }
+		// SQL ERROR
+		if (mensaje.error.errmsg) {
+			return mensaje.error.errmsg;
+		}
 
-        if (mensaje.error.originalError['info'].message) {
-            return mensaje.error.originalError['info'].message;
-        }
+		if (mensaje.error.originalError) {
+			return mensaje.error.originalError["info"].message;
+		}
 
-        return undefined;
+		return undefined;
 	}
 
 	static msgErrorImage(mensaje, titulo = "Error") {
@@ -48,17 +48,17 @@ export class Utils {
 		Formulario.reset();
 	}
 
-    static showMsgInfo(mensaje: string, titulo = "Información") {
-        swal.fire(titulo, mensaje, "info");
-    }
+	static showMsgInfo(mensaje: string, titulo = "Información") {
+		swal.fire(titulo, mensaje, "info");
+	}
 
-    static showMsgError(mensaje: string, titulo = "Error") {
-        swal.fire(titulo, mensaje, "error");
-    }
+	static showMsgError(mensaje: string, titulo = "Error") {
+		swal.fire(titulo, mensaje, "error");
+	}
 
-    static showMsgSucces(mensaje: string, titulo = "Exitoso") {
-        swal.fire(titulo, mensaje, "success");
-    }
+	static showMsgSucces(mensaje: string, titulo = "Exitoso") {
+		swal.fire(titulo, mensaje, "success");
+	}
 
 	static formatDateYYYYMMDD(myDate) {
 		return moment(myDate).format("YYYY-MM-DD");
@@ -89,9 +89,7 @@ export class Utils {
 	}
 
 	static printReport(idReporte, preview, catalogo, nativeWindow) {
-		nativeWindow.open(
-			"http://localhost:3000/reports?shortid=" + idReporte + "&preview=" + preview + "&catalogoApi=" + catalogo
-		);
+		nativeWindow.open("http://localhost:3000/reports?shortid=" + idReporte + "&preview=" + preview + "&catalogoApi=" + catalogo);
 	}
 
 	static printReportFactura(idReporte, preview, catalogo, idFactura, idEstadoFactura, nativeWindow) {

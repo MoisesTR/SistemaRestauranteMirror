@@ -101,17 +101,15 @@ export class AddTrabajadorComponent implements OnInit {
 	}
 
 	onChangeCargo(event) {
-		if (event === null) {
-			this.trabajador.IdCargo = null;
-		} else {
+		if (event) {
 			this.trabajador.IdCargo = event.IdCargo;
+		} else {
+			this.trabajador.IdCargo = null;
 		}
 	}
 
 	onChangeTipoDocumento(event) {
-		if (event === null) {
-			this.trabajador.IdTipDoc = null;
-		} else {
+		if (event) {
 			this.trabajador.IdTipDoc = event.IdTipDoc;
 			this.formAddTrabajador.controls["documentoTrabajador"].setValue("");
 			if (event.IdTipDoc === 1) {
@@ -127,6 +125,8 @@ export class AddTrabajadorComponent implements OnInit {
 					Validators.maxLength(10)
 				]);
 			}
+		} else {
+			this.trabajador.IdTipDoc = null;
 		}
 	}
 
@@ -149,11 +149,7 @@ export class AddTrabajadorComponent implements OnInit {
 				CustomValidators.nospaceValidator,
 				CustomValidators.fechaNacimientoTrabajador
 			]),
-			fechaIngreso: new FormControl("", [
-				Validators.required,
-				CustomValidators.nospaceValidator,
-				CustomValidators.mayorFechaActual
-			]),
+			fechaIngreso: new FormControl("", [Validators.required, CustomValidators.nospaceValidator, CustomValidators.mayorFechaActual]),
 			documentoTrabajador: new FormControl("", [
 				Validators.required,
 				Validators.minLength(14),
@@ -195,16 +191,7 @@ export class AddTrabajadorComponent implements OnInit {
 		this.btnIngresarHabilitado = false;
 		if (this.filesToUpload != null) {
 			this.uploadService
-				.makeFileRequest(
-					this.url + "uploadImage/",
-					CARPETA_TRABAJADORES,
-					"",
-					false,
-					[],
-					this.filesToUpload,
-					"token",
-					"image"
-				)
+				.makeFileRequest(this.url + "uploadImage/", CARPETA_TRABAJADORES, "", false, [], this.filesToUpload, "token", "image")
 				.then(
 					(result: any) => {
 						this.trabajador.Imagen = result.image;

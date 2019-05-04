@@ -16,12 +16,19 @@
 
                             <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
                                     <div class="md-form md-outline">
                                         <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor" class="form-control letras" autocomplete="off">
                                         <show-errors [control]="formAddProveedor.controls['nombreProveedor']">
                                         </show-errors>
                                         <label for="nombreProveedor">Nombre Empresa</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="nombreAbreviado" class="form-control letras" autocomplete="off">
+                                        <label for="nombreAbreviado">Nombre Abreviado</label>
                                     </div>
                                 </div>
 
@@ -161,7 +168,7 @@
                                     </td>
                                     <td>
                                         <div class="text-center">
-                                            <button mdbBtn type="button" (click)="eliminarTelefono(contacto,i)" size="sm" class="orange-chang" mdbTooltip="Eliminar contacto">
+                                            <button mdbBtn type="button" (click)="eliminarTelefono(contacto,i)" size="sm" class="orange-chang white-text" mdbTooltip="Eliminar contacto">
                                                 <mdb-icon far icon="trash-alt"></mdb-icon>
                                             </button>
                                         </div>
@@ -250,10 +257,10 @@
 
                 <!--Footer-->
                 <div class="modal-footer justify-content-end">
-                    <button mdbBtn size="sm" mdbWavesEffect class="orange-chang" (click)="modalAgendaTelefonica.hide()">
+                    <button mdbBtn size="sm" mdbWavesEffect class="orange-chang white-text" (click)="modalAgendaTelefonica.hide()">
                         Cerrar
                     </button>
-                    <button mdbBtn size="sm" type="submit" [disabled]="!formAddTelefonos.valid" (click)="agregarContacto()" mdbWavesEffect class="orange-chang">Agregar
+                    <button mdbBtn size="sm" type="submit" [disabled]="!formAddTelefonos.valid" (click)="agregarContacto()" mdbWavesEffect class="orange-chang white-text">Agregar
                     </button>
                 </div>
 

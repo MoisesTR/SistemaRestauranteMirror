@@ -108,9 +108,7 @@ export class UpdateProveedorComponent implements OnInit {
 		});
 	}
 
-	showModalTelefonos() {
-		this.modalTelefonos.show();
-	}
+
 
 	getValuesFormUpdate() {
 		this.proveedor.NombProveedor = this.formUpdateProveedor.value.nombreProveedor;

@@ -33,10 +33,10 @@
                                 <td width="25%" class="body-negrita">
 
                                     <div class="text-center">
-                                        <button mdbBtn type="button" size="sm" [routerLink]="'update/'+producto.IdProducto" class="orange-chang waves-light white-text" id="btneditarproductos" mdbTooltip="Editar" placement="bottom" mdbWavesEffect>
+                                        <button disabled mdbBtn type="button" size="sm" [routerLink]="'update/'+producto.IdProducto" class="orange-chang waves-light white-text" id="btneditarproductos" mdbTooltip="Editar" placement="bottom" mdbWavesEffect>
                       <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                                        <button mdbBtn type="button" size="sm" (click)="eliminarProducto(producto.IdProducto)" class="orange-chang waves-light white-text" id="btnEliminarproductos" mdbTooltip="Eliminar" placement="bottom" mdbWavesEffect>
+                                        <button disabled mdbBtn type="button" size="sm" (click)="eliminarProducto(producto.IdProducto)" class="orange-chang waves-light white-text" id="btnEliminarproductos" mdbTooltip="Eliminar" placement="bottom" mdbWavesEffect>
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                                     </div>

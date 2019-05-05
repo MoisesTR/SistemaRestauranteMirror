@@ -1,3 +1,37 @@
-<p>
-  testui works!
-</p>
+<div class="container">
+  <div class="row">
+      <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="buscarTexto" class="form-control" id="search" mdbInput>
+            <label for="search">Search</label>
+          </div>
+        </div>
+  </div>
+  <table mdbTable #tableEl="mdbTable" hover="true" small="true" class="z-depth-1">
+      <thead>
+        <tr>
+            <th>#</th>
+            <th [mdbTableSort]="proveedores" sortBy="NombProveedor">Nombre</th>
+            <th [mdbTableSort]="proveedores" sortBy="Direccion">Direccion</th>
+            <th [mdbTableSort]="proveedores" sortBy="Email">Email</th>
+            <th [mdbTableSort]="proveedores" sortBy="DescProveedor">Descripcion</th>
+        </tr>
+      </thead>
+      <tbody #row>
+        <tr   *ngFor="let proveedor of proveedores; let i = index">
+          <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i+1}}</th>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.NombProveedor}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.Direccion}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.Email}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.DescProveedor}}</td>
+        </tr>
+      </tbody>
+      <tfoot class="grey lighten-5 w-100">
+          <tr>
+            <td colspan="4">
+              <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="proveedores"></mdb-table-pagination>
+            </td>
+          </tr>
+          </tfoot>
+    </table>
+</div>

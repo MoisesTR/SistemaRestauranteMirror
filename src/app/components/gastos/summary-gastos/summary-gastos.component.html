@@ -24,10 +24,21 @@
                                 </div>
 
                                 <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
-                                    <label for="clasificacion" class="grey-text-card">Clasificación</label>
-                                    <ng-select placeholder="Selecciona una clasificación" formControlName="clasificacion" (change)="changeClasificacion($event)" [items]="clasificaciones" bindValue="IdClasificacion" bindLabel="Descripcion">
+                                    <label for="grupoCuenta" class="grey-text-card">Grupo Cuenta</label>
+                                    <ng-select placeholder="Selecciona un Grupo Cuenta">
                                     </ng-select>
-                                    <show-errors [control]="formBusquedaGasto.controls['clasificacion']"></show-errors>
+                                </div>
+
+                                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
+                                    <label for="cuenta" class="grey-text-card">Cuenta</label>
+                                    <ng-select placeholder="Selecciona una Cuenta">
+                                    </ng-select>
+                                </div>
+
+                                <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">
+                                    <label for="subcuenta" class="grey-text-card">Subcuenta</label>
+                                    <ng-select placeholder="Selecciona una Subcuenta">
+                                    </ng-select>
                                 </div>
 
                                 <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-2">

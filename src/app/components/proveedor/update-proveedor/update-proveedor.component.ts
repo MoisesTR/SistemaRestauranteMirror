@@ -13,7 +13,7 @@ import { ModalDirective } from "ng-uikit-pro-standard";
 	styleUrls: ["./update-proveedor.component.scss"]
 })
 export class UpdateProveedorComponent implements OnInit {
-	@ViewChild("modalTelefonos") modalTelefonos: ModalDirective;
+	@ViewChild("modalAgendaTelefonica") modalContacto: ModalDirective;
 	public proveedor: Proveedor;
 	public tituloPantalla = "Proveedor";
 	public formUpdateProveedor: FormGroup;
@@ -121,5 +121,9 @@ export class UpdateProveedorComponent implements OnInit {
 		this.proveedor.Telefono1 = this.formUpdateProveedor.value.telefono1;
 		this.proveedor.Telefono2 = this.formUpdateProveedor.value.telefono2;
 		this.proveedor.DescProveedor = this.formUpdateProveedor.value.descripcionProveedor;
+	}
+
+	mostrarAgendaContacto() {
+		this.modalContacto.show();
 	}
 }

@@ -8,7 +8,8 @@
             <h4 class="mb-0">Imagen</h4>
           </div>
           <div class="card-body text-center">
-            <input name="imagen" type="file" class="dropify" disabled="disabled" data-allowed-file-extensions="jpg jpeg png"  data-height="300"/>
+            <input name="imagen" type="file" class="dropify" disabled="disabled"
+              data-allowed-file-extensions="jpg jpeg png" data-height="300" />
           </div>
         </div>
       </div>
@@ -23,50 +24,56 @@
           <!-- Contenido -->
           <div class="card-body ">
             <!-- Formulario -->
-            <form [formGroup] = "formViewUser"  novalidate>
+            <form [formGroup]="formViewUser" novalidate>
               <!-- Campos a ingresar -->
               <div class="row">
+
+                <!-- <div class="md-form md-outline">
+                      <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text"
+                        id="codigoBarraBodegaAreaProd" class="form-control" autocomplete="off">
+                      <label for="codigoBarraBodegaAreaProd">Código barra bodega area Producción</label>
+                    </div> -->
+
                 <div class="col-md-12">
-                  <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="trabajador" name="trabajador" class="form-control validate" [readonly]="true" formControlName="trabajador" autocomplete="off">
-                    <label [class.active] = "usuario.Nombres && usuario.Nombres.length > 0" for="trabajador">Nombres y Apellidos</label>
+                  <div class="md-form md-outline">
+                    <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text"
+                      id="trabajador" name="trabajador" class="form-control validate" [readonly]="true"
+                      formControlName="trabajador" autocomplete="off">
+                    <label [class.active]="usuario.Nombres && usuario.Nombres.length > 0" for="trabajador">Nombres y
+                      Apellidos</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <br>
-                  <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="email" id="Correo" name="Correo" class="form-control validate" [readonly]="true" formControlName="correo" autocomplete="off">
-                    <label [class.active] = "usuario.Email && usuario.Email.length > 0" for="Correo">Correo Electrónico</label>
+                  <div class="md-form md-outline">
+                    <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="email" id="Correo"
+                      name="Correo" class="form-control validate" [readonly]="true" formControlName="correo"
+                      autocomplete="off">
+                    <label [class.active]="usuario.Email && usuario.Email.length > 0" for="Correo">Correo
+                      Electrónico</label>
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <br>
-                  <div class="md-form">
-                    <input [mdbValidate]=false mdbInputDirective type="text" id="username" name="username" class="form-control validate" [readonly]="true" formControlName="username" autocomplete="off">
-                    <label [class.active] = "usuario.Username && usuario.Username.length > 0" for="username">Nombre de Usuario</label>
+                  <div class="md-form md-outline">
+                    <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="username"
+                      name="username" class="form-control validate" [readonly]="true" formControlName="username"
+                      autocomplete="off">
+                    <label [class.active]="usuario.Username && usuario.Username.length > 0" for="username">Nombre de
+                      Usuario</label>
                   </div>
                 </div>
 
                 <div class="col-md-12">
-                  <br>
-                  <div class="md-form">
-                    <textarea [mdbValidate]=false mdbInputDirective type="text" id="rol" name="RolUsuario" class="md-textarea form-control validate" [readonly]="true" formControlName="rol" autocomplete="off"></textarea>
-                    <label [class.active] = "usuario.DescripcionRol && usuario.DescripcionRol.length > 0" for="rol">Roles</label>
+                  <div class="md-form md-outline active-chang-label">
+                    <textarea [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="rol"
+                      name="RolUsuario" class="md-textarea form-control validate" [readonly]="true"
+                      formControlName="rol" autocomplete="off"></textarea>
+                    <label for="descripcion">Roles</label>
                   </div>
-                  <!-- <select2 name="RolUsuario" class="selectrol" id="selectrol" [options]="optionsSelectRol" [value]="usuario.IdRol">
-                  </select2> -->
                 </div>
 
               </div>
-              <div class="margin-paneladministrativo"></div>
-              <div class="margin-paneladministrativo"></div>
-
-              <!-- Boton ingresa -->
-              <!-- <div class="text-center mt-1-half">
-                <button class="btn orange-chang mb-1" type="submit" >OK <i class="fa fa-check ml-1"></i></button>
-              </div> -->
 
             </form>
           </div>

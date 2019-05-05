@@ -15,8 +15,8 @@ export class BreadcrumbComponent implements OnInit {
 	breadcrumbs$ = this.router.events.pipe(
 		filter(event => event instanceof NavigationEnd),
 		distinctUntilChanged(),
-		map(event => this.buildBreadCrumb(this.activatedRoute.root)),
-		startWith(this.buildBreadCrumb(this.activatedRoute.root))
+		map(event => this.buildBreadCrumb(this.activatedRoute.firstChild)),
+		startWith(this.buildBreadCrumb(this.activatedRoute.firstChild))
 	);
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, public title: Title, public meta: Meta) {}
 

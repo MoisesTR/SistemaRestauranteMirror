@@ -5,15 +5,11 @@ import { UpdateUsuarioComponent } from "./update-usuario/update-usuario.componen
 import { UsuarioRoutingModule } from "./usuario.routing.module";
 import { ListUsuarioComponent } from "./list-usuario/list-usuario.component";
 import { SharedModule } from "../shared-module/shared.module";
+import { PagesUsuarioComponent } from "@app/components/usuario/pages-usuario.component";
 
 @NgModule({
 	imports: [SharedModule, UsuarioRoutingModule],
 	exports: [],
-	declarations: [
-		AddUsuarioComponent,
-		ListUsuariosComponent,
-		UpdateUsuarioComponent,
-		ListUsuarioComponent
-	]
+	declarations: [PagesUsuarioComponent, AddUsuarioComponent, ListUsuariosComponent, UpdateUsuarioComponent, ListUsuarioComponent]
 })
 export class UsuarioModule {}

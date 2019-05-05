@@ -4,14 +4,11 @@ import { ListProductosComponent } from "./list-productos/list-productos.componen
 import { UpdateProductoComponent } from "./update-producto/update-producto.component";
 import { ProductoRoutingModule } from "./producto.routing.module";
 import { ModalModule } from "@app/components/modales/modal.module";
+import { PagesProductoComponent } from "@app/components/producto/pages-producto.component";
 
 @NgModule({
 	imports: [ModalModule, ProductoRoutingModule],
-	declarations: [
-		AddProductoComponent,
-		ListProductosComponent,
-		UpdateProductoComponent
-	],
+	declarations: [PagesProductoComponent, AddProductoComponent, ListProductosComponent, UpdateProductoComponent],
 	exports: [],
 	schemas: [NO_ERRORS_SCHEMA]
 })

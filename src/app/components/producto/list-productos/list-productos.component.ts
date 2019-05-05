@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { ProductoService, SpinnerService } from "@app/core/service.index";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Producto } from "@app/models/Producto";
-import { Subject } from "rxjs";
-import swal from "sweetalert2";
-import { idioma_espanol } from "@app/core/services/shared/global";
-import { DataTableDirective } from "angular-datatables";
-import { Subscription } from "rxjs/Subscription";
-import { Utils } from "../../Utils";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ProductoService, SpinnerService} from '@app/core/service.index';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Producto} from '@app/models/Producto';
+import {Subject} from 'rxjs';
+import swal from 'sweetalert2';
+import {idioma_espanol} from '@app/core/services/shared/global';
+import {DataTableDirective} from 'angular-datatables';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
 	selector: "app-list-productos",

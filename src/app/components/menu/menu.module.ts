@@ -26,8 +26,7 @@ import {ConsumoInternoComponent} from '../consumo-interno/consumo-interno.compon
 import {ModalModule} from '@app/components/modales/modal.module';
 import {ConsolidadoComponent} from '../consolidado/consolidado.component';
 import {TestuiComponent} from '@app/components/testui/testui.component';
-import {AreaProduccionComponent} from '../produccion/area-produccion/area-produccion.component';
-import {BodegaAreaProduccionComponent} from '../produccion/bodega-area-produccion/bodega-area-produccion.component';
+import {ProduccionModule} from "@app/components/produccion/produccion.module";
 
 @NgModule({
 	imports: [
@@ -39,7 +38,8 @@ import {BodegaAreaProduccionComponent} from '../produccion/bodega-area-produccio
 		GastoModule,
 		TrabajadorModule,
 		ProveedorModule,
-		UsuarioModule
+		UsuarioModule,
+		ProduccionModule,
 	],
 	declarations: [
 		CategoriaProductoComponent
@@ -61,8 +61,6 @@ import {BodegaAreaProduccionComponent} from '../produccion/bodega-area-produccio
 		, ConsumoInternoComponent
 		, ConsolidadoComponent
 		, TestuiComponent
-		, AreaProduccionComponent
-		, BodegaAreaProduccionComponent
 	],
 	exports: [],
 	schemas: [NO_ERRORS_SCHEMA]

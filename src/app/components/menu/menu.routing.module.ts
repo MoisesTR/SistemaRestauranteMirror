@@ -40,6 +40,8 @@ import { SummaryGastosComponent } from "../gastos/summary-gastos/summary-gastos.
 import { ConsumoInternoComponent } from "../consumo-interno/consumo-interno.component";
 import { ConsolidadoComponent } from "../consolidado/consolidado.component";
 import {TestuiComponent} from '@app/components/testui/testui.component';
+import {AreaProduccionComponent} from '../produccion/area-produccion/area-produccion.component';
+import {BodegaAreaProduccionComponent} from '../produccion/bodega-area-produccion/bodega-area-produccion.component';
 
 const menuRoutes: Routes = [
 	// MODULO PRODUCTO
@@ -116,7 +118,11 @@ const menuRoutes: Routes = [
 
 	{ path: "testing", component: TestuiComponent, data: { titulo: "Testing" } },
 
-	{ path: "", redirectTo: "/dashboard", pathMatch: "full", data: { titulo: "Dashboard" } }
+	{ path: "", redirectTo: "/dashboard", pathMatch: "full", data: { titulo: "Dashboard" } },
+
+	//Modulo Produccion
+	{ path: "produccion/area-produccion", component: AreaProduccionComponent, data: { titulo: "Area de Produccion" } },
+	{ path: "produccion/bodega-area-produccion", component: BodegaAreaProduccionComponent, data: { titulo: "Bodega Area de Produccion" } }
 ];
 
 @NgModule({

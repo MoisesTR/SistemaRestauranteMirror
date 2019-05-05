@@ -1,0 +1,65 @@
+<section>
+    <div class="row">
+        <div class="col-md-12">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Area Producción</h3>
+                </div>
+                <!--/Titulo-->
+
+                <mdb-card-body cascade="true" class="white-text">
+
+                    <form [formGroup]="" novalidate>
+
+                        <div class="row">
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                <label class="margin-label-proveedor">Sucursal</label>
+                                <div class="md-form">
+                                    <ng-select placeholder="Selecciona una sucursal">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                <div class="md-form md-outline">
+                                    <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                        type="text" id="nProduccion" class="form-control" autocomplete="off">
+                                    <label for="nProduccion">Número area Producción</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                <div class="md-form md-outline">
+                                    <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                        type="text" id="codigoBarraAreaProd" class="form-control" autocomplete="off">
+                                    <label for="codigoBarraAreaProd">Código barra area Producción</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                <div class="md-form md-outline">
+                                    <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                        type="text" id="nombre" class="form-control" autocomplete="off">
+                                    <label for="nombre">Nombre</label>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <button mdbBtn type="submit" class="orange-chang mb-1">
+                                <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
+                            </button>
+                        </div>
+
+                    </form>
+
+                </mdb-card-body>
+
+            </mdb-card>
+        </div>
+    </div>
+</section>

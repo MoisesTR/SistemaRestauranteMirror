@@ -16,12 +16,12 @@
 
                             <div class="col-12">
                                 <div class="form-row align-items-center">
-                                    <div class="md-form md-outline col-11">
+                                    <div class="md-form md-outline col-9 col-sm-10 col-md-11 col-lg-11">
                                         <input type="text" id="nombreproducto" formControlName="nombreProducto" mdbInputDirective [mdbValidate]="false" class="form-control letras" autocomplete="off" [validateSuccess]="false" [validateError]="false">
                                         <label for="nombreproducto" class="grey-text-card">Nombre del Producto</label>
 
                                     </div>
-                                    <div class="col-1 text-right">
+                                    <div class="col-3 col-sm-2 col-md-1 col-lg-1 text-right">
                                         <button mdbBtn size="md" class="orange-chang mt-0" mdbTooltip="Agregar Imagen" placement="bottom" (click)="modalImagenProducto.show()">
                                             <mdb-icon far icon="file-image"></mdb-icon>
                                         </button>
@@ -61,8 +61,28 @@
                                 <show-errors [control]="formAddProducto.controls['proveedor']"></show-errors>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 mt-2">
+                            <div class="col-12 col-sm-12 col-md-3 mt-3">
                                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" mdbTooltip="Agregar Proveedor" (click)="agregarProveedor()" placement="bottom" mdbWavesEffect>Agregar</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-9 mt-3">
+                                <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Categoria</label>
+                                <ng-select placeholder="Selecciona una categoria">
+                                </ng-select>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-3 mt-3">
+                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" mdbTooltip="Agregar Categoria" placement="bottom" mdbWavesEffect>Agregar</button>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-9 mt-3">
+                                <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Clasificación</label>
+                                <ng-select placeholder="Selecciona una clasificación">
+                                </ng-select>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-3 mt-3">
+                                <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" mdbTooltip="Agregar Clasificación" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-5 mt-3">
@@ -93,11 +113,11 @@
                                 <show-errors [control]="formAddProducto.controls['envase']"></show-errors>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-3 mt-1">
+                            <div class="col-12 col-sm-12 col-md-3 mt-2">
                                 <button tabindex="-1" mdbBtn type="button" size="sm" block="true" class="orange-chang add-btn-position-espacio" (click)="showModalEnvase()" mdbTooltip="Agregar Envase" placement="bottom" mdbWavesEffect>Agregar</button>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-4 mt-4">
+                            <div class="col-12 col-sm-12 col-md-6 mt-2">
                                 <div class="md-form md-outline">
                                     <input AcceptCharacters mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="codigoOriginal" formControlName="codigoOriginal" class="form-control">
                                     <label for="codigoOriginal">Código producto</label>
@@ -105,7 +125,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-4 mt-4">
+                            <div class="col-12 col-sm-12 col-md-6 mt-2">
                                 <div class="md-form md-outline">
                                     <input Alphanumeric mdbInputDirective [validateSuccess]="false" [validateError]="false" formControlName="codigoInterno" type="text" id="codigoInterno" class="form-control">
                                     <label for="codigoInterno" class="">Código interno</label>
@@ -113,7 +133,7 @@
                                 </div>
                             </div>
 
-                            <div class="ol-12 col-sm-12 col-md-4 mt-4">
+                            <div class="col-12 col-sm-12 col-md-12">
                                 <div class="md-form active-chang-label md-outline">
                                     <textarea mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="descripcionproducto" formControlName="descripcionProducto" class="md-textarea form-control" autocomplete="off"></textarea>
                                     <show-errors [control]="formAddProducto.controls['descripcionProducto']">

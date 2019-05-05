@@ -27,10 +27,10 @@
                                 <td class="body-negrita">{{ cargo.DescCargo }}</td>
                                 <td width="25%" class="body-negrita">
                                     <div class="text-center">
-                                        <button mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="orange-chang white-text" id="btnUpdateCargo" mdbTooltip="Editar Cargo" placement="bottom">
+                                        <button disabled mdbBtn type="button" size="sm" (click)="invocarModalUpdate(modalUpdateCargo,cargo)" class="orange-chang white-text" id="btnUpdateCargo" mdbTooltip="Editar Cargo" placement="bottom">
                      <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                                        <button mdbBtn type="button" size="sm" (click)="deleteCargo(cargo.IdCargo)" class="orange-chang white-text" id="btnDeleteCargo" mdbTooltip="Eliminar Cargo" placement="bottom">
+                                        <button disabled mdbBtn type="button" size="sm" (click)="deleteCargo(cargo.IdCargo)" class="orange-chang white-text" id="btnDeleteCargo" mdbTooltip="Eliminar Cargo" placement="bottom">
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                                     </div>

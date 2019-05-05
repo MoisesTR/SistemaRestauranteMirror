@@ -43,7 +43,7 @@
                                         <button mdbBtn type="button" size="sm" [routerLink]="'update/'+proveedor.IdProveedor" class="orange-chang white-text" id="btnUpdateProveedor" mdbTooltip="Editar" placement="bottom">
                       <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                                        <button mdbBtn type="button" size="sm" (click)="deleteProveedor(proveedor.IdProveedor)" class="orange-chang white-text" id="btnDeleteProveedor" mdbTooltip="Eliminar" placement="bottom">
+                                        <button disabled mdbBtn type="button" size="sm" (click)="deleteProveedor(proveedor.IdProveedor)" class="orange-chang white-text" id="btnDeleteProveedor" mdbTooltip="Eliminar" placement="bottom">
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                                     </div>

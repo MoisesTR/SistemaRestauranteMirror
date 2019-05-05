@@ -30,10 +30,10 @@
                                 <td class="body-negrita">{{ unidadmedida.Simbolo}}</td>
                                 <td width="25%" class="body-negrita">
                                     <div class="text-center">
-                                        <button mdbBtn type="button" size="sm" (click)="showModalUpdateUnidad(modalUpdateUnidadMedida,unidadmedida)" class="orange-chang white-text" id="btnEditUnidadMedida" mdbTooltip="Editar Unidad de Medida" placement="bottom">
+                                        <button disabled mdbBtn type="button" size="sm" (click)="showModalUpdateUnidad(modalUpdateUnidadMedida,unidadmedida)" class="orange-chang white-text" id="btnEditUnidadMedida" mdbTooltip="Editar Unidad de Medida" placement="bottom">
                       <mdb-icon far icon="edit"></mdb-icon>
                     </button>
-                                        <button mdbBtn type="button" size="sm" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)" class="orange-chang white-text" id="btnDeleteUnidadMedida" mdbTooltip="Eliminar Unidad de Medida" placement="bottom">
+                                        <button disabled mdbBtn type="button" size="sm" (click)="deleteUnidadMedida(unidadmedida.IdUnidadMedida)" class="orange-chang white-text" id="btnDeleteUnidadMedida" mdbTooltip="Eliminar Unidad de Medida" placement="bottom">
                       <mdb-icon far icon="trash-alt"></mdb-icon>
                     </button>
                                     </div>

@@ -1,252 +1,268 @@
-<!--<section>-->
+<section>
 
-  <!--<div class="row">-->
-    <!--&lt;!&ndash;Datos del Proveedor&ndash;&gt;-->
-    <!--<div class="col-lg-12">-->
-      <!--<div class="card card-cascade narrower">-->
-        <!--<div class="view view-cascade gradient-card-header orange-chang">-->
-          <!--<h4 class="mb-0">Actualizar Proveedor</h4>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; Contenido &ndash;&gt;-->
-        <!--<div class="card-body ">-->
+  <div class="row">
+    <!--Datos del Proveedor-->
+    <div class="col-lg-12 mb-5">
+      <mdb-card cascade="true" narrower="true">
 
-          <!--<form [formGroup]="formUpdateProveedor" (ngSubmit)="updateProveedor()" novalidate>-->
-            <!--<div class="row justify-content-md-center">-->
+        <div class="view view-cascade gradient-card-header orange-chang">
+          <h3 class="card-header-title mb-2">Actualizar Proveedor</h3>
+        </div>
+        <!-- Contenido -->
+        <mdb-card-body cascade="true">
+          <form [formGroup]="" novalidate>
 
-              <!--<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">-->
-                <!--<br>-->
-                <!--<div class="md-form">-->
-                  <!--<input [mdbValidate]=false mdbInputDirective type="text" id="nombreProveedor" formControlName="nombreProveedor"-->
-                    <!--class="form-control letras" autocomplete="off">-->
-                  <!--<label for="nombreProveedor">NombPAsignada Empresa</label>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['nombreProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+            <div class="container-fluid">
 
-              <!--<div class="col-7 col-sm-8 col-md-4 col-lg-4 col-xl-4">-->
-                <!--<br>-->
-                <!--<div class="md-form">-->
-                  <!--<input [mdbValidate]=false mdbInputDirective type="number" id="numeroruc" formControlName="numeroRuc"-->
-                    <!--class="form-control letras" autocomplete="off">-->
-                  <!--<label for="numeroruc">Número Ruc</label>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['numeroRuc']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div class="row">
 
-              <!--<div class="col-5 col-sm-4 col-md-3 mt-3 col-lg-3 col-xl-3">-->
-                <!--<div class="form-check mt-5 checkbox-chang-filled">-->
-                  <!--<input [mdbValidate]=false type="checkbox" class="form-check-input" name="chkMercado" id="chkMercado"-->
-                    <!--mdbInputDirective>-->
-                  <!--<label class="form-check-label grey-text-card" for="chkMercado">Mercado</label>-->
-                <!--</div>-->
-              <!--</div>-->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="nombreProveedor" class="form-control letras" autocomplete="off">
+                    <label for="nombreProveedor">Nombre Empresa</label>
+                  </div>
+                </div>
 
-              <!--<div class="col-7 col-sm-8 col-md-8 col-lg-8 col-xl-8 mt-0">-->
-                <!--<div class="md-form">-->
-                  <!--<textarea [mdbValidate]=false mdbInputDirective type="text" id="direccionProveedor" formControlName="direccionProveedor"-->
-                    <!--class="md-textarea form-control" autocomplete="off" required></textarea>-->
-                  <!--<label for="direccionProveedor">Dirección Proveedor</label>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['direccionProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="nombreAbreviado" class="form-control letras" autocomplete="off">
+                    <label for="nombreAbreviado">Nombre Abreviado</label>
+                  </div>
+                </div>
 
-              <!--<div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-5">-->
-                <!--<div class="form-check checkbox-chang-filled mt-5">-->
-                  <!--<input [mdbValidate]=false class="form-check-input" type="checkbox" class="form-check-input" value="validando_checkbox1"-->
-                    <!--name="seleccionarcheck" id="segundo2" formControlName="retencion" mdbInputDirective>-->
-                  <!--<label class="form-check-label grey-text-card" for="segundo2">Aplica Retención</label>-->
-                <!--</div>-->
-                <!--<show-errors [control]="formUpdateProveedor.controls['retencion']"></show-errors>-->
-              <!--</div>-->
+                <div class="col-8 col-sm-8 col-md-8 col-lg-5 col-xl-5">
+                  <div class="md-form md-outline">
+                    <input Alphanumeric [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="numeroruc" class="form-control" autocomplete="off" min="0" maxlength="14=">
+                    <label for="numeroruc">Número Ruc</label>
+                  </div>
+                </div>
 
-              <!--<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-4">-->
-                <!--<div class="md-form">-->
-                  <!--<input [mdbValidate]=false mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante"-->
-                    <!--class="form-control letras" autocomplete="off">-->
-                  <!--<label for="nombreRepresentante">NombPAsignada Representante</label>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['nombreRepresentante']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+                <div class="col-4 col-sm-4 col-md-4 mt-4 col-lg-2 col-xl-2 text-center">
+                  <h6 class="grey-text-card">Mercado</h6>
+                  <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+                </div>
 
-              <!--<div class="col-7 col-sm-8 col-md-4 col-lg-4 col-xl-4 mt-4">-->
-                <!--<div class="md-form">-->
-                  <!--<input [mdbValidate]=false mdbInputDirective type="email" id="email" formControlName="email" class="form-control letras"-->
-                    <!--autocomplete="off">-->
-                  <!--<label for="email">Correo Electrónico</label>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['email']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                  <div class="md-form md-outline">
+                    <input Alphanumeric [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="nombreRepresentante" class="form-control letras" autocomplete="off">
+                    <label for="nombreRepresentante">Nombre Representante</label>
+                  </div>
+                </div>
 
-              <!--<div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-3 mt-5">-->
-                <!--<a class="btn orange-chang mb-1 ml-4 btn-sm white-text" role="button" (click)="showModalTelefonos()">-->
-                  <!--Telefonos<i class="fa fa-phone ml-1"></i>-->
-                <!--</a>-->
-              <!--</div>-->
+                <div class="col-8 col-sm-8 col-md-8 col-lg-5 col-xl-5">
+                  <div class="md-form md-outline">
+                    <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="email" id="email"
+                      class="form-control" autocomplete="off">
+                    <label for="email">Correo Electrónico</label>
+                  </div>
+                </div>
 
-              <!--<div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-4">-->
-                <!--<div class="md-form">-->
-                  <!--<textarea [mdbValidate]=false mdbInputDirective type="text" id="descripcionProveedor" formControlName="descripcionProveedor"-->
-                    <!--class="md-textarea form-control" autocomplete="off" required></textarea>-->
-                  <!--<label for="descripcionProveedor">Descripción Proveedor</label>-->
-                  <!--<show-errors [control]="formUpdateProveedor.controls['descripcionProveedor']"></show-errors>-->
-                <!--</div>-->
-              <!--</div>-->
+                <div class="col-4 col-sm-4 col-md-4 mt-4 col-lg-2 col-xl-2 text-center">
+                  <h6 class="grey-text-card">Proveedor de servicio</h6>
+                  <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
+                </div>
 
-              <!--<div class="col-md-3"></div>-->
+                <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
+                  <div class="md-form md-outline active-chang-label">
+                    <textarea [validateSuccess]="false" [validateError]="false" type="text" id="direccionProveedor"
+                      class="md-textarea form-control" autocomplete="off" mdbInputDirective></textarea>
+                    <label for="direccionProveedor">Dirección Proveedor</label>
+                  </div>
+                </div>
 
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div class="text-center mt-1-half">-->
-              <!--<button class="btn orange-chang mb-1" [disabled]="!formUpdateProveedor.valid">Actualizar-->
-                <!--<i class="fa fa-check ml-1"></i>-->
-              <!--</button>-->
-            <!--</div>-->
+                <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
+                  <div class="md-form md-outline active-chang-label">
+                    <textarea [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text"
+                      id="descripcionProveedor" class="md-textarea form-control" autocomplete="off"></textarea>
+                    <label for="descripcionProveedor">Descripción Proveedor</label>
+                  </div>
+                </div>
 
-          <!--</form>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; Contenido &ndash;&gt;-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</section>-->
+              </div>
 
-<!--&lt;!&ndash; Modal para actualizar contactos asociados al proveedor &ndash;&gt;-->
-<!--<div mdbModal #modalTelefonos="mdb-modal" class="modal fade" id="modalTelefonos" tabindex="-1" role="dialog"-->
-  <!--aria-labelledby="myModalLabel" aria-hidden="true">-->
-  <!--<div class="modal-dialog cascading-modal modal-lg" role="document" style="height: 41%;">-->
-    <!--&lt;!&ndash;Contenido&ndash;&gt;-->
-    <!--<div class="modal-content background-gray mdl">-->
+              <div class="text-center mt-3">
+                <button mdbBtn type="submit" class="orange-chang mb-1 white-text" mdbWavesEffect>
+                  <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
+                </button>
+              </div>
 
-      <!--&lt;!&ndash;Header&ndash;&gt;-->
-      <!--<div class="modal-header white-text orange-chang">-->
-        <!--<h4 class="title">-->
-          <!--<mdb-icon far icon="file-alt"></mdb-icon> Telefonos del proveedor</h4>-->
-        <!--<button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalTelefonos.hide()">-->
-          <!--<span aria-hidden="true">×</span>-->
-        <!--</button>-->
-      <!--</div>-->
+            </div>
 
-      <!--&lt;!&ndash;Cuerpo Modal&ndash;&gt;-->
-      <!--<div class="modal-body mb-0">-->
+          </form>
+        </mdb-card-body>
+        <!-- Contenido -->
+      </mdb-card>
 
-        <!--<form (ngSubmit)="agregarTelefonosProveedor()" novalidate>-->
+    </div>
 
-          <!--<div class="container d-none d-lg-block d-xl-block" id="mg-labels">-->
-            <!--<div class="row">-->
+    <!--Agenda-->
+    <div class="col-lg-12">
+      <mdb-card cascade="true" narrower="true">
 
-              <!--<div class="col-lg-3">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">NombPAsignada</h6>-->
-                <!--</div>-->
-              <!--</div>-->
+        <div class="view view-cascade gradient-card-header orange-chang" id="agenda-proveedores">
+          <h3 class="card-header-title mb-2">Agenda Telefónica</h3>
+        </div>
 
-              <!--<div class="col-lg-3 mgl-labels">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Cargo</h6>-->
-                <!--</div>-->
-              <!--</div>-->
+        <mdb-card-body cascade="true">
 
-              <!--<div class="col-lg-3 mgl-labels">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Télefono</h6>-->
-                <!--</div>-->
-              <!--</div>-->
+          <div class="container-fluid mt-5">
 
-              <!--<div class="col-lg-2 mgl-labels">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Titular</h6>-->
-                <!--</div>-->
-              <!--</div>-->
+            <div class="col-12 mb-5 text-center">
 
-              <!--<div class="col-lg-1" id="mgl-label-acciones">-->
-                <!--<div class="md-form">-->
-                  <!--<h6 class="orange-chang-text">Acciones</h6>-->
-                <!--</div>-->
-              <!--</div>-->
+              <button mdbBtn size="sm" type="button" class="orange-chang white-text" mdbWavesEffect
+                (click)="mostrarAgendaContacto()">
+                <mdb-icon fas icon="user" class="mr-1"></mdb-icon>
+                Crear contacto
+              </button>
 
-            <!--</div>-->
-          <!--</div>-->
+            </div>
 
-          <!--<hr class="d-none d-lg-block d-xl-block">-->
+          </div>
 
-          <!--<div class="scrollbar-card scrollbar-ripe-malinka">-->
-            <!--<fieldset let i = index;" class="mb-fieldset">-->
+          <!-- Tabla de contactos -->
+          <div class="table-responsive-sm">
+            <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombres y Apellidos</th>
+                  <th scope="col">Cargo</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Pais</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">Extensión</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Titular</th>
+                  <th class="text-center align-middle col-xs-1" scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contacto of contactos; let i = index">
+                  <th scope="row" class="align-middle col-xs-1">1</th>
+                  <td class="align-middle col-xs-1">{{contacto.NombPAsignada}}</td>
+                  <td class="align-middle col-xs-1">{{contacto.Cargo}}</td>
+                  <td class="text-center align-middle col-xs-1"><img src="/assets/img/icon/nicaragua.png"
+                      class="img-fluid mr-2" alt="Nicaragua">
+                  </td>
+                  <td class="align-middle col-xs-1">{{contacto.Telefono}}</td>
+                  <td class="align-middle col-xs-1">{{contacto.Extension}}</td>
+                  <td class="text-center align-middle col-xs-1">
+                    <mdb-checkbox [ngModel]="contacto.Titular" class="checkbox-chang-filled">
+                    </mdb-checkbox>
+                  </td>
+                  <td>
+                    <div class="text-center">
+                      <button mdbBtn type="button" (click)="eliminarTelefono(contacto,i)" size="sm"
+                        class="orange-chang white-text" mdbTooltip="Eliminar contacto">
+                        <mdb-icon far icon="trash-alt"></mdb-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- .Tabla de contactos -->
 
-              <!--<div class="container">-->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
 
-                <!--<div class="row mr-4">-->
+  </div>
+</section>
 
-                  <!--<div class="col-md-12 col-lg-3">-->
-                    <!--<div class="md-form">-->
-                      <!--<h6 class="orange-chang-text d-block d-lg-none d-xl-none">NombPAsignada</h6>-->
-                      <!--<input type="text" id="n{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.NombPAsignada"-->
-                        <!--class="input-modal-sm">-->
-                    <!--</div>-->
-                  <!--</div>-->
+<!-- Modal agenda -->
+<div mdbModal #modalAgendaTelefonica="mdb-modal" class="modal fade" id="modalAgendaTelefonica" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <!--Contenido-->
+    <div class="modal-content background-gray mdl">
 
-                  <!--<div class="col-md-12 col-lg-3">-->
-                    <!--<div class="md-form">-->
-                      <!--<h6 class="orange-chang-text d-block d-lg-none d-xl-none">Cargo</h6>-->
-                      <!--<input type="text" id="c{{i}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefono.Cargo"-->
-                        <!--class="input-modal-sm">-->
-                    <!--</div>-->
-                  <!--</div>-->
+      <!--Header-->
+      <div class="modal-header white-text orange-chang">
+        <h4 class="title">
+          <i class="fa fa-phone" aria-hidden="true"></i> Crear contacto
+        </h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
+          (click)="modalAgendaTelefonica.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
 
-                  <!--<div class="col-md-12 col-lg-3 mr-0">-->
-                    <!--<div class="md-form">-->
-                      <!--<h6 class="orange-chang-text d-block d-lg-none d-xl-none">Télefono</h6>-->
-                      <!--<input type="text" onlyNumbersInt id="t{{i}}" [ngModelOptions]="{standalone: true}"-->
-                        <!--[(ngModel)]="telefono.Telefono" class="input-modal-sm">-->
-                    <!--</div>-->
-                  <!--</div>-->
+      <form [formGroup]="" novalidate>
 
-                  <!--<div class="col-6 col-md-6 col-lg-1 mt-4 ml-0">-->
-                    <!--<div class="switch chang-switch font-small">-->
-                      <!--<h6 class="orange-chang-text d-block d-lg-none d-xl-none">Titular</h6>-->
-                      <!--<label class="mt-3" id="align-input">-->
-                        <!--<input [(ngModel)]="telefono.IsTitular" [ngModelOptions]="{standalone: true}" type="checkbox"-->
-                          <!--name="element_name">-->
-                        <!--<span class="lever"></span>-->
-                      <!--</label>-->
-                    <!--</div>-->
-                  <!--</div>-->
+        <!--Cuerpo Modal-->
+        <div class="modal-body mb-0">
 
-                  <!--<div *ngIf="i !== 0" class="col-3 col-sm-3 col-md-3 col-lg-1">-->
-                    <!--<div class="md-form">-->
-                      <!--<h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-2" *ngIf="i!==0">Eliminar</h6>-->
-                      <!--<a class="btn red-chang white-text btn-sm mb-5" id="remove" (click)="eliminarTelefono(telefono,i)"-->
-                        <!--mdbTooltip="Eliminar Telefóno" placement="bottom" role="button"><i class="fa fa-close"-->
-                          <!--aria-hidden="true"></i></a>-->
-                    <!--</div>-->
-                  <!--</div>-->
+          <div class="container-fluid">
+            <div class="row mb-2">
 
-                  <!--<div *ngIf="1 === 1" [ngClass]="(i === 0) ? 'col-3 col-sm-3 col-md-6 col-lg-2':'col-3 col-sm-3 col-md-3 col-lg-1'">-->
-                    <!--<div class="md-form">-->
-                      <!--<h6 class="orange-chang-text d-block d-lg-none d-xl-none ml-3">Agregar</h6>-->
-                      <!--<a class="btn white-text btn-sm ml-3 mb-5 orange-chang" id="add" (click)="agregarTelefono(telefono,i)"-->
-                        <!--mdbTooltip="Agregar Telefóno" placement="bottom" role="button"><i class="fa fa-plus"-->
-                          <!--aria-hidden="true"></i></a>-->
-                    <!--</div>-->
-                  <!--</div>-->
+              <!-- Nombres y Apellidos -->
+              <div class="col-10">
+                <div class="md-form md-outline input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text md-addon" id="nombresspan"><i class="fa fa-user"
+                        aria-hidden="true"></i></span>
+                  </div>
+                  <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="nombres"
+                    class="form-control" placeholder="Nombres y apellidos">
+                </div>
+              </div>
 
-                  <!--<div id="inputs-telefono"></div>-->
+              <!-- Check titular -->
+              <div class="col-2 text-center font-small mt-3">
+                <h6 id="text-titular">Titular</h6>
+                <mdb-checkbox [checked]="false" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
+              </div>
 
-                <!--</div>-->
+              <!-- Cargo -->
+              <div class="col-12">
+                <div class="md-form md-outline input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text md-addon" id="cargospan"><i class="fa fa-building"
+                        aria-hidden="true"></i></span>
+                  </div>
+                  <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="cargo"
+                    placeholder="Cargo" class="form-control">
+                </div>
+              </div>
 
-              <!--</div>-->
-            <!--</fieldset>-->
-          <!--</div>-->
+              <!-- Telefono y extension -->
+              <div class="col-12">
+                  <div class="md-form md-outline input-group mb-3">
+                    <div class="input-group-prepend mr-2">
+                      <span class="input-group-text md-addon" id="telefonospan"><i class="fa fa-phone"
+                          aria-hidden="true"></i></span>
+                      <img src="/assets/img/icon/nicaragua.png" class="img-fluid mr-2" alt="Nicaragua">
+                    </div>
+                    <input onlyPositiveNumber mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                      type="text" id="telefono" placeholder="Telefono"
+                      class="form-control mr-3">
+                    <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text"
+                      id="extension" placeholder="Extension" class="form-control ml-3">
+                  </div>
+                </div>
 
-          <!--<div class="text-center mt-1-half">-->
-            <!--<button class="btn orange-chang mb-1">Ingresar-->
-              <!--<i class="fa fa-check ml-1"></i>-->
-            <!--</button>-->
-          <!--</div>-->
+            </div>
+          </div>
 
-        <!--</form>-->
+        </div>
 
-      <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;/.Contenido&ndash;&gt;-->
-  <!--</div>-->
-<!--</div>-->
+        <!--Footer-->
+        <div class="modal-footer justify-content-end">
+          <button mdbBtn size="sm" mdbWavesEffect class="orange-chang white-text"
+            (click)="modalAgendaTelefonica.hide()">
+            Cerrar
+          </button>
+          <button mdbBtn size="sm" type="submit" mdbWavesEffect class="orange-chang white-text">Agregar
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+    <!--/.Contenido-->
+  </div>
+</div>

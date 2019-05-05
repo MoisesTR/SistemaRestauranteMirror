@@ -701,3 +701,21 @@ dropdown .dropdown-menu .dropdown-item:active,
   border-width: 0 0 2px 0;
   border-color: rgba(0, 0, 0, 0.1);
 }
+
+
+/*** Fieldset ***/
+fieldset.rango-fechas {
+  border: 1px solid #999 !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  border-color: #999;
+}
+
+legend.rango-fechas {
+  font-size: 1.2em !important;
+  font-weight: bold !important;
+  text-align: left !important;
+  width:auto;
+  padding:0 10px;
+  border-bottom:none;
+}

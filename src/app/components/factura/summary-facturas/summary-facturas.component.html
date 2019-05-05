@@ -18,11 +18,15 @@
 
                                 <div class="col-xs-12 col-md-12 col-lg-12 mb-5 mt-2">
                                     <label class="" for="proveedor" class="grey-text-card">Proveedor</label>
-                                    <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
-                                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                    <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor"
+                                        id="proveedor" placeholder="Selecciona un proveedor"
+                                        (change)="onChangeProveedor($event)" formControlName="proveedor">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index"
+                                            let-search="searchTerm">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <h5 class="card-title" [ngOptionHighlight]="search">{{item.NombProveedor}}</h5>
+                                                    <h5 class="card-title" [ngOptionHighlight]="search">
+                                                        {{item.NombProveedor}}</h5>
                                                     <p class="card-subtitle mb-2 text-muted">
                                                         <b>Nombre del Representante</b>
                                                         <br>
@@ -41,40 +45,59 @@
 
                                 <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
                                     <label class="" for="proveedor" class="grey-text-card">Fecha de búsqueda</label>
-                                    <ng-select [items]="filtroFechas" bindLabel="Fecha" bindValue="Id" formControlName="fechaBusqueda" (change)="changeFechaBusqueda($event)" placeholder="Selecciona la fecha de búsqueda">
+                                    <ng-select [items]="filtroFechas" bindLabel="Fecha" bindValue="Id"
+                                        formControlName="fechaBusqueda" (change)="changeFechaBusqueda($event)"
+                                        placeholder="Selecciona la fecha de búsqueda">
                                     </ng-select>
                                 </div>
 
                                 <div class="col-xs-12 col-md-6 col-lg-6 mb-3 mt-1">
                                     <div class="md-form md-outline">
                                         <label for="codigoFactura">Código de Factura</label>
-                                        <input Alphanumeric formControlName="codFactura" [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" placeholder="Ej: BD200" class="form-control" autocomplete="off">
+                                        <input Alphanumeric formControlName="codFactura" [validateSuccess]="false"
+                                            [validateError]="false" mdbInputDirective type="text"
+                                            placeholder="Ej: BD200" class="form-control" autocomplete="off">
                                     </div>
                                 </div>
 
-                                <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
-                                    <div class="md-form md-outline">
-                                        <input type="text" formControlName="fechaInicio" name="fechaInicio" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="form-control" [validateSuccess]="false" [validateError]="false" id="fechaInicio" placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
-                                            (ngModelChange)="busquedaFactura($event)" readonly>
-                                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-                                        <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
-                                    </div>
-                                </div>
+                                <fieldset class="rango-fechas col-12 grey-text-card">
+                                    <legend class="rango-fechas">Rango Fecha de Ingreso</legend>
 
-                                <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
-                                    <div class="md-form md-outline">
-                                        <input type="text" formControlName="fechaFin" name="fechaFin" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="form-control" [validateSuccess]="false" [validateError]="false" id="fechaFin" placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
-                                            [min]="seleccionFechaBusqueda" readonly>
-                                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
-                                        <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
+                                    <div class="row">
+
+                                        <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
+                                            <div class="md-form md-outline">
+                                                <input type="text" formControlName="fechaInicio" name="fechaInicio"
+                                                    [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="form-control"
+                                                    [validateSuccess]="false" [validateError]="false" id="fechaInicio"
+                                                    placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
+                                                    (ngModelChange)="busquedaFactura($event)" readonly>
+                                                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                                <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-md-6 col-lg-6 mb-3">
+                                            <div class="md-form md-outline">
+                                                <input type="text" formControlName="fechaFin" name="fechaFin"
+                                                    [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="form-control"
+                                                    [validateSuccess]="false" [validateError]="false" id="fechaFin"
+                                                    placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
+                                                    [min]="seleccionFechaBusqueda" readonly>
+                                                <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                                                <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </fieldset>
+                                
                             </div>
 
                             <div class="text-center mt-1-half mt-3">
-                                <button mdbBtn type="submit" [disabled]="!formBusquedaFactura.valid || peticionEnCurso" class="orange-chang mb-1 white-text">
-                  <mdb-icon fas icon="search" class="mr-1"></mdb-icon>Buscar
-                </button>
+                                <button mdbBtn type="submit" [disabled]="!formBusquedaFactura.valid || peticionEnCurso"
+                                    class="orange-chang mb-1 white-text">
+                                    <mdb-icon fas icon="search" class="mr-1"></mdb-icon>Buscar
+                                </button>
                             </div>
 
                         </div>
@@ -119,7 +142,8 @@
                         <i class="fa fa-exchange-alt orange-chang icono-card"></i>
                         <div class="mb-3 right-card-align">
                             <p class="grey-text-card">Diferencia</p>
-                            <h4><strong>C$ {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}</strong></h4>
+                            <h4><strong>C$ {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}</strong>
+                            </h4>
                         </div>
                     </div>
                 </mdb-card>
@@ -139,7 +163,8 @@
                     <div class="col-12 col-sm-12 col-md-12 mt-3">
                         <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                             <i class="fa fa-search mt-2" aria-hidden="true"></i>
-                            <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="buscando">
+                            <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar"
+                                [(ngModel)]="buscando">
                         </div>
                     </div>
 
@@ -161,31 +186,46 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let factura of facturas; let i = index">
-                                    <th *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" scope="row" class="align-middle" width="5%">{{i + 1}}</th>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                                    <th *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        scope="row" class="align-middle" width="5%">{{i + 1}}</th>
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        class="body-negrita text-center align-middle">
                                         <span class="grey-text"><small><i
-                          class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaRecepcion}}</small></span>
+                                                    class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaRecepcion}}</small></span>
                                     </td>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="body-negrita text-center align-middle">
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        class="body-negrita text-center align-middle">
                                         <span class="grey-text"><small><i
-                          class="fa fa-clock-o mr-1"></i>{{factura.HoraIngreso}}</small></span>
+                                                    class="fa fa-clock-o mr-1"></i>{{factura.HoraIngreso}}</small></span>
                                         <br>
                                         <span class="grey-text"><small><i class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaIngreso |
                         date:'yyyy-MM-dd'}}</small></span>
                                     </td>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas | number : '1.2-2'}}
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        width="10%" class="body-negrita text-center align-middle">C$
+                                        {{factura.TotalCordobas | number : '1.2-2'}}
                                     </td>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalOrigenFactura | number : '1.2-2'}}
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        width="10%" class="body-negrita text-center align-middle">C$
+                                        {{factura.TotalOrigenFactura | number : '1.2-2'}}
                                     </td>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        width="10%" class="body-negrita text-center align-middle">C$
+                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}
                                     </td>
-                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="text-center align-middle">
-                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" (click)="mostrarFactura(factura.IdFactura)" mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect>
+                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
+                                        class="text-center align-middle">
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text"
+                                            tabindex="-1" (click)="mostrarFactura(factura.IdFactura)"
+                                            mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect>
                                             <mdb-icon far icon="eye"></mdb-icon>
                                         </button>
-                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" mdbTooltip="Editar Factura" placement="bottom" mdbWavesEffect>
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text"
+                                            tabindex="-1" mdbTooltip="Editar Factura" placement="bottom" mdbWavesEffect>
                                             <mdb-icon far icon="edit"></mdb-icon>
                                         </button>
                                     </td>
@@ -199,12 +239,14 @@
                         <ul class="pagination pg-amber justify-content-center">
 
                             <!--First-->
-                            <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == 1}">
+                            <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"
+                                [ngClass]="{disabled: activePage == 1}">
                                 <a class="page-link">Primera</a>
                             </li>
 
                             <!--Arrow left-->
-                            <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == 1}">
+                            <li class="page-item" (click)="previousPage($event)"
+                                [ngClass]="{disabled: activePage == 1}">
                                 <a class="page-link" mdbWavesEffect aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Anterior</span>
@@ -212,12 +254,17 @@
                             </li>
 
                             <!--Numbers-->
-                            <li #pages *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index" class="page-item active z-index-0h" [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
-                                <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+                            <li #pages
+                                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"
+                                class="page-item active z-index-0h"
+                                [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">
+                                <a class="page-link waves-light" (click)="changePage($event)"
+                                    mdbWavesEffect>{{page}}</a>
                             </li>
 
                             <!--Arrow right-->
-                            <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                            <li class="page-item" (click)="nextPage($event)"
+                                [ngClass]="{disabled: activePage == numberOfPaginators}">
                                 <a class="page-link" mdbWavesEffect aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Siguiente</span>
@@ -225,7 +272,8 @@
                             </li>
 
                             <!--LAST PAGE-->
-                            <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == numberOfPaginators}">
+                            <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"
+                                [ngClass]="{disabled: activePage == numberOfPaginators}">
                                 <a class="page-link">Ultima</a>
                             </li>
                         </ul>

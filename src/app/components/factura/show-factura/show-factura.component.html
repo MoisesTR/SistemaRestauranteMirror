@@ -17,76 +17,90 @@
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-proveedor">
                                     <label class="mb-label">Proveedor</label>
                                     <div class="md-form">
-                                        <ng-select id="proveedor" [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor"
-                                                   placeholder="Selecciona un proveedor" formControlName="Proveedor" class="disabled">
+                                        <ng-select id="proveedor" [items]="proveedores" bindLabel="NombProveedor"
+                                            bindValue="IdProveedor" placeholder="Selecciona un proveedor"
+                                            formControlName="Proveedor" class="disabled">
                                         </ng-select>
                                     </div>
                                     <br>
                                 </div>
 
                                 <div class="col-xs-12 col-md-12 col-lg-12 mt-nombre_vendedor">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false mdbInputDirective type="text" id="nombrevendedor" formControlName="nombrevendedor"
-                                               class="form-control" autocomplete="off" readonly>
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
+                                            type="text" id="nombrevendedor" formControlName="nombrevendedor"
+                                            class="form-control" autocomplete="off" readonly>
                                         <label for="nombrevendedor">Nombre vendedor</label>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false mdbInputDirective type="text" id="numeroFactura" class="form-control"
-                                               formControlName="mumeroFactura" autocomplete="off" readonly>
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
+                                            type="text" id="numeroFactura" class="form-control"
+                                            formControlName="mumeroFactura" autocomplete="off" readonly>
                                         <label for="numeroFactura">Código de factura</label>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false disabled mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 1200"
-                                               class="form-control" formControlName="totalImpreso" autocomplete="off">
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
+                                            disabled onlyNumbers="decimal" type="text" placeholder="Ej: 1200"
+                                            class="form-control" formControlName="totalImpreso" autocomplete="off">
                                         <label for="totalFacturaImpresa">Total Factura Impresa</label>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false disabled mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500"
-                                               class="form-control" formControlName="descuentoTotal" autocomplete="off">
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
+                                            disabled onlyNumbers="decimal" type="text" placeholder="Ej: 500"
+                                            class="form-control" formControlName="descuentoTotal" autocomplete="off">
                                         <label for="descuentTotalFactura">Descuento Total Factura</label>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <div class="md-form">
-                                        <input formControlName="fechaFactura" name="fechaFactura" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
-                                               class="input-picker form-control" id="fechaFactura" placeholder="ej: 12-01-2019"
-                                               mdbInputDirective readonly [mdbValidate]=false>
-                                        <owl-date-time [disabled]="true" [pickerType]="'calendar'" #dt2></owl-date-time>
-                                        <label for="fechaFactura">Fecha de factura</label>
+
+                                    <div class="md-form md-outline">
+                                        <input type="text" class="form-control" autocomplete="off" id="fechaFactura"
+                                            [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [validateSuccess]="false"
+                                            [validateError]="false" formControlName="fechaFactura" name="fechaFactura"
+                                            mdbInputDirective readonly placeholder="Ej: dd/mm/yyyy" mdbInput>
+
+                                        <owl-date-time [disabled]="true" [pickerType]="'calendar'" #dt2>
+                                        </owl-date-time>
+                                        <label for="fechaFactura">Fecha factura</label>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <div class="md-form">
-                                        <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="input-picker form-control" formControlName="fechaRecepcion" placeholder="ej: 12-01-2019"
-                                               mdbInputDirective readonly [mdbValidate]=false>
+                                    <div class="md-form md-outline">
+                                        <input type="text" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
+                                            class="form-control" formControlName="fechaRecepcion"
+                                            placeholder="ej: 12-01-2019" readonly [validateSuccess]="false"
+                                            [validateError]="false" mdbInputDirective mdbInput>
                                         <owl-date-time [disabled]="true" [pickerType]="'calendar'" #dt1></owl-date-time>
                                         <label for="fechaRecepcion">Fecha de recepción</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false formControlName="usuario" mdbInputDirective type="text" id="usuario"
-                                               class="form-control" autocomplete="off" readonly>
+                                    <div class="md-form md-outline">
+                                        <input formControlName="usuario" type="text" id="usuario" class="form-control"
+                                            autocomplete="off" readonly [validateSuccess]="false"
+                                            [validateError]="false" mdbInputDirective>
                                         <label for="usuario">Trabajador Ingreso</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="md-form">
-                                        <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="input-time form-control" id="horaFactura"
-                                               mdbInputDirective readonly [mdbValidate]=false formControlName="hora">
+                                    <div class="md-form md-outline">
+                                        <input type="text" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                                            class="form-control" id="horaFactura" [validateSuccess]="false"
+                                            [validateError]="false" mdbInputDirective readonly formControlName="hora"
+                                            mdbInput>
                                         <owl-date-time [disabled]="true" [pickerType]="'timer'" #dt3></owl-date-time>
                                         <label for="horaFactura">Hora Ingreso Factura</label>
                                     </div>
@@ -94,30 +108,32 @@
 
                                 <div class="col-md-6">
                                     <label>Moneda</label>
-                                    <ng-select dropdownPosition="top" [items]="Moneda" formControlName="Moneda" bindLabel="Moneda"
-                                               bindValue="Id" id="moneda" class="disabled">
+                                    <ng-select dropdownPosition="top" [items]="Moneda" formControlName="Moneda"
+                                        bindLabel="Moneda" bindValue="Id" id="moneda" class="disabled">
                                     </ng-select>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label>Forma de Pago</label>
-                                    <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago" bindLabel="FormaPago"
-                                               bindValue="Id" id="pago" class="disabled">
+                                    <ng-select dropdownPosition="top" [items]="FormaPago" formControlName="FormaPago"
+                                        bindLabel="FormaPago" bindValue="Id" id="pago" class="disabled">
                                     </ng-select>
                                 </div>
 
                                 <div class="col-md-6 mt-3">
-                                    <div class="md-form">
-                                        <input mdbInputDirective [mdbValidate]=false type="number" id="tipoCambio" class="form-control"
-                                               autocomplete="off" readonly>
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
+                                            type="number" id="tipoCambio" class="form-control" autocomplete="off"
+                                            readonly>
                                         <label for="tipoCambio">Tipo de Cambio</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 mt-3">
-                                    <div class="md-form">
-                                        <input mdbInputDirective [mdbValidate]=false type="number" id="plazoPagos" class="form-control"
-                                               autocomplete="off" readonly>
+                                    <div class="md-form md-outline">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
+                                            type="number" id="plazoPagos" class="form-control" autocomplete="off"
+                                            readonly>
                                         <label for="plazoPagos">Plazo de pagos(dias)</label>
                                     </div>
                                 </div>
@@ -142,30 +158,30 @@
                         <!-- Lista de productos -->
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th class="header-negrita">Producto</th>
-                                <th class="header-negrita">U. Medida</th>
-                                <th class="header-negrita">Cantidad</th>
-                                <th class="header-negrita">Precio unitario</th>
-                                <th class="header-negrita">Descuento</th>
-                                <th class="header-negrita">Gravado IVA</th>
-                                <th class="header-negrita">Ventas Netas</th>
-                            </tr>
+                                <tr>
+                                    <th class="header-negrita">Producto</th>
+                                    <th class="header-negrita">U. Medida</th>
+                                    <th class="header-negrita">Cantidad</th>
+                                    <th class="header-negrita">Precio unitario</th>
+                                    <th class="header-negrita">Descuento</th>
+                                    <th class="header-negrita">Gravado IVA</th>
+                                    <th class="header-negrita">Ventas Netas</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let detalle of factura.Detalle ;let i = index">
-                                <td class="body-negrita">{{detalle.NombProducto}}</td>
-                                <td class="body-negrita">{{detalle.NombUnidad}}</td>
-                                <td class="body-negrita">{{detalle.Cantidad}}</td>
-                                <td class="body-negrita">{{detalle.PrecioUnitario | number : '1.2-2'}} C$</td>
-                                <td width="10%" class="body-negrita">
-                                    <strong>{{detalle.Descuento}}%</strong>
-                                </td>
-                                <td class="body-negrita">
-                                    <strong>{{detalle.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
-                                </td>
-                                <td width="10%" class="body-negrita">{{detalle.SubTotal | number : '1.2-2'}} C$</td>
-                            </tr>
+                                <tr *ngFor="let detalle of factura.Detalle ;let i = index">
+                                    <td class="body-negrita">{{detalle.NombProducto}}</td>
+                                    <td class="body-negrita">{{detalle.NombUnidad}}</td>
+                                    <td class="body-negrita">{{detalle.Cantidad}}</td>
+                                    <td class="body-negrita">{{detalle.PrecioUnitario | number : '1.2-2'}} C$</td>
+                                    <td width="10%" class="body-negrita">
+                                        <strong>{{detalle.Descuento}}%</strong>
+                                    </td>
+                                    <td class="body-negrita">
+                                        <strong>{{detalle.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
+                                    </td>
+                                    <td width="10%" class="body-negrita">{{detalle.SubTotal | number : '1.2-2'}} C$</td>
+                                </tr>
                             </tbody>
                         </table>
                         <!-- /.Lista de productos -->

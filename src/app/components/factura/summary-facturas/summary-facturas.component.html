@@ -182,12 +182,12 @@
                                     <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" width="10%" class="body-negrita text-center align-middle">C$ {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}
                                     </td>
                                     <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex" class="text-center align-middle">
-                                        <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" (click)="mostrarFactura(factura.IdFactura)" mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect>
-                      <mdb-icon far icon="eye"></mdb-icon>
-                    </button>
-                                        <button type="button" class="btn orange-chang btn-sm waves-light" tabindex="-1" mdbTooltip="Editar Factura" placement="bottom" mdbWavesEffect>
-                      <mdb-icon far icon="edit"></mdb-icon>
-                    </button>
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" (click)="mostrarFactura(factura.IdFactura)" mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect>
+                                            <mdb-icon far icon="eye"></mdb-icon>
+                                        </button>
+                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text" tabindex="-1" mdbTooltip="Editar Factura" placement="bottom" mdbWavesEffect>
+                                            <mdb-icon far icon="edit"></mdb-icon>
+                                        </button>
                                     </td>
                                 </tr>
 

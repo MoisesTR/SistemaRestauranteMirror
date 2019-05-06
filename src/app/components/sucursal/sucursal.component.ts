@@ -176,7 +176,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 				Validators.maxLength(100),
 				CustomValidators.nospaceValidator
 			]),
-			restaurante: new FormControl(null, Validators.required),
+			restaurante: new FormControl({ value: null, disabled: true }, Validators.required),
 			telefonoPrincipal: new FormControl("", [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
 			telefonoSecundario: new FormControl("", [Validators.minLength(8), Validators.maxLength(8)])
 		});
@@ -195,11 +195,9 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 	getValuesFormUpdateSucursal() {
 		this.sucursal.NombSucursal = this.formUpdateSucursal.value.nombreSucursal;
 		this.sucursal.Direccion = this.formUpdateSucursal.value.direccion;
-		this.sucursal.Telefono1 = this.formUpdateSucursal.value.telefonoPrincipal.toString().replace("-", "");
-		this.sucursal.Telefono2 =
-			this.formUpdateSucursal.value.telefonoSecundario != null
-				? Utils.replaceCharacter(this.formUpdateSucursal.value.telefonoSecundario.toString())
-				: "";
+		this.sucursal.IdRestaurante = 1;
+		this.sucursal.Telefono1 = this.formUpdateSucursal.value.telefonoPrincipal;
+		this.sucursal.Telefono2 = this.formUpdateSucursal.value.telefonoSecundario;
 	}
 
 	createSucursal(Modal) {
@@ -221,7 +219,7 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 
 		this.sucursalService.updateSucursal(this.sucursal).subscribe(response => {
 			if (response.success) {
-				swal.fire("Sucursal", "La sucursal ha sido actualizada exitosamente!", "success").then(() => {
+				swal.fire("Sucursal", "Los datos de la sucursal han sido actualizada exitosamente!", "success").then(() => {
 					Modal.hide();
 					this.formUpdateSucursal.reset();
 					this.getSucursalesRender();
@@ -279,7 +277,6 @@ export class SucursalComponent implements OnInit, InvocarFormulario, OnDestroy {
 		this.sucursal.IdSucursal = sucursal.IdSucursal;
 
 		this.formUpdateSucursal.reset();
-
 		this.formUpdateSucursal.controls["nombreSucursal"].setValue(sucursal.NombSucursal);
 		this.formUpdateSucursal.controls["direccion"].setValue(sucursal.Direccion);
 		this.formUpdateSucursal.controls["restaurante"].setValue(sucursal.IdRestaurante);

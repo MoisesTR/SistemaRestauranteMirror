@@ -22,7 +22,7 @@
 
                                     </div>
                                     <div class="col-3 col-sm-2 col-md-1 col-lg-1 text-right">
-                                        <button mdbBtn size="md" class="orange-chang mt-0" mdbTooltip="Agregar Imagen" placement="bottom" (click)="modalImagenProducto.show()">
+                                        <button disabled mdbBtn size="md" class="orange-chang mt-0" mdbTooltip="Agregar Imagen" placement="bottom" (click)="modalImagenProducto.show()">
                                             <mdb-icon far icon="file-image"></mdb-icon>
                                         </button>
                                     </div>
@@ -67,8 +67,9 @@
 
                             <div class="col-12 col-sm-12 col-md-9 mt-3">
                                 <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Categoria</label>
-                                <ng-select placeholder="Selecciona una categoria">
+                                <ng-select [items]="categorias" bindLabel="NombCategoria" bindValue="IdCategoria" placeholder="Selecciona una categoria" formControlName="categoria" id="categoria" (change)="onChangeCategoria($event)">
                                 </ng-select>
+                                <show-errors [control]="formAddProducto.controls['categoria']"></show-errors>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-3 mt-3">
@@ -77,8 +78,9 @@
 
                             <div class="col-12 col-sm-12 col-md-9 mt-3">
                                 <label class="grey-text-card d-none d-xl-block d-lg-block d-md-block">Clasificación</label>
-                                <ng-select placeholder="Selecciona una clasificación">
+                                <ng-select [items]="clasificaciones" bindLabel="NombClasificacion" bindValue="IdClasificacion" placeholder="Selecciona una clasificacion" formControlName="clasificacion" id="clasificacion" (change)="onChangeClasificacion($event)">
                                 </ng-select>
+                                <show-errors [control]="formAddProducto.controls['clasificacion']"></show-errors>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-3 mt-3">
@@ -119,17 +121,17 @@
 
                             <div class="col-12 col-sm-12 col-md-6 mt-2">
                                 <div class="md-form md-outline">
-                                    <input AcceptCharacters mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="codigoOriginal" formControlName="codigoOriginal" class="form-control">
-                                    <label for="codigoOriginal">Código producto</label>
-                                    <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
+                                    <input AcceptCharacters mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="codigoProducto" formControlName="codigoProducto" class="form-control">
+                                    <label for="codigoProducto">Código producto</label>
+                                    <show-errors [control]="formAddProducto.controls['codigoProducto']"></show-errors>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 mt-2">
                                 <div class="md-form md-outline">
-                                    <input Alphanumeric mdbInputDirective [validateSuccess]="false" [validateError]="false" formControlName="codigoInterno" type="text" id="codigoInterno" class="form-control">
-                                    <label for="codigoInterno" class="">Código interno</label>
-                                    <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
+                                    <input Alphanumeric mdbInputDirective [validateSuccess]="false" [validateError]="false" formControlName="codigoOriginal" type="text" id="codigoOriginal" class="form-control">
+                                    <label for="codigoOriginal" class="">Código interno</label>
+                                    <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
                                 </div>
                             </div>
 
@@ -197,5 +199,8 @@
     </div>
 </div>
 
+<modal-categoria (resultadoConsulta)="resultadoConsultaCategoria($event)"></modal-categoria>
+<modal-clasificacion [idCategoria]="producto.IdCategoria" (resultadoConsulta)="resultadoConsultaClasificacion($event)">
+</modal-clasificacion>
 <modal-empaque (resultadoConsulta)="resultQueryEmpaque($event)"></modal-empaque>
 <modal-envase (resultadoConsulta)="resultQueryEnvase($event)"></modal-envase>

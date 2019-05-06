@@ -17,6 +17,7 @@ export class ProductoFactura extends Producto {
 	public IsDescuentoPorcentual: boolean;
 	public TotalDetalle: number;
 
+
 	constructor() {
 		super();
 		this.FechaVencimiento = "";

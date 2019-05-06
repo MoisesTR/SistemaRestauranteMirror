@@ -51,6 +51,7 @@ export class ConsumoInternoComponent implements OnInit {
 	public proveedorSelecionado: number;
 	peticionEnCurso = false;
 	formAddProducto: FormGroup;
+	idProveedorSeleccionado: number;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -118,12 +119,14 @@ export class ConsumoInternoComponent implements OnInit {
 				CustomValidators.nospaceValidator
 			]),
 			descripcionProducto: new FormControl("", [Validators.minLength(3), Validators.maxLength(400)]),
+			categoria: new FormControl(null, [Validators.required]),
+			clasificacion: new FormControl(null),
 			proveedor: new FormControl(null, [Validators.required]),
 			empaque: new FormControl(null, []),
 			envase: new FormControl(null, []),
 			cantidadEmpaque: new FormControl(null, []),
-			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
-			codigoOriginal: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
+			codigoProducto: new FormControl(null, [CustomValidators.nospaceValidator]),
+			codigoOriginal: new FormControl(null, [CustomValidators.nospaceValidator]),
 			tipoInsumo: new FormControl(null, [Validators.required])
 		});
 	}
@@ -140,6 +143,7 @@ export class ConsumoInternoComponent implements OnInit {
 		this.categoriaService.getCategoriasProductos().subscribe(response => {
 			if (response.categorias) {
 				this.categorias = response.categorias;
+				this.categorias = this.categoriaService.filterCategoriasConsumoInterno(this.categorias);
 			} else {
 			}
 		});
@@ -192,6 +196,34 @@ export class ConsumoInternoComponent implements OnInit {
 		} else {
 			this.producto.IdEmpaque = null;
 		}
+	}
+
+	onChangeCategoria(event) {
+		if (!event) {
+			this.producto.IdCategoria = null;
+			this.resetSelectClasificacion();
+		} else {
+			this.producto.IdCategoria = event.IdCategoria;
+			this.resetSelectClasificacion();
+			this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(response => {
+				if (response.clasificaciones) {
+					this.clasificaciones = response.clasificaciones;
+				}
+			});
+		}
+	}
+
+	onChangeClasificacion(event) {
+		if (!event) {
+			this.producto.IdClasificacion = null;
+		} else {
+			this.producto.IdClasificacion = event.IdClasificacion;
+		}
+	}
+
+	resetSelectClasificacion() {
+		this.clasificaciones = [];
+		this.formAddProducto.controls["clasificacion"].setValue(null);
 	}
 
 	guardarImagenProducto() {
@@ -267,7 +299,9 @@ export class ConsumoInternoComponent implements OnInit {
 
 	resetComponenteAddProducto() {
 		this.resetFormProducto();
+		this.idProveedorSeleccionado = this.producto.IdProveedor;
 		this.producto = ProductoFactory.createProducto(TipoProductoEnum.Limpieza);
+		this.producto.IdProveedor = this.idProveedorSeleccionado;
 		this.filesToUpload = null;
 		$(".dropify-clear").click();
 		window.scrollTo(0, 0);
@@ -302,6 +336,24 @@ export class ConsumoInternoComponent implements OnInit {
 					this.envases = response.envases;
 				}
 			});
+		}
+	}
+
+	resultadoConsultaCategoria(event) {
+		if (event) {
+			this.getCategorias();
+		}
+	}
+
+	resultadoConsultaClasificacion(event) {
+		if (event) {
+			if (this.producto.IdCategoria) {
+				this.clasificacionService.getClasificacionesByIdCategoria(1, this.producto.IdCategoria).subscribe(response => {
+					if (response.clasificaciones) {
+						this.clasificaciones = response.clasificaciones;
+					}
+				});
+			}
 		}
 	}
 

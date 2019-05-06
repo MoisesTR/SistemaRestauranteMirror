@@ -47,12 +47,6 @@ const menuRoutes: Routes = [
 	// Reportes
 	{ path: "reportes", component: ReportesComponent, data: { titulo: "Reportes" } },
 
-	{
-		path: "busqueda-productos",
-		component: GaleriaProductosProveedoresComponent,
-		data: { titulo: "Busqueda Productos" }
-	},
-
 	{ path: "dashboard", component: DashBoardComponent, data: { titulo: "Dashboard" } },
 	{ path: "salida-producto", component: SalidaProductoComponent, data: { titulo: "Salida Producto" } },
 
@@ -66,9 +60,6 @@ const menuRoutes: Routes = [
 
 	{ path: "", redirectTo: "/dashboard", pathMatch: "full", data: { titulo: "Dashboard" } },
 
-	//Modulo Produccion
-	{ path: "produccion/area-produccion", component: AreaProduccionComponent, data: { titulo: "Area de Produccion" } },
-	{ path: "produccion/bodega-area-produccion", component: BodegaAreaProduccionComponent, data: { titulo: "Bodega Area de Produccion" } }
 ];
 
 @NgModule({

@@ -25,7 +25,6 @@ import { UnidadMedida } from "@app/models/UnidadMedida";
 import { Utils } from "../../Utils";
 import swal from "sweetalert2";
 import { CARPETA_PRODUCTOS, Global } from "@app/core/services/shared/global";
-import { EstadoProductoEnum } from "@app/Enums/EstadoProductoEnum";
 import { TipoProductoEnum } from "@app/Enums/TipoProductoEnum";
 import { ProductoFactory } from "@app/models/factory/ProductoFactory";
 
@@ -52,6 +51,7 @@ export class AddProductoComponent implements OnInit {
 	public previousUrl: string;
 	peticionEnCurso = false;
 	formAddProducto: FormGroup;
+	idProveedorSeleccionado: number;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -130,8 +130,8 @@ export class AddProductoComponent implements OnInit {
 			granel: new FormControl(false, []),
 			valorunidadmedida: new FormControl(null, [Validators.required]),
 			diasRotacion: new FormControl(null, []),
-			codigoInterno: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
-			codigoOriginal: new FormControl(null, [CustomValidators.nospaceValidator, Validators.required]),
+			codigoOriginal: new FormControl(null, [CustomValidators.nospaceValidator]),
+			codigoProducto: new FormControl(null, [CustomValidators.nospaceValidator]),
 			tipoInsumo: new FormControl(null, [])
 		});
 	}
@@ -148,6 +148,7 @@ export class AddProductoComponent implements OnInit {
 		this.categoriaService.getCategoriasProductos().subscribe(response => {
 			if (response.categorias) {
 				this.categorias = response.categorias;
+                this.categorias = this.categoriaService.filterCategoriasProductosAlimenticios(this.categorias);
 			}
 		});
 	}
@@ -355,8 +356,10 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	resetComponenteAddProducto() {
+		this.idProveedorSeleccionado = this.producto.IdProveedor;
 		this.resetFormProducto();
 		this.producto = ProductoFactory.createProducto(TipoProductoEnum.Alimento);
+		this.producto.IdProveedor = this.idProveedorSeleccionado;
 		this.filesToUpload = null;
 		$(".dropify-clear").click();
 		window.scrollTo(0, 0);

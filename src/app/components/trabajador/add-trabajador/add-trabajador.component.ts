@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { Trabajador } from "@app/models/Trabajador";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TrabajadorService } from "@app/core/services/shared/trabajador.service";
@@ -9,11 +9,13 @@ import { CargoService } from "@app/core/services/shared/cargo.service";
 import { Cargo } from "@app/models/Cargo";
 import swal from "sweetalert2";
 import { UploadService } from "@app/core/services/shared/upload.service";
-import { CARPETA_TRABAJADORES, Global, opcionesDatePicker } from "@app/core/services/shared/global";
+import { CARPETA_TRABAJADORES, Global } from "@app/core/services/shared/global";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { Utils } from "../../Utils";
 import { TipoDocumento } from "@app/models/TipoDocumento";
-import { IMyOptions, ModalDirective } from "ng-uikit-pro-standard";
+import { ModalDirective } from "ng-uikit-pro-standard";
+import { PaisService } from "@app/core/service.index";
+import { Pais } from "@app/models/Pais";
 
 declare var $: any;
 
@@ -31,10 +33,10 @@ export class AddTrabajadorComponent implements OnInit {
 	public cargos: Cargo[];
 	public tiposDocumento: TipoDocumento[];
 	public url: string;
-	public myDatePickerOptions: IMyOptions = opcionesDatePicker;
 	public tituloPantalla = "Trabajador";
 	public filesToUpload: Array<File>;
 	public btnIngresarHabilitado = true;
+	public paises: Pais[] = [];
 
 	@ViewChild("modalUsuario") modalUsuario: ModalDirective;
 
@@ -45,13 +47,16 @@ export class AddTrabajadorComponent implements OnInit {
 		private formBuilderAddTrabajador: FormBuilder,
 		private sucursalService: SucursalService,
 		private cargoService: CargoService,
-		private uploadService: UploadService
+		private uploadService: UploadService,
+		private paisService: PaisService,
+		private cdr: ChangeDetectorRef
 	) {
 		this.url = Global.url;
 		this.trabajador = new Trabajador();
 
 		this.getTrabajadores();
 		this.getCargos();
+		this.getPaises();
 	}
 
 	ngOnInit() {
@@ -89,6 +94,13 @@ export class AddTrabajadorComponent implements OnInit {
 			if (response.trabajadores) {
 				this.trabajadores = response.trabajadores;
 			}
+		});
+	}
+
+	getPaises() {
+		this.paisService.getPaises(1).subscribe(paises => {
+			this.paises = paises;
+			this.cdr.markForCheck();
 		});
 	}
 
@@ -135,14 +147,14 @@ export class AddTrabajadorComponent implements OnInit {
 			nombreTrabajador: new FormControl("", [
 				Validators.required,
 				CustomValidators.nospaceValidator,
-				Validators.minLength(2),
-				Validators.maxLength(100)
+				Validators.minLength(4),
+				Validators.maxLength(50)
 			]),
 			apellido: new FormControl("", [
 				Validators.required,
 				CustomValidators.nospaceValidator,
-				Validators.minLength(3),
-				Validators.maxLength(100)
+				Validators.minLength(4),
+				Validators.maxLength(50)
 			]),
 			fechaNacimiento: new FormControl("", [
 				Validators.required,
@@ -171,8 +183,16 @@ export class AddTrabajadorComponent implements OnInit {
 				CustomValidators.nospaceValidator,
 				Validators.minLength(10),
 				Validators.maxLength(300)
+			]),
+			pais: new FormControl({ value: 1, disabled: true }, [
+				Validators.required,
+				CustomValidators.nospaceValidator,
+				Validators.minLength(10),
+				Validators.maxLength(300)
 			])
 		});
+
+		this.formAddTrabajador.controls["pais"].setValue(1);
 	}
 
 	getValueFormAddTrabajador() {
@@ -219,6 +239,7 @@ export class AddTrabajadorComponent implements OnInit {
 				}
 			},
 			() => {
+                this.formAddTrabajador.controls["pais"].setValue(1);
 				this.formAddTrabajador.reset();
 			}
 		);

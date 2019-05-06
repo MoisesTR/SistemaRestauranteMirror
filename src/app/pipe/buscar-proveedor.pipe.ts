@@ -1,23 +1,19 @@
-import { Injectable, Pipe, PipeTransform} from '@angular/core';
-import {isNull, isUndefined} from 'util';
+import { Injectable, Pipe, PipeTransform } from "@angular/core";
+
 @Pipe({
-
-    name: 'buscarProveedor'
+	name: "buscarProveedor"
 })
-
 @Injectable()
-export class BuscarProveedorPipe implements PipeTransform{
+export class BuscarProveedorPipe implements PipeTransform {
+	transform(valor: any, term: string): any {
+		if (term === undefined) {
+			return valor;
+		}
 
-    transform(valor:any, term:string):any{
-        if(term === undefined){
-            return valor;
-        }
-
-        if(!isNull(valor) && !isUndefined(valor)) {
-            return valor.filter( (item) => {
-                return item.NombProveedor.toLowerCase().includes(term.toLowerCase());
-            });
-        }
-
-    }
+		if (valor) {
+			return valor.filter(item => {
+				return item.NombProveedor.toLowerCase().includes(term.toLowerCase());
+			});
+		}
+	}
 }

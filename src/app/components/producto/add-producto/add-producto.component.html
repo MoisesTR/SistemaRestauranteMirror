@@ -25,7 +25,7 @@
                                     </div>
 
                                     <div class="col-1 text-right">
-                                        <button mdbBtn size="md" class="orange-chang mt-0" (click)="modalImagenProducto.show()" mdbTooltip="Agregar Imagen" placement="bottom">
+                                        <button disabled mdbBtn size="md" class="orange-chang mt-0" (click)="modalImagenProducto.show()" mdbTooltip="Agregar Imagen" placement="bottom">
                                             <mdb-icon far icon="file-image"></mdb-icon>
                                         </button>
                                     </div>
@@ -154,17 +154,17 @@
 
                             <div class="col-12 col-sm-12 col-md-4">
                                 <div class="md-form md-outline">
-                                    <input AcceptCharacters mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="codigoOriginal" formControlName="codigoOriginal" class="form-control">
-                                    <label for="codigoOriginal" class="">Código producto</label>
-                                    <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
+                                    <input AcceptCharacters mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="codigoProducto" formControlName="codigoProducto" class="form-control">
+                                    <label for="codigoProducto" class="">Código producto</label>
+                                    <show-errors [control]="formAddProducto.controls['codigoProducto']"></show-errors>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4">
                                 <div class="md-form md-outline">
-                                    <input Alphanumeric mdbInputDirective [validateSuccess]="false" [validateError]="false" formControlName="codigoInterno" type="text" id="codigoInterno" class="form-control">
-                                    <label for="codigoInterno" class="">Código interno</label>
-                                    <show-errors [control]="formAddProducto.controls['codigoInterno']"></show-errors>
+                                    <input Alphanumeric mdbInputDirective [validateSuccess]="false" [validateError]="false" formControlName="codigoOriginal" type="text" id="codigoOriginal" class="form-control">
+                                    <label for="codigoOriginal" class="">Código interno</label>
+                                    <show-errors [control]="formAddProducto.controls['codigoOriginal']"></show-errors>
                                 </div>
                             </div>
 

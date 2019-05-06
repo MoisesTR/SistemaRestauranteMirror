@@ -47,7 +47,7 @@
                                 </div>
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3 mt-btn-factura">
-                                    <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Ingresar foto de factura física" placement="bottom" (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
+                                    <button disabled mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Ingresar foto de factura física" placement="bottom" (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
                                 </div>
 
                                 <div class="col-md-2 mt-codigo-factura">
@@ -184,7 +184,7 @@
 
                                 <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
                                     <th scope="row" class="align-middle col-xs-1">{{i + 1}}</th>
-                                    <th scope="row" class="align-middle col-xs-1">{{producto.CodOriginal !== null ? producto.CodOriginal : producto.CodProd}}</th>
+                                    <th scope="row" class="align-middle col-xs-1">{{producto.CodProd !== null ? producto.CodProd : producto.CodOriginal}}</th>
                                     <td class="align-middle col-xs-2">{{producto.NombProducto}}</td>
                                     <td class="col-xs-2">
                                         <div class="md-form">
@@ -442,21 +442,21 @@
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Tipo de Insumo</h6>
-                                                <input type="text" id="tipoInsumo" minlength="4" maxlength="50" class="input-modal-sm" name="tipoInsumo" value="Insumo Test" readonly value="{{productoSeleccionado.DescTipInsumo}}">
+                                                <input type="text" id="tipoInsumo" minlength="4" maxlength="50" class="input-modal-sm" name="tipoInsumo" value="Insumo Test" readonly value="{{productoSeleccionado.NombTipInsumo}}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Producto</h6>
-                                                <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm" name="codigoproducto" value="{{productoSeleccionado.CodOriginal}}" readonly>
+                                                <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm" name="codigoproducto" value="{{productoSeleccionado.CodProd}}" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Interno</h6>
-                                                <input type="text" id="codigoInterno" minlength="4" maxlength="50" class="input-modal-sm" name="codigoInterno" readonly value="{{productoSeleccionado.CodProd}}">
+                                                <input type="text" id="codigoInterno" minlength="4" maxlength="50" class="input-modal-sm" name="codigoInterno" readonly value="{{productoSeleccionado.CodOriginal}}">
                                             </div>
                                         </div>
 

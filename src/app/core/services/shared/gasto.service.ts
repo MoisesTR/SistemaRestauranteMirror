@@ -20,8 +20,8 @@ export class GastoService {
       return this._http.post(this.url + 'gasto', params, { headers : headers });
   }
 
-    getGasto(IdGasto): Observable<any> {
-        return this._http.get(this.url + 'gasto/' + IdGasto);
+    getGrupoCuentas(): Observable<any> {
+        return this._http.get(this.url + 'grupoCuentas' );
     }
 
     getGastos(Habilitado = 1): Observable<any> {

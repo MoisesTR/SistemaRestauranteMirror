@@ -11,7 +11,6 @@ import { Factura } from "@app/models/Factura";
 import { ProductoProveedor } from "@app/models/ProductoProveedor";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { Utils } from "../../Utils";
-import { Producto } from "@app/models/Producto";
 import { ProductoFactura } from "@app/models/ProductoFactura";
 
 @Component({

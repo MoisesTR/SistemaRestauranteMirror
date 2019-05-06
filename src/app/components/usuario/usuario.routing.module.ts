@@ -1,15 +1,15 @@
-import { NgModule } from "@angular/core";
-import { Router, RouterModule, Routes } from "@angular/router";
-import { LoginGuardService } from "@app/core/services/auth/login-guard.service";
-import { ListUsuariosComponent } from "@app/components/usuario/list-usuarios/list-usuarios.component";
-import { UpdateUsuarioComponent } from "@app/components/usuario/update-usuario/update-usuario.component";
-import { AddUsuarioComponent } from "@app/components/usuario/add-usuario/add-usuario.component";
-import { PagesUsuarioComponent } from "@app/components/usuario/pages-usuario.component";
-import { ListUsuarioComponent } from "@app/components/usuario/list-usuario/list-usuario.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginGuardService} from '@app/core/services/auth/login-guard.service';
+import {ListUsuariosComponent} from '@app/components/usuario/list-usuarios/list-usuarios.component';
+import {UpdateUsuarioComponent} from '@app/components/usuario/update-usuario/update-usuario.component';
+import {AddUsuarioComponent} from '@app/components/usuario/add-usuario/add-usuario.component';
+import {PagesUsuarioComponent} from '@app/components/usuario/pages-usuario.component';
+import {ListUsuarioComponent} from '@app/components/usuario/list-usuario/list-usuario.component';
 
 export const usuarioRoutes: Routes = [
 	{
-		path: "usuarios",
+		path: "usuario",
 		component: PagesUsuarioComponent,
 		canLoad: [LoginGuardService],
 		data: {

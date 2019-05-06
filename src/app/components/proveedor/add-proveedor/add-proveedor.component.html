@@ -27,7 +27,9 @@
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                                     <div class="md-form md-outline">
-                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="nombreAbreviado" class="form-control letras" autocomplete="off">
+                                        <input [validateSuccess]="false" [validateError]="false" mdbInputDirective Alphanumeric type="text" id="nombreAbreviado" formControlName="abreviatura" class="form-control" autocomplete="off">
+                                        <show-errors [control]="formAddProveedor.controls['abreviatura']">
+                                        </show-errors>
                                         <label for="nombreAbreviado">Nombre Abreviado</label>
                                     </div>
                                 </div>

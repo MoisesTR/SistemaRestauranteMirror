@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Subject } from "rxjs/Subject";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs/Subject';
 
-import { CategoriaProductoService, SpinnerService } from "@app/core/service.index";
-import { CategoriaProducto } from "@app/models/CategoriaProducto";
-import { CustomValidators } from "@app/validadores/CustomValidators";
-import { DataTableDirective } from "angular-datatables";
-import { ModalDirective } from "ng-uikit-pro-standard";
-import { idioma_espanol } from "@app/core/services/shared/global";
-import swal from "sweetalert2";
-import { Utils } from "../Utils";
+import {CategoriaProductoService, SpinnerService} from '@app/core/service.index';
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
+import {CustomValidators} from '@app/validadores/CustomValidators';
+import {DataTableDirective} from 'angular-datatables';
+import {ModalDirective} from 'ng-uikit-pro-standard';
+import {idioma_espanol} from '@app/core/services/shared/global';
+import swal from 'sweetalert2';
 
 @Component({
 	selector: "app-categoria-producto",

@@ -19,6 +19,7 @@ import { ProductoFactura } from "@app/models/ProductoFactura";
 import swal from "sweetalert2";
 import { FormaPagoEnum } from "@app/Enums/FormaPagoEnum";
 import { MonedaEnum } from "@app/Enums/MonedaEnum";
+import {environment} from '@env/environment';
 
 declare var $: any;
 
@@ -281,8 +282,8 @@ export class AddfacturaComponent implements OnInit {
 					this.productosFiltrados[index].Iva = 0;
 					this.productosFiltrados[index].CalculoIva = 0;
 					this.productosFiltrados[index].IsDescuentoPorcentual = true;
-					this.productosFiltrados[index].DescTipInsumo = this.productosFiltrados[index].IdTipInsumo === 1 ? "Alimento" : "Limpieza";
 				});
+				console.log(this.productosFiltrados);
 				this.cdr.markForCheck();
 			}
 		});
@@ -425,7 +426,13 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	agregarNuevoProducto() {
-		window.open("http://localhost:4200/producto/add", "_blank");
+
+        if (environment.production) {
+            window.open("https://restaurante-atomic.herokuapp.com/producto/add", "_blank");
+        } else {
+            window.open("http://localhost:4200/producto/add", "_blank");
+        }
+
 	}
 
 	actualizarListaProductos() {

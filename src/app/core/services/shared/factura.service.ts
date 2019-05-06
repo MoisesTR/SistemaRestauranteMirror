@@ -135,16 +135,24 @@ export class FacturaService {
 		if (productosFactura.length < 1) {
 			Utils.showMsgInfo("Selecciona al menos un producto para crear la factura", "Factura");
 			return false;
-		} else if (factura.TotalFactura === 0) {
+		}
+		if (factura.TotalFactura === 0) {
 			Utils.showMsgInfo("El total de la factura no puede ser igual a cero!", "Factura");
 			return false;
-		} else if (factura.DescuentoCalculoFactura > factura.SubTotal) {
+		}
+        if (factura.TotalOrigenFactura === 0) {
+            Utils.showMsgInfo("El total origen factura no puede ser menor o igual a cero!", "Factura");
+            return false;
+        }
+		if (factura.DescuentoCalculoFactura > factura.SubTotal) {
 			Utils.showMsgInfo("El descuento no puede ser mayor al subtotal de la factura!", "Factura");
 			return false;
-		} else if (this.existenMontosMenorIgualaCero(productosFactura)) {
+		}
+		if (this.existenMontosMenorIgualaCero(productosFactura)) {
 			Utils.showMsgInfo("El costo total de cada producto en la factura debe ser mayor cero", "Factura");
 			return false;
-		} else if (factura.FechaRecepcion < factura.FechaFactura) {
+		}
+		if (factura.FechaRecepcion < factura.FechaFactura) {
 			Utils.showMsgInfo("La fecha de recepción no puede ser menor a la fecha de la factura!", "Factura");
 			return false;
 		}

@@ -6,6 +6,7 @@ import { ListProductosComponent } from "@app/components/producto/list-productos/
 import { AddProductoComponent } from "@app/components/producto/add-producto/add-producto.component";
 import { UpdateProductoComponent } from "@app/components/producto/update-producto/update-producto.component";
 import {ConsumoInternoComponent} from '@app/components/consumo-interno/consumo-interno.component';
+import {GaleriaProductosProveedoresComponent} from '@app/components/reporte/galeria-productos-proveedores.component';
 
 export const productRoutes: Routes = [
 	{
@@ -41,7 +42,12 @@ export const productRoutes: Routes = [
 				data: {
 					titulo: "Editar producto"
 				}
-			}
+			},
+            {
+                path: "busqueda-productos",
+                component: GaleriaProductosProveedoresComponent,
+                data: { titulo: "Busqueda Productos" }
+            }
 		]
 	}
 ];

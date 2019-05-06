@@ -46,6 +46,7 @@ export class ListUsuarioComponent implements OnInit {
 
 	getUsuario() {
 		this.usuario = this._usuarioService.getIdentity();
+		console.log(this.usuario)
 
 		$(document).ready(() => {
 			var imagenUsuario = this.url + "getImagen/" + CARPETA_TRABAJADORES + "/" + this.usuario.Imagen;
@@ -60,6 +61,6 @@ export class ListUsuarioComponent implements OnInit {
 		this.formViewUser.controls["username"].setValue(this.usuario.Username);
 		this.formViewUser.controls["correo"].setValue(this.usuario.Email);
 		this.formViewUser.controls["trabajador"].setValue(this.usuario.Nombres);
-		this.formViewUser.controls["rol"].setValue(this.usuario.DescripcionRol);
+		this.formViewUser.controls["rol"].setValue(this.usuario.DescRol);
 	}
 }

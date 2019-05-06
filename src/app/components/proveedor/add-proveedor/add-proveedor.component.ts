@@ -1,20 +1,13 @@
-import {
-	AfterViewChecked,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	OnInit,
-	ViewChild
-} from "@angular/core";
+import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PreviousRouteService, ProveedorService } from "@app/core/service.index";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Proveedor } from "@app/models/Proveedor";
 import swal from "sweetalert2";
-import { Utils } from "../../Utils";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { TelefonoProveedor } from "@app/models/TelefonoProveedor";
 import { ModalDirective } from "ng-uikit-pro-standard";
+import { TipoDocumentoEnum } from "@app/Enums/TipoDocumentoEnum";
 
 declare var $: any;
 
@@ -88,8 +81,9 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 	createProveedor() {
 		this.peticionEnCurso = false;
 
-		if (this.validarTelefonos()) {
+		if (this.proveedorService.validarTelefonos(this.contactos, this.proveedor.IsMercado)) {
 			this.getDatosProveedor();
+			this.proveedorService.validarDatosGuardarProveedor(this.proveedor);
 			this.proveedorService.createProveedor(this.proveedor).subscribe(
 				response => {
 					if (response.IdProveedor) {
@@ -110,14 +104,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 		} else {
 			this.peticionEnCurso = false;
 		}
-	}
-
-	validarTelefonos() {
-		if (this.contactos.length === 0) {
-			Utils.showMsgInfo("Es requerido al menos un contacto de telefono!");
-			return false;
-		}
-		return true;
 	}
 
 	mensajeCreacionProveedor() {
@@ -156,41 +142,35 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 				CustomValidators.nospaceValidator
 			]),
 			direccionProveedor: new FormControl("", [
-				Validators.required,
 				Validators.minLength(5),
 				Validators.maxLength(400),
 				CustomValidators.nospaceValidator
 			]),
 			nombreRepresentante: new FormControl("", [
-				Validators.required,
 				Validators.minLength(2),
 				Validators.maxLength(200),
 				CustomValidators.nospaceValidator
 			]),
-			email: new FormControl("", [
-				Validators.minLength(5),
-				Validators.maxLength(200),
-				CustomValidators.nospaceValidator
-			]),
+			email: new FormControl("", [Validators.minLength(5), Validators.maxLength(200), CustomValidators.nospaceValidator]),
 			descripcionProveedor: new FormControl(null, [Validators.maxLength(400)]),
-			isMercado: new FormControl("", []),
-			isProveedorServicio: new FormControl(false, [])
+			isMercado: new FormControl(false, []),
+			isProveedorServicio: new FormControl(false, []),
+			abreviatura: new FormControl("", [Validators.minLength(2), Validators.maxLength(15), CustomValidators.nospaceValidator])
 		});
 	}
 
 	getDatosProveedor() {
-
 		this.proveedor.NombProveedor = this.formAddProveedor.value.nombreProveedor;
 		this.proveedor.NombRepresentante = this.formAddProveedor.value.nombreRepresentante;
 		this.proveedor.DescProveedor = this.formAddProveedor.value.descripcionProveedor;
 		this.proveedor.Documento = this.formAddProveedor.value.numeroRuc;
 		this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
 		this.proveedor.Email = this.formAddProveedor.value.email;
-		this.proveedor.IsMercado = this.formAddProveedor.value.isMercado === true ? 1 : 0;
 		this.proveedor.IsProvServicio = this.formAddProveedor.value.isProveedorServicio;
-		this.proveedor.Abreviatura = "Abreviatura";
+		this.proveedor.Abreviatura = this.formAddProveedor.value.abreviatura;
 		this.proveedor.IdPais = 1;
-		this.proveedor.IdTipDoc = 2;
+		this.proveedor.HasSucursales = false;
+		this.proveedor.IdTipDoc = TipoDocumentoEnum.NumeroRuc;
 	}
 
 	initFormTelefonos() {
@@ -224,6 +204,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
 	changeMercado(event) {
 		const isMercado = event.checked;
+		this.proveedor.IsMercado = isMercado;
 
 		if (isMercado) {
 			this.formAddProveedor.controls["numeroRuc"].clearValidators();

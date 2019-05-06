@@ -36,6 +36,7 @@ export abstract class Producto {
 	public DiasRotacion: number;
 	public ConsumoDirecto: boolean;
 	public IsGranel: boolean;
+    public NombTipInsumo: string;
 
 	constructor() {
 		this.CodBarra = null;

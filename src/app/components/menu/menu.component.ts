@@ -1,11 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Usuario} from '@app/models/Usuario';
-import {MenuService, PersistenciaDatoService, UsuarioService} from '@app/core/service.index';
-import {Menu} from '@app/models/Menu';
-import {Global} from '@app/core/services/shared/global';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Utils} from '@app/components/Utils';
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Usuario } from "@app/models/Usuario";
+import { MenuService, PersistenciaDatoService, UsuarioService } from "@app/core/service.index";
+import { Menu } from "@app/models/Menu";
+import { Global } from "@app/core/services/shared/global";
+import { NgxSpinnerService } from "ngx-spinner";
+import { Utils } from "@app/components/Utils";
 
 @Component({
 	selector: "app-menu",
@@ -68,12 +68,11 @@ export class MenuComponent implements OnInit {
 	getMenuesByIdRol(IdRol) {
 		this.menuService.getMenuesByIdRol(IdRol).subscribe(
 			response => {
-
-			    if (response) {
-                    this.menues = response.Menues;
-                } else {
-                    Utils.showMsgInfo('Este usuario no tiene pantallas asignadas a su rol');
-                }
+				if (response) {
+					this.menues = response.Menues;
+				} else {
+					Utils.showMsgInfo("Este usuario no tiene pantallas asignadas a su rol");
+				}
 			},
 			() => {
 				this.spinner.hide();

@@ -19,7 +19,7 @@
                                 <th class="header-negrita">Nombres</th>
                                 <th class="header-negrita">Apellidos</th>
                                 <th class="header-negrita">Usuario</th>
-                                <th class="header-negrita">Cargo</th>
+                                <th class="header-negrita">Sucursal</th>
                                 <th class="header-negrita">Direccion</th>
                                 <th class="header-negrita">Fecha ingreso</th>
                                 <th class="header-negrita">Acciones</th>
@@ -30,8 +30,8 @@
                                 <td class="body-negrita">{{ i + 1 }}</td>
                                 <td class="body-negrita">{{ trabajador.Nombres }}</td>
                                 <td class="body-negrita">{{ trabajador.Apellidos }}</td>
-                                <td class="body-negrita">{{ trabajador.Username }}</td>
-                                <td class="body-negrita">{{ trabajador.Cargo }}</td>
+                                <td class="body-negrita">{{ trabajador.Username ? trabajador.Username : 'No tiene'}}</td>
+                                <td class="body-negrita">{{ trabajador.NombSucursal }}</td>
                                 <td width="30%" class="body-negrita">{{ trabajador.Direccion }}</td>
                                 <td width="10%" class="body-negrita">{{ trabajador.FechaIngreso | date:'yyyy-MM-dd'}}</td>
                                 <td width="25%" class="body-negrita">

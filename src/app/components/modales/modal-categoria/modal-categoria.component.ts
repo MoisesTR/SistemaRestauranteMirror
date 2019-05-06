@@ -1,13 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ISubscription } from "rxjs-compat/Subscription";
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ISubscription} from 'rxjs-compat/Subscription';
 
 import {CategoriaProductoService, TipoInsumoService} from '@app/core/service.index';
-import { CategoriaProducto } from "@app/models/CategoriaProducto";
-import { CustomValidators } from "@app/validadores/CustomValidators";
-import { ModalDirective } from "ng-uikit-pro-standard";
-import swal from "sweetalert2";
-import { Utils } from "../../Utils";
+import {CategoriaProducto} from '@app/models/CategoriaProducto';
+import {CustomValidators} from '@app/validadores/CustomValidators';
+import {ModalDirective} from 'ng-uikit-pro-standard';
+import swal from 'sweetalert2';
 import {TipoInsumo} from '@app/models/interface/TipoInsumo';
 
 @Component({
@@ -105,7 +104,6 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 	getValuesFormAddCategoria() {
 		this.categoriaProducto.NombCategoria = this.formAddCategoria.value.nombreCategoria;
 		this.categoriaProducto.DescCategoria = this.formAddCategoria.value.descripcionCategoria;
-		this.categoriaProducto.IdTipInsumo = !this.idTipoInsumo ? 1 : this.idTipoInsumo;
 	}
 
 	hideModalAndEmitResult() {
@@ -128,6 +126,7 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 
     changeTipoInsumo(event) {
 	    if (event) {
+	        console.log(event)
 	        this.categoriaProducto.IdTipInsumo = event.IdTipInsumo;
         } else {
             this.categoriaProducto.IdTipInsumo = null;

@@ -11,7 +11,8 @@
                     <div class="card-body text-center">
                         <!-- <input name="imagen" type="file" class="dropify" (change)="fileChangeEvent($event)" data-height="300" data-allowed-file-extensions="jpg jpeg png"
               data-height="300" /> -->
-                        <img [src]="imagenTrabajador | imagen:'trabajadores'" alt="..." class="img-thumbnail height-card-usuario">
+                        <img [src]="imagenTrabajador | imagen:'trabajadores'" alt="..."
+                            class="img-thumbnail height-card-usuario">
                     </div>
                 </div>
             </div>
@@ -43,42 +44,57 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false mdbInputDirective type="text" id="UsuarioNombre" name="UsuarioNombre" class="form-control letras " formControlName="nombre" autocomplete="off">
+                                    <div class="md-form md-outline">
+                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                            type="text" id="UsuarioNombre" name="UsuarioNombre"
+                                            class="form-control letras " formControlName="nombre" autocomplete="off">
                                         <label for="UsuarioNombre">Nombre de usuario</label>
                                         <show-errors [control]="formularioAddUsuario.controls['nombre']"></show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false mdbInputDirective type="email" id="Correo" name="Correo" class="form-control letras" formControlName="correo" autocomplete="off">
+                                    <div class="md-form md-outline">
+                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                            type="email" id="Correo" name="Correo" class="form-control letras"
+                                            formControlName="correo" autocomplete="off">
                                         <label for="Correo">Correo Electrónico</label>
                                         <show-errors [control]="formularioAddUsuario.controls['correo']"></show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="md-form">
-                                        <input [mdbValidate]=false mdbInputDirective type="text" id="Contrasenia" name="Contrasenia" class="form-control letras" formControlName="contrasenia" autocomplete="off">
+                                    <div class="md-form md-outline">
+                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                            type="password" id="Contrasenia" name="Contrasenia"
+                                            class="form-control letras" formControlName="contrasenia"
+                                            autocomplete="off">
                                         <label for="Contrasenia">Contraseña</label>
-                                        <show-errors [control]="formularioAddUsuario.controls['contrasenia']"></show-errors>
+                                        <show-errors [control]="formularioAddUsuario.controls['contrasenia']">
+                                        </show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="trabajador">Nombre trabajador</label>
-                                    <ng-select [items]="trabajadores" bindLabel="Nombres" bindValue="IdTrabajador" placeholder="Selecciona un trabajador" formControlName="trabajador" id="trabajador" (change)="onChangeTrabajador($event)">
-
-                                    </ng-select>
+                                    <label>Nombre trabajador</label>
+                                    <div class="md-form">
+                                        <ng-select [items]="trabajadores" bindLabel="Nombres" bindValue="IdTrabajador"
+                                            placeholder="Selecciona un trabajador" formControlName="trabajador"
+                                            id="trabajador" (change)="onChangeTrabajador($event)">
+                                        </ng-select>
+                                    </div>
                                     <show-errors [control]="formularioAddUsuario.controls['trabajador']"></show-errors>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="rol">Rol</label>
-                                    <ng-select [items]="roles" bindLabel="NombRol" bindValue="IdRol" placeholder="Selecciona un rol" formControlName="rol" id="rol" (add)="onAddRol($event)">
+                                    <label>Rol</label>
+                                    <div class="md-form">
+                                        <ng-select [items]="roles" bindLabel="NombRol" bindValue="IdRol"
+                                            placeholder="Selecciona un rol" formControlName="rol" id="rol"
+                                            (add)="onAddRol($event)">
 
-                                    </ng-select>
+                                        </ng-select>
+                                    </div>
                                     <show-errors [control]="formularioAddUsuario.controls['rol']"></show-errors>
                                 </div>
 
@@ -87,8 +103,9 @@
 
                             <!-- Boton ingresa -->
                             <div class="text-center mt-1-half">
-                                <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]="!formularioAddUsuario.valid">
-                                  <i class="fa fa-check ml-1"></i> Ingresar
+                                <button class="btn orange-chang mb-1 white-text" type="submit"
+                                    [disabled]="!formularioAddUsuario.valid">
+                                    <i class="fa fa-check ml-1"></i> Ingresar
                                 </button>
                             </div>
 

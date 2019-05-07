@@ -400,4 +400,12 @@ export class ConsumoInternoComponent implements OnInit {
 	showModalEnvase() {
 		this.envaseService.mostrarModal();
 	}
+
+	showModalCategoria() {
+	    this.categoriaService.mostrarModal();
+    }
+
+    showModalClasificacion() {
+	    this.clasificacionService.mostrarModal();
+    }
 }

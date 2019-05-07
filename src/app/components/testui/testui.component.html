@@ -1,37 +1,71 @@
-<div class="container">
+<section>
   <div class="row">
-      <div class="col-md-12 mx-auto">
-          <div class="md-form">
-            <input type="text" [(ngModel)]="buscarTexto" class="form-control" id="search" mdbInput>
-            <label for="search">Search</label>
-          </div>
+    <div class="col-md-12">
+      <mdb-card cascade="true" narrower="true">
+        <!--Titulo-->
+        <div class="view view-cascade gradient-card-header orange-chang">
+          <h3 class="card-header-title mb-2">Pantalla de testing</h3>
         </div>
+        <!--/Titulo-->
+
+        <mdb-card-body cascade="true" class="white-text">
+
+          <!-- Desde aca se puede editar la pantalla -->
+
+          <div class="container-fluid">
+
+            <div class="row">
+
+              <div class="col-12">
+                <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
+                  <i class="fa fa-search mt-3 black-text" aria-hidden="true"></i>
+                  <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar"
+                    [(ngModel)]="buscarTexto" id="search">
+                </div>
+              </div>
+
+            </div>
+            <table mdbTable #tableEl="mdbTable" hover="true" small="true" bordered="true" striped="true">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th [mdbTableSort]="proveedores" sortBy="NombProveedor">Nombre</th>
+                  <th [mdbTableSort]="proveedores" sortBy="Direccion">Direccion</th>
+                  <th [mdbTableSort]="proveedores" sortBy="Email">Email</th>
+                  <th [mdbTableSort]="proveedores" sortBy="DescProveedor">Descripcion</th>
+                </tr>
+              </thead>
+              <tbody #row>
+                <tr *ngFor="let proveedor of proveedores; let i = index">
+                  <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                    scope="row">{{i+1}}</th>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{proveedor.NombProveedor}}</td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{proveedor.Direccion}}</td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{proveedor.Email}}</td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{proveedor.DescProveedor}}</td>
+                </tr>
+              </tbody>
+              <tfoot class="grey lighten-5 w-100">
+                <tr>
+                  <td colspan="5">
+                    <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="proveedores">
+                    </mdb-table-pagination>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+
+          <!-- Finalizar de editar pantalla -->
+
+        </mdb-card-body>
+
+      </mdb-card>
+    </div>
   </div>
-  <table mdbTable #tableEl="mdbTable" hover="true" small="true" class="z-depth-1">
-      <thead>
-        <tr>
-            <th>#</th>
-            <th [mdbTableSort]="proveedores" sortBy="NombProveedor">Nombre</th>
-            <th [mdbTableSort]="proveedores" sortBy="Direccion">Direccion</th>
-            <th [mdbTableSort]="proveedores" sortBy="Email">Email</th>
-            <th [mdbTableSort]="proveedores" sortBy="DescProveedor">Descripcion</th>
-        </tr>
-      </thead>
-      <tbody #row>
-        <tr   *ngFor="let proveedor of proveedores; let i = index">
-          <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i+1}}</th>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.NombProveedor}}</td>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.Direccion}}</td>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.Email}}</td>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{proveedor.DescProveedor}}</td>
-        </tr>
-      </tbody>
-      <tfoot class="grey lighten-5 w-100">
-          <tr>
-            <td colspan="4">
-              <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="proveedores"></mdb-table-pagination>
-            </td>
-          </tr>
-          </tfoot>
-    </table>
-</div>
+</section>

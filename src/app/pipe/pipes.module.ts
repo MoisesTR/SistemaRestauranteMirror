@@ -5,6 +5,7 @@ import { BuscarProveedorPipe } from "@app/pipe/buscar-proveedor.pipe";
 import { BuscarTrabajadorPipe } from "@app/pipe/buscar-trabajador.pipe";
 import { FormatoComaDineroPipe } from "@app/pipe/formato-coma-dinero.pipe";
 import { ImagenPipe } from "./imagen.pipe";
+import { TipoDescuentoPipe } from "@app/pipe/tipo-descuento.pipe";
 
 @NgModule({
 	imports: [],
@@ -14,7 +15,8 @@ import { ImagenPipe } from "./imagen.pipe";
 		BuscarProveedorPipe,
 		BuscarTrabajadorPipe,
 		FormatoComaDineroPipe,
-		ImagenPipe
+		ImagenPipe,
+		TipoDescuentoPipe
 	],
 	exports: [
 		BuscarPipe,
@@ -22,6 +24,7 @@ import { ImagenPipe } from "./imagen.pipe";
 		BuscarProveedorPipe,
 		BuscarTrabajadorPipe,
 		FormatoComaDineroPipe,
+		TipoDescuentoPipe,
 		ImagenPipe
 	]
 })

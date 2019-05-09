@@ -97,11 +97,9 @@
 
                                 <div class="col-md-6">
                                     <div class="md-form md-outline">
-                                        <input type="text" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
-                                            class="form-control" id="horaFactura" [validateSuccess]="false"
+                                        <input type="text" class="form-control" id="horaFactura" [validateSuccess]="false"
                                             [validateError]="false" mdbInputDirective readonly formControlName="hora"
                                             mdbInput>
-                                        <owl-date-time [disabled]="true" [pickerType]="'timer'" #dt3></owl-date-time>
                                         <label for="horaFactura">Hora Ingreso Factura</label>
                                     </div>
                                 </div>
@@ -175,7 +173,7 @@
                                     <td class="body-negrita">{{detalle.Cantidad}}</td>
                                     <td class="body-negrita">{{detalle.PrecioUnitario | number : '1.2-2'}} C$</td>
                                     <td width="10%" class="body-negrita">
-                                        <strong>{{detalle.Descuento}}%</strong>
+                                        <strong>{{detalle.Descuento}}{{detalle.IdTipDesc | tipoDescuento }}</strong>
                                     </td>
                                     <td class="body-negrita">
                                         <strong>{{detalle.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
@@ -246,7 +244,7 @@
                                 </div>
                                 <div class="">
                                     <label>
-                                        {{factura.SubTotal + factura.TotalDescuento | number : '1.2-2'}} C$
+                                        {{factura.SubTotal - factura.TotalDescuento | number : '1.2-2'}} C$
                                     </label>
                                 </div>
                                 <div class="">

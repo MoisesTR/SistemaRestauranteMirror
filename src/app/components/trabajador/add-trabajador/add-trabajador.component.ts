@@ -240,7 +240,6 @@ export class AddTrabajadorComponent implements OnInit {
 			},
 			() => {
                 this.formAddTrabajador.controls["pais"].setValue(1);
-				this.formAddTrabajador.reset();
 			}
 		);
 	}

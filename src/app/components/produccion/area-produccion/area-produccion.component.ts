@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-area-produccion',
-  templateUrl: './area-produccion.component.html',
-  styleUrls: ['./area-produccion.component.scss']
+	selector: "app-area-produccion",
+	templateUrl: "./area-produccion.component.html",
+	styleUrls: ["./area-produccion.component.scss"]
 })
 export class AreaProduccionComponent implements OnInit {
+	constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+	ngOnInit() {}
 }

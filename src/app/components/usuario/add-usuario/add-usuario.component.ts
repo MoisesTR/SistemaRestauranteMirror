@@ -8,7 +8,6 @@ import { Trabajador } from "@app/models/Trabajador";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import swal from "sweetalert2";
 import { Global } from "@app/core/services/shared/global";
-import { Utils } from "../../Utils";
 
 declare var $: any;
 

@@ -12,4 +12,8 @@ export class PagesFacturaComponent implements OnInit {
   ngOnInit() {
   }
 
+    onActivate(edvent) {
+        window.scroll(0, 0);
+    }
+
 }

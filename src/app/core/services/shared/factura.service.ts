@@ -9,6 +9,7 @@ import { Factura } from "@app/models/Factura";
 import { FormGroup } from "@angular/forms";
 import { SUMA } from "@app/core/services/shared/global";
 import { ToastService } from "ng-uikit-pro-standard";
+import { TipoDescuentoEnum } from "@app/Enums/TipoDescuentoEnum";
 
 @Injectable()
 export class FacturaService {
@@ -36,13 +37,13 @@ export class FacturaService {
 		IdEstadoFactura,
 		CodFactura
 	): Observable<any> {
-		const params = new HttpParams()
-			.set("IdFechaFiltro", IdFechaFiltro)
-			.set("FechaInicio", FechaInicio)
-			.set("FechaFin", FechaFin)
-			.set("IdProveedor", IdProveedor)
-			.set("IdEstadoFactura", IdEstadoFactura)
-			.set("CodFactura", CodFactura);
+		let params = new HttpParams().set("IdProveedor", IdProveedor).set("IdEstadoFactura", IdEstadoFactura);
+
+		if (CodFactura) params = params.set("CodFactura", CodFactura);
+		if (FechaInicio) params = params.set("FechaInicio", FechaInicio);
+		if (FechaFin) params = params.set("FechaFin", FechaFin);
+		if (IdFechaFiltro) params = params.set("IdFechaFiltro", IdFechaFiltro);
+
 		return this._http.get(this.url + "listarfacturas?Habilitado=" + Habilitado, { params: params });
 	}
 
@@ -54,6 +55,7 @@ export class FacturaService {
 		const params = JSON.stringify(factura);
 		const headers = new HttpHeaders({ "Content-type": "application/json" });
 
+		console.log(factura);
 		return this._http.post(this.url + "bulk/factComp", params, { headers: headers });
 	}
 
@@ -140,10 +142,10 @@ export class FacturaService {
 			Utils.showMsgInfo("El total de la factura no puede ser igual a cero!", "Factura");
 			return false;
 		}
-        if (factura.TotalOrigenFactura === 0) {
-            Utils.showMsgInfo("El total origen factura no puede ser menor o igual a cero!", "Factura");
-            return false;
-        }
+		if (factura.TotalOrigenFactura === 0) {
+			Utils.showMsgInfo("El total origen factura no puede ser menor o igual a cero!", "Factura");
+			return false;
+		}
 		if (factura.DescuentoCalculoFactura > factura.SubTotal) {
 			Utils.showMsgInfo("El descuento no puede ser mayor al subtotal de la factura!", "Factura");
 			return false;
@@ -160,7 +162,7 @@ export class FacturaService {
 		return true;
 	}
 
-	crearDetalleFactura(productosFactura: ProductoFactura[], descuentoCalculoFactura: number) {
+	crearDetalleFactura(productosFactura: ProductoFactura[], descuentoCalculoFactura: number, descuentoGlobalHabilitado: boolean) {
 		const detallesFactura: DetalleFactura[] = [];
 		productosFactura.forEach((value, index) => {
 			const detalleFactura = new DetalleFactura();
@@ -173,11 +175,17 @@ export class FacturaService {
 			detalleFactura.TotalDetalle = value.TotalDetalle;
 
 			if (descuentoCalculoFactura === 0) {
-				detalleFactura.IdTipoDescuento = null;
-			} else if (value.IsDescuentoPorcentual) {
-				detalleFactura.IdTipoDescuento = 1;
+				detalleFactura.IdTipDesc = TipoDescuentoEnum.SinDescuentoAplicado;
+			}
+
+			if (descuentoGlobalHabilitado) {
+				detalleFactura.IdTipDesc = TipoDescuentoEnum.DescuentoMonetarioSobreTransaccion;
 			} else {
-				detalleFactura.IdTipoDescuento = 2;
+				if (value.IsDescuentoPorcentual) {
+					detalleFactura.IdTipDesc = TipoDescuentoEnum.DescuentoPorcentualPorItem;
+				} else {
+					detalleFactura.IdTipDesc = TipoDescuentoEnum.DescuentoMonetarioPorItem;
+				}
 			}
 
 			detalleFactura.Descuento = value.Descuento;

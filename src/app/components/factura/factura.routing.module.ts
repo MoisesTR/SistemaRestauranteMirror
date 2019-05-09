@@ -29,7 +29,7 @@ export const facturaRoutes: Routes = [
 			// 	}
 			// },
 			{
-				path: "showFactura",
+				path: "showFactura/:id",
 				component: ShowFacturaComponent,
 				data: {
 					titulo: "Mostrar factura"

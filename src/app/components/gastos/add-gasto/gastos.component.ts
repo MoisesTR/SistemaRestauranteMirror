@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { GastoService } from "@app/core/service.index";
+import { CuentaService, GastoService } from "@app/core/service.index";
 import { Utils } from "../../Utils";
 import { SubclasificacionGasto } from "@app/models/SubclasificacionGasto";
 import { ClasificacionGasto } from "@app/models/ClasificacionGasto";
@@ -10,6 +10,7 @@ import { Sucursal } from "@app/models/Sucursal";
 import { SucursalService } from "@app/core/services/shared/sucursal.service";
 import { DateUtil } from "@app/infraestructura/Util/DateUtil";
 import swal from "sweetalert2";
+import { Cuenta } from "@app/models/Cuenta";
 
 @Component({
 	selector: "app-gastos",
@@ -22,8 +23,7 @@ export class GastosComponent implements OnInit {
 	public gasto: Gasto;
 	public clasificaciones: ClasificacionGasto[];
 	public subclasificaciones: SubclasificacionGasto[];
-	public idClasificacionSeleccionado: number;
-	public idSubClasificacionSeleccionado: number;
+	public cuentas: Cuenta[] = [];
 	public sucursales: Sucursal[];
 
 	constructor(
@@ -32,12 +32,14 @@ export class GastosComponent implements OnInit {
 		private gastoService: GastoService,
 		private _sucursalService: SucursalService,
 		private formBuilder: FormBuilder,
+		private cuentaService: CuentaService,
 		private cdr: ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
 		this.initFormAddGasto();
 		this.getSucursales();
+		this.getCuentas();
 		this.gasto = new Gasto();
 	}
 
@@ -55,37 +57,24 @@ export class GastosComponent implements OnInit {
 		});
 	}
 
-	getClasificaciones() {
-		this.gastoService.getClasificacionesGasto(1).subscribe(response => {
-			if (response.clasificaciones) {
-				this.clasificaciones = response.clasificaciones;
-				this.cdr.markForCheck();
-			}
-		});
-	}
-
-	getSubclasificacionByIdClasificacion() {
-		this.gastoService.getSubclasificacionesByIdClasificacion(this.idClasificacionSeleccionado).subscribe(response => {
-			if (response.subclasificaciones) {
-				this.subclasificaciones = response.subclasificaciones;
-				this.cdr.markForCheck();
-			}
-		});
-	}
-
 	getSucursales() {
-		this._sucursalService.getSucursales().subscribe(
-			response => {
-				if (response.sucursales) {
-					this.sucursales = response.sucursales;
-					this.cdr.markForCheck();
-				}
+		this._sucursalService.getSucursales().subscribe(response => {
+			if (response.sucursales) {
+				this.sucursales = response.sucursales;
+				this.cdr.markForCheck();
 			}
-		);
+		});
 	}
 
-	changeClasificacion(event) {
 
+	getGrupoCuenta() {
+
+    }
+
+	getCuentas() {
+		this.cuentaService.getCuentas().subscribe(response => {
+			this.cuentas = response;
+		});
 	}
 
 	changeSubclasificacion(event) {
@@ -117,13 +106,11 @@ export class GastosComponent implements OnInit {
 		this.getValuesFormAddGasto();
 
 		if (this.gastoValido()) {
-			this.gastoService.createGasto(this.gasto).subscribe(
-				response => {
-					if (response.IdGasto) {
-						this.agregarOtroGasto();
-					}
+			this.gastoService.createGasto(this.gasto).subscribe(response => {
+				if (response.IdGasto) {
+					this.agregarOtroGasto();
 				}
-			);
+			});
 		}
 	}
 
@@ -133,9 +120,7 @@ export class GastosComponent implements OnInit {
 		this.gasto.NoReferencia = this.formAddGasto.controls["numeroReferencia"].value;
 		this.gasto.MontoTotal = this.formAddGasto.controls["montoTotal"].value;
 		this.gasto.ConceptoGasto = this.formAddGasto.controls["conceptoGasto"].value;
-		this.gasto.Consumo = !this.formAddGasto.controls["consumo"].value
-			? null
-			: this.formAddGasto.controls["consumo"].value;
+		this.gasto.Consumo = !this.formAddGasto.controls["consumo"].value ? null : this.formAddGasto.controls["consumo"].value;
 	}
 
 	gastoValido() {
@@ -152,23 +137,25 @@ export class GastosComponent implements OnInit {
 	}
 
 	agregarOtroGasto() {
-		swal.fire({
-			title: "El gasto se ha creado exitosamente!",
-			text: "Deseas agregar otro?",
-			type: "success",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "SI",
-			cancelButtonText: "NO"
-		}).then(result => {
-			if (result.value) {
-				this.formAddGasto.reset();
-				this.gasto = new Gasto();
-			} else if (result.dismiss === swal.DismissReason.cancel) {
-				this._router.navigate(["/dashboard"]);
-			}
-		});
+		swal
+			.fire({
+				title: "El gasto se ha creado exitosamente!",
+				text: "Deseas agregar otro?",
+				type: "success",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "SI",
+				cancelButtonText: "NO"
+			})
+			.then(result => {
+				if (result.value) {
+					this.formAddGasto.reset();
+					this.gasto = new Gasto();
+				} else if (result.dismiss === swal.DismissReason.cancel) {
+					this._router.navigate(["/dashboard"]);
+				}
+			});
 	}
 
 	changeSucursal(event) {

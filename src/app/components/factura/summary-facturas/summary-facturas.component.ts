@@ -16,12 +16,12 @@ export class SummaryFacturasComponent implements OnInit {
 	public proveedores: Proveedor[];
 	public formBusquedaFactura: FormGroup;
 	public idProveedor: number = null;
-	public fechaInicio: string = null;
-	public fechaFin: string = null;
+	public fechaInicio: string | Date = null;
+	public fechaFin: string | Date = null;
 	public totalCordobasFacturas = 0;
 	public totalOrigenFactura = 0;
 	public buscando: string;
-	public idFechaBusqueda = 1;
+	public idFechaBusqueda = null;
 	public codFactura: string = null;
 	@ViewChild("pointscroll") pointScroll: ElementRef;
 	public scrollStart: number = 0;
@@ -31,7 +31,7 @@ export class SummaryFacturasComponent implements OnInit {
 
 	// Paginacion
 	@ViewChildren("pages") pages: QueryList<any>;
-	itemsPerPage = 6;
+	itemsPerPage = 30;
 	numberOfVisiblePaginators = 10;
 	numberOfPaginators: number;
 	paginators: Array<any> = [];
@@ -61,7 +61,7 @@ export class SummaryFacturasComponent implements OnInit {
 		this.getProveedores();
 
 		this.formBusquedaFactura.controls["codFactura"].valueChanges.subscribe(value => {
-			if (value === "") {
+			if (!value) {
 				this.formBusquedaFactura.controls["fechaBusqueda"].enable();
 				this.formBusquedaFactura.controls["fechaInicio"].enable();
 				this.formBusquedaFactura.controls["fechaFin"].enable();
@@ -165,10 +165,10 @@ export class SummaryFacturasComponent implements OnInit {
 
 	initFormBusquedaFactura() {
 		this.formBusquedaFactura = this.formBuilderFactura.group({
-			proveedor: new FormControl("", Validators.required),
+			proveedor: new FormControl(null, Validators.required),
 			fechaBusqueda: new FormControl([]),
-			fechaInicio: new FormControl(""),
-			fechaFin: new FormControl(""),
+			fechaInicio: new FormControl([]),
+			fechaFin: new FormControl([]),
 			codFactura: new FormControl("")
 		});
 	}
@@ -183,18 +183,16 @@ export class SummaryFacturasComponent implements OnInit {
 	}
 
 	getDataFactura() {
-		this.fechaInicio =
-			this.formBusquedaFactura.value.fechaInicio === "" ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaInicio);
-		this.fechaFin =
-			this.formBusquedaFactura.value.fechaFin === "" ? null : Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaFin);
-		this.codFactura = this.formBusquedaFactura.value.codFactura === "" ? null : this.formBusquedaFactura.value.codFactura;
+		this.fechaInicio = Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaInicio);
+		this.fechaFin = Utils.formatDateYYYYMMDD(this.formBusquedaFactura.value.fechaFin);
+		this.codFactura = this.formBusquedaFactura.value.codFactura || null;
 	}
 
 	onChangeProveedor(event) {
 		if (event) {
 			this.idProveedor = event.IdProveedor;
 		} else {
-			this.idProveedor = event.IdProveedor;
+			this.idProveedor = null;
 		}
 	}
 
@@ -233,31 +231,25 @@ export class SummaryFacturasComponent implements OnInit {
 	}
 
 	validarParametrosBusquedaFactura() {
-		if (this.idProveedor === null && this.fechaInicio === null && this.fechaFin === null && this.idFechaBusqueda === null) {
-			Utils.showMsgInfo("Debes digitar al menos uno de los parametros de busqueda", "Busqueda Facturas");
+		if (!this.idFechaBusqueda && !this.codFactura) {
+			Utils.showMsgInfo("Debes seleccionar un rango de fecha de busqueda o un codigo factura a filtrar!", "Busqueda Facturas");
 			return false;
-		} else if (this.idProveedor === null) {
-			Utils.showMsgInfo("El proveedor es requerido para la busqueda", "Busqueda Facturas");
-			return false;
-		} else if (
-			this.idProveedor !== null &&
-			this.codFactura === null &&
-			(this.idFechaBusqueda !== null && this.idFechaBusqueda !== undefined) &&
-			(this.fechaInicio === null || this.fechaFin === null)
-		) {
-			Utils.showMsgInfo("Debes digitar el rango de fechas!", "Busqueda Facturas");
-			return false;
-		} else if (this.fechaInicio !== null && this.fechaFin === null) {
-			Utils.showMsgInfo("Debes digitar la fecha fin", "Busqueda Facturas");
-			return false;
-		} else if (this.fechaInicio === null && this.fechaFin !== null) {
-			Utils.showMsgInfo("Debes digitar la fecha inicio", "Busqueda Facturas");
-			return false;
-		} else if (this.fechaInicio > this.fechaFin) {
-			Utils.showMsgInfo("La fecha de inicio no puede ser mayor a la fecha fin!", "Busqueda Facturas");
-			return false;
+		} else if (!this.codFactura && this.idFechaBusqueda) {
+			if (!this.fechaInicio && !this.fechaFin) {
+				Utils.showMsgInfo("La fecha inicio y fecha fin son requeridas para la busqueda por rango de fecha!", "Busqueda Facturas");
+				return false;
+			}
+
+			if (this.fechaInicio > this.fechaFin) {
+				Utils.showMsgInfo("La fecha de inicio no puede ser mayor a la fecha fin!", "Busqueda Facturas");
+				return false;
+			}
 		}
 		return true;
+	}
+
+	deshabilitarFechasBusqueda() {
+		return this.idFechaBusqueda ? null : true;
 	}
 
 	resetPages() {
@@ -284,8 +276,14 @@ export class SummaryFacturasComponent implements OnInit {
 	changeFechaBusqueda(event) {
 		if (event) {
 			this.idFechaBusqueda = event.Id;
+			this.formBusquedaFactura.controls["fechaInicio"].enable();
+			this.formBusquedaFactura.controls["fechaFin"].enable();
 		} else {
 			this.idFechaBusqueda = null;
+			this.formBusquedaFactura.controls["fechaInicio"].reset();
+			this.formBusquedaFactura.controls["fechaFin"].reset();
+			this.formBusquedaFactura.controls["fechaInicio"].disable();
+			this.formBusquedaFactura.controls["fechaFin"].disable();
 		}
 	}
 
@@ -324,5 +322,14 @@ export class SummaryFacturasComponent implements OnInit {
 
 	busquedaFactura(evento) {
 		this.seleccionFechaBusqueda = evento;
+	}
+
+	limpiar() {
+		this.formBusquedaFactura.reset();
+		this.idFechaBusqueda = null;
+		this.codFactura = null;
+		this.totalCordobasFacturas = 0;
+		this.totalOrigenFactura = 0;
+		this.idProveedor = null;
 	}
 }

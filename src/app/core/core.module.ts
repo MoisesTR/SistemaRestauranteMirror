@@ -2,45 +2,47 @@ import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import {
+	AreaProduccionService,
 	AuthGuardService,
 	AuthService,
+	BodegaAreaProduccionService,
 	BodegaSucursalService,
 	CargoService,
 	CategoriaProductoService,
 	ClasificacionProductoService,
 	ClasificacionUnidadMedidaService,
+	CuentaService,
 	DeleteImageService,
 	EmpaqueService,
 	EnvaseService,
 	EstadoEmpaqueService,
+	FacturacionMonedaService,
 	FacturaService,
 	GastoService,
+	GrupoCuentaService,
+	LoginGuardService,
 	MenuService,
+	PaisService,
 	PermisoControlService,
+	PersistenciaDatoService,
 	PreviousRouteService,
 	ProductoProveedorService,
 	ProductoService,
 	ProveedorService,
 	ReporteService,
 	RolusuarioService,
+	SettingRestauranteService,
+	SpinnerService,
 	SubClasificacionProductoService,
+	SubCuentaServiceService,
 	SucursalService,
+	TipoDocumentoService,
+	TipoInsumoService,
+	TipoMonedaService,
 	TrabajadorService,
 	UnidadMedidaService,
 	UploadService,
-	UsuarioService,
-	SpinnerService,
-	TipoDocumentoService,
-	TipoMonedaService,
-	PersistenciaDatoService,
-	LoginGuardService,
-	SettingRestauranteService,
-	PaisService,
-	TipoInsumoService,
-	FacturacionMonedaService,
-	GrupoCuentaServiceService,
-	CuentaServiceService,
-	SubCuentaServiceService
+	UsuarioService
 } from "./service.index";
 import { throwIfAlreadyLoaded } from "@app/core/module-import-guard";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -53,18 +55,10 @@ import { NativeDateTimeAdapter } from "ng-pick-datetime/date-time/adapter/native
 import { Platform } from "@angular/cdk/platform";
 import { PipesModule } from "@app/pipe/pipes.module";
 import { NgxSpinnerModule } from "ngx-spinner";
-import {GlobalErrorHandlerService} from '@app/core/services/shared/global-error-handler.service';
 
 @NgModule({
 	imports: [],
-	exports: [
-		ReactiveFormsModule,
-		NgxSpinnerModule,
-		PipesModule,
-		NgSelectModule,
-		OwlDateTimeModule,
-		OwlNativeDateTimeModule
-	],
+	exports: [ReactiveFormsModule, NgxSpinnerModule, PipesModule, NgSelectModule, OwlDateTimeModule, OwlNativeDateTimeModule],
 	providers: [
 		BodegaSucursalService,
 		CargoService,
@@ -106,9 +100,11 @@ import {GlobalErrorHandlerService} from '@app/core/services/shared/global-error-
 		LoginGuardService,
 		TipoInsumoService,
 		FacturacionMonedaService,
-		GrupoCuentaServiceService,
-		CuentaServiceService,
+		GrupoCuentaService,
+		CuentaService,
 		SubCuentaServiceService,
+		AreaProduccionService,
+		BodegaAreaProduccionService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: HttpInterceptorService,

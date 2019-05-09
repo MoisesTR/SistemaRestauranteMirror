@@ -2,6 +2,7 @@ import { DetalleFactura } from "./DetalleFactura";
 import { ProductoFactura } from "./ProductoFactura";
 
 export class Factura {
+    public IdUsuario: number;
 	public IdPaginacion: number;
 	public IdFactura: number;
 	public NumRefFactura: string;

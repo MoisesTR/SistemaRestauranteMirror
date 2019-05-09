@@ -61,7 +61,7 @@ export class Utils {
 	}
 
 	static formatDateYYYYMMDD(myDate) {
-		return moment(myDate).format("YYYY-MM-DD");
+		return myDate ? moment(myDate).format("YYYY-MM-DD") : null;
 	}
 
 	static valorCampoEsValido(valor: any): any {

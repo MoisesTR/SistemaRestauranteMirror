@@ -160,14 +160,15 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 	}
 
 	getDatosProveedor() {
-		this.proveedor.NombProveedor = this.formAddProveedor.value.nombreProveedor;
-		this.proveedor.NombRepresentante = this.formAddProveedor.value.nombreRepresentante;
+
+	    this.proveedor.NombProveedor = this.formAddProveedor.value.nombreProveedor ;
+		this.proveedor.NombRepresentante = this.formAddProveedor.value.nombreRepresentante || undefined;
 		this.proveedor.DescProveedor = this.formAddProveedor.value.descripcionProveedor;
 		this.proveedor.Documento = this.formAddProveedor.value.numeroRuc;
 		this.proveedor.Direccion = this.formAddProveedor.value.direccionProveedor;
 		this.proveedor.Email = this.formAddProveedor.value.email;
 		this.proveedor.IsProvServicio = this.formAddProveedor.value.isProveedorServicio;
-		this.proveedor.Abreviatura = this.formAddProveedor.value.abreviatura;
+		this.proveedor.Abreviatura = this.formAddProveedor.value.abreviatura || undefined;
 		this.proveedor.IdPais = 1;
 		this.proveedor.HasSucursales = false;
 		this.proveedor.IdTipDoc = TipoDocumentoEnum.NumeroRuc;

@@ -72,7 +72,7 @@
                                                     [validateSuccess]="false" [validateError]="false" id="fechaInicio"
                                                     placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
                                                     (ngModelChange)="busquedaFactura($event)" readonly>
-                                                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                                <owl-date-time [pickerType]="'calendar'" [disabled]="deshabilitarFechasBusqueda()" #dt1></owl-date-time>
                                                 <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                                                     [validateSuccess]="false" [validateError]="false" id="fechaFin"
                                                     placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
                                                     [min]="seleccionFechaBusqueda" readonly>
-                                                <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                                                <owl-date-time [pickerType]="'calendar'"  [disabled]="deshabilitarFechasBusqueda()" #dt2></owl-date-time>
                                                 <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
                                             </div>
                                         </div>
@@ -97,6 +97,10 @@
                                 <button mdbBtn type="submit" [disabled]="!formBusquedaFactura.valid || peticionEnCurso"
                                     class="orange-chang mb-1 white-text">
                                     <mdb-icon fas icon="search" class="mr-1"></mdb-icon>Buscar
+                                </button>
+                                <button mdbBtn type="button" (click)="limpiar()"
+                                        class="orange-chang mb-1 white-text">
+                                    <mdb-icon fas icon="broom"></mdb-icon>Limpiar
                                 </button>
                             </div>
 
@@ -224,7 +228,7 @@
                                             mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect>
                                             <mdb-icon far icon="eye"></mdb-icon>
                                         </button>
-                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text"
+                                        <button disabled type="button" class="btn orange-chang btn-sm waves-light white-text"
                                             tabindex="-1" mdbTooltip="Editar Factura" placement="bottom" mdbWavesEffect>
                                             <mdb-icon far icon="edit"></mdb-icon>
                                         </button>

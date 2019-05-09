@@ -97,31 +97,35 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 	}
 
 	deleteProveedor(IdProveedor) {
-		swal.fire({
-			title: "Estas seguro(a)?",
-			text: "El proveedor sera eliminado permanentemente!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Si, Eliminalo!",
-			cancelButtonText: "Cancelar"
-		}).then(result => {
-			if (result.value) {
-				this.proveedorService.deleteProveedor(IdProveedor).subscribe(response => {
-					if (response.success) {
-						swal.fire("Eliminado!", "El proveedor ha sido eliminado exitosamente", "success").then(() => {
-							this.getProveedoresRender();
-						});
-					}
-				});
-			}
-		});
+		swal
+			.fire({
+				title: "Estas seguro(a)?",
+				text: "El proveedor sera eliminado permanentemente!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si, Eliminalo!",
+				cancelButtonText: "Cancelar"
+			})
+			.then(result => {
+				if (result.value) {
+					this.proveedorService.deleteProveedor(IdProveedor).subscribe(response => {
+						if (response.success) {
+							swal.fire("Eliminado!", "El proveedor ha sido eliminado exitosamente", "success").then(() => {
+								this.getProveedoresRender();
+							});
+						}
+					});
+				}
+			});
 	}
 
 	showModalTelefonos(proveedor: Proveedor) {
 		this.proveedorSeleccionado = proveedor;
-		this.modalTelefonos.show();
+		if (this.proveedorSeleccionado.Telefonos && this.proveedorSeleccionado.Telefonos.length > 0) {
+			this.modalTelefonos.show();
+		}
 	}
 
 	ngOnDestroy(): void {

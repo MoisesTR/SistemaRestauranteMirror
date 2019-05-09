@@ -19,7 +19,7 @@ import { ProductoFactura } from "@app/models/ProductoFactura";
 import swal from "sweetalert2";
 import { FormaPagoEnum } from "@app/Enums/FormaPagoEnum";
 import { MonedaEnum } from "@app/Enums/MonedaEnum";
-import {environment} from '@env/environment';
+import { environment } from "@env/environment";
 
 declare var $: any;
 
@@ -81,14 +81,17 @@ export class AddfacturaComponent implements OnInit {
 		private uploadService: UploadService,
 		private cdr: ChangeDetectorRef
 	) {
+		this.usuario = new Usuario();
+		this.usuario = this.usuarioService.getIdentity();
 		this.proveedor = new Proveedor();
 		this.productoSeleccionado = new ProductoFactura();
 		this.productosFactura = [];
 		this.productosFiltrados = [];
 		this.productosProveedor = [];
 		this.productoEditar = new ProductoFactura();
-		this.usuario = new Usuario();
 		this.factura = new Factura();
+		this.factura.IdUsuario = this.usuario.IdUsuario;
+		this.factura.IdTrabajador = this.usuario.IdTrabajador;
 		this.url = Global.url;
 		this.IdMonedaSeleccionada = MonedaEnum.Cordobas;
 		this.IdFormaPagoSeleccionado = FormaPagoEnum.Contado;
@@ -107,7 +110,6 @@ export class AddfacturaComponent implements OnInit {
 		this.subscribeTotalFacturaOrigen();
 		this.initFormDetailFactura();
 		this.initDefaultValues();
-		this.usuario = this.usuarioService.getIdentity();
 	}
 
 	initFormDetailProductoFactura() {
@@ -170,7 +172,7 @@ export class AddfacturaComponent implements OnInit {
 		this.factura.IdTipoMoneda = this.IdMonedaSeleccionada;
 		this.factura.FormaPago = "Contado";
 		this.factura.IdFormaPago = FormaPagoEnum.Contado;
-		this.factura.NombVendedor = this.proveedores.filter(item => item.IdProveedor === this.proveedor.IdProveedor)[0].NombRepresentante;
+		this.factura.NombVendedor = this.proveedor.NombRepresentante || "Este proveedor no posee representante";
 	}
 
 	onChangeProveedor(event) {
@@ -292,7 +294,7 @@ export class AddfacturaComponent implements OnInit {
 	crearFactura() {
 		this.getValuesFromFactura();
 		if (this.facturaService.validarCrearFactura(this.productosFactura, this.factura)) {
-			this.factura.productos = this.facturaService.crearDetalleFactura(this.productosFactura, this.factura.DescuentoCalculoFactura);
+			this.factura.productos = this.facturaService.crearDetalleFactura(this.productosFactura, this.factura.DescuentoCalculoFactura, this.descuentoGlobalHabilitado);
 			this.facturaService.createFactura(this.factura).subscribe(response => {
 				if (response.IdFactura) {
 					this.agregarOtraFactura();
@@ -426,13 +428,11 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	agregarNuevoProducto() {
-
-        if (environment.production) {
-            window.open("https://restaurante-atomic.herokuapp.com/producto/add", "_blank");
-        } else {
-            window.open("http://localhost:4200/producto/add", "_blank");
-        }
-
+		if (environment.production) {
+			window.open("https://restaurante-atomic.herokuapp.com/producto/add", "_blank");
+		} else {
+			window.open("http://localhost:4200/producto/add", "_blank");
+		}
 	}
 
 	actualizarListaProductos() {
@@ -463,6 +463,8 @@ export class AddfacturaComponent implements OnInit {
 				if (result.value) {
 					this.resetFormAddFactura();
 					this.factura = new Factura();
+					this.factura.IdUsuario = this.usuario.IdUsuario;
+					this.factura.IdTrabajador = this.usuario.IdTrabajador;
 					this.proveedor = new Proveedor();
 					this.productoSeleccionado = new ProductoFactura();
 					this.productosFactura = [];

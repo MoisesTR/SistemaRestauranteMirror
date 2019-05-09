@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { FacturaService, ProveedorService } from "@app/core/service.index";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Factura } from "@app/models/Factura";
-import { Utils } from "../../Utils";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { Proveedor } from "@app/models/Proveedor";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FacturaService, ProveedorService} from '@app/core/service.index';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Factura} from '@app/models/Factura';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Proveedor} from '@app/models/Proveedor';
 
 @Component({
 	selector: "app-show-factura",
@@ -19,7 +18,6 @@ export class ShowFacturaComponent implements OnInit {
 	public formDetallesFactura: FormGroup;
 	public IdMonedaSeleccionada: number;
 	public IdFormaPagoSeleccionado: number;
-	public IdProveedorSeleccionado: number;
 
 	Moneda = [{ Id: 1, Moneda: "Córdobas" }, { Id: 2, Moneda: "Dólares" }];
 
@@ -61,9 +59,7 @@ export class ShowFacturaComponent implements OnInit {
 	}
 
 	initFormDetalleFactura() {
-		this.formDetallesFactura = this._formBuilderFactura.group({
-
-		});
+		this.formDetallesFactura = this._formBuilderFactura.group({});
 	}
 
 	setDataFormFactura() {
@@ -75,14 +71,13 @@ export class ShowFacturaComponent implements OnInit {
 		this.formFactura.controls["Moneda"].setValue(this.IdMonedaSeleccionada);
 		this.formFactura.controls["Proveedor"].setValue(this.factura.IdProveedor);
 		this.formFactura.controls["totalImpreso"].setValue(this.factura.TotalOrigenFactura + " C$");
-		this.formFactura.controls["descuentoTotal"].setValue(this.factura.TotalDescuento);
+		this.formFactura.controls["descuentoTotal"].setValue(this.factura.TotalDescuento + " C$");
 		this.formFactura.controls["fechaFactura"].setValue(this.factura.FechaFactura);
 		this.formFactura.controls["fechaRecepcion"].setValue(this.factura.FechaRecepcion);
 		this.formFactura.controls["hora"].setValue(this.factura.HoraIngreso);
 	}
 
-	setDataFormDetailFactura() {
-	}
+	setDataFormDetailFactura() {}
 
 	getFacturaById() {
 		this._route.params.forEach((params: Params) => {

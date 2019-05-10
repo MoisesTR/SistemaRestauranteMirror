@@ -37,6 +37,7 @@
     "angular-datatables": "6.0.0",
     "chart.js": "2.7.2",
     "classlist.js": "1.1.x",
+    "compression": "^1.7.4",
     "core-js": "^2.5.7",
     "datatables.net": "~1.10.16",
     "datatables.net-buttons": "~1.5.3",

@@ -85,7 +85,7 @@ export class AddUsuarioComponent implements OnInit {
 		this.usuario.Imagen = this.imagenTrabajador;
 
 		this._usuarioService.createUsuario(this.usuario).subscribe(response => {
-			if (response.success) {
+			if (response) {
 				swal.fire("usuario", "El usuario ha sido creado exitosamente!", "success").then(() => {
 					this._router.navigate(["/usuario"]);
 				});

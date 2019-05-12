@@ -126,7 +126,6 @@ export class ModalCategoriaComponent implements OnInit, EventoModal, OnDestroy {
 
     changeTipoInsumo(event) {
 	    if (event) {
-	        console.log(event)
 	        this.categoriaProducto.IdTipInsumo = event.IdTipInsumo;
         } else {
             this.categoriaProducto.IdTipInsumo = null;

@@ -6,13 +6,17 @@ import { TipoDescuentoEnum } from "@app/Enums/TipoDescuentoEnum";
 })
 export class TipoDescuentoPipe implements PipeTransform {
 	public transform(value: number) {
-		if (!value) return " C$";
+		if (!value) return "";
 
 		if (value === TipoDescuentoEnum.DescuentoPorcentualPorItem || value === TipoDescuentoEnum.DescuentoPorcentualSobreTransaccion) {
 			return " %";
 		}
 
-		if (value === TipoDescuentoEnum.DescuentoMonetarioPorItem || value === TipoDescuentoEnum.DescuentoMonetarioSobreTransaccion) {
+		if (
+			value === TipoDescuentoEnum.DescuentoMonetarioPorItem ||
+			value === TipoDescuentoEnum.DescuentoMonetarioSobreTransaccion ||
+			value === TipoDescuentoEnum.SinDescuentoAplicado
+		) {
 			return " C$";
 		}
 	}

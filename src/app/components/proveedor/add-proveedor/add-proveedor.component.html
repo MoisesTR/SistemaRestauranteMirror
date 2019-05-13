@@ -90,7 +90,7 @@
                             </div>
 
                             <div class="text-center mt-3">
-                                <button mdbBtn type="submit" class="orange-chang mb-1 white-text" [disabled]="!formAddProveedor.valid && !peticionEnCurso" mdbWavesEffect>
+                                <button mdbBtn type="submit" class="orange-chang mb-1 white-text" [disabled]="!formAddProveedor.valid || peticionEnCurso" mdbWavesEffect>
                                     <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
                                 </button>
                             </div>

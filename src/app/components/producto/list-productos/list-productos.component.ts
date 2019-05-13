@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ProductoService, SpinnerService} from '@app/core/service.index';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Producto} from '@app/models/Producto';
-import {Subject} from 'rxjs';
-import swal from 'sweetalert2';
-import {idioma_espanol} from '@app/core/services/shared/global';
-import {DataTableDirective} from 'angular-datatables';
-import {Subscription} from 'rxjs/Subscription';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { ProductoService, SpinnerService } from "@app/core/service.index";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Producto } from "@app/models/Producto";
+import { Subject } from "rxjs";
+import swal from "sweetalert2";
+import { idioma_espanol } from "@app/core/services/shared/global";
+import { DataTableDirective } from "angular-datatables";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
 	selector: "app-list-productos",
@@ -91,28 +91,30 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 	}
 
 	eliminarProducto(IdProducto) {
-		swal.fire({
-			title: "Estas seguro(a)?",
-			text: "El producto sera eliminado!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Si, Eliminalo!",
-			cancelButtonText: "Cancelar"
-		}).then(result => {
-			if (result.value) {
-				this.productoService.deleteProducto(IdProducto).subscribe(response => {
-					if (response.success) {
-						swal.fire("Eliminado  !", "El producto ha sido eliminado exitosamente", "success").then(() => {
-							this.getProductosRender();
-						});
-					} else {
-						swal.fire("Error inesperado", "Ha ocurrido un error en la eliminación, intenta nuevamente!", "error");
-					}
-				});
-			} else if (result.dismiss === swal.DismissReason.cancel) {
-			}
-		});
+		swal
+			.fire({
+				title: "Estas seguro(a)?",
+				text: "El producto sera eliminado!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Si, Eliminalo!",
+				cancelButtonText: "Cancelar"
+			})
+			.then(result => {
+				if (result.value) {
+					this.productoService.deleteProducto(IdProducto).subscribe(response => {
+						if (response.success) {
+							swal.fire("Eliminado  !", "El producto ha sido eliminado exitosamente", "success").then(() => {
+								this.getProductosRender();
+							});
+						} else {
+							swal.fire("Error inesperado", "Ha ocurrido un error en la eliminación, intenta nuevamente!", "error");
+						}
+					});
+				} else if (result.dismiss === swal.DismissReason.cancel) {
+				}
+			});
 	}
 }

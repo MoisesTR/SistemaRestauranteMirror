@@ -16,7 +16,6 @@ export class ErrorComponent implements OnInit {
 	}
 
 	home() {
-	    console.log(this.routeParams.error);
 	    const usuarioService = this.injector.get(UsuarioService);
         const router = this.injector.get(Router);
         localStorage.clear();

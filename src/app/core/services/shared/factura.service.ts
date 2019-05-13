@@ -55,7 +55,6 @@ export class FacturaService {
 		const params = JSON.stringify(factura);
 		const headers = new HttpHeaders({ "Content-type": "application/json" });
 
-		console.log(factura);
 		return this._http.post(this.url + "bulk/factComp", params, { headers: headers });
 	}
 
@@ -159,44 +158,50 @@ export class FacturaService {
 			return false;
 		}
 
+		const diferencia = factura.TotalFactura - factura.TotalOrigenFactura;
+		if (+(diferencia) >= 100) {
+			Utils.showMsgInfo("Existe una diferencia de: " + diferencia + 'C$ entre el monto calculado y monto origen de la factura, revisa los calculos!', "Factura");
+			return false;
+		}
+
 		return true;
 	}
 
 	crearDetalleFactura(productosFactura: ProductoFactura[], descuentoCalculoFactura: number, descuentoGlobalHabilitado: boolean) {
-		const detallesFactura: DetalleFactura[] = [];
-		productosFactura.forEach((value, index) => {
-			const detalleFactura = new DetalleFactura();
-			detalleFactura.IdProducto = value.IdProducto;
-			detalleFactura.PrecioUnitario = value.Costo;
-			detalleFactura.Cantidad = value.Cantidad;
-			detalleFactura.GravadoIva = value.GravadoIva;
-			detalleFactura.SubTotal = value.Subtotal;
-			detalleFactura.Iva = value.Iva;
-			detalleFactura.TotalDetalle = value.TotalDetalle;
+		const detalleFactura: DetalleFactura[] = [];
+		productosFactura.forEach((producto, index) => {
+			const productoFactura = new DetalleFactura();
+			productoFactura.IdProducto = producto.IdProducto;
+			productoFactura.PrecioUnitario = producto.Costo;
+			productoFactura.Cantidad = producto.Cantidad;
+			productoFactura.GravadoIva = producto.GravadoIva;
+			productoFactura.SubTotal = producto.Subtotal;
+			productoFactura.Iva = producto.Iva;
+			productoFactura.TotalDetalle = producto.TotalDetalle;
 
 			if (descuentoCalculoFactura === 0) {
-				detalleFactura.IdTipDesc = TipoDescuentoEnum.SinDescuentoAplicado;
-			}
-
-			if (descuentoGlobalHabilitado) {
-				detalleFactura.IdTipDesc = TipoDescuentoEnum.DescuentoMonetarioSobreTransaccion;
+				productoFactura.IdTipDesc = TipoDescuentoEnum.SinDescuentoAplicado;
 			} else {
-				if (value.IsDescuentoPorcentual) {
-					detalleFactura.IdTipDesc = TipoDescuentoEnum.DescuentoPorcentualPorItem;
+				if (descuentoGlobalHabilitado) {
+					productoFactura.IdTipDesc = TipoDescuentoEnum.DescuentoMonetarioSobreTransaccion;
 				} else {
-					detalleFactura.IdTipDesc = TipoDescuentoEnum.DescuentoMonetarioPorItem;
+					if (producto.IsDescuentoPorcentual) {
+						productoFactura.IdTipDesc = TipoDescuentoEnum.DescuentoPorcentualPorItem;
+					} else {
+						productoFactura.IdTipDesc = TipoDescuentoEnum.DescuentoMonetarioPorItem;
+					}
 				}
 			}
 
-			detalleFactura.Descuento = value.Descuento;
-			detalleFactura.IsDescuentoPorcentual = value.IsDescuentoPorcentual;
-			detalleFactura.PorcentajeDescuento = value.IsDescuentoPorcentual ? value.PorcentajeDescuento : null;
-			detalleFactura.EfectivoDescuento = value.IsDescuentoPorcentual ? null : value.DescuentoIngresado;
-			detalleFactura.Bonificacion = 0;
-			detallesFactura.push(detalleFactura);
+			productoFactura.Descuento = producto.Descuento;
+			productoFactura.IsDescuentoPorcentual = producto.IsDescuentoPorcentual;
+			productoFactura.PorcentajeDescuento = producto.IsDescuentoPorcentual ? producto.PorcentajeDescuento : null;
+			productoFactura.EfectivoDescuento = producto.IsDescuentoPorcentual ? null : producto.DescuentoIngresado;
+			productoFactura.Bonificacion = 0;
+			detalleFactura.push(productoFactura);
 		});
 
-		return detallesFactura;
+		return detalleFactura;
 	}
 
 	asignarValoresEditarProducto(productoFactura: ProductoFactura, formEditarDetalleProducto: FormGroup) {

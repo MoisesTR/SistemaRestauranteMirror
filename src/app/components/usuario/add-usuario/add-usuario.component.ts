@@ -78,14 +78,13 @@ export class AddUsuarioComponent implements OnInit {
 	onChanges(): void {
 		this.formularioAddUsuario.valueChanges.subscribe(val => {});
 	}
+
 	createUsuario() {
-		this.usuario.Username = this.formularioAddUsuario.value.nombre;
-		this.usuario.Password = this.formularioAddUsuario.value.contrasenia;
-		this.usuario.Email = this.formularioAddUsuario.value.correo;
-		this.usuario.Imagen = this.imagenTrabajador;
+
+	    this.getValuesFormUsuario();
 
 		this._usuarioService.createUsuario(this.usuario).subscribe(response => {
-			if (response.success) {
+			if (response) {
 				swal.fire("usuario", "El usuario ha sido creado exitosamente!", "success").then(() => {
 					this._router.navigate(["/usuario"]);
 				});
@@ -93,7 +92,15 @@ export class AddUsuarioComponent implements OnInit {
 		});
 	}
 
-	getRoles() {
+    getValuesFormUsuario() {
+        this.usuario.Username = this.formularioAddUsuario.value.nombre;
+        this.usuario.Password = this.formularioAddUsuario.value.contrasenia;
+        this.usuario.Email = this.formularioAddUsuario.value.correo;
+        this.usuario.Imagen = this.imagenTrabajador;
+    }
+
+
+    getRoles() {
 		this._RolService.getRoles().subscribe(response => {
 			if (response.roles) {
 				this.roles = response.roles;

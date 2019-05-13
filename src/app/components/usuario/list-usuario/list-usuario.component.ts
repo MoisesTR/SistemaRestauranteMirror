@@ -46,10 +46,9 @@ export class ListUsuarioComponent implements OnInit {
 
 	getUsuario() {
 		this.usuario = this._usuarioService.getIdentity();
-		console.log(this.usuario)
 
 		$(document).ready(() => {
-			var imagenUsuario = this.url + "getImagen/" + CARPETA_TRABAJADORES + "/" + this.usuario.Imagen;
+			const imagenUsuario = this.url + "getImagen/" + CARPETA_TRABAJADORES + "/" + this.usuario.Imagen;
 
 			$(".dropify").dropify({
 				defaultFile: imagenUsuario

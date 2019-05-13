@@ -328,7 +328,7 @@ export class UpdateProductoComponent implements OnInit {
 	}
 
 	getProveedores() {
-		this._proveedorService.getProveedores(null).subscribe(response => {
+		this._proveedorService.getProveedores(1).subscribe(response => {
 			if (response.proveedores) {
 				this.proveedores = response.proveedores;
 				this.proveedores.forEach((value, index) => {

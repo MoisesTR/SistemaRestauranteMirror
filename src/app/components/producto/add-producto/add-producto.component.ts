@@ -137,7 +137,7 @@ export class AddProductoComponent implements OnInit {
 	}
 
 	getProveedores() {
-		this.proveedorService.getProveedores().subscribe(response => {
+		this.proveedorService.getProveedores(1).subscribe(response => {
 			if (response.proveedores) {
 				this.proveedores = response.proveedores;
 			}

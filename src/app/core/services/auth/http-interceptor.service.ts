@@ -1,14 +1,12 @@
-import { Injectable } from "@angular/core";
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { AuthService } from "./auth.service";
-import { Observable } from "rxjs/Observable";
-import { tap } from "rxjs/operators";
-import { Router } from "@angular/router";
-import { NGXLogger } from "ngx-logger";
-import { throwError } from "rxjs";
-import { Utils } from "@app/components/Utils";
-import { SpinnerService } from "@app/core/service.index";
-import { UNAUTHORIZED } from "http-status-codes";
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {AuthService} from './auth.service';
+import {Observable} from 'rxjs/Observable';
+import {tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {throwError} from 'rxjs';
+import {Utils} from '@app/components/Utils';
+import {SpinnerService} from '@app/core/service.index';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -30,9 +28,11 @@ export class HttpInterceptorService implements HttpInterceptor {
 							? Utils.msgError(err)
 							: `Error Code: ${err.status}\nMessage: ${err.message}`;
 
-						if (err.status === UNAUTHORIZED) {
-							this.auth.logout();
-						}
+
+						// TODO REVISAR SI ES NECESARIO CERRAR SESION CUANDO SE GENERE EL CODIGO 401
+						// if (err.status === UNAUTHORIZED) {
+						// 	this.auth.logout();
+						// }
 
 						if (this.spinnerService.status.value) this.spinnerService.display(false);
 

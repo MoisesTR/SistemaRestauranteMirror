@@ -77,7 +77,7 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 
 	getProveedores() {
 		this.spinner.display(true);
-		this.proveedorService.getProveedores().subscribe(response => {
+		this.proveedorService.getProveedores(1).subscribe(response => {
 			if (response.proveedores) {
 				this.proveedores = response.proveedores;
 				this.dtTrigger.next();
@@ -87,7 +87,7 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 	}
 
 	getProveedoresRender() {
-		this.proveedorService.getProveedores().subscribe(response => {
+		this.proveedorService.getProveedores(1).subscribe(response => {
 			if (response.proveedores) {
 				this.proveedores = response.proveedores;
 				this.rerender();
@@ -125,8 +125,7 @@ export class ListProveedorComponent implements OnInit, OnDestroy {
 		this.proveedorSeleccionado = proveedor;
 		if (this.proveedorSeleccionado.Telefonos && this.proveedorSeleccionado.Telefonos.length > 0) {
 			this.modalTelefonos.show();
-		}
-	}
+		}}
 
 	ngOnDestroy(): void {
 		this.dtTrigger.unsubscribe();

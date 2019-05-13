@@ -164,7 +164,7 @@
                 <!--/Titulo-->
                 <mdb-card-body cascade="true">
 
-                    <div class="col-12 col-sm-12 col-md-12 mt-3">
+                    <div class="col-12 col-sm-D12 col-md-12 mt-3">
                         <div class="in input-group md-form form-inline form-sm form-2 pl-0">
                             <i class="fa fa-search mt-2" aria-hidden="true"></i>
                             <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar"
@@ -210,12 +210,12 @@
                         date:'yyyy-MM-dd'}}</small></span>
                                     </td>
                                     <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
-                                        width="10%" class="body-negrita text-center align-middle">C$
-                                        {{factura.TotalCordobas | number : '1.2-2'}}
+                                        width="10%" class="body-negrita text-center align-middle">
+                                        {{factura.TotalCordobas | number : '1.2-2'}} C$
                                     </td>
                                     <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
-                                        width="10%" class="body-negrita text-center align-middle">C$
-                                        {{factura.TotalOrigenFactura | number : '1.2-2'}}
+                                        width="10%" class="body-negrita text-center align-middle">
+                                        {{factura.TotalOrigenFactura | number : '1.2-2'}} C$
                                     </td>
                                     <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"
                                         width="10%" class="body-negrita text-center align-middle">C$

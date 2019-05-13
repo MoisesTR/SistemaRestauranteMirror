@@ -144,7 +144,7 @@ export class AddfacturaComponent implements OnInit {
 	}
 
 	getProveedores() {
-		this.proveedorService.getProveedores().subscribe(response => {
+		this.proveedorService.getProveedores(1).subscribe(response => {
 			if (response.proveedores) {
 				this.proveedores = response.proveedores;
 				this.cdr.markForCheck();
@@ -285,7 +285,6 @@ export class AddfacturaComponent implements OnInit {
 					this.productosFiltrados[index].CalculoIva = 0;
 					this.productosFiltrados[index].IsDescuentoPorcentual = true;
 				});
-				console.log(this.productosFiltrados);
 				this.cdr.markForCheck();
 			}
 		});

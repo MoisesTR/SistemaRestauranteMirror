@@ -80,9 +80,10 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
 	createProveedor() {
 		this.peticionEnCurso = false;
+		this.getDatosProveedor();
 
 		if (this.proveedorService.validarTelefonos(this.contactos, this.proveedor.IsMercado)) {
-			this.getDatosProveedor();
+
 			this.proveedorService.validarDatosGuardarProveedor(this.proveedor);
 			this.proveedorService.createProveedor(this.proveedor).subscribe(
 				response => {
@@ -108,8 +109,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
 	mensajeCreacionProveedor() {
 		swal.fire("Proveedor", "El proveedor ha sido creado exitosamente!", "success").then(() => {
-			this.formAddProveedor.reset();
-			this.proveedor = new Proveedor();
 			if (this.previousUrl === "/factura/add") {
 				this.router.navigate(["/producto/add"]);
 			} else if (this.previousUrl === "/producto/add") {
@@ -141,16 +140,8 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 				Validators.maxLength(20),
 				CustomValidators.nospaceValidator
 			]),
-			direccionProveedor: new FormControl("", [
-				Validators.minLength(5),
-				Validators.maxLength(400),
-				CustomValidators.nospaceValidator
-			]),
-			nombreRepresentante: new FormControl("", [
-				Validators.minLength(2),
-				Validators.maxLength(200),
-				CustomValidators.nospaceValidator
-			]),
+			direccionProveedor: new FormControl("", [Validators.minLength(5), Validators.maxLength(400), CustomValidators.nospaceValidator]),
+			nombreRepresentante: new FormControl("", [Validators.minLength(2), Validators.maxLength(200), CustomValidators.nospaceValidator]),
 			email: new FormControl("", [Validators.minLength(5), Validators.maxLength(200), CustomValidators.nospaceValidator]),
 			descripcionProveedor: new FormControl(null, [Validators.maxLength(400)]),
 			isMercado: new FormControl(false, []),
@@ -160,8 +151,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 	}
 
 	getDatosProveedor() {
-
-	    this.proveedor.NombProveedor = this.formAddProveedor.value.nombreProveedor ;
+		this.proveedor.NombProveedor = this.formAddProveedor.value.nombreProveedor;
 		this.proveedor.NombRepresentante = this.formAddProveedor.value.nombreRepresentante || undefined;
 		this.proveedor.DescProveedor = this.formAddProveedor.value.descripcionProveedor;
 		this.proveedor.Documento = this.formAddProveedor.value.numeroRuc;
@@ -169,6 +159,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 		this.proveedor.Email = this.formAddProveedor.value.email;
 		this.proveedor.IsProvServicio = this.formAddProveedor.value.isProveedorServicio;
 		this.proveedor.Abreviatura = this.formAddProveedor.value.abreviatura || undefined;
+		this.proveedor.IsMercado = this.formAddProveedor.value.isMercado;
 		this.proveedor.IdPais = 1;
 		this.proveedor.HasSucursales = false;
 		this.proveedor.IdTipDoc = TipoDocumentoEnum.NumeroRuc;
@@ -205,7 +196,6 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 
 	changeMercado(event) {
 		const isMercado = event.checked;
-		this.proveedor.IsMercado = isMercado;
 
 		if (isMercado) {
 			this.formAddProveedor.controls["numeroRuc"].clearValidators();

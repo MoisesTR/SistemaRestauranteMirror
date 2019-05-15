@@ -14,11 +14,14 @@
 
                             <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-1">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-10 mt-2">
                                     <label class="margin-label-proveedor">Proveedor</label>
                                     <div class="md-form">
-                                        <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
-                                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                        <ng-select [items]="proveedores" bindLabel="NombProveedor"
+                                            bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor"
+                                            (change)="onChangeProveedor($event)" formControlName="proveedor">
+                                            <ng-template ng-option-tmp let-item="item" let-index="index"
+                                                let-search="searchTerm">
                                                 <div style="margin: 10px 0;" class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title" [ngOptionHighlight]="search">
@@ -43,41 +46,53 @@
                                 </div>
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3">
-                                    <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Proveedor" placement="bottom" (click)="agregarProveedor()" mdbWavesEffect>Agregar</button>
+                                    <button mdbBtn type="button" size="sm" block="true"
+                                        class="orange-chang waves-light add-btn-position-factura" tabindex="-1"
+                                        mdbTooltip="Proveedor" placement="bottom" (click)="agregarProveedor()"
+                                        mdbWavesEffect>Agregar</button>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3 mt-btn-factura">
-                                    <button disabled mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Ingresar foto de factura física" placement="bottom" (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
-                                </div>
-
-                                <div class="col-md-2 mt-codigo-factura">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                                     <div class="md-form md-outline">
-                                        <input Alphanumeric mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="numeroFactura" placeholder="Ej: BD200" class="form-control" autocomplete="off" formControlName="codigoFactura" [attr.disabled]="deshabilitarCampos()">
+                                        <input Alphanumeric mdbInputDirective [validateSuccess]="false"
+                                            [validateError]="false" type="text" id="numeroFactura"
+                                            placeholder="Ej: BD200" class="form-control" autocomplete="off"
+                                            formControlName="codigoFactura" [attr.disabled]="deshabilitarCampos()">
                                         <label for="codigoFactura">Código de Factura</label>
                                         <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 mt-codigo-factura">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                                     <div class="md-form md-outline">
-                                        <input [validateSuccess]="false" [validateSuccess]="false" [validateError]="false" mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 1200" class="form-control" autocomplete="off" formControlName="totalFacturaOrigen" [attr.disabled]="deshabilitarCampos()">
+                                        <input [validateSuccess]="false" [validateSuccess]="false"
+                                            [validateError]="false" mdbInputDirective onlyNumbers="decimal" type="text"
+                                            placeholder="Ej: 1200" class="form-control" autocomplete="off"
+                                            formControlName="totalFacturaOrigen" [attr.disabled]="deshabilitarCampos()">
                                         <label for="totalFacturaImpresa">Total Factura Impresa</label>
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 mt-codigo-factura">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                                     <div class="md-form md-outline">
-                                        <input [validateSuccess]="false" [validateSuccess]="false" [validateError]="false" [attr.disabled]="existeProductoConDescuento()" mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500" formControlName="descuentoGlobal" class="form-control"
-                                            autocomplete="off" [attr.disabled]="deshabilitarCampos()">
+                                        <input [validateSuccess]="false" [validateSuccess]="false"
+                                            [validateError]="false" [attr.disabled]="existeProductoConDescuento()"
+                                            mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500"
+                                            formControlName="descuentoGlobal" class="form-control" autocomplete="off"
+                                            [attr.disabled]="deshabilitarCampos()">
                                         <label for="descuentTotalFactura">Descuento Total Factura</label>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 mt-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
 
                                     <div class="md-form md-outline">
-                                        <input type="text" [max]="fechaActual" class="form-control" autocomplete="off" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [validateSuccess]="false" [validateError]="false" id="fechaFactura" (ngModelChange)="ingresoFechaRecepcion($event)" mdbInputDirective
-                                            formControlName="fechaFactura" name="FechaFactura" placeholder="Ej: dd/mm/yyyy" readonly mdbInput>
+                                        <input type="text" [max]="fechaActual" class="form-control" autocomplete="off"
+                                            [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [validateSuccess]="false"
+                                            [validateError]="false" id="fechaFactura"
+                                            (ngModelChange)="ingresoFechaRecepcion($event)" mdbInputDirective
+                                            formControlName="fechaFactura" name="FechaFactura"
+                                            placeholder="Ej: dd/mm/yyyy" readonly mdbInput>
                                         <owl-date-time [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt1>
                                         </owl-date-time>
                                         <label for="fechaFactura">Fecha factura</label>
@@ -85,40 +100,57 @@
 
                                 </div>
 
-                                <div class="col-md-3 mt-2">
+                                <div class="col-7 col-sm-8 col-md-4 col-lg-2">
                                     <div class="md-form md-outline">
-                                        <input type="text" [max]="fechaActual" [min]="seleccionarFechaFactura" class="form-control" autocomplete="off" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [validateSuccess]="false" [validateError]="false" id="fechaRecepcion" formControlName="fechaRecepcion"
-                                            name="FechaRecepcion" mdbInputDirective readonly placeholder="Ej: dd/mm/yyyy" mdbInput>
+                                        <input type="text" [max]="fechaActual" [min]="seleccionarFechaFactura"
+                                            class="form-control" autocomplete="off" [owlDateTimeTrigger]="dt2"
+                                            [owlDateTime]="dt2" [validateSuccess]="false" [validateError]="false"
+                                            id="fechaRecepcion" formControlName="fechaRecepcion" name="FechaRecepcion"
+                                            mdbInputDirective readonly placeholder="Ej: dd/mm/yyyy" mdbInput>
                                         <owl-date-time [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt2>
                                         </owl-date-time>
                                         <label for="fechaRecepcion">Fecha recepción</label>
                                     </div>
                                 </div>
 
+                                <div class="col-5 col-sm-4 col-md-4 col-lg-2 text-center">
+                                    <h6 class="grey-text-card mb-3">Retención</h6>
+                                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+                                </div>
+
                                 <div class="col-md-6">
                                     <br>
                                     <label class="grey-text-card">Moneda</label>
-                                    <ng-select dropdownPosition="top" class="disabled" [items]="Moneda" (change)="changeMoneda($event)" formControlName="Moneda" bindLabel="Moneda" bindValue="Id" id="moneda" [attr.disabled]="deshabilitarCampos()">
+                                    <ng-select dropdownPosition="top" class="disabled" [items]="Moneda"
+                                        (change)="changeMoneda($event)" formControlName="Moneda" bindLabel="Moneda"
+                                        bindValue="Id" id="moneda" [attr.disabled]="deshabilitarCampos()">
                                     </ng-select>
                                 </div>
 
                                 <div class="col-md-6">
                                     <br>
                                     <label class="grey-text-card">Forma de Pago</label>
-                                    <ng-select dropdownPosition="top" class="disabled" [items]="FormaPago" (change)="changeFormaPlazoPago($event)" formControlName="FormaPago" bindLabel="FormaPago" bindValue="Id" id="pago" [attr.disabled]="deshabilitarCampos()">
+                                    <ng-select dropdownPosition="top" class="disabled" [items]="FormaPago"
+                                        (change)="changeFormaPlazoPago($event)" formControlName="FormaPago"
+                                        bindLabel="FormaPago" bindValue="Id" id="pago"
+                                        [attr.disabled]="deshabilitarCampos()">
                                     </ng-select>
                                 </div>
 
                                 <div class="col-md-6 mt-3">
                                     <div *ngIf="mostrarComboTipoMoneda" class="md-form md-outline">
-                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="number" id="tipoCambio" formControlName="TipoCambio" class="form-control" autocomplete="off">
+                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                            type="number" id="tipoCambio" formControlName="TipoCambio"
+                                            class="form-control" autocomplete="off">
                                         <label for="tipoCambio">Tipo de Cambio</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 mt-3">
                                     <div *ngIf="mostrarComboPlazoPagos" class="md-form md-outline">
-                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="number" id="plazoPagos" formControlName="PlazoPagos" class="form-control" autocomplete="off">
+                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                            type="number" id="plazoPagos" formControlName="PlazoPagos"
+                                            class="form-control" autocomplete="off">
                                         <label for="plazoPagos">Plazo de pagos(dias)</label>
                                     </div>
                                 </div>
@@ -138,22 +170,40 @@
                 </div>
 
 
-                <div class="container-fluid mt-3">
+                <div class="container-fluid mt-4">
                     <div class="row">
-                        <div class="col-lg-8 col-md-12 col-sm-12 mb-0">
+                        <div class="col-lg-4 col-md-12 col-sm-12 mb-0">
                             <div class="input-group md-form form-inline form-sm pl-0">
-                                <i class="fa fa-search mt-2" aria-hidden="true"></i>
-                                <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
+                                <i class="fa fa-search black-text mt-3" aria-hidden="true"></i>
+                                <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
+                                    [(ngModel)]="buscando" aria-label="Buscar">
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap" (click)="agregarNuevoProducto()" mdbWavesEffect>Agregar
-                                Producto
-                            </button>
+                        <div class="col-lg-3 col-md-12 col-sm-12 ml-0 pt-0">
+                            <label class="grey-text-card">Código Filtrar</label>
+                            <ng-select dropdownPosition="bottom">
+                            </ng-select>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap" (click)="actualizarListaProductos()" mdbWavesEffect>Actualizar
-                                Lista
+                            <button mdbBtn type="button" size="sm" block="true"
+                                class="orange-chang waves-light text-nowrap" (click)="agregarNuevoProducto()"
+                                mdbWavesEffect>Agregar
+                                Producto Alimenticio
+                            </button>
+                        </div>
+                        <div class="col-lg-2 col-md-9 col-sm-8 mt-3 ml-0 pt-0">
+                            <button mdbBtn type="button" size="sm" block="true"
+                                class="orange-chang waves-light text-nowrap" (click)="agregarNuevoProductoLimpieza()"
+                                mdbWavesEffect>Agregar
+                                Producto Limpieza
+                            </button>
+                        </div>
+                        <div class="col-lg-1 col-md-3 col-sm-4 mt-3 ml-0 pt-0">
+                            <button mdbBtn type="button" size="sm" block="true"
+                                class="orange-chang waves-light text-nowrap" (click)="actualizarListaProductos()"
+                                mdbTooltip="Actualizar lista de productos" placement="bottom" mdbWavesEffect
+                                style="height: 31px;">
+                                <mdb-icon fas icon="sync"></mdb-icon>
                             </button>
                         </div>
                     </div>
@@ -162,8 +212,8 @@
 
                 <mdb-card-body cascade="true">
 
-                    <div class="table-responsive-sm">
-                        <table id="tabla" mdbTable hover="true">
+                    <div class="table-responsive">
+                        <table class="table  table-hover">
                             <thead>
                                 <tr>
                                     <th class="col-xs-1">No. Registro</th>
@@ -176,32 +226,44 @@
                                         Tipo Descuento
                                     </th>
                                     <th class="text-center col-xs-1">IVA</th>
-                                    <!-- <th class="text-center">Fecha vencimiento</th> -->
                                     <th class="text-center col-xs-2">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="scrollbar-ripe-malinka">
 
-                                <tr *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
+                                <tr
+                                    *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
                                     <th scope="row" class="align-middle col-xs-1">{{i + 1}}</th>
-                                    <th scope="row" class="align-middle col-xs-1">{{producto.CodProd !== null ? producto.CodProd : producto.CodOriginal}}</th>
+                                    <th scope="row" class="align-middle col-xs-1">
+                                        {{producto.CodProd !== null ? producto.CodProd : producto.CodOriginal}}</th>
                                     <td class="align-middle col-xs-2">{{producto.NombProducto}}</td>
                                     <td class="col-xs-2">
                                         <div class="md-form">
-                                            <input mdbInputDirective [validateSuccess]="false" [validateError]="false" [(ngModel)]="producto.Cantidad" (input)="onSearchChangeCantidadProducto($event.target.value,producto)" type="text" name="cantidadProducto" onlyNumbers="decimal" min="0" class="input-modal-sm"
-                                                style="width: 60% !important;" maxlength="7">
+                                            <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                                [(ngModel)]="producto.Cantidad"
+                                                (input)="onSearchChangeCantidadProducto($event.target.value,producto)"
+                                                type="text" name="cantidadProducto" onlyNumbers="decimal" min="0"
+                                                class="input-modal-sm" style="width: 60% !important;" maxlength="7">
                                         </div>
                                     </td>
                                     <td class="col-xs-1">
                                         <div class="md-form">
-                                            <input mdbInputDirective [validateSuccess]="false" [validateError]="false" [(ngModel)]="producto.Costo" (input)="onSearchChangePrecioProducto($event.target.value,producto)" type="text" name="precioProducto" class="input-modal-sm" onlyNumbers="decimal"
-                                                style="width: 60% !important;" maxlength="7">
+                                            <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
+                                                [(ngModel)]="producto.Costo"
+                                                (input)="onSearchChangePrecioProducto($event.target.value,producto)"
+                                                type="text" name="precioProducto" class="input-modal-sm"
+                                                onlyNumbers="decimal" style="width: 60% !important;" maxlength="7">
                                         </div>
                                     </td>
                                     <td class="col-xs-1">
                                         <div class="md-form">
-                                            <input [validateSuccess]="false" [validateError]="false" [disabled]="deshabilitarDescuentoXItem" (input)="onSearchChangeDescuentoProducto($event.target.value,producto)" mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text" [NegOrPosNumber]="EstadoCheckTipoDescuento"
-                                                id="valorDescuento" name="valorDescuento" min="0" class="input-modal-sm" style="width: 60% !important;">
+                                            <input [validateSuccess]="false" [validateError]="false"
+                                                [disabled]="deshabilitarDescuentoXItem"
+                                                (input)="onSearchChangeDescuentoProducto($event.target.value,producto)"
+                                                mdbInputDirective [(ngModel)]="producto.DescuentoIngresado" type="text"
+                                                [NegOrPosNumber]="EstadoCheckTipoDescuento" id="valorDescuento"
+                                                name="valorDescuento" min="0" class="input-modal-sm"
+                                                style="width: 60% !important;">
                                         </div>
                                     </td>
 
@@ -220,14 +282,19 @@
                                     </td>
 
                                     <td class="text-center align-middle col-xs-1">
-                                        <mdb-checkbox class="checkbox-chang-filled" [checked]="producto.GravadoIva" (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
+                                        <mdb-checkbox class="checkbox-chang-filled" [checkboxPosition]="'right'" [checked]="producto.GravadoIva"
+                                            (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
                                     </td>
 
                                     <td class="text-center align-middle col-xs-2">
-                                        <button mdbBtn type="button" class="orange-chang" (click)="agregarProductoAFactura(producto)" size="sm" mdbTooltip="Agregar a factura" placement="bottom" mdbWavesEffect>
+                                        <button mdbBtn type="button" class="orange-chang"
+                                            (click)="agregarProductoAFactura(producto)" size="sm"
+                                            mdbTooltip="Agregar a factura" placement="bottom" mdbWavesEffect>
                                             <mdb-icon fas icon="check white-text"></mdb-icon>
                                         </button>
-                                        <button mdbBtn type="button" class="orange-chang" (click)="mostrarProducto(producto)" size="sm" mdbTooltip="Visualizar producto" placement="bottom" mdbWavesEffect>
+                                        <button mdbBtn type="button" class="orange-chang"
+                                            (click)="mostrarProducto(producto)" size="sm"
+                                            mdbTooltip="Visualizar producto" placement="bottom" mdbWavesEffect>
                                             <mdb-icon far icon="eye white-text"></mdb-icon>
                                         </button>
                                     </td>
@@ -265,15 +332,18 @@
                                     <th class="header-negrita centrar-texto">Acción</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="overflow-x: hidden !important;">
                                 <tr *ngFor="let productoFactura of productosFactura;let i = index">
-                                    <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
-                                    <td class="body-negrita align-middle text-center">{{productoFactura.CodOriginal !== null ? productoFactura.CodOriginal : productoFactura.CodProd}}</td>
+                                    <th scope="row" class="align-middle">{{i + 1}}</th>
+                                    <td class="body-negrita align-middle text-center">
+                                        {{productoFactura.CodOriginal !== null ? productoFactura.CodOriginal : productoFactura.CodProd}}
+                                    </td>
                                     <td class="body-negrita align-middle">{{productoFactura.NombProducto}}</td>
                                     <td class="body-negrita align-middle  text-center">{{productoFactura.NombUnidad}}
                                     </td>
                                     <td class="body-negrita align-middle">{{productoFactura.Cantidad}}</td>
-                                    <td class="body-negrita align-middle">{{productoFactura.Costo}} {{simboloMonedaUtilizado}}
+                                    <td class="body-negrita align-middle">{{productoFactura.Costo}}
+                                        {{simboloMonedaUtilizado}}
                                     </td>
                                     <td width="10%" class="body-negrita align-middle">
                                         <strong>{{productoFactura.IsDescuentoPorcentual ?
@@ -284,18 +354,25 @@
                                     <td class="body-negrita align-middle text-center">
                                         <strong>{{productoFactura.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                                     </td>
-                                    <td width="10%" class="body-negrita align-middle">{{productoFactura.Subtotal | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                                    <td width="10%" class="body-negrita align-middle">
+                                        {{productoFactura.Subtotal | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>
-                                    <td width="10%" class="body-negrita align-middle">{{productoFactura.TotalDetalle | number : '1.2-2'}} {{simboloMonedaUtilizado}}
+                                    <td width="10%" class="body-negrita align-middle">
+                                        {{productoFactura.TotalDetalle | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>
-                                    <td>
+                                    <td class="p-0" >
                                         <div class="text-center">
 
-                                            <button mdbBtn type="button" size="sm" class="orange-chang" id="btneditarproductos" (click)="showModalDetalleProducto(productoFactura)" mdbTooltip="Editar producto" placement="bottom">
+                                            <button mdbBtn type="button" size="sm" class="orange-chang"
+                                                id="btneditarproductos"
+                                                (click)="showModalDetalleProducto(productoFactura)"
+                                                mdbTooltip="Editar producto" placement="bottom">
                                                 <mdb-icon far icon="edit" class="white-text"></mdb-icon>
                                             </button>
 
-                                            <button  mdbBtn type="button" size="sm" class="orange-chang" (click)="eliminarProductoFactura(productoFactura, i)" mdbTooltip="Eliminar producto de factura" placement="bottom">
+                                            <button mdbBtn type="button" size="sm" class="orange-chang"
+                                                (click)="eliminarProductoFactura(productoFactura, i)"
+                                                mdbTooltip="Eliminar producto de factura" placement="bottom">
                                                 <mdb-icon far icon="trash-alt" class="white-text"></mdb-icon>
                                             </button>
                                         </div>
@@ -307,7 +384,8 @@
                     </div>
 
                     <div class="row mt-5">
-                        <div class="col-lg-10 col-md-10 col-sm-6 col-6 text-lg-right text-md-right text-sm-center text-center">
+                        <div
+                            class="col-lg-10 col-md-10 col-sm-6 col-6 text-lg-right text-md-right text-sm-center text-center">
                             <form [formGroup]="formDetallesFactura" novalidate>
 
                                 <div class="col-lg-12 col-md-12">
@@ -354,7 +432,8 @@
                             </form>
                         </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-6 col-6 text-lg-right text-md-right text-sm-center text-center">
+                        <div
+                            class="col-lg-2 col-md-2 col-sm-6 col-6 text-lg-right text-md-right text-sm-center text-center">
                             <form>
                                 <div class="">
                                     <label>{{factura.SubTotal | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
@@ -368,10 +447,12 @@
                                         }}</label>
                                 </div>
                                 <div class="">
-                                    <label>{{factura.IvaCalculoFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
+                                    <label>{{factura.IvaCalculoFactura | number : '1.2-2'}}
+                                        {{simboloMonedaUtilizado}}</label>
                                 </div>
                                 <div class="">
-                                    <label>{{factura.TotalFactura | number : '1.2-2'}} {{simboloMonedaUtilizado}}</label>
+                                    <label>{{factura.TotalFactura | number : '1.2-2'}}
+                                        {{simboloMonedaUtilizado}}</label>
                                 </div>
                                 <div class="">
                                     <label>
@@ -381,7 +462,8 @@
                                 </div>
                                 <div class="">
                                     <label>
-                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}} {{simboloMonedaUtilizado}}
+                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}}
+                                        {{simboloMonedaUtilizado}}
                                     </label>
                                 </div>
                             </form>
@@ -394,7 +476,8 @@
 
                         <div class="col-lg-2 col-md-2 col-sm-12 col-12">
                             <div class="md-form">
-                                <button mdbBtn type="button" (click)="crearFactura()" [disabled]="!formAddFactura.valid" class="orange-chang white-text" block="true" mdbWavesEffect>Guardar
+                                <button mdbBtn type="button" (click)="crearFactura()" [disabled]="!formAddFactura.valid"
+                                    class="orange-chang white-text" block="true" mdbWavesEffect>Guardar
                                     Factura
                                 </button>
                             </div>
@@ -417,7 +500,8 @@
             <!--Titulo-->
             <div class="modal-header orange-chang white-text">
                 <h4 class="title">Información del producto</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalVerProducto.hide()">
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
+                    (click)="modalVerProducto.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -435,63 +519,76 @@
                                         <div class="col-md-12 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Nombre</h6>
-                                                <input type="text" id="NombProducto" minlength="4" maxlength="50" class="input-modal-sm" name="NombProducto" value="{{productoSeleccionado.NombProducto}}" readonly>
+                                                <input type="text" id="NombProducto" minlength="4" maxlength="50"
+                                                    class="input-modal-sm" name="NombProducto"
+                                                    value="{{productoSeleccionado.NombProducto}}" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Tipo de Insumo</h6>
-                                                <input type="text" id="tipoInsumo" minlength="4" maxlength="50" class="input-modal-sm" name="tipoInsumo" value="Insumo Test" readonly value="{{productoSeleccionado.NombTipInsumo}}">
+                                                <input type="text" id="tipoInsumo" minlength="4" maxlength="50"
+                                                    class="input-modal-sm" name="tipoInsumo" value="Insumo Test"
+                                                    readonly value="{{productoSeleccionado.NombTipInsumo}}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Producto</h6>
-                                                <input type="text" id="codigo" minlength="4" maxlength="50" class="input-modal-sm" name="codigoproducto" value="{{productoSeleccionado.CodProd}}" readonly>
+                                                <input type="text" id="codigo" minlength="4" maxlength="50"
+                                                    class="input-modal-sm" name="codigoproducto"
+                                                    value="{{productoSeleccionado.CodProd}}" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Código Interno</h6>
-                                                <input type="text" id="codigoInterno" minlength="4" maxlength="50" class="input-modal-sm" name="codigoInterno" readonly value="{{productoSeleccionado.CodOriginal}}">
+                                                <input type="text" id="codigoInterno" minlength="4" maxlength="50"
+                                                    class="input-modal-sm" name="codigoInterno" readonly
+                                                    value="{{productoSeleccionado.CodOriginal}}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Categoria</h6>
-                                                <input type="text" class="input-modal-sm" readonly value={{productoSeleccionado.NombCategoria}}>
+                                                <input type="text" class="input-modal-sm" readonly
+                                                    value={{productoSeleccionado.NombCategoria}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Clasificación</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombClasificacion}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly
+                                                    value={{productoSeleccionado.NombClasificacion}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Empaque</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombEmpaque}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly
+                                                    value={{productoSeleccionado.NombEmpaque}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Cantidad por Empaque</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.CantidadEmpaque}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly
+                                                    value={{productoSeleccionado.CantidadEmpaque}}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
                                                 <h6 class="orange-chang-text">Envase</h6>
-                                                <input type="text" id="categoria" class="input-modal-sm" readonly value={{productoSeleccionado.NombEnvase}}>
+                                                <input type="text" id="categoria" class="input-modal-sm" readonly
+                                                    value={{productoSeleccionado.NombEnvase}}>
                                             </div>
                                         </div>
 
@@ -510,17 +607,20 @@
 </div>
 
 <!-- Modal para agregar detalles de producto -->
-<div mdbModal #modalAgregarDetalleProducto="mdb-modal" class="modal fade" id="modalAgregarDetalleProducto" tabindex="-1" role="dialog" aria-labelledby="modalAgregarDetalleProducto" aria-hidden="true">
+<div mdbModal #modalAgregarDetalleProducto="mdb-modal" class="modal fade" id="modalAgregarDetalleProducto" tabindex="-1"
+    role="dialog" aria-labelledby="modalAgregarDetalleProducto" aria-hidden="true">
     <div class="modal-dialog cascading-modal" role="document">
         <!--Contenido-->
         <div class="modal-content background-gray mdl">
 
             <div class="modal-header white-text orange-chang">
                 <h4 class="title">
-                    <mdb-icon fas icon="file-invoice"></mdb-icon> Editar Detalle Producto<span id="NombProductoModal"><br>{{productoEditar.NombProducto}}
+                    <mdb-icon fas icon="file-invoice"></mdb-icon> Editar Detalle Producto<span
+                        id="NombProductoModal"><br>{{productoEditar.NombProducto}}
                     </span>
                 </h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalAgregarDetalleProducto.hide()">
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
+                    (click)="modalAgregarDetalleProducto.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -532,18 +632,21 @@
                         <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Cantidad</h6>
-                                <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number" id="cantidadProducto" class="input-modal-sm" name="cantidadProducto">
+                                <input formControlName="cantidadProducto" onlyNumbers="decimal" type="number"
+                                    id="cantidadProducto" class="input-modal-sm" name="cantidadProducto">
                             </div>
                         </div>
                         <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Precio</h6>
-                                <input type="number" formControlName="precioProducto" onlyNumbers="decimal" id="precioProducto" class="input-modal-sm" name="precioProducto">
+                                <input type="number" formControlName="precioProducto" onlyNumbers="decimal"
+                                    id="precioProducto" class="input-modal-sm" name="precioProducto">
                             </div>
                         </div>
                         <div class="col-md-4 mt-4 text-center">
                             <h6 class="orange-chang-text mb-3">Gravado de Iva</h6>
-                            <mdb-checkbox class="checkbox-chang-filled" name="seleccionarcheck" formControlName="gravadoIva"></mdb-checkbox>
+                            <mdb-checkbox class="checkbox-chang-filled" name="seleccionarcheck"
+                                formControlName="gravadoIva"></mdb-checkbox>
                             <show-errors [control]="formEditarDetalleProducto.controls['gravadoIva']"></show-errors>
                         </div>
                         <div class="col-md-4 mt-4 text-center">
@@ -560,7 +663,9 @@
                         <div class="col-md-4 text-center">
                             <div class="md-form">
                                 <h6 class="orange-chang-text">Descuento</h6>
-                                <input type="number" id="descuentoTotalProducto" class="input-modal-sm" name="descuentoTotalProducto" formControlName="descuentoTotalProducto" onlyPositiveNumber>
+                                <input type="number" id="descuentoTotalProducto" class="input-modal-sm"
+                                    name="descuentoTotalProducto" formControlName="descuentoTotalProducto"
+                                    onlyPositiveNumber>
                             </div>
                             <show-errors [control]="formEditarDetalleProducto.controls['descuentoTotalProducto']">
                             </show-errors>
@@ -568,47 +673,11 @@
                     </div>
 
                     <div class="text-center mt-3">
-                        <button mdbBtn type="button" class="orange-chang mb-1 white-text" type="submit" [disabled]="!formEditarDetalleProducto.valid">
+                        <button mdbBtn type="button" class="orange-chang mb-1 white-text" type="submit"
+                            [disabled]="!formEditarDetalleProducto.valid">
                             <mdb-icon fas icon="check" class="mr-1"></mdb-icon> Ingresar
                         </button>
                     </div>
-                </form>
-            </div>
-        </div>
-        <!--/.Contenido-->
-    </div>
-</div>
-
-<!-- Modal respaldo factura fisica -->
-<div mdbModal #modalRespaldo="mdb-modal" class="modal fade" id="modalRespaldo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog cascading-modal" role="document">
-        <!--Contenido-->
-        <div class="modal-content background-gray mdl">
-
-            <!--Header-->
-            <div class="modal-header white-text orange-chang">
-                <h4 class="title">
-                    <mdb-icon fas icon="file-image"></mdb-icon> Respaldo de Factura Física
-                </h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalRespaldo.hide()">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-
-            <!--Cuerpo Modal-->
-            <div class="modal-body mb-0">
-
-                <form [formGroup]="" novalidate>
-
-                    <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
-                        <input type="file" (change)="fileChangeEvent($event)" id="imageRespaldoFactura" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" />
-                    </div>
-
-                    <div class="text-center mt-1-half">
-                        <button mdbBtn type="button" class="orange-chang mb-1 white-text">Ingresar
-                        </button>
-                    </div>
-
                 </form>
             </div>
         </div>

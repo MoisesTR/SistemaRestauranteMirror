@@ -325,25 +325,6 @@ export class AddfacturaComponent implements OnInit {
 		this.cdr.markForCheck();
 	}
 
-	guardarRespaldoFactura() {
-		if (this.filesToUpload != null) {
-			this.uploadService
-				.makeFileRequest(this.url + "uploadImage/", CARPETA_FACTURA, "", false, [], this.filesToUpload, "token", "image")
-				.then(
-					(result: any) => {
-						this.factura.respaldoFactura = result.image;
-						this.crearFactura();
-					},
-					error => {
-						Utils.msgErrorImage(error);
-					}
-				);
-		} else {
-			this.factura.respaldoFactura = "vacio";
-			this.crearFactura();
-		}
-	}
-
 	fileChangeEvent(fileInput: any) {
 		this.filesToUpload = <Array<File>>fileInput.target.files;
 	}
@@ -431,6 +412,14 @@ export class AddfacturaComponent implements OnInit {
 			window.open("https://restaurante-atomic.herokuapp.com/producto/add", "_blank");
 		} else {
 			window.open("http://localhost:4200/producto/add", "_blank");
+		}
+	}
+
+	agregarNuevoProductoLimpieza() {
+		if (environment.production) {
+			window.open("https://restaurante-atomic.herokuapp.com/consumo-interno", "_blank");
+		} else {
+			window.open("http://localhost:4200/consumo-interno", "_blank");
 		}
 	}
 

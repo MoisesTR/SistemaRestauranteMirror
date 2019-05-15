@@ -212,8 +212,8 @@
 
                 <mdb-card-body cascade="true">
 
-                    <div class="table-responsive-sm">
-                        <table id="tabla" mdbTable hover="true">
+                    <div class="table-responsive">
+                        <table class="table  table-hover">
                             <thead>
                                 <tr>
                                     <th class="col-xs-1">No. Registro</th>
@@ -226,7 +226,6 @@
                                         Tipo Descuento
                                     </th>
                                     <th class="text-center col-xs-1">IVA</th>
-                                    <!-- <th class="text-center">Fecha vencimiento</th> -->
                                     <th class="text-center col-xs-2">Acción</th>
                                 </tr>
                             </thead>
@@ -283,7 +282,7 @@
                                     </td>
 
                                     <td class="text-center align-middle col-xs-1">
-                                        <mdb-checkbox class="checkbox-chang-filled" [checked]="producto.GravadoIva"
+                                        <mdb-checkbox class="checkbox-chang-filled" [checkboxPosition]="'right'" [checked]="producto.GravadoIva"
                                             (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
                                     </td>
 
@@ -333,9 +332,9 @@
                                     <th class="header-negrita centrar-texto">Acción</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="overflow-x: hidden !important;">
                                 <tr *ngFor="let productoFactura of productosFactura;let i = index">
-                                    <th scope="row" class="align-middle" width="5%">{{i + 1}}</th>
+                                    <th scope="row" class="align-middle">{{i + 1}}</th>
                                     <td class="body-negrita align-middle text-center">
                                         {{productoFactura.CodOriginal !== null ? productoFactura.CodOriginal : productoFactura.CodProd}}
                                     </td>
@@ -361,7 +360,7 @@
                                     <td width="10%" class="body-negrita align-middle">
                                         {{productoFactura.TotalDetalle | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>
-                                    <td>
+                                    <td class="p-0" >
                                         <div class="text-center">
 
                                             <button mdbBtn type="button" size="sm" class="orange-chang"

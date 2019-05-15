@@ -70,18 +70,6 @@ input[type="checkbox"][readonly] {
   margin-bottom: -30px;
 }
 
-@media (max-width: 970px) {
-  .mt-btn-factura {
-    margin-top: 7% !important;
-  }
-}
-
-@media (max-width: 750px) {
-  .mt-btn-factura {
-    margin-top: 12% !important;
-  }
-}
-
 tbody {
   display:block;
   height:40vh;
@@ -89,9 +77,13 @@ tbody {
 }
 thead, tbody tr {
   display:table;
-  width:100%;
+  width: 100%;
   table-layout:fixed;
 }
-thead {
-  width: calc( 100% - 1em )
+
+// Tabla media
+@media only screen and (max-width: 1049px) {
+  thead, tbody  {
+    width: auto;
+  }
 }

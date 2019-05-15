@@ -14,7 +14,7 @@
 
                             <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-1">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-10 mt-1">
                                     <label class="margin-label-proveedor">Proveedor</label>
                                     <div class="md-form">
                                         <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
@@ -44,10 +44,6 @@
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3">
                                     <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Proveedor" placement="bottom" (click)="agregarProveedor()" mdbWavesEffect>Agregar</button>
-                                </div>
-
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 mt-3 mt-btn-factura">
-                                    <button disabled mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Ingresar foto de factura física" placement="bottom" (click)="modalRespaldo.show()" mdbWavesEffect>Respaldo</button>
                                 </div>
 
                                 <div class="col-md-2 mt-codigo-factura">
@@ -572,43 +568,6 @@
                             <mdb-icon fas icon="check" class="mr-1"></mdb-icon> Ingresar
                         </button>
                     </div>
-                </form>
-            </div>
-        </div>
-        <!--/.Contenido-->
-    </div>
-</div>
-
-<!-- Modal respaldo factura fisica -->
-<div mdbModal #modalRespaldo="mdb-modal" class="modal fade" id="modalRespaldo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog cascading-modal" role="document">
-        <!--Contenido-->
-        <div class="modal-content background-gray mdl">
-
-            <!--Header-->
-            <div class="modal-header white-text orange-chang">
-                <h4 class="title">
-                    <mdb-icon fas icon="file-image"></mdb-icon> Respaldo de Factura Física
-                </h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="modalRespaldo.hide()">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-
-            <!--Cuerpo Modal-->
-            <div class="modal-body mb-0">
-
-                <form [formGroup]="" novalidate>
-
-                    <div class="card-body text-center animated zoomIn" data-wow-delay="0.6s">
-                        <input type="file" (change)="fileChangeEvent($event)" id="imageRespaldoFactura" class="dropify" data-height="300" data-allowed-file-extensions="jpg png jpeg" />
-                    </div>
-
-                    <div class="text-center mt-1-half">
-                        <button mdbBtn type="button" class="orange-chang mb-1 white-text">Ingresar
-                        </button>
-                    </div>
-
                 </form>
             </div>
         </div>

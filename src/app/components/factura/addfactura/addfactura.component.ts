@@ -415,6 +415,14 @@ export class AddfacturaComponent implements OnInit {
 		}
 	}
 
+	agregarNuevoProductoLimpieza() {
+		if (environment.production) {
+			window.open("https://restaurante-atomic.herokuapp.com/consumo-interno", "_blank");
+		} else {
+			window.open("http://localhost:4200/consumo-interno", "_blank");
+		}
+	}
+
 	actualizarListaProductos() {
 		if (this.factura.IdProveedor) {
 			const totalAnterior = this.productosFiltrados.length;

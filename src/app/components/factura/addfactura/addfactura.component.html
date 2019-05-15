@@ -14,7 +14,7 @@
 
                             <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-10 mt-1">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-10 mt-2">
                                     <label class="margin-label-proveedor">Proveedor</label>
                                     <div class="md-form">
                                         <ng-select [items]="proveedores" bindLabel="NombProveedor" bindValue="IdProveedor" id="proveedor" placeholder="Selecciona un proveedor" (change)="onChangeProveedor($event)" formControlName="proveedor">
@@ -46,7 +46,7 @@
                                     <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light add-btn-position-factura" tabindex="-1" mdbTooltip="Proveedor" placement="bottom" (click)="agregarProveedor()" mdbWavesEffect>Agregar</button>
                                 </div>
 
-                                <div class="col-md-2 mt-codigo-factura">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                                     <div class="md-form md-outline">
                                         <input Alphanumeric mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="numeroFactura" placeholder="Ej: BD200" class="form-control" autocomplete="off" formControlName="codigoFactura" [attr.disabled]="deshabilitarCampos()">
                                         <label for="codigoFactura">Código de Factura</label>
@@ -54,14 +54,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 mt-codigo-factura">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                                     <div class="md-form md-outline">
                                         <input [validateSuccess]="false" [validateSuccess]="false" [validateError]="false" mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 1200" class="form-control" autocomplete="off" formControlName="totalFacturaOrigen" [attr.disabled]="deshabilitarCampos()">
                                         <label for="totalFacturaImpresa">Total Factura Impresa</label>
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 mt-codigo-factura">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
                                     <div class="md-form md-outline">
                                         <input [validateSuccess]="false" [validateSuccess]="false" [validateError]="false" [attr.disabled]="existeProductoConDescuento()" mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500" formControlName="descuentoGlobal" class="form-control"
                                             autocomplete="off" [attr.disabled]="deshabilitarCampos()">
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 mt-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3">
 
                                     <div class="md-form md-outline">
                                         <input type="text" [max]="fechaActual" class="form-control" autocomplete="off" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [validateSuccess]="false" [validateError]="false" id="fechaFactura" (ngModelChange)="ingresoFechaRecepcion($event)" mdbInputDirective
@@ -81,7 +81,7 @@
 
                                 </div>
 
-                                <div class="col-md-3 mt-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3">
                                     <div class="md-form md-outline">
                                         <input type="text" [max]="fechaActual" [min]="seleccionarFechaFactura" class="form-control" autocomplete="off" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [validateSuccess]="false" [validateError]="false" id="fechaRecepcion" formControlName="fechaRecepcion"
                                             name="FechaRecepcion" mdbInputDirective readonly placeholder="Ej: dd/mm/yyyy" mdbInput>
@@ -134,22 +134,33 @@
                 </div>
 
 
-                <div class="container-fluid mt-3">
+                <div class="container-fluid mt-4">
                     <div class="row">
-                        <div class="col-lg-8 col-md-12 col-sm-12 mb-0">
+                        <div class="col-lg-4 col-md-12 col-sm-12 mb-0">
                             <div class="input-group md-form form-inline form-sm pl-0">
-                                <i class="fa fa-search mt-2" aria-hidden="true"></i>
+                                <i class="fa fa-search black-text mt-3" aria-hidden="true"></i>
                                 <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" [(ngModel)]="buscando" aria-label="Buscar">
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap" (click)="agregarNuevoProducto()" mdbWavesEffect>Agregar
-                                Producto
-                            </button>
+                        <div class="col-lg-3 col-md-12 col-sm-12 ml-0 pt-0">
+                            <label class="grey-text-card">Código Filtrar</label>
+                            <ng-select dropdownPosition="bottom">
+                            </ng-select>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
-                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap" (click)="actualizarListaProductos()" mdbWavesEffect>Actualizar
-                                Lista
+                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap" (click)="agregarNuevoProducto()" mdbWavesEffect>Agregar
+                                Producto Alimenticio
+                            </button>
+                        </div>
+                        <div class="col-lg-2 col-md-9 col-sm-8 mt-3 ml-0 pt-0">
+                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap" (click)="agregarNuevoProductoLimpieza()" mdbWavesEffect>Agregar
+                                Producto Limpieza
+                            </button>
+                        </div>
+                        <div class="col-lg-1 col-md-3 col-sm-4 mt-3 ml-0 pt-0">
+                            <button mdbBtn type="button" size="sm" block="true" class="orange-chang waves-light text-nowrap" (click)="actualizarListaProductos()" 
+                                mdbTooltip="Actualizar lista de productos" placement="bottom" mdbWavesEffect style="height: 31px;">
+                                <mdb-icon fas icon="sync"></mdb-icon> 
                             </button>
                         </div>
                     </div>

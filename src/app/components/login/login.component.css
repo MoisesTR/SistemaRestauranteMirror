@@ -1,3 +1,23 @@
 .mt-login {
     margin-top: 10px;
 }
+
+@-webkit-keyframes autofill {
+    to {
+    color: #666;
+    background: transparent; } 
+}
+    
+@keyframes autofill {
+    to {
+        color: #666;
+        background: transparent; 
+    } 
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both; 
+}

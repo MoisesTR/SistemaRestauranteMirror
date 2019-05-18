@@ -193,7 +193,7 @@
                                 <th class="header-negrita text-center align-middle">Acciones</th>
                             </tr>
                             </thead>
-                            <tbody #row>
+                            <tbody>
                             <tr *ngFor="let factura of facturas; let i = index">
                                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
                                     scope="row">{{i+1}}</th>
@@ -216,7 +216,7 @@
                                 <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                                     {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}</td>
 
-                                <td class="body-negrita">
+                                <td class="body-negrita" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
 
                                     <div class="text-center">
                                         <button mdbBtn type="button" size="sm"

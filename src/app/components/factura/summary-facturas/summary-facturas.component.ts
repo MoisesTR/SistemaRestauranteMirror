@@ -17,7 +17,7 @@ export class SummaryFacturasComponent implements OnInit, AfterViewInit {
     @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
     @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
 
-    public maxVisibleItems = 1;
+    public maxVisibleItems = 10;
     buscarTexto: string = "";
     previo: string;
 
@@ -89,7 +89,7 @@ export class SummaryFacturasComponent implements OnInit, AfterViewInit {
 	}
 
     ngAfterViewInit() {
-        this.mdbTablePagination.setMaxVisibleItemsNumberTo(2);
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
 
         this.mdbTablePagination.calculateFirstItemIndex();
         this.mdbTablePagination.calculateLastItemIndex();

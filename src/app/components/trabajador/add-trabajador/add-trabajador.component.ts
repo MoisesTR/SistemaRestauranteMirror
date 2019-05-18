@@ -208,43 +208,41 @@ export class AddTrabajadorComponent implements OnInit {
 	}
 
 	createTrabajador() {
-        this.guardarImagenTrabajador();
-		// this.getValueFormAddTrabajador();
-        //
-		// this.trabajadorService.createTrabajador(this.trabajador).subscribe(
-		// 	response => {
-		// 		if (response.IdTrabajador) {
-		// 			swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
-		// 				this.modalUsuario.show();
-		// 			});
-		// 		}
-		// 	},
-		// 	() => {
-		// 		this.formAddTrabajador.controls["pais"].setValue(1);
-		// 	}
-		// );
+		if (this.filesToUpload != null) {
+			this.getValueFormAddTrabajador();
+
+			this.trabajadorService.createTrabajador(this.trabajador).subscribe(
+				response => {
+					if (response.IdTrabajador) {
+						swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
+							this.modalUsuario.show();
+						});
+						this.guardarImagenTrabajador(response.IdTrabajador);
+					}
+				},
+				() => {
+					this.formAddTrabajador.controls["pais"].setValue(1);
+				}
+			);
+		} else {
+			Utils.showMsgInfo("La imagen del trabajador es requerida", this.tituloPantalla);
+		}
 	}
 
-    guardarImagenTrabajador() {
-        this.btnIngresarHabilitado = false;
-        // this.createTrabajador();
+	guardarImagenTrabajador(idTrabajador) {
+		this.btnIngresarHabilitado = false;
 
-        if (this.filesToUpload != null) {
-            this.uploadService.makeFileRequest(CARPETA_TRABAJADORES, 1, this.filesToUpload).then(
-                (result: any) => {
-                    this.trabajador.Imagen = result.image;
-                    this.btnIngresarHabilitado = true;
-                    console.log(result);
-                },
-                error => {
-                    this.btnIngresarHabilitado = true;
-                    Utils.msgErrorImage(error);
-                }
-            );
-        } else {
-            Utils.showMsgInfo("La imagen del trabajador es requerida", this.tituloPantalla);
-        }
-    }
+		this.uploadService.makeFileRequest(CARPETA_TRABAJADORES, idTrabajador, this.filesToUpload).then(
+			(result: any) => {
+				this.trabajador.Imagen = result.image;
+				this.btnIngresarHabilitado = true;
+			},
+			error => {
+				this.btnIngresarHabilitado = true;
+				Utils.msgErrorImage(error);
+			}
+		);
+	}
 
 	getSucursales() {
 		this.sucursalService.getSucursales().subscribe(response => {
@@ -271,6 +269,7 @@ export class AddTrabajadorComponent implements OnInit {
 	}
 
 	fileChangeEvent(fileInput: any) {
+	    console.log(this.filesToUpload);
 		this.filesToUpload = <Array<File>>fileInput.target.files;
 	}
 

@@ -17,7 +17,7 @@ export class SummaryFacturasComponent implements OnInit, AfterViewInit {
     @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
     @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
 
-    public maxVisibleItems = 10;
+    public maxVisibleItems = 1;
     buscarTexto: string = "";
     previo: string;
 
@@ -61,6 +61,9 @@ export class SummaryFacturasComponent implements OnInit, AfterViewInit {
 		this.setPersistencia();
 		this.initFormBusquedaFactura();
 		this.getProveedores();
+        this.mdbTable.setDataSource(this.facturas);
+        this.facturas = this.mdbTable.getDataSource();
+        this.previo = this.mdbTable.getDataSource();
 
 		this.formBusquedaFactura.controls["codFactura"].valueChanges.subscribe(value => {
 			if (!value) {
@@ -83,14 +86,10 @@ export class SummaryFacturasComponent implements OnInit, AfterViewInit {
 				}
 			}
 		});
-
-        this.mdbTable.setDataSource(this.facturas);
-        this.facturas = this.mdbTable.getDataSource();
-        this.previo = this.mdbTable.getDataSource();
 	}
 
     ngAfterViewInit() {
-        this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(2);
 
         this.mdbTablePagination.calculateFirstItemIndex();
         this.mdbTablePagination.calculateLastItemIndex();
@@ -233,9 +232,6 @@ export class SummaryFacturasComponent implements OnInit, AfterViewInit {
 		};
 
 		this.persistencia.getPersistencia(ObjetoSummaryFactura, "SummaryFactura");
-        this.mdbTable.setDataSource(this.facturas);
-        this.facturas = this.mdbTable.getDataSource();
-        this.previo = this.mdbTable.getDataSource();
 	}
 
 	setPersistencia() {
@@ -250,6 +246,9 @@ export class SummaryFacturasComponent implements OnInit, AfterViewInit {
 				this.formBusquedaFactura.controls["fechaBusqueda"].setValue(res.fechaBusqueda);
 				this.formBusquedaFactura.controls["proveedor"].setValue(res.proveedor);
 				this.formBusquedaFactura.controls["codFactura"].setValue(res.codFactura);
+                this.mdbTable.setDataSource(this.facturas);
+                this.facturas = this.mdbTable.getDataSource();
+                this.previo = this.mdbTable.getDataSource();
 			}
 		});
 

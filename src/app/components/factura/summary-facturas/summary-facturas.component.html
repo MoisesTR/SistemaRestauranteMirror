@@ -183,36 +183,40 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th [mdbTableSort]="facturas" sortBy="NumRefFactura">Cod Factura</th>
-                                <th [mdbTableSort]="facturas" sortBy="FechaRecepcion">Fecha Recepción</th>
-                                <th [mdbTableSort]="facturas" sortBy="TrabajadorIngreso">Trabajador Ingreso</th>
-                                <th [mdbTableSort]="facturas" sortBy="HoraIngreso">Hora Ingreso</th>
-                                <th [mdbTableSort]="facturas" sortBy="TotalCordobas">Total Calculado</th>
-                                <th [mdbTableSort]="facturas" sortBy="TotalOrigenFactura">Total Factura</th>
-                                <th [mdbTableSort]="facturas" sortBy="Diferencia">Diferencia</th>
-                                <th>Acciones</th>
+                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="NumRefFactura">Cod Factura</th>
+                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="FechaRecepcion">Fecha Recepción</th>
+                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="TrabajadorIngreso">Trabajador Ingreso</th>
+                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="HoraIngreso">Hora y Fecha Ingreso</th>
+                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="TotalCordobas">Total Calculado</th>
+                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="TotalOrigenFactura">Total Factura</th>
+                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="Diferencia">Diferencia</th>
+                                <th class="header-negrita text-center align-middle">Acciones</th>
                             </tr>
                             </thead>
                             <tbody #row>
                             <tr *ngFor="let factura of facturas; let i = index">
                                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
                                     scope="row">{{i+1}}</th>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                                     {{factura.NumRefFactura}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                                     {{factura.FechaRecepcion}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                                     {{factura.TrabajadorIngreso}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{factura.HoraIngreso}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >
+                                    <span class="grey-text"><small><i
+                                            class="fa fa-clock-o mr-1"></i>{{factura.HoraIngreso}}</small></span>
+                                    <br>
+                                    <span class="grey-text"><small><i class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaIngreso |
+                                        date:'yyyy-MM-dd'}}</small></span></td>
+                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                                     {{factura.TotalCordobas | number : '1.2-2'}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                                     {{factura.TotalOrigenFactura | number : '1.2-2'}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                                     {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}</td>
 
-                                <td width="25%" class="body-negrita">
+                                <td class="body-negrita">
 
                                     <div class="text-center">
                                         <button mdbBtn type="button" size="sm"
@@ -231,7 +235,7 @@
                             </tbody>
                             <tfoot class="grey lighten-5 w-100">
                             <tr>
-                                <td colspan="6">
+                                <td colspan="9">
                                     <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
                                                           [searchDataSource]="facturas">
                                     </mdb-table-pagination>
@@ -288,11 +292,7 @@
 <!--                                        class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>-->
 <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
 <!--                                        class="body-negrita text-center align-middle">-->
-<!--                                        <span class="grey-text"><small><i-->
-<!--                                                    class="fa fa-clock-o mr-1"></i>{{factura.HoraIngreso}}</small></span>-->
-<!--                                        <br>-->
-<!--                                        <span class="grey-text"><small><i class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaIngreso |-->
-<!--                        date:'yyyy-MM-dd'}}</small></span>-->
+
 <!--                                    </td>-->
 <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
 <!--                                        width="10%" class="body-negrita text-center align-middle">-->

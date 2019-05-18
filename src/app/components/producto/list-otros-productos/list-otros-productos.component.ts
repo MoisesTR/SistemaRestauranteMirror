@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, View
 import { MdbTableDirective, MdbTablePaginationComponent } from "ng-uikit-pro-standard";
 import { ProductoService, SpinnerService } from "@app/core/service.index";
 import { Producto } from "@app/models/Producto";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
 	selector: "app-list-otros-productos",
@@ -23,7 +24,13 @@ export class ListOtrosProductosComponent implements OnInit, AfterViewInit {
 		this.buscarItems();
 	}
 
-	constructor(private productoService: ProductoService, private spinner: SpinnerService, private cdRef: ChangeDetectorRef) {}
+	constructor(
+		private productoService: ProductoService,
+		private spinner: SpinnerService,
+		private cdRef: ChangeDetectorRef,
+		private route: ActivatedRoute,
+		private router: Router
+	) {}
 
 	ngOnInit() {
 		this.spinner.display(true);
@@ -62,5 +69,9 @@ export class ListOtrosProductosComponent implements OnInit, AfterViewInit {
 			this.productos = this.mdbTable.searchLocalDataBy(this.buscarTexto);
 			this.mdbTable.setDataSource(prev);
 		}
+	}
+
+	agregarOtroProducto() {
+		this.router.navigate(["/producto/addProductoVarios"])
 	}
 }

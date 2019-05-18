@@ -272,35 +272,35 @@ export class UpdateProductoComponent implements OnInit {
 		});
 	}
 
-	cargarImagen() {
-		// si es nulo significa que dejo la misma imagen que traia o en dado caso tambien imagen que no traia
-		if ((this.filesToUpload === null && !this.removioImagen) || (this.producto.Imagen === "" && this.removioImagen)) {
-			this.actualizarProducto();
-		} else if (this.filesToUpload === null && this.removioImagen && this.producto.Imagen !== "") {
-			this._deleteImageService.deleteImage(CARPETA_PRODUCTOS, this.producto.Imagen).subscribe(response => {
-				if (response.success) {
-					this.producto.Imagen = "";
-					this.actualizarProducto();
-				}
-			});
-		} else {
-			this._uploadService
-				.makeFileRequest(
-					this.url + "uploadImage",
-					CARPETA_PRODUCTOS,
-					this.producto.Imagen,
-					this.removioImagen,
-					[],
-					this.filesToUpload,
-					"token",
-					"image"
-				)
-				.then((result: any) => {
-					this.producto.Imagen = result.image;
-					this.actualizarProducto();
-				});
-		}
-	}
+	// cargarImagen() {
+	// 	// si es nulo significa que dejo la misma imagen que traia o en dado caso tambien imagen que no traia
+	// 	if ((this.filesToUpload === null && !this.removioImagen) || (this.producto.Imagen === "" && this.removioImagen)) {
+	// 		this.actualizarProducto();
+	// 	} else if (this.filesToUpload === null && this.removioImagen && this.producto.Imagen !== "") {
+	// 		this._deleteImageService.deleteImage(CARPETA_PRODUCTOS, this.producto.Imagen).subscribe(response => {
+	// 			if (response.success) {
+	// 				this.producto.Imagen = "";
+	// 				this.actualizarProducto();
+	// 			}
+	// 		});
+	// 	} else {
+	// 		this._uploadService
+	// 			.makeFileRequest(
+	// 				this.url + "uploadImage",
+	// 				CARPETA_PRODUCTOS,
+	// 				this.producto.Imagen,
+	// 				this.removioImagen,
+	// 				[],
+	// 				this.filesToUpload,
+	// 				"token",
+	// 				"image"
+	// 			)
+	// 			.then((result: any) => {
+	// 				this.producto.Imagen = result.image;
+	// 				this.actualizarProducto();
+	// 			});
+	// 	}
+	// }
 
 	getValuesFormUpdate() {
 		this.producto.NombProducto = this.formUpdateProducto.value.nombreProducto;

@@ -310,33 +310,33 @@ export class AddProductoComponent implements OnInit {
 	// 	// 	);
 	// 	// }
 
-	guardarImagenProducto() {
-		this.peticionEnCurso = true;
-		this.getValueForm();
-
-		if (!Utils.valorCampoEsValido(this.producto.CodOriginal) && !Utils.valorCampoEsValido(this.producto.CodProd)) {
-			Utils.showMsgInfo("El codigo producto o codigo interno es requerido!", "Producto");
-			this.peticionEnCurso = false;
-		} else {
-			if (this.filesToUpload != null) {
-				this.uploadService
-					.makeFileRequest(this.url + "uploadImage/", CARPETA_PRODUCTOS, "", false, [], this.filesToUpload, "token", "image")
-					.then(
-						(result: any) => {
-							this.producto.Imagen = result.image;
-							this.crearProducto();
-						},
-						error => {
-							Utils.msgErrorImage(error);
-							this.peticionEnCurso = false;
-						}
-					);
-			} else {
-				this.producto.Imagen = "";
-				this.crearProducto();
-			}
-		}
-	}
+	// guardarImagenProducto() {
+	// 	this.peticionEnCurso = true;
+	// 	this.getValueForm();
+    //
+	// 	if (!Utils.valorCampoEsValido(this.producto.CodOriginal) && !Utils.valorCampoEsValido(this.producto.CodProd)) {
+	// 		Utils.showMsgInfo("El codigo producto o codigo interno es requerido!", "Producto");
+	// 		this.peticionEnCurso = false;
+	// 	} else {
+	// 		if (this.filesToUpload != null) {
+	// 			this.uploadService
+	// 				.makeFileRequest(this.url + "uploadImage/", CARPETA_PRODUCTOS, "", false, [], this.filesToUpload, "token", "image")
+	// 				.then(
+	// 					(result: any) => {
+	// 						this.producto.Imagen = result.image;
+	// 						this.crearProducto();
+	// 					},
+	// 					error => {
+	// 						Utils.msgErrorImage(error);
+	// 						this.peticionEnCurso = false;
+	// 					}
+	// 				);
+	// 		} else {
+	// 			this.producto.Imagen = "";
+	// 			this.crearProducto();
+	// 		}
+	// 	}
+	// }
 
 	getValueForm() {
 		this.producto.guardarDatosProducto(this.formAddProducto);

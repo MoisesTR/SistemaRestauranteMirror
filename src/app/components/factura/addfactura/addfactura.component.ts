@@ -407,7 +407,7 @@ export class AddfacturaComponent implements OnInit {
 		return producto.IdProducto;
 	}
 
-	agregarNuevoProducto() {
+	agregarProductoAlimenticio() {
 		if (environment.production) {
 			window.open("https://restaurante-atomic.herokuapp.com/producto/add", "_blank");
 		} else {
@@ -415,7 +415,7 @@ export class AddfacturaComponent implements OnInit {
 		}
 	}
 
-	agregarNuevoProductoLimpieza() {
+	agregarOtrosProductos() {
 		if (environment.production) {
 			window.open("https://restaurante-atomic.herokuapp.com/consumo-interno", "_blank");
 		} else {

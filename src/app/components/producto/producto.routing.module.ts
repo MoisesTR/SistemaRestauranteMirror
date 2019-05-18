@@ -5,8 +5,9 @@ import { PagesProductoComponent } from "@app/components/producto/pages-producto.
 import { ListProductosComponent } from "@app/components/producto/list-productos/list-productos.component";
 import { AddProductoComponent } from "@app/components/producto/add-producto/add-producto.component";
 import { UpdateProductoComponent } from "@app/components/producto/update-producto/update-producto.component";
-import {ConsumoInternoComponent} from '@app/components/consumo-interno/consumo-interno.component';
+import {ConsumoInternoComponent} from '@app/components/producto/consumo-interno/consumo-interno.component';
 import {GaleriaProductosProveedoresComponent} from '@app/components/reporte/galeria-productos-proveedores.component';
+import {ListOtrosProductosComponent} from '@app/components/producto/list-otros-productos/list-otros-productos.component';
 
 export const productRoutes: Routes = [
 	{
@@ -36,6 +37,20 @@ export const productRoutes: Routes = [
 					titulo: "Agregar Producto"
 				}
 			},
+            {
+                path: "addProductoVarios",
+                component: ConsumoInternoComponent,
+                data: {
+                    titulo: "Agregar producto vario"
+                }
+            },
+            {
+                path: "list-otros-productos",
+                component: ListOtrosProductosComponent,
+                data: {
+                    titulo: "Otros productos"
+                }
+            },
 			{
 				path: "update/:id",
 				component: UpdateProductoComponent,

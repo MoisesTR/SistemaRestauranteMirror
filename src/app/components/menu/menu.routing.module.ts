@@ -15,7 +15,7 @@ import { DashBoardComponent } from "../dash-board/dash-board.component";
 import { SalidaProductoComponent } from "../salida-producto/salida-producto.component";
 import { ReportesComponent } from "../reportes/reportes.component";
 import { ConfiguracionComponent } from "../configuracion/configuracion.component";
-import { ConsumoInternoComponent } from "../consumo-interno/consumo-interno.component";
+import { ConsumoInternoComponent } from "../producto/consumo-interno/consumo-interno.component";
 import { ConsolidadoComponent } from "../consolidado/consolidado.component";
 
 import { TestuiComponent } from "@app/components/testui/testui.component";

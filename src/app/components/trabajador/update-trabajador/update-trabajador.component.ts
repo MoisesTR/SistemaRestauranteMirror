@@ -177,34 +177,34 @@ export class UpdateTrabajadorComponent implements OnInit {
 	}
 
 	guardarImagenTrabajador() {
-		if (this.filesToUpload === null && !this.removioImagen) {
-			this.updateTrabajador();
-		} else {
-			if (this.filesToUpload != null && !this.removioImagen) {
-				this._uploadService
-					.makeFileRequest(
-						this.url + "uploadImage",
-						CARPETA_TRABAJADORES,
-						this.trabajador.Imagen,
-						this.removioImagen,
-						[],
-						this.filesToUpload,
-						"token",
-						"image"
-					)
-					.then(
-						(result: any) => {
-							this.trabajador.Imagen = result.image;
-							this.updateTrabajador();
-						},
-						error => {
-							Utils.msgErrorImage(error);
-						}
-					);
-			} else {
-				Utils.showMsgInfo("La imagen es requerida", "Trabajador");
-			}
-		}
+		// if (this.filesToUpload === null && !this.removioImagen) {
+		// 	this.updateTrabajador();
+		// } else {
+		// 	if (this.filesToUpload != null && !this.removioImagen) {
+		// 		this._uploadService
+		// 			.makeFileRequest(
+		// 				this.url + "uploadImage",
+		// 				CARPETA_TRABAJADORES,
+		// 				this.trabajador.Imagen,
+		// 				this.removioImagen,
+		// 				[],
+		// 				this.filesToUpload,
+		// 				"token",
+		// 				"image"
+		// 			)
+		// 			.then(
+		// 				(result: any) => {
+		// 					this.trabajador.Imagen = result.image;
+		// 					this.updateTrabajador();
+		// 				},
+		// 				error => {
+		// 					Utils.msgErrorImage(error);
+		// 				}
+		// 			);
+		// 	} else {
+		// 		Utils.showMsgInfo("La imagen es requerida", "Trabajador");
+		// 	}
+		// }
 	}
 
 	getTiposDocumentos() {

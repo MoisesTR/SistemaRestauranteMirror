@@ -21,7 +21,7 @@ import { ProveedorModule } from "../proveedor/proveedor.module";
 import { ReportesComponent } from "../reportes/reportes.component";
 import { ConfiguracionComponent } from "../configuracion/configuracion.component";
 import { GastoModule } from "@app/components/gastos/gasto.module";
-import { ConsumoInternoComponent } from "../consumo-interno/consumo-interno.component";
+import { ConsumoInternoComponent } from "../producto/consumo-interno/consumo-interno.component";
 import { ModalModule } from "@app/components/modales/modal.module";
 import { ConsolidadoComponent } from "../consolidado/consolidado.component";
 import { TestuiComponent } from "@app/components/testui/testui.component";
@@ -56,7 +56,6 @@ import { ProduccionModule } from "@app/components/produccion/produccion.module";
 		SalidaProductoComponent,
 		ReportesComponent,
 		ConfiguracionComponent,
-		ConsumoInternoComponent,
 		ConsolidadoComponent,
 		TestuiComponent
 	],

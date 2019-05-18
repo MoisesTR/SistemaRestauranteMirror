@@ -207,42 +207,44 @@ export class AddTrabajadorComponent implements OnInit {
 		this.trabajador.IdPais = 1;
 	}
 
-	guardarImagenTrabajador() {
-		this.btnIngresarHabilitado = false;
-		if (this.filesToUpload != null) {
-			this.uploadService
-				.makeFileRequest(this.url + "uploadImage/", CARPETA_TRABAJADORES, "", false, [], this.filesToUpload, "token", "image")
-				.then(
-					(result: any) => {
-						this.trabajador.Imagen = result.image;
-						this.createTrabajador();
-					},
-					error => {
-						Utils.msgErrorImage(error);
-					}
-				);
-		} else {
-			Utils.showMsgInfo("La imagen del trabajador es requerida", this.tituloPantalla);
-		}
-		this.btnIngresarHabilitado = true;
-	}
-
 	createTrabajador() {
-		this.getValueFormAddTrabajador();
-
-		this.trabajadorService.createTrabajador(this.trabajador).subscribe(
-			response => {
-				if (response.IdTrabajador) {
-					swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
-						this.modalUsuario.show();
-					});
-				}
-			},
-			() => {
-                this.formAddTrabajador.controls["pais"].setValue(1);
-			}
-		);
+        this.guardarImagenTrabajador();
+		// this.getValueFormAddTrabajador();
+        //
+		// this.trabajadorService.createTrabajador(this.trabajador).subscribe(
+		// 	response => {
+		// 		if (response.IdTrabajador) {
+		// 			swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
+		// 				this.modalUsuario.show();
+		// 			});
+		// 		}
+		// 	},
+		// 	() => {
+		// 		this.formAddTrabajador.controls["pais"].setValue(1);
+		// 	}
+		// );
 	}
+
+    guardarImagenTrabajador() {
+        this.btnIngresarHabilitado = false;
+        // this.createTrabajador();
+
+        if (this.filesToUpload != null) {
+            this.uploadService.makeFileRequest(CARPETA_TRABAJADORES, 1, this.filesToUpload).then(
+                (result: any) => {
+                    this.trabajador.Imagen = result.image;
+                    this.btnIngresarHabilitado = true;
+                    console.log(result);
+                },
+                error => {
+                    this.btnIngresarHabilitado = true;
+                    Utils.msgErrorImage(error);
+                }
+            );
+        } else {
+            Utils.showMsgInfo("La imagen del trabajador es requerida", this.tituloPantalla);
+        }
+    }
 
 	getSucursales() {
 		this.sucursalService.getSucursales().subscribe(response => {

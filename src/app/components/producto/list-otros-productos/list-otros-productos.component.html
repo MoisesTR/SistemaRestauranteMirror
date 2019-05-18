@@ -1,0 +1,72 @@
+<spinner titulo="Cargando Otros productos"></spinner>
+<section>
+    <div class="row">
+        <div class="col-md-12">
+            <mdb-card cascade="true" narrower="true">
+                <!--Titulo-->
+                <div class="view view-cascade gradient-card-header orange-chang">
+                    <h3 class="card-header-title mb-2">Otros Productos</h3>
+                </div>
+                <!--/Titulo-->
+
+                <mdb-card-body cascade="true" class="white-text">
+
+                    <!-- Desde aca se puede editar la pantalla -->
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
+                                    <i class="fa fa-search mt-3 black-text" aria-hidden="true"></i>
+                                    <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar"
+                                           [(ngModel)]="buscarTexto" id="search">
+                                </div>
+                            </div>
+
+                        </div>
+                        <table mdbTable #tableEl="mdbTable" hover="true" small="true" bordered="true" striped="true">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th [mdbTableSort]="productos" sortBy="NombProducto">Nombre</th>
+                                <th [mdbTableSort]="productos" sortBy="DescProducto">Descripcion</th>
+                                <th [mdbTableSort]="productos" sortBy="NombTipInsumo">Tipo Insumo</th>
+                                <th [mdbTableSort]="productos" sortBy="DescCategoria">Categoria</th>
+                            </tr>
+                            </thead>
+                            <tbody #row>
+                            <tr *ngFor="let producto of productos; let i = index">
+                                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                    scope="row">{{i+1}}</th>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{producto.NombProducto}}</td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{producto.DescProducto}}</td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{producto.NombTipInsumo}}</td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{producto.NombCategoria}}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot class="grey lighten-5 w-100">
+                            <tr>
+                                <td colspan="5">
+                                    <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="productos">
+                                    </mdb-table-pagination>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+                    <!-- Finalizar de editar pantalla -->
+
+                </mdb-card-body>
+
+            </mdb-card>
+        </div>
+    </div>
+</section>

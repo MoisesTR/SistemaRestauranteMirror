@@ -333,7 +333,7 @@ export class ConsumoInternoComponent implements OnInit {
 		if (this.previousUrl === "/proveedor/add") {
 			this.router.navigate(["/factura/add"]);
 		} else {
-			this.router.navigate(["/producto"]);
+			this.router.navigate(["/producto/list-otros-productos"]);
 		}
 	}
 

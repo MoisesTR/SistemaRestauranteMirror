@@ -115,7 +115,7 @@
 
                                 <div class="col-5 col-sm-4 col-md-4 col-lg-2 text-center">
                                     <h6 class="grey-text-card mb-3">Retención</h6>
-                                    <mdb-checkbox class="checkbox-chang-filled"></mdb-checkbox>
+                                    <mdb-checkbox disabled=true class="checkbox-chang-filled"></mdb-checkbox>
                                 </div>
 
                                 <div class="col-md-6">
@@ -181,7 +181,9 @@
                         </div>
                         <div class="col-lg-3 col-md-12 col-sm-12 ml-0 pt-0">
                             <label class="grey-text-card">Código Filtrar</label>
-                            <ng-select dropdownPosition="bottom">
+                            <ng-select dropdownPosition="bottom" [items]="codigosFiltrar"
+                                       (change)="changeCodigoFiltrar($event)" bindLabel="Codigo"
+                                       bindValue="Id" id="codigoFiltrar"  [(ngModel)]="idCodigoFiltrar">
                             </ng-select>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
@@ -232,7 +234,7 @@
                             <tbody class="scrollbar-ripe-malinka">
 
                                 <tr
-                                    *ngFor="let producto of productosFiltrados | buscar: buscando; trackBy: trackById; let i = index">
+                                    *ngFor="let producto of productosFiltrados | buscar: buscando: idCodigoFiltrar; trackBy: trackById; let i = index">
                                     <th scope="row" class="align-middle col-xs-1">{{i + 1}}</th>
                                     <th scope="row" class="align-middle col-xs-1">
                                         {{producto.CodProd !== null ? producto.CodProd : producto.CodOriginal}}</th>

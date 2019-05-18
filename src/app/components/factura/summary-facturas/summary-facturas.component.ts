@@ -1,18 +1,27 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { FacturaService, ProveedorService, SpinnerService, PersistenciaDatoService } from "@app/core/service.index";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Proveedor } from "@app/models/Proveedor";
 import { Factura } from "@app/models/Factura";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Utils } from "../../Utils";
+import {MdbTableDirective, MdbTablePaginationComponent} from 'ng-uikit-pro-standard';
 
 @Component({
 	selector: "app-summary-facturas",
 	templateUrl: "./summary-facturas.component.html",
 	styleUrls: ["./summary-facturas.component.scss"]
 })
-export class SummaryFacturasComponent implements OnInit {
-	public facturas: Factura[];
+export class SummaryFacturasComponent implements OnInit, AfterViewInit {
+
+    @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
+    @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
+
+    public maxVisibleItems = 10;
+    buscarTexto: string = "";
+    previo: string;
+
+	public facturas: Factura[] = [];
 	public proveedores: Proveedor[];
 	public formBusquedaFactura: FormGroup;
 	public idProveedor: number = null;
@@ -29,21 +38,14 @@ export class SummaryFacturasComponent implements OnInit {
 	public fechaActual = new Date();
 	public seleccionFechaBusqueda = new Date();
 
-	// Paginacion
-	@ViewChildren("pages") pages: QueryList<any>;
-	itemsPerPage = 30;
-	numberOfVisiblePaginators = 10;
-	numberOfPaginators: number;
-	paginators: Array<any> = [];
-	activePage = 1;
-	firstVisibleIndex = 1;
-	lastVisibleIndex: number = this.itemsPerPage;
-	firstVisiblePaginator = 0;
-	lastVisiblePaginator = this.numberOfVisiblePaginators;
-
 	filtroFechas = [{ Id: 1, Fecha: "Fecha recepción" }, { Id: 2, Fecha: "Fecha ingreso" }];
 
-	constructor(
+    @HostListener("input") oninput() {
+        this.mdbTablePagination.searchText = this.buscarTexto;
+        this.buscarItems();
+    }
+
+    constructor(
 		private route: ActivatedRoute,
 		private router: Router,
 		private el: ElementRef,
@@ -81,86 +83,24 @@ export class SummaryFacturasComponent implements OnInit {
 				}
 			}
 		});
+
+        this.mdbTable.setDataSource(this.facturas);
+        this.facturas = this.mdbTable.getDataSource();
+        this.previo = this.mdbTable.getDataSource();
 	}
+
+    ngAfterViewInit() {
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
+
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+        this.cdr.detectChanges();
+    }
 
 	@HostListener("window:scroll", [])
 	pointScroller() {
 		this.scrollStart = this.pointScroll.nativeElement.offsetTop;
 		this.scrollStart -= 30;
-	}
-
-	changePage(event: any) {
-		if (event.target.text >= 1 && event.target.text <= this.numberOfPaginators) {
-			this.activePage = +event.target.text;
-			this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-			this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-		}
-	}
-
-	nextPage(event: any) {
-		if (this.pages.last.nativeElement.classList.contains("active")) {
-			if (this.numberOfPaginators - this.numberOfVisiblePaginators >= this.lastVisiblePaginator) {
-				this.firstVisiblePaginator += this.numberOfVisiblePaginators;
-				this.lastVisiblePaginator += this.numberOfVisiblePaginators;
-			} else {
-				this.firstVisiblePaginator += this.numberOfVisiblePaginators;
-				this.lastVisiblePaginator = this.numberOfPaginators;
-			}
-		}
-
-		this.activePage += 1;
-		this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-		this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-	}
-
-	previousPage(event: any) {
-		if (this.pages.first.nativeElement.classList.contains("active")) {
-			if (this.lastVisiblePaginator - this.firstVisiblePaginator === this.numberOfVisiblePaginators) {
-				this.firstVisiblePaginator -= this.numberOfVisiblePaginators;
-				this.lastVisiblePaginator -= this.numberOfVisiblePaginators;
-			} else {
-				this.firstVisiblePaginator -= this.numberOfVisiblePaginators;
-				this.lastVisiblePaginator -= this.numberOfPaginators % this.numberOfVisiblePaginators;
-			}
-		}
-
-		this.activePage -= 1;
-		this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-		this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-	}
-
-	firstPage() {
-		this.activePage = 1;
-		this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-		this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-		this.firstVisiblePaginator = 0;
-		this.lastVisiblePaginator = this.numberOfVisiblePaginators;
-	}
-
-	lastPage() {
-		this.activePage = this.numberOfPaginators;
-		this.firstVisibleIndex = this.activePage * this.itemsPerPage - this.itemsPerPage + 1;
-		this.lastVisibleIndex = this.activePage * this.itemsPerPage;
-
-		if (this.numberOfPaginators % this.numberOfVisiblePaginators === 0) {
-			this.firstVisiblePaginator = this.numberOfPaginators - this.numberOfVisiblePaginators;
-			this.lastVisiblePaginator = this.numberOfPaginators;
-		} else {
-			this.lastVisiblePaginator = this.numberOfPaginators;
-			this.firstVisiblePaginator = this.lastVisiblePaginator - (this.numberOfPaginators % this.numberOfVisiblePaginators);
-		}
-	}
-
-	addPaginators() {
-		if (this.facturas.length % this.itemsPerPage === 0) {
-			this.numberOfPaginators = Math.floor(this.facturas.length / this.itemsPerPage);
-		} else {
-			this.numberOfPaginators = Math.floor(this.facturas.length / this.itemsPerPage + 1);
-		}
-
-		for (let i = 1; i <= this.numberOfPaginators; i++) {
-			this.paginators.push(i);
-		}
 	}
 
 	initFormBusquedaFactura() {
@@ -207,10 +147,10 @@ export class SummaryFacturasComponent implements OnInit {
 				.subscribe(
 					response => {
 						this.facturas = response.facturas;
-						this.resetPages();
-						this.addPaginators();
+                        this.mdbTable.setDataSource(this.facturas);
+                        this.facturas = this.mdbTable.getDataSource();
+                        this.previo = this.mdbTable.getDataSource();
 						this.sumarFacturas();
-						this.pointScroller();
 						if (this.facturas.length === 0) {
 							Utils.showMsgInfo("No se encontraron facturas con los parametros digitados", "Busqueda Facturas");
 						} else {
@@ -250,13 +190,6 @@ export class SummaryFacturasComponent implements OnInit {
 
 	deshabilitarFechasBusqueda() {
 		return this.idFechaBusqueda ? null : true;
-	}
-
-	resetPages() {
-		this.paginators = [];
-		this.activePage = 1;
-		this.firstVisibleIndex = 1;
-		this.firstVisiblePaginator = 0;
 	}
 
 	sumarFacturas() {
@@ -300,6 +233,9 @@ export class SummaryFacturasComponent implements OnInit {
 		};
 
 		this.persistencia.getPersistencia(ObjetoSummaryFactura, "SummaryFactura");
+        this.mdbTable.setDataSource(this.facturas);
+        this.facturas = this.mdbTable.getDataSource();
+        this.previo = this.mdbTable.getDataSource();
 	}
 
 	setPersistencia() {
@@ -332,4 +268,18 @@ export class SummaryFacturasComponent implements OnInit {
 		this.totalOrigenFactura = 0;
 		this.idProveedor = null;
 	}
+
+    buscarItems() {
+        const prev = this.mdbTable.getDataSource();
+
+        if (!this.buscarTexto) {
+            this.mdbTable.setDataSource(this.previo);
+            this.facturas = this.mdbTable.getDataSource();
+        }
+
+        if (this.buscarTexto) {
+            this.facturas = this.mdbTable.searchLocalDataBy(this.buscarTexto);
+            this.mdbTable.setDataSource(prev);
+        }
+    }
 }

@@ -74,7 +74,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 		this.spinner.display(true);
 		this.subscription = this.productoService.getProductos().subscribe(response => {
 			if (response.productos) {
-				this.productos = response.productos;
+				this.productos = this.productoService.filtrarProductosAlimenticios(response.productos);
 				this.dtTrigger.next();
 				this.cdr.markForCheck();
 			}
@@ -84,7 +84,7 @@ export class ListProductosComponent implements OnInit, OnDestroy {
 	getProductosRender() {
 		this.productoService.getProductos().subscribe(response => {
 			if (response.productos) {
-				this.productos = response.productos;
+                this.productos = this.productoService.filtrarProductosAlimenticios(response.productos);
 				this.rerender();
 			}
 		});

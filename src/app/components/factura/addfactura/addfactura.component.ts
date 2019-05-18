@@ -47,6 +47,7 @@ export class AddfacturaComponent implements OnInit {
 	public productosProveedor: ProductoFactura[];
 	public productoEditar: ProductoFactura;
 	public buscando = "";
+	public idCodigoFiltrar = 1;
 	public usuario: Usuario;
 	public factura: Factura;
 	public formatoComaDinero;
@@ -67,6 +68,7 @@ export class AddfacturaComponent implements OnInit {
 	Moneda = [{ Id: 1, Moneda: "Córdobas" }, { Id: 2, Moneda: "Dólares" }];
 
 	FormaPago = [{ Id: 1, FormaPago: "Contado" }, { Id: 2, FormaPago: "Crédito" }];
+    codigosFiltrar = [{ Id: 1, Codigo: "Codigo producto" }, { Id: 2, Codigo: "Codigo interno" }];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -417,9 +419,9 @@ export class AddfacturaComponent implements OnInit {
 
 	agregarOtrosProductos() {
 		if (environment.production) {
-			window.open("https://restaurante-atomic.herokuapp.com/consumo-interno", "_blank");
+			window.open("https://restaurante-atomic.herokuapp.com/producto/addProductoVarios", "_blank");
 		} else {
-			window.open("http://localhost:4200/consumo-interno", "_blank");
+			window.open("http://localhost:4200/producto/addProductoVarios", "_blank");
 		}
 	}
 
@@ -476,4 +478,9 @@ export class AddfacturaComponent implements OnInit {
 			}
 		});
 	}
+
+    changeCodigoFiltrar(event) {
+
+    }
+
 }

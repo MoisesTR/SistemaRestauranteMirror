@@ -8,19 +8,15 @@ import { SucursalComponent } from "../sucursal/sucursal.component";
 import { EnvaseComponent } from "../envase/envase.component";
 import { EmpaqueComponent } from "../empaque/empaque.component";
 import { CargoComponent } from "../cargo/cargo.component";
-import { GaleriaProductosProveedoresComponent } from "../reporte/galeria-productos-proveedores.component";
 import { RolusuarioComponent } from "../rolusuario/rolusuario.component";
 import { UnidadmedidaComponent } from "../unidadmedida/unidadmedida.component";
 import { DashBoardComponent } from "../dash-board/dash-board.component";
 import { SalidaProductoComponent } from "../salida-producto/salida-producto.component";
 import { ReportesComponent } from "../reportes/reportes.component";
 import { ConfiguracionComponent } from "../configuracion/configuracion.component";
-import { ConsumoInternoComponent } from "../producto/consumo-interno/consumo-interno.component";
 import { ConsolidadoComponent } from "../consolidado/consolidado.component";
 
 import { TestuiComponent } from "@app/components/testui/testui.component";
-import { AreaProduccionComponent } from "../produccion/area-produccion/area-produccion.component";
-import { BodegaAreaProduccionComponent } from "../produccion/bodega-area-produccion/bodega-area-produccion.component";
 
 const menuRoutes: Routes = [
 	{ path: "categorias", component: CategoriaProductoComponent, data: { titulo: "Categorias" } },
@@ -42,7 +38,6 @@ const menuRoutes: Routes = [
 	{ path: "cargo", component: CargoComponent, data: { titulo: "Cargos" } },
 	{ path: "rol", component: RolusuarioComponent, data: { titulo: "Roles" } },
 	{ path: "unidadmedida", component: UnidadmedidaComponent, data: { titulo: "Unidad Medida" } },
-	{ path: "consumo-interno", component: ConsumoInternoComponent, data: { titulo: "Consumo Interno" } },
 
 	// Reportes
 	{ path: "reportes", component: ReportesComponent, data: { titulo: "Reportes" } },
@@ -58,8 +53,7 @@ const menuRoutes: Routes = [
 
 	{ path: "testing", component: TestuiComponent, data: { titulo: "Testing" } },
 
-	{ path: "", redirectTo: "/dashboard", pathMatch: "full", data: { titulo: "Dashboard" } },
-
+	{ path: "", redirectTo: "/dashboard", pathMatch: "full", data: { titulo: "Dashboard" } }
 ];
 
 @NgModule({

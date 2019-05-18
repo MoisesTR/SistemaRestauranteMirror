@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MdbTableDirective, MdbTablePaginationComponent } from "ng-uikit-pro-standard";
-import {ProductoService, SpinnerService} from '@app/core/service.index';
+import { ProductoService, SpinnerService } from "@app/core/service.index";
 import { Producto } from "@app/models/Producto";
 
 @Component({
@@ -23,10 +23,10 @@ export class ListOtrosProductosComponent implements OnInit, AfterViewInit {
 		this.buscarItems();
 	}
 
-	constructor(private productoService: ProductoService, private spinner: SpinnerService,private cdRef: ChangeDetectorRef) {}
+	constructor(private productoService: ProductoService, private spinner: SpinnerService, private cdRef: ChangeDetectorRef) {}
 
 	ngOnInit() {
-        this.spinner.display(true);
+		this.spinner.display(true);
 		this.getProductos();
 	}
 

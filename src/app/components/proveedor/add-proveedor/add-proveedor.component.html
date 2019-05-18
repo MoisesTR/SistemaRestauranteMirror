@@ -30,7 +30,7 @@
                                         <input [validateSuccess]="false" [validateError]="false" mdbInputDirective Alphanumeric type="text" id="nombreAbreviado" formControlName="abreviatura" class="form-control" autocomplete="off">
                                         <show-errors [control]="formAddProveedor.controls['abreviatura']">
                                         </show-errors>
-                                        <label for="nombreAbreviado">Nombre Abreviado</label>
+                                        <label for="nombreAbreviado">Nombre Abreviado (Opcional)</label>
                                     </div>
                                 </div>
 
@@ -38,7 +38,7 @@
                                     <div class="md-form md-outline">
                                         <input Alphanumeric [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="numeroruc" formControlName="numeroRuc" class="form-control" autocomplete="off" min="0" maxlength="14=">
                                         <show-errors [control]="formAddProveedor.controls['numeroRuc']"></show-errors>
-                                        <label for="numeroruc">Número Ruc</label>
+                                        <label for="numeroruc">Número Ruc {{opcional}}</label>
                                     </div>
                                 </div>
 
@@ -52,7 +52,7 @@
                                         <input Alphanumeric [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="nombreRepresentante" formControlName="nombreRepresentante" class="form-control letras" autocomplete="off">
                                         <show-errors [control]="formAddProveedor.controls['nombreRepresentante']">
                                         </show-errors>
-                                        <label for="nombreRepresentante">Nombre Representante</label>
+                                        <label for="nombreRepresentante">Nombre Representante (Opcional)</label>
                                     </div>
                                 </div>
 
@@ -60,7 +60,7 @@
                                     <div class="md-form md-outline">
                                         <input [validateSuccess]="false" [validateError]="false" mdbInputDirective type="email" id="email" formControlName="email" class="form-control" autocomplete="off">
                                         <show-errors [control]="formAddProveedor.controls['email']"></show-errors>
-                                        <label for="email">Correo Electrónico</label>
+                                        <label for="email">Correo Electrónico (Opcional)</label>
                                     </div>
                                 </div>
 
@@ -74,7 +74,7 @@
                                         <textarea [validateSuccess]="false" [validateError]="false" type="text" id="direccionProveedor" formControlName="direccionProveedor" class="md-textarea form-control" autocomplete="off" mdbInputDirective></textarea>
                                         <show-errors [control]="formAddProveedor.controls['direccionProveedor']">
                                         </show-errors>
-                                        <label for="direccionProveedor">Dirección Proveedor</label>
+                                        <label for="direccionProveedor">Dirección Proveedor (Opcional)</label>
                                     </div>
                                 </div>
 
@@ -83,7 +83,7 @@
                                         <textarea [validateSuccess]="false" [validateError]="false" mdbInputDirective type="text" id="descripcionProveedor" formControlName="descripcionProveedor" class="md-textarea form-control" autocomplete="off"></textarea>
                                         <show-errors [control]="formAddProveedor.controls['descripcionProveedor']">
                                         </show-errors>
-                                        <label for="descripcionProveedor">Descripción Proveedor</label>
+                                        <label for="descripcionProveedor">Descripción Proveedor (Opcional)</label>
                                     </div>
                                 </div>
 
@@ -233,7 +233,7 @@
                                             <span class="input-group-text md-addon" id="cargospan"><i
                                                     class="fa fa-building" aria-hidden="true"></i></span>
                                         </div>
-                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" formControlName="cargo" id="cargo" placeholder="Cargo" class="form-control">
+                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" formControlName="cargo" id="cargo" placeholder="Cargo (Opcional)" class="form-control">
                                     </div>
                                 </div>
 
@@ -247,7 +247,7 @@
                                             </ng-select> -->
                                         </div>
                                         <input onlyPositiveNumber mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" formControlName="telefono" id="telefono" placeholder="Telefono" class="form-control mr-3">
-                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="extension" formControlName="extension" placeholder="Extension" class="form-control ml-3">
+                                        <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="extension" formControlName="extension" placeholder="Extension (Opcional)" class="form-control ml-3">
                                     </div>
                                 </div>
 

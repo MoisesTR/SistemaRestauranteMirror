@@ -49,6 +49,9 @@ export class AddProductoComponent implements OnInit {
 	public filesToUpload: Array<File>;
 	public tituloPantalla = "Productos";
 	public previousUrl: string;
+	public opcionalUnidadMedida: string;
+	public opcionalCodigoInterno: string;
+	public opcionalCodigoProducto: string;
 	peticionEnCurso = false;
 	formAddProducto: FormGroup;
 	idProveedorSeleccionado: number;
@@ -71,6 +74,26 @@ export class AddProductoComponent implements OnInit {
 		this.url = Global.url;
 		this.producto = ProductoFactory.createProducto(TipoProductoEnum.Alimento);
 		this.productoProveedor = new ProductoProveedor();
+	}
+
+	onKeyUpCodigoInterno(codigo) {
+
+		if (codigo) {
+			this.opcionalCodigoProducto = this.formAddProducto.value.codigoProducto ? "" : "(Opcional)";
+			this.opcionalCodigoInterno = "";
+		} else  {
+
+			this.opcionalCodigoProducto = " "
+		}
+	}
+
+	onKeyUpCodigoProducto(codigo) {
+		if (codigo) {
+			this.opcionalCodigoProducto = " ";
+			this.opcionalCodigoInterno = this.formAddProducto.value.codigoOriginal ? "" : "(Opcional)";
+		} else {
+			this.opcionalCodigoInterno = " "
+		}
 	}
 
 	ngOnInit() {
@@ -161,6 +184,8 @@ export class AddProductoComponent implements OnInit {
 		}
 	}
 
+
+
 	onChangeCategoria(event) {
 		if (!event) {
 			this.producto.IdCategoria = null;
@@ -187,9 +212,11 @@ export class AddProductoComponent implements OnInit {
 
 	changeGranel(event) {
 		if (event.checked) {
+			this.opcionalUnidadMedida = "(Opcional)";
 			this.producto.IsGranel = true;
 			this.deshabilitarUnidadDeMedida();
 		} else {
+			this.opcionalUnidadMedida = "";
 			this.producto.IsGranel = false;
 			this.habilitarUnidadDeMedida();
 		}

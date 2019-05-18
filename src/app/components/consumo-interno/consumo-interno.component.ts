@@ -49,6 +49,8 @@ export class ConsumoInternoComponent implements OnInit {
 	public tipoInsumos: TipoInsumo[];
 	public previousUrl: string;
 	public proveedorSelecionado: number;
+	public opcionalCodigoInterno: string;
+	public opcionalCodigoProducto: string;
 	peticionEnCurso = false;
 	formAddProducto: FormGroup;
 	idProveedorSeleccionado: number;
@@ -130,6 +132,27 @@ export class ConsumoInternoComponent implements OnInit {
 			tipoInsumo: new FormControl(null, [Validators.required])
 		});
 	}
+
+	onKeyUpCodigoInterno(codigo) {
+
+		if (codigo) {
+			this.opcionalCodigoProducto = this.formAddProducto.value.codigoProducto ? "" : "(Opcional)";
+			this.opcionalCodigoInterno = "";
+		} else  {
+
+			this.opcionalCodigoProducto = " "
+		}
+	}
+
+	onKeyUpCodigoProducto(codigo) {
+		if (codigo) {
+			this.opcionalCodigoProducto = " ";
+			this.opcionalCodigoInterno = this.formAddProducto.value.codigoOriginal ? "" : "(Opcional)";
+		} else {
+			this.opcionalCodigoInterno = " "
+		}
+	}
+
 
 	getProveedores() {
 		this.proveedorService.getProveedores(1).subscribe(response => {

@@ -28,6 +28,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 	public telefonoRequerido: TelefonoProveedor;
 	public formAddTelefonos: FormGroup;
 	peticionEnCurso = false;
+	public opcional: string;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -202,7 +203,9 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 			this.formAddProveedor.controls["numeroRuc"].setValue("");
 			this.formAddProveedor.controls["numeroRuc"].disable();
 			this.formAddProveedor.controls["numeroRuc"].updateValueAndValidity();
+			this.opcional = "(Opcional)";
 		} else {
+			this.opcional = " ";
 			this.formAddProveedor.controls["numeroRuc"].setValidators([
 				Validators.required,
 				Validators.minLength(6),

@@ -726,3 +726,13 @@ legend.rango-fechas {
   padding:0 10px;
   border-bottom:none;
 }
+
+// Opacity notifications
+.opacity {
+  opacity: 0.9 !important;
+}
+
+#toast-container > mdb-toast-component.opacity,
+#toast-container > mdb-toast-component.opacity > div {
+  opacity: 0.9 !important;
+}

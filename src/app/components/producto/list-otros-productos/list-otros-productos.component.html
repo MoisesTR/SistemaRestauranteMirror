@@ -20,43 +20,64 @@
                             <div class="col-12">
                                 <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                     <i class="fa fa-search mt-3 black-text" aria-hidden="true"></i>
-                                    <input class="form-control w-75 ml-3" type="search" placeholder="Buscar" aria-label="Buscar"
-                                           [(ngModel)]="buscarTexto" id="search">
+                                    <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
+                                        aria-label="Buscar" [(ngModel)]="buscarTexto" id="search">
                                 </div>
                             </div>
 
                         </div>
                         <table mdbTable #tableEl="mdbTable" hover="true" small="true" bordered="true" striped="true">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th [mdbTableSort]="productos" sortBy="NombProducto">Nombre</th>
-                                <th [mdbTableSort]="productos" sortBy="DescProducto">Descripcion</th>
-                                <th [mdbTableSort]="productos" sortBy="NombTipInsumo">Tipo Insumo</th>
-                                <th [mdbTableSort]="productos" sortBy="DescCategoria">Categoria</th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th [mdbTableSort]="productos" sortBy="NombProducto">Nombre</th>
+                                    <th [mdbTableSort]="productos" sortBy="DescProducto">Descripcion</th>
+                                    <th [mdbTableSort]="productos" sortBy="NombTipInsumo">Tipo Insumo</th>
+                                    <th [mdbTableSort]="productos" sortBy="DescCategoria">Categoria</th>
+                                    <th>Acciones</th>
+                                </tr>
                             </thead>
                             <tbody #row>
-                            <tr *ngFor="let producto of productos; let i = index">
-                                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
-                                    scope="row">{{i+1}}</th>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{producto.NombProducto}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{producto.DescProducto}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{producto.NombTipInsumo}}</td>
-                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{producto.NombCategoria}}</td>
-                            </tr>
+                                <tr *ngFor="let producto of productos; let i = index">
+                                    <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                        scope="row">{{i+1}}</th>
+                                    <td
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{producto.NombProducto}}</td>
+                                    <td
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{producto.DescProducto}}</td>
+                                    <td
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{producto.NombTipInsumo}}</td>
+                                    <td
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{producto.NombCategoria}}</td>
+                                    <td width="25%" class="body-negrita">
+
+                                        <div class="text-center">
+                                            <button disabled mdbBtn type="button" size="sm"
+                                                class="orange-chang waves-light white-text" 
+                                                mdbTooltip="Editar" placement="bottom" mdbWavesEffect>
+                                                <mdb-icon far icon="edit"></mdb-icon>
+                                            </button>
+                                            <button disabled mdbBtn type="button" size="sm"
+                                                class="orange-chang waves-light white-text"
+                                                mdbTooltip="Eliminar" placement="bottom" mdbWavesEffect>
+                                                <mdb-icon far icon="trash-alt"></mdb-icon>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                             <tfoot class="grey lighten-5 w-100">
-                            <tr>
-                                <td colspan="5">
-                                    <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="productos">
-                                    </mdb-table-pagination>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                            [searchDataSource]="productos">
+                                        </mdb-table-pagination>
+                                    </td>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>

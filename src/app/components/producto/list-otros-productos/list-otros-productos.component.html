@@ -17,12 +17,19 @@
 
                         <div class="row">
 
-                            <div class="col-12">
-                                <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
-                                    <i class="fa fa-search mt-3 black-text" aria-hidden="true"></i>
+                            <div class="col-lg-10 col-md-12 col-sm-12 mb-0">
+                                <div class="input-group md-form form-inline form-sm pl-0">
+                                    <i class="fa fa-search black-text mt-3" aria-hidden="true"></i>
                                     <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
                                         aria-label="Buscar" [(ngModel)]="buscarTexto" id="search">
                                 </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-12 col-sm-12 mt-lg-3 mb-lg-0 mb-3">
+                                <button mdbBtn type="button" size="sm" block="true"
+                                    class="orange-chang waves-light text-nowrap"
+                                    mdbWavesEffect>Agregar
+                                </button>
                             </div>
 
                         </div>
@@ -30,40 +37,44 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th [mdbTableSort]="productos" sortBy="NombProducto">Nombre</th>
-                                    <th [mdbTableSort]="productos" sortBy="DescProducto">Descripcion</th>
-                                    <th [mdbTableSort]="productos" sortBy="NombTipInsumo">Tipo Insumo</th>
-                                    <th [mdbTableSort]="productos" sortBy="DescCategoria">Categoria</th>
-                                    <th>Acciones</th>
+                                    <th class="body-negrita" [mdbTableSort]="productos" sortBy="NombProducto">Nombre
+                                    </th>
+                                    <th class="body-negrita" [mdbTableSort]="productos" sortBy="DescProducto">
+                                        Descripcion</th>
+                                    <th class="body-negrita" [mdbTableSort]="productos" sortBy="NombTipInsumo">Tipo
+                                        Insumo</th>
+                                    <th class="body-negrita" [mdbTableSort]="productos" sortBy="DescCategoria">Categoria
+                                    </th>
+                                    <th class="body-negrita">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody #row>
                                 <tr *ngFor="let producto of productos; let i = index">
                                     <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
-                                        scope="row">{{i+1}}</th>
-                                    <td
-                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        scope="row" class="body-negrita">{{i+1}}</th>
+                                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                        class="body-negrita">
                                         {{producto.NombProducto}}</td>
-                                    <td
-                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                        class="body-negrita">
                                         {{producto.DescProducto}}</td>
-                                    <td
-                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                        class="body-negrita">
                                         {{producto.NombTipInsumo}}</td>
-                                    <td
-                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                        class="body-negrita">
                                         {{producto.NombCategoria}}</td>
                                     <td width="25%" class="body-negrita">
 
                                         <div class="text-center">
                                             <button disabled mdbBtn type="button" size="sm"
-                                                class="orange-chang waves-light white-text" 
-                                                mdbTooltip="Editar" placement="bottom" mdbWavesEffect>
+                                                class="orange-chang waves-light white-text" mdbTooltip="Editar"
+                                                placement="bottom" mdbWavesEffect>
                                                 <mdb-icon far icon="edit"></mdb-icon>
                                             </button>
                                             <button disabled mdbBtn type="button" size="sm"
-                                                class="orange-chang waves-light white-text"
-                                                mdbTooltip="Eliminar" placement="bottom" mdbWavesEffect>
+                                                class="orange-chang waves-light white-text" mdbTooltip="Eliminar"
+                                                placement="bottom" mdbWavesEffect>
                                                 <mdb-icon far icon="trash-alt"></mdb-icon>
                                             </button>
                                         </div>

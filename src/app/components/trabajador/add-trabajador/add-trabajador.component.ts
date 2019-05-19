@@ -207,39 +207,39 @@ export class AddTrabajadorComponent implements OnInit {
 		this.trabajador.IdPais = 1;
 	}
 
-	guardarImagenTrabajador() {
-		this.btnIngresarHabilitado = false;
+	createTrabajador() {
 		if (this.filesToUpload != null) {
-			this.uploadService
-				.makeFileRequest(this.url + "uploadImage/", CARPETA_TRABAJADORES, "", false, [], this.filesToUpload, "token", "image")
-				.then(
-					(result: any) => {
-						this.trabajador.Imagen = result.image;
-						this.createTrabajador();
-					},
-					error => {
-						Utils.msgErrorImage(error);
+			this.getValueFormAddTrabajador();
+
+			this.trabajadorService.createTrabajador(this.trabajador).subscribe(
+				response => {
+					if (response.IdTrabajador) {
+						swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
+							this.modalUsuario.show();
+						});
+						this.guardarImagenTrabajador(response.IdTrabajador);
 					}
-				);
+				},
+				() => {
+					this.formAddTrabajador.controls["pais"].setValue(1);
+				}
+			);
 		} else {
 			Utils.showMsgInfo("La imagen del trabajador es requerida", this.tituloPantalla);
 		}
-		this.btnIngresarHabilitado = true;
 	}
 
-	createTrabajador() {
-		this.getValueFormAddTrabajador();
+	guardarImagenTrabajador(idTrabajador) {
+		this.btnIngresarHabilitado = false;
 
-		this.trabajadorService.createTrabajador(this.trabajador).subscribe(
-			response => {
-				if (response.IdTrabajador) {
-					swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
-						this.modalUsuario.show();
-					});
-				}
+		this.uploadService.makeFileRequest(CARPETA_TRABAJADORES, idTrabajador, this.filesToUpload).then(
+			(result: any) => {
+				this.trabajador.Imagen = result.image;
+				this.btnIngresarHabilitado = true;
 			},
-			() => {
-                this.formAddTrabajador.controls["pais"].setValue(1);
+			error => {
+				this.btnIngresarHabilitado = true;
+				Utils.msgErrorImage(error);
 			}
 		);
 	}

@@ -1,48 +1,43 @@
-import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
-import {Global} from './global';
-import {HttpClient} from '@angular/common/http';
-import {isNull, isUndefined} from 'util';
+import { Injectable } from "@angular/core";
+import "rxjs/add/operator/map";
+import { Global } from "./global";
+import { NGXLogger } from "ngx-logger";
 
 @Injectable()
-
 export class UploadService {
-  public url: String;
+    public url: String;
 
-  constructor(private _http: HttpClient) {
-    this.url = Global.url;
-  }
+    constructor(private logger: NGXLogger) {
+        this.url = Global.url;
+    }
 
-  makeFileRequest(url: string, tipo: string, nombreImagen: string, removioImagen: boolean = false, params: Array<string>, files: Array<File>, token: String, name: string ) {
+    makeFileRequest(carpeta: string, id: number, files: Array<File>) {
+        return new Promise((resolve, reject) => {
+            const formData: any = new FormData();
+            const xhr = new XMLHttpRequest();
 
-    return new Promise(function(resolve, reject) {
-        const formData: any = new FormData();
-        const xhr = new XMLHttpRequest();
-
-        if (!isUndefined(files) && !isNull(files)) {
-            for (let i = 0; i < files.length; i++) {
-                formData.append(name, files[i], files[i].name);
+            if (files) {
+                for (let i = 0; i < files.length; i++) {
+                    formData.append("image", files[i], files[i].name);
+                }
             }
-        }
 
-        formData.append('tipo', tipo);
-        formData.append('imagenAntigua', nombreImagen);
-        formData.append('removioImagen', removioImagen);
+            xhr.onreadystatechange = () => {
+                // CUANDO TERMINE EL PROCESO
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.response));
+                        this.logger.info("La imagen se ha subido correctamente");
+                    } else {
+                        this.logger.error("La subida de la imagen fallo");
+                        reject(xhr.response);
+                    }
+                }
+            };
 
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-              resolve(JSON.parse(xhr.response));
-            } else {
-              reject(xhr.response);
-            }
-          }
-        };
-
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Authorization', 'token');
-        xhr.send(formData);
-    });
-
-  }
+            xhr.open("PUT", this.url + "uploadImage/" + carpeta + "/" + id, true);
+            xhr.setRequestHeader("Authorization", "token");
+            xhr.send(formData);
+        });
+    }
 }

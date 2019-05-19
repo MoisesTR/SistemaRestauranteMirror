@@ -3,8 +3,7 @@ import { Global } from "./global";
 import "rxjs/add/operator/map";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import {filter} from 'rxjs-compat/operator/filter';
-import {TipoInsumo} from '@app/models/interface/TipoInsumo';
+import {Producto} from '@app/models/Producto';
 import {TipoProductoEnum} from '@app/Enums/TipoProductoEnum';
 
 @Injectable()
@@ -50,4 +49,11 @@ export class ProductoService {
 		return this._http.request("delete", this.url + "productos/" + IdProducto, { headers: headers, body: body });
 	}
 
+    filtrarProdutosNoAlimenticios(productos : Producto[]): Producto[] {
+	    return productos.filter( p => p.IdTipInsumo !== TipoProductoEnum.Alimento);
+    }
+
+    filtrarProductosAlimenticios(productos : Producto[]) : Producto[] {
+        return productos.filter( p => p.IdTipInsumo === TipoProductoEnum.Alimento);
+    }
 }

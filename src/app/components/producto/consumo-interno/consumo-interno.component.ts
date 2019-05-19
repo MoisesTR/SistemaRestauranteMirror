@@ -6,7 +6,7 @@ import { ClasificacionProducto } from "@app/models/ClasificacionProducto";
 import { Envase } from "@app/models/Envase";
 import { Empaque } from "@app/models/Empaque";
 import { ProductoProveedor } from "@app/models/ProductoProveedor";
-import { CARPETA_PRODUCTOS, Global } from "@app/core/services/shared/global";
+import { Global } from "@app/core/services/shared/global";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
@@ -22,7 +22,6 @@ import {
 	UploadService
 } from "@app/core/service.index";
 import swal from "sweetalert2";
-import { Utils } from "@app/components/Utils";
 import { CustomValidators } from "@app/validadores/CustomValidators";
 import { TipoInsumo } from "@app/models/interface/TipoInsumo";
 import { ProductoFactory } from "@app/models/factory/ProductoFactory";
@@ -249,32 +248,32 @@ export class ConsumoInternoComponent implements OnInit {
 		this.formAddProducto.controls["clasificacion"].setValue(null);
 	}
 
-	guardarImagenProducto() {
-		this.peticionEnCurso = true;
-		this.getValueForm();
-
-		if (!Utils.valorCampoEsValido(this.producto.CodOriginal) && !Utils.valorCampoEsValido(this.producto.CodProd)) {
-			Utils.showMsgInfo("El codigo producto o codigo interno es requerido!", "Producto");
-			this.peticionEnCurso = false;
-		} else {
-			if (this.filesToUpload != null) {
-				this.uploadService
-					.makeFileRequest(this.url + "uploadImage/", CARPETA_PRODUCTOS, "", false, [], this.filesToUpload, "token", "image")
-					.then(
-						(result: any) => {
-							this.producto.Imagen = result.image;
-							this.crearProducto();
-						},
-						error => {
-							this.peticionEnCurso = false;
-						}
-					);
-			} else {
-				this.producto.Imagen = "";
-				this.crearProducto();
-			}
-		}
-	}
+	// guardarImagenProducto() {
+	// 	this.peticionEnCurso = true;
+	// 	this.getValueForm();
+	//
+	// 	if (!Utils.valorCampoEsValido(this.producto.CodOriginal) && !Utils.valorCampoEsValido(this.producto.CodProd)) {
+	// 		Utils.showMsgInfo("El codigo producto o codigo interno es requerido!", "Producto");
+	// 		this.peticionEnCurso = false;
+	// 	} else {
+	// 		if (this.filesToUpload != null) {
+	// 			this.uploadService
+	// 				.makeFileRequest(this.url + "uploadImage/", CARPETA_PRODUCTOS, "", false, [], this.filesToUpload, "token", "image")
+	// 				.then(
+	// 					(result: any) => {
+	// 						this.producto.Imagen = result.image;
+	// 						this.crearProducto();
+	// 					},
+	// 					error => {
+	// 						this.peticionEnCurso = false;
+	// 					}
+	// 				);
+	// 		} else {
+	// 			this.producto.Imagen = "";
+	// 			this.crearProducto();
+	// 		}
+	// 	}
+	// }
 
 	getValueForm() {
 		this.producto.guardarDatosProducto(this.formAddProducto);
@@ -334,7 +333,7 @@ export class ConsumoInternoComponent implements OnInit {
 		if (this.previousUrl === "/proveedor/add") {
 			this.router.navigate(["/factura/add"]);
 		} else {
-			this.router.navigate(["/producto"]);
+			this.router.navigate(["/producto/list-otros-productos"]);
 		}
 	}
 
@@ -425,10 +424,10 @@ export class ConsumoInternoComponent implements OnInit {
 	}
 
 	showModalCategoria() {
-	    this.categoriaService.mostrarModal();
-    }
+		this.categoriaService.mostrarModal();
+	}
 
-    showModalClasificacion() {
-	    this.clasificacionService.mostrarModal();
-    }
+	showModalClasificacion() {
+		this.clasificacionService.mostrarModal();
+	}
 }

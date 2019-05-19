@@ -7,15 +7,15 @@ import { NGXLogger } from "ngx-logger";
 })
 export class ImagenPipe implements PipeTransform {
 	constructor(public logger: NGXLogger) {}
-	transform(img: string, tipo: string = "temp"): any {
+	transform(img: string, carpeta: string = "temp"): any {
 		const url = Global.url + "getImagen";
 
 		if (!img) {
 			return url + "/temp/nada";
 		}
 
-		switch (tipo) {
-			case "producto":
+		switch (carpeta) {
+			case "productos":
 				return url + "/productos/" + img;
 			case "trabajadores":
 				return url + "/trabajadores/" + img;

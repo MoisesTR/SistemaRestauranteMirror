@@ -23,7 +23,7 @@
                     <!-- Contenido -->
                     <div class="card-body ">
                         <!-- Formulario -->
-                        <form [formGroup]="formAddTrabajador" (ngSubmit)="guardarImagenTrabajador()" novalidate>
+                        <form [formGroup]="formAddTrabajador" (ngSubmit)="createTrabajador()" novalidate>
                             <!-- Campos a ingresar -->
                             <div class="row">
 
@@ -127,7 +127,7 @@
 
                             <!-- Boton ingresa -->
                             <div class="text-center mt-1-half">
-                                <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]="!formAddTrabajador.valid || !btnIngresarHabilitado">
+                                <button class="btn orange-chang mb-1 white-text" type="submit" [disabled]=" !btnIngresarHabilitado">
                   <mdb-icon fas icon="check" class="mr-1"></mdb-icon>Ingresar
                 </button>
                             </div>

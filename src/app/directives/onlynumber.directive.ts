@@ -17,7 +17,6 @@ export class NumberOnlyDirective {
 	@HostListener("keydown", ["$event"])
 	onKeyDown(event: KeyboardEvent) {
 		// Allow Backspace, tab, end, and home keys
-		console.log(event.key);
 		if (this.specialKeys.indexOf(event.key) !== -1) {
 			return;
 		}

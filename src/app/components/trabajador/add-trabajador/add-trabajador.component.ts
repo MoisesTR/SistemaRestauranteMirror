@@ -269,7 +269,6 @@ export class AddTrabajadorComponent implements OnInit {
 	}
 
 	fileChangeEvent(fileInput: any) {
-	    console.log(this.filesToUpload);
 		this.filesToUpload = <Array<File>>fileInput.target.files;
 	}
 

@@ -30,10 +30,11 @@ declare var $: any;
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddfacturaComponent implements OnInit {
-	@ViewChild("modalVerProducto") modalVerProducto: ModalDirective;
+	@ViewChild("modalVerProducto")
+    modalVerProducto: ModalDirective;
+
 	@ViewChild("modalAgregarDetalleProducto")
-	modalAgregarDetalleProducto: ModalDirective;
-	@ViewChild("modalAddDescuento") modalAddDescuento: ModalDirective;
+    modalAgregarDetalleProducto: ModalDirective;
 
 	public productos: ProductoFactura[];
 	public productoSeleccionado: ProductoFactura;

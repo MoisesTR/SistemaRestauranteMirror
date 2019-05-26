@@ -8,6 +8,8 @@ import { CustomValidators } from "@app/validadores/CustomValidators";
 import { ToastService } from "ng-uikit-pro-standard";
 import { Token } from "@app/models/Token";
 
+declare var $: any;
+
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
@@ -34,6 +36,17 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.initFormLogin();
+
+		$(".toggle-password").click(function() {
+
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			var input = $($(this).attr("toggle"));
+			if (input.attr("type") == "password") {
+			  input.attr("type", "text");
+			} else {
+			  input.attr("type", "password");
+			}
+		  });
 	}
 
 	initFormLogin() {

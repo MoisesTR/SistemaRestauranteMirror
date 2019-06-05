@@ -19,7 +19,7 @@ export class DetalleFactura extends Producto {
 	public EfectivoDescuento: number;
 
 	public NombProducto: string;
-	public NombreUnidad: string;
+	public NombUnidad: string;
 
 	constructor() {
 		super();

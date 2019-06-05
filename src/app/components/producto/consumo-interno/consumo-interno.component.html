@@ -30,8 +30,8 @@
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-12">
-                                <label for="categoria" class="grey-text-card">Tipo Insumo</label>
-                                <ng-select [items]="tipoInsumos" bindLabel="NombTipInsumo" formControlName="tipoInsumo" bindValue="IdTipInsumo" (change)="changeTipoInsumo($event)" placeholder="Selecciona un tipo de insumo">
+                                <label for="categoria" class="grey-text-card">Tipo Producto</label>
+                                <ng-select [items]="tipoInsumos" bindLabel="NombTipInsumo" formControlName="tipoInsumo" bindValue="IdTipInsumo" (change)="changeTipoInsumo($event)" placeholder="Selecciona un tipo de producto">
                                 </ng-select>
                             </div>
 
@@ -42,7 +42,7 @@
                                         <div style="margin: 10px 0;" class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title" [ngOptionHighlight]="search">
-                                                    {{item.NombProveedor}}</h5>
+                                                    {{item.NombProveedorAbreviatura}}</h5>
                                                 <p class="card-subtitle mb-2 text-muted">
                                                     <b>Nombre del Representante</b>
                                                     <br>

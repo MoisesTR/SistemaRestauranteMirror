@@ -283,6 +283,19 @@ export class AddProductoComponent implements OnInit {
 			this.producto.IdUnidadMedida = null;
 		} else {
 			this.producto.IdUnidadMedida = event.IdUnidadMedida;
+
+			const isNinguna = this.unidades.find( u => this.producto.IdUnidadMedida === u.IdUnidadMedida && u.Simbolo === 'N');
+
+			if (isNinguna) {
+				this.formAddProducto.controls["valorunidadmedida"].clearValidators();
+				this.formAddProducto.controls["valorunidadmedida"].setValue(null);
+				this.formAddProducto.controls["valorunidadmedida"].disable();
+				this.formAddProducto.controls["valorunidadmedida"].updateValueAndValidity();
+			} else {
+				this.formAddProducto.controls["valorunidadmedida"].setValidators([Validators.required]);
+				this.formAddProducto.controls["valorunidadmedida"].enable();
+				this.formAddProducto.controls["valorunidadmedida"].updateValueAndValidity();
+			}
 		}
 	}
 

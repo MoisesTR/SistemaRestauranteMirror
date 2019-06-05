@@ -14,7 +14,7 @@ export class ListOtrosProductosComponent implements OnInit, AfterViewInit {
 	@ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
 
 	public productos: Producto[] = [];
-	headElementos = ["#", "Nombre", "Descripcion", "Tipo Insumo", "Categoria"];
+	headElementos = ["#", "Nombre", "Descripcion", "Tipo Producto", "Categoria"];
 	public maxVisibleItems = 10;
 	buscarTexto: string = "";
 	previo: string;

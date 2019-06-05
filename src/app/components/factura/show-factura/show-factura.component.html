@@ -178,7 +178,7 @@
                                 <tr *ngFor="let detalle of factura.Detalle ;let i = index">
                                     <th scope="row" class="align-middle">{{i + 1}}</th>
                                     <td class="body-negrita">
-                                        12
+                                        {{detalle.CodProd || detalle.CodOriginal}}
                                     </td>
                                     <td class="body-negrita">{{detalle.NombProducto}}</td>
                                     <td class="body-negrita">{{detalle.NombUnidad}}</td>
@@ -191,7 +191,7 @@
                                         <strong>{{detalle.GravadoIva == 1 ? 'SI' : 'NO' }}</strong>
                                     </td>
                                     <td width="10%" class="body-negrita">{{detalle.SubTotal | number : '1.2-2'}} C$</td>
-                                    <td width="10%" class="body-negrita">{{detalle.SubTotal | number : '1.2-2'}} C$</td>
+                                    <td width="10%" class="body-negrita">{{detalle.TotalDetalle | number : '1.2-2'}} C$</td>
                                 </tr>
                             </tbody>
                         </table>

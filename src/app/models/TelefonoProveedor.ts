@@ -6,8 +6,8 @@ export class TelefonoProveedor {
     public NombPAsignada: string;
     public Cargo: string;
     public IsTitular: boolean;
-    public Extension: string;
     public Titular: number;
+    public Extension: string;
     public CreateAt: string;
     public UpdateAt: string;
 

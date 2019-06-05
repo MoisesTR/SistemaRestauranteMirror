@@ -91,6 +91,8 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 					if (response.IdProveedor) {
 						this.contactos.forEach((value, index) => {
 							value.IdProveedor = response.IdProveedor;
+							value.Cargo = value.Cargo || undefined;
+							value.Extension = value.Extension || undefined;
 							this.createTelefonoProveedor(value);
 						});
 						this.mensajeCreacionProveedor();
@@ -169,9 +171,9 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 	initFormTelefonos() {
 		this.formAddTelefonos = this.formBuilderProveedor.group({
 			nombres: new FormControl("", [Validators.required]),
-			cargo: new FormControl("", []),
+			cargo: new FormControl("", [Validators.minLength(3), Validators.maxLength(20)]),
 			telefono: new FormControl("", [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
-			extension: new FormControl("", []),
+			extension: new FormControl("", [Validators.minLength(1), Validators.maxLength(10)]),
 			titular: new FormControl("", [])
 		});
 	}
@@ -188,6 +190,7 @@ export class AddProveedorComponent implements OnInit, AfterViewChecked {
 		contacto.Telefono = this.formAddTelefonos.controls["telefono"].value;
 		contacto.Extension = this.formAddTelefonos.controls["extension"].value;
 		contacto.Titular = this.formAddTelefonos.controls["titular"].value === true ? 1 : 0;
+		contacto.IsTitular = contacto.Titular === 1;
 		return contacto;
 	}
 

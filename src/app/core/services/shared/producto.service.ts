@@ -14,31 +14,31 @@ export class ProductoService {
 		this.url = Global.url;
 	}
 
-	createProducto(Producto): Observable<any> {
-		const params = JSON.stringify(Producto);
+	createProducto(producto): Observable<any> {
+		const params = JSON.stringify(producto);
 		const headers = new HttpHeaders({ "Content-Type": "application/json" });
 
 		return this._http.post(this.url + "productos", params, { headers: headers });
 	}
-	getProducto(IdProducto): Observable<any> {
-		return this._http.get(this.url + "productos/" + IdProducto);
+	getProducto(idProducto): Observable<any> {
+		return this._http.get(this.url + "productos/" + idProducto);
 	}
 
-	getProductos(Habilitado = 1): Observable<any> {
-		return this._http.get(this.url + "productos?Habilitado=" + Habilitado);
+	getProductos(habilitado = 1): Observable<any> {
+		return this._http.get(this.url + "productos?Habilitado=" + habilitado);
 	}
 
-	updateProducto(Producto): Observable<any> {
+	updateProducto(producto): Observable<any> {
 		const params = JSON.stringify(Producto);
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json",
 			Authorization: "token"
 		});
 
-		return this._http.put(this.url + "productos/" + Producto.IdProducto, params, { headers: headers });
+		return this._http.put(this.url + "productos/" + producto.IdProducto, params, { headers: headers });
 	}
 
-	deleteProducto(IdProducto): Observable<any> {
+	deleteProducto(idProducto): Observable<any> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json",
 			Authorization: "token"
@@ -46,7 +46,7 @@ export class ProductoService {
 
 		const body = JSON.stringify({ Habilitado: false });
 
-		return this._http.request("delete", this.url + "productos/" + IdProducto, { headers: headers, body: body });
+		return this._http.request("delete", this.url + "productos/" + idProducto, { headers: headers, body: body });
 	}
 
     filtrarProdutosNoAlimenticios(productos : Producto[]): Producto[] {

@@ -40,7 +40,7 @@
                                         <div style="margin: 10px 0;" class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title" [ngOptionHighlight]="search">
-                                                    {{item.NombProveedor}}</h5>
+                                                    {{item.NombProveedorAbreviatura}}</h5>
                                                 <p class="card-subtitle mb-2 text-muted">
                                                     <b>Nombre del Representante</b>
                                                     <br>
@@ -133,7 +133,7 @@
 
                             <div class="col-12 col-sm-12 col-md-4 mt-4">
                                 <div class="md-form md-outline">
-                                    <input onlyNumbers="decimal" mdbInputDirective [validateSuccess]="false" [validateError]="false" min="0" type="text" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
+                                    <input onlyNumbers="decimal" mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="valorunidadmedida" formControlName="valorunidadmedida" class="form-control" autocomplete="off">
                                     <label for="valorunidadmedida">Valor unidad de medida {{opcionalUnidadMedida}}</label>
                                     <show-errors [control]="formAddProducto.controls['valorunidadmedida']">
                                     </show-errors>

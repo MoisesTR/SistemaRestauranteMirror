@@ -25,7 +25,7 @@
                                                 <div style="margin: 10px 0;" class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title" [ngOptionHighlight]="search">
-                                                            {{item.NombProveedor}}</h5>
+                                                            {{item.NombProveedorAbreviatura}}</h5>
                                                         <p class="card-subtitle mb-2 text-muted">
                                                             <b>Nombre del Representante</b>
                                                             <br>
@@ -34,7 +34,7 @@
                                                         <p class="card-text">
                                                             <b>Descripcion</b>
                                                             <br>
-                                                            <i>{{item.DescProducto}}</i>
+                                                            <i>{{item.DescProveedor}}</i>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -546,7 +546,7 @@
 
                                         <div class="col-md-6 margin-bottom-inputs">
                                             <div class="md-form">
-                                                <h6 class="orange-chang-text">Tipo de Insumo</h6>
+                                                <h6 class="orange-chang-text">Tipo de producto</h6>
                                                 <input type="text" id="tipoInsumo" minlength="4" maxlength="50"
                                                     class="input-modal-sm" name="tipoInsumo" value="Insumo Test"
                                                     readonly value="{{productoSeleccionado.NombTipInsumo}}">

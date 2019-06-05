@@ -159,7 +159,7 @@ export class FacturaService {
 		}
 
 		const diferencia = factura.TotalFactura - factura.TotalOrigenFactura;
-		if (+(diferencia) >= 100) {
+		if (Math.abs(diferencia) >= 100) {
 			Utils.showMsgInfo("Existe una diferencia de: " + diferencia + 'C$ entre el monto calculado y monto origen de la factura, revisa los calculos!', "Factura");
 			return false;
 		}

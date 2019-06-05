@@ -72,7 +72,8 @@
                                                     [validateSuccess]="false" [validateError]="false" id="fechaInicio"
                                                     placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
                                                     (ngModelChange)="busquedaFactura($event)" readonly>
-                                                <owl-date-time [pickerType]="'calendar'" [disabled]="deshabilitarFechasBusqueda()" #dt1></owl-date-time>
+                                                <owl-date-time [pickerType]="'calendar'"
+                                                    [disabled]="deshabilitarFechasBusqueda()" #dt1></owl-date-time>
                                                 <label for="fechaInicio" class="grey-text-card">Fecha Inicio</label>
                                             </div>
                                         </div>
@@ -84,13 +85,14 @@
                                                     [validateSuccess]="false" [validateError]="false" id="fechaFin"
                                                     placeholder="Seleccioné" mdbInputDirective [max]="fechaActual"
                                                     [min]="seleccionFechaBusqueda" readonly>
-                                                <owl-date-time [pickerType]="'calendar'"  [disabled]="deshabilitarFechasBusqueda()" #dt2></owl-date-time>
+                                                <owl-date-time [pickerType]="'calendar'"
+                                                    [disabled]="deshabilitarFechasBusqueda()" #dt2></owl-date-time>
                                                 <label for="fechaFin" class="grey-text-card">Fecha Fin</label>
                                             </div>
                                         </div>
                                     </div>
                                 </fieldset>
-                                
+
                             </div>
 
                             <div class="text-center mt-1-half mt-3">
@@ -98,8 +100,7 @@
                                     class="orange-chang mb-1 white-text">
                                     <mdb-icon fas icon="search" class="mr-1"></mdb-icon>Buscar
                                 </button>
-                                <button mdbBtn type="button" (click)="limpiar()"
-                                        class="orange-chang mb-1 white-text">
+                                <button mdbBtn type="button" (click)="limpiar()" class="orange-chang mb-1 white-text">
                                     <mdb-icon fas icon="broom"></mdb-icon>Limpiar
                                 </button>
                             </div>
@@ -146,7 +147,22 @@
                         <i class="fa fa-exchange-alt orange-chang icono-card"></i>
                         <div class="mb-3 right-card-align">
                             <p class="grey-text-card">Diferencia</p>
-                            <h4><strong>C$ {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}</strong>
+                            <h4 *ngIf="totalCordobasFacturas - totalOrigenFactura == 0"><strong>C$
+                                    {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}</strong>
+                            </h4>
+                            <!-- Difencia mayor 0 -->
+                            <h4 *ngIf="totalCordobasFacturas - totalOrigenFactura > 0">
+                                <strong class="green-text">
+                                    <mdb-icon fas icon="long-arrow-alt-up" class="mr-1"></mdb-icon>
+                                    C$ {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}
+                                </strong>
+                            </h4>
+                            <!-- Difencia menor 0 -->
+                            <h4 *ngIf="totalCordobasFacturas - totalOrigenFactura < 0">
+                                <strong class="red-text">
+                                    <mdb-icon fas icon="long-arrow-alt-down" class="mr-1"></mdb-icon>
+                                    C$ {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}
+                                </strong>
                             </h4>
                         </div>
                     </div>
@@ -174,73 +190,89 @@
                                 <div class="in input-group md-form form-inline form-sm form-2 pl-0 mt-5">
                                     <i class="fa fa-search mt-3 black-text" aria-hidden="true"></i>
                                     <input class="form-control w-75 ml-3" type="search" placeholder="Buscar"
-                                           aria-label="Buscar" [(ngModel)]="buscarTexto" id="search">
+                                        aria-label="Buscar" [(ngModel)]="buscarTexto" id="search">
                                 </div>
                             </div>
 
                         </div>
                         <table mdbTable #tableEl="mdbTable" hover="true" small="true" bordered="true" striped="true">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="NumRefFactura">Cod Factura</th>
-                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="FechaRecepcion">Fecha Recepción</th>
-                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="TrabajadorIngreso">Trabajador Ingreso</th>
-                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="HoraIngreso">Hora y Fecha Ingreso</th>
-                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="TotalCordobas">Total Calculado</th>
-                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="TotalOrigenFactura">Total Factura</th>
-                                <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas" sortBy="Diferencia">Diferencia</th>
-                                <th class="header-negrita text-center align-middle">Acciones</th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas"
+                                        sortBy="NumRefFactura">Cod Factura</th>
+                                    <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas"
+                                        sortBy="FechaRecepcion">Fecha Recepción</th>
+                                    <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas"
+                                        sortBy="TrabajadorIngreso">Trabajador Ingreso</th>
+                                    <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas"
+                                        sortBy="HoraIngreso">Hora y Fecha Ingreso</th>
+                                    <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas"
+                                        sortBy="TotalCordobas">Total Calculado</th>
+                                    <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas"
+                                        sortBy="TotalOrigenFactura">Total Factura</th>
+                                    <th class="header-negrita text-center align-middle" [mdbTableSort]="facturas"
+                                        sortBy="Diferencia">Diferencia</th>
+                                    <th class="header-negrita text-center align-middle">Acciones</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let factura of facturas; let i = index">
-                                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
-                                    scope="row">{{i+1}}</th>
-                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{factura.NumRefFactura}}</td>
-                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{factura.FechaRecepcion}}</td>
-                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{factura.TrabajadorIngreso}}</td>
-                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >
-                                    <span class="grey-text"><small><i
-                                            class="fa fa-clock-o mr-1"></i>{{factura.HoraIngreso}}</small></span>
-                                    <br>
-                                    <span class="grey-text"><small><i class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaIngreso |
+                                <tr *ngFor="let factura of facturas; let i = index">
+                                    <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                        scope="row">{{i+1}}</th>
+                                    <td class="body-negrita text-center align-middle"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{factura.NumRefFactura}}</td>
+                                    <td class="body-negrita text-center align-middle"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{factura.FechaRecepcion}}</td>
+                                    <td class="body-negrita text-center align-middle"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{factura.TrabajadorIngreso}}</td>
+                                    <td class="body-negrita text-center align-middle"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        <span class="grey-text"><small><i
+                                                    class="fa fa-clock-o mr-1"></i>{{factura.HoraIngreso}}</small></span>
+                                        <br>
+                                        <span class="grey-text"><small><i class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaIngreso |
                                         date:'yyyy-MM-dd'}}</small></span></td>
-                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{factura.TotalCordobas | number : '1.2-2'}}</td>
-                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{factura.TotalOrigenFactura | number : '1.2-2'}}</td>
-                                <td class="body-negrita text-center align-middle" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                    {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}</td>
+                                    <td class="body-negrita text-center align-middle"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{factura.TotalCordobas | number : '1.2-2'}}</td>
+                                    <td class="body-negrita text-center align-middle"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{factura.TotalOrigenFactura | number : '1.2-2'}}</td>
+                                    <td class="body-negrita text-center align-middle"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}</td>
 
-                                <td class="body-negrita" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    <td class="body-negrita"
+                                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
 
-                                    <div class="text-center">
-                                        <button mdbBtn type="button" size="sm"
-                                                class="orange-chang waves-light white-text" (click)="mostrarFactura(factura.IdFactura)"
-                                                mdbTooltip="Mostrar factura" placement="bottom" mdbWavesEffect>
-                                            <mdb-icon far icon="eye"></mdb-icon>
-                                        </button>
-                                        <button disabled mdbBtn type="button" size="sm"
+                                        <div class="text-center">
+                                            <button mdbBtn type="button" size="sm"
                                                 class="orange-chang waves-light white-text"
-                                                mdbTooltip="Editar factura" placement="bottom" mdbWavesEffect>
-                                            <mdb-icon far icon="edit"></mdb-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                                (click)="mostrarFactura(factura.IdFactura)" mdbTooltip="Mostrar factura"
+                                                placement="bottom" mdbWavesEffect>
+                                                <mdb-icon far icon="eye"></mdb-icon>
+                                            </button>
+                                            <button disabled mdbBtn type="button" size="sm"
+                                                class="orange-chang waves-light white-text" mdbTooltip="Editar factura"
+                                                placement="bottom" mdbWavesEffect>
+                                                <mdb-icon far icon="edit"></mdb-icon>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                             <tfoot class="grey lighten-5 w-100">
-                            <tr>
-                                <td colspan="9">
-                                    <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
-                                                          [searchDataSource]="facturas">
-                                    </mdb-table-pagination>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="9">
+                                        <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                            [searchDataSource]="facturas">
+                                        </mdb-table-pagination>
+                                    </td>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -250,124 +282,124 @@
 
                 </mdb-card-body>
 
-<!--                &lt;!&ndash;/Titulo&ndash;&gt;-->
-<!--                <mdb-card-body cascade="true">-->
+                <!--                &lt;!&ndash;/Titulo&ndash;&gt;-->
+                <!--                <mdb-card-body cascade="true">-->
 
-<!--                    <div class="col-12 col-sm-D12 col-md-12 mt-3">-->
-<!--                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">-->
-<!--                            <i class="fa fa-search mt-2" aria-hidden="true"></i>-->
-<!--                            <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar"-->
-<!--                                [(ngModel)]="buscando">-->
-<!--                        </div>-->
-<!--                    </div>-->
+                <!--                    <div class="col-12 col-sm-D12 col-md-12 mt-3">-->
+                <!--                        <div class="in input-group md-form form-inline form-sm form-2 pl-0">-->
+                <!--                            <i class="fa fa-search mt-2" aria-hidden="true"></i>-->
+                <!--                            <input class="form-control w-75 ml-3" type="text" placeholder="Buscar" aria-label="Buscar"-->
+                <!--                                [(ngModel)]="buscando">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
 
-<!--                    <div class="table-responsive-sm">-->
-<!--                        <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0" width="100%">-->
-<!--                            <thead>-->
-<!--                                <tr class="">-->
-<!--                                    <th class="header-negrita">#</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Cód. Factura</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Fecha Recepción</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Trabajador Ingreso</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Hora y Fecha Ingreso</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Total Calculado</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Total Factura</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Diferencia</th>-->
-<!--                                    <th class="header-negrita text-center align-middle">Acción</th>-->
+                <!--                    <div class="table-responsive-sm">-->
+                <!--                        <table mdbTable striped="true" bordered="true" hover="true" cellspacing="0" width="100%">-->
+                <!--                            <thead>-->
+                <!--                                <tr class="">-->
+                <!--                                    <th class="header-negrita">#</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Cód. Factura</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Fecha Recepción</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Trabajador Ingreso</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Hora y Fecha Ingreso</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Total Calculado</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Total Factura</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Diferencia</th>-->
+                <!--                                    <th class="header-negrita text-center align-middle">Acción</th>-->
 
-<!--                                </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                                <tr *ngFor="let factura of facturas; let i = index">-->
-<!--                                    <th *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        scope="row" class="align-middle" width="5%">{{i + 1}}</th>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        class="body-negrita text-center align-middle">-->
-<!--                                        <span class="grey-text"><small><i-->
-<!--                                                    class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaRecepcion}}</small></span>-->
-<!--                                    </td>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        class="body-negrita text-center align-middle">-->
+                <!--                                </tr>-->
+                <!--                            </thead>-->
+                <!--                            <tbody>-->
+                <!--                                <tr *ngFor="let factura of facturas; let i = index">-->
+                <!--                                    <th *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        scope="row" class="align-middle" width="5%">{{i + 1}}</th>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        class="body-negrita text-center align-middle">{{factura.NumRefFactura}}</td>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        class="body-negrita text-center align-middle">-->
+                <!--                                        <span class="grey-text"><small><i-->
+                <!--                                                    class="fa fa-calendar-times-o mr-1"></i>{{factura.FechaRecepcion}}</small></span>-->
+                <!--                                    </td>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        class="body-negrita text-center align-middle">{{factura.TrabajadorIngreso}}</td>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        class="body-negrita text-center align-middle">-->
 
-<!--                                    </td>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        width="10%" class="body-negrita text-center align-middle">-->
-<!--                                        {{factura.TotalCordobas | number : '1.2-2'}} C$-->
-<!--                                    </td>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        width="10%" class="body-negrita text-center align-middle">-->
-<!--                                        {{factura.TotalOrigenFactura | number : '1.2-2'}} C$-->
-<!--                                    </td>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        width="10%" class="body-negrita text-center align-middle">C$-->
-<!--                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}-->
-<!--                                    </td>-->
-<!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
-<!--                                        class="text-center align-middle">-->
-<!--                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text"-->
-<!--                                            tabindex="-1" (click)="mostrarFactura(factura.IdFactura)"-->
-<!--                                            mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect>-->
-<!--                                            <mdb-icon far icon="eye"></mdb-icon>-->
-<!--                                        </button>-->
-<!--                                        <button disabled type="button" class="btn orange-chang btn-sm waves-light white-text"-->
-<!--                                            tabindex="-1" mdbTooltip="Editar Factura" placement="bottom" mdbWavesEffect>-->
-<!--                                            <mdb-icon far icon="edit"></mdb-icon>-->
-<!--                                        </button>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
+                <!--                                    </td>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        width="10%" class="body-negrita text-center align-middle">-->
+                <!--                                        {{factura.TotalCordobas | number : '1.2-2'}} C$-->
+                <!--                                    </td>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        width="10%" class="body-negrita text-center align-middle">-->
+                <!--                                        {{factura.TotalOrigenFactura | number : '1.2-2'}} C$-->
+                <!--                                    </td>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        width="10%" class="body-negrita text-center align-middle">C$-->
+                <!--                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}-->
+                <!--                                    </td>-->
+                <!--                                    <td *ngIf="factura.IdPaginacion >= firstVisibleIndex && factura.IdPaginacion <= lastVisibleIndex"-->
+                <!--                                        class="text-center align-middle">-->
+                <!--                                        <button type="button" class="btn orange-chang btn-sm waves-light white-text"-->
+                <!--                                            tabindex="-1" (click)="mostrarFactura(factura.IdFactura)"-->
+                <!--                                            mdbTooltip="Visualizar Factura" placement="bottom" mdbWavesEffect>-->
+                <!--                                            <mdb-icon far icon="eye"></mdb-icon>-->
+                <!--                                        </button>-->
+                <!--                                        <button disabled type="button" class="btn orange-chang btn-sm waves-light white-text"-->
+                <!--                                            tabindex="-1" mdbTooltip="Editar Factura" placement="bottom" mdbWavesEffect>-->
+                <!--                                            <mdb-icon far icon="edit"></mdb-icon>-->
+                <!--                                        </button>-->
+                <!--                                    </td>-->
+                <!--                                </tr>-->
 
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
+                <!--                            </tbody>-->
+                <!--                        </table>-->
+                <!--                    </div>-->
 
-<!--                    <nav>-->
-<!--                        <ul class="pagination pg-amber justify-content-center">-->
+                <!--                    <nav>-->
+                <!--                        <ul class="pagination pg-amber justify-content-center">-->
 
-<!--                            &lt;!&ndash;First&ndash;&gt;-->
-<!--                            <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"-->
-<!--                                [ngClass]="{disabled: activePage == 1}">-->
-<!--                                <a class="page-link">Primera</a>-->
-<!--                            </li>-->
+                <!--                            &lt;!&ndash;First&ndash;&gt;-->
+                <!--                            <li class="page-item clearfix d-none d-md-block" (click)="firstPage()"-->
+                <!--                                [ngClass]="{disabled: activePage == 1}">-->
+                <!--                                <a class="page-link">Primera</a>-->
+                <!--                            </li>-->
 
-<!--                            &lt;!&ndash;Arrow left&ndash;&gt;-->
-<!--                            <li class="page-item" (click)="previousPage($event)"-->
-<!--                                [ngClass]="{disabled: activePage == 1}">-->
-<!--                                <a class="page-link" mdbWavesEffect aria-label="Previous">-->
-<!--                                    <span aria-hidden="true">&laquo;</span>-->
-<!--                                    <span class="sr-only">Anterior</span>-->
-<!--                                </a>-->
-<!--                            </li>-->
+                <!--                            &lt;!&ndash;Arrow left&ndash;&gt;-->
+                <!--                            <li class="page-item" (click)="previousPage($event)"-->
+                <!--                                [ngClass]="{disabled: activePage == 1}">-->
+                <!--                                <a class="page-link" mdbWavesEffect aria-label="Previous">-->
+                <!--                                    <span aria-hidden="true">&laquo;</span>-->
+                <!--                                    <span class="sr-only">Anterior</span>-->
+                <!--                                </a>-->
+                <!--                            </li>-->
 
-<!--                            &lt;!&ndash;Numbers&ndash;&gt;-->
-<!--                            <li #pages-->
-<!--                                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"-->
-<!--                                class="page-item active z-index-0h"-->
-<!--                                [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">-->
-<!--                                <a class="page-link waves-light" (click)="changePage($event)"-->
-<!--                                    mdbWavesEffect>{{page}}</a>-->
-<!--                            </li>-->
+                <!--                            &lt;!&ndash;Numbers&ndash;&gt;-->
+                <!--                            <li #pages-->
+                <!--                                *ngFor="let page of paginators | slice:firstVisiblePaginator:lastVisiblePaginator; let i = index"-->
+                <!--                                class="page-item active z-index-0h"-->
+                <!--                                [ngClass]="{active: i + firstVisiblePaginator + 1 == activePage}">-->
+                <!--                                <a class="page-link waves-light" (click)="changePage($event)"-->
+                <!--                                    mdbWavesEffect>{{page}}</a>-->
+                <!--                            </li>-->
 
-<!--                            &lt;!&ndash;Arrow right&ndash;&gt;-->
-<!--                            <li class="page-item" (click)="nextPage($event)"-->
-<!--                                [ngClass]="{disabled: activePage == numberOfPaginators}">-->
-<!--                                <a class="page-link" mdbWavesEffect aria-label="Next">-->
-<!--                                    <span aria-hidden="true">&raquo;</span>-->
-<!--                                    <span class="sr-only">Siguiente</span>-->
-<!--                                </a>-->
-<!--                            </li>-->
+                <!--                            &lt;!&ndash;Arrow right&ndash;&gt;-->
+                <!--                            <li class="page-item" (click)="nextPage($event)"-->
+                <!--                                [ngClass]="{disabled: activePage == numberOfPaginators}">-->
+                <!--                                <a class="page-link" mdbWavesEffect aria-label="Next">-->
+                <!--                                    <span aria-hidden="true">&raquo;</span>-->
+                <!--                                    <span class="sr-only">Siguiente</span>-->
+                <!--                                </a>-->
+                <!--                            </li>-->
 
-<!--                            &lt;!&ndash;LAST PAGE&ndash;&gt;-->
-<!--                            <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"-->
-<!--                                [ngClass]="{disabled: activePage == numberOfPaginators}">-->
-<!--                                <a class="page-link">Ultima</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </nav>-->
-<!--                </mdb-card-body>-->
+                <!--                            &lt;!&ndash;LAST PAGE&ndash;&gt;-->
+                <!--                            <li class="page-item clearfix d-none d-md-block" (click)="lastPage()"-->
+                <!--                                [ngClass]="{disabled: activePage == numberOfPaginators}">-->
+                <!--                                <a class="page-link">Ultima</a>-->
+                <!--                            </li>-->
+                <!--                        </ul>-->
+                <!--                    </nav>-->
+                <!--                </mdb-card-body>-->
             </mdb-card>
 
         </div>

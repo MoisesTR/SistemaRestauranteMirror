@@ -26,7 +26,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title" [ngOptionHighlight]="search">
-                                                        {{item.NombProveedor}}</h5>
+                                                        {{item.NombProveedorAbreviatura}}</h5>
                                                     <p class="card-subtitle mb-2 text-muted">
                                                         <b>Nombre del Representante</b>
                                                         <br>
@@ -35,7 +35,7 @@
                                                     <p class="card-text">
                                                         <b>Descripcion</b>
                                                         <br>
-                                                        <i>{{item.DescProducto}}</i>
+                                                        <i>{{item.DescProveedor}}</i>
                                                     </p>
                                                 </div>
                                             </div>
@@ -133,7 +133,7 @@
                         <i class="fa fa-user orange-chang icono-card"></i>
                         <div class="mb-3 right-card-align">
                             <p class="grey-text-card">Total Factura</p>
-                            <h4><strong>C$ {{totalOrigenFactura | number : '1.2-2' }}</strong></h4>
+                            <h4><strong>{{totalOrigenFactura | number : '1.2-2' }} C$</strong></h4>
                         </div>
                     </div>
                 </mdb-card>
@@ -147,21 +147,20 @@
                         <i class="fa fa-exchange-alt orange-chang icono-card"></i>
                         <div class="mb-3 right-card-align">
                             <p class="grey-text-card">Diferencia</p>
-                            <h4 *ngIf="totalCordobasFacturas - totalOrigenFactura == 0"><strong>C$
-                                    {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}</strong>
+                            <h4 *ngIf="totalCordobasFacturas - totalOrigenFactura == 0"><strong>{{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }} C$</strong>
                             </h4>
                             <!-- Difencia mayor 0 -->
                             <h4 *ngIf="totalCordobasFacturas - totalOrigenFactura > 0">
                                 <strong class="green-text">
                                     <mdb-icon fas icon="long-arrow-alt-up" class="mr-1"></mdb-icon>
-                                    C$ {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}
+                                    {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }} C$
                                 </strong>
                             </h4>
                             <!-- Difencia menor 0 -->
                             <h4 *ngIf="totalCordobasFacturas - totalOrigenFactura < 0">
                                 <strong class="red-text">
                                     <mdb-icon fas icon="long-arrow-alt-down" class="mr-1"></mdb-icon>
-                                    C$ {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }}
+                                    {{totalCordobasFacturas - totalOrigenFactura | number : '1.2-2' }} C$
                                 </strong>
                             </h4>
                         </div>
@@ -238,13 +237,13 @@
                                         date:'yyyy-MM-dd'}}</small></span></td>
                                     <td class="body-negrita text-center align-middle"
                                         *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                        {{factura.TotalCordobas | number : '1.2-2'}}</td>
+                                       {{factura.TotalCordobas | number : '1.2-2'}} C$ </td>
                                     <td class="body-negrita text-center align-middle"
                                         *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                        {{factura.TotalOrigenFactura | number : '1.2-2'}}</td>
+                                        {{factura.TotalOrigenFactura | number : '1.2-2'}} C$ </td>
                                     <td class="body-negrita text-center align-middle"
                                         *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}}</td>
+                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number : '1.2-2'}} C$ </td>
 
                                     <td class="body-negrita"
                                         *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">

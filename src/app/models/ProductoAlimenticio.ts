@@ -13,16 +13,14 @@ export class ProductoAlimenticio extends Producto {
     guardarDatosProducto(formProducto: FormGroup) {
         this.IdTipInsumo = TipoProductoEnum.Alimento;
         this.NombProducto = formProducto.value.nombreProducto;
-        this.DescProducto = formProducto.value.descripcionProducto
-            ? formProducto.value.descripcionProducto
-            : "Ninguna";
+        this.DescProducto = formProducto.value.descripcionProducto || "Ninguna";
         this.IdEstado = EstadoProductoEnum.SinProcesar;
-        this.CantidadEmpaque = formProducto.value.cantidadEmpaque ? formProducto.value.cantidadEmpaque : null;
-        this.ValorUnidadMedida = formProducto.value.valorunidadmedida ? formProducto.value.valorunidadmedida : null;
-        this.DiasRotacion = formProducto.value.diasRotacion ? formProducto.value.diasRotacion : 0;
+        this.CantidadEmpaque = formProducto.value.cantidadEmpaque || null;
+        this.ValorUnidadMedida = formProducto.value.valorunidadmedida || null;
+        this.DiasRotacion = formProducto.value.diasRotacion || 0;
         this.CodProd = formProducto.value.codigoProducto;
         this.CodOriginal = formProducto.value.codigoOriginal;
-        this.Imagen = this.Imagen ? this.Imagen : "";
+        this.Imagen = this.Imagen || "";
 
         if (!this.CodProd) {
             this.CodProd = undefined;
@@ -44,15 +42,16 @@ export class ProductoAlimenticio extends Producto {
 			return false;
 		}
 
-		if (this.IdUnidadMedida && !this.ValorUnidadMedida) {
-			Utils.showMsgInfo("El valor de la unidad de medida es requerida!");
-			return false;
-		}
-
 		if (!this.IdUnidadMedida && this.ValorUnidadMedida) {
 			Utils.showMsgInfo("La unidad de medida es requerida!");
 			return false;
 		}
+
+		// TODO CAMBIAR DESPUES 8 - UNIDAD DE MEDIDA NINGUNA
+        if (this.IdUnidadMedida && !this.ValorUnidadMedida && this.IdUnidadMedida !== 8) {
+            Utils.showMsgInfo("El valor de la unidad de medida es requerida!");
+            return false;
+        }
 
 		if (!this.CodProd && !this.CodOriginal) {
             Utils.showMsgInfo("Debes registrar al menos un codigo para identificar el producto!");

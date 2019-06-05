@@ -165,7 +165,7 @@
                                     <td class="align-middle col-xs-1">{{contacto.Telefono}}</td>
                                     <td class="align-middle col-xs-1">{{contacto.Extension}}</td>
                                     <td class="text-center align-middle col-xs-1">
-                                        <mdb-checkbox [ngModel]="contacto.Titular" class="checkbox-chang-filled">
+                                        <mdb-checkbox [ngModel]="contacto.IsTitular" class="checkbox-chang-filled">
                                         </mdb-checkbox>
                                     </td>
                                     <td>
@@ -219,12 +219,14 @@
                                                     class="fa fa-user" aria-hidden="true"></i></span>
                                         </div>
                                         <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="nombres" formControlName="nombres" class="form-control" placeholder="Nombres y apellidos">
+                                        <show-errors [control]="formAddTelefonos.controls['nombres']">
+                                        </show-errors>
                                     </div>
                                 </div>
 
                                 <div class="col-2 text-center font-small mt-3">
                                     <h6 id="text-titular">Titular</h6>
-                                    <mdb-checkbox [checked]="false" formControlName="titular" [default]="false" class="checkbox-chang-filled"></mdb-checkbox>
+                                    <mdb-checkbox formControlName="titular" [default]="true" class="checkbox-chang-filled"></mdb-checkbox>
                                 </div>
 
                                 <div class="col-12">
@@ -234,6 +236,8 @@
                                                     class="fa fa-building" aria-hidden="true"></i></span>
                                         </div>
                                         <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" formControlName="cargo" id="cargo" placeholder="Cargo (Opcional)" class="form-control">
+                                        <show-errors [control]="formAddTelefonos.controls['cargo']">
+                                        </show-errors>
                                     </div>
                                 </div>
 
@@ -247,7 +251,11 @@
                                             </ng-select> -->
                                         </div>
                                         <input onlyPositiveNumber mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" formControlName="telefono" id="telefono" placeholder="Telefono" class="form-control mr-3">
+                                        <show-errors [control]="formAddTelefonos.controls['telefono']">
+                                        </show-errors>
                                         <input mdbInputDirective [validateSuccess]="false" [validateError]="false" type="text" id="extension" formControlName="extension" placeholder="Extension (Opcional)" class="form-control ml-3">
+                                        <show-errors [control]="formAddTelefonos.controls['extension']">
+                                        </show-errors>
                                     </div>
                                 </div>
 

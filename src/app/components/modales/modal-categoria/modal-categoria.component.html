@@ -23,8 +23,8 @@
                         <show-errors [control]="formAddCategoria.controls['nombreCategoria']"></show-errors>
                     </div>
 
-                    <h6 class="orange-chang-text">Tipo insumo</h6>
-                    <ng-select formControlName="tipoInsumo" [items]="tiposInsumos" bindLabel="NombTipInsumo" bindValue="IdTipInsumo" dropdownPosition="'top'" class="custom" (change)="changeTipoInsumo($event)" placeholder="Selecciona un tipo de insumo">
+                    <h6 class="orange-chang-text">Tipo producto</h6>
+                    <ng-select formControlName="tipoInsumo" [items]="tiposInsumos" bindLabel="NombTipInsumo" bindValue="IdTipInsumo" dropdownPosition="'top'" class="custom" (change)="changeTipoInsumo($event)" placeholder="Selecciona un tipo de producto">
                     </ng-select>
 
                     <div class="md-form">

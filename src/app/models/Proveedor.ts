@@ -5,6 +5,7 @@ export class Proveedor {
 	public IdProducto: number;
 	public IdProveedor: number;
 	public NombProveedor: string;
+	public NombProveedorAbreviatura: string;
 	public Direccion: string;
 	public Email: string;
 	public DescProveedor: string;

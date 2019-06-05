@@ -24,6 +24,7 @@ export class ProductoProveedor{
     public IdEstado : number;
     public Nombre : string;
     public NombProveedor : string;
+    public NombProveedorAbreviatura: string;
     public Habilitado : boolean;
     public GravadoIva : number;
     public createdAt : string;

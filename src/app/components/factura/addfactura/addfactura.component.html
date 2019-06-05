@@ -182,8 +182,8 @@
                         <div class="col-lg-3 col-md-12 col-sm-12 ml-0 pt-0">
                             <label class="grey-text-card">Código Filtrar</label>
                             <ng-select dropdownPosition="bottom" [items]="codigosFiltrar"
-                                       (change)="changeCodigoFiltrar($event)" bindLabel="Codigo"
-                                       bindValue="Id" id="codigoFiltrar"  [(ngModel)]="idCodigoFiltrar">
+                                (change)="changeCodigoFiltrar($event)" bindLabel="Codigo" bindValue="Id"
+                                id="codigoFiltrar" [(ngModel)]="idCodigoFiltrar">
                             </ng-select>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ml-0 pt-0">
@@ -284,8 +284,9 @@
                                     </td>
 
                                     <td class="text-center align-middle col-xs-1">
-                                        <mdb-checkbox class="checkbox-chang-filled" [checkboxPosition]="'right'" [checked]="producto.GravadoIva"
-                                            (change)="changeIva($event, producto)" id="ei{{i}}"></mdb-checkbox>
+                                        <mdb-checkbox class="checkbox-chang-filled" [checkboxPosition]="'right'"
+                                            [checked]="producto.GravadoIva" (change)="changeIva($event, producto)"
+                                            id="ei{{i}}"></mdb-checkbox>
                                     </td>
 
                                     <td class="text-center align-middle col-xs-2">
@@ -362,7 +363,7 @@
                                     <td width="10%" class="body-negrita align-middle">
                                         {{productoFactura.TotalDetalle | number : '1.2-2'}} {{simboloMonedaUtilizado}}
                                     </td>
-                                    <td class="p-0" >
+                                    <td class="p-0">
                                         <div class="text-center">
 
                                             <button mdbBtn type="button" size="sm" class="orange-chang"
@@ -462,8 +463,24 @@
                                         {{simboloMonedaUtilizado}}
                                     </label>
                                 </div>
-                                <div class="">
+                                <div *ngIf="factura.TotalFactura - factura.TotalOrigenFactura == 0">
                                     <label>
+                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}}
+                                        {{simboloMonedaUtilizado}}
+                                    </label>
+                                </div>
+                                <!-- Difencia mayor 0 -->
+                                <div *ngIf="factura.TotalFactura - factura.TotalOrigenFactura > 0">
+                                    <label class="green-text">
+                                        <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}}
+                                        {{simboloMonedaUtilizado}}
+                                    </label>
+                                </div>
+                                <!-- Difencia menor 0 -->
+                                <div *ngIf="factura.TotalFactura - factura.TotalOrigenFactura < 0">
+                                    <label class="red-text">
+                                        <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
                                         {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}}
                                         {{simboloMonedaUtilizado}}
                                     </label>

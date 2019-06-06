@@ -45,3 +45,16 @@
 .mt-menos {
   margin-top: -10px;
 }
+
+.ml-proveedor-inputs {
+  margin-left: 4.5rem !important;
+}
+
+@media only screen and (max-width: 528px) {
+  .ml-proveedor-inputs {
+    margin-left: 3rem !important;
+  }  
+  .mt-menos {
+    margin-bottom: 3%;
+  }
+}

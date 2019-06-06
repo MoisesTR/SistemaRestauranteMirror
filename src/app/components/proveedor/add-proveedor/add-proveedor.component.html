@@ -237,7 +237,7 @@
                         <div class="container-fluid">
                             <div class="row mb-2">
 
-                                <div class="col-10">
+                                <div class="col-10 mb-2">
                                     <div class="md-form md-outline input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text md-addon" id="nombresspan"><i
@@ -246,8 +246,13 @@
                                         <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
                                             type="text" id="nombres" formControlName="nombres" class="form-control"
                                             placeholder="Nombres y apellidos">
-                                        <show-errors [control]="formAddTelefonos.controls['nombres']">
-                                        </show-errors>
+
+                                    </div>
+                                    <div class="row justify-content-around mt-menos">
+                                        <div class="col-10">
+                                            <show-errors [control]="formAddTelefonos.controls['nombres']">
+                                            </show-errors>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -257,7 +262,7 @@
                                     </mdb-checkbox>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <div class="md-form md-outline input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text md-addon" id="cargospan"><i
@@ -266,8 +271,13 @@
                                         <input mdbInputDirective [validateSuccess]="false" [validateError]="false"
                                             type="text" formControlName="cargo" id="cargo"
                                             placeholder="Cargo (Opcional)" class="form-control">
-                                        <show-errors [control]="formAddTelefonos.controls['cargo']">
-                                        </show-errors>
+
+                                    </div>
+                                    <div class="row justify-content-around mt-menos">
+                                        <div class="col-10">
+                                            <show-errors [control]="formAddTelefonos.controls['cargo']">
+                                            </show-errors>
+                                        </div>
                                     </div>
                                 </div>
 

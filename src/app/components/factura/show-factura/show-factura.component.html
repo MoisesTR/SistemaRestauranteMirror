@@ -269,23 +269,23 @@
                                 <div class="">
                                     <label>{{factura.TotalOrigenFactura | number : '1.2-2'}} C$</label>
                                 </div>
-                                <div *ngIf="factura.TotalFactura - factura.TotalOrigenFactura == 0">
+                                <div *ngIf="factura.TotalCordobas - factura.TotalOrigenFactura == 0">
                                     <label>
-                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}} C$
+                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number :'1.2-2'}} C$
                                     </label>
                                 </div>
                                 <!-- Difencia mayor 0 -->
-                                <div *ngIf="factura.TotalFactura - factura.TotalOrigenFactura > 0">
+                                <div *ngIf="factura.TotalCordobas - factura.TotalOrigenFactura > 0">
                                     <label class="green-text">
                                         <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
-                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}} C$
+                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number :'1.2-2'}} C$
                                     </label>
                                 </div>
                                 <!-- Difencia menor 0 -->
-                                <div *ngIf="factura.TotalFactura - factura.TotalOrigenFactura < 0">
+                                <div *ngIf="factura.TotalCordobas - factura.TotalOrigenFactura < 0">
                                     <label class="red-text">
                                         <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
-                                        {{factura.TotalFactura - factura.TotalOrigenFactura | number :'1.2-2'}} C$
+                                        {{factura.TotalCordobas - factura.TotalOrigenFactura | number :'1.2-2'}} C$
                                     </label>
                                 </div>
                             </form>

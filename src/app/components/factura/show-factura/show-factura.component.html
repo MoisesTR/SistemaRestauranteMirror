@@ -34,36 +34,40 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                            <h6 class="grey-text-card mb-2">Código de factura</h6>
                                         <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
                                             type="text" id="numeroFactura" class="form-control"
                                             formControlName="mumeroFactura" autocomplete="off" readonly>
-                                        <label for="numeroFactura">Código de factura</label>
+                                        <!-- <label for="numeroFactura">Código de factura</label> -->
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                            <h6 class="grey-text-card mb-2">Total factura impresa</h6>
                                         <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
                                             disabled onlyNumbers="decimal" type="text" placeholder="Ej: 1200"
                                             class="form-control" formControlName="totalImpreso" autocomplete="off">
-                                        <label for="totalFacturaImpresa">Total Factura Impresa</label>
+                                        <!-- <label for="totalFacturaImpresa">Total Factura Impresa</label> -->
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                            <h6 class="grey-text-card mb-2">Descuento total factura</h6>
                                         <input [validateSuccess]="false" [validateError]="false" mdbInputDirective
                                             disabled onlyNumbers="decimal" type="text" placeholder="Ej: 500"
                                             class="form-control" formControlName="descuentoTotal" autocomplete="off">
-                                        <label for="descuentTotalFactura">Descuento Total Factura</label>
+                                        <!-- <label for="descuentTotalFactura">Descuento Total Factura</label> -->
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
 
                                     <div class="md-form md-outline">
+                                            <h6 class="grey-text-card mb-2">Fecha factura</h6>
                                         <input type="text" class="form-control" autocomplete="off" id="fechaFactura"
                                             [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [validateSuccess]="false"
                                             [validateError]="false" formControlName="fechaFactura" name="fechaFactura"
@@ -71,18 +75,19 @@
 
                                         <owl-date-time [disabled]="true" [pickerType]="'calendar'" #dt2>
                                         </owl-date-time>
-                                        <label for="fechaFactura">Fecha factura</label>
+                                        <!-- <label for="fechaFactura">Fecha factura</label> -->
                                     </div>
                                 </div>
 
-                                <div class="col-7 col-sm-8 col-md-4 col-lg-2">
+                                <div class="col-7 col-sm-8 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                            <h6 class="grey-text-card mb-2">Fecha recepción</h6>
                                         <input type="text" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
                                             class="form-control" formControlName="fechaRecepcion"
                                             placeholder="ej: 12-01-2019" readonly [validateSuccess]="false"
                                             [validateError]="false" mdbInputDirective mdbInput>
                                         <owl-date-time [disabled]="true" [pickerType]="'calendar'" #dt1></owl-date-time>
-                                        <label for="fechaRecepcion">Fecha de recepción</label>
+                                        <!-- <label for="fechaRecepcion">Fecha de recepción</label> -->
                                     </div>
                                 </div>
 

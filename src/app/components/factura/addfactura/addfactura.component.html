@@ -52,41 +52,44 @@
                                         mdbWavesEffect>Agregar</button>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                        <h6 class="grey-text-card mb-2">Código de factura</h6>
                                         <input Alphanumeric mdbInputDirective [validateSuccess]="false"
                                             [validateError]="false" type="text" id="numeroFactura"
                                             placeholder="Ej: BD200" class="form-control" autocomplete="off"
                                             formControlName="codigoFactura" [attr.disabled]="deshabilitarCampos()">
-                                        <label for="codigoFactura">Código de Factura</label>
+                                        <!-- <label for="codigoFactura">Código de Factura</label> -->
                                         <show-errors [control]="formAddFactura.controls['codigoFactura']"></show-errors>
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                        <h6 class="grey-text-card mb-2">Total factura impresa</h6>
                                         <input [validateSuccess]="false" [validateSuccess]="false"
                                             [validateError]="false" mdbInputDirective onlyNumbers="decimal" type="text"
                                             placeholder="Ej: 1200" class="form-control" autocomplete="off"
                                             formControlName="totalFacturaOrigen" [attr.disabled]="deshabilitarCampos()">
-                                        <label for="totalFacturaImpresa">Total Factura Impresa</label>
+                                        <!-- <label for="totalFacturaImpresa">Total Factura Impresa</label> -->
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                        <h6 class="grey-text-card mb-2">Descuento total factura</h6>
                                         <input [validateSuccess]="false" [validateSuccess]="false"
                                             [validateError]="false" [attr.disabled]="existeProductoConDescuento()"
                                             mdbInputDirective onlyNumbers="decimal" type="text" placeholder="Ej: 500"
                                             formControlName="descuentoGlobal" class="form-control" autocomplete="off"
                                             [attr.disabled]="deshabilitarCampos()">
-                                        <label for="descuentTotalFactura">Descuento Total Factura</label>
+                                        <!-- <label for="descuentTotalFactura">Descuento Total Factura</label> -->
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-2">
-
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                        <h6 class="grey-text-card mb-2">Fecha factura</h6>
                                         <input type="text" [max]="fechaActual" class="form-control" autocomplete="off"
                                             [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [validateSuccess]="false"
                                             [validateError]="false" id="fechaFactura"
@@ -95,13 +98,14 @@
                                             placeholder="Ej: dd/mm/yyyy" readonly mdbInput>
                                         <owl-date-time [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt1>
                                         </owl-date-time>
-                                        <label for="fechaFactura">Fecha factura</label>
+                                        <!-- <label for="fechaFactura">Fecha factura</label> -->
                                     </div>
 
                                 </div>
 
-                                <div class="col-7 col-sm-8 col-md-4 col-lg-2">
+                                <div class="col-7 col-sm-8 col-md-4 col-lg-2 mt-menos-factura">
                                     <div class="md-form md-outline">
+                                        <h6 class="grey-text-card mb-2">Fecha recepción</h6>
                                         <input type="text" [max]="fechaActual" [min]="seleccionarFechaFactura"
                                             class="form-control" autocomplete="off" [owlDateTimeTrigger]="dt2"
                                             [owlDateTime]="dt2" [validateSuccess]="false" [validateError]="false"
@@ -109,7 +113,7 @@
                                             mdbInputDirective readonly placeholder="Ej: dd/mm/yyyy" mdbInput>
                                         <owl-date-time [disabled]="deshabilitarCampos()" [pickerType]="'calendar'" #dt2>
                                         </owl-date-time>
-                                        <label for="fechaRecepcion">Fecha recepción</label>
+                                        <!-- <label for="fechaRecepcion">Fecha recepción</label> -->
                                     </div>
                                 </div>
 

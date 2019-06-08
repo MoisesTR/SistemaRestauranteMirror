@@ -208,25 +208,26 @@ export class AddTrabajadorComponent implements OnInit {
 	}
 
 	createTrabajador() {
-		if (this.filesToUpload != null) {
-			this.getValueFormAddTrabajador();
-
-			this.trabajadorService.createTrabajador(this.trabajador).subscribe(
-				response => {
-					if (response.IdTrabajador) {
-						swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
-							this.modalUsuario.show();
-						});
-						this.guardarImagenTrabajador(response.IdTrabajador);
-					}
-				},
-				() => {
-					this.formAddTrabajador.controls["pais"].setValue(1);
+		this.getValueFormAddTrabajador();
+		this.trabajadorService.createTrabajador(this.trabajador).subscribe(
+			response => {
+				if (response.IdTrabajador) {
+					swal.fire("Trabajador", "El trabajador ha sido creado exitosamente!", "success").then(() => {
+						this.modalUsuario.show();
+					});
+					// this.guardarImagenTrabajador(response.IdTrabajador);
 				}
-			);
-		} else {
-			Utils.showMsgInfo("La imagen del trabajador es requerida", this.tituloPantalla);
-		}
+			},
+			() => {
+				this.formAddTrabajador.controls["pais"].setValue(1);
+			}
+		);
+
+		// if (this.filesToUpload != null) {
+		//
+		// } else {
+		// 	Utils.showMsgInfo("La imagen del trabajador es requerida", this.tituloPantalla);
+		// }
 	}
 
 	guardarImagenTrabajador(idTrabajador) {

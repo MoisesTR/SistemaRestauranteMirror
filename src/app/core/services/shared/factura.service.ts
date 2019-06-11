@@ -158,7 +158,7 @@ export class FacturaService {
 			return false;
 		}
 
-		const diferencia = factura.TotalFactura - factura.TotalOrigenFactura;
+		const diferencia = Utils.round(factura.TotalFactura - factura.TotalOrigenFactura, 2);
 		if (Math.abs(diferencia) >= 100) {
 			Utils.showMsgInfo("Existe una diferencia de: " + diferencia + 'C$ entre el monto calculado y monto origen de la factura, revisa los calculos!', "Factura");
 			return false;
